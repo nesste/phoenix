@@ -1,6 +1,6 @@
 # 0002: Phase 0 surface and stack
 
-- **Status:** Provisional; Linux rerun and final malformed-call sample pending
+- **Status:** Review candidate; execution evidence complete, independent acceptance pending
 - **Date:** 2026-08-17
 - **Experiment:** `experiments/surface-spike`
 
@@ -47,14 +47,15 @@ This proves the structural O(1) property for the one-tool candidates. It does no
 
 The pinned Claude Code rerun succeeded after replacing an unexpanded `CLAUDE_PROJECT_DIR` placeholder in the MCP configs with a repository-relative executable path. Both `act` and `eval` completed two real tool calls and followed the first returned frontier. The `act` run consumed USD 0.0165972; the `eval` run consumed USD 0.0142569.
 
-Three fresh one-turn sessions per configuration measured 227 input tokens with empty MCP, 774 with `act`, and 712 with `eval`. The incremental standing costs are therefore 547 and 485 tokens. Both fit the 600-token law. Five fresh one-call sessions per surface produced zero malformed calls, but the precommitted 20-session engineering gate is not complete.
+Three fresh one-turn sessions per configuration measured 227 input tokens with empty MCP, 774 with `act`, and 712 with `eval`. The incremental standing costs are therefore 547 and 485 tokens. Both fit the 600-token law.
+
+On 2026-08-18, Claude Code 2.1.229 with `claude-sonnet-5` at low effort completed a final sample of 20 fresh one-call sessions per surface. Every session made exactly one schema-valid call and received a successful result. Both `act` and `eval` therefore recorded 0 malformed calls out of 20, an observed rate of 0%. The two-sided Wilson 95% interval is `[0, 0.161125]` for each surface. The final samples cost USD 0.0963063 for `act` and USD 0.12594 for `eval`; setup and classifier checks were excluded before fixing the denominator.
+
+The Linux rerun used Ubuntu 24.04.4 under WSL2, the checksum-verified Go 1.26.5 Linux archive, and `CGO_ENABLED=0`. The Go suite and both stdio surfaces passed. A 100-call `act` sample had median daemon-only latency 636.5 microseconds and nearest-rank p95 837 microseconds, below the 2 ms and 10 ms limits. Median daemon time was 0.01016% of the 6,263 ms median successful model-facing trial wall time, below the 5% limit.
 
 ## Provisional decision
 
-Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the provisional surface: its schema costs 131 more serialized bytes than `eval`, but it preserves typed validation and avoids parsing an expression language. Do not freeze this choice until the same pinned Claude Code run:
-
-1. completes 20 fresh malformed-call probes per surface and reports the Wilson interval;
-2. reruns the stdio probe on Linux.
+Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the provisional surface: its schema costs 131 more serialized bytes than `eval`, but it preserves typed validation and avoids parsing an expression language. The precommitted execution evidence is complete; freeze this choice only after independent review accepts the recorded sample and arithmetic.
 
 ## Known failure modes
 
@@ -62,8 +63,8 @@ Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the
 - The spike does not cap result size. Production admission and result rendering must reject or truncate oversized data before persistence.
 - Claude Code starts one stdio subprocess per configured session. Phase 1 sessions remain isolated; shared mutable worlds are deferred.
 - An MCP client may cache the tool list. Measurements must use fresh sessions and record whether cache creation or cache reads contributed to reported input tokens.
-- The current Windows result establishes portability of the spike only. Linux remains the target acceptance platform.
+- The Linux evidence was collected under WSL2 rather than bare metal; later production benchmarking must be repeated on the actual target host.
 
 ## Gate effect
 
-Task 0.2 is implemented but not accepted. Phase 0 remains closed until the 20-session malformed-call sample and Linux measurement are recorded in `experiments/surface-spike/results.json`, then independently reviewed.
+Task 0.2 is implemented and its execution evidence is complete, but it is not accepted. Phase 0 remains closed until an independent reviewer verifies `experiments/surface-spike/results.json` and accepts the gate calculations. No validation or held_out tranche is opened by this evidence.

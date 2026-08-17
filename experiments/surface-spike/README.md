@@ -45,4 +45,6 @@ Run the corresponding `eval` probe with `mcp-eval.json`, `mcp__phoenix__eval`, a
 
 ## Acceptance
 
-The local MCP, schema, and O(1) checks pass. The model-facing run is pending because the first attempt returned an account session-limit HTTP 429 before inference. Do not mark Task 0.2 accepted until `results.json` contains successful pinned `act` and `eval` runs, real token deltas, malformed-call measurements, and a Linux rerun.
+The local MCP, schema, and O(1) checks pass. On 2026-08-18, the pinned runtime completed 20 fresh one-call sessions per surface with zero malformed calls. Each observed rate is 0%, with a two-sided Wilson 95% interval of `[0, 0.161125]`. A `CGO_ENABLED=0` rerun on Ubuntu 24.04.4 under WSL2 passed the Go suite and stdio round trips. Across 100 Linux `act` calls, daemon-only latency had median 636.5 microseconds and p95 837 microseconds.
+
+The evidence is complete but not independently accepted. Do not mark Task 0.2 accepted or open Phase 0 until an independent reviewer verifies `results.json`, including the final session IDs, Wilson calculation, Linux sample, and gate arithmetic.
