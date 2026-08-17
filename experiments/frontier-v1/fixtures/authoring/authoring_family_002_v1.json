@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "fixture_id": "authoring_family_002_v1",
+  "family_id": "authoring_family_002",
+  "template": "Service catalog with a non-obvious alias and one renamed test for discovery and refusal recovery.",
+  "files": {
+    "README.md": "# Relay\n\nThe public service name is relay. Runtime aliases live under config.\n",
+    "config/services.json": "{\"relay\":{\"internal_name\":\"switchyard\",\"health_test\":\"TestRelayHandshake\"}}\n",
+    "tests/catalog.txt": "TestRelayHandshake\nTestRelayTimeout\n"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phoenix.local/experiments/frontier-v1/case.schema.json",
+  "title": "Frontier v1 runnable case input",
+  "description": "The complete input handed to every arm. It carries no expected outcome, grading hint, acceptable path, or rationale.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "class", "goal", "sandbox_fixture", "world_ref", "family_id"],
+  "properties": {
+    "case_id": { "$ref": "common.schema.json#/$defs/caseId" },
+    "class": { "$ref": "common.schema.json#/$defs/caseClass" },
+    "goal": {
+      "type": "string",
+      "minLength": 24,
+      "maxLength": 800
+    },
+    "sandbox_fixture": { "$ref": "common.schema.json#/$defs/digest" },
+    "world_ref": { "$ref": "common.schema.json#/$defs/digest" },
+    "family_id": { "$ref": "common.schema.json#/$defs/familyId" }
+  }
+}

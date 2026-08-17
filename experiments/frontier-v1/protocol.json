@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "status": "draft",
+  "frozen": false,
+  "runtime": {
+    "name": "claude-code",
+    "version": "2.1.229",
+    "model": "claude-sonnet-5",
+    "effort": "low",
+    "access_mode": "surface_only",
+    "session_persistence": false
+  },
+  "trial": {
+    "fresh_agent_context": true,
+    "fresh_sandbox": true,
+    "fresh_isolated_world": true,
+    "paired_seeds_when_supported": true,
+    "case_order": "randomized_blocked_by_case_family",
+    "repetitions_per_case_arm": null,
+    "retry_policy": null,
+    "timeout_seconds": null,
+    "max_cost_usd_per_trial": null
+  },
+  "arms": {
+    "A": "flat tools with complete upfront schemas",
+    "B": "A plus frozen static skill or CLAUDE.md",
+    "C": "Phoenix handles, frontier, and teaching refusals",
+    "D": "C with frontier suppressed",
+    "E": "D with teaching refusals replaced by plain typed errors",
+    "D_prime": "Phase 2 only: authored static frontier"
+  },
+  "measures": [
+    "task_success_rate",
+    "tokens_to_success",
+    "acts_to_success",
+    "wall_time",
+    "wrong_verb_rate",
+    "dead_end_rate",
+    "refusal_recovery_rate",
+    "frontier_take_rate",
+    "frontier_take_and_succeed_rate",
+    "standing_wakeup_tokens",
+    "daemon_overhead_per_act"
+  ],
+  "claims": [],
+  "unresolved_before_freeze": [
+    "numeric thresholds",
+    "uncertainty method and confidence level",
+    "minimum detectable effects",
+    "repetitions and power analysis",
+    "retry and timeout policy",
+    "cost ceiling",
+    "missing and indeterminate handling",
+    "multiplicity policy",
+    "forced verdict for every claim"
+  ],
+  "gate": {
+    "may_run_authoring": false,
+    "may_open_validation": false,
+    "may_open_held_out": false,
+    "reason": "surface measurement, corpus, labels, thresholds, and independent review are incomplete"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "case_id": "authoring_recovery_001",
+  "expected_outcome": {
+    "checks": [
+      {
+        "id": "uses_recovery_path",
+        "kind": "act_sequence",
+        "mode": "contains_in_order"
+      },
+      {
+        "id": "first_focus_refused",
+        "kind": "act_status",
+        "seq": 0,
+        "status": "refused"
+      },
+      {
+        "id": "recovers_to_current_test",
+        "kind": "act_output_matches",
+        "seq": 2,
+        "pattern": "(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake"
+      }
+    ]
+  },
+  "grading_script": "sha256:588dc1292e14bff8f2737f5c6da9353463c4a66e0b09b0b664fe95e5344374bb",
+  "acceptable_paths": [["tests.focus", "tests.list", "tests.focus"]],
+  "label_rationale": "A plausible first focus uses the retired name; the teaching refusal should redirect the agent to list live tests and recover without flailing."
+}

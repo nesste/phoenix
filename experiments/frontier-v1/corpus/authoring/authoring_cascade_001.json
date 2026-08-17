@@ -1,0 +1,8 @@
+{
+  "case_id": "authoring_cascade_001",
+  "class": "cascade",
+  "goal": "Determine why the complete suite is not green and independently confirm the exact failing test.",
+  "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "authoring_family_001"
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phoenix.local/experiments/frontier-v1/common.schema.json",
+  "title": "Frontier v1 shared definitions",
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "tranche": {
+      "enum": ["authoring", "validation", "held_out"]
+    },
+    "caseClass": {
+      "enum": [
+        "direct",
+        "cascade",
+        "far_discovery",
+        "recovery",
+        "temptation",
+        "absence",
+        "stale_frontier",
+        "adversarial_text"
+      ]
+    },
+    "caseId": {
+      "type": "string",
+      "pattern": "^(authoring|validation|held_out)_(direct|cascade|far_discovery|recovery|temptation|absence|stale_frontier|adversarial_text)_[0-9]{3}$"
+    },
+    "familyId": {
+      "type": "string",
+      "pattern": "^(authoring|validation|held_out)_family_[0-9]{3}$"
+    },
+    "fixtureId": {
+      "type": "string",
+      "pattern": "^(authoring|validation|held_out)_family_[0-9]{3}_v[0-9]{1,2}$"
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._][A-Za-z0-9._/-]*$",
+      "not": { "pattern": "(^|/)\\.\\.(/|$)" }
+    },
+    "verbPath": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,31}(\\.[a-z][a-z0-9_]{0,31})?$"
+    }
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "v": 1,
+  "id": "frontier_authoring_repo",
+  "roots": [
+    {
+      "name": "repo",
+      "type": "repo",
+      "label": "sandbox repository",
+      "resource": { "kind": "path", "value": "." }
+    },
+    {
+      "name": "tests",
+      "type": "tests",
+      "label": "sandbox test suite",
+      "resource": { "kind": "logical", "value": "tests" }
+    }
+  ],
+  "handle_types": {
+    "repo": {
+      "verbs": {
+        "status": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["branch", "clean"],
+            "properties": {
+              "branch": { "type": "string" },
+              "clean": { "type": "boolean" }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        },
+        "build": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["exit_code"],
+            "properties": { "exit_code": { "type": "integer" } }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        },
+        "find": {
+          "args_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["query"],
+            "properties": { "query": { "type": "string", "minLength": 1 } }
+          },
+          "result_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["matches"],
+            "properties": {
+              "matches": { "type": "array", "items": { "type": "string" } }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        }
+      }
+    },
+    "tests": {
+      "verbs": {
+        "run": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["passed", "failed"],
+            "properties": {
+              "passed": { "type": "integer", "minimum": 0 },
+              "failed": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        },
+        "list": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tests"],
+            "properties": {
+              "tests": { "type": "array", "items": { "type": "string" } }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        },
+        "focus": {
+          "args_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["test"],
+            "properties": { "test": { "type": "string", "minLength": 1 } }
+          },
+          "result_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["test", "passed"],
+            "properties": {
+              "test": { "type": "string" },
+              "passed": { "type": "boolean" }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": [
+            {
+              "id": "missing_or_unknown_test",
+              "when": { "not": { "required": ["test"] } },
+              "what": "tests.focus requires a currently listed test",
+              "why": "the requested test cannot be bound to live suite state",
+              "instead": {
+                "handle": { "source": "self" },
+                "verb": "list",
+                "args": {}
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "transitions": [
+    {
+      "id": "status_to_run",
+      "match": {
+        "handle_type": "repo",
+        "verb": "status",
+        "status": "ok",
+        "result_when": {}
+      },
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "root", "name": "tests" },
+            "verb": "run",
+            "args": {}
+          },
+          "why": "establish the suite baseline before diagnosis",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "failed_run_to_list",
+      "match": {
+        "handle_type": "tests",
+        "verb": "run",
+        "status": "ok",
+        "result_when": { "required": ["failed"] }
+      },
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "self" },
+            "verb": "list",
+            "args": {}
+          },
+          "why": "enumerate live tests before focusing a failure",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "list_to_focus",
+      "match": {
+        "handle_type": "tests",
+        "verb": "list",
+        "status": "ok",
+        "result_when": { "required": ["tests"] }
+      },
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "self" },
+            "verb": "focus",
+            "args": { "test": { "result_pointer": "/tests/0" } },
+            "state": { "state_pointer": "/suite_digest" }
+          },
+          "why": "verify the first live test against current suite state",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "find_to_build",
+      "match": {
+        "handle_type": "repo",
+        "verb": "find",
+        "status": "ok",
+        "result_when": { "required": ["matches"] }
+      },
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "self" },
+            "verb": "build",
+            "args": {}
+          },
+          "why": "confirm discovered configuration still builds",
+          "score": 1
+        }
+      ]
+    }
+  ]
+}

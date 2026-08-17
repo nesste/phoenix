@@ -1,0 +1,21 @@
+{
+  "case_id": "authoring_direct_001",
+  "expected_outcome": {
+    "checks": [
+      {
+        "id": "uses_suite_action",
+        "kind": "act_sequence",
+        "mode": "contains_in_order"
+      },
+      {
+        "id": "reports_suite_failure",
+        "kind": "act_output_matches",
+        "seq": 0,
+        "pattern": "(?i)(suite|test).*(fail|not green)|(fail|not green).*(suite|test)"
+      }
+    ]
+  },
+  "grading_script": "sha256:588dc1292e14bff8f2737f5c6da9353463c4a66e0b09b0b664fe95e5344374bb",
+  "acceptable_paths": [["tests.run"]],
+  "label_rationale": "This is the low-discovery baseline: one obvious suite action is sufficient, and extra diagnostic actions are unnecessary overhead."
+}

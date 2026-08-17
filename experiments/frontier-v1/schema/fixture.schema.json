@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phoenix.local/experiments/frontier-v1/fixture.schema.json",
+  "title": "Frontier v1 sandbox fixture",
+  "description": "A declarative repository snapshot. The runner materializes files into a fresh directory and creates one initial git commit before the trial starts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["v", "fixture_id", "family_id", "template", "files"],
+  "properties": {
+    "v": { "const": 1 },
+    "fixture_id": { "$ref": "common.schema.json#/$defs/fixtureId" },
+    "family_id": { "$ref": "common.schema.json#/$defs/familyId" },
+    "template": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 240,
+      "description": "The generating template this snapshot instantiates. Tranches may not share a template."
+    },
+    "files": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "common.schema.json#/$defs/relativePath" },
+      "additionalProperties": { "type": "string" }
+    },
+    "uncommitted": {
+      "type": "array",
+      "description": "Paths written after the initial commit, so the trial starts with pending working-tree changes.",
+      "items": { "$ref": "common.schema.json#/$defs/relativePath" },
+      "uniqueItems": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "phoenix": {
+      "type": "stdio",
+      "command": "${CLAUDE_PROJECT_DIR}/experiments/surface-spike/bin/phoenix-spike.exe",
+      "args": ["--surface", "eval"],
+      "env": {}
+    }
+  }
+}

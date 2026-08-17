@@ -1,0 +1,8 @@
+{
+  "case_id": "authoring_recovery_001",
+  "class": "recovery",
+  "goal": "Check the retired TestSwitchyardHandshake name and provide the current equivalent if that name is unavailable.",
+  "sandbox_fixture": "sha256:65c52f0b049052440231bb9bcaea1c3f21a899ac54477758512e91519fcf9114",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "authoring_family_002"
+}

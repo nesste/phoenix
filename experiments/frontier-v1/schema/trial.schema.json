@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phoenix.local/experiments/frontier-v1/trial.schema.json",
+  "title": "Frontier v1 trial record",
+  "description": "Captured evidence from one runner execution against one case: the ordered acts taken, the final reported message, and the observable end state. This schema carries no expected outcome, verdict, or grading hint. Grading happens externally, by comparing a trial record against a label.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["v", "case_id", "world_build", "acts", "final_message", "end_state"],
+  "properties": {
+    "v": { "const": 1 },
+    "case_id": { "$ref": "common.schema.json#/$defs/caseId" },
+    "world_build": {
+      "$ref": "common.schema.json#/$defs/digest",
+      "description": "Digest of the world build that produced this trial."
+    },
+    "acts": {
+      "type": "array",
+      "description": "Ordered record of every act the trial took. Order is significant: it is the sequence matched against a label's acceptable_paths. No separate ordering field exists.",
+      "items": { "$ref": "#/$defs/act" }
+    },
+    "final_message": {
+      "type": "string",
+      "description": "The agent's final reported message for the trial. Usable only for deterministic pattern checks, never for outcome judgment by this schema."
+    },
+    "end_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["files"],
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/fileState" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "act": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seq", "handle", "handle_type", "verb", "args", "status"],
+      "properties": {
+        "seq": { "type": "integer", "minimum": 0 },
+        "handle": { "$ref": "common.schema.json#/$defs/identifier" },
+        "handle_type": { "$ref": "common.schema.json#/$defs/identifier" },
+        "verb": { "$ref": "common.schema.json#/$defs/identifier" },
+        "args": {
+          "type": "object",
+          "description": "Verb-specific arguments as already-canonical JSON. Arbitrary shape; grading never depends on this field alone."
+        },
+        "status": {
+          "enum": ["ok", "fail", "refused", "absent"]
+        },
+        "command": {
+          "type": "array",
+          "description": "Present only when the act corresponds to an external command invocation a grader may check.",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "exit_code": { "type": "integer", "minimum": 0, "maximum": 255 },
+        "output": {
+          "type": "string",
+          "description": "Captured stdout+stderr, or verb output text, for this act."
+        }
+      }
+    },
+    "fileState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "present"],
+      "properties": {
+        "path": { "$ref": "common.schema.json#/$defs/relativePath" },
+        "present": { "type": "boolean" },
+        "content": {
+          "type": "string",
+          "description": "Omitted or empty when present is false."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "fixture_id": "authoring_family_001_v1",
+  "family_id": "authoring_family_001",
+  "template": "Small Go package with a deterministic failing edge-case test for suite triage tasks.",
+  "files": {
+    "go.mod": "module example.test/ledger\n\ngo 1.23\n",
+    "ledger.go": "package ledger\n\nfunc Balance(credits, debits int) int { return credits - debits }\n",
+    "ledger_test.go": "package ledger\n\nimport \"testing\"\n\nfunc TestBalance(t *testing.T) { if Balance(7, 2) != 5 { t.Fatal(\"balance\") } }\nfunc TestOverdraftFloor(t *testing.T) { if Balance(2, 7) != 0 { t.Fatal(\"negative balance exposed\") } }\n"
+  }
+}

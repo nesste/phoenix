@@ -1,0 +1,21 @@
+{
+  "case_id": "authoring_far_discovery_001",
+  "expected_outcome": {
+    "checks": [
+      {
+        "id": "uses_discovery_path",
+        "kind": "act_sequence",
+        "mode": "contains_in_order"
+      },
+      {
+        "id": "finds_relay_health_test",
+        "kind": "act_output_matches",
+        "seq": 1,
+        "pattern": "(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake"
+      }
+    ]
+  },
+  "grading_script": "sha256:588dc1292e14bff8f2737f5c6da9353463c4a66e0b09b0b664fe95e5344374bb",
+  "acceptable_paths": [["repo.find", "tests.focus"]],
+  "label_rationale": "The public service name does not expose the internal test name, so a deliberate find action must bridge the vocabulary gap before focusing."
+}

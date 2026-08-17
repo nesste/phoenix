@@ -1,0 +1,71 @@
+{
+  "v": 1,
+  "status": "partial",
+  "recorded_on": "2026-08-17",
+  "environment": {
+    "os": "windows",
+    "arch": "amd64",
+    "go_toolchain": "go1.26.5",
+    "cgo_enabled": false,
+    "mcp_go_sdk": "v1.6.1",
+    "claude_code": "2.1.229",
+    "model": "claude-sonnet-5",
+    "effort": "low",
+    "transport": "stdio"
+  },
+  "schema_measurements": [
+    { "surface": "act", "world_size": 10, "tool_count": 1, "schema_bytes": 1621 },
+    { "surface": "act", "world_size": 100, "tool_count": 1, "schema_bytes": 1621 },
+    { "surface": "act", "world_size": 1000, "tool_count": 1, "schema_bytes": 1621 },
+    { "surface": "eval", "world_size": 10, "tool_count": 1, "schema_bytes": 1490 },
+    { "surface": "eval", "world_size": 100, "tool_count": 1, "schema_bytes": 1490 },
+    { "surface": "eval", "world_size": 1000, "tool_count": 1, "schema_bytes": 1490 },
+    { "surface": "flat", "world_size": 10, "tool_count": 10, "schema_bytes": 3861 },
+    { "surface": "flat", "world_size": 100, "tool_count": 100, "schema_bytes": 38601 },
+    { "surface": "flat", "world_size": 1000, "tool_count": 1000, "schema_bytes": 386001 }
+  ],
+  "stdio_round_trips": [
+    {
+      "surface": "act",
+      "connected": true,
+      "tool_count": 1,
+      "call_succeeded": true,
+      "structured_frontier_present": true,
+      "measured_call_latency_us": 493
+    },
+    {
+      "surface": "eval",
+      "connected": true,
+      "tool_count": 1,
+      "call_succeeded": true,
+      "structured_frontier_present": true,
+      "measured_call_latency_us": 0,
+      "latency_note": "below the probe's one-microsecond reporting resolution"
+    }
+  ],
+  "claude_code_round_trip": {
+    "status": "blocked",
+    "attempted": true,
+    "http_status": 429,
+    "reason": "account session limit reached before inference",
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cost_usd": 0,
+    "retry_after_local_time": "22:00 Europe/Bucharest"
+  },
+  "provisional_decision": {
+    "stack": "go1.26.5 + MCP Go SDK v1.6.1 + stdio",
+    "surface": "act",
+    "reason": "typed validation is worth the 131-byte schema difference from eval"
+  },
+  "phase_0_gate": {
+    "accepted": false,
+    "missing": [
+      "successful pinned Claude Code act round trip",
+      "successful pinned Claude Code eval round trip",
+      "standing runtime token deltas",
+      "malformed-call rate",
+      "Linux stdio rerun"
+    ]
+  }
+}

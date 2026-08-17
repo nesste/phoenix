@@ -1,5 +1,7 @@
 # Phoenix Implementation Plan
 
+> **SUPERSEDED (2026-08-17):** replaced by [`2026-08-17-phoenix-world-plan.md`](2026-08-17-phoenix-world-plan.md), which reframes Phoenix from a capability control plane into an environment daemon that agents inhabit. This document is retained for the measurement discipline and decisions it records; do not implement from it.
+
 > **For implementers:** execute this plan phase-by-phase using TDD, independent review, and the acceptance gates below. Phoenix must remain standalone and must not import or depend on Hermes or any other agent harness.
 
 **Goal:** Build a local-first, runtime-neutral capability control plane that detects when behavioral contracts should apply, makes missed activation observable, mediates protected effects, requires evidence, and later evolves contracts only through replayed and approved amendments.

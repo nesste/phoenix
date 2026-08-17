@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "session_id": "s_0123456789abcdef",
+  "act_id": "a_2123456789abcdef",
+  "handle": "h_9999999999999999",
+  "verb": "status",
+  "status": "absent",
+  "result": null,
+  "error": {
+    "code": "absent",
+    "message": "handle is not reachable"
+  },
+  "text": "absent: handle is not reachable",
+  "handles": {
+    "grant": [],
+    "revoke": []
+  },
+  "frontier": [],
+  "refusal": null
+}

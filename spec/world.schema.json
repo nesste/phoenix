@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phoenix.local/spec/world.schema.json",
+  "title": "Phoenix world definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["v", "id", "roots", "handle_types", "transitions"],
+  "properties": {
+    "v": { "const": 1 },
+    "id": { "$ref": "#/$defs/identifier" },
+    "roots": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/root" }
+    },
+    "handle_types": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/identifier" },
+      "additionalProperties": { "$ref": "#/$defs/handleType" }
+    },
+    "transitions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/transition" }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "jsonPointer": {
+      "type": "string",
+      "pattern": "^(|/(?:[^~/]|~[01])*)+$"
+    },
+    "root": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "label", "resource"],
+      "properties": {
+        "name": { "$ref": "#/$defs/identifier" },
+        "type": { "$ref": "#/$defs/identifier" },
+        "label": { "type": "string", "minLength": 1 },
+        "resource": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "value"],
+          "properties": {
+            "kind": { "enum": ["path", "process", "logical"] },
+            "value": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "handleType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verbs"],
+      "properties": {
+        "verbs": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "$ref": "#/$defs/identifier" },
+          "additionalProperties": { "$ref": "#/$defs/verb" }
+        }
+      }
+    },
+    "verb": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["args_schema", "result_schema", "grants", "may_revoke", "refusals"],
+      "properties": {
+        "args_schema": { "type": "object" },
+        "result_schema": { "type": "object" },
+        "grants": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/identifier" },
+          "uniqueItems": true
+        },
+        "may_revoke": { "type": "boolean" },
+        "refusals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/refusalRule" }
+        }
+      }
+    },
+    "binding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["literal"],
+          "properties": { "literal": true }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["result_pointer"],
+          "properties": { "result_pointer": { "$ref": "#/$defs/jsonPointer" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state_pointer"],
+          "properties": { "state_pointer": { "$ref": "#/$defs/jsonPointer" } }
+        }
+      ]
+    },
+    "handleSelector": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source"],
+          "properties": { "source": { "const": "self" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "name"],
+          "properties": {
+            "source": { "const": "root" },
+            "name": { "$ref": "#/$defs/identifier" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "result_pointer"],
+          "properties": {
+            "source": { "const": "result" },
+            "result_pointer": { "$ref": "#/$defs/jsonPointer" }
+          }
+        }
+      ]
+    },
+    "callTemplate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handle", "verb", "args"],
+      "properties": {
+        "handle": { "$ref": "#/$defs/handleSelector" },
+        "verb": { "$ref": "#/$defs/identifier" },
+        "args": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/binding" }
+        },
+        "state": { "$ref": "#/$defs/binding" }
+      }
+    },
+    "refusalRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "when", "what", "why", "instead"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "when": { "type": "object" },
+        "what": { "type": "string", "minLength": 1 },
+        "why": { "type": "string", "minLength": 1 },
+        "instead": {
+          "oneOf": [
+            { "$ref": "#/$defs/callTemplate" },
+            { "type": "null" }
+          ]
+        },
+        "no_alternative": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "instead": { "type": "null" } }, "required": ["instead"] },
+          "then": { "required": ["no_alternative"] },
+          "else": { "not": { "required": ["no_alternative"] } }
+        }
+      ]
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "match", "suggestions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "match": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["handle_type", "verb", "status", "result_when"],
+          "properties": {
+            "handle_type": { "$ref": "#/$defs/identifier" },
+            "verb": { "$ref": "#/$defs/identifier" },
+            "status": { "enum": ["ok", "fail", "refused", "absent"] },
+            "result_when": { "type": "object" }
+          }
+        },
+        "suggestions": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["call", "why", "score"],
+            "properties": {
+              "call": { "$ref": "#/$defs/callTemplate" },
+              "why": { "type": "string", "minLength": 1, "maxLength": 80 },
+              "score": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

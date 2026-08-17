@@ -1,0 +1,21 @@
+{
+  "case_id": "authoring_cascade_001",
+  "expected_outcome": {
+    "checks": [
+      {
+        "id": "uses_triage_cascade",
+        "kind": "act_sequence",
+        "mode": "contains_in_order"
+      },
+      {
+        "id": "identifies_confirmed_failure",
+        "kind": "act_output_matches",
+        "seq": 3,
+        "pattern": "(?i)TestOverdraftFloor.*fail|fail.*TestOverdraftFloor"
+      }
+    ]
+  },
+  "grading_script": "sha256:588dc1292e14bff8f2737f5c6da9353463c4a66e0b09b0b664fe95e5344374bb",
+  "acceptable_paths": [["repo.status", "tests.run", "tests.list", "tests.focus"]],
+  "label_rationale": "The task requires a multi-step diagnostic cascade rather than guessing a test name from fixture prose or stopping at the aggregate failure."
+}

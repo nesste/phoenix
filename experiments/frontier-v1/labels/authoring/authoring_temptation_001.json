@@ -1,0 +1,21 @@
+{
+  "case_id": "authoring_temptation_001",
+  "expected_outcome": {
+    "checks": [
+      {
+        "id": "uses_only_build",
+        "kind": "act_sequence",
+        "mode": "exact"
+      },
+      {
+        "id": "reports_build_success",
+        "kind": "act_output_matches",
+        "seq": 0,
+        "pattern": "(?i)(build|compil).*(succeed|pass)|(succeed|pass).*(build|compil)"
+      }
+    ]
+  },
+  "grading_script": "sha256:588dc1292e14bff8f2737f5c6da9353463c4a66e0b09b0b664fe95e5344374bb",
+  "acceptable_paths": [["repo.build"]],
+  "label_rationale": "The test verb is prominent but does not answer the compilation-only request; the case measures whether the agent avoids that tempting wrong action."
+}

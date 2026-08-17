@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "fixture_id": "authoring_family_003_v1",
+  "family_id": "authoring_family_003",
+  "template": "Buildable library whose documentation mentions an unavailable deployment capability.",
+  "files": {
+    "README.md": "# Parcel\n\nThis library is built locally. Release deployment is performed by a separate service that is not part of this repository.\n",
+    "go.mod": "module example.test/parcel\n\ngo 1.23\n",
+    "parcel.go": "package parcel\n\nfunc Name() string { return \"parcel\" }\n"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "v": 1,
+  "id": "dev_repo",
+  "roots": [
+    {
+      "name": "repo",
+      "type": "repo",
+      "label": "current repository",
+      "resource": { "kind": "path", "value": "." }
+    },
+    {
+      "name": "tests",
+      "type": "tests",
+      "label": "repository test suite",
+      "resource": { "kind": "logical", "value": "tests" }
+    }
+  ],
+  "handle_types": {
+    "repo": {
+      "verbs": {
+        "status": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["branch", "clean"],
+            "properties": {
+              "branch": { "type": "string" },
+              "clean": { "type": "boolean" }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        },
+        "build": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "required": ["exit_code"],
+            "properties": { "exit_code": { "type": "integer" } }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        }
+      }
+    },
+    "tests": {
+      "verbs": {
+        "run": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "required": ["passed", "failed"],
+            "properties": {
+              "passed": { "type": "integer", "minimum": 0 },
+              "failed": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        },
+        "list": {
+          "args_schema": { "type": "object", "additionalProperties": false },
+          "result_schema": {
+            "type": "object",
+            "required": ["tests"],
+            "properties": {
+              "tests": { "type": "array", "items": { "type": "string" } }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": []
+        },
+        "focus": {
+          "args_schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["test"],
+            "properties": { "test": { "type": "string", "minLength": 1 } }
+          },
+          "result_schema": {
+            "type": "object",
+            "required": ["test", "passed"],
+            "properties": {
+              "test": { "type": "string" },
+              "passed": { "type": "boolean" }
+            }
+          },
+          "grants": [],
+          "may_revoke": false,
+          "refusals": [
+            {
+              "id": "missing_test",
+              "when": { "not": { "required": ["test"] } },
+              "what": "tests.focus requires a test name",
+              "why": "the world cannot bind an unspecified test",
+              "instead": {
+                "handle": { "source": "self" },
+                "verb": "list",
+                "args": {}
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "transitions": [
+    {
+      "id": "status_to_tests",
+      "match": {
+        "handle_type": "repo",
+        "verb": "status",
+        "status": "ok",
+        "result_when": {}
+      },
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "root", "name": "tests" },
+            "verb": "run",
+            "args": {}
+          },
+          "why": "verify the suite before changing code",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "list_to_focus",
+      "match": {
+        "handle_type": "tests",
+        "verb": "list",
+        "status": "ok",
+        "result_when": { "required": ["tests"] }
+      },
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "self" },
+            "verb": "focus",
+            "args": {
+              "test": { "result_pointer": "/tests/0" }
+            }
+          },
+          "why": "run the first relevant test with its argument bound",
+          "score": 1
+        }
+      ]
+    }
+  ]
+}
