@@ -115,7 +115,7 @@ The 10% allowance is pooled infrastructure capacity, not authorization for every
 
 Before validation opens, commit separate digests for the runtime invocation, system prompt, A schemas, B document, world build, runner, schedule, grader, analysis implementation, and report template. These artifacts may use authoring outcomes only.
 
-Review 1 identified the v2 protocol by LF-normalized UTF-8 SHA-256 and returned `REVISE`; it did not issue an acceptance record. The independent confirmation review accepted the corrected v3 candidate, so the protocol is now frozen. Validation remains closed until Task 0.2 is accepted, independent unopened sealed families exist, and the Task 0.6 Phase 0 review is complete.
+Review 1 identified the v2 protocol by LF-normalized UTF-8 SHA-256 and returned `REVISE`; it did not issue an acceptance record. The independent confirmation review accepted the corrected v3 candidate, so the protocol is frozen. An independent reviewer accepted Task 0.2 on 2026-08-18. Validation remains closed until independent unopened sealed families exist and the Task 0.6 Phase 0 review is complete.
 
 ## Independent acceptance record
 
@@ -134,8 +134,6 @@ Accepted limitations:
 
 Remaining execution blockers:
 
-- Task 0.2 Linux rerun;
-- at least 20 fresh malformed-call probes with a Wilson interval;
 - independent unopened validation and held_out families;
 - Task 0.6 Phase 0 review.
 

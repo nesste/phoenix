@@ -332,7 +332,7 @@
     "may_run_authoring": false,
     "may_open_validation": false,
     "may_open_held_out": false,
-    "reason": "The protocol is frozen and independently accepted, but Task 0.2 still lacks the Linux and 20-repetition malformed-call gates; independent unopened validation and held_out families and the Task 0.6 Phase 0 review do not exist."
+    "reason": "The protocol and Task 0.2 evidence are independently accepted, but independent unopened validation and held_out families and the Task 0.6 Phase 0 review do not exist."
   },
   "review": {
     "required_role": "evaluation reviewer independent of implementation",
@@ -352,8 +352,6 @@
         "Efficiency-only is a conservative conjunction; at a true zero difference, power to clear the 0.05 success or dead-end bounds is about 0.16."
       ],
       "remaining_execution_blockers": [
-        "Task 0.2 Linux rerun",
-        "at least 20 fresh malformed-call probes with a Wilson interval",
         "independent unopened validation and held_out families",
         "Task 0.6 Phase 0 review"
       ]

@@ -282,8 +282,6 @@ func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 		"Efficiency-only is a conservative conjunction; at a true zero difference, power to clear the 0.05 success or dead-end bounds is about 0.16.",
 	}
 	wantExecutionBlockers := []string{
-		"Task 0.2 Linux rerun",
-		"at least 20 fresh malformed-call probes with a Wilson interval",
 		"independent unopened validation and held_out families",
 		"Task 0.6 Phase 0 review",
 	}

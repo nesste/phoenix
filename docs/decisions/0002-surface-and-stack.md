@@ -1,6 +1,6 @@
 # 0002: Phase 0 surface and stack
 
-- **Status:** Review candidate; execution evidence complete, independent acceptance pending
+- **Status:** Accepted
 - **Date:** 2026-08-17
 - **Experiment:** `experiments/surface-spike`
 
@@ -47,15 +47,15 @@ This proves the structural O(1) property for the one-tool candidates. It does no
 
 The pinned Claude Code rerun succeeded after replacing an unexpanded `CLAUDE_PROJECT_DIR` placeholder in the MCP configs with a repository-relative executable path. Both `act` and `eval` completed two real tool calls and followed the first returned frontier. The `act` run consumed USD 0.0165972; the `eval` run consumed USD 0.0142569.
 
-Three fresh one-turn sessions per configuration measured 227 input tokens with empty MCP, 774 with `act`, and 712 with `eval`. The incremental standing costs are therefore 547 and 485 tokens. Both fit the 600-token law.
+Three fresh one-turn sessions per configuration measured 227 input tokens with empty MCP, 774 with `act`, and 712 with `eval`. The incremental standing costs are therefore 547 and 485 tokens. Both fit the 600-token law. Per-session USD for these nine READY probes was not retained.
 
 On 2026-08-18, Claude Code 2.1.229 with `claude-sonnet-5` at low effort completed a final sample of 20 fresh one-call sessions per surface. Every session made exactly one schema-valid call and received a successful result. Both `act` and `eval` therefore recorded 0 malformed calls out of 20, an observed rate of 0%. The two-sided Wilson 95% interval is `[0, 0.161125]` for each surface. The final samples cost USD 0.0963063 for `act` and USD 0.12594 for `eval`; setup and classifier checks were excluded before fixing the denominator.
 
 The Linux rerun used Ubuntu 24.04.4 under WSL2, the checksum-verified Go 1.26.5 Linux archive, and `CGO_ENABLED=0`. The Go suite and both stdio surfaces passed. A 100-call `act` sample had median daemon-only latency 636.5 microseconds and nearest-rank p95 837 microseconds, below the 2 ms and 10 ms limits. Median daemon time was 0.01016% of the 6,263 ms median successful model-facing trial wall time, below the 5% limit.
 
-## Provisional decision
+## Decision
 
-Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the provisional surface: its schema costs 131 more serialized bytes than `eval`, but it preserves typed validation and avoids parsing an expression language. The precommitted execution evidence is complete; freeze this choice only after independent review accepts the recorded sample and arithmetic.
+Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the surface: its schema costs 131 more serialized bytes than `eval`, but it preserves typed validation and avoids parsing an expression language. An independent reviewer accepted the recorded sample and arithmetic on 2026-08-18.
 
 ## Known failure modes
 
@@ -67,4 +67,27 @@ Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the
 
 ## Gate effect
 
-Task 0.2 is implemented and its execution evidence is complete, but it is not accepted. Phase 0 remains closed until an independent reviewer verifies `experiments/surface-spike/results.json` and accepts the gate calculations. No validation or held_out tranche is opened by this evidence.
+Task 0.2 is accepted. Phase 0 remains closed pending independent unopened validation and held_out families and the Task 0.6 Phase 0 review. No validation or held_out tranche is opened by this acceptance.
+
+## Independent acceptance record
+
+- **Reviewer role:** Evaluation reviewer, independent of implementation
+- **Date:** 2026-08-18
+- **Verdict:** `ACCEPT`
+- **Accepted results candidate, LF-normalized UTF-8 SHA-256:** `sha256:376a96534eac11f08065ffc300bfb8b73fcec0c8c18a37336edf0c3731dbaf95`
+- **Accepted decision candidate, LF-normalized UTF-8 SHA-256:** `sha256:897c84d5891705997efeabb8f135fb127f75f48ed31e7fa63198b4d5449d973e`
+- **Accepted spike README candidate, LF-normalized UTF-8 SHA-256:** `sha256:7df2814880a1d185d2a844e51302c34b41596ca9c9a5b51cecf19c63cc8706bd`
+- **Accepted evidence-test candidate, LF-normalized UTF-8 SHA-256:** `sha256:2342f8266068e5829c8302dd8eda8284215c4c93abba44ff7a11da3d3585694c`
+
+Accepted limitations:
+
+- Linux evidence is Ubuntu 24.04.4 under WSL2 with `CGO_ENABLED=0`, not bare metal. Later production benchmarking belongs on the actual target host.
+- Runtime standing tokens were measured on the constant six-verb spike schema. Flatness at 10, 100, and 1,000 verbs is inferred from identical serialized tool lists with zero-byte spread, not from three separate token samples.
+- With `n=20` and zero events, the Wilson 95% upper bound is 16.11%. That is expected at the precommitted minimum and is not a failure under the observed-rate rule.
+- Daemon share uses two successful model-facing trial wall times.
+- Standing-token probe USD was not retained. Excluded setup traces were not retained with all session IDs.
+
+Remaining blockers:
+
+- independent unopened validation and held_out families;
+- Task 0.6 Phase 0 review.
