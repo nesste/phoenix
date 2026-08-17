@@ -24,7 +24,8 @@
     },
     "caseId": {
       "type": "string",
-      "pattern": "^(authoring|validation|held_out)_(direct|cascade|far_discovery|recovery|temptation|absence|stale_frontier|adversarial_text)_[0-9]{3}$"
+      "description": "Opaque tranche-scoped identifier. It must not reveal the case class or expected outcome.",
+      "pattern": "^(authoring|validation|held_out)_[0-9a-f]{8}$"
     },
     "familyId": {
       "type": "string",

@@ -1,6 +1,7 @@
 package corpus
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,6 +15,7 @@ type withheldRegistry struct {
 
 type withheldLabelDigest struct {
 	CaseID        string `json:"case_id"`
+	Class         string `json:"class"`
 	LabelDigest   string `json:"label_digest"`
 	GradingScript string `json:"grading_script"`
 }
@@ -25,13 +27,11 @@ func BuildSealedManifest(root, tranche, worldSource, registrySource string) ([]b
 	if tranche != "validation" && tranche != "held_out" {
 		return nil, fmt.Errorf("sealed tranche must be validation or held_out, got %s", tranche)
 	}
-	if matches, err := filepath.Glob(filepath.Join(root, filepath.FromSlash(experimentDir+"/labels/"+tranche+"/*.json"))); err != nil {
-		return nil, err
-	} else if len(matches) > 0 {
-		return nil, fmt.Errorf("sealed %s label content exists in the implementation workspace", tranche)
-	}
 	schemas, err := loadSchemas(root)
 	if err != nil {
+		return nil, err
+	}
+	if err := rejectWithheldLabelContent(root, schemas); err != nil {
 		return nil, err
 	}
 	worldDocument, err := loadDocument(root, filepath.ToSlash(worldSource))
@@ -105,6 +105,39 @@ func BuildSealedManifest(root, tranche, worldSource, registrySource string) ([]b
 	return encodeManifest(schemas, result)
 }
 
+func rejectWithheldLabelContent(root string, schemas schemaSet) error {
+	return filepath.WalkDir(root, func(path string, entry os.DirEntry, walkErr error) error {
+		if walkErr != nil {
+			return walkErr
+		}
+		if entry.IsDir() {
+			if entry.Name() == ".git" {
+				return filepath.SkipDir
+			}
+			return nil
+		}
+		if !strings.EqualFold(filepath.Ext(entry.Name()), ".json") {
+			return nil
+		}
+		relative, err := filepath.Rel(root, path)
+		if err != nil {
+			return err
+		}
+		document, err := loadDocument(root, filepath.ToSlash(relative))
+		if err != nil || schemas.validate("label", document) != nil {
+			return nil
+		}
+		var candidate label
+		if err := document.Into(&candidate); err != nil {
+			return err
+		}
+		if strings.HasPrefix(candidate.CaseID, "validation_") || strings.HasPrefix(candidate.CaseID, "held_out_") {
+			return fmt.Errorf("sealed label content for %s exists in the implementation workspace at %s", candidate.CaseID, filepath.ToSlash(relative))
+		}
+		return nil
+	})
+}
+
 // WriteSealedManifest writes a validated outcome-free manifest.
 func WriteSealedManifest(root, tranche, worldSource, registrySource string) (string, error) {
 	data, err := BuildSealedManifest(root, tranche, worldSource, registrySource)
@@ -133,20 +166,24 @@ func validateWithheldDigests(root, tranche string, entries []withheldLabelDigest
 		if !strings.HasPrefix(entry.CaseID, tranche+"_") {
 			return nil, nil, fmt.Errorf("withheld label %s belongs to another tranche", entry.CaseID)
 		}
+		if !IsDigest(entry.LabelDigest) {
+			return nil, nil, fmt.Errorf("withheld label %s has invalid label digest %s", entry.CaseID, entry.LabelDigest)
+		}
 		if _, exists := labels[entry.CaseID]; exists {
 			return nil, nil, fmt.Errorf("duplicate withheld label digest for %s", entry.CaseID)
 		}
 		if entry.GradingScript != graderDigest {
 			return nil, nil, fmt.Errorf("withheld label %s pins grader %s, expected %s", entry.CaseID, entry.GradingScript, graderDigest)
 		}
-		labels[entry.CaseID] = label{CaseID: entry.CaseID, GradingScript: entry.GradingScript}
+		labels[entry.CaseID] = label{CaseID: entry.CaseID, Class: entry.Class, GradingScript: entry.GradingScript}
 		digests[entry.CaseID] = entry.LabelDigest
 	}
 	return labels, digests, nil
 }
 
 func rejectCrossTrancheTemplates(root, tranche string, sealed map[string]fixture) error {
-	used := map[string]string{}
+	usedTemplates := map[string]string{}
+	usedFileSets := map[string]string{}
 	for _, other := range []string{"authoring", "validation", "held_out"} {
 		if other == tranche {
 			continue
@@ -168,13 +205,37 @@ func rejectCrossTrancheTemplates(root, tranche string, sealed map[string]fixture
 			if err := document.Into(&item); err != nil {
 				return err
 			}
-			used[item.Template] = other
+			usedTemplates[item.Template] = other
+			filesDigest, err := digestFixtureFiles(item.Files)
+			if err != nil {
+				return fmt.Errorf("fingerprint fixture %s: %w", item.FixtureID, err)
+			}
+			usedFileSets[filesDigest] = other
 		}
 	}
 	for _, item := range sealed {
-		if other, reused := used[item.Template]; reused {
+		if other, reused := usedTemplates[item.Template]; reused {
 			return fmt.Errorf("sealed fixture %s reuses a generating template from the %s tranche", item.FixtureID, other)
+		}
+		filesDigest, err := digestFixtureFiles(item.Files)
+		if err != nil {
+			return fmt.Errorf("fingerprint fixture %s: %w", item.FixtureID, err)
+		}
+		if other, reused := usedFileSets[filesDigest]; reused {
+			return fmt.Errorf("sealed fixture %s duplicates fixture content from the %s tranche", item.FixtureID, other)
 		}
 	}
 	return nil
+}
+
+func digestFixtureFiles(files map[string]string) (string, error) {
+	data, err := json.Marshal(files)
+	if err != nil {
+		return "", err
+	}
+	value, err := DecodeJSON(data)
+	if err != nil {
+		return "", err
+	}
+	return Digest(value)
 }

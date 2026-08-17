@@ -22,7 +22,6 @@ var requiredClasses = []string{
 
 type runnableCase struct {
 	CaseID         string `json:"case_id"`
-	Class          string `json:"class"`
 	SandboxFixture string `json:"sandbox_fixture"`
 	WorldRef       string `json:"world_ref"`
 	FamilyID       string `json:"family_id"`
@@ -38,6 +37,7 @@ type fixture struct {
 
 type label struct {
 	CaseID          string `json:"case_id"`
+	Class           string `json:"class"`
 	GradingScript   string `json:"grading_script"`
 	ExpectedOutcome struct {
 		Checks []struct {
@@ -107,6 +107,9 @@ func BuildManifest(root, tranche, worldSource string) ([]byte, error) {
 	}
 	schemas, err := loadSchemas(root)
 	if err != nil {
+		return nil, err
+	}
+	if err := rejectWithheldLabelContent(root, schemas); err != nil {
 		return nil, err
 	}
 	worldDocument, err := loadDocument(root, filepath.ToSlash(worldSource))
@@ -327,20 +330,21 @@ func validateCases(
 		if item.WorldRef != worldDigest {
 			return nil, nil, nil, fmt.Errorf("%s: world_ref does not match pinned world digest %s", document.Path, worldDigest)
 		}
-		if _, ok := labels[item.CaseID]; !ok {
+		caseLabel, ok := labels[item.CaseID]
+		if !ok {
 			return nil, nil, nil, fmt.Errorf("%s: missing label digest", document.Path)
 		}
 		labelDigest := labelDigests[item.CaseID]
 		entries = append(entries, caseEntry{
-			CaseID: item.CaseID, Class: item.Class, FamilyID: item.FamilyID, InputDigest: document.Digest,
+			CaseID: item.CaseID, Class: caseLabel.Class, FamilyID: item.FamilyID, InputDigest: document.Digest,
 			SandboxFixture: item.SandboxFixture, WorldRef: item.WorldRef, LabelDigest: &labelDigest,
 		})
-		classCoverage[item.Class]++
+		classCoverage[caseLabel.Class]++
 		familyCounts[item.FamilyID]++
 		if familyClasses[item.FamilyID] == nil {
 			familyClasses[item.FamilyID] = map[string]struct{}{}
 		}
-		familyClasses[item.FamilyID][item.Class] = struct{}{}
+		familyClasses[item.FamilyID][caseLabel.Class] = struct{}{}
 	}
 	if len(labels) != len(seen) {
 		return nil, nil, nil, fmt.Errorf("authoring labels (%d) do not map one-to-one to cases (%d)", len(labels), len(seen))

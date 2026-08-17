@@ -58,10 +58,12 @@
   "grading": {
     "labelled_cases": 8,
     "cases_with_grading_script": 8,
-    "checks": 18,
+    "checks": 19,
     "checks_by_kind": {
+      "act_count": 1,
       "act_output_matches": 7,
-      "act_sequence": 8,
+      "act_path_absent": 1,
+      "act_sequence": 7,
       "act_status": 2,
       "final_message_matches": 1
     }
@@ -75,7 +77,7 @@
     {
       "fixture_id": "authoring_family_002_v1",
       "family_id": "authoring_family_002",
-      "digest": "sha256:65c52f0b049052440231bb9bcaea1c3f21a899ac54477758512e91519fcf9114"
+      "digest": "sha256:b68976c8d433036d40ca099885429eacd96bb85308792c9f822e17535cdc4b17"
     },
     {
       "fixture_id": "authoring_family_003_v1",
@@ -85,81 +87,81 @@
     {
       "fixture_id": "authoring_family_004_v1",
       "family_id": "authoring_family_004",
-      "digest": "sha256:d7e9901b1028309f1792f521e7cc29a7f5274efc2d641b6c26c04e47f235022b"
+      "digest": "sha256:f9ed60a000ebb37bf1ba89e8e0f264d784ed4137b70444c43e65fa3bb3cc93a9"
     }
   ],
   "cases": [
     {
-      "case_id": "authoring_absence_001",
-      "class": "absence",
-      "family_id": "authoring_family_003",
-      "input_digest": "sha256:251bcabff5a3ad5771b26aff68c4e3a458cbd9b53957f6fdaba867da7dd07e8f",
-      "sandbox_fixture": "sha256:762375eb760ae8817ca6b9a14156274898ab2820b659476fa5102ef6d0a9ef37",
-      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:064945ca82ddd345959a2c4016255fec7ffa25ed35a96933f5b29ef30c0d8874"
-    },
-    {
-      "case_id": "authoring_adversarial_text_001",
-      "class": "adversarial_text",
-      "family_id": "authoring_family_004",
-      "input_digest": "sha256:fe762fe081e495a4ee8774d0dc4dfa90a0c324c320fec8c62dba7f45a61bee4c",
-      "sandbox_fixture": "sha256:d7e9901b1028309f1792f521e7cc29a7f5274efc2d641b6c26c04e47f235022b",
-      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:a79e6cba164533f4c0d682333efb220b233299e64eb992f7dc0078a6a4a4064c"
-    },
-    {
-      "case_id": "authoring_cascade_001",
-      "class": "cascade",
-      "family_id": "authoring_family_001",
-      "input_digest": "sha256:d18a2072005eb131e41884545334a65ec71ae312336cfc1ba671b67f270c536e",
-      "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
-      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:071749ca31c797c2951af93c51c0620b0f248ad1373652943790a1c0deac9cd6"
-    },
-    {
-      "case_id": "authoring_direct_001",
+      "case_id": "authoring_0a10d1ec",
       "class": "direct",
       "family_id": "authoring_family_001",
-      "input_digest": "sha256:261e365551ce583199914fc4ed2578e1feafb54d65e68a222749ad096cf18bda",
+      "input_digest": "sha256:c52dd1d69a1d59c3c0ee8aa65692fa53c95d54c5acc4790dc4719c21c765198f",
       "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
       "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:29e0d35967f75c937fc83efef71144c580cd1b7aa654a17b30b2ca1561664ece"
+      "label_digest": "sha256:6ed3f0b14bf09581b411f95800d4a36c3fd9a4d83b17809b68b885c693a2d3d9"
     },
     {
-      "case_id": "authoring_far_discovery_001",
-      "class": "far_discovery",
-      "family_id": "authoring_family_002",
-      "input_digest": "sha256:0634a630707476175a453ba2696261f216840f18f055641359ae8b816e5fac80",
-      "sandbox_fixture": "sha256:65c52f0b049052440231bb9bcaea1c3f21a899ac54477758512e91519fcf9114",
+      "case_id": "authoring_1ca5cade",
+      "class": "cascade",
+      "family_id": "authoring_family_001",
+      "input_digest": "sha256:4a312ca83b2634ea3947d7ba4b1e41956c6bfb2c7522eb2db80f8935cf49e809",
+      "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
       "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:2acc1b31f8f3d6be1bad80c475d14e6f83e034cf6d9c537ae22dca2bda9c2317"
+      "label_digest": "sha256:0c760a340a6b32ccb51bc20b69ea3145bd91b90ca46bd74f50d5649000c3d1f4"
     },
     {
-      "case_id": "authoring_recovery_001",
-      "class": "recovery",
-      "family_id": "authoring_family_002",
-      "input_digest": "sha256:a44ae687d8e084d1391acde2a1eb1e31b1e3f0c0de67292a38a13baf074d63ca",
-      "sandbox_fixture": "sha256:65c52f0b049052440231bb9bcaea1c3f21a899ac54477758512e91519fcf9114",
-      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:3cb2e3eb931e553cc533cc58b45c15459ae5b7e45ce57d21bd36894150d686e7"
-    },
-    {
-      "case_id": "authoring_stale_frontier_001",
+      "case_id": "authoring_57a1e001",
       "class": "stale_frontier",
       "family_id": "authoring_family_004",
-      "input_digest": "sha256:eb1c9b3bb7b9693e714f5fd13741eafe8163cce3b0f4b01e91b2ec30a83fe8b3",
-      "sandbox_fixture": "sha256:d7e9901b1028309f1792f521e7cc29a7f5274efc2d641b6c26c04e47f235022b",
+      "input_digest": "sha256:127b820228a55e859b7bedab70d5f6371c84a39dcc8cc801c205a67d8fb77f53",
+      "sandbox_fixture": "sha256:f9ed60a000ebb37bf1ba89e8e0f264d784ed4137b70444c43e65fa3bb3cc93a9",
       "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:b43a348dfb970f43abd9a1408be716add4da84f07b670e43639d9145b71d4621"
+      "label_digest": "sha256:05dff357e98b05e8a39c40cb1966844132c605a1a63d25c90a81e1abbb7a4aad"
     },
     {
-      "case_id": "authoring_temptation_001",
+      "case_id": "authoring_5ec0be12",
+      "class": "recovery",
+      "family_id": "authoring_family_002",
+      "input_digest": "sha256:a38c512c228cf28eca30383ccc7d582e92c2f276f7b033816898698662994bb1",
+      "sandbox_fixture": "sha256:b68976c8d433036d40ca099885429eacd96bb85308792c9f822e17535cdc4b17",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:282850864db6a06436c615bb5a1f52789c0e56781004f4279eb53bbff46279c4"
+    },
+    {
+      "case_id": "authoring_7e4d7a10",
       "class": "temptation",
       "family_id": "authoring_family_003",
-      "input_digest": "sha256:5a317968b2e4ff022ad9067ff9dccdadb8ef01afc36c3de9dd03ff23f001d42b",
+      "input_digest": "sha256:b1e592348b2a590bab4f5c5ca004b6a0bfb39e6717e09a581232269747dd602a",
       "sandbox_fixture": "sha256:762375eb760ae8817ca6b9a14156274898ab2820b659476fa5102ef6d0a9ef37",
       "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-      "label_digest": "sha256:ada2380ffa1603550f44c0b272f74d3050f223a506bc5b7acd139e1e1f62ea9a"
+      "label_digest": "sha256:9fab8cbe456c4970c185543979640ed682ca0439fb3a55882df331917e8bad50"
+    },
+    {
+      "case_id": "authoring_ab5e0ce0",
+      "class": "absence",
+      "family_id": "authoring_family_003",
+      "input_digest": "sha256:ecdd89cb92f68677ee34d02d3f5a0adb70ceac45a7e2dd228e0b87e5c8563613",
+      "sandbox_fixture": "sha256:762375eb760ae8817ca6b9a14156274898ab2820b659476fa5102ef6d0a9ef37",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f5c76a387de3e33180c269c5597d118c2a8a28fc55d10ed8330e1543a0eb8baa"
+    },
+    {
+      "case_id": "authoring_ad0e25a1",
+      "class": "adversarial_text",
+      "family_id": "authoring_family_004",
+      "input_digest": "sha256:b4210b87037abbb50b5afeafe8a8bada978815d2a1e1975d798fc6e36c674a08",
+      "sandbox_fixture": "sha256:f9ed60a000ebb37bf1ba89e8e0f264d784ed4137b70444c43e65fa3bb3cc93a9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c30c10124b792b21289814225713ff686ef5dcd8e1add4d4e411eb5f8727db18"
+    },
+    {
+      "case_id": "authoring_fa4d15c0",
+      "class": "far_discovery",
+      "family_id": "authoring_family_002",
+      "input_digest": "sha256:b3a69adfe29b4bf2da562cd9dc3b25b6f5de5a6debfa6ba208ff62f92ac71930",
+      "sandbox_fixture": "sha256:b68976c8d433036d40ca099885429eacd96bb85308792c9f822e17535cdc4b17",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3c4064207b4e49d3fc1576c299e3737658981636ef051c7c0318e7eaad9bfbb9"
     }
   ]
 }

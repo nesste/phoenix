@@ -115,7 +115,7 @@ phoenix/
 │   └── frontier-v1/
 │       ├── README.md
 │       ├── protocol.json
-│       ├── corpus/{authoring,validation,held-out}/
+│       ├── corpus/{authoring,validation,held_out}/
 │       ├── labels/authoring/
 │       ├── manifests/              # digests only for withheld labels
 │       ├── runner/
@@ -248,14 +248,14 @@ Phase 0 is accepted only when:
 
 **Files:**
 - Create: `experiments/frontier-v1/README.md`
-- Create cases under `experiments/frontier-v1/corpus/{authoring,validation,held-out}/`
+- Create cases under `experiments/frontier-v1/corpus/{authoring,validation,held_out}/`
 - Create authoring labels under `experiments/frontier-v1/labels/authoring/`
 - Commit only digests of withheld labels under `experiments/frontier-v1/manifests/`
 
 **Runnable input shape (contains no answers):**
 
 ```yaml
-case_id:
+case_id:             # opaque tranche-scoped identifier; never encode the class
 goal:                # the task given to the agent
 sandbox_fixture:     # repo snapshot digest the task runs against
 world_ref:           # world definition digest
@@ -266,6 +266,7 @@ family_id:
 
 ```yaml
 case_id:
+class:               # evaluator-only metadata; never handed to the agent
 expected_outcome:    # machine-checkable end state where possible
 grading_script:      # digest of the script that grades the end state
 acceptable_paths:    # verb sequences considered correct (non-exhaustive)

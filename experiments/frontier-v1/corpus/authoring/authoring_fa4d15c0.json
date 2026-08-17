@@ -1,8 +1,7 @@
 {
-  "case_id": "authoring_far_discovery_001",
-  "class": "far_discovery",
+  "case_id": "authoring_fa4d15c0",
   "goal": "Find the internal health test for the public relay service and report whether that test passes.",
-  "sandbox_fixture": "sha256:65c52f0b049052440231bb9bcaea1c3f21a899ac54477758512e91519fcf9114",
+  "sandbox_fixture": "sha256:b68976c8d433036d40ca099885429eacd96bb85308792c9f822e17535cdc4b17",
   "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
   "family_id": "authoring_family_002"
 }

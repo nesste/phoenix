@@ -19,6 +19,7 @@ import (
 // carries every field the grader reads.
 type Label struct {
 	CaseID          string `json:"case_id"`
+	Class           string `json:"class"`
 	ExpectedOutcome struct {
 		Checks []Check `json:"checks"`
 	} `json:"expected_outcome"`
@@ -41,6 +42,7 @@ type Check struct {
 	Mode     string   `json:"mode,omitempty"`
 	Seq      *int     `json:"seq,omitempty"`
 	Status   string   `json:"status,omitempty"`
+	Maximum  *int     `json:"maximum,omitempty"`
 }
 
 const (
@@ -114,8 +116,9 @@ func Grade(label Label, trial Trial) (GradeResult, error) {
 		}
 	}
 	result := GradeResult{CaseID: label.CaseID}
+	path := matchLabelPath(label, trial.Acts)
 	for _, check := range label.ExpectedOutcome.Checks {
-		result.Checks = append(result.Checks, gradeCheck(check, label.AcceptablePaths, trial))
+		result.Checks = append(result.Checks, gradeCheck(check, label.AcceptablePaths, path, trial))
 	}
 	result.Status = overallStatus(result.Checks)
 	return result, nil
@@ -144,7 +147,7 @@ func gradePaths(acceptable [][]string, acts []Act, mode string) CheckResult {
 		observed = append(observed, strings.ToLower(act.HandleType+"."+act.Verb))
 	}
 	for _, path := range acceptable {
-		if sequenceMatches(observed, path, mode) {
+		if _, matched := sequenceMatchOffsets(observed, path, mode); matched {
 			result.Verdict = VerdictPass
 			result.Reason = fmt.Sprintf("trial act sequence satisfies an acceptable path in %s mode", mode)
 			return result
@@ -155,21 +158,57 @@ func gradePaths(acceptable [][]string, acts []Act, mode string) CheckResult {
 	return result
 }
 
-func sequenceMatches(observed, expected []string, mode string) bool {
+func sequenceMatchOffsets(observed, expected []string, mode string) ([]int, bool) {
 	switch mode {
 	case "exact":
-		return exactFoldedSequence(observed, expected)
+		if !exactFoldedSequence(observed, expected) {
+			return nil, false
+		}
+		offsets := make([]int, len(expected))
+		for index := range expected {
+			offsets[index] = index
+		}
+		return offsets, true
 	case "contains_in_order":
-		position := 0
-		for _, verb := range observed {
+		offsets := make([]int, 0, len(expected))
+		for index, verb := range observed {
+			position := len(offsets)
 			if position < len(expected) && strings.EqualFold(verb, expected[position]) {
-				position++
+				offsets = append(offsets, index)
 			}
 		}
-		return position == len(expected)
+		return offsets, len(offsets) == len(expected)
 	default:
-		return false
+		return nil, false
 	}
+}
+
+type matchedPath struct {
+	offsets []int
+	found   bool
+}
+
+func matchLabelPath(label Label, acts []Act) matchedPath {
+	mode := ""
+	for _, check := range label.ExpectedOutcome.Checks {
+		if check.Kind == "act_sequence" {
+			mode = check.Mode
+			break
+		}
+	}
+	if mode == "" {
+		return matchedPath{}
+	}
+	observed := make([]string, 0, len(acts))
+	for _, act := range acts {
+		observed = append(observed, strings.ToLower(act.HandleType+"."+act.Verb))
+	}
+	for _, acceptable := range label.AcceptablePaths {
+		if offsets, found := sequenceMatchOffsets(observed, acceptable, mode); found {
+			return matchedPath{offsets: offsets, found: true}
+		}
+	}
+	return matchedPath{}
 }
 
 func exactFoldedSequence(observed, expected []string) bool {
@@ -184,16 +223,20 @@ func exactFoldedSequence(observed, expected []string) bool {
 	return true
 }
 
-func gradeCheck(check Check, acceptablePaths [][]string, trial Trial) CheckResult {
+func gradeCheck(check Check, acceptablePaths [][]string, path matchedPath, trial Trial) CheckResult {
 	result := CheckResult{ID: check.ID, Kind: check.Kind}
 	switch check.Kind {
 	case "act_sequence":
 		result = gradePaths(acceptablePaths, trial.Acts, check.Mode)
 		result.ID = check.ID
+	case "act_count":
+		result.Verdict, result.Reason = gradeActCount(check, trial)
+	case "act_path_absent":
+		result.Verdict, result.Reason = gradeActPathAbsent(check, trial)
 	case "act_status":
-		result.Verdict, result.Reason = gradeActStatus(check, trial)
+		result.Verdict, result.Reason = gradeActStatusAtPath(check, path, trial)
 	case "act_output_matches":
-		result.Verdict, result.Reason = gradeActOutputMatches(check, trial)
+		result.Verdict, result.Reason = gradeActOutputAtPath(check, path, trial)
 	case "file_matches":
 		result.Verdict, result.Reason = gradeFileMatches(check, trial)
 	case "file_absent":
@@ -214,22 +257,53 @@ func gradeCheck(check Check, acceptablePaths [][]string, trial Trial) CheckResul
 	return result
 }
 
+func gradeActCount(check Check, trial Trial) (string, string) {
+	if check.Maximum == nil {
+		return VerdictFail, "act_count check has no maximum"
+	}
+	if len(trial.Acts) > *check.Maximum {
+		return VerdictFail, fmt.Sprintf("trial recorded %d acts, maximum is %d", len(trial.Acts), *check.Maximum)
+	}
+	return VerdictPass, fmt.Sprintf("trial recorded %d acts, within maximum %d", len(trial.Acts), *check.Maximum)
+}
+
+func gradeActPathAbsent(check Check, trial Trial) (string, string) {
+	for _, act := range trial.Acts {
+		path := strings.ToLower(act.HandleType + "." + act.Verb)
+		forbidden := strings.ToLower(check.Path)
+		if path == forbidden || (!strings.Contains(forbidden, ".") && strings.HasPrefix(path, forbidden+".")) {
+			return VerdictFail, fmt.Sprintf("trial invoked forbidden act path %s", path)
+		}
+	}
+	return VerdictPass, fmt.Sprintf("trial did not invoke forbidden act path %s", check.Path)
+}
+
 func gradeActStatus(check Check, trial Trial) (string, string) {
-	if check.Seq == nil || *check.Seq >= len(trial.Acts) {
+	return gradeActStatusAtPath(check, matchedPath{}, trial)
+}
+
+func gradeActStatusAtPath(check Check, path matchedPath, trial Trial) (string, string) {
+	index, ok := resolveActIndex(check.Seq, path, len(trial.Acts))
+	if !ok {
 		return VerdictFail, "trial has no act at the required sequence"
 	}
-	act := trial.Acts[*check.Seq]
+	act := trial.Acts[index]
 	if act.Status != check.Status {
-		return VerdictFail, fmt.Sprintf("act %d has status %s, expected %s", *check.Seq, act.Status, check.Status)
+		return VerdictFail, fmt.Sprintf("act %d has status %s, expected %s", index, act.Status, check.Status)
 	}
-	return VerdictPass, fmt.Sprintf("act %d has expected status %s", *check.Seq, check.Status)
+	return VerdictPass, fmt.Sprintf("act %d has expected status %s", index, check.Status)
 }
 
 func gradeActOutputMatches(check Check, trial Trial) (string, string) {
-	if check.Seq == nil || *check.Seq >= len(trial.Acts) {
+	return gradeActOutputAtPath(check, matchedPath{}, trial)
+}
+
+func gradeActOutputAtPath(check Check, path matchedPath, trial Trial) (string, string) {
+	index, ok := resolveActIndex(check.Seq, path, len(trial.Acts))
+	if !ok {
 		return VerdictFail, "trial has no act at the required sequence"
 	}
-	matched, err := regexp.MatchString(check.Pattern, trial.Acts[*check.Seq].Output)
+	matched, err := regexp.MatchString(check.Pattern, trial.Acts[index].Output)
 	if err != nil {
 		return VerdictFail, fmt.Sprintf("invalid pattern %q: %v", check.Pattern, err)
 	}
@@ -237,9 +311,23 @@ func gradeActOutputMatches(check Check, trial Trial) (string, string) {
 		matched = !matched
 	}
 	if !matched {
-		return VerdictFail, fmt.Sprintf("act %d output does not satisfy pattern %q", *check.Seq, check.Pattern)
+		return VerdictFail, fmt.Sprintf("act %d output does not satisfy pattern %q", index, check.Pattern)
 	}
-	return VerdictPass, fmt.Sprintf("act %d output satisfies pattern %q", *check.Seq, check.Pattern)
+	return VerdictPass, fmt.Sprintf("act %d output satisfies pattern %q", index, check.Pattern)
+}
+
+func resolveActIndex(sequence *int, path matchedPath, actCount int) (int, bool) {
+	if sequence == nil || *sequence < 0 {
+		return 0, false
+	}
+	index := *sequence
+	if path.found {
+		if index >= len(path.offsets) {
+			return 0, false
+		}
+		index = path.offsets[index]
+	}
+	return index, index < actCount
 }
 
 func findFile(trial Trial, path string) (FileState, bool) {
@@ -287,8 +375,8 @@ func findCommandActs(trial Trial, command []string) []Act {
 	return matches
 }
 
-// exactSequence reports whether two command slices are identical, exactly
-// (case-sensitive, unlike the verb-path comparison in sameSequence).
+// exactSequence reports whether two command slices are identical and
+// case-sensitive, unlike acceptable-path verb comparisons.
 func exactSequence(observed, expected []string) bool {
 	if len(observed) != len(expected) {
 		return false

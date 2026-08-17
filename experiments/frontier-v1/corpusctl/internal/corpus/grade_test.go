@@ -104,6 +104,25 @@ func TestGradeAcceptablePathsContainsInOrder(t *testing.T) {
 	}
 }
 
+func TestGradeActCountAndForbiddenPath(t *testing.T) {
+	maximum := 1
+	oneAct := Trial{Acts: []Act{{HandleType: "repo", Verb: "status"}}}
+	if verdict, _ := gradeActCount(Check{Maximum: &maximum}, oneAct); verdict != VerdictPass {
+		t.Fatalf("expected one act within maximum, got %s", verdict)
+	}
+	twoActs := Trial{Acts: append(oneAct.Acts, Act{HandleType: "repo", Verb: "find"})}
+	if verdict, _ := gradeActCount(Check{Maximum: &maximum}, twoActs); verdict != VerdictFail {
+		t.Fatalf("expected two acts to exceed maximum, got %s", verdict)
+	}
+	if verdict, _ := gradeActPathAbsent(Check{Path: "tests"}, oneAct); verdict != VerdictPass {
+		t.Fatalf("expected repo action to pass tests-path exclusion, got %s", verdict)
+	}
+	withTest := Trial{Acts: []Act{{HandleType: "tests", Verb: "run"}}}
+	if verdict, _ := gradeActPathAbsent(Check{Path: "tests"}, withTest); verdict != VerdictFail {
+		t.Fatalf("expected tests action to fail tests-path exclusion, got %s", verdict)
+	}
+}
+
 func TestGradeActStatusUsesStructuredEvidence(t *testing.T) {
 	trial := Trial{Acts: []Act{{Status: "refused"}}}
 	if verdict, _ := gradeActStatus(Check{Seq: sequence(0), Status: "refused"}, trial); verdict != VerdictPass {
@@ -112,6 +131,9 @@ func TestGradeActStatusUsesStructuredEvidence(t *testing.T) {
 	if verdict, _ := gradeActStatus(Check{Seq: sequence(0), Status: "ok"}, trial); verdict != VerdictFail {
 		t.Fatalf("expected fail, got %s", verdict)
 	}
+	if verdict, _ := gradeActStatus(Check{Seq: sequence(-1), Status: "refused"}, trial); verdict != VerdictFail {
+		t.Fatalf("expected negative sequence to fail closed, got %s", verdict)
+	}
 }
 
 func TestGradeActOutputUsesStructuredEvidence(t *testing.T) {
@@ -119,6 +141,29 @@ func TestGradeActOutputUsesStructuredEvidence(t *testing.T) {
 	check := Check{Seq: sequence(0), Pattern: "TestOverdraftFloor"}
 	if verdict, _ := gradeActOutputMatches(check, trial); verdict != VerdictPass {
 		t.Fatalf("expected pass, got %s", verdict)
+	}
+	check.Seq = sequence(-1)
+	if verdict, _ := gradeActOutputMatches(check, trial); verdict != VerdictFail {
+		t.Fatalf("expected negative sequence to fail closed, got %s", verdict)
+	}
+}
+
+func TestGradeResolvesEvidenceRelativeToMatchedPath(t *testing.T) {
+	label := Label{CaseID: "authoring_0a10d1ec", Class: "direct", AcceptablePaths: [][]string{{"tests.run"}}}
+	label.ExpectedOutcome.Checks = []Check{
+		{ID: "path", Kind: "act_sequence", Mode: "contains_in_order"},
+		{ID: "output", Kind: "act_output_matches", Seq: sequence(0), Pattern: "suite failed"},
+	}
+	trial := Trial{CaseID: label.CaseID, Acts: []Act{
+		{HandleType: "repo", Verb: "status", Output: "clean"},
+		{HandleType: "tests", Verb: "run", Output: "suite failed"},
+	}}
+	result, err := Grade(label, trial)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result.Status != StatusPass {
+		t.Fatalf("expected extra unrelated act not to shift path-relative evidence: %+v", result.Checks)
 	}
 }
 
@@ -136,7 +181,7 @@ func TestOverallStatusPassFailIndeterminate(t *testing.T) {
 
 func TestGradeMixedMachineAndManualIsIndeterminate(t *testing.T) {
 	label := Label{
-		CaseID:          "authoring_direct_001",
+		CaseID:          "authoring_0a10d1ec",
 		AcceptablePaths: [][]string{{"tests.run"}},
 	}
 	label.ExpectedOutcome.Checks = []Check{
@@ -166,7 +211,7 @@ func TestGradeMixedMachineAndManualIsIndeterminate(t *testing.T) {
 }
 
 func TestGradeAllMachineChecksPass(t *testing.T) {
-	label := Label{CaseID: "authoring_direct_001", AcceptablePaths: [][]string{{"tests.run"}}}
+	label := Label{CaseID: "authoring_0a10d1ec", AcceptablePaths: [][]string{{"tests.run"}}}
 	label.ExpectedOutcome.Checks = []Check{
 		{ID: "path", Kind: "act_sequence", Mode: "exact"},
 		{ID: "message", Kind: "final_message_matches", Pattern: "fails"},
@@ -182,7 +227,7 @@ func TestGradeAllMachineChecksPass(t *testing.T) {
 }
 
 func TestGradeUnknownCheckKindFailsClosed(t *testing.T) {
-	label := Label{CaseID: "authoring_direct_001", AcceptablePaths: [][]string{{}}}
+	label := Label{CaseID: "authoring_0a10d1ec", AcceptablePaths: [][]string{{}}}
 	label.ExpectedOutcome.Checks = []Check{{ID: "a", Kind: "not_a_real_kind"}}
 	trial := Trial{CaseID: label.CaseID}
 	result, err := Grade(label, trial)
@@ -195,9 +240,9 @@ func TestGradeUnknownCheckKindFailsClosed(t *testing.T) {
 }
 
 func TestGradeRejectsMismatchedCaseAndInvalidLabelRegex(t *testing.T) {
-	label := Label{CaseID: "authoring_direct_001", AcceptablePaths: [][]string{{}}}
+	label := Label{CaseID: "authoring_0a10d1ec", AcceptablePaths: [][]string{{}}}
 	label.ExpectedOutcome.Checks = []Check{{ID: "message", Kind: "final_message_matches", Pattern: "["}}
-	if _, err := Grade(label, Trial{CaseID: "authoring_direct_002"}); err == nil {
+	if _, err := Grade(label, Trial{CaseID: "authoring_ffffffff"}); err == nil {
 		t.Fatal("expected case mismatch rejection")
 	}
 	if _, err := Grade(label, Trial{CaseID: label.CaseID}); err == nil {

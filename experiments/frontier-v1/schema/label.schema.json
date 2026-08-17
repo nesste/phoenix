@@ -5,9 +5,13 @@
   "description": "The outcome-bearing half of a case. Only the authoring tranche keeps this content in the repository; sealed tranches contribute a digest and nothing else.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["case_id", "expected_outcome", "grading_script", "acceptable_paths", "label_rationale"],
+  "required": ["case_id", "class", "expected_outcome", "grading_script", "acceptable_paths", "label_rationale"],
   "properties": {
     "case_id": { "$ref": "common.schema.json#/$defs/caseId" },
+    "class": {
+      "description": "Evaluator-only class metadata. It is never included in the runnable case handed to an agent.",
+      "$ref": "common.schema.json#/$defs/caseClass"
+    },
     "expected_outcome": {
       "type": "object",
       "additionalProperties": false,
@@ -55,11 +59,38 @@
         {
           "type": "object",
           "additionalProperties": false,
+          "required": ["id", "kind", "maximum"],
+          "properties": {
+            "id": { "$ref": "common.schema.json#/$defs/identifier" },
+            "kind": { "const": "act_count" },
+            "maximum": { "type": "integer", "minimum": 0 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "kind", "path"],
+          "properties": {
+            "id": { "$ref": "common.schema.json#/$defs/identifier" },
+            "kind": { "const": "act_path_absent" },
+            "path": {
+              "description": "A handle type or exact handle-type.verb path that must not occur.",
+              "$ref": "common.schema.json#/$defs/verbPath"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
           "required": ["id", "kind", "seq", "status"],
           "properties": {
             "id": { "$ref": "common.schema.json#/$defs/identifier" },
             "kind": { "const": "act_status" },
-            "seq": { "type": "integer", "minimum": 0 },
+            "seq": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Zero-based position in the acceptable path matched by the act_sequence check. If no act_sequence check exists, this is an absolute trial act index."
+            },
             "status": { "enum": ["ok", "fail", "refused", "absent"] }
           }
         },
@@ -70,7 +101,11 @@
           "properties": {
             "id": { "$ref": "common.schema.json#/$defs/identifier" },
             "kind": { "const": "act_output_matches" },
-            "seq": { "type": "integer", "minimum": 0 },
+            "seq": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Zero-based position in the acceptable path matched by the act_sequence check. If no act_sequence check exists, this is an absolute trial act index."
+            },
             "pattern": { "type": "string", "minLength": 1 },
             "negate": { "type": "boolean" }
           }

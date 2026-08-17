@@ -46,14 +46,14 @@ func TestBuildSealedManifestUsesDigestsWithoutLabelContent(t *testing.T) {
 	}
 	labels := registry["labels"].([]any)
 	for index, class := range requiredClasses {
-		caseID := "validation_" + class + "_001"
+		caseID := fmt.Sprintf("validation_%08x", index+1)
 		writeTestJSON(t, root, "experiments/frontier-v1/corpus/validation/"+caseID+".json", map[string]any{
-			"case_id": caseID, "class": class,
+			"case_id":         caseID,
 			"goal":            "Evaluate this sealed validation behavior without receiving outcome hints.",
 			"sandbox_fixture": fixtureDigest, "world_ref": worldDigest, "family_id": "validation_family_001",
 		})
 		labels = append(labels, map[string]any{
-			"case_id": caseID, "label_digest": fmt.Sprintf("sha256:%064x", index+1), "grading_script": graderDigest,
+			"case_id": caseID, "class": class, "label_digest": fmt.Sprintf("sha256:%064x", index+1), "grading_script": graderDigest,
 		})
 	}
 	registry["labels"] = labels
@@ -72,6 +72,28 @@ func TestBuildSealedManifestUsesDigestsWithoutLabelContent(t *testing.T) {
 		t.Fatalf("unexpected sealed manifest counts: %+v", result.Counts)
 	}
 
+	registry["labels"] = labels[:len(labels)-1]
+	writeTestJSON(t, root, registrySource, registry)
+	if _, err := BuildSealedManifest(root, "validation", worldSource, registrySource); err == nil || !strings.Contains(err.Error(), "missing label digest") {
+		t.Fatalf("expected incomplete registry rejection, got %v", err)
+	}
+	registry["labels"] = append(labels, map[string]any{
+		"case_id": "validation_ffffffff", "class": "direct",
+		"label_digest": fmt.Sprintf("sha256:%064x", 999), "grading_script": graderDigest,
+	})
+	writeTestJSON(t, root, registrySource, registry)
+	if _, err := BuildSealedManifest(root, "validation", worldSource, registrySource); err == nil || !strings.Contains(err.Error(), "do not map one-to-one") {
+		t.Fatalf("expected over-complete registry rejection, got %v", err)
+	}
+	registry["labels"] = labels
+	registry["tranche"] = "held_out"
+	writeTestJSON(t, root, registrySource, registry)
+	if _, err := BuildSealedManifest(root, "validation", worldSource, registrySource); err == nil || !strings.Contains(err.Error(), "does not match") {
+		t.Fatalf("expected registry tranche rejection, got %v", err)
+	}
+	registry["tranche"] = "validation"
+	writeTestJSON(t, root, registrySource, registry)
+
 	authoringDocument, err := loadDocument(root, "experiments/frontier-v1/fixtures/authoring/authoring_family_001_v1.json")
 	if err != nil {
 		t.Fatal(err)
@@ -88,9 +110,25 @@ func TestBuildSealedManifestUsesDigestsWithoutLabelContent(t *testing.T) {
 	}
 	fixtureValue["template"] = originalTemplate
 	writeTestJSON(t, root, fixturePath, fixtureValue)
+	originalFiles := fixtureValue["files"]
+	fixtureValue["files"] = authoringFixture.Files
+	writeTestJSON(t, root, fixturePath, fixtureValue)
+	if _, err := BuildSealedManifest(root, "validation", worldSource, registrySource); err == nil || !strings.Contains(err.Error(), "duplicates fixture content") {
+		t.Fatalf("expected cross-tranche fixture-content rejection, got %v", err)
+	}
+	fixtureValue["files"] = originalFiles
+	writeTestJSON(t, root, fixturePath, fixtureValue)
 
-	writeTestJSON(t, root, "experiments/frontier-v1/labels/validation/validation_direct_001.json", map[string]any{})
-	if _, err := BuildSealedManifest(root, "validation", worldSource, registrySource); err == nil || !strings.Contains(err.Error(), "label content exists") {
+	writeTestJSON(t, root, "notes/private/validation_deadbeef.json", map[string]any{
+		"case_id": "validation_deadbeef", "class": "direct",
+		"expected_outcome": map[string]any{"checks": []any{map[string]any{
+			"id": "reports_result", "kind": "final_message_matches", "pattern": "result",
+		}}},
+		"grading_script":   graderDigest,
+		"acceptable_paths": []any{[]any{}},
+		"label_rationale":  "This deliberately leaked sealed label exists only to prove the repository-wide guard.",
+	})
+	if _, err := BuildSealedManifest(root, "validation", worldSource, registrySource); err == nil || !strings.Contains(err.Error(), "sealed label content") {
 		t.Fatalf("expected sealed label-content rejection, got %v", err)
 	}
 }

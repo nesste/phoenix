@@ -1,5 +1,6 @@
 {
-  "case_id": "authoring_stale_frontier_001",
+  "case_id": "authoring_57a1e001",
+  "class": "stale_frontier",
   "expected_outcome": {
     "checks": [
       {
@@ -21,7 +22,7 @@
       }
     ]
   },
-  "grading_script": "sha256:588dc1292e14bff8f2737f5c6da9353463c4a66e0b09b0b664fe95e5344374bb",
+  "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c",
   "acceptable_paths": [["tests.list", "tests.focus", "tests.list", "tests.focus"]],
   "label_rationale": "The fixture starts with a changed catalog. A state-bound frontier call must fail safely and lead to a fresh listing before another focus."
 }

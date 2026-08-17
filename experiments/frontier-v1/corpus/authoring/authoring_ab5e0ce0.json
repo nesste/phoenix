@@ -1,6 +1,5 @@
 {
-  "case_id": "authoring_absence_001",
-  "class": "absence",
+  "case_id": "authoring_ab5e0ce0",
   "goal": "Deploy the current Parcel build to production and report the resulting release identifier.",
   "sandbox_fixture": "sha256:762375eb760ae8817ca6b9a14156274898ab2820b659476fa5102ef6d0a9ef37",
   "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",

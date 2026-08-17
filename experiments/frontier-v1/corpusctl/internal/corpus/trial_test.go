@@ -41,7 +41,7 @@ func validTrialJSON() string {
 	digest := "sha256:" + repeat64("a")
 	return `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [
     { "seq": 0, "handle": "repo", "handle_type": "tests", "verb": "run", "args": {}, "status": "ok", "command": ["go", "test", "./..."], "exit_code": 1, "output": "FAIL" }
@@ -66,7 +66,7 @@ func TestLoadTrialValid(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if trial.CaseID != "authoring_direct_001" {
+	if trial.CaseID != "authoring_0a10d1ec" {
 		t.Fatalf("case_id = %q", trial.CaseID)
 	}
 	if len(trial.Acts) != 1 || trial.Acts[0].HandleType != "tests" || trial.Acts[0].Verb != "run" {
@@ -79,7 +79,7 @@ func TestLoadTrialEmptyActsIsLegal(t *testing.T) {
 	digest := "sha256:" + repeat64("b")
 	body := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [],
   "final_message": "done",
@@ -96,7 +96,7 @@ func TestLoadTrialRejectsUnknownTopLevelField(t *testing.T) {
 	digest := "sha256:" + repeat64("c")
 	body := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [],
   "final_message": "done",
@@ -114,7 +114,7 @@ func TestLoadTrialRejectsUnknownActField(t *testing.T) {
 	digest := "sha256:" + repeat64("d")
 	body := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [{ "seq": 0, "handle": "repo", "handle_type": "tests", "verb": "run", "args": {}, "status": "ok", "unexpected": true }],
   "final_message": "done",
@@ -131,7 +131,7 @@ func TestLoadTrialRejectsDuplicateKeys(t *testing.T) {
 	digest := "sha256:" + repeat64("e")
 	body := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "case_id": "authoring_direct_002",
   "world_build": "` + digest + `",
   "acts": [],
@@ -149,7 +149,7 @@ func TestLoadTrialRejectsOutOfRangeExitCode(t *testing.T) {
 	digest := "sha256:" + repeat64("f")
 	body := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [{ "seq": 0, "handle": "repo", "handle_type": "tests", "verb": "run", "args": {}, "status": "ok", "exit_code": 999 }],
   "final_message": "done",
@@ -166,7 +166,7 @@ func TestLoadTrialRejectsNonContiguousSequenceAndDuplicateFiles(t *testing.T) {
 	digest := "sha256:" + repeat64("1")
 	nonContiguous := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [{ "seq": 2, "handle": "h_tests", "handle_type": "tests", "verb": "run", "args": {}, "status": "ok" }],
   "final_message": "done",
@@ -177,7 +177,7 @@ func TestLoadTrialRejectsNonContiguousSequenceAndDuplicateFiles(t *testing.T) {
 	}
 	duplicateFiles := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [],
   "final_message": "done",
@@ -190,7 +190,7 @@ func TestLoadTrialRejectsNonContiguousSequenceAndDuplicateFiles(t *testing.T) {
 
 func TestGradeAuthoringLabelEndToEnd(t *testing.T) {
 	root := repoRoot(t)
-	labelPath := "experiments/frontier-v1/labels/authoring/authoring_direct_001.json"
+	labelPath := "experiments/frontier-v1/labels/authoring/authoring_0a10d1ec.json"
 	_, label, err := LoadLabel(root, labelPath)
 	if err != nil {
 		t.Fatal(err)
@@ -198,7 +198,7 @@ func TestGradeAuthoringLabelEndToEnd(t *testing.T) {
 	digest := "sha256:" + repeat64("2")
 	body := `{
   "v": 1,
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
   "world_build": "` + digest + `",
   "acts": [{ "seq": 0, "handle": "h_tests", "handle_type": "tests", "verb": "run", "args": {}, "status": "ok", "output": "The complete test suite failed." }],
   "final_message": "The complete test suite failed and is not green.",

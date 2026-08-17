@@ -15,9 +15,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["case_id", "label_digest", "grading_script"],
+        "required": ["case_id", "class", "label_digest", "grading_script"],
         "properties": {
           "case_id": { "$ref": "common.schema.json#/$defs/caseId" },
+          "class": {
+            "description": "Outcome-free evaluator metadata used only for coverage accounting.",
+            "$ref": "common.schema.json#/$defs/caseClass"
+          },
           "label_digest": { "$ref": "common.schema.json#/$defs/digest" },
           "grading_script": { "$ref": "common.schema.json#/$defs/digest" }
         }

@@ -1,5 +1,6 @@
 {
-  "case_id": "authoring_direct_001",
+  "case_id": "authoring_0a10d1ec",
+  "class": "direct",
   "expected_outcome": {
     "checks": [
       {
@@ -15,7 +16,7 @@
       }
     ]
   },
-  "grading_script": "sha256:588dc1292e14bff8f2737f5c6da9353463c4a66e0b09b0b664fe95e5344374bb",
+  "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c",
   "acceptable_paths": [["tests.run"]],
   "label_rationale": "This is the low-discovery baseline: one obvious suite action is sufficient, and extra diagnostic actions are unnecessary overhead."
 }

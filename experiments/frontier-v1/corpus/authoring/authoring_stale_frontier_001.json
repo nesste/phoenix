@@ -1,8 +1,0 @@
-{
-  "case_id": "authoring_stale_frontier_001",
-  "class": "stale_frontier",
-  "goal": "Verify the test at the top of the Beacon suite listing while accounting for repository changes made after that listing.",
-  "sandbox_fixture": "sha256:d7e9901b1028309f1792f521e7cc29a7f5274efc2d641b6c26c04e47f235022b",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "authoring_family_004"
-}
