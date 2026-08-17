@@ -1,7 +1,7 @@
 {
   "v": 3,
-  "status": "review_candidate",
-  "frozen": false,
+  "status": "frozen",
+  "frozen": true,
   "recorded_on": "2026-08-17",
   "scope": {
     "runtime_population": "Claude Code 2.1.229 with claude-sonnet-5 at low effort",
@@ -63,7 +63,7 @@
           "stale_frontier": 4,
           "adversarial_text": 12
         },
-        "constraint": "Each mix family contains 5 of those remaining slots so class totals are direct 24, recovery 24, and 12 for every other class, and the frontier subset contains the 8 recovery families plus at least 4 mix families (G>=12)."
+        "constraint": "Each mix family contains at least 1 cascade case and 5 total cases from those remaining slots so class totals are direct 24, recovery 24, and 12 for every other class. Because cascade appears only in the 8 mix families and every class spans at least 8 families, the frontier subset contains the 8 recovery families plus all 8 mix families (G=16)."
       }
     },
     "power_assumptions": {
@@ -92,7 +92,7 @@
     "retry_policy": {
       "maximum_infrastructure_retries": 1,
       "eligible": "provider 429/5xx, runtime launch failure, or MCP connection failure before the first model token",
-      "ineligible": "timeout, malformed call, tool error, refusal, agent error, or any failure after the first model token",
+      "ineligible": "timeout, malformed call, tool error, refusal, agent error, turn-limit hit, cost-cap hit, or any failure after the first model token",
       "reset": "eligible retries receive a fresh context, sandbox, and world and retain the original pairing key",
       "recording": "every attempt is retained and retry attempts remain clustered with the assigned trial"
     },
@@ -176,7 +176,7 @@
     "pairing": "comparisons pair arms by case_id and repetition",
     "clustering": ["generating_family", "case_id"],
     "interval_method": "If the analysis subset has G>=20 generating families, use the 10000-replicate paired hierarchical bootstrap (resample families, then cases within family, retain arm pairs and repetitions). If G<20, the primary bound is the exact sign-flip permutation of unweighted family means of the paired case-level differences (all 2^G flips for G<=16; 100000 Monte Carlo flips with analysis_seed 20260817 for 16<G<20). Do not use a percentile bootstrap as the primary bound when G<20. One-sided alpha=0.05 for the primary claim. Isolations use the same interval method and are reported as isolations, not Holm-adjusted 95% bounds.",
-    "confidence": "one-sided 95% bounds for precommitted directional and noninferiority claims; two-sided 95% intervals for descriptive measures",
+    "confidence": "one-sided 95% bounds for precommitted directional claims and the efficiency-only success guardrail; two-sided 95% intervals for descriptive measures",
     "ratio_method": "Bootstrap or permute log ratios of family totals and exponentiate. If either arm has fewer than 10 successful trials, ratio claims are indeterminate. Apply a +0.5 token continuity correction to any zero family total before logging.",
     "multiplicity": "Single Phase 1 primary claim: headline_value. direct_no_tax, frontier_value, and teaching_refusal_value are pre-registered isolations. They may force a component kill. They cannot create a headline pass. Phase 2 learning_value is a separate single claim.",
     "analysis_seed": 20260817,
@@ -197,8 +197,8 @@
       "endpoint": "C minus A task-success rate",
       "uncertainty": "one-sided alpha=0.05 family-mean sign-flip permutation test",
       "threshold": "This is a harm gate, not a demonstrated noninferiority claim. Fail if the one-sided permutation test that C is worse than A has p<0.05. Otherwise do not block the headline and do not claim noninferiority. Report the difference against -0.10 descriptively.",
-      "minimum_detectable_effect": 0.3,
-      "power_note": "Approximate 80% harm-detection MDE is 0.30. Power is approximately 0.16 for a 10-point harm and 0.35 for a 20-point harm.",
+      "minimum_detectable_effect": 0.39,
+      "power_note": "Approximate 80% harm-detection MDE is 0.39 under the pre-registered normal approximation. Power is approximately 0.16 for a 10-point harm and 0.35 for a 20-point harm; the evaluator-specified 0.30 effect size is not an 80% MDE.",
       "repetitions": 3,
       "seed_handling": "no model seed; pair by case and repetition",
       "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
@@ -232,15 +232,15 @@
     {
       "id": "frontier_value",
       "phase": "1",
-      "population": "all assigned cascade, far_discovery, recovery, and temptation cases under intention to treat; at least 12 generating families",
+      "population": "all assigned cascade, far_discovery, recovery, and temptation cases under intention to treat; 16 generating families under the committed allocation",
       "intervention": "C",
       "comparator": "D",
       "unit": "paired assigned trial clustered by family and case",
       "endpoint": "C minus D task-success rate under intention to treat",
-      "uncertainty": "one-sided alpha=0.05 family-mean sign-flip permutation test because G=12",
+      "uncertainty": "one-sided alpha=0.05 family-mean sign-flip permutation test because G=16 under the committed allocation",
       "threshold": "Remove the frontier if the C-D success point estimate is <=0 or the isolation shows C is worse than D with one-sided p<0.05. Token effects are descriptive and cannot rescue the frontier.",
-      "minimum_detectable_effect": 0.25,
-      "power_note": "Approximate 80% MDE against zero is 0.25 for G=12 and n=60 at one-sided alpha=0.05; it is reported as an MDE, not a pass floor.",
+      "minimum_detectable_effect": 0.26,
+      "power_note": "Approximate 80% MDE against zero is 0.26 for G=16 and n=60 at one-sided alpha=0.05; it is reported as an MDE, not a pass floor.",
       "repetitions": 3,
       "seed_handling": "no model seed; pair by case and repetition",
       "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
@@ -253,7 +253,7 @@
     {
       "id": "teaching_refusal_value",
       "phase": "1",
-      "population": "all assigned recovery cases under intention to treat; D teaching refusals and E plain typed errors are both eligible",
+      "population": "all assigned recovery trials under intention to treat; D teaching refusals and E plain typed errors are both eligible",
       "intervention": "D",
       "comparator": "E",
       "unit": "paired assigned trial clustered by family and case",
@@ -327,18 +327,36 @@
     ],
     "source_limit": "Arm artifacts may use authoring outcomes only. No validation or held_out outcome may inform them."
   },
-  "unresolved_before_freeze": [
-    "independent evaluation reviewer acceptance"
-  ],
+  "unresolved_before_freeze": [],
   "gate": {
     "may_run_authoring": false,
     "may_open_validation": false,
     "may_open_held_out": false,
-    "reason": "The protocol awaits independent acceptance; Task 0.2 still lacks the Linux and 20-repetition malformed-call gates; sealed tranches and Phase 0 review do not exist."
+    "reason": "The protocol is frozen and independently accepted, but Task 0.2 still lacks the Linux and 20-repetition malformed-call gates; independent unopened validation and held_out families and the Task 0.6 Phase 0 review do not exist."
   },
   "review": {
     "required_role": "evaluation reviewer independent of implementation",
-    "accepted": false,
-    "review_record": null
+    "accepted": true,
+    "review_record": {
+      "reviewer_role": "evaluation reviewer, independent of implementation",
+      "date": "2026-08-17",
+      "verdict": "ACCEPT",
+      "candidate_lf_normalized_utf8_sha256": {
+        "protocol_json": "sha256:4d13c140742ba462d68af865d4ed12b08e6c2e1aba4f652fed4e35adf782a47d",
+        "decision_0004": "sha256:399d337ef957ff1a43e7b384a03a7ddfe1e3a360b9f5337ae1d662338dfe3849"
+      },
+      "accepted_limitations": [
+        "Conclusions are limited to Claude Code 2.1.229, claude-sonnet-5, the frozen dev-repo world, and the eight task classes.",
+        "Expected headline power is about 62% at a 15-point effect; the approximate 80% MDE against zero is 0.19.",
+        "The USD 300 validation ceiling cannot support 80% power for a 15-point Holm-adjusted LCB-floor design.",
+        "Efficiency-only is a conservative conjunction; at a true zero difference, power to clear the 0.05 success or dead-end bounds is about 0.16."
+      ],
+      "remaining_execution_blockers": [
+        "Task 0.2 Linux rerun",
+        "at least 20 fresh malformed-call probes with a Wilson interval",
+        "independent unopened validation and held_out families",
+        "Task 0.6 Phase 0 review"
+      ]
+    }
   }
 }

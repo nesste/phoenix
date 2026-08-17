@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
+func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 	root := repoRoot(t)
 	data, err := os.ReadFile(filepath.Join(root, "experiments", "frontier-v1", "protocol.json"))
 	if err != nil {
@@ -40,8 +40,9 @@ func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
 					PerFamily map[string]int `json:"per_family"`
 				} `json:"group_recovery"`
 				Mix struct {
-					Families int            `json:"families"`
-					Counts   map[string]int `json:"counts_across_group"`
+					Families   int            `json:"families"`
+					Counts     map[string]int `json:"counts_across_group"`
+					Constraint string         `json:"constraint"`
 				} `json:"group_mix"`
 			} `json:"family_allocation"`
 			Power struct {
@@ -58,17 +59,30 @@ func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
 			BudgetStop   string  `json:"budget_exhaustion"`
 			CapImbalance string  `json:"cap_imbalance"`
 			Denominator  string  `json:"unresolved_denominator"`
+			RetryPolicy  struct {
+				Ineligible string `json:"ineligible"`
+			} `json:"retry_policy"`
 		} `json:"trial"`
+		Arms struct {
+			B struct {
+				Documentation string `json:"documentation"`
+			} `json:"B"`
+		} `json:"arms"`
 		Analysis struct {
 			Interval     string `json:"interval_method"`
 			Ratio        string `json:"ratio_method"`
 			Multiplicity string `json:"multiplicity"`
+			Confidence   string `json:"confidence"`
 		} `json:"analysis"`
 		Claims []struct {
 			ID                      string  `json:"id"`
+			Population              string  `json:"population"`
+			Endpoint                string  `json:"endpoint"`
 			Uncertainty             string  `json:"uncertainty"`
 			Threshold               string  `json:"threshold"`
 			MinimumDetectableEffect float64 `json:"minimum_detectable_effect"`
+			PowerNote               string  `json:"power_note"`
+			Multiplicity            string  `json:"multiplicity"`
 			ForcedFailure           string  `json:"forced_failure"`
 		} `json:"claims"`
 		Budget struct {
@@ -88,14 +102,38 @@ func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
 		} `json:"artifact_freeze"`
 		Review struct {
 			Accepted bool `json:"accepted"`
+			Record   struct {
+				ReviewerRole string `json:"reviewer_role"`
+				Date         string `json:"date"`
+				Verdict      string `json:"verdict"`
+				Candidate    struct {
+					Protocol string `json:"protocol_json"`
+					Decision string `json:"decision_0004"`
+				} `json:"candidate_lf_normalized_utf8_sha256"`
+				AcceptedLimitations        []string `json:"accepted_limitations"`
+				RemainingExecutionBlockers []string `json:"remaining_execution_blockers"`
+			} `json:"review_record"`
 		} `json:"review"`
 		Unresolved []string `json:"unresolved_before_freeze"`
+		Gate       struct {
+			MayRunAuthoring   bool   `json:"may_run_authoring"`
+			MayOpenValidation bool   `json:"may_open_validation"`
+			MayOpenHeldOut    bool   `json:"may_open_held_out"`
+			Reason            string `json:"reason"`
+		} `json:"gate"`
 	}
 	if err := json.Unmarshal(data, &protocol); err != nil {
 		t.Fatal(err)
 	}
-	if protocol.Version != 3 || protocol.Status != "review_candidate" || protocol.Frozen || protocol.Review.Accepted {
+	if protocol.Version != 3 || protocol.Status != "frozen" || !protocol.Frozen || !protocol.Review.Accepted {
 		t.Fatalf("unexpected protocol state: v=%d status=%s frozen=%t", protocol.Version, protocol.Status, protocol.Frozen)
+	}
+	record := protocol.Review.Record
+	if record.ReviewerRole != "evaluation reviewer, independent of implementation" || record.Date != "2026-08-17" || record.Verdict != "ACCEPT" {
+		t.Fatalf("unexpected independent acceptance record: %+v", record)
+	}
+	if record.Candidate.Protocol != "sha256:4d13c140742ba462d68af865d4ed12b08e6c2e1aba4f652fed4e35adf782a47d" || record.Candidate.Decision != "sha256:399d337ef957ff1a43e7b384a03a7ddfe1e3a360b9f5337ae1d662338dfe3849" {
+		t.Fatalf("acceptance record identifies the wrong candidate: %+v", record.Candidate)
 	}
 	if protocol.Runtime.Version == "" || protocol.Runtime.Model == "" || protocol.Runtime.MaxTurns <= 0 {
 		t.Fatal("runtime is not fully pinned")
@@ -109,6 +147,9 @@ func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
 	allocation := protocol.Tranche.Allocation
 	if allocation.Families != 24 || allocation.CasesPerFamily != 5 || allocation.Direct.Families != 8 || allocation.Recovery.Families != 8 || allocation.Mix.Families != 8 {
 		t.Fatalf("unexpected family allocation: %+v", allocation)
+	}
+	if !strings.Contains(allocation.Mix.Constraint, "at least 1 cascade case") || !strings.Contains(allocation.Mix.Constraint, "G=16") {
+		t.Fatalf("mix allocation must force cascade across all eight mix families and G=16: %q", allocation.Mix.Constraint)
 	}
 	classTotals := map[string]int{}
 	for class, count := range allocation.Direct.PerFamily {
@@ -132,22 +173,71 @@ func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
 	if protocol.Trial.LaunchOrder == "" || protocol.Trial.BudgetStop == "" || protocol.Trial.CapImbalance == "" || protocol.Trial.Denominator == "" {
 		t.Fatal("launch, budget-stop, cap-imbalance, and denominator rules must be explicit")
 	}
-	if !strings.Contains(protocol.Analysis.Interval, "sign-flip permutation") || !strings.Contains(protocol.Analysis.Ratio, "fewer than 10 successful trials") || !strings.Contains(protocol.Analysis.Multiplicity, "Single Phase 1 primary claim") {
+	if !strings.Contains(protocol.Analysis.Interval, "G>=20") || !strings.Contains(protocol.Analysis.Interval, "hierarchical bootstrap") || !strings.Contains(protocol.Analysis.Interval, "G<20") || !strings.Contains(protocol.Analysis.Interval, "sign-flip permutation") || !strings.Contains(protocol.Analysis.Ratio, "fewer than 10 successful trials") || !strings.Contains(protocol.Analysis.Multiplicity, "Single Phase 1 primary claim") {
 		t.Fatalf("analysis package is incomplete: %+v", protocol.Analysis)
 	}
-	seen := map[string]bool{}
+	if !strings.Contains(protocol.Analysis.Confidence, "directional claims and the efficiency-only success guardrail") || strings.Contains(protocol.Analysis.Confidence, "noninferiority claims") {
+		t.Fatalf("confidence statement misclassifies a harm gate as noninferiority: %q", protocol.Analysis.Confidence)
+	}
+	if !strings.Contains(protocol.Trial.RetryPolicy.Ineligible, "turn-limit hit") || !strings.Contains(protocol.Trial.RetryPolicy.Ineligible, "cost-cap hit") {
+		t.Fatalf("turn-limit and cost-cap hits must be retry-ineligible: %q", protocol.Trial.RetryPolicy.Ineligible)
+	}
+	armBDoc := protocol.Arms.B.Documentation
+	for _, required := range []string{"(1) name every starter-world verb", "(2) include one worked path per authoring class", "(3) include a recovery recipe", "(4) use authoring evidence only", "(5) receive a human-factors completeness review", "(6) freeze by digest", "same verb implementations, typed payloads, side effects, limits, and surface-only access as Arm A"} {
+		if !strings.Contains(armBDoc, required) {
+			t.Fatalf("Arm B documentation is missing %q: %q", required, armBDoc)
+		}
+	}
+	claims := map[string]struct {
+		Population              string
+		Endpoint                string
+		Uncertainty             string
+		Threshold               string
+		MinimumDetectableEffect float64
+		PowerNote               string
+		Multiplicity            string
+	}{}
 	for _, claim := range protocol.Claims {
 		if claim.ID == "" || claim.Uncertainty == "" || claim.Threshold == "" || claim.MinimumDetectableEffect <= 0 || claim.ForcedFailure == "" {
 			t.Fatalf("incomplete claim: %+v", claim)
 		}
-		if seen[claim.ID] {
+		if _, exists := claims[claim.ID]; exists {
 			t.Fatalf("duplicate claim %s", claim.ID)
 		}
-		seen[claim.ID] = true
+		claims[claim.ID] = struct {
+			Population              string
+			Endpoint                string
+			Uncertainty             string
+			Threshold               string
+			MinimumDetectableEffect float64
+			PowerNote               string
+			Multiplicity            string
+		}{claim.Population, claim.Endpoint, claim.Uncertainty, claim.Threshold, claim.MinimumDetectableEffect, claim.PowerNote, claim.Multiplicity}
 	}
 	for _, required := range []string{"direct_no_tax", "headline_value", "frontier_value", "teaching_refusal_value", "learning_value"} {
-		if !seen[required] {
+		if _, exists := claims[required]; !exists {
 			t.Fatalf("missing claim %s", required)
+		}
+	}
+	direct := claims["direct_no_tax"]
+	if direct.MinimumDetectableEffect != 0.39 || !strings.Contains(direct.PowerNote, "80% harm-detection MDE is 0.39") || !strings.Contains(direct.PowerNote, "0.30 effect size is not an 80% MDE") {
+		t.Fatalf("direct harm-gate sensitivity is mislabeled: %+v", direct)
+	}
+	headline := claims["headline_value"]
+	if !strings.Contains(headline.Threshold, "lower bound for C-B ITT success is greater than 0") || !strings.Contains(headline.Threshold, "paired-success C/B token-ratio") || !strings.Contains(headline.Threshold, "dead-end-rate") || !strings.Contains(headline.Threshold, "timeout-or-cap-hit-rate") {
+		t.Fatalf("headline and efficiency-only predicates regressed: %+v", headline)
+	}
+	frontier := claims["frontier_value"]
+	if !strings.Contains(frontier.Population, "16 generating families") || !strings.Contains(frontier.Uncertainty, "sign-flip permutation test because G=16") || frontier.MinimumDetectableEffect != 0.26 {
+		t.Fatalf("frontier allocation or sensitivity regressed: %+v", frontier)
+	}
+	teaching := claims["teaching_refusal_value"]
+	if !strings.Contains(teaching.Population, "all assigned recovery trials") || !strings.Contains(teaching.Population, "D teaching refusals and E plain typed errors are both eligible") || !strings.Contains(teaching.Endpoint, "first state-sensitive act fails or is declined") {
+		t.Fatalf("teaching-refusal ITT population or trigger regressed: %+v", teaching)
+	}
+	for _, isolation := range []string{"direct_no_tax", "frontier_value", "teaching_refusal_value"} {
+		if !strings.Contains(claims[isolation].Multiplicity, "cannot create a headline pass") {
+			t.Fatalf("isolation %s may not create a headline pass: %q", isolation, claims[isolation].Multiplicity)
 		}
 	}
 	validationMaximum := float64(protocol.Tranche.MinimumCases*protocol.Trial.Repetitions*5) * protocol.Trial.CostCap * 1.10
@@ -161,8 +251,17 @@ func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
 	if protocol.Budget.HardTotal != 565 {
 		t.Fatalf("unexpected total budget %.2f", protocol.Budget.HardTotal)
 	}
-	if protocol.Phase2.OnlineUpdates || len(protocol.Phase2.Frozen) != 5 || len(protocol.Phase2.Arms) != 3 || protocol.Phase2.Learning == "" || protocol.Phase2.Replication == "" {
+	if protocol.Phase2.OnlineUpdates || len(protocol.Phase2.Arms) != 3 || protocol.Phase2.Learning == "" || protocol.Phase2.Replication == "" {
 		t.Fatalf("Phase 2 contract is incomplete: %+v", protocol.Phase2)
+	}
+	wantPhase2Frozen := []string{"daemon", "verbs", "authored_rules", "candidate_weights", "training_episode_digest"}
+	if len(protocol.Phase2.Frozen) != len(wantPhase2Frozen) {
+		t.Fatalf("unexpected Phase 2 frozen artifacts: %v", protocol.Phase2.Frozen)
+	}
+	for i, want := range wantPhase2Frozen {
+		if protocol.Phase2.Frozen[i] != want {
+			t.Fatalf("Phase 2 frozen artifact %d is %q, want %q", i, protocol.Phase2.Frozen[i], want)
+		}
 	}
 	hasScheduleDigest := false
 	for _, artifact := range protocol.ArtifactFreeze.BeforeValidation {
@@ -173,7 +272,35 @@ func TestProtocolCandidateIsCompleteAndBudgeted(t *testing.T) {
 	if !hasScheduleDigest {
 		t.Fatal("schedule digest must be frozen explicitly")
 	}
-	if len(protocol.Unresolved) != 1 || protocol.Unresolved[0] != "independent evaluation reviewer acceptance" {
-		t.Fatalf("freeze blockers must name only independent acceptance: %v", protocol.Unresolved)
+	if len(protocol.Unresolved) != 0 {
+		t.Fatalf("accepted frozen protocol has unresolved freeze blockers: %v", protocol.Unresolved)
+	}
+	wantLimitations := []string{
+		"Conclusions are limited to Claude Code 2.1.229, claude-sonnet-5, the frozen dev-repo world, and the eight task classes.",
+		"Expected headline power is about 62% at a 15-point effect; the approximate 80% MDE against zero is 0.19.",
+		"The USD 300 validation ceiling cannot support 80% power for a 15-point Holm-adjusted LCB-floor design.",
+		"Efficiency-only is a conservative conjunction; at a true zero difference, power to clear the 0.05 success or dead-end bounds is about 0.16.",
+	}
+	wantExecutionBlockers := []string{
+		"Task 0.2 Linux rerun",
+		"at least 20 fresh malformed-call probes with a Wilson interval",
+		"independent unopened validation and held_out families",
+		"Task 0.6 Phase 0 review",
+	}
+	for label, pair := range map[string][2][]string{
+		"accepted limitations":         {record.AcceptedLimitations, wantLimitations},
+		"remaining execution blockers": {record.RemainingExecutionBlockers, wantExecutionBlockers},
+	} {
+		if len(pair[0]) != len(pair[1]) {
+			t.Fatalf("unexpected %s: %v", label, pair[0])
+		}
+		for i, want := range pair[1] {
+			if pair[0][i] != want {
+				t.Fatalf("%s item %d is %q, want %q", label, i, pair[0][i], want)
+			}
+		}
+	}
+	if protocol.Gate.MayRunAuthoring || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut || !strings.Contains(protocol.Gate.Reason, "independent unopened validation and held_out families") || !strings.Contains(protocol.Gate.Reason, "Task 0.6 Phase 0 review") {
+		t.Fatalf("freeze must not open execution gates: %+v", protocol.Gate)
 	}
 }
