@@ -2,17 +2,16 @@
 
 ## Status
 
-The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact.
+The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact. Protocol v3 and the Task 0.2 surface evidence are independently accepted.
 
-No outcome run is authorized. Validation and held-out inputs do not exist yet, their labels have not been independently produced, and protocol v3 awaits a second independent design review after Review 1 returned `REVISE`.
+No outcome run is authorized. Validation and held-out inputs do not exist yet, and their labels have not been independently produced.
 
 The Phase 0 gate remains closed until:
 
-- the surface spike completes its pinned runtime and Linux measurements;
-- the runtime in `protocol.json` is reconciled with the runtime used for future trials;
-- numeric thresholds, power assumptions, retry rules, timeouts, and cost limits are independently reviewed and frozen;
 - an evaluator independent of implementation creates validation and held-out families and seals their labels outside this workspace;
-- the sealed manifests contain final input and withheld-label digests.
+- the Task 0.6 evaluation, implementation, and human-factors reviews are accepted by the accountable project chair.
+
+Use `docs/reviews/2026-08-18-sealed-corpus-evaluator-handoff.md` to create the unopened tranche candidates in a separate evaluator checkout. Use `docs/reviews/2026-08-18-task-0.6-review-prompt.md` for the Phase 0 review after that candidate exists.
 
 ## Directory contract
 
@@ -124,19 +123,20 @@ For validation and held_out cases, the external evaluator stores the full labels
 
 ## Sealing workflow
 
-1. Freeze the protocol, runner, world, schemas, grader, and authoring-informed implementation.
+1. Freeze the protocol, world, schemas, and grader used to define the corpus.
 2. Give an independent evaluator the case and label schemas, but not implementation outcomes from sealed families.
-3. The evaluator creates new validation inputs and labels from generating families absent from authoring. Labels stay outside this workspace.
+3. In a separate checkout, the evaluator creates new validation and held_out inputs and labels from generating families absent from authoring and from each other. Full labels stay outside every Phoenix checkout.
 4. The evaluator supplies an outcome-free digest registry containing `case_id`, `class`, `label_digest`, and `grading_script` for each sealed case.
-5. Generate the sealed manifest and review counts, class coverage, family coverage, and denominators before any run:
+5. Generate candidate sealed manifests in that checkout. Review their counts, class coverage, family coverage, denominators, and private labels during Task 0.6 before importing the public patch:
 
 ```powershell
 go run ./cmd/corpusctl seal --repo-root ../../.. --tranche validation --world-source <repository-relative-world.json> --label-digests <repository-relative-digest-registry.json> --write
 ```
 
-6. Open a tranche once. If any observed outcome changes a fixture, runner, world, frontier, refusal, protocol, or corpus, retire the tranche and generate a new independently labelled family.
+6. After Task 0.6 acceptance, import the reviewed public patch. Build Phase 1, then freeze the runner and every other pre-validation artifact listed in `protocol.json` by digest.
+7. Open a tranche once. If any observed outcome changes a fixture, runner, world, frontier, refusal, protocol, or corpus, retire the tranche and generate a new independently labelled family.
 
-`seal` accepts only `validation` or `held_out`, rejects generating templates or byte-identical fixture file sets used by another tranche, requires one digest per case, and fails if any schema-valid validation or held_out label exists anywhere in the workspace. Validation and held_out inputs, independent label digests, and their review remain blocked until the protocol, Task 0.2 evidence, and Phase 0 review are accepted.
+`seal` accepts only `validation` or `held_out`, rejects generating templates or byte-identical fixture file sets used by another tranche, requires one digest per case, and fails if any schema-valid validation or held_out label exists anywhere in the workspace. Assemble validation and held_out candidates in an independent evaluator checkout. Do not import them into this implementation workspace until the Task 0.6 reviewers and project chair accept the candidate. Acceptance still does not open either tranche for outcome runs: the pre-validation artifacts listed in `protocol.json` must first be frozen by digest.
 
 ## Trial isolation
 
