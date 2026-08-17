@@ -24,7 +24,7 @@ go run ./cmd/measure-schema
 go run ./cmd/validate-spec --repo-root ../..
 ```
 
-The checked-in MCP configs resolve the executable from `${CLAUDE_PROJECT_DIR}`. Build the executable before invoking Claude Code from the repository root.
+The checked-in MCP configs use a repository-relative executable path. Build the executable and invoke Claude Code from the repository root.
 
 ```powershell
 claude -p "Call phoenix act on h_repo_demo with verb status and empty args. Then call the first frontier suggestion. Report both result texts exactly." `

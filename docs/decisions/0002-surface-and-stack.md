@@ -1,6 +1,6 @@
 # 0002: Phase 0 surface and stack
 
-- **Status:** Provisional; Claude model round trip and Linux rerun pending
+- **Status:** Provisional; Linux rerun and final malformed-call sample pending
 - **Date:** 2026-08-17
 - **Experiment:** `experiments/surface-spike`
 
@@ -45,17 +45,16 @@ The serialized MCP tool list is flat across synthetic worlds:
 
 This proves the structural O(1) property for the one-tool candidates. It does not substitute for the runtime token measurement required by the Phase 0 gate.
 
-The first pinned Claude Code probe reached the service but returned HTTP 429 because the account session limit had been reached. It consumed no model tokens and made no tool call. Token cost, model-visible rendering, malformed-call rate, and take-up of the returned frontier therefore remain unmeasured.
+The pinned Claude Code rerun succeeded after replacing an unexpanded `CLAUDE_PROJECT_DIR` placeholder in the MCP configs with a repository-relative executable path. Both `act` and `eval` completed two real tool calls and followed the first returned frontier. The `act` run consumed USD 0.0165972; the `eval` run consumed USD 0.0142569.
+
+Three fresh one-turn sessions per configuration measured 227 input tokens with empty MCP, 774 with `act`, and 712 with `eval`. The incremental standing costs are therefore 547 and 485 tokens. Both fit the 600-token law. Five fresh one-call sessions per surface produced zero malformed calls, but the precommitted 20-session engineering gate is not complete.
 
 ## Provisional decision
 
 Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the provisional surface: its schema costs 131 more serialized bytes than `eval`, but it preserves typed validation and avoids parsing an expression language. Do not freeze this choice until the same pinned Claude Code run:
 
-1. completes an `act` call and follows its returned frontier;
-2. completes the equivalent `eval` call;
-3. records actual standing input-token deltas against the empty-MCP baseline;
-4. records malformed-call outcomes over the pre-committed repetitions;
-5. reruns the stdio probe on Linux.
+1. completes 20 fresh malformed-call probes per surface and reports the Wilson interval;
+2. reruns the stdio probe on Linux.
 
 ## Known failure modes
 
@@ -67,4 +66,4 @@ Keep Go, the stable official MCP Go SDK, and stdio. Keep structured `act` as the
 
 ## Gate effect
 
-Task 0.2 is implemented but not accepted. Phase 0 remains closed until the pending model and Linux measurements are recorded in `experiments/surface-spike/results.json` and this decision changes from provisional to accepted or rejected.
+Task 0.2 is implemented but not accepted. Phase 0 remains closed until the 20-session malformed-call sample and Linux measurement are recorded in `experiments/surface-spike/results.json`, then independently reviewed.

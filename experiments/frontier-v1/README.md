@@ -4,7 +4,7 @@
 
 The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact.
 
-No outcome run is authorized. Validation and held-out inputs do not exist yet, their labels have not been independently produced, and the protocol is still a draft.
+No outcome run is authorized. Validation and held-out inputs do not exist yet, their labels have not been independently produced, and protocol v3 awaits a second independent design review after Review 1 returned `REVISE`.
 
 The Phase 0 gate remains closed until:
 
@@ -136,7 +136,7 @@ go run ./cmd/corpusctl seal --repo-root ../../.. --tranche validation --world-so
 
 6. Open a tranche once. If any observed outcome changes a fixture, runner, world, frontier, refusal, protocol, or corpus, retire the tranche and generate a new independently labelled family.
 
-`seal` accepts only `validation` or `held_out`, rejects generating templates or byte-identical fixture file sets used by another tranche, requires one digest per case, and fails if any schema-valid validation or held_out label exists anywhere in the workspace. Validation and held_out inputs, independent label digests, and their review are still required before Task 0.4 can close.
+`seal` accepts only `validation` or `held_out`, rejects generating templates or byte-identical fixture file sets used by another tranche, requires one digest per case, and fails if any schema-valid validation or held_out label exists anywhere in the workspace. Validation and held_out inputs, independent label digests, and their review remain blocked until the protocol, Task 0.2 evidence, and Phase 0 review are accepted.
 
 ## Trial isolation
 

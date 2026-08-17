@@ -313,10 +313,11 @@ All arms use the same pinned runtime/model/configuration, sandbox fixtures, retr
 **Primary measures:**
 
 - task success rate (scripted grading);
-- tokens-to-success (all turns, prompt + completion);
+- tokens-to-success (all turns, prompt + completion), including the paired-success ratio when both compared arms succeed;
 - acts-to-success and wall time;
 - wrong-verb invocation rate;
 - dead-end rate (agent stalls or asks for help);
+- timeout-or-cap-hit rate over all assigned trials;
 - recovery rate after refusal;
 - frontier take-rate and take-and-succeed rate (frontier-bearing arms only);
 - standing wake-up cost across synthetic world sizes (the O(1) demonstration);
@@ -324,13 +325,13 @@ All arms use the same pinned runtime/model/configuration, sandbox fixtures, retr
 
 **Steps:**
 1. Create a falsifiable claim table: for every claim, record population, comparator, unit of analysis, endpoint, numeric threshold, uncertainty bound, minimum detectable effect, repetitions, seed handling, context and state reset, ordering, exclusions, missing/indeterminate handling, retry clustering, multiplicity policy, stopping rule, and forced failure verdict. Thresholds are committed here, before any arm runs.
-2. Define unacceptable regression: C may not lose to A on success rate for **direct** cases (the surface must not tax the easy path).
+2. Define the direct-task harm gate: test C versus A on all assigned **direct** trials at one-sided alpha 0.05. A detected harm rejects or repairs the surface; a non-significant result does not establish noninferiority.
 3. Define component-level decisions:
-   - C beats B on tokens but not success → the surface is an efficiency product, not a capability product; re-scope honestly;
-   - C ≈ D → the frontier adds nothing over bare handles → kill the frontier, keep the surface only if it wins on tokens;
-   - D ≈ E on refusal recovery and downstream success → the teaching shape adds nothing over typed errors → kill the teaching layer;
-   - C does not beat B after cost → the world does not beat a good skill file → kill or narrow Phoenix; this is the headline kill condition;
-   - (Phase 2) counted frontier does not beat authored frontier on held-out cases → keep counting off; hand-author transitions;
+   - C versus B ITT success is the single Phase 1 confirmatory claim. Cost measures are descriptive and cannot veto a capability pass;
+   - if the capability bound does not clear zero, an efficiency-only result requires the pre-committed success, paired-success token, dead-end, and timeout/cap-hit guardrails; report it only as an efficiency product;
+   - C does not improve on D in the frontier isolation → kill the frontier; keep the surface only if the headline passed;
+   - D does not improve on E over all assigned recovery trials, or harms downstream success → replace teaching refusals with plain typed errors;
+   - (Phase 2) counted frontier does not beat authored frontier on held-out cases → keep counting off and hand-author transitions;
    - result indeterminate → expand or repair the corpus; do not promote architecture.
 4. Scope every conclusion to the tested runtime, world, and task classes.
 5. Commit: `docs: precommit frontier experiment decisions`.
@@ -493,7 +494,7 @@ Before any learning code is written:
 2. Open only the sealed validation tranche.
 3. Run Arms A, B, C-static, D, and E with the pre-committed protocol.
 4. Report all primary measures with explicit denominators, including the O(1) wake-up demonstration.
-5. **Stop conditions (from 0.5):** if C-static fails against B after cost, stop — repair the corpus or surface, or narrow Phoenix per the component decisions. Any repair informed by validation outcomes burns that tranche and requires a newly generated, independently sealed validation tranche before another gate attempt. Do not proceed to Phase 2 on the theory that learning will close the gap.
+5. **Stop conditions (from 0.5):** if the C-static versus B ITT-success primary claim fails and the separate efficiency-only rule also fails, stop — repair the corpus or surface, or narrow Phoenix per the component decisions. Cost cannot veto a capability pass or rescue cheap failure by itself. Any repair informed by validation outcomes burns that tranche and requires a newly generated, independently sealed validation tranche before another gate attempt. Do not proceed to Phase 2 on the theory that learning will close the gap.
 6. Continue only after the independent evaluation reviewer accepts the result.
 
 ---

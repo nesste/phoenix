@@ -43,15 +43,60 @@
       "latency_note": "below the probe's one-microsecond reporting resolution"
     }
   ],
-  "claude_code_round_trip": {
+  "claude_code_round_trips": [
+    {
+      "surface": "act",
+      "status": "success",
+      "tool_calls": 2,
+      "followed_first_frontier": true,
+      "input_tokens": 855,
+      "cache_creation_input_tokens": 1456,
+      "cache_read_input_tokens": 1154,
+      "output_tokens": 330,
+      "cost_usd": 0.0165972,
+      "duration_ms": 5852
+    },
+    {
+      "surface": "eval",
+      "status": "success",
+      "tool_calls": 2,
+      "followed_first_frontier": true,
+      "input_tokens": 788,
+      "cache_creation_input_tokens": 1305,
+      "cache_read_input_tokens": 1043,
+      "output_tokens": 250,
+      "cost_usd": 0.0142569,
+      "duration_ms": 6674
+    }
+  ],
+  "standing_token_measurements": {
+    "repetitions": 3,
+    "prompt": "Reply exactly READY.",
+    "input_tokens": {
+      "empty": [227, 227, 227],
+      "act": [774, 774, 774],
+      "eval": [712, 712, 712]
+    },
+    "incremental_tokens_vs_empty": {
+      "act": 547,
+      "eval": 485
+    },
+    "standing_budget_tokens": 600,
+    "passed": true
+  },
+  "malformed_call_measurements": [
+    { "surface": "act", "fresh_sessions": 5, "malformed_calls": 0, "complete_for_gate": false },
+    { "surface": "eval", "fresh_sessions": 5, "malformed_calls": 0, "complete_for_gate": false }
+  ],
+  "probe_setup_failures": {
+    "count": 3,
+    "reason": "the original MCP configs used an unexpanded CLAUDE_PROJECT_DIR placeholder, so the server failed before tool discovery",
+    "counted_as_model_malformed_calls": false
+  },
+  "linux_rerun": {
+    "wsl_distribution": "Ubuntu",
     "status": "blocked",
-    "attempted": true,
-    "http_status": 429,
-    "reason": "account session limit reached before inference",
-    "input_tokens": 0,
-    "output_tokens": 0,
-    "cost_usd": 0,
-    "retry_after_local_time": "22:00 Europe/Bucharest"
+    "reason": "Go is not installed in the available WSL distribution"
   },
   "provisional_decision": {
     "stack": "go1.26.5 + MCP Go SDK v1.6.1 + stdio",
@@ -61,10 +106,7 @@
   "phase_0_gate": {
     "accepted": false,
     "missing": [
-      "successful pinned Claude Code act round trip",
-      "successful pinned Claude Code eval round trip",
-      "standing runtime token deltas",
-      "malformed-call rate",
+      "20-repetition malformed-call rate and Wilson interval for each surface",
       "Linux stdio rerun"
     ]
   }

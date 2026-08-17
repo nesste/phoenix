@@ -1,63 +1,344 @@
 {
-  "v": 1,
-  "status": "draft",
+  "v": 3,
+  "status": "review_candidate",
   "frozen": false,
+  "recorded_on": "2026-08-17",
+  "scope": {
+    "runtime_population": "Claude Code 2.1.229 with claude-sonnet-5 at low effort",
+    "world_population": "the frozen Phoenix dev-repo world build",
+    "task_population": "the eight frontier-v1 case classes",
+    "claim_limit": "No result generalizes to another runtime, model, world, or task class without a new protocol and sealed tranche."
+  },
   "runtime": {
     "name": "claude-code",
     "version": "2.1.229",
     "model": "claude-sonnet-5",
     "effort": "low",
+    "service_tier": "standard",
+    "fast_mode": false,
     "access_mode": "surface_only",
-    "session_persistence": false
+    "session_persistence": false,
+    "transport": "stdio",
+    "max_turns": 12,
+    "cli_invariants": [
+      "--no-session-persistence",
+      "--output-format stream-json",
+      "--strict-mcp-config",
+      "--tools empty",
+      "only the arm-declared tools are allowed"
+    ]
+  },
+  "tranche_design": {
+    "split_unit": "generating_family",
+    "minimum_cases_per_class": 12,
+    "minimum_families_per_class": 8,
+    "inferential_subset_minimum_families": 8,
+    "frontier_subset_minimum_families": 12,
+    "minimum_variants_per_family": 3,
+    "minimum_distinct_families": 24,
+    "oversampled_classes": {
+      "direct": { "minimum_cases": 24, "minimum_families": 8 },
+      "recovery": { "minimum_cases": 24, "minimum_families": 8 }
+    },
+    "minimum_cases_per_tranche": 120,
+    "family_overlap_across_tranches": false,
+    "family_allocation": {
+      "families": 24,
+      "cases_per_family": 5,
+      "group_direct": {
+        "families": 8,
+        "per_family": { "direct": 3, "absence": 1, "stale_frontier": 1 }
+      },
+      "group_recovery": {
+        "families": 8,
+        "per_family": { "recovery": 3, "far_discovery": 1, "temptation": 1 }
+      },
+      "group_mix": {
+        "families": 8,
+        "counts_across_group": {
+          "cascade": 12,
+          "far_discovery": 4,
+          "temptation": 4,
+          "absence": 4,
+          "stale_frontier": 4,
+          "adversarial_text": 12
+        },
+        "constraint": "Each mix family contains 5 of those remaining slots so class totals are direct 24, recovery 24, and 12 for every other class, and the frontier subset contains the 8 recovery families plus at least 4 mix families (G>=12)."
+      }
+    },
+    "power_assumptions": {
+      "target_power_at_15_point_headline": 0.62,
+      "eighty_percent_mde_headline_reject_zero": 0.19,
+      "phase_1_primary_claims": 1,
+      "familywise_alpha": 0.05,
+      "worst_case_binary_rate": 0.5,
+      "family_intraclass_correlation": 0.1,
+      "repetition_intraclass_correlation": 1.0,
+      "note": "80% power for a 15-point effect at Holm-adjusted LCB >= 0.10 is incompatible with 24 families, ICC 0.10, and the USD 300 validation ceiling. Phase 1 confirmatory inference is a single one-sided alpha=0.05 test of C minus B ITT success against 0. Component claims are pre-registered isolations, not a Holm family of LCB floors."
+    }
   },
   "trial": {
     "fresh_agent_context": true,
     "fresh_sandbox": true,
     "fresh_isolated_world": true,
-    "paired_seeds_when_supported": true,
-    "case_order": "randomized_blocked_by_case_family",
-    "repetitions_per_case_arm": null,
-    "retry_policy": null,
-    "timeout_seconds": null,
-    "max_cost_usd_per_trial": null
+    "repetitions_per_case_arm": 3,
+    "model_seed_support": false,
+    "pairing_key": ["case_id", "repetition"],
+    "case_order": "family-blocked Williams Latin square generated before opening the tranche",
+    "launch_order": "The Williams Latin square orders the launch of pairing keys (case_id, repetition, arm) inside each family block. Each trial is still a fresh session. The square is not a within-session crossover.",
+    "schedule_seed": 20260817,
+    "timeout_seconds": 180,
+    "max_cost_usd_per_trial": 0.15,
+    "retry_policy": {
+      "maximum_infrastructure_retries": 1,
+      "eligible": "provider 429/5xx, runtime launch failure, or MCP connection failure before the first model token",
+      "ineligible": "timeout, malformed call, tool error, refusal, agent error, or any failure after the first model token",
+      "reset": "eligible retries receive a fresh context, sandbox, and world and retain the original pairing key",
+      "recording": "every attempt is retained and retry attempts remain clustered with the assigned trial"
+    },
+    "exclusions": "Only fixture corruption or infrastructure failure detected before the first model token may be excluded; exclusions and reasons are published.",
+    "missing_and_indeterminate": "Unresolved assigned trials count as failures in the primary intention-to-treat analysis. Manual-required grades also count as failures. If unresolved infrastructure failures exceed 5% in any arm or differ by more than 2 percentage points between compared arms, the tranche is indeterminate.",
+    "stopping_rule": "No efficacy or futility stopping and no outcome peeking. A hard budget or safety stop makes the tranche indeterminate; it never creates a pass.",
+    "budget_exhaustion": "Stop only at a completed pairing-key boundary: all Phase 1 arms for that case_id and repetition have a terminal ITT outcome, or none do. Discard incomplete pairing keys and count them toward the unresolved quota. Never a pass.",
+    "cap_imbalance": "Hitting max_turns, timeout_seconds, or max_cost_usd_per_trial is an ITT failure, not a retry. If the cap-hit rate differs by more than 0.02 of assigned trials between compared arms, cost-ratio claims are indeterminate.",
+    "unresolved_denominator": "The 0.05 unresolved-infrastructure limit and the 0.02 arm-imbalance rule use assigned trials in that arm as the denominator, compared before rounding."
   },
   "arms": {
-    "A": "flat tools with complete upfront schemas",
-    "B": "A plus frozen static skill or CLAUDE.md",
-    "C": "Phoenix handles, frontier, and teaching refusals",
-    "D": "C with frontier suppressed",
-    "E": "D with teaching refusals replaced by plain typed errors",
-    "D_prime": "Phase 2 only: authored static frontier"
+    "A": {
+      "phase": "1",
+      "surface": "conventional flat tools with complete upfront schemas",
+      "documentation": "tool names, descriptions, and schemas only",
+      "frontier": false,
+      "teaching_refusals": false
+    },
+    "B": {
+      "phase": "1",
+      "surface": "identical to A",
+      "documentation": "Arm B's frozen static document must (1) name every starter-world verb, its arguments, and a one-line when-to-use, (2) include one worked path per authoring class taken from authoring acceptable_paths, (3) include a recovery recipe for each authoring refusal case, (4) use authoring evidence only, (5) receive a human-factors completeness review against the authoring label set, with that review committed, and (6) freeze by digest before validation. It uses the same verb implementations, typed payloads, side effects, limits, and surface-only access as Arm A.",
+      "frontier": false,
+      "teaching_refusals": false
+    },
+    "C": {
+      "phase": "1",
+      "surface": "Phoenix handles and structured act tool",
+      "documentation": "constant standing surface only",
+      "frontier": true,
+      "teaching_refusals": true
+    },
+    "D": {
+      "phase": "1",
+      "surface": "identical to C",
+      "documentation": "identical to C",
+      "frontier": false,
+      "teaching_refusals": true
+    },
+    "E": {
+      "phase": "1",
+      "surface": "identical to D",
+      "documentation": "identical to D",
+      "frontier": false,
+      "teaching_refusals": false
+    },
+    "D_prime": {
+      "phase": "2",
+      "surface": "identical to counted C",
+      "documentation": "identical to counted C",
+      "frontier": true,
+      "teaching_refusals": true
+    }
+  },
+  "arm_equivalence": {
+    "shared": "All arms use the same model configuration, case, sandbox, verb implementations, typed payloads, side effects, limits, and cost accounting.",
+    "irreducible_differences": [
+      "A and B expose one upfront schema per verb; C, D, E, and D_prime expose the constant Phoenix act schema.",
+      "B includes a frozen static document that other arms do not receive.",
+      "C includes frontier entries; D suppresses them; E also replaces teaching refusals with plain typed errors.",
+      "D_prime uses the authored static ranking while Phase 2 C uses replay-gated counted ranking."
+    ]
   },
   "measures": [
-    "task_success_rate",
-    "tokens_to_success",
-    "acts_to_success",
-    "wall_time",
-    "wrong_verb_rate",
-    "dead_end_rate",
-    "refusal_recovery_rate",
-    "frontier_take_rate",
-    "frontier_take_and_succeed_rate",
-    "standing_wakeup_tokens",
-    "daemon_overhead_per_act"
+    { "id": "task_success_rate", "denominator": "all assigned trials", "failure_treatment": "timeout, missing, manual-required, and grader failure are failures" },
+    { "id": "tokens_to_success", "denominator": "successful trials", "failure_treatment": "failed-trial tokens are reported separately; ITT tokens are descriptive and cannot veto a capability pass" },
+    { "id": "paired_success_token_ratio", "denominator": "pairing keys where both compared arms succeeded", "failure_treatment": "indeterminate if either arm has fewer than 10 successful trials; family log ratios use the pre-registered continuity correction" },
+    { "id": "acts_to_success", "denominator": "successful trials", "failure_treatment": "failed-trial acts are reported separately" },
+    { "id": "wall_time", "denominator": "all assigned trials", "failure_treatment": "timeouts are recorded at the cap" },
+    { "id": "wrong_verb_rate", "denominator": "all recorded acts", "failure_treatment": "no exclusion" },
+    { "id": "dead_end_rate", "denominator": "all assigned trials", "failure_treatment": "stall, help request, timeout, and no-progress termination are dead ends" },
+    { "id": "timeout_or_cap_hit_rate", "denominator": "all assigned trials", "failure_treatment": "timeout, max-turn, and cost-cap hits are ITT failures and remain in the denominator" },
+    { "id": "refusal_recovery_rate", "denominator": "all assigned recovery trials in D and E", "failure_treatment": "the trigger is the first failed or declined state-sensitive act, including E plain typed errors; recovery requires a later successful alternative and successful grade" },
+    { "id": "frontier_take_rate", "denominator": "eligible frontier displays", "failure_treatment": "frontier-suppressed arms are not eligible" },
+    { "id": "frontier_take_and_succeed_rate", "denominator": "eligible frontier displays", "failure_treatment": "requires suggestion linkage and successful grade" },
+    { "id": "standing_wakeup_tokens", "denominator": "fresh sessions at 10, 100, and 1000 verbs", "failure_treatment": "missing measurement fails the invariant" },
+    { "id": "daemon_overhead_per_act", "denominator": "all completed daemon acts", "failure_treatment": "daemon failures are reported separately" }
   ],
-  "claims": [],
+  "analysis": {
+    "unit_of_analysis": "assigned case-arm-repetition trial",
+    "pairing": "comparisons pair arms by case_id and repetition",
+    "clustering": ["generating_family", "case_id"],
+    "interval_method": "If the analysis subset has G>=20 generating families, use the 10000-replicate paired hierarchical bootstrap (resample families, then cases within family, retain arm pairs and repetitions). If G<20, the primary bound is the exact sign-flip permutation of unweighted family means of the paired case-level differences (all 2^G flips for G<=16; 100000 Monte Carlo flips with analysis_seed 20260817 for 16<G<20). Do not use a percentile bootstrap as the primary bound when G<20. One-sided alpha=0.05 for the primary claim. Isolations use the same interval method and are reported as isolations, not Holm-adjusted 95% bounds.",
+    "confidence": "one-sided 95% bounds for precommitted directional and noninferiority claims; two-sided 95% intervals for descriptive measures",
+    "ratio_method": "Bootstrap or permute log ratios of family totals and exponentiate. If either arm has fewer than 10 successful trials, ratio claims are indeterminate. Apply a +0.5 token continuity correction to any zero family total before logging.",
+    "multiplicity": "Single Phase 1 primary claim: headline_value. direct_no_tax, frontier_value, and teaching_refusal_value are pre-registered isolations. They may force a component kill. They cannot create a headline pass. Phase 2 learning_value is a separate single claim.",
+    "analysis_seed": 20260817,
+    "sensitivity": [
+      "complete-case analysis beside the primary intention-to-treat analysis",
+      "case-level means with one vote per case",
+      "family-level means with one vote per generating family"
+    ]
+  },
+  "claims": [
+    {
+      "id": "direct_no_tax",
+      "phase": "1",
+      "population": "all assigned direct cases under intention to treat",
+      "intervention": "C",
+      "comparator": "A",
+      "unit": "paired assigned trial clustered by family and case",
+      "endpoint": "C minus A task-success rate",
+      "uncertainty": "one-sided alpha=0.05 family-mean sign-flip permutation test",
+      "threshold": "This is a harm gate, not a demonstrated noninferiority claim. Fail if the one-sided permutation test that C is worse than A has p<0.05. Otherwise do not block the headline and do not claim noninferiority. Report the difference against -0.10 descriptively.",
+      "minimum_detectable_effect": 0.3,
+      "power_note": "Approximate 80% harm-detection MDE is 0.30. Power is approximately 0.16 for a 10-point harm and 0.35 for a 20-point harm.",
+      "repetitions": 3,
+      "seed_handling": "no model seed; pair by case and repetition",
+      "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
+      "exclusions_and_missing": "protocol trial rules",
+      "retry_clustering": "retry remains in its assigned trial cluster",
+      "multiplicity": "pre-registered Phase 1 isolation; cannot create a headline pass",
+      "stopping": "no outcome-based stopping",
+      "forced_failure": "repair or reject the Phoenix surface"
+    },
+    {
+      "id": "headline_value",
+      "phase": "1",
+      "population": "all assigned cases from all eight classes under intention to treat",
+      "intervention": "C",
+      "comparator": "B",
+      "unit": "paired assigned trial clustered by family and case",
+      "endpoint": "C minus B task-success rate; success is the only confirmatory endpoint",
+      "uncertainty": "one-sided alpha=0.05 hierarchical-bootstrap lower bound with G=24",
+      "threshold": "Capability passes if the one-sided lower bound for C-B ITT success is greater than 0. Cost is descriptive and cannot veto capability: report ITT token, wall-time, and USD totals and paired-success tokens. Efficiency-only is available only if the primary bound is <=0 and all four conditions hold: the success lower bound is greater than -0.05; the paired-success C/B token-ratio upper bound is at most 0.80; the C-B dead-end-rate upper bound is less than 0.05; and the C-B timeout-or-cap-hit-rate upper bound is less than 0.05. The ITT token ratio is reported but is not an efficiency pass criterion.",
+      "minimum_detectable_effect": 0.19,
+      "power_note": "Approximate 80% MDE against zero is 0.19; power at a 0.15 difference is approximately 0.62.",
+      "repetitions": 3,
+      "seed_handling": "no model seed; pair by case and repetition",
+      "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
+      "exclusions_and_missing": "protocol trial rules",
+      "retry_clustering": "retry remains in its assigned trial cluster",
+      "multiplicity": "single Phase 1 primary claim at one-sided alpha=0.05",
+      "stopping": "no outcome-based stopping",
+      "forced_failure": "kill or narrow Phoenix; an efficiency-only result must be labeled only as an efficiency product and cannot support a capability claim"
+    },
+    {
+      "id": "frontier_value",
+      "phase": "1",
+      "population": "all assigned cascade, far_discovery, recovery, and temptation cases under intention to treat; at least 12 generating families",
+      "intervention": "C",
+      "comparator": "D",
+      "unit": "paired assigned trial clustered by family and case",
+      "endpoint": "C minus D task-success rate under intention to treat",
+      "uncertainty": "one-sided alpha=0.05 family-mean sign-flip permutation test because G=12",
+      "threshold": "Remove the frontier if the C-D success point estimate is <=0 or the isolation shows C is worse than D with one-sided p<0.05. Token effects are descriptive and cannot rescue the frontier.",
+      "minimum_detectable_effect": 0.25,
+      "power_note": "Approximate 80% MDE against zero is 0.25 for G=12 and n=60 at one-sided alpha=0.05; it is reported as an MDE, not a pass floor.",
+      "repetitions": 3,
+      "seed_handling": "no model seed; pair by case and repetition",
+      "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
+      "exclusions_and_missing": "protocol trial rules",
+      "retry_clustering": "retry remains in its assigned trial cluster",
+      "multiplicity": "pre-registered Phase 1 isolation; cannot create a headline pass",
+      "stopping": "no outcome-based stopping",
+      "forced_failure": "remove the frontier; retain the surface only if headline_value passed"
+    },
+    {
+      "id": "teaching_refusal_value",
+      "phase": "1",
+      "population": "all assigned recovery cases under intention to treat; D teaching refusals and E plain typed errors are both eligible",
+      "intervention": "D",
+      "comparator": "E",
+      "unit": "paired assigned trial clustered by family and case",
+      "endpoint": "Recovery is triggered when the first state-sensitive act fails or is declined; it requires a later successful alternative and a successful final grade. Compare D minus E recovery rate, with downstream ITT task success as a guardrail.",
+      "uncertainty": "one-sided alpha=0.05 family-mean sign-flip permutation test because G=8",
+      "threshold": "Replace teaching refusals if the D-E recovery point estimate is <=0 or D is worse than E with one-sided p<0.05. Also reject teaching refusals if the one-sided lower bound for D-E downstream ITT success is below -0.05. Do not claim a 0.15 recovery floor.",
+      "minimum_detectable_effect": 0.39,
+      "power_note": "The approximate 80% MDE against zero is 0.39 at n_eff=20 and one-sided alpha=0.05 under the pre-registered normal approximation. It is reported as design sensitivity, not a pass floor.",
+      "repetitions": 3,
+      "seed_handling": "no model seed; pair by case and repetition",
+      "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
+      "exclusions_and_missing": "protocol trial rules",
+      "retry_clustering": "retry remains in its assigned trial cluster",
+      "multiplicity": "pre-registered Phase 1 isolation; cannot create a headline pass",
+      "stopping": "no outcome-based stopping",
+      "forced_failure": "replace teaching refusals with plain typed errors"
+    },
+    {
+      "id": "learning_value",
+      "phase": "2",
+      "population": "all assigned held_out cases with daemon, verbs, authored rules, candidate weights, and training-episode digest frozen",
+      "intervention": "counted C",
+      "comparator": "D_prime",
+      "unit": "paired assigned trial clustered by family and case",
+      "endpoint": "counted C minus D_prime task-success rate under intention to treat",
+      "uncertainty": "one-sided alpha=0.05 bound using the pre-registered G>=20 or G<20 interval method",
+      "threshold": "Keep counting disabled if the one-sided lower bound for counted-C minus D_prime success is <=0. Efficiency measures are descriptive and cannot rescue counting.",
+      "minimum_detectable_effect": 0.19,
+      "power_note": "Approximate 80% MDE against zero is 0.19; power at a 0.15 difference is approximately 0.62.",
+      "repetitions": 3,
+      "seed_handling": "no model seed; pair by case and repetition",
+      "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
+      "exclusions_and_missing": "protocol trial rules",
+      "retry_clustering": "retry remains in its assigned trial cluster",
+      "multiplicity": "single Phase 2 primary claim",
+      "stopping": "no outcome-based stopping",
+      "forced_failure": "keep counting disabled and retain authored ranking"
+    }
+  ],
+  "phase_2_eval": {
+    "online_updates": false,
+    "frozen": ["daemon", "verbs", "authored_rules", "candidate_weights", "training_episode_digest"],
+    "arms": ["counted_C", "D_prime", "B"],
+    "learning_claim": "counted_C versus D_prime",
+    "headline_replication": "counted_C versus B uses the Phase 1 headline success threshold as a pre-registered replication. It does not consume Phase 1 alpha. If Phase 1 passed and this replication fails, the held_out result is indeterminate, never a pass."
+  },
+  "engineering_gates": {
+    "standing_surface": "At each of 10, 100, and 1000 verbs, incremental standing input cost versus empty MCP must be at most 600 tokens; maximum spread across the three sizes must be at most 5 tokens.",
+    "daemon_latency": "On the target Linux environment, median daemon-only act latency must be at most 2 ms, p95 at most 10 ms, and daemon time at most 5% of median successful trial wall time.",
+    "malformed_calls": "Across at least 20 fresh one-call probes on the frozen runtime, malformed-call rate must be at most 5%; Wilson 95% upper bound is reported.",
+    "forced_failure": "Failure of an engineering gate blocks the surface claim and requires repair plus a new unopened tranche."
+  },
+  "budget": {
+    "authoring_usd": 75,
+    "validation_usd": 300,
+    "held_out_usd": 180,
+    "surface_and_protocol_usd": 10,
+    "hard_total_usd": 565,
+    "budget_exhaustion": "Stop without opening more cases; the result is indeterminate, never a pass."
+  },
+  "artifact_freeze": {
+    "before_validation": [
+      "runtime invocation and system prompt",
+      "arm A schemas",
+      "arm B static document",
+      "world definition and world-build digest",
+      "runner digest",
+      "schedule digest",
+      "grader digest",
+      "analysis implementation and report template"
+    ],
+    "source_limit": "Arm artifacts may use authoring outcomes only. No validation or held_out outcome may inform them."
+  },
   "unresolved_before_freeze": [
-    "numeric thresholds",
-    "uncertainty method and confidence level",
-    "minimum detectable effects",
-    "repetitions and power analysis",
-    "retry and timeout policy",
-    "cost ceiling",
-    "missing and indeterminate handling",
-    "multiplicity policy",
-    "forced verdict for every claim"
+    "independent evaluation reviewer acceptance"
   ],
   "gate": {
     "may_run_authoring": false,
     "may_open_validation": false,
     "may_open_held_out": false,
-    "reason": "surface measurement, corpus, labels, thresholds, and independent review are incomplete"
+    "reason": "The protocol awaits independent acceptance; Task 0.2 still lacks the Linux and 20-repetition malformed-call gates; sealed tranches and Phase 0 review do not exist."
+  },
+  "review": {
+    "required_role": "evaluation reviewer independent of implementation",
+    "accepted": false,
+    "review_record": null
   }
 }

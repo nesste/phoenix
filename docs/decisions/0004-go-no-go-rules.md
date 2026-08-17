@@ -1,73 +1,118 @@
 # 0004: Frontier experiment go/no-go rules
 
-- **Status:** Draft; numeric thresholds and cost envelope not frozen
+- **Status:** Protocol v3 review candidate; independent acceptance required
 - **Date:** 2026-08-17
 - **Protocol:** `experiments/frontier-v1/protocol.json`
+- **Review 1:** `docs/reviews/2026-08-17-task-0.5-review-1.md`
+- **Second-review prompt:** `docs/reviews/2026-08-17-task-0.5-evaluator-prompt-v2.md`
 
-## Decision structure
+## Decision
 
-No validation or held-out run starts while this decision is draft. Freezing it requires an evaluation reviewer independent of implementation to accept the unit of analysis, effect thresholds, uncertainty method, repetitions, missing-data treatment, multiplicity policy, and total cost ceiling.
+Phoenix uses a fixed, paired experiment with no outcome-based stopping. Protocol v3 keeps one confirmatory Phase 1 claim: C versus B intention-to-treat task success. The direct-task, frontier, and teaching-refusal comparisons are pre-registered component isolations. An isolation may remove or reject its component, but it cannot create a headline pass.
 
-Every claim records:
+This document does not freeze itself. Review 1 returned `REVISE`. Until an independent evaluation reviewer accepts v3, `protocol.json` remains `review_candidate`, `frozen` remains false, and no validation or held_out outcome may open.
 
-- population and task classes;
-- intervention and comparator;
-- unit of analysis and clustering variables;
-- primary endpoint and numeric threshold;
-- uncertainty bound and minimum detectable effect;
-- repetitions, seed handling, context reset, and case ordering;
-- exclusions fixed before the run;
-- retry, timeout, missing, and indeterminate handling;
-- multiplicity policy and stopping rule;
-- one forced verdict when the threshold is missed.
+## Runtime and trial contract
 
-## Fixed qualitative verdicts
+All arms use Claude Code 2.1.229, `claude-sonnet-5`, low effort, standard service, fast mode off, stdio, and surface-only access. Each assigned trial receives a fresh model context, sandbox, and isolated world. Session persistence is disabled.
 
-These verdicts are frozen now; only their numeric thresholds remain open:
+Each case-arm pair runs three times. Claude Code does not expose a model seed for this configuration, so comparisons pair arms by case and repetition. A family-blocked Williams Latin square orders launches of `(case_id, repetition, arm)` pairing keys; it is not a within-session crossover. The schedule seed is 20260817, and the schedule digest must be committed before a tranche opens.
 
-- C must not regress against A on direct-task success. A regression kills the current surface.
-- C versus B is the headline package comparison. Failure after token, latency, and daemon cost kills or narrows the headline claim.
-- C versus D determines whether the frontier survives.
-- D versus E determines whether teaching refusals survive.
-- In Phase 2, counted C versus authored D′ determines whether counting remains enabled.
-- An indeterminate result does not count as a pass. It requires a new, adequately powered sealed tranche.
+A trial has these hard limits:
 
-## Proposed endpoints for independent review
+- 12 model turns;
+- 180 seconds;
+- USD 0.15;
+- one infrastructure retry, only for a provider, process-launch, or MCP connection failure before the first model token.
 
-The review must assign numbers to these endpoint forms without inspecting validation or held-out outcomes:
+A timeout, malformed call, tool error, refusal, agent error, turn-limit hit, or cost-cap hit is an intention-to-treat failure and is not retryable. Retry attempts retain the original pairing key and analysis cluster.
 
-| Claim | Primary endpoint form | Forced failure verdict |
+Budget stops occur only at completed pairing-key boundaries: all Phase 1 arms for that case and repetition receive terminal outcomes, or none do. Incomplete pairing keys count toward the unresolved quota. The 5% unresolved limit and 2-percentage-point imbalance rule use assigned trials in each arm before rounding. If cap-hit rates differ by more than 0.02 between compared arms, cost-ratio claims are indeterminate. None of these conditions can create a pass.
+
+## Sealed-tranche size and allocation
+
+Each validation and held_out tranche contains exactly the precommitted minimum design: 120 cases from 24 generating families, five cases per family, three repetitions per case-arm pair, at least eight families per class and inferential subset, and no generating family shared across tranches.
+
+The allocation fixes the cluster incidence:
+
+- eight direct families, each with three `direct`, one `absence`, and one `stale_frontier` case;
+- eight recovery families, each with three `recovery`, one `far_discovery`, and one `temptation` case;
+- eight mix families containing, in total, 12 `cascade`, four `far_discovery`, four `temptation`, four `absence`, four `stale_frontier`, and 12 `adversarial_text` cases;
+- at least four mix families contribute to the frontier subset, so that subset has at least 12 families.
+
+Class totals are 24 `direct`, 24 `recovery`, and 12 for each other class.
+
+Under binary rate 0.5, family ICC 0.10, and repetition ICC 1.0, the design has approximately 62% power for a 15-point headline effect. Its approximate 80% headline MDE against zero is 19 points. The USD 300 validation ceiling cannot support 80% power for the former Holm-adjusted LCB floors, so v3 makes no such claim.
+
+## Arm contract
+
+| Arm | Surface | Additional behavior |
 | --- | --- | --- |
-| no direct-task tax | paired success-rate difference, C minus A | repair or reject the surface |
-| headline value | C minus B success plus tokens-to-success ratio | kill or narrow Phoenix |
-| frontier value | C minus D on cascade, far-discovery, recovery, and temptation | remove the frontier |
-| refusal value | D minus E recovery after a state refusal | replace teaching refusals with typed errors |
-| O(1) wake-up | maximum standing-token spread across 10/100/1,000 verbs | reject the constant-surface claim |
-| daemon cost | per-act latency distribution and wall-time contribution | optimize or reject the surface |
-| learning value | counted C minus authored D′ on the untouched held-out tranche | keep counting disabled |
+| A | flat tools with complete upfront schemas | none |
+| B | identical to A | frozen static authoring-only skill or `CLAUDE.md` |
+| C | Phoenix handles plus structured `act` | frontier and teaching refusals |
+| D | identical to C | frontier suppressed; teaching refusals retained |
+| E | identical to D | teaching refusals replaced with plain typed errors |
+| D' | Phase 2 surface identical to counted C | authored static ranking instead of counted ranking |
 
-## Analysis requirements
+All arms share the case, sandbox, verb implementations, typed payloads, side effects, limits, model configuration, and cost accounting. The upfront flat schemas in A/B and constant schema in C/D/E are irreducible surface differences.
 
-- Each trial starts with a fresh model context, sandbox, and isolated world state.
-- Arms use identical underlying verb implementations, side effects, limits, and typed payloads.
-- Seeds are paired where the runtime exposes them; otherwise repetitions remain paired by case and order block.
-- Case order is randomized or counterbalanced within a pre-generated block.
-- Confidence intervals cluster repeated observations by case family and seed.
-- Tokens-to-success excludes failed trials from neither the denominator nor cost reporting; failures report their consumed tokens separately.
-- Results publish all primary measures with explicit numerators, denominators, exclusions, retries, and missing trials.
-- Any outcome-informed change burns the opened tranche before another gate attempt.
+Arm B is operationally strong. Its frozen document must name every starter-world verb with arguments and a one-line when-to-use; include one acceptable worked path per authoring class; include a recovery recipe for every authoring refusal case; use authoring evidence only; receive a committed human-factors completeness review against the authoring labels; and freeze by digest before validation. It uses the same implementations, payloads, effects, limits, and surface-only access as A.
 
-## Unresolved gate inputs
+## Analysis
 
-The following values remain `null` in `protocol.json` and block every outcome run:
+The assigned case-arm-repetition trial is the unit of analysis. Comparisons pair arms by case and repetition and cluster by generating family and case.
 
-- minimum cases per class and generating family;
-- repetitions per case and arm;
-- confidence level and interval method;
-- minimum detectable effects and pass thresholds;
-- per-trial timeout, retry limit, and cost ceiling;
-- total experiment budget;
-- handling of provider errors and runtime outages;
-- correction for multiple primary comparisons.
+For subsets with at least 20 families, one-sided bounds use a 10,000-replicate paired hierarchical bootstrap: resample families, then cases within families, while retaining arm pairs and repetitions. For fewer than 20 families, the primary method is a sign-flip permutation of unweighted family means of paired case-level differences: all `2^G` flips when `G <= 16`, or 100,000 seeded Monte Carlo flips when `16 < G < 20`. A percentile bootstrap is not the primary bound below 20 families.
 
-These are product and research-budget choices, not implementation defaults. They must be accepted before the protocol's `frozen` field can become `true`.
+The headline is the single Phase 1 primary claim at one-sided alpha 0.05. The three component comparisons use the same family-count-dependent method as isolations, not Holm-adjusted bounds. Phase 2 learning is a separate single claim.
+
+Ratios operate on family totals and are analyzed on the log scale. A zero family total receives a +0.5 token continuity correction. If either compared arm has fewer than ten successful trials, ratio claims are indeterminate. The report also includes complete-case, one-vote-per-case, and one-vote-per-family sensitivity views; disagreement narrows the conclusion or makes it indeterminate.
+
+## Forced decisions
+
+| Claim | Rule | Forced verdict |
+| --- | --- | --- |
+| direct-task harm gate, C versus A | On all assigned direct trials, fail if the one-sided family-mean permutation test that C is worse than A has `p < 0.05`. Otherwise do not block the headline, do not claim noninferiority, and report the difference against -0.10 descriptively. | repair or reject the Phoenix surface |
+| headline capability, C versus B | On all assigned trials, pass capability only if the one-sided alpha-0.05 lower bound for C minus B ITT success is greater than zero. ITT tokens, wall time, USD, and paired-success tokens are descriptive and cannot veto this pass. | if this and efficiency-only fail, kill or narrow Phoenix |
+| headline efficiency-only | Test only when the primary bound is at most zero. Require success lower bound greater than -0.05, paired-success token-ratio upper bound at most 0.80, C-minus-B dead-end-rate upper bound below 0.05, and C-minus-B timeout-or-cap-hit upper bound below 0.05. | label only as an efficiency product; never claim capability |
+| frontier isolation, C versus D | On all assigned cascade, far-discovery, recovery, and temptation trials with at least 12 families, remove the frontier if the family-mean point estimate is at most zero or C is worse at one-sided `p < 0.05`. Tokens are descriptive. | remove the frontier; retain the surface only if the headline passed |
+| teaching-refusal isolation, D versus E | On all assigned recovery trials, define recovery from the first failed or declined state-sensitive act through a later successful alternative and successful grade. Replace teaching if D minus E recovery is at most zero, D is worse at one-sided `p < 0.05`, or the downstream ITT-success lower bound is below -0.05. | use plain typed errors |
+| learning, counted C versus D' | On all held_out cases, keep counting disabled if the one-sided alpha-0.05 success lower bound is at most zero. Efficiency is descriptive. | keep authored ranking and counting disabled |
+
+The approximate 80% MDEs against zero are 0.19 for the headline and learning claims, 0.25 for the frontier isolation at its minimum 12 families and 60 cases, and 0.39 for the teaching isolation at its effective sample size of 20. The direct gate's evaluator-specified approximate harm-detection MDE is 0.30; power is about 0.16 for a 10-point tax and 0.35 for a 20-point tax. These values describe sensitivity, not pass floors.
+
+## Phase 2
+
+Phase 2 disables online updates and freezes the daemon, verbs, authored rules, candidate weights, and training-episode digest. Its arms are counted C, D', and B. Counted C versus D' is the learning claim. Counted C versus B repeats the Phase 1 headline success threshold without consuming Phase 1 alpha. If Phase 1 passed but the held_out replication fails, held_out is indeterminate and cannot pass.
+
+## Engineering gates
+
+The inferential claims do not override these hard checks:
+
+- incremental standing input cost versus empty MCP is at most 600 tokens at 10, 100, and 1,000 verbs;
+- standing-token spread across those world sizes is at most five tokens;
+- on Linux, daemon-only act latency has median at most 2 ms and p95 at most 10 ms;
+- daemon time is at most 5% of median successful trial wall time;
+- malformed-call rate is at most 5% across at least 20 fresh one-call sessions, with the Wilson 95% interval reported.
+
+Failure blocks the surface claim. Repairing a failed gate after seeing validation outcomes burns the tranche.
+
+## Budget
+
+The hard budget remains USD 565:
+
+| Work | Arithmetic | Ceiling |
+| --- | --- | ---: |
+| authoring | stated allocation | USD 75 |
+| validation | 120 cases x 3 repetitions x 5 arms x USD 0.15 x 1.10 = USD 297 | USD 300 |
+| held_out | 120 cases x 3 repetitions x 3 arms x USD 0.15 x 1.10 = USD 178.20 | USD 180 |
+| surface and protocol | stated allocation | USD 10 |
+
+The 10% allowance is pooled infrastructure capacity, not authorization for every trial to retry. A budget or safety stop is indeterminate, never a pass.
+
+## Freeze boundary
+
+Before validation opens, commit separate digests for the runtime invocation, system prompt, A schemas, B document, world build, runner, schedule, grader, analysis implementation, and report template. These artifacts may use authoring outcomes only.
+
+Review 1 identified the v2 protocol by LF-normalized UTF-8 SHA-256 and returned `REVISE`; it did not issue an acceptance record. Protocol v3 remains unfrozen while it undergoes a second independent design review. Even acceptance would not authorize opening validation until Task 0.2 is accepted, independent unopened sealed families exist, and the Task 0.6 Phase 0 review is complete.
