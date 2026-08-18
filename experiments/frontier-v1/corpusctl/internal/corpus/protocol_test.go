@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestProtocolV4IsUnfrozenCompleteAndBudgeted(t *testing.T) {
+func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	root := repoRoot(t)
 	data, err := os.ReadFile(filepath.Join(root, "experiments", "frontier-v1", "protocol.json"))
 	if err != nil {
@@ -126,19 +126,28 @@ func TestProtocolV4IsUnfrozenCompleteAndBudgeted(t *testing.T) {
 		Review struct {
 			Accepted bool `json:"accepted"`
 			Record   struct {
-				ReviewerRole string `json:"reviewer_role"`
-				Date         string `json:"date"`
-				Verdict      string `json:"verdict"`
-				Candidate    struct {
-					Protocol string `json:"protocol_json"`
-					Decision string `json:"decision_0004"`
+				ReviewerRole    string `json:"reviewer_role"`
+				Date            string `json:"date"`
+				Verdict         string `json:"verdict"`
+				AppliesTo       string `json:"applies_to"`
+				CandidateCommit string `json:"candidate_commit"`
+				Candidate       struct {
+					Protocol  string `json:"protocol_json"`
+					Decision7 string `json:"decision_0007"`
+					Decision4 string `json:"decision_0004"`
+					Analysis  string `json:"authoring_analysis"`
+					Summary   string `json:"authoring_summary"`
 				} `json:"candidate_lf_normalized_utf8_sha256"`
 				AcceptedLimitations        []string `json:"accepted_limitations"`
+				UnresolvedAuthoringIssues  []string `json:"unresolved_authoring_issues"`
 				RemainingExecutionBlockers []string `json:"remaining_execution_blockers"`
 			} `json:"review_record"`
+			HistoricalV3 struct {
+				AppliesTo string `json:"applies_to"`
+			} `json:"historical_v3_review_record"`
 		} `json:"review"`
-		Unresolved []string `json:"unresolved_before_freeze"`
-		Gate       struct {
+		Remaining []string `json:"remaining_execution_blockers"`
+		Gate      struct {
 			MayRunAuthoring   bool   `json:"may_run_authoring"`
 			MayOpenValidation bool   `json:"may_open_validation"`
 			MayOpenHeldOut    bool   `json:"may_open_held_out"`
@@ -148,7 +157,7 @@ func TestProtocolV4IsUnfrozenCompleteAndBudgeted(t *testing.T) {
 	if err := json.Unmarshal(data, &protocol); err != nil {
 		t.Fatal(err)
 	}
-	if protocol.Version != 4 || protocol.Status != "authoring_amendment" || protocol.Frozen || protocol.Review.Accepted {
+	if protocol.Version != 4 || protocol.Status != "frozen" || !protocol.Frozen || !protocol.Review.Accepted {
 		t.Fatalf("unexpected protocol state: v=%d status=%s frozen=%t", protocol.Version, protocol.Status, protocol.Frozen)
 	}
 	if !strings.Contains(protocol.Amendment.Activation, "Before the session's first executable act") || !strings.Contains(protocol.Amendment.Activation, "must not reactivate from intent") || !strings.Contains(protocol.Amendment.Activation, "current pending frontier") {
@@ -188,11 +197,21 @@ func TestProtocolV4IsUnfrozenCompleteAndBudgeted(t *testing.T) {
 		}
 	}
 	record := protocol.Review.Record
-	if record.ReviewerRole != "evaluation reviewer, independent of implementation" || record.Date != "2026-08-17" || record.Verdict != "ACCEPT" {
+	if record.ReviewerRole != "evaluation reviewer, independent of implementation" || record.Date != "2026-08-18" || record.Verdict != "ACCEPT" {
 		t.Fatalf("unexpected independent acceptance record: %+v", record)
 	}
-	if record.Candidate.Protocol != "sha256:4d13c140742ba462d68af865d4ed12b08e6c2e1aba4f652fed4e35adf782a47d" || record.Candidate.Decision != "sha256:399d337ef957ff1a43e7b384a03a7ddfe1e3a360b9f5337ae1d662338dfe3849" {
+	if record.CandidateCommit != "f889f13f0c514fa5108a1e392701ebeadc4376f7" || !strings.Contains(record.AppliesTo, record.CandidateCommit) {
+		t.Fatalf("acceptance record identifies the wrong commit: %+v", record)
+	}
+	if record.Candidate.Protocol != "sha256:4601e1970ebd271161fa3c5c3c245da28a5f55252eac8823f7f9d4f862adf0ff" ||
+		record.Candidate.Decision7 != "sha256:1df4e012ec5d57e1759681cc92d77049897d1517d1ba3f109aa8222791be7674" ||
+		record.Candidate.Decision4 != "sha256:cb35b48709321f885cfc5cd50a6bc08a51bf570d6146b5acad1bb283d3e41903" ||
+		record.Candidate.Analysis != "sha256:f28f07a7cf08583b45bd5e2dc043399c877288a9b7a68d95747ce9ddb15eb58b" ||
+		record.Candidate.Summary != "sha256:114fab6f1a1d2b6f8c98c3b4a8ef544e9aa22cf5f7e19b53c674409568435405" {
 		t.Fatalf("acceptance record identifies the wrong candidate: %+v", record.Candidate)
+	}
+	if protocol.Review.HistoricalV3.AppliesTo != "superseded protocol v3 only" {
+		t.Fatalf("historical v3 acceptance is not scoped: %+v", protocol.Review.HistoricalV3)
 	}
 	if protocol.Runtime.Version == "" || protocol.Runtime.Model == "" || protocol.Runtime.MaxTurns <= 0 {
 		t.Fatal("runtime is not fully pinned")
@@ -331,18 +350,26 @@ func TestProtocolV4IsUnfrozenCompleteAndBudgeted(t *testing.T) {
 	if !hasScheduleDigest {
 		t.Fatal("schedule digest must be frozen explicitly")
 	}
-	if len(protocol.Unresolved) != 2 || !strings.Contains(protocol.Unresolved[0], "protocol v4") || !strings.Contains(protocol.Unresolved[1], "regeneration") {
-		t.Fatalf("amended protocol must retain review and resealing blockers: %v", protocol.Unresolved)
+	if len(protocol.Remaining) != 5 || !strings.Contains(protocol.Remaining[0], "generation and sealing") || !strings.Contains(protocol.Remaining[4], "Task 0.6") {
+		t.Fatalf("frozen protocol must retain execution blockers: %v", protocol.Remaining)
 	}
 	wantLimitations := []string{
 		"Conclusions are limited to Claude Code 2.1.229, claude-sonnet-5, the frozen dev-repo world, and the eight task classes.",
 		"Expected headline power is about 62% at a 15-point effect; the approximate 80% MDE against zero is 0.19.",
 		"The USD 300 validation ceiling cannot support 80% power for a 15-point Holm-adjusted LCB-floor design.",
 		"Efficiency-only is a conservative conjunction; at a true zero difference, power to clear the 0.05 success or dead-end bounds is about 0.16.",
+		"A/B/D/E adapters, including shared state-event application for flat tools, remain preimplementation harness work.",
+		"D/E suppression must remove frontier and refusal calls before pending state is recorded.",
 	}
 	wantExecutionBlockers := []string{
-		"independent unopened validation and held_out families",
+		"independent generation and sealing of new validation and held_out families",
+		"every artifact_freeze.before_validation digest",
+		"Arm B document and human-factors review",
+		"Phase 1 A-E runner adapters, including shared state-event application",
 		"Task 0.6 Phase 0 review",
+	}
+	if len(record.UnresolvedAuthoringIssues) != 1 || !strings.Contains(record.UnresolvedAuthoringIssues[0], "Cascade remains run-to-run noisy") {
+		t.Fatalf("accepted authoring limitation is missing: %v", record.UnresolvedAuthoringIssues)
 	}
 	for label, pair := range map[string][2][]string{
 		"accepted limitations":         {record.AcceptedLimitations, wantLimitations},

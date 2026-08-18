@@ -105,5 +105,5 @@ The other seven cases passed, including the stale-frontier path under the new se
 
 Gate 1A remains closed for two independent reasons:
 
-1. the first protocol-v4 review returned `REVISE`, and this focused revision candidate has not received second independent acceptance; and
+1. protocol v4 is accepted and frozen, but the Phase 1 A-E runner, Arm B artifact package, and pre-validation digests are incomplete; and
 2. the v3 validation and held-out candidates are retired and replacements have not been independently generated or sealed.

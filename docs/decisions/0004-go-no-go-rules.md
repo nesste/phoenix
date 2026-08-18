@@ -1,14 +1,15 @@
 # 0004: Frontier experiment go/no-go rules
 
-- **Status:** Draft protocol v4 revision candidate; protocol v3 acceptance is historical and superseded
+- **Status:** Protocol v4 independently accepted and frozen; protocol v3 acceptance is historical and superseded
 - **Date:** 2026-08-17
 - **Protocol:** `experiments/frontier-v1/protocol.json`
 - **Review 1:** `docs/reviews/2026-08-17-task-0.5-review-1.md`
 - **Second-review prompt:** `docs/reviews/2026-08-17-task-0.5-evaluator-prompt-v2.md`
+- **Protocol v4 acceptance:** `docs/reviews/2026-08-18-protocol-v4-review-2.md`
 
 ## Decision
 
-Protocol v4 and decision 0007 supersede the v3 surface and corpus contract after authoring exposed an initial-activation gap and an unrepresentable stale-state event. Protocol v4 is currently unfrozen and unaccepted. Gate 1A, validation, held_out, and all sealed tranches remain closed.
+Protocol v4 and decision 0007 supersede the v3 surface and corpus contract after authoring exposed an initial-activation gap and an unrepresentable stale-state event. The second independent review accepted candidate `f889f13f0c514fa5108a1e392701ebeadc4376f7` on 2026-08-18 with no findings. Protocol v4 is frozen by the follow-up acceptance-record patch. Gate 1A, validation, held_out, and all sealed tranches remain closed.
 
 The v3 `ACCEPT` verdict and freeze described later in this decision are historical facts about the superseded v3 bytes only. They do not freeze or accept v4, authorize reuse of retired v3 candidates, or satisfy any current blocker.
 
@@ -29,6 +30,14 @@ Phase 1 prompts are pinned per arm. A and B receive the common tool-use prompt o
 | E | identical to D | bootstrap-only; no calls after an act | suppressed | plain typed errors | shared harness |
 
 The fixed paired design, claims, budgets, and no-outcome-stopping rules below remain the intended statistical contract where protocol v4 retains them. Any wording that reports a v3 freeze or acceptance is explicitly historical.
+
+## Protocol v4 independent acceptance
+
+The accepted candidate is commit `f889f13f0c514fa5108a1e392701ebeadc4376f7`. The acceptance applies to the protocol-design candidate identified by the five LF-normalized UTF-8 SHA-256 digests recorded in `protocol.json` and the v4 review record. It does not convert the 7/8 authoring run into a gate result.
+
+The accepted limitations include the preimplementation A/B/D/E adapters, shared flat-tool state-event application, and the requirement that D/E suppression remove frontier or refusal calls before pending state is recorded. Cascade remains noisy and its restored label cannot be weakened.
+
+Protocol acceptance authorizes this acceptance-record patch only. It does not authorize Gate 1A, candidate sealing, validation, or held_out. Those remain blocked on new independent families, every pre-validation artifact digest, the Arm B document and human-factors review, the Phase 1 A-E runner, and Task 0.6 acceptance.
 
 ## Historical v3 design and acceptance (superseded)
 

@@ -1,6 +1,6 @@
 # 0007: Add scoped intent activation and deterministic state events
 
-- **Status:** Draft; authoring-only
+- **Status:** Independently accepted and frozen; authoring-only execution remains open
 - **Date:** 2026-08-18
 - **Supersedes:** The v3 surface and corpus contract in decision 0004
 
@@ -28,6 +28,6 @@ Adding verb maps or worked recipes to the system prompt would turn the Phoenix a
 
 ## Consequences
 
-Protocol v4 is not frozen or independently accepted. The v3 validation and held-out candidates pin the old world, schemas, and grader, so they are retired unopened. They remain in the repository only as custody evidence and must not be opened, run, modified, or resealed in place.
+Protocol v4 candidate `f889f13f0c514fa5108a1e392701ebeadc4376f7` was independently accepted on 2026-08-18 and is frozen by the follow-up acceptance-record patch. The v3 validation and held-out candidates pin the old world, schemas, and grader, so they remain retired unopened. They stay in the repository only as custody evidence and must not be opened, run, modified, or resealed in place.
 
-Gate 1A remains closed. Before validation can open, an independent reviewer must accept v4, independent evaluators must generate new disjoint validation and held-out candidates, and every pre-validation artifact must be frozen by digest.
+Gate 1A remains closed. Before validation can open, independent evaluators must generate and seal new disjoint validation and held-out candidates, every pre-validation artifact must be frozen by digest, the Phase 1 A-E runner and Arm B document must be complete, and Task 0.6 must be accepted.
