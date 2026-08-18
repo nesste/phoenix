@@ -1,0 +1,51 @@
+{
+  "v": 1,
+  "episode_id": "e_0123456789abcdef",
+  "session_id": "s_0123456789abcdef",
+  "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "status": "interrupted",
+  "started_at": "2026-08-18T12:00:00Z",
+  "ended_at": "2026-08-18T12:00:02Z",
+  "acts": [
+    {
+      "sequence": 1,
+      "act_id": "a_0123456789abcdef",
+      "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "completed",
+      "request": {
+        "handle": "h_0123456789abcdef",
+        "verb": "status",
+        "args": {}
+      },
+      "request_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "result": {
+        "status": "ok",
+        "handles": { "grant": [], "revoke": [] },
+        "frontier": []
+      },
+      "result_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "suggestion_taken": null,
+      "started_at": "2026-08-18T12:00:00Z",
+      "completed_at": "2026-08-18T12:00:01Z"
+    },
+    {
+      "sequence": 3,
+      "act_id": "a_1123456789abcdef",
+      "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "interrupted",
+      "request": {
+        "handle": "h_1123456789abcdef",
+        "verb": "run",
+        "args": {}
+      },
+      "request_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "result": null,
+      "suggestion_taken": {
+        "act_id": "a_0123456789abcdef",
+        "index": 0
+      },
+      "started_at": "2026-08-18T12:00:01Z",
+      "completed_at": "2026-08-18T12:00:02Z"
+    }
+  ]
+}

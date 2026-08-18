@@ -15,6 +15,7 @@ import (
 	"sync"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/teach"
 	"github.com/nesste/phoenix/internal/verb"
@@ -107,7 +108,15 @@ type Config struct {
 	Executor     *verb.Executor
 	Frontier     *frontier.Engine
 	Teacher      *teach.Engine
+	Episodes     EpisodeLog
+	Warning      io.Writer
 	MaxArgsBytes int
+}
+
+type EpisodeLog interface {
+	StartEpisode(context.Context, string, string) (string, error)
+	BeginAct(context.Context, episode.StartedAct) error
+	CompleteAct(context.Context, episode.CompletedAct) error
 }
 
 type Admission struct {
@@ -116,11 +125,16 @@ type Admission struct {
 	executor     *verb.Executor
 	frontier     *frontier.Engine
 	teacher      *teach.Engine
+	episodes     EpisodeLog
+	warning      io.Writer
 	maxArgsBytes int
 }
 
 type Session struct {
-	graph *world.Session
+	graph     *world.Session
+	episodeID string
+	mu        sync.Mutex
+	suggested map[string]episode.SuggestionLink
 }
 
 func New(config Config) (*Admission, error) {
@@ -139,13 +153,17 @@ func New(config Config) (*Admission, error) {
 	if config.Teacher == nil {
 		return nil, fmt.Errorf("teaching engine is required")
 	}
+	if config.Episodes != nil && config.Warning == nil {
+		return nil, fmt.Errorf("warning writer is required with episode logging")
+	}
 	if config.MaxArgsBytes <= 0 {
 		config.MaxArgsBytes = defaultMaxArgs
 	}
 	return &Admission{
 		worldBuild: config.WorldBuild, graph: config.Graph,
 		executor: config.Executor, frontier: config.Frontier,
-		teacher: config.Teacher, maxArgsBytes: config.MaxArgsBytes,
+		teacher: config.Teacher, episodes: config.Episodes, warning: config.Warning,
+		maxArgsBytes: config.MaxArgsBytes,
 	}, nil
 }
 
@@ -154,7 +172,16 @@ func (admission *Admission) StartSession() (*Session, []world.RootHandle, error)
 	if err != nil {
 		return nil, nil, err
 	}
-	return &Session{graph: graphSession}, roots, nil
+	session := &Session{graph: graphSession, suggested: make(map[string]episode.SuggestionLink)}
+	if admission.episodes != nil {
+		episodeID, startErr := admission.episodes.StartEpisode(context.Background(), graphSession.ID(), admission.worldBuild)
+		if startErr != nil {
+			admission.warn("episode logging disabled for session: %v", startErr)
+		} else {
+			session.episodeID = episodeID
+		}
+	}
+	return session, roots, nil
 }
 
 func (session *Session) ID() string {
@@ -164,7 +191,16 @@ func (session *Session) ID() string {
 	return session.graph.ID()
 }
 
-func (admission *Admission) Act(ctx context.Context, session *Session, input Input) Envelope {
+func (session *Session) EpisodeID() string {
+	if session == nil {
+		return ""
+	}
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	return session.episodeID
+}
+
+func (admission *Admission) Act(ctx context.Context, session *Session, input Input) (output Envelope) {
 	base := admission.baseEnvelope(session, input)
 	if session == nil || session.graph == nil {
 		return failure(base, "invalid_session", "session is unavailable", nil)
@@ -177,6 +213,15 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 		return failure(base, "arguments_too_large", "act arguments exceeded the size limit", map[string]any{
 			"limit_bytes": admission.maxArgsBytes,
 		})
+	}
+	logContext := context.WithoutCancel(ctx)
+	if admission.beginEpisodeAct(logContext, session, base, input) {
+		defer func() {
+			admission.completeEpisodeAct(logContext, session, base.ActID, output)
+			session.rememberSuggestions(output)
+		}()
+	} else {
+		defer func() { session.rememberSuggestions(output) }()
 	}
 
 	access := session.graph.Prepare(ctx, input.Handle, input.Verb, input.State)
@@ -221,6 +266,94 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 	default:
 		return failure(base, "execution_failed", "verb execution failed", nil)
 	}
+}
+
+func (admission *Admission) beginEpisodeAct(ctx context.Context, session *Session, base Envelope, input Input) bool {
+	episodeID := session.EpisodeID()
+	if admission.episodes == nil || episodeID == "" {
+		return false
+	}
+	started := episode.StartedAct{
+		EpisodeID: episodeID, ActID: base.ActID, WorldBuild: admission.worldBuild,
+		Request:         episode.ActRequest{Handle: input.Handle, Verb: input.Verb, Args: input.Args, State: input.State},
+		SuggestionTaken: session.takeSuggestion(input),
+	}
+	if err := admission.episodes.BeginAct(ctx, started); err != nil {
+		admission.disableEpisode(session, "begin act", err)
+		return false
+	}
+	return true
+}
+
+func (admission *Admission) completeEpisodeAct(ctx context.Context, session *Session, actID string, result Envelope) {
+	episodeID := session.EpisodeID()
+	if episodeID == "" {
+		return
+	}
+	if err := admission.episodes.CompleteAct(ctx, episode.CompletedAct{
+		EpisodeID: episodeID, ActID: actID, Result: result,
+	}); err != nil {
+		admission.disableEpisode(session, "complete act", err)
+	}
+}
+
+func (admission *Admission) disableEpisode(session *Session, operation string, err error) {
+	session.mu.Lock()
+	session.episodeID = ""
+	session.mu.Unlock()
+	admission.warn("episode logging disabled after %s: %v", operation, err)
+}
+
+func (admission *Admission) warn(format string, arguments ...any) {
+	if admission.warning != nil {
+		fmt.Fprintf(admission.warning, "phoenix warning: "+format+"\n", arguments...)
+	}
+}
+
+func (session *Session) takeSuggestion(input Input) *episode.SuggestionLink {
+	key, ok := inputSuggestionKey(input)
+	if !ok {
+		return nil
+	}
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	link, exists := session.suggested[key]
+	if !exists {
+		return nil
+	}
+	delete(session.suggested, key)
+	return &link
+}
+
+func (session *Session) rememberSuggestions(envelope Envelope) {
+	if session == nil {
+		return
+	}
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	for index, entry := range envelope.Frontier {
+		key, err := suggestionKey(entry.Call)
+		if err == nil {
+			session.suggested[key] = episode.SuggestionLink{ActID: envelope.ActID, Index: index}
+		}
+	}
+}
+
+func inputSuggestionKey(input Input) (string, bool) {
+	call := frontier.Call{Handle: input.Handle, Verb: input.Verb, Args: input.Args}
+	if input.State != "" {
+		call.State = &input.State
+	}
+	key, err := suggestionKey(call)
+	return key, err == nil
+}
+
+func suggestionKey(call frontier.Call) (string, error) {
+	encoded, err := json.Marshal(call)
+	if err != nil {
+		return "", err
+	}
+	return string(encoded), nil
 }
 
 func (admission *Admission) evaluateRefusal(base Envelope, session *Session, observation teach.Observation) *Envelope {

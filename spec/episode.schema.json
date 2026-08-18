@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phoenix.local/spec/episode.schema.json",
+  "title": "Phoenix reconstructed episode",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["v", "episode_id", "session_id", "world_build", "status", "started_at", "ended_at", "acts"],
+  "properties": {
+    "v": { "const": 1 },
+    "episode_id": { "$ref": "#/$defs/episodeId" },
+    "session_id": { "$ref": "#/$defs/sessionId" },
+    "world_build": { "$ref": "#/$defs/digest" },
+    "status": { "enum": ["active", "completed", "interrupted"] },
+    "outcome": { "type": "string", "minLength": 1 },
+    "started_at": { "$ref": "#/$defs/timestamp" },
+    "ended_at": {
+      "oneOf": [
+        { "$ref": "#/$defs/timestamp" },
+        { "type": "null" }
+      ]
+    },
+    "acts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/act" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "active" } }, "required": ["status"] },
+      "then": {
+        "properties": { "ended_at": { "type": "null" } },
+        "not": { "required": ["outcome"] }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "completed" } }, "required": ["status"] },
+      "then": {
+        "required": ["outcome"],
+        "properties": { "ended_at": { "$ref": "#/$defs/timestamp" } }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "interrupted" } }, "required": ["status"] },
+      "then": {
+        "properties": { "ended_at": { "$ref": "#/$defs/timestamp" } },
+        "not": { "required": ["outcome"] }
+      }
+    }
+  ],
+  "$defs": {
+    "episodeId": { "type": "string", "pattern": "^e_[A-Za-z0-9_-]+$" },
+    "sessionId": { "type": "string", "pattern": "^s_[A-Za-z0-9_-]+$" },
+    "actId": { "type": "string", "pattern": "^a_[A-Za-z0-9_-]+$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handle", "verb", "args"],
+      "properties": {
+        "handle": { "type": "string", "minLength": 1 },
+        "verb": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$" },
+        "args": { "type": "object" },
+        "state": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "suggestionLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["act_id", "index"],
+      "properties": {
+        "act_id": { "$ref": "#/$defs/actId" },
+        "index": { "type": "integer", "minimum": 0, "maximum": 2 }
+      }
+    },
+    "act": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence", "act_id", "world_build", "status", "request", "request_digest",
+        "result", "suggestion_taken", "started_at", "completed_at"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "act_id": { "$ref": "#/$defs/actId" },
+        "world_build": { "$ref": "#/$defs/digest" },
+        "status": { "enum": ["started", "completed", "interrupted"] },
+        "request": { "$ref": "#/$defs/request" },
+        "request_digest": { "$ref": "#/$defs/digest" },
+        "result": {},
+        "result_digest": { "$ref": "#/$defs/digest" },
+        "suggestion_taken": {
+          "oneOf": [
+            { "$ref": "#/$defs/suggestionLink" },
+            { "type": "null" }
+          ]
+        },
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "completed_at": {
+          "oneOf": [
+            { "$ref": "#/$defs/timestamp" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "completed" } }, "required": ["status"] },
+          "then": {
+            "required": ["result_digest"],
+            "properties": {
+              "result": { "not": { "type": "null" } },
+              "completed_at": { "$ref": "#/$defs/timestamp" }
+            }
+          },
+          "else": {
+            "properties": { "result": { "type": "null" } },
+            "not": { "required": ["result_digest"] }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "started" } }, "required": ["status"] },
+          "then": { "properties": { "completed_at": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "interrupted" } }, "required": ["status"] },
+          "then": { "properties": { "completed_at": { "$ref": "#/$defs/timestamp" } } }
+        }
+      ]
+    }
+  }
+}

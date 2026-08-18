@@ -19,7 +19,7 @@ The Phase 0 experiment modules remain independently reproducible with their acce
 | MCP Go SDK | `github.com/modelcontextprotocol/go-sdk v1.6.1` | Preserves the independently accepted Phase 0 surface. Upgrade only through a reviewed decision and repeated surface checks. |
 | JSON canonicalization | `github.com/gowebpki/jcs v1.0.1` | RFC 8785 canonicalization for world and live-state digests. |
 | JSON Schema | `github.com/santhosh-tekuri/jsonschema/v6 v6.0.3` | Draft 2020-12 validation. |
-| SQLite | `modernc.org/sqlite v1.56.0` | Pure-Go driver reserved for the Phase 1 episode store; no `mattn/go-sqlite3` or other CGO driver. |
+| SQLite | `modernc.org/sqlite v1.56.0` | Pure-Go driver used by the WAL-backed Phase 1 episode store; no `mattn/go-sqlite3` or other CGO driver. |
 | Staticcheck | `honnef.co/go/tools/cmd/staticcheck v0.7.0` | Invoked by exact version from `make lint`. |
 | Govulncheck | `golang.org/x/vuln/cmd/govulncheck v1.7.0` | Invoked by exact version from `make dependency-check`. |
 | Gocyclo | `github.com/fzipp/gocyclo/cmd/gocyclo v0.6.0` | Fails above the complexity limit. |
@@ -84,7 +84,7 @@ Every target returns `0` only when all named checks pass and a nonzero status on
 | `make test` | Runs the root Go tests once with CGO disabled. |
 | `make lint` | Checks formatting, `go vet`, and pinned Staticcheck. |
 | `make build` | Produces a stripped, path-trimmed Linux-amd64 daemon at `bin/phoenix`. |
-| `make validate-spec` | Runs the accepted Draft 2020-12 validator over checked-in result and world examples. |
+| `make validate-spec` | Runs the accepted Draft 2020-12 validator over checked-in result, world, and episode examples. |
 | `make quality` | CI entry point: tests, lint, dependency verification and vulnerability scan, complexity and duplication checks, schema validation, build, and manifest generation. |
 
 The root test target includes the Task 1.4 surface-law harness. It serializes the
@@ -93,4 +93,4 @@ requires byte-for-byte equality, applies a conservative 600-ASCII-byte token
 ceiling, and requires empty MCP instructions plus the single reviewed tool
 description. Any additional standing rule text or capability schema fails CI.
 
-`make manifest` writes `build/manifest.json`. It hashes the daemon, accepted schemas, the typed registry/executor boundary, every source file in the registered dev-repo verb set, and the authored dev-repo transition and refusal sources. The world-definition and active-weight artifacts remain absent until those components are assembled. Gate 1A freezes the complete manifest before validation opens.
+`make manifest` writes `build/manifest.json`. It hashes the daemon, accepted schemas (including the append-only episode-record contract), the typed registry/executor boundary, every source file in the registered dev-repo verb set, and the authored dev-repo transition and refusal sources. The world-definition and active-weight artifacts remain absent until those components are assembled. Gate 1A freezes the complete manifest before validation opens.

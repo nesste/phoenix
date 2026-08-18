@@ -6,16 +6,14 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/verb"
 )
 
-type EpisodePointer struct {
-	EpisodeID string `json:"episode_id"`
-	ActID     string `json:"act_id"`
-}
+type EpisodePointer = episode.Pointer
 
 type EpisodeRecaller interface {
-	Recall(context.Context, string, string) ([]EpisodePointer, error)
+	Recall(context.Context, string, string) ([]episode.Pointer, error)
 }
 
 type Config struct {

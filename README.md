@@ -73,7 +73,7 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
 | Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
-| Production daemon | Tasks 1.1–1.6 implemented: command shell, one instruction-free `act` MCP tool, strict world loading, stable digests, scoped handles, explicit grants/revocations, generic absence, bounded admission/execution, starter repo/test/git/find/recall verbs, deterministic authored frontiers, and state-sensitive teaching refusals with live bound alternatives. The starter world is assembled in Task 1.8; until then the CLI surface has no reachable roots. |
+| Production daemon | Tasks 1.1–1.7 implemented: command shell, one instruction-free `act` MCP tool, strict world loading, stable digests, scoped handles, explicit grants/revocations, generic absence, bounded admission/execution, starter repo/test/git/find/recall verbs, deterministic authored frontiers, state-sensitive teaching refusals, and reconstructable WAL-backed episode records with pointer-only recall. The starter world is assembled in Task 1.8; until then the CLI surface has no reachable roots. |
 
 ## Build the Phase 1 daemon shell
 

@@ -62,6 +62,7 @@ manifest: build
 		--rule verbs/dev-repo/refusals.go \
 		--rule verbs/dev-repo/transitions.go \
 		--schema spec/result.schema.json \
+		--schema spec/episode.schema.json \
 		--schema spec/world.schema.json \
 		--goos $(TARGET_GOOS) \
 		--goarch $(TARGET_GOARCH) \

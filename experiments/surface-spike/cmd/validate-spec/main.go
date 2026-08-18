@@ -30,6 +30,7 @@ func main() {
 		{schema: "spec/result.schema.json", instance: "spec/examples/result.refused_no_alternative.json"},
 		{schema: "spec/result.schema.json", instance: "spec/examples/result.absent.json"},
 		{schema: "spec/world.schema.json", instance: "spec/examples/world.dev_repo.json"},
+		{schema: "spec/episode.schema.json", instance: "spec/examples/episode.interrupted.json"},
 	}
 	for _, item := range validations {
 		if err := validate(root, item); err != nil {

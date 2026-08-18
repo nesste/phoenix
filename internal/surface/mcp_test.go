@@ -1,14 +1,17 @@
 package surface
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 	"sync"
 	"testing"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/teach"
 	"github.com/nesste/phoenix/internal/verb"
@@ -95,6 +98,61 @@ func TestActDistinguishesTeachingRefusalFromAbsenceAndFailure(t *testing.T) {
 		t.Fatalf("refusal rendering/frontier = %q / %#v", envelope.Text, envelope.Frontier)
 	}
 	validateEnvelope(t, envelope)
+}
+
+func TestActRecordsResultsAndFrontierTakenLinkage(t *testing.T) {
+	log := &recordingEpisodeLog{}
+	admission := testAdmissionWithEpisodes(t, 1024, log, &bytes.Buffer{})
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	first := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "brief"},
+	})
+	if len(first.Frontier) != 1 {
+		t.Fatalf("first frontier = %#v", first.Frontier)
+	}
+	next := first.Frontier[0].Call
+	second := admission.Act(context.Background(), session, Input{
+		Handle: next.Handle, Verb: next.Verb, Args: next.Args,
+	})
+	if second.Status != StatusOK {
+		t.Fatalf("second result = %#v", second)
+	}
+	if got, want := len(log.started), 2; got != want {
+		t.Fatalf("recorded starts = %d, want %d", got, want)
+	}
+	if got, want := len(log.completed), 2; got != want {
+		t.Fatalf("recorded completions = %d, want %d", got, want)
+	}
+	link := log.started[1].SuggestionTaken
+	if link == nil || link.ActID != first.ActID || link.Index != 0 {
+		t.Fatalf("suggestion linkage = %#v, want first act frontier index 0", link)
+	}
+	stored, ok := log.completed[0].Result.(Envelope)
+	if !ok || stored.ActID != first.ActID || len(stored.Frontier) != 1 || stored.Handles.Grant == nil {
+		t.Fatalf("recorded result is not reconstructable: %#v", log.completed[0].Result)
+	}
+}
+
+func TestEpisodeStartFailureLeavesWorldWorkingWithWarning(t *testing.T) {
+	warnings := &bytes.Buffer{}
+	log := &recordingEpisodeLog{startErr: errors.New("database corrupt")}
+	admission := testAdmissionWithEpisodes(t, 1024, log, warnings)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatalf("StartSession failed with unavailable logging: %v", err)
+	}
+	result := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{},
+	})
+	if result.Status != StatusOK {
+		t.Fatalf("world stopped when logging failed: %#v", result)
+	}
+	if session.EpisodeID() != "" || !strings.Contains(warnings.String(), "episode logging disabled") {
+		t.Fatalf("logging failure was not loud and disabled: episode=%q warning=%q", session.EpisodeID(), warnings.String())
+	}
 }
 
 func TestAdmissionRejectsOversizedArguments(t *testing.T) {
@@ -230,6 +288,10 @@ func TestMCPServesOnlyActWithStructuredOutput(t *testing.T) {
 }
 
 func testAdmission(t *testing.T, maxArgs int) *Admission {
+	return testAdmissionWithEpisodes(t, maxArgs, nil, nil)
+}
+
+func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, warning *bytes.Buffer) *Admission {
 	t.Helper()
 	definition := &world.Definition{
 		V:  1,
@@ -297,12 +359,37 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 		Executor:     verb.NewExecutor(registry, verb.Options{}),
 		Frontier:     frontierEngine,
 		Teacher:      teachingEngine,
+		Episodes:     episodes,
+		Warning:      warning,
 		MaxArgsBytes: maxArgs,
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
 	return admission
+}
+
+type recordingEpisodeLog struct {
+	startErr  error
+	started   []episode.StartedAct
+	completed []episode.CompletedAct
+}
+
+func (log *recordingEpisodeLog) StartEpisode(context.Context, string, string) (string, error) {
+	if log.startErr != nil {
+		return "", log.startErr
+	}
+	return "e_0123456789abcdef", nil
+}
+
+func (log *recordingEpisodeLog) BeginAct(_ context.Context, act episode.StartedAct) error {
+	log.started = append(log.started, act)
+	return nil
+}
+
+func (log *recordingEpisodeLog) CompleteAct(_ context.Context, act episode.CompletedAct) error {
+	log.completed = append(log.completed, act)
+	return nil
 }
 
 func resultBinding(pointer string) world.Binding {
