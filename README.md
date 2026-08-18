@@ -6,7 +6,7 @@ It runs as a local environment service called a **world**. An agent starts with 
 
 Phoenix does not call a model or run an agent loop. It provides the environment an external agent acts inside.
 
-> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation may begin; the production daemon has not been built.
+> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation is underway: Task 1.1 provides the production command shell, real MCP stdio handshake, quality gate, and content-addressed build manifest. The object graph and `act` tool begin in Task 1.2 and remain unimplemented.
 
 ## The problem Phoenix is testing
 
@@ -73,7 +73,24 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
 | Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
-| Production daemon | Not implemented. The accepted Phase 0 contract authorizes Phase 1 implementation and authoring-only work. |
+| Production daemon | Task 1.1 command shell implemented: `phoenix version` and an instruction-free `phoenix serve --stdio` MCP handshake. Handles, verbs, and world behavior remain unimplemented. |
+
+## Build the Phase 1 daemon shell
+
+The production module pins Go 1.26.6 and builds a Linux-amd64 binary with CGO disabled. Run the complete engineering gate from the repository root:
+
+```powershell
+make quality
+```
+
+The gate tests and analyzes the production module, validates the accepted schemas, builds `bin/phoenix`, and writes the ignored content-addressed manifest at `build/manifest.json`. For a native development smoke check:
+
+```powershell
+go run ./cmd/phoenix version
+go run ./cmd/phoenix serve --stdio
+```
+
+The second command waits for an MCP client on standard input and output.
 
 The accepted surface evidence recorded zero malformed calls in 20 fresh sessions for each candidate. On Ubuntu 24.04.4 under WSL2, the structured `act` spike measured 636.5 microseconds median daemon-only latency and 837 microseconds p95 across 100 calls.
 
