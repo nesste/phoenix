@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_016ae603",
+  "goal": "Run the orrery tests and report the suite outcome.",
+  "sandbox_fixture": "sha256:2a7a005d4bf2993c1c6ffd81aca753741c7720608e9823ca8e2d715aa9881e36",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_006"
+}

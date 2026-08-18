@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_002_v2",
+  "family_id": "validation_family_002",
+  "template": "Foghorn interval table whose unit tests currently all pass.",
+  "files": {
+    "go.mod": "module example.test/foghorn\n\ngo 1.22\n",
+    "foghorn.go": "package foghorn\n\nfunc Interval(n int) int { if n < 1 { return 1 } ; return n }\n",
+    "foghorn_test.go": "package foghorn\n\nimport \"testing\"\n\nfunc TestBlastLegacy(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestInterval(t *testing.T) { if !(Interval(0) == 1) { t.Fatal(\"floor\") } }\n",
+    "README.md": "Foghorn intervals. The unit tests are the source of truth.\n",
+    "harbor/notes.md": "Harbor notes still tell operators to focus TestBlastLegacy first.\n"
+  }
+}

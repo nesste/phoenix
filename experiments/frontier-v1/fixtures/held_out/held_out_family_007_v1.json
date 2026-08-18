@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_007_v1",
+  "family_id": "held_out_family_007",
+  "template": "Compass declination helper whose unit tests currently all pass.",
+  "files": {
+    "go.mod": "module example.test/declination\n\ngo 1.22\n",
+    "declination.go": "package declination\n\nfunc Adjust(deg int) int { return deg }\n",
+    "declination_test.go": "package declination\n\nimport \"testing\"\n\nfunc TestAdjust(t *testing.T) { if !(Adjust(4) == 4) { t.Fatal(\"deg\") } }\nfunc TestZero(t *testing.T) { if !(Adjust(0) == 0) { t.Fatal(\"zero\") } }\n",
+    "README.md": "Declination adjust. The passing suite is the check.\n"
+  }
+}

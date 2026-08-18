@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_8958ee6e",
+  "goal": "Determine whether the fare bands currently behave as specified.",
+  "sandbox_fixture": "sha256:b13881f56eae8dba52084025e79f633cd529f6813a6056b292c15de56748534c",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_007"
+}

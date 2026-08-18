@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_009_v1",
+  "family_id": "held_out_family_009",
+  "template": "Subway dwell-time helper whose platform memo names a retired function.",
+  "files": {
+    "go.mod": "module example.test/dwelltime\n\ngo 1.22\n",
+    "dwelltime.go": "package dwelltime\n\nfunc Dwell(n int) int { return n }\n",
+    "dwelltime_test.go": "package dwelltime\n\nimport \"testing\"\n\nfunc TestDwell(t *testing.T) { if !(Dwell(45) == 45) { t.Fatal(\"n\") } }\nfunc TestHeadwayGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Dwell times. The platform memo is behind the catalog rename.\n",
+    "platform/memo.md": "Focus TestStopWindow as posted last year.\n"
+  }
+}

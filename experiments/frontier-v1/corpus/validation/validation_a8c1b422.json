@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_a8c1b422",
+  "goal": "Determine whether the lamp cycle helper currently behaves as specified.",
+  "sandbox_fixture": "sha256:d32d4167f7fb8e8684488dc9e6677767fd3748a165b0e6b51a9f8d55dc882793",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_010"
+}

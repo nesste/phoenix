@@ -329,10 +329,10 @@
   },
   "unresolved_before_freeze": [],
   "gate": {
-    "may_run_authoring": false,
+    "may_run_authoring": true,
     "may_open_validation": false,
     "may_open_held_out": false,
-    "reason": "The protocol and Task 0.2 evidence are independently accepted, but independent unopened validation and held_out families and the Task 0.6 Phase 0 review do not exist."
+    "reason": "The Phase 0 research contract and independent unopened validation and held_out families are accepted. Authoring-only Phase 1 work may proceed; validation and held_out remain closed until every artifact_freeze.before_validation item is committed by digest."
   },
   "review": {
     "required_role": "evaluation reviewer independent of implementation",

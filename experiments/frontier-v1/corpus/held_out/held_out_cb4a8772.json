@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_cb4a8772",
+  "goal": "Compile these kitchen sources and state the build result.",
+  "sandbox_fixture": "sha256:47ff9578dbc276d2152cfb1ddc4054b766b12f04d5d61232578bdfe5cac4f404",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_017"
+}

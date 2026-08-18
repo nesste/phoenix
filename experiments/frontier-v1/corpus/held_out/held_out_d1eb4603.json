@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_d1eb4603",
+  "goal": "Print these tiles on the studio plotter and return the job number.",
+  "sandbox_fixture": "sha256:7a9d27ba688144d1a7a0de8303e53c5454ddd8fc8c166aeba0a0e5b06d18c2a0",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_022"
+}

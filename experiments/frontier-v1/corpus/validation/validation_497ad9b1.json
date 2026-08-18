@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_497ad9b1",
+  "goal": "The gate checks are failing. Identify the live test and report its individual result.",
+  "sandbox_fixture": "sha256:0f134098c8bf13c73e5848563df4a407bcf8f759cee53858f23a6e2e39c47aab",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_020"
+}

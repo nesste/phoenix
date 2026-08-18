@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_023_v5",
+  "family_id": "held_out_family_023",
+  "template": "Lobster-pot soak table whose hidden alias is not in the top-level readme.",
+  "files": {
+    "go.mod": "module example.test/lobstersoak\n\ngo 1.22\n",
+    "lobstersoak.go": "package lobstersoak\n\nfunc Soak(n int) int { return n }\n",
+    "lobstersoak_test.go": "package lobstersoak\n\nimport \"testing\"\n\nfunc TestBuoyOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestSoak(t *testing.T) { if !(Soak(4) == 4) { t.Fatal(\"ok\") } }\n",
+    "README.md": "Pot soaks. Diagnose the failing live check.\n",
+    "wharf/order.md": "Wharf order still focuses TestBuoyOld first.\n"
+  }
+}

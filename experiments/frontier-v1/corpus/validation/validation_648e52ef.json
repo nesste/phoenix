@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_648e52ef",
+  "goal": "Focus the first check still named in the operator runbook and report its individual result.",
+  "sandbox_fixture": "sha256:6959399abe104872ea62aec8b72a6e888d4d0e0a42a7ccc09e3bbc3b86f43918",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_019"
+}

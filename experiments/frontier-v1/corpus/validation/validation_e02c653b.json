@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_e02c653b",
+  "goal": "Find the vespers identifier in the choir files and run that named test.",
+  "sandbox_fixture": "sha256:e5516bb5b229f251b0bb8fd846b1d29d55e6ee7ef4f04ef922f5b1c81479dea9",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_006"
+}

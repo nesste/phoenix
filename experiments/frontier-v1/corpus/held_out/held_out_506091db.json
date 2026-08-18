@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_506091db",
+  "goal": "Run the live ink-dry test by itself after resolving the protocol name.",
+  "sandbox_fixture": "sha256:e4353bcdb62b9a745873023d92e459943172d285ad9b6f236de3b57c0bd2c979",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_013"
+}

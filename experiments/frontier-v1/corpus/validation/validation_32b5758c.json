@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_32b5758c",
+  "goal": "The lamp checks are not all passing. Name the live soak test and report its individual outcome.",
+  "sandbox_fixture": "sha256:9ac790efaf1e3b3b3105074f024a7526bb8d75918ecd787d5bda269fb8b2ebbb",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_010"
+}

@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_012_v2",
+  "family_id": "held_out_family_012",
+  "template": "Moss cover estimator whose plot ticket title is not a catalog identifier.",
+  "files": {
+    "go.mod": "module example.test/mosscover\n\ngo 1.22\n",
+    "mosscover.go": "package mosscover\n\nfunc Cover(n int) int { return n }\n",
+    "mosscover_test.go": "package mosscover\n\nimport \"testing\"\n\nfunc TestCover(t *testing.T) { if !(Cover(30) == 30) { t.Fatal(\"n\") } }\nfunc TestCanopyGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Moss cover. Ticket titles are not test names.\n",
+    "wood/needle": "transect=TestCover\n"
+  }
+}

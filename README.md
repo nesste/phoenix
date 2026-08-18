@@ -6,7 +6,7 @@ It runs as a local environment service called a **world**. An agent starts with 
 
 Phoenix does not call a model or run an agent loop. It provides the environment an external agent acts inside.
 
-> **Project status:** Phase 0 research prototype. The surface spike, schemas, experiment protocol, and authoring corpus exist. The production daemon has not been built, and no validation or held-out experiment is open.
+> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation may begin; the production daemon has not been built.
 
 ## The problem Phoenix is testing
 
@@ -72,8 +72,8 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | Surface spike | Working Go/MCP prototype with structured `act` and restricted `eval` variants. Task 0.2 evidence is independently accepted. |
 | Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
-| Sealed evaluation | Validation and held-out families do not exist yet. No outcome run is authorized. |
-| Production daemon | Not implemented. Phase 1 begins only after the remaining Phase 0 gates are accepted. |
+| Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
+| Production daemon | Not implemented. The accepted Phase 0 contract authorizes Phase 1 implementation and authoring-only work. |
 
 The accepted surface evidence recorded zero malformed calls in 20 fresh sessions for each candidate. On Ubuntu 24.04.4 under WSL2, the structured `act` spike measured 636.5 microseconds median daemon-only latency and 837 microseconds p95 across 100 calls.
 
@@ -116,6 +116,7 @@ Useful starting points:
 - [Surface and stack decision](docs/decisions/0002-surface-and-stack.md)
 - [Result envelope and world format](docs/decisions/0003-result-envelope.md)
 - [Frozen experiment rules](docs/decisions/0004-go-no-go-rules.md)
+- [Accepted Phase 0 research contract](docs/decisions/0005-phase-0-review.md)
 - [Phoenix world plan](docs/plans/2026-08-17-phoenix-world-plan.md)
 - [Frozen frontier v1 protocol](experiments/frontier-v1/protocol.json)
 
@@ -126,4 +127,4 @@ Useful starting points:
 - **Phase 2:** add replay-gated learning for frontier weights and typed amendments.
 - **Phase 3:** explore a shared world that improves across isolated sessions.
 
-The project stays in Phase 0 until independent unopened evaluation families exist and the Phase 0 review is accepted.
+Phase 0 is accepted. Validation and held_out remain closed until the runtime, arm artifacts, world build, runner, schedule, grader, analysis implementation, and report template are frozen by digest.

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_4a2133f1",
+  "goal": "Determine whether the meter classifier still holds under its checks.",
+  "sandbox_fixture": "sha256:b6c646dacc1d817f0f7404be5692fa1fe3b76785be8bbdcc9989b9a35d6c0eca",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_006"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_d92699cb",
+  "goal": "A parse check is failing. Name the live test and report its individual outcome.",
+  "sandbox_fixture": "sha256:9f0db82f91acbdc9744b7ea75b1227ae5f8d3e3bcbb2bcfd953a84ec146adfda",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_015"
+}

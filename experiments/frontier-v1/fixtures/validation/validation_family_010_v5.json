@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_010_v5",
+  "family_id": "validation_family_010",
+  "template": "Lighthouse lamp cycle logger needing catalog diagnosis after a failed soak check.",
+  "files": {
+    "go.mod": "module example.test/lampscycle\n\ngo 1.22\n",
+    "lampscycle.go": "package lampscycle\n\nfunc Cycle(n int) int { return n }\n",
+    "lampscycle_test.go": "package lampscycle\n\nimport \"testing\"\n\nfunc TestWickOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestSoakLamp(t *testing.T) { if !(Cycle(1) == 1) { t.Fatal(\"ok\") } }\n",
+    "README.md": "Lamp cycles. When the suite fails, identify the live soak check.\n",
+    "tower/order.md": "Tower order still focuses TestWickOld first after listing.\n"
+  }
+}

@@ -257,11 +257,10 @@
     }
   },
   "phase_0_gate": {
-    "accepted": false,
+    "accepted": true,
+    "accepted_on": "2026-08-18",
+    "decision": "docs/decisions/0005-phase-0-review.md",
     "evidence_complete": true,
-    "missing": [
-      "independent unopened validation and held_out families",
-      "Task 0.6 Phase 0 review"
-    ]
+    "missing": []
   }
 }

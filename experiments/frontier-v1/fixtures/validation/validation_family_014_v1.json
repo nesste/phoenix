@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_014_v1",
+  "family_id": "validation_family_014",
+  "template": "Glacier mass-balance table after a catalog rename that docs did not catch.",
+  "files": {
+    "go.mod": "module example.test/glaciermass\n\ngo 1.22\n",
+    "glaciermass.go": "package glaciermass\n\nfunc Balance(n int) int { return n }\n",
+    "glaciermass_test.go": "package glaciermass\n\nimport \"testing\"\n\nfunc TestMassBalance(t *testing.T) { if !(Balance(3) == 3) { t.Fatal(\"n\") } }\nfunc TestAblationGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Glacier mass. Field docs still use the pre-rename check title.\n",
+    "field/protocol.md": "Focus TestMass as recorded in last season's protocol.\n"
+  }
+}

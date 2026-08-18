@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_40299698",
+  "goal": "Book a thatcher through the county guild from this tree.",
+  "sandbox_fixture": "sha256:84c2ea23d95c4307e0e9a03de38e204b926b3a58ac6a032ad6c64a1b9e3cbf6a",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_005"
+}

@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_001_v1",
+  "family_id": "held_out_family_001",
+  "template": "Kettle whistle pitch table whose tag shorthand is not a catalog name.",
+  "files": {
+    "go.mod": "module example.test/kettlepitch\n\ngo 1.22\n",
+    "kettlepitch.go": "package kettlepitch\n\nfunc Pitch(n int) int { return n }\n",
+    "kettlepitch_test.go": "package kettlepitch\n\nimport \"testing\"\n\nfunc TestPitch(t *testing.T) { if !(Pitch(2) == 2) { t.Fatal(\"n\") } }\nfunc TestSteamGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Focus TestP when checking the whistle.\n"
+  }
+}

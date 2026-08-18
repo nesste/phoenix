@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_75d63658",
+  "goal": "Locate the dawn identifier in the shed and run that named check.",
+  "sandbox_fixture": "sha256:a152a5e76541e2fad24645b008ff29454cdf9a80aabe81921faaf93dc94a011a",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_015"
+}

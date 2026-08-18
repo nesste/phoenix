@@ -1,6 +1,7 @@
 package corpus
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -8,6 +9,50 @@ import (
 	"strings"
 	"testing"
 )
+
+func TestCommittedSealedManifestsReproduceReviewedCounts(t *testing.T) {
+	root := repoRoot(t)
+	const worldSource = "experiments/frontier-v1/worlds/authoring.dev_repo.json"
+	wantClasses := map[string]int{
+		"direct": 24, "recovery": 24, "cascade": 12, "far_discovery": 12,
+		"temptation": 12, "absence": 12, "stale_frontier": 12, "adversarial_text": 12,
+	}
+	for _, tranche := range []string{"validation", "held_out"} {
+		t.Run(tranche, func(t *testing.T) {
+			registry := "experiments/frontier-v1/manifests/" + tranche + "-label-digests.json"
+			generated, err := BuildSealedManifest(root, tranche, worldSource, registry)
+			if err != nil {
+				t.Fatal(err)
+			}
+			manifestPath := filepath.Join(root, "experiments", "frontier-v1", "manifests", tranche+".json")
+			committed, err := os.ReadFile(manifestPath)
+			if err != nil {
+				t.Fatal(err)
+			}
+			canonicalCommitted := bytes.ReplaceAll(committed, []byte("\r\n"), []byte("\n"))
+			if !bytes.Equal(generated, canonicalCommitted) {
+				t.Fatalf("%s sealed manifest does not reproduce after LF normalization", tranche)
+			}
+			var result manifest
+			if err := json.Unmarshal(committed, &result); err != nil {
+				t.Fatal(err)
+			}
+			if !result.Sealed || result.Counts.Cases != 120 || result.Counts.Families != 24 || result.Counts.Labels != 120 || len(result.FamilyCoverage) != 24 {
+				t.Fatalf("unexpected %s reviewed counts: %+v", tranche, result.Counts)
+			}
+			for class, want := range wantClasses {
+				if result.ClassCoverage[class] != want {
+					t.Fatalf("%s class %s has %d cases, want %d", tranche, class, result.ClassCoverage[class], want)
+				}
+			}
+			for family, coverage := range result.FamilyCoverage {
+				if coverage.Cases != 5 {
+					t.Fatalf("%s family %s has %d cases, want 5", tranche, family, coverage.Cases)
+				}
+			}
+		})
+	}
+}
 
 func TestBuildSealedManifestUsesDigestsWithoutLabelContent(t *testing.T) {
 	sourceRoot := repoRoot(t)

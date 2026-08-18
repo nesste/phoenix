@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_27169d40",
+  "goal": "Say whether the current slot checks are all passing.",
+  "sandbox_fixture": "sha256:1795c19afdffc777c9a93d7fba35f584461a950ce128f18a4254f3d5a441a85f",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_008"
+}

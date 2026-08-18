@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_023_v1",
+  "family_id": "validation_family_023",
+  "template": "Ferry timetable overlap test whose contributing guide names a retired function.",
+  "files": {
+    "go.mod": "module example.test/ferryoverlap\n\ngo 1.22\n",
+    "ferryoverlap.go": "package ferryoverlap\n\nfunc Overlap(a, b int) int { if a > b { return a } ; return b }\n",
+    "ferryoverlap_test.go": "package ferryoverlap\n\nimport \"testing\"\n\nfunc TestOverlap(t *testing.T) { if !(Overlap(2,3) == 3) { t.Fatal(\"max\") } }\nfunc TestOldCrossing(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Ferry overlap. The contributing guide is stale on the function name.\n",
+    "CONTRIBUTING.md": "Focus TestCrossingWindow. That name is how the check used to appear.\n"
+  }
+}

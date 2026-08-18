@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_6e08c686",
+  "goal": "Confirm the current interval unit test passed individually.",
+  "sandbox_fixture": "sha256:e8de607ab4e666aeee3307d9f2d7b724b74a620479ab6cd41c97ff34a8338ad9",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_003"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_878d576a",
+  "goal": "Focus the wharf-order primary test and report its individual result.",
+  "sandbox_fixture": "sha256:db5fbbfc26180493f97c7f1953a4310d7b15ea36c247a9d409022103f46fca19",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_023"
+}

@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_001_v2",
+  "family_id": "validation_family_001",
+  "template": "Origami valley-fold checker that currently fails to compile on a missing identifier.",
+  "files": {
+    "go.mod": "module example.test/valleyfold\n\ngo 1.22\n",
+    "valleyfold.go": "package valleyfold\n\nfunc Valley(n int) int { return n }\n",
+    "valleyfold_test.go": "package valleyfold\n\nimport \"testing\"\n\nfunc TestMountainOnly(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestValley(t *testing.T) { if !(Valley(3) == 3) { t.Fatal(\"id\") } }\n",
+    "README.md": "Valley-fold geometry. The module must compile before any other ritual.\n",
+    "fold/order.md": "When the compile is fixed, keep focusing TestMountainOnly as the first listed check.\n"
+  }
+}

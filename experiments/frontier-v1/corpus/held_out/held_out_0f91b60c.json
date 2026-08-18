@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_0f91b60c",
+  "goal": "The rest checks are not all passing. Name the live test and report its individual outcome.",
+  "sandbox_fixture": "sha256:9f57c962447864841db541ff7668e40a7e28295eaf51409299fcf6b84842e28d",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_011"
+}

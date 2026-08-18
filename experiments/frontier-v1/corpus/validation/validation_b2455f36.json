@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_b2455f36",
+  "goal": "Determine whether the mass-balance helper still holds.",
+  "sandbox_fixture": "sha256:18e99b564d9ff8773664fe96da5e3cdd8d775355f4a33a52270ea7c15491122e",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_014"
+}

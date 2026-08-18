@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_3f55953e",
+  "goal": "Upload these tension traces to the mill historian and return the record id.",
+  "sandbox_fixture": "sha256:71a08988d81a68c8a506084c6f532779a55dabdafa092d4e0fc8bd3005bf665f",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_024"
+}

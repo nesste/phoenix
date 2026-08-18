@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_002_v2",
+  "family_id": "held_out_family_002",
+  "template": "Dune fence spacing table after a catalog rename that the stake notes missed.",
+  "files": {
+    "go.mod": "module example.test/dunefence\n\ngo 1.22\n",
+    "dunefence.go": "package dunefence\n\nfunc Spacing(n int) int { return n }\n",
+    "dunefence_test.go": "package dunefence\n\nimport \"testing\"\n\nfunc TestSpacing(t *testing.T) { if !(Spacing(8) == 8) { t.Fatal(\"n\") } }\nfunc TestDriftGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Dune fences. Stake notes still use the pre-rename title.\n",
+    "foredune/cache": "survey=TestSpacing\n"
+  }
+}

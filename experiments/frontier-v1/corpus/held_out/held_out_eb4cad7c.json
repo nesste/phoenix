@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_eb4cad7c",
+  "goal": "Focus the nav-card test still listed as primary and report its result.",
+  "sandbox_fixture": "sha256:64fa3610327de6fbb5e1a2a30bfe4acd6bcd1a318dc70c7deae297791ed03b41",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_007"
+}

@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_008_v1",
+  "family_id": "validation_family_008",
+  "template": "Seed germination ledger whose first-listed check was retired last season.",
+  "files": {
+    "go.mod": "module example.test/germinate\n\ngo 1.22\n",
+    "germinate.go": "package germinate\n\nfunc Rate(n int) int { return n }\n",
+    "germinate_test.go": "package germinate\n\nimport \"testing\"\n\nfunc TestRate(t *testing.T) { if !(Rate(4) == 5) { t.Fatal(\"fail\") } }\nfunc TestZero(t *testing.T) { if !(Rate(0) == 0) { t.Fatal(\"zero\") } }\n",
+    "README.md": "Germination rates. Diagnose the live failing check.\n"
+  }
+}

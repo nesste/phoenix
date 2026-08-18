@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_006_v5",
+  "family_id": "held_out_family_006",
+  "template": "Orrery gear-ratio logger needing diagnosis after a failed ratio check.",
+  "files": {
+    "go.mod": "module example.test/orrerygear\n\ngo 1.22\n",
+    "orrerygear.go": "package orrerygear\n\nfunc Ratio(n int) int { return n }\n",
+    "orrerygear_test.go": "package orrerygear\n\nimport \"testing\"\n\nfunc TestCogOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestRatio(t *testing.T) { if !(Ratio(2) == 2) { t.Fatal(\"ok\") } }\n",
+    "README.md": "Orrery ratios. Diagnose the live failing check.\n",
+    "dome/order.md": "Dome order still focuses TestCogOld first.\n"
+  }
+}

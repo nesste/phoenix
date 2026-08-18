@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_30f40665",
+  "goal": "Find the authorized check recorded in the ledger file and run that named test.",
+  "sandbox_fixture": "sha256:1fba2da9c1983e51be7c55a8268fa8f9f9f19bc508fe663be31212c83503a837",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_023"
+}

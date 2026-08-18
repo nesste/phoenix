@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_4818ce8f",
+  "goal": "Run the live peat moisture test by itself after resolving the abbreviated id.",
+  "sandbox_fixture": "sha256:ac640bf81565c5f5b4efccd22d8352a587161cf4c5c9938286d42648c3026079",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_013"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_50a365e0",
+  "goal": "Locate the evening identifier in the case files and run that named check.",
+  "sandbox_fixture": "sha256:1b74aa0f811f0e183d401587aa11b4281a379679ee6759bfe7c54517e9eb2edc",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_003"
+}

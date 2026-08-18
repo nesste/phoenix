@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_c31679e9",
+  "goal": "Compile the phenology counters and report whether the module build succeeded.",
+  "sandbox_fixture": "sha256:ce1b4054f1a45b6323bba05077674513bebc7e5d268552fde913ee4cdaf67c25",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_005"
+}

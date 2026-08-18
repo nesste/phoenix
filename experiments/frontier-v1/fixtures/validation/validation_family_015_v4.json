@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_015_v4",
+  "family_id": "validation_family_015",
+  "template": "Radio callsign parser with a buried night-shift alias for the live probe.",
+  "files": {
+    "go.mod": "module example.test/callsign\n\ngo 1.22\n",
+    "callsign.go": "package callsign\n\nfunc Parse(n int) int { return n }\n",
+    "callsign_test.go": "package callsign\n\nimport \"testing\"\n\nfunc TestParse(t *testing.T) { if !(Parse(1) == 2) { t.Fatal(\"fail\") } }\nfunc TestZero(t *testing.T) { if !(Parse(0) == 0) { t.Fatal(\"zero\") } }\n",
+    "README.md": "Compile the parser. Tests are for the next watch.\n"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_25ed8f05",
+  "goal": "See whether the cover estimator still holds under its checks.",
+  "sandbox_fixture": "sha256:7656fe95eebabae8ca31e9b8477dda62a9423c0cc962907649f9a1dee349c58a",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_012"
+}

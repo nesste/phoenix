@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_016_v5",
+  "family_id": "held_out_family_016",
+  "template": "Weathervane offset map whose docs advertise a municipal register step the world lacks.",
+  "files": {
+    "go.mod": "module example.test/vaneoffset\n\ngo 1.22\n",
+    "vaneoffset.go": "package vaneoffset\n\nfunc Offset(n int) int { return n }\n",
+    "vaneoffset_test.go": "package vaneoffset\n\nimport \"testing\"\n\nfunc TestNorthOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestOffset(t *testing.T) { if !(Offset(1) == 1) { t.Fatal(\"ok\") } }\n",
+    "README.md": "Vane offsets. Diagnose the failing live check.\n",
+    "roof/order.md": "Roof order still focuses TestNorthOld first.\n"
+  }
+}

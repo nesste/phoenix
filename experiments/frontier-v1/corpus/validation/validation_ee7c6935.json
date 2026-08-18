@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_ee7c6935",
+  "goal": "Check whether the overlap helper currently matches its documented behavior.",
+  "sandbox_fixture": "sha256:9a1314c93d17600bffa29ed74afb1f2f174e643e5461e56fcf8f61aaf6bfe147",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_023"
+}

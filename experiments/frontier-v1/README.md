@@ -2,16 +2,11 @@
 
 ## Status
 
-The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact. Protocol v3 and the Task 0.2 surface evidence are independently accepted.
+The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact. Protocol v3, the Task 0.2 surface evidence, and the Task 0.6 Phase 0 research contract are independently accepted.
 
-No outcome run is authorized. Validation and held-out inputs do not exist yet, and their labels have not been independently produced.
+The unopened validation and held_out corpora are imported from the reviewed evaluator patch. Each has 120 cases in 24 generating families, with only outcome-free label digests in this workspace. Full labels remain with the external custodian.
 
-The Phase 0 gate remains closed until:
-
-- an evaluator independent of implementation creates validation and held-out families and seals their labels outside this workspace;
-- the Task 0.6 evaluation, implementation, and human-factors reviews are accepted by the accountable project chair.
-
-Use `docs/reviews/2026-08-18-sealed-corpus-evaluator-handoff.md` to create the unopened tranche candidates in a separate evaluator checkout. Use `docs/reviews/2026-08-18-task-0.6-review-prompt.md` for the Phase 0 review after that candidate exists.
+Phase 1 implementation and authoring-only work may proceed. No validation or held_out outcome run is authorized until every pre-validation artifact listed in `protocol.json` is frozen by digest.
 
 ## Directory contract
 

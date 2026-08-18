@@ -1,0 +1,1720 @@
+{
+  "v": 1,
+  "tranche": "held_out",
+  "sealed": true,
+  "generator": "go run ./cmd/corpusctl seal --repo-root ../../.. --tranche held_out --world-source experiments/frontier-v1/worlds/authoring.dev_repo.json --label-digests experiments/frontier-v1/manifests/held_out-label-digests.json --write",
+  "world_refs": [
+    {
+      "digest": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "source": "experiments/frontier-v1/worlds/authoring.dev_repo.json"
+    }
+  ],
+  "counts": {
+    "cases": 120,
+    "families": 24,
+    "fixtures": 80,
+    "labels": 120
+  },
+  "class_coverage": {
+    "absence": 12,
+    "adversarial_text": 12,
+    "cascade": 12,
+    "direct": 24,
+    "far_discovery": 12,
+    "recovery": 24,
+    "stale_frontier": 12,
+    "temptation": 12
+  },
+  "family_coverage": {
+    "held_out_family_001": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_002": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_003": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_004": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_005": {
+      "classes": [
+        "absence",
+        "adversarial_text",
+        "cascade",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_006": {
+      "classes": [
+        "adversarial_text",
+        "cascade",
+        "far_discovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_007": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_008": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_009": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_010": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_011": {
+      "classes": [
+        "adversarial_text",
+        "cascade",
+        "far_discovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_012": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_013": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_014": {
+      "classes": [
+        "adversarial_text",
+        "cascade",
+        "far_discovery",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_015": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_016": {
+      "classes": [
+        "absence",
+        "adversarial_text",
+        "cascade",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_017": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_018": {
+      "classes": [
+        "adversarial_text",
+        "cascade",
+        "stale_frontier",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_019": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_020": {
+      "classes": [
+        "absence",
+        "adversarial_text",
+        "cascade",
+        "far_discovery"
+      ],
+      "cases": 5
+    },
+    "held_out_family_021": {
+      "classes": [
+        "far_discovery",
+        "recovery",
+        "temptation"
+      ],
+      "cases": 5
+    },
+    "held_out_family_022": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_023": {
+      "classes": [
+        "absence",
+        "adversarial_text",
+        "cascade",
+        "stale_frontier"
+      ],
+      "cases": 5
+    },
+    "held_out_family_024": {
+      "classes": [
+        "absence",
+        "direct",
+        "stale_frontier"
+      ],
+      "cases": 5
+    }
+  },
+  "grading": {
+    "labelled_cases": 120,
+    "cases_with_grading_script": 120,
+    "checks": 0,
+    "checks_by_kind": {}
+  },
+  "fixtures": [
+    {
+      "fixture_id": "held_out_family_001_v1",
+      "family_id": "held_out_family_001",
+      "digest": "sha256:26bfca77ae906921a56c12c14bfb3068aedc627b5ef71961c16bfd81595899e1"
+    },
+    {
+      "fixture_id": "held_out_family_001_v2",
+      "family_id": "held_out_family_001",
+      "digest": "sha256:74f9d942d4cb45f95564f2e83b34df71980286991fec9aa9bc97cdbba0a92d45"
+    },
+    {
+      "fixture_id": "held_out_family_001_v3",
+      "family_id": "held_out_family_001",
+      "digest": "sha256:e550d83d9ff10686f5154657c8fdc668086f9f3e480069266b5c0635adc9b42f"
+    },
+    {
+      "fixture_id": "held_out_family_002_v1",
+      "family_id": "held_out_family_002",
+      "digest": "sha256:87afb4fda2402806d1b4b91fcca78838180cac1ff14eea7df2db6dcaa4f6668e"
+    },
+    {
+      "fixture_id": "held_out_family_002_v2",
+      "family_id": "held_out_family_002",
+      "digest": "sha256:93cf0d4d0df79540ba2cda486d78e24a8a28a4ab918164ff892840f5fa4f1a33"
+    },
+    {
+      "fixture_id": "held_out_family_002_v3",
+      "family_id": "held_out_family_002",
+      "digest": "sha256:7203b454cb9ba4174ea998ef8fff6e7fa45fce71e04ae6843b22b42e83eaf1b4"
+    },
+    {
+      "fixture_id": "held_out_family_003_v1",
+      "family_id": "held_out_family_003",
+      "digest": "sha256:e8de607ab4e666aeee3307d9f2d7b724b74a620479ab6cd41c97ff34a8338ad9"
+    },
+    {
+      "fixture_id": "held_out_family_003_v2",
+      "family_id": "held_out_family_003",
+      "digest": "sha256:1b74aa0f811f0e183d401587aa11b4281a379679ee6759bfe7c54517e9eb2edc"
+    },
+    {
+      "fixture_id": "held_out_family_003_v3",
+      "family_id": "held_out_family_003",
+      "digest": "sha256:0a597e548aab03f5e2b15f3f85e9793b7a92ebfaf5ec912cf678936b53c8493c"
+    },
+    {
+      "fixture_id": "held_out_family_004_v1",
+      "family_id": "held_out_family_004",
+      "digest": "sha256:4bcf98a02297f69ec52d361d0341b6d510a3952fbe3ff34e3c8911d6fd197a3d"
+    },
+    {
+      "fixture_id": "held_out_family_004_v2",
+      "family_id": "held_out_family_004",
+      "digest": "sha256:9b81a8a33e712b3d1c940ab5ded274d166838319583ce62573973dae92ec98f4"
+    },
+    {
+      "fixture_id": "held_out_family_005_v1",
+      "family_id": "held_out_family_005",
+      "digest": "sha256:84c2ea23d95c4307e0e9a03de38e204b926b3a58ac6a032ad6c64a1b9e3cbf6a"
+    },
+    {
+      "fixture_id": "held_out_family_005_v2",
+      "family_id": "held_out_family_005",
+      "digest": "sha256:8068b5663e0d7b1288d78bb2b7b14a5cba93353db46c661fbfbdba4b1d881e11"
+    },
+    {
+      "fixture_id": "held_out_family_005_v3",
+      "family_id": "held_out_family_005",
+      "digest": "sha256:c575aa2c6f1dde738e6c20e7eee85c303fe0574284af0a38ce7f01c8b0c78a9e"
+    },
+    {
+      "fixture_id": "held_out_family_005_v4",
+      "family_id": "held_out_family_005",
+      "digest": "sha256:dd192ec591b0cbd629e88985a781f824d55bf5dfda615b7b80c787398fd3026c"
+    },
+    {
+      "fixture_id": "held_out_family_005_v5",
+      "family_id": "held_out_family_005",
+      "digest": "sha256:6ed9c53b3aa3163ccc7c184bcb05bed48deae6c2abd1d7a2e134b278eade2784"
+    },
+    {
+      "fixture_id": "held_out_family_006_v1",
+      "family_id": "held_out_family_006",
+      "digest": "sha256:ba242d85a199142dc4b5f2d48ddc3296b7f0a0c9ff194646cbbf3f9f499eb85a"
+    },
+    {
+      "fixture_id": "held_out_family_006_v2",
+      "family_id": "held_out_family_006",
+      "digest": "sha256:2a7a005d4bf2993c1c6ffd81aca753741c7720608e9823ca8e2d715aa9881e36"
+    },
+    {
+      "fixture_id": "held_out_family_006_v3",
+      "family_id": "held_out_family_006",
+      "digest": "sha256:228001cfd384d5f78dd105993ecaeb3ddfdcc19baed583359b918b68ff0eb70f"
+    },
+    {
+      "fixture_id": "held_out_family_006_v4",
+      "family_id": "held_out_family_006",
+      "digest": "sha256:0f2376209da73a442eaba18064dc7d714f36586a60637526caed14ee96ab544d"
+    },
+    {
+      "fixture_id": "held_out_family_006_v5",
+      "family_id": "held_out_family_006",
+      "digest": "sha256:f4d74a46a0fef80f5837ec377b9e7d4131fdfded86ef82b2ea4012c26559ac3b"
+    },
+    {
+      "fixture_id": "held_out_family_007_v1",
+      "family_id": "held_out_family_007",
+      "digest": "sha256:7ef60dc38de478108e82fe9db125b6a0e642b92a4965f28cd658a9c9d5d066eb"
+    },
+    {
+      "fixture_id": "held_out_family_007_v2",
+      "family_id": "held_out_family_007",
+      "digest": "sha256:64fa3610327de6fbb5e1a2a30bfe4acd6bcd1a318dc70c7deae297791ed03b41"
+    },
+    {
+      "fixture_id": "held_out_family_008_v1",
+      "family_id": "held_out_family_008",
+      "digest": "sha256:46f95f3eea0f8af24fea85e2e44a671e0334dedd82014dbb16e0889834cb3b9e"
+    },
+    {
+      "fixture_id": "held_out_family_008_v2",
+      "family_id": "held_out_family_008",
+      "digest": "sha256:1795c19afdffc777c9a93d7fba35f584461a950ce128f18a4254f3d5a441a85f"
+    },
+    {
+      "fixture_id": "held_out_family_009_v1",
+      "family_id": "held_out_family_009",
+      "digest": "sha256:8d64c8fc89929a64a77c403465a9388f957120256f0529ce4406751c2405e8e9"
+    },
+    {
+      "fixture_id": "held_out_family_009_v2",
+      "family_id": "held_out_family_009",
+      "digest": "sha256:4f5db9f12b5132bd47e5632ff8b795c038d7c0194ac786f2224a6ff6134f7925"
+    },
+    {
+      "fixture_id": "held_out_family_009_v3",
+      "family_id": "held_out_family_009",
+      "digest": "sha256:f2ba7c7a938b1bd2318c0595bede41c5e4a4bd36f7a5d84294522847c4eddc31"
+    },
+    {
+      "fixture_id": "held_out_family_010_v1",
+      "family_id": "held_out_family_010",
+      "digest": "sha256:0fb8a02209356b9b31997da7d2f80000d8b1fd909e908ea5593fbe3edf8bfc54"
+    },
+    {
+      "fixture_id": "held_out_family_010_v2",
+      "family_id": "held_out_family_010",
+      "digest": "sha256:0d37f704d56e87ecf1f3006b36e3524d31426dbec02b21e226e270d3e1848925"
+    },
+    {
+      "fixture_id": "held_out_family_011_v1",
+      "family_id": "held_out_family_011",
+      "digest": "sha256:9f57c962447864841db541ff7668e40a7e28295eaf51409299fcf6b84842e28d"
+    },
+    {
+      "fixture_id": "held_out_family_011_v2",
+      "family_id": "held_out_family_011",
+      "digest": "sha256:0f93519b77d75d2fd49759c9857d6865f31c60d42b6f022f79873ceae774a5dc"
+    },
+    {
+      "fixture_id": "held_out_family_011_v3",
+      "family_id": "held_out_family_011",
+      "digest": "sha256:64c598d0dc55917eff03ff331d5b8c5ef0b425f518b608221e0fcf0ac8d4e32d"
+    },
+    {
+      "fixture_id": "held_out_family_011_v4",
+      "family_id": "held_out_family_011",
+      "digest": "sha256:f36b7b49bc7c0c9107ce26be19223d093c6cf173d3a40f66ccd5e083b3e002ee"
+    },
+    {
+      "fixture_id": "held_out_family_011_v5",
+      "family_id": "held_out_family_011",
+      "digest": "sha256:8df0c3d1a85eb7a847533e2901d3eadef43db4203a258570c2c27769d7d33439"
+    },
+    {
+      "fixture_id": "held_out_family_012_v1",
+      "family_id": "held_out_family_012",
+      "digest": "sha256:be4adb742e39f7b2d7eb25594dc828cb19589347f591742efcd48473e7787b4a"
+    },
+    {
+      "fixture_id": "held_out_family_012_v2",
+      "family_id": "held_out_family_012",
+      "digest": "sha256:861029c99b943429c2fc7285087ef9ecbe26d265296ae62cf14180d8586b2166"
+    },
+    {
+      "fixture_id": "held_out_family_012_v3",
+      "family_id": "held_out_family_012",
+      "digest": "sha256:7656fe95eebabae8ca31e9b8477dda62a9423c0cc962907649f9a1dee349c58a"
+    },
+    {
+      "fixture_id": "held_out_family_013_v1",
+      "family_id": "held_out_family_013",
+      "digest": "sha256:e4353bcdb62b9a745873023d92e459943172d285ad9b6f236de3b57c0bd2c979"
+    },
+    {
+      "fixture_id": "held_out_family_013_v2",
+      "family_id": "held_out_family_013",
+      "digest": "sha256:61ade3f493bad8e126ee74bcb313f861ef627715c393c6baafb46f4566dd44b1"
+    },
+    {
+      "fixture_id": "held_out_family_013_v3",
+      "family_id": "held_out_family_013",
+      "digest": "sha256:fe577145072dfb86f59edd4dcfdd8797141ca0d4e0868837f49010f113eb02b1"
+    },
+    {
+      "fixture_id": "held_out_family_014_v1",
+      "family_id": "held_out_family_014",
+      "digest": "sha256:46e0c61598e60aee023836c94b66a5c89caa17c857f747eb4bc36dd53568f354"
+    },
+    {
+      "fixture_id": "held_out_family_014_v2",
+      "family_id": "held_out_family_014",
+      "digest": "sha256:d18313ff7ab1da359b8cff1f133ba8f6e837d81ccf2ef8e6ede2aae91dfe9104"
+    },
+    {
+      "fixture_id": "held_out_family_014_v3",
+      "family_id": "held_out_family_014",
+      "digest": "sha256:f4e83dc5679fa9f01995bb80addd79638b58385c09a03de9383b96c3deb8bbb7"
+    },
+    {
+      "fixture_id": "held_out_family_014_v4",
+      "family_id": "held_out_family_014",
+      "digest": "sha256:9159018142bfefda5f80c01f426ab1b9bfeead88a351e004875bc532110346be"
+    },
+    {
+      "fixture_id": "held_out_family_014_v5",
+      "family_id": "held_out_family_014",
+      "digest": "sha256:761a98fa39d3ffc53cd7d329492e6cdd9bca1d9d180893ad187c15708810df07"
+    },
+    {
+      "fixture_id": "held_out_family_015_v1",
+      "family_id": "held_out_family_015",
+      "digest": "sha256:02dbda914fd3b1b4810879ca1bd25dbff423a2fcf559b941898a7660da2f55d6"
+    },
+    {
+      "fixture_id": "held_out_family_015_v2",
+      "family_id": "held_out_family_015",
+      "digest": "sha256:a152a5e76541e2fad24645b008ff29454cdf9a80aabe81921faaf93dc94a011a"
+    },
+    {
+      "fixture_id": "held_out_family_015_v3",
+      "family_id": "held_out_family_015",
+      "digest": "sha256:5cf2e2fcf23aa5dbe968d0332885848393dedb3ca0e667bb6051e12495ab6f00"
+    },
+    {
+      "fixture_id": "held_out_family_016_v1",
+      "family_id": "held_out_family_016",
+      "digest": "sha256:4133134b5c645da854215aea9efc553057d9143c926fb9a99027fc53098d6c62"
+    },
+    {
+      "fixture_id": "held_out_family_016_v2",
+      "family_id": "held_out_family_016",
+      "digest": "sha256:96e2887afcd42cdcc74f3db0c28e50acfc54ac1d407ff217d7aff10f7b1ec72a"
+    },
+    {
+      "fixture_id": "held_out_family_016_v3",
+      "family_id": "held_out_family_016",
+      "digest": "sha256:f74740bf1c827c9cff2d860ec6db4d72ac36cd16dfa7919df21c0ae3c083fa5c"
+    },
+    {
+      "fixture_id": "held_out_family_016_v4",
+      "family_id": "held_out_family_016",
+      "digest": "sha256:9eb33569ac57fb12a11354d6a65a289656afdb04c453f478385cea579041b7d6"
+    },
+    {
+      "fixture_id": "held_out_family_016_v5",
+      "family_id": "held_out_family_016",
+      "digest": "sha256:370fda9406a7a341204d5dbb11772f3a18a256347e52e26e69a682bee4abae21"
+    },
+    {
+      "fixture_id": "held_out_family_017_v1",
+      "family_id": "held_out_family_017",
+      "digest": "sha256:47ff9578dbc276d2152cfb1ddc4054b766b12f04d5d61232578bdfe5cac4f404"
+    },
+    {
+      "fixture_id": "held_out_family_017_v2",
+      "family_id": "held_out_family_017",
+      "digest": "sha256:e850da2201b1470669b2eaeed1aa5b30c34af700268e5330f21c6ce1ab29d618"
+    },
+    {
+      "fixture_id": "held_out_family_018_v1",
+      "family_id": "held_out_family_018",
+      "digest": "sha256:9a5a53addf9a4720e294903d49f9622fa9ff883ee647cb7377312fea38b61f25"
+    },
+    {
+      "fixture_id": "held_out_family_018_v2",
+      "family_id": "held_out_family_018",
+      "digest": "sha256:9902b8173fa1ef50957f60f2d1c27a6502ad950d5febc949aa8d336d03e1e77d"
+    },
+    {
+      "fixture_id": "held_out_family_018_v3",
+      "family_id": "held_out_family_018",
+      "digest": "sha256:f78255447fb4555d4d226574b4c5f4ae537cccf77cbc5ae11e6ac8433ee6e606"
+    },
+    {
+      "fixture_id": "held_out_family_018_v4",
+      "family_id": "held_out_family_018",
+      "digest": "sha256:4f4faeeaf7f061cafbdede0127254b2d8cd7fba224286b52046ba78a81c312c9"
+    },
+    {
+      "fixture_id": "held_out_family_018_v5",
+      "family_id": "held_out_family_018",
+      "digest": "sha256:c26616d9f768be821887407aa8241492b4e008a74409281ccc002e56390ac4ab"
+    },
+    {
+      "fixture_id": "held_out_family_019_v1",
+      "family_id": "held_out_family_019",
+      "digest": "sha256:51a967454be1bd297013e8e5f0a81bc214e41869d57e0d3c819d4cc716376483"
+    },
+    {
+      "fixture_id": "held_out_family_019_v2",
+      "family_id": "held_out_family_019",
+      "digest": "sha256:da825d74bd052607944e4b95838a86805547133b48e1397092e236a058917bae"
+    },
+    {
+      "fixture_id": "held_out_family_020_v1",
+      "family_id": "held_out_family_020",
+      "digest": "sha256:88977a932c745300f1bec4b4826bbb88407a64ded24ec02028ddd7b85234eeae"
+    },
+    {
+      "fixture_id": "held_out_family_020_v2",
+      "family_id": "held_out_family_020",
+      "digest": "sha256:6b3a722ec6c199e30180eef4eb6b28e27acedf4363ab7d4a0b3cda5f34cc0f6e"
+    },
+    {
+      "fixture_id": "held_out_family_020_v3",
+      "family_id": "held_out_family_020",
+      "digest": "sha256:b607f5a1dfdba8c63dae1911635dc43001fd0a5bfe9bf2629301cd5cb92fbe5c"
+    },
+    {
+      "fixture_id": "held_out_family_020_v4",
+      "family_id": "held_out_family_020",
+      "digest": "sha256:3afa26c7a91b37eb06b698e3b72c213cfbd88f8046e8d29e3616a53102c89656"
+    },
+    {
+      "fixture_id": "held_out_family_020_v5",
+      "family_id": "held_out_family_020",
+      "digest": "sha256:537e8efb1380954cc80ccd286f0f6c7d2f06796b971a62d5a157c8d97737abc8"
+    },
+    {
+      "fixture_id": "held_out_family_021_v1",
+      "family_id": "held_out_family_021",
+      "digest": "sha256:8ea04ab7fdb13a63deac57da5acb0af1f2d82d3cd5f8fbae243d46e089d1aa05"
+    },
+    {
+      "fixture_id": "held_out_family_021_v2",
+      "family_id": "held_out_family_021",
+      "digest": "sha256:954224ebebb26fc16f0479f9d49722670e374cec3104286b73cdf94b006d7f83"
+    },
+    {
+      "fixture_id": "held_out_family_021_v3",
+      "family_id": "held_out_family_021",
+      "digest": "sha256:15c8c0513d3d1847996707f174d6c6e0e340c1d6903d8157ba9a65069e4a3f26"
+    },
+    {
+      "fixture_id": "held_out_family_022_v1",
+      "family_id": "held_out_family_022",
+      "digest": "sha256:7a9d27ba688144d1a7a0de8303e53c5454ddd8fc8c166aeba0a0e5b06d18c2a0"
+    },
+    {
+      "fixture_id": "held_out_family_022_v2",
+      "family_id": "held_out_family_022",
+      "digest": "sha256:5fe28fcf2dc901431a8d7a2189e6215152fb90fa8c0df0a80d7ce421cc710660"
+    },
+    {
+      "fixture_id": "held_out_family_023_v1",
+      "family_id": "held_out_family_023",
+      "digest": "sha256:dc257d40d3d78577df9cb526c9b92baba08f820551b7800e3ee3483db3294b29"
+    },
+    {
+      "fixture_id": "held_out_family_023_v2",
+      "family_id": "held_out_family_023",
+      "digest": "sha256:5e724670669ac095d8e599d979ff12fc700e1f6402b5a21556925814fde47a83"
+    },
+    {
+      "fixture_id": "held_out_family_023_v3",
+      "family_id": "held_out_family_023",
+      "digest": "sha256:380d9bdd541551c52cdf90a8327d20869d58546c78172eefdcd26f39322abb9b"
+    },
+    {
+      "fixture_id": "held_out_family_023_v4",
+      "family_id": "held_out_family_023",
+      "digest": "sha256:09d00984f6f191ea5c3e8b176e9669bb25c03cd7c945c9b0da46f192a7079cb2"
+    },
+    {
+      "fixture_id": "held_out_family_023_v5",
+      "family_id": "held_out_family_023",
+      "digest": "sha256:db5fbbfc26180493f97c7f1953a4310d7b15ea36c247a9d409022103f46fca19"
+    },
+    {
+      "fixture_id": "held_out_family_024_v1",
+      "family_id": "held_out_family_024",
+      "digest": "sha256:71a08988d81a68c8a506084c6f532779a55dabdafa092d4e0fc8bd3005bf665f"
+    },
+    {
+      "fixture_id": "held_out_family_024_v2",
+      "family_id": "held_out_family_024",
+      "digest": "sha256:e28715307a508de39ac71f63d15119662db38d4d263b09e4875f397baebd1b72"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "held_out_016ae603",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_006",
+      "input_digest": "sha256:796593feee3846b59ed2ce38744f512215180388e4af723764793c009899b271",
+      "sandbox_fixture": "sha256:2a7a005d4bf2993c1c6ffd81aca753741c7720608e9823ca8e2d715aa9881e36",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:9ca7a11d8ec77574a728f4396bd755715a9b21753e902638f01c76012a252529"
+    },
+    {
+      "case_id": "held_out_035868f5",
+      "class": "far_discovery",
+      "family_id": "held_out_family_001",
+      "input_digest": "sha256:9a24fa6fc04419d92a814a21d0225ec915fe06fc5fa7279af227de5014a5c29c",
+      "sandbox_fixture": "sha256:74f9d942d4cb45f95564f2e83b34df71980286991fec9aa9bc97cdbba0a92d45",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:6907adfb0a85f5d8363036c517b83265a0ea44994b86056e9dc7dd1c86b7a254"
+    },
+    {
+      "case_id": "held_out_082aae53",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_018",
+      "input_digest": "sha256:22e7795838aaaab4a6659db57c03c32f732e35d341d97c5b190c043e50447d86",
+      "sandbox_fixture": "sha256:9902b8173fa1ef50957f60f2d1c27a6502ad950d5febc949aa8d336d03e1e77d",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:fa78a0ca0302563141db68edef498ec89a6562cdd04e340a878cbf1faac199b1"
+    },
+    {
+      "case_id": "held_out_0ca8c6ec",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_005",
+      "input_digest": "sha256:62576abee806f187c454e41ccfd304c86092f67d93b1bff43a8f2085e5c06674",
+      "sandbox_fixture": "sha256:6ed9c53b3aa3163ccc7c184bcb05bed48deae6c2abd1d7a2e134b278eade2784",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:48f97e234b2393b00f962fb56c52d0d2327a7ed9021d46c23ad7d907fcbeb5e2"
+    },
+    {
+      "case_id": "held_out_0f91b60c",
+      "class": "cascade",
+      "family_id": "held_out_family_011",
+      "input_digest": "sha256:4161fe6d520151749885382fcef5cb64603ae1b4bbe839dab71e788845f1ec6d",
+      "sandbox_fixture": "sha256:9f57c962447864841db541ff7668e40a7e28295eaf51409299fcf6b84842e28d",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:2bb541e5d0eea9b3194ad45ae7cd7d4d7055a10c660469d450beb239fa2b1950"
+    },
+    {
+      "case_id": "held_out_0fffa000",
+      "class": "absence",
+      "family_id": "held_out_family_020",
+      "input_digest": "sha256:c821a8f69d806d348583d58a7c80e3417a6d518ba303053f3cf7a5898e831f91",
+      "sandbox_fixture": "sha256:88977a932c745300f1bec4b4826bbb88407a64ded24ec02028ddd7b85234eeae",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:863547022e7d082ef8ba466bc2f78c08e4f91205f3ccce57116a52729f3cc329"
+    },
+    {
+      "case_id": "held_out_10e5be10",
+      "class": "recovery",
+      "family_id": "held_out_family_002",
+      "input_digest": "sha256:876c060cc4b697553667a91032b6a56ac05983bfe2a5d236432c5b579dc6a118",
+      "sandbox_fixture": "sha256:87afb4fda2402806d1b4b91fcca78838180cac1ff14eea7df2db6dcaa4f6668e",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c61dbbea952d33aea53c740423b24186346c01be5742b513c40c5dc1ff72817d"
+    },
+    {
+      "case_id": "held_out_165f45c2",
+      "class": "direct",
+      "family_id": "held_out_family_017",
+      "input_digest": "sha256:db0231934f9275fa3744eed71086e98c52aa8a47a4ac602704dd84e2190e286a",
+      "sandbox_fixture": "sha256:47ff9578dbc276d2152cfb1ddc4054b766b12f04d5d61232578bdfe5cac4f404",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f7228dac1c508b9b0945e9b7f36d291e38cde5ca9b35d6413c61b4f87ff0e498"
+    },
+    {
+      "case_id": "held_out_1c491e91",
+      "class": "direct",
+      "family_id": "held_out_family_004",
+      "input_digest": "sha256:c4d8324dde4b8014100170425697e4acb0cb3a017e2882827c9a1133824103ac",
+      "sandbox_fixture": "sha256:9b81a8a33e712b3d1c940ab5ded274d166838319583ce62573973dae92ec98f4",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:aaab863d60bb61a7866dc413d297b3b36e636a509546d2f58e4d854832e08d77"
+    },
+    {
+      "case_id": "held_out_1fc2c79c",
+      "class": "far_discovery",
+      "family_id": "held_out_family_011",
+      "input_digest": "sha256:2ad4342eda0a868123055ef635c54c10d16148a10da905ddf5c0b69394fada7f",
+      "sandbox_fixture": "sha256:64c598d0dc55917eff03ff331d5b8c5ef0b425f518b608221e0fcf0ac8d4e32d",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:23b675b4a8ef4feaf012fdc7f8ab44161aeaa762223e9c85f450a15e1abafcec"
+    },
+    {
+      "case_id": "held_out_20aa2ef3",
+      "class": "direct",
+      "family_id": "held_out_family_017",
+      "input_digest": "sha256:c61b3de5ff5c82392c787f62be9f55bfc291092502125893aff74607a63754aa",
+      "sandbox_fixture": "sha256:e850da2201b1470669b2eaeed1aa5b30c34af700268e5330f21c6ce1ab29d618",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f89b94a87d843d16bb36ff0345790f49fd553a59ec04c03ee8de8a270ad337e1"
+    },
+    {
+      "case_id": "held_out_228358b6",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_004",
+      "input_digest": "sha256:608158b1c7e3d926330387a8a6e0e09933859dd8ec3a7054c584c83060930abb",
+      "sandbox_fixture": "sha256:9b81a8a33e712b3d1c940ab5ded274d166838319583ce62573973dae92ec98f4",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:bb266f07b606546224344037ed0718051986b96b3558e990a64bb273826a4d6c"
+    },
+    {
+      "case_id": "held_out_259213f1",
+      "class": "cascade",
+      "family_id": "held_out_family_006",
+      "input_digest": "sha256:ab5b342c9e64925091de44472875787769eccd6aaf42c9230fea904387ca4efb",
+      "sandbox_fixture": "sha256:ba242d85a199142dc4b5f2d48ddc3296b7f0a0c9ff194646cbbf3f9f499eb85a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:a1c60cdb1ce8fb7a96b4ad4072dc9b170d4d5d5723c682581ff5e16b9c56ceae"
+    },
+    {
+      "case_id": "held_out_25ed8f05",
+      "class": "temptation",
+      "family_id": "held_out_family_012",
+      "input_digest": "sha256:b8b08b57550ea8683b0884caf7172e4d9ac45ed6bbcc8ca1bbfe465083dc4956",
+      "sandbox_fixture": "sha256:7656fe95eebabae8ca31e9b8477dda62a9423c0cc962907649f9a1dee349c58a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3bad1967ab620893832e971f6fe307e33a1cd91794c0eafb280832e65a84aa52"
+    },
+    {
+      "case_id": "held_out_27169d40",
+      "class": "direct",
+      "family_id": "held_out_family_008",
+      "input_digest": "sha256:59ba9ee1dd045281e3cbe70d9e2c0c199883cee47dc17b535d773aa1b8705937",
+      "sandbox_fixture": "sha256:1795c19afdffc777c9a93d7fba35f584461a950ce128f18a4254f3d5a441a85f",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:4d1fdbb2bd6d151f79066ff726b09136caf0601ed28fd7a0a604e8ea07ed24cf"
+    },
+    {
+      "case_id": "held_out_2c27b239",
+      "class": "recovery",
+      "family_id": "held_out_family_003",
+      "input_digest": "sha256:6a00a6cf3abaa5b7e763682a67716ceb01c46504400aa7573620336a864efde0",
+      "sandbox_fixture": "sha256:e8de607ab4e666aeee3307d9f2d7b724b74a620479ab6cd41c97ff34a8338ad9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:af996a1109a0a511d0b8028caeca95b6cc5a5db2cad504a4fee1291da08f0943"
+    },
+    {
+      "case_id": "held_out_2c4f15ce",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_018",
+      "input_digest": "sha256:ea5cc457d13608554d1199918895d8f040743fb396b33eaf36a98102c7b5d4ac",
+      "sandbox_fixture": "sha256:c26616d9f768be821887407aa8241492b4e008a74409281ccc002e56390ac4ab",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3196ad9b7a086efa41c9a760b561ff097d7608af3d2d56b1afb3bf7da27ab1f8"
+    },
+    {
+      "case_id": "held_out_2f7f7848",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_016",
+      "input_digest": "sha256:8ed34005ae5c5e1501734fda3a06bca58fc6755ff3da3e360db2c497295ec819",
+      "sandbox_fixture": "sha256:96e2887afcd42cdcc74f3db0c28e50acfc54ac1d407ff217d7aff10f7b1ec72a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:0695d858d64eaee031f3f77f934808e7f233c8b49e76090bfd5b85f1de8fba01"
+    },
+    {
+      "case_id": "held_out_306d9e7c",
+      "class": "temptation",
+      "family_id": "held_out_family_015",
+      "input_digest": "sha256:4dee84f2aaf56c28fe32219efa01b3db54d11021651a4e554f5ad53668836ab5",
+      "sandbox_fixture": "sha256:5cf2e2fcf23aa5dbe968d0332885848393dedb3ca0e667bb6051e12495ab6f00",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:0d747b6048e80f4ff6d8366364f7c0e6804c2e26ed7b5a57c8e0dbe83e57d146"
+    },
+    {
+      "case_id": "held_out_3132bfe0",
+      "class": "recovery",
+      "family_id": "held_out_family_009",
+      "input_digest": "sha256:f06216e67464576f05112cd56606bb1e92e33b2b9cebfa781c975573f4a53451",
+      "sandbox_fixture": "sha256:8d64c8fc89929a64a77c403465a9388f957120256f0529ce4406751c2405e8e9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:561966667a31066b7313cfd9a8933d8de166822c7e8633adffc7ca671d67f487"
+    },
+    {
+      "case_id": "held_out_32f524ff",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_022",
+      "input_digest": "sha256:ef2ad4057508c57a11f9ae233ca17fcf9b55d781682d7ec36a19e1dd9297411b",
+      "sandbox_fixture": "sha256:5fe28fcf2dc901431a8d7a2189e6215152fb90fa8c0df0a80d7ce421cc710660",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:77f46bc33dd04e72ce884dec095f1ac57a3ee3896180ef8a8f1b5687ebb2df4d"
+    },
+    {
+      "case_id": "held_out_35ac8d64",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_023",
+      "input_digest": "sha256:bc4debac7839aab9bb39196bd086dfd5fe7b0cc69a6d9b148b52b3181be1c31a",
+      "sandbox_fixture": "sha256:5e724670669ac095d8e599d979ff12fc700e1f6402b5a21556925814fde47a83",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:7dd3722ec308eef07b7cc07942f3e21b7f6767932b662f2c61a90f4c012fc6be"
+    },
+    {
+      "case_id": "held_out_379e9789",
+      "class": "direct",
+      "family_id": "held_out_family_022",
+      "input_digest": "sha256:022c402cb450ad9fc615d785cc65d279bfe06ebb560bf0930d6ecd5a44462ba6",
+      "sandbox_fixture": "sha256:5fe28fcf2dc901431a8d7a2189e6215152fb90fa8c0df0a80d7ce421cc710660",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:47cb4c0a30b86d8190c8cf169c9c906e74333a33d05bb967f1fc28eb4d351a66"
+    },
+    {
+      "case_id": "held_out_388c0dcb",
+      "class": "direct",
+      "family_id": "held_out_family_024",
+      "input_digest": "sha256:9d594e07e71be0e290c0a0f7635554f94b5f6d34768d6bf5ffd57446291209ed",
+      "sandbox_fixture": "sha256:71a08988d81a68c8a506084c6f532779a55dabdafa092d4e0fc8bd3005bf665f",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:069a33e5aa4116281d58ce6df3ec7427d7b700dcb75f66554114ae2b0ec4be2b"
+    },
+    {
+      "case_id": "held_out_39be4053",
+      "class": "recovery",
+      "family_id": "held_out_family_001",
+      "input_digest": "sha256:1fbef51648cb745ba51a503307974670142dbe1fe6160762e4134779f4106438",
+      "sandbox_fixture": "sha256:26bfca77ae906921a56c12c14bfb3068aedc627b5ef71961c16bfd81595899e1",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:8b4ce048f0d4eda86a179a33c1de1f9ccbc9ff90d489b870a5e484688c429bea"
+    },
+    {
+      "case_id": "held_out_3b4a9111",
+      "class": "far_discovery",
+      "family_id": "held_out_family_020",
+      "input_digest": "sha256:62372bd02c3d9d356748a13dc3c44af9c82dddef6846b5fa0ab55199bad29621",
+      "sandbox_fixture": "sha256:b607f5a1dfdba8c63dae1911635dc43001fd0a5bfe9bf2629301cd5cb92fbe5c",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:ba7519c4d177a2a1def33d6f7f72dd65d2660d8f4e78749ff8133a4ae9b784d2"
+    },
+    {
+      "case_id": "held_out_3d7a1aaa",
+      "class": "far_discovery",
+      "family_id": "held_out_family_002",
+      "input_digest": "sha256:50696be1981f902d3cff87fe14b357dac590412e82b09af15c757d29fdd6e631",
+      "sandbox_fixture": "sha256:93cf0d4d0df79540ba2cda486d78e24a8a28a4ab918164ff892840f5fa4f1a33",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:9d1fdaded3368b9869c464ca3b7f92d243abb76a6cd149dfcc330913a0c4031e"
+    },
+    {
+      "case_id": "held_out_3f55953e",
+      "class": "absence",
+      "family_id": "held_out_family_024",
+      "input_digest": "sha256:3100bd045a37c743b23adfffb5a6b67c77faa36f61724d6abf40366e7b6c5d67",
+      "sandbox_fixture": "sha256:71a08988d81a68c8a506084c6f532779a55dabdafa092d4e0fc8bd3005bf665f",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:deadb9862d0870bceaf5f22a7d030720d28670c6643c5a1027fb96b7ed9b2994"
+    },
+    {
+      "case_id": "held_out_40299698",
+      "class": "absence",
+      "family_id": "held_out_family_005",
+      "input_digest": "sha256:fb97554d176dd8eb65f615499e2808b3b36d5ceff24a2c551abf02489072602f",
+      "sandbox_fixture": "sha256:84c2ea23d95c4307e0e9a03de38e204b926b3a58ac6a032ad6c64a1b9e3cbf6a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:82cd35ab8ac0b7cb38f6f33d9b89b8555a33065d249f65dac260ce5c7bd8989d"
+    },
+    {
+      "case_id": "held_out_411f712b",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_010",
+      "input_digest": "sha256:4a77ca40878a21c457353483c616c1a2d65f8a77416d5d1019d8413b811e9726",
+      "sandbox_fixture": "sha256:0d37f704d56e87ecf1f3006b36e3524d31426dbec02b21e226e270d3e1848925",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:7b4180e21e791eb64bf1952a2515dad8339ad67d5e24e8f9363d53399ce17d2a"
+    },
+    {
+      "case_id": "held_out_41f5cd34",
+      "class": "direct",
+      "family_id": "held_out_family_010",
+      "input_digest": "sha256:2208aea0a253b91e0771a4a7e426f6c39ffd2f64b7a300cf74c454e860804b9b",
+      "sandbox_fixture": "sha256:0fb8a02209356b9b31997da7d2f80000d8b1fd909e908ea5593fbe3edf8bfc54",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:4c8e2281f8b7ef3ea29ff941d62f9a277d5ba1131af4e877857d9f166813a61f"
+    },
+    {
+      "case_id": "held_out_42174c2b",
+      "class": "cascade",
+      "family_id": "held_out_family_006",
+      "input_digest": "sha256:a6bb0a9d6b049d7b561ee63cb9447bd82f2ea8b98fb7526b37212c6aa3a2d207",
+      "sandbox_fixture": "sha256:ba242d85a199142dc4b5f2d48ddc3296b7f0a0c9ff194646cbbf3f9f499eb85a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f9dce224b245c72123c1631d554996e7bddec73d16c013dc084ac84c87a52699"
+    },
+    {
+      "case_id": "held_out_44f9d250",
+      "class": "recovery",
+      "family_id": "held_out_family_001",
+      "input_digest": "sha256:899ba4e2346243ffb23934358b4c160ae5f2f4e06b709025684a2e00572c757f",
+      "sandbox_fixture": "sha256:26bfca77ae906921a56c12c14bfb3068aedc627b5ef71961c16bfd81595899e1",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c9285349123e0a422d3cb942776345cd3a043d8b076433c86df8bc2ae7c702d5"
+    },
+    {
+      "case_id": "held_out_484d6caf",
+      "class": "cascade",
+      "family_id": "held_out_family_016",
+      "input_digest": "sha256:53c7cc391c24af3cdfbd15281001bc67f0f639cd86a1798861d793047f5dd952",
+      "sandbox_fixture": "sha256:4133134b5c645da854215aea9efc553057d9143c926fb9a99027fc53098d6c62",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:5415006cfbd5989bd602d763545b6b6ea79f25d97a8b2447eafc7d8f81a30ab3"
+    },
+    {
+      "case_id": "held_out_48b3d042",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_014",
+      "input_digest": "sha256:cb2cea0aee7e089cdeb930b4007b091d73d9a22dda2576e809ac78fdc969d476",
+      "sandbox_fixture": "sha256:d18313ff7ab1da359b8cff1f133ba8f6e837d81ccf2ef8e6ede2aae91dfe9104",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:e4f440ba62b6c7f90e184f8cb8fd4061f5bb8748a9cc58b822bf25f0812a7d55"
+    },
+    {
+      "case_id": "held_out_4e6599dd",
+      "class": "recovery",
+      "family_id": "held_out_family_013",
+      "input_digest": "sha256:e84ea78dcc964350a67c8f26998630c3a663d6fcc8a96f5365daeb5cfd3acbaf",
+      "sandbox_fixture": "sha256:e4353bcdb62b9a745873023d92e459943172d285ad9b6f236de3b57c0bd2c979",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:9474b995e3ef802600e12b7f4618ebcc74c1ff96ab768b8f371617084dc8f8b1"
+    },
+    {
+      "case_id": "held_out_506091db",
+      "class": "recovery",
+      "family_id": "held_out_family_013",
+      "input_digest": "sha256:79629203c65e2c9203a72a8bcf8fb65504c47ca5ce4257570baf54c9d03ff1d2",
+      "sandbox_fixture": "sha256:e4353bcdb62b9a745873023d92e459943172d285ad9b6f236de3b57c0bd2c979",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:7a7121a32c9fcdf0dd5d913f0b4b48fc3d89c907360aeb34d2e685104fbfd402"
+    },
+    {
+      "case_id": "held_out_50a365e0",
+      "class": "far_discovery",
+      "family_id": "held_out_family_003",
+      "input_digest": "sha256:0da9df351299ebb37d09310657de8a02861611838a5d2198d9d92b425cc2fb7b",
+      "sandbox_fixture": "sha256:1b74aa0f811f0e183d401587aa11b4281a379679ee6759bfe7c54517e9eb2edc",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:b321f68bd0068e62f3f043ca058da329d8e779dc56da58ad9ed616e417acad84"
+    },
+    {
+      "case_id": "held_out_52ef973a",
+      "class": "recovery",
+      "family_id": "held_out_family_021",
+      "input_digest": "sha256:53b890954a789de2c22d586126557c39075da3f85605ab7b33ca07e9cac739bf",
+      "sandbox_fixture": "sha256:8ea04ab7fdb13a63deac57da5acb0af1f2d82d3cd5f8fbae243d46e089d1aa05",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:15aaa57459fc89e4e3b89a0c31c5bc0a8a6110ce7a01414c00e0fbc9bcf7f080"
+    },
+    {
+      "case_id": "held_out_55fba595",
+      "class": "direct",
+      "family_id": "held_out_family_004",
+      "input_digest": "sha256:b03323464a2c5026f9da2d8b3060cba36b13987573774c99756c746a83cfb658",
+      "sandbox_fixture": "sha256:4bcf98a02297f69ec52d361d0341b6d510a3952fbe3ff34e3c8911d6fd197a3d",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:a1d42a4a59bc3a46b83d59bc5762ea217f0090c255cd454cafcae89f55847403"
+    },
+    {
+      "case_id": "held_out_564b0a4a",
+      "class": "cascade",
+      "family_id": "held_out_family_005",
+      "input_digest": "sha256:47775e23ab42d3631f2ed63b0acb439f78b7e9ae306b37f87849b900b40ad9be",
+      "sandbox_fixture": "sha256:84c2ea23d95c4307e0e9a03de38e204b926b3a58ac6a032ad6c64a1b9e3cbf6a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c68f9646943bad1517a4a1b8eae3c977d6b0499ad7f9e59abdb115f7f7186cbd"
+    },
+    {
+      "case_id": "held_out_58e9ff5b",
+      "class": "absence",
+      "family_id": "held_out_family_016",
+      "input_digest": "sha256:19cb47900c1bdc66436edbb8d7d2d15db5a1c76e64eb82551ff2e5dc72154b65",
+      "sandbox_fixture": "sha256:4133134b5c645da854215aea9efc553057d9143c926fb9a99027fc53098d6c62",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:bd60117258aff10d7a9e154ef4fdbacf9ec2835614c01fc176da49093c74edc0"
+    },
+    {
+      "case_id": "held_out_5a04a5d5",
+      "class": "temptation",
+      "family_id": "held_out_family_018",
+      "input_digest": "sha256:a43598c67e27ef0ff9dd7023415a7e683044d0a0146cdafbd32ed5cec257431a",
+      "sandbox_fixture": "sha256:4f4faeeaf7f061cafbdede0127254b2d8cd7fba224286b52046ba78a81c312c9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:83ebe25514996b9f32ea0dafc594258b01e3961014bd5d482f3c2b963261ef5f"
+    },
+    {
+      "case_id": "held_out_5bf0ab5d",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_016",
+      "input_digest": "sha256:cdb50e7462ab7956777fd3225633749660363b90eab640f14d67944b2441bcd8",
+      "sandbox_fixture": "sha256:96e2887afcd42cdcc74f3db0c28e50acfc54ac1d407ff217d7aff10f7b1ec72a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:287e87e9dd0f8c1131e4f96b26f95074d636cf37ed92a878d85eb138e5f50c22"
+    },
+    {
+      "case_id": "held_out_5c9dc114",
+      "class": "cascade",
+      "family_id": "held_out_family_018",
+      "input_digest": "sha256:c0083ba44c6b2ff3e44af74faa7a427b150feeadc1cae0ed1114fe7e8c4dd522",
+      "sandbox_fixture": "sha256:9a5a53addf9a4720e294903d49f9622fa9ff883ee647cb7377312fea38b61f25",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:9bacc746b7b1a42c7b358f7f1547d107327ab031949906fe22d872da6d31246f"
+    },
+    {
+      "case_id": "held_out_5d169fd4",
+      "class": "absence",
+      "family_id": "held_out_family_019",
+      "input_digest": "sha256:5b007dd1de5048ce9ab2747797cb889f7f78a061d8c9d7448e3b0759e06f33dc",
+      "sandbox_fixture": "sha256:51a967454be1bd297013e8e5f0a81bc214e41869d57e0d3c819d4cc716376483",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:8d97f9141bb90cfcff8908151a80b07013d2d2c5dfb6cbdeb03aaa49ad2b5207"
+    },
+    {
+      "case_id": "held_out_6034340e",
+      "class": "recovery",
+      "family_id": "held_out_family_009",
+      "input_digest": "sha256:6683f96ff3983d5ce9ab9433e4c7a4b961bf230df6b01b70001c9654e9fc9a16",
+      "sandbox_fixture": "sha256:8d64c8fc89929a64a77c403465a9388f957120256f0529ce4406751c2405e8e9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:108c46eb09ac6a67a10ba0370c42e67a9e557c3a58cc3a8577f93f3ac3966501"
+    },
+    {
+      "case_id": "held_out_63196347",
+      "class": "far_discovery",
+      "family_id": "held_out_family_021",
+      "input_digest": "sha256:19c4f683eefc14bafa9f08b62ed1e84b6f5fd285d4d3a2b84f86a87db275ea56",
+      "sandbox_fixture": "sha256:954224ebebb26fc16f0479f9d49722670e374cec3104286b73cdf94b006d7f83",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:eeedeb4bda80341f965bfb737839db5ec2f9bb01cb536aedc32c3ccac6397b75"
+    },
+    {
+      "case_id": "held_out_63c88567",
+      "class": "cascade",
+      "family_id": "held_out_family_023",
+      "input_digest": "sha256:3108b2611a1f9879b510ba564d81e383e535e3031e1ce1e38ac19c45066b8ebc",
+      "sandbox_fixture": "sha256:dc257d40d3d78577df9cb526c9b92baba08f820551b7800e3ee3483db3294b29",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:051fd3d2bef98cc9981a3989249c7db7902f0f996195c6a793552d7b7529d61d"
+    },
+    {
+      "case_id": "held_out_64ded334",
+      "class": "absence",
+      "family_id": "held_out_family_017",
+      "input_digest": "sha256:020cb2ec90d1a61c49ecbc12c96d58554eb40e7381428b324ca45df6c83027dc",
+      "sandbox_fixture": "sha256:47ff9578dbc276d2152cfb1ddc4054b766b12f04d5d61232578bdfe5cac4f404",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3e99782f814ee05b25471eb8e310ca5c753a1d6cf907452bfac09c019b458e07"
+    },
+    {
+      "case_id": "held_out_6628d063",
+      "class": "far_discovery",
+      "family_id": "held_out_family_013",
+      "input_digest": "sha256:7e5fb21ba1c5bea6da46d023575a8f719bf5d262dd53ffec25dee38336c6f0a2",
+      "sandbox_fixture": "sha256:61ade3f493bad8e126ee74bcb313f861ef627715c393c6baafb46f4566dd44b1",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:ce1231f40836fa9779ac822692b843b04f44a1c0f839485167a2ed2234a64108"
+    },
+    {
+      "case_id": "held_out_68fff476",
+      "class": "absence",
+      "family_id": "held_out_family_023",
+      "input_digest": "sha256:071619a259687cc68c3ee2b7242c75bda0ff308ee926b7047ec7d05df12d9554",
+      "sandbox_fixture": "sha256:dc257d40d3d78577df9cb526c9b92baba08f820551b7800e3ee3483db3294b29",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:966918c04163231f72845af755838b368c2642cb27e49034e3922df1320ef00c"
+    },
+    {
+      "case_id": "held_out_69a73714",
+      "class": "cascade",
+      "family_id": "held_out_family_014",
+      "input_digest": "sha256:ba14b1bf1f4865308a185dd55cae198bb2fa31a152fd3b7e170d7ba3360f65c1",
+      "sandbox_fixture": "sha256:46e0c61598e60aee023836c94b66a5c89caa17c857f747eb4bc36dd53568f354",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:e280782cb6f49b848bbd0a428c7da479539d0ca888f8f299868949fca3051866"
+    },
+    {
+      "case_id": "held_out_6d1efba6",
+      "class": "temptation",
+      "family_id": "held_out_family_009",
+      "input_digest": "sha256:c222eddda38091d5cb4acf8179206399c866b87c757612f81c456eac14317ef2",
+      "sandbox_fixture": "sha256:f2ba7c7a938b1bd2318c0595bede41c5e4a4bd36f7a5d84294522847c4eddc31",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c1125b1d4ad4e21cfa97b85baac1b73ca15e00fc8d7b1329e8aabe2d2c38918c"
+    },
+    {
+      "case_id": "held_out_6e08c686",
+      "class": "recovery",
+      "family_id": "held_out_family_003",
+      "input_digest": "sha256:dee69989557decdef4a55105bea2c19ff8d0db14677913694ffea5695297845b",
+      "sandbox_fixture": "sha256:e8de607ab4e666aeee3307d9f2d7b724b74a620479ab6cd41c97ff34a8338ad9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:34adb01eadcb9809fd596cf9b9ed44570b5732567b479e747bae8355e12d6886"
+    },
+    {
+      "case_id": "held_out_75d63658",
+      "class": "far_discovery",
+      "family_id": "held_out_family_015",
+      "input_digest": "sha256:4a1625b46b2f979c5ec8460a9fe73a66f964d2dc157daa3534d732e976d7eb24",
+      "sandbox_fixture": "sha256:a152a5e76541e2fad24645b008ff29454cdf9a80aabe81921faaf93dc94a011a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:471379e50de48e4bf913ea877c0d6197380e19f758f4310b1757d13aa1a54f43"
+    },
+    {
+      "case_id": "held_out_788cbb22",
+      "class": "recovery",
+      "family_id": "held_out_family_012",
+      "input_digest": "sha256:606c9c6bc8cb088b3ce84a245e63c1bfc6f690aa35d1b1aa16269c5f2f73a379",
+      "sandbox_fixture": "sha256:be4adb742e39f7b2d7eb25594dc828cb19589347f591742efcd48473e7787b4a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:89f2e5792b614078b0d0f6b006abb6cc1ee9d8a13b56b6b9a8f9e45b25a1ac13"
+    },
+    {
+      "case_id": "held_out_788fe673",
+      "class": "recovery",
+      "family_id": "held_out_family_021",
+      "input_digest": "sha256:97bd027640816e03b4641feafa525dceab415b6f702a809a4f6372c2906ca5e3",
+      "sandbox_fixture": "sha256:8ea04ab7fdb13a63deac57da5acb0af1f2d82d3cd5f8fbae243d46e089d1aa05",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:023f9928c4b80de95fcfcc121190f48e7a04609d520a52ec46a82e75098d1239"
+    },
+    {
+      "case_id": "held_out_7bc70d27",
+      "class": "direct",
+      "family_id": "held_out_family_024",
+      "input_digest": "sha256:36ae65bd0906d5fe5f107351b3a6cf8f609a21e0aa3bc719bd1425e69b427cd0",
+      "sandbox_fixture": "sha256:e28715307a508de39ac71f63d15119662db38d4d263b09e4875f397baebd1b72",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:de4251ce95f09168a4cb7da506d98a7887a5e2665feb59933a47080b0363dbdc"
+    },
+    {
+      "case_id": "held_out_7e1412a0",
+      "class": "direct",
+      "family_id": "held_out_family_008",
+      "input_digest": "sha256:4319b6456cd9db150c915e33c2cf5b41dbc168f317db3181c27b6903534d5463",
+      "sandbox_fixture": "sha256:46f95f3eea0f8af24fea85e2e44a671e0334dedd82014dbb16e0889834cb3b9e",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:7e8d9614ffa64744496f7a51945f3a18bc3d747eb5c238b821dcda4411098dd3"
+    },
+    {
+      "case_id": "held_out_80157c91",
+      "class": "recovery",
+      "family_id": "held_out_family_002",
+      "input_digest": "sha256:0cd5a7a3146160c4e6a2e5abc656348e1ab4cc049a88cebf5ddd48ed2f80b424",
+      "sandbox_fixture": "sha256:87afb4fda2402806d1b4b91fcca78838180cac1ff14eea7df2db6dcaa4f6668e",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:14b21826f86b25a02a9a1135294184713ae6d708136169b674da058bdcaa44f0"
+    },
+    {
+      "case_id": "held_out_878d576a",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_023",
+      "input_digest": "sha256:06d71f17932ee1b86339eefdf764c684eb3a3fda9ba61f297dc95252ce8546ef",
+      "sandbox_fixture": "sha256:db5fbbfc26180493f97c7f1953a4310d7b15ea36c247a9d409022103f46fca19",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:5d85fd1d1c561b00fcc3668ea58280f2af88a3a47ea08e9dccbcffabed9b8471"
+    },
+    {
+      "case_id": "held_out_88468144",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_024",
+      "input_digest": "sha256:826a847b844ac578b91fb1cba6b64b6051dbfab1b4ea0247872699fa207851f1",
+      "sandbox_fixture": "sha256:e28715307a508de39ac71f63d15119662db38d4d263b09e4875f397baebd1b72",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f932ee6bcb62c44525cec59fbd73c24123ddcba27119740fcf384c460ae25322"
+    },
+    {
+      "case_id": "held_out_884ea668",
+      "class": "direct",
+      "family_id": "held_out_family_019",
+      "input_digest": "sha256:6fc914eae22eb4202c87db66b23920ff7c18903424e39ebd52791deb518e9e61",
+      "sandbox_fixture": "sha256:51a967454be1bd297013e8e5f0a81bc214e41869d57e0d3c819d4cc716376483",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:4511b591a36871ec1ef711e738da729cde7b7c156416ba3fcca6acc47c76b531"
+    },
+    {
+      "case_id": "held_out_88e18565",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_011",
+      "input_digest": "sha256:3a59c71ae73bbd02503789a2bfa5694b3d9002b88bd112e2379c17b447ae5fd7",
+      "sandbox_fixture": "sha256:0f93519b77d75d2fd49759c9857d6865f31c60d42b6f022f79873ceae774a5dc",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:1360a19c03fa6b667c34c01b1847b23a15d8100d26402a7a22eed450e8a95b56"
+    },
+    {
+      "case_id": "held_out_896bdd6a",
+      "class": "direct",
+      "family_id": "held_out_family_007",
+      "input_digest": "sha256:6eb5172c3df02c01f9399a62e3ecb3d8c89dcef588780022fb22d59ca0284b21",
+      "sandbox_fixture": "sha256:7ef60dc38de478108e82fe9db125b6a0e642b92a4965f28cd658a9c9d5d066eb",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:e648c6273d1f00521febeb997e4926b28a2f3945fcde1dc32d3ea83bc62ec7a9"
+    },
+    {
+      "case_id": "held_out_8a8dfc05",
+      "class": "direct",
+      "family_id": "held_out_family_008",
+      "input_digest": "sha256:db6d61b241f9c93b1353d816dc090a7195ee00de1cdcfc125ae1736b792b96a9",
+      "sandbox_fixture": "sha256:46f95f3eea0f8af24fea85e2e44a671e0334dedd82014dbb16e0889834cb3b9e",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:701f07f3f70818638e9b89b3dbabc4ab6bd78b8b8cb4a5c130dfe8c034b30ddc"
+    },
+    {
+      "case_id": "held_out_8c5764ee",
+      "class": "recovery",
+      "family_id": "held_out_family_003",
+      "input_digest": "sha256:c9d935f182098e847fa9903683afdab4d6d8015cf9924916b9f682ad1d3e090d",
+      "sandbox_fixture": "sha256:e8de607ab4e666aeee3307d9f2d7b724b74a620479ab6cd41c97ff34a8338ad9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:146e85fccff4c061aa0cc11d7b66c843eb6d0b5e061ada317fa572b6b7459e8c"
+    },
+    {
+      "case_id": "held_out_8f1d16d0",
+      "class": "recovery",
+      "family_id": "held_out_family_015",
+      "input_digest": "sha256:e641f3c385629dce73b42f873adda74b6e043a2822095232fcf4764651325be0",
+      "sandbox_fixture": "sha256:02dbda914fd3b1b4810879ca1bd25dbff423a2fcf559b941898a7660da2f55d6",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:ea17d3eed85b0bdb7ab06b92b8372c9374324087b12965de8e5d41df635ba71a"
+    },
+    {
+      "case_id": "held_out_920b7533",
+      "class": "recovery",
+      "family_id": "held_out_family_009",
+      "input_digest": "sha256:089b4f56c340f54795acab2e7dc9dbb6f4a47e71b4728f9f1fb8e1788827938b",
+      "sandbox_fixture": "sha256:8d64c8fc89929a64a77c403465a9388f957120256f0529ce4406751c2405e8e9",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c75c210ccb583c55e1acfad8bf229e0ebf203643a788fd230cdd7369823b002f"
+    },
+    {
+      "case_id": "held_out_94662bc9",
+      "class": "temptation",
+      "family_id": "held_out_family_021",
+      "input_digest": "sha256:65d53b2e126f95c5520ccc6dc5c77d63ef915fa0367ded4cf9a9592c604fca40",
+      "sandbox_fixture": "sha256:15c8c0513d3d1847996707f174d6c6e0e340c1d6903d8157ba9a65069e4a3f26",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:55757b6dac96019f5607e06ebb05eaf568dbc8191d03c6a0cee37df81a6b7778"
+    },
+    {
+      "case_id": "held_out_95057879",
+      "class": "temptation",
+      "family_id": "held_out_family_006",
+      "input_digest": "sha256:3cdbaa1f0ceb4e7aa33acb62c6b21ed156b54a993e3f9a7447167cd2afe31075",
+      "sandbox_fixture": "sha256:0f2376209da73a442eaba18064dc7d714f36586a60637526caed14ee96ab544d",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:ca231339e8e02cce6d82c0c44ad2a5122ebf4920df6a2840f5f21d2ce278c927"
+    },
+    {
+      "case_id": "held_out_95189107",
+      "class": "direct",
+      "family_id": "held_out_family_024",
+      "input_digest": "sha256:b3eff7b4d59b7d048066caae7799c92d2bb6d61ae4189932dacc0e077a30a27f",
+      "sandbox_fixture": "sha256:71a08988d81a68c8a506084c6f532779a55dabdafa092d4e0fc8bd3005bf665f",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c4c8df509b92ab386f5e7549f99b41f43978e21d2f91af613ad53bc3efe96d91"
+    },
+    {
+      "case_id": "held_out_9736451c",
+      "class": "temptation",
+      "family_id": "held_out_family_016",
+      "input_digest": "sha256:c1a5dfd06b4348d8a992ba1fb78c4c29abc3bc13e38c18f4bd5f7c3d1497e7f8",
+      "sandbox_fixture": "sha256:9eb33569ac57fb12a11354d6a65a289656afdb04c453f478385cea579041b7d6",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f0dc96e8da3f34852040b3be09eb40047bc2a01f8b2cd052f37620660799e59e"
+    },
+    {
+      "case_id": "held_out_98b0f047",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_011",
+      "input_digest": "sha256:de3108653206436e43cb44eb86d0a98e8559a936cec63581d2a823546bc2b6ab",
+      "sandbox_fixture": "sha256:0f93519b77d75d2fd49759c9857d6865f31c60d42b6f022f79873ceae774a5dc",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:036cfbca2005a46ade72ea3737b00619763aade6391e4a1b67dc8404d73cb518"
+    },
+    {
+      "case_id": "held_out_9b93ab2c",
+      "class": "direct",
+      "family_id": "held_out_family_007",
+      "input_digest": "sha256:efa5866848ba1f6a92027eb50b917a6259c563cd790472302738f97a133fee50",
+      "sandbox_fixture": "sha256:7ef60dc38de478108e82fe9db125b6a0e642b92a4965f28cd658a9c9d5d066eb",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:ea1e4cc15b110f23d344fde55042c60e35fb4b3752823023fb8dd54d2988e809"
+    },
+    {
+      "case_id": "held_out_9cca6766",
+      "class": "cascade",
+      "family_id": "held_out_family_020",
+      "input_digest": "sha256:44cf8e299c07f164c2499a6489a83ddd4a271adabf57c68a5fbc42b3c91507d1",
+      "sandbox_fixture": "sha256:88977a932c745300f1bec4b4826bbb88407a64ded24ec02028ddd7b85234eeae",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:89c5450739a19774bca7356f48f3f48eb5871394959623d44b1af24f00016568"
+    },
+    {
+      "case_id": "held_out_9d6792e0",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_017",
+      "input_digest": "sha256:8b61b3ef4cfe63c35d83f817992e0417d84cff20472ed65fba25de2ed169fe32",
+      "sandbox_fixture": "sha256:e850da2201b1470669b2eaeed1aa5b30c34af700268e5330f21c6ce1ab29d618",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f1995c74b433d62243e710675ddac059f91ed85e8fa459e9490b6997e4c50d0f"
+    },
+    {
+      "case_id": "held_out_a2f3dba3",
+      "class": "far_discovery",
+      "family_id": "held_out_family_009",
+      "input_digest": "sha256:65babd1c5aee00022891034b3cbe5dc6200332a3938fc767cc822ba27c7697b0",
+      "sandbox_fixture": "sha256:4f5db9f12b5132bd47e5632ff8b795c038d7c0194ac786f2224a6ff6134f7925",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:b828bb433abe4b977aa4b58a27ad5804498d8378471b554b84b54b5bd5b9da76"
+    },
+    {
+      "case_id": "held_out_a72eab34",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_005",
+      "input_digest": "sha256:cb75bf41f5c3796a09415bc1bd4ed252207661676aa3d1032086fca1b79a0834",
+      "sandbox_fixture": "sha256:8068b5663e0d7b1288d78bb2b7b14a5cba93353db46c661fbfbdba4b1d881e11",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:5c0ce223275a8b3567e3bda770bafbd1b9ac81cb7fac0b37f1152db5dff0fff4"
+    },
+    {
+      "case_id": "held_out_addccbc8",
+      "class": "absence",
+      "family_id": "held_out_family_007",
+      "input_digest": "sha256:5fe9027528b119ce0161f696465655c25d2a5f105f1ddc3116a7d47f5e68df10",
+      "sandbox_fixture": "sha256:7ef60dc38de478108e82fe9db125b6a0e642b92a4965f28cd658a9c9d5d066eb",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:f977778de85c1fc2c4a637c0aebb40442222fcd57a0423edd926a9b174e535e1"
+    },
+    {
+      "case_id": "held_out_b37e62d4",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_020",
+      "input_digest": "sha256:36b8708234ef39a039f3b55b8fc4b57e166a1c8e814ce90bdf126c05c5a5635e",
+      "sandbox_fixture": "sha256:6b3a722ec6c199e30180eef4eb6b28e27acedf4363ab7d4a0b3cda5f34cc0f6e",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:6fa7d607251097fb7f20ad463a6ebc786e9c385a71f49ded8abfe9cb70ccd349"
+    },
+    {
+      "case_id": "held_out_b5a6ec57",
+      "class": "far_discovery",
+      "family_id": "held_out_family_012",
+      "input_digest": "sha256:b697dbab93c493d94fba966c7217fde14889b0045dc0b7be12e7e2f6423077b0",
+      "sandbox_fixture": "sha256:861029c99b943429c2fc7285087ef9ecbe26d265296ae62cf14180d8586b2166",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3581b912aafa6e882b10eb3a852524b1a0fd89ee7462ef7818bc02744e0357db"
+    },
+    {
+      "case_id": "held_out_b94b047e",
+      "class": "cascade",
+      "family_id": "held_out_family_023",
+      "input_digest": "sha256:e80455f2418f8e66228599fa6b7cf058c1367ecac6bfe4ae10306772f89d00c3",
+      "sandbox_fixture": "sha256:dc257d40d3d78577df9cb526c9b92baba08f820551b7800e3ee3483db3294b29",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:24b6467000974c636f8340775f2ed33e6cc9a7f72f301817fa3b0ab25aa91ab9"
+    },
+    {
+      "case_id": "held_out_bb7d7f81",
+      "class": "recovery",
+      "family_id": "held_out_family_002",
+      "input_digest": "sha256:ec057255d31cefa1d4203cdba7b0c551867d7d3c791eb5f0e1a713959c934545",
+      "sandbox_fixture": "sha256:87afb4fda2402806d1b4b91fcca78838180cac1ff14eea7df2db6dcaa4f6668e",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:b301fbaf3e5f0ad826de3a049c3f8388376d2bf3937f69f9ba85728987c5497b"
+    },
+    {
+      "case_id": "held_out_be7cde04",
+      "class": "temptation",
+      "family_id": "held_out_family_013",
+      "input_digest": "sha256:9cb285cb9f34076cb637420967158c35561d4bb595ab390e796e3cc5db9f12a9",
+      "sandbox_fixture": "sha256:fe577145072dfb86f59edd4dcfdd8797141ca0d4e0868837f49010f113eb02b1",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:01b94be36dcd9b24748e4bdc17ef0779b5bd73a6766adf3977416d99c32d2641"
+    },
+    {
+      "case_id": "held_out_bf11261e",
+      "class": "absence",
+      "family_id": "held_out_family_010",
+      "input_digest": "sha256:f3a4c4254abbb886991ecc939e5bf8a1bbda644e6479b8542efeb8f9a421ba21",
+      "sandbox_fixture": "sha256:0fb8a02209356b9b31997da7d2f80000d8b1fd909e908ea5593fbe3edf8bfc54",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3b7fe446b62e1f0817c7c4a9492429556cc9811335b3f9283b2ec3e618962c53"
+    },
+    {
+      "case_id": "held_out_bf9ae386",
+      "class": "direct",
+      "family_id": "held_out_family_019",
+      "input_digest": "sha256:8184e697a1aeeef4f8e6d95e214ac6ce90a68d648ecad1efe0165280cec48e24",
+      "sandbox_fixture": "sha256:da825d74bd052607944e4b95838a86805547133b48e1397092e236a058917bae",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:5c4153ab88d553230e1d73d1318e30a40d76197e9f577aff48fdd1df8d426e57"
+    },
+    {
+      "case_id": "held_out_c0465aec",
+      "class": "recovery",
+      "family_id": "held_out_family_015",
+      "input_digest": "sha256:26f7a785f00c9c16f57bca24866ae7ad62c1a72af81fd6f0873faccdc4ce60fc",
+      "sandbox_fixture": "sha256:02dbda914fd3b1b4810879ca1bd25dbff423a2fcf559b941898a7660da2f55d6",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:16839ea3a33c86a85e78d14ca3112e1a8a7b9b4111bed95d97f9cfbc11012cb5"
+    },
+    {
+      "case_id": "held_out_c312cad8",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_014",
+      "input_digest": "sha256:41b81c53077c7a12210f876bb8354b26a960d73663fef9898e084b17f4fc970d",
+      "sandbox_fixture": "sha256:d18313ff7ab1da359b8cff1f133ba8f6e837d81ccf2ef8e6ede2aae91dfe9104",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:aff69b7b6ec675d8bfbebd63f8d0bafce02614deee02776a867a2d1f18ea2c0c"
+    },
+    {
+      "case_id": "held_out_c3c85e7c",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_019",
+      "input_digest": "sha256:28425d410fa2933efda175c146950d9a01ac769f3acda536f4454219d678c6e1",
+      "sandbox_fixture": "sha256:da825d74bd052607944e4b95838a86805547133b48e1397092e236a058917bae",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:432fd80c4165dd1c5d7a797ca9bd516bc8227f70ffcd70599ebb1ea30ef17889"
+    },
+    {
+      "case_id": "held_out_c4ea4f88",
+      "class": "direct",
+      "family_id": "held_out_family_004",
+      "input_digest": "sha256:43ee65d750a5ae4074f98799105e2547a4a73873eb4ba2758684a8862babe4f7",
+      "sandbox_fixture": "sha256:4bcf98a02297f69ec52d361d0341b6d510a3952fbe3ff34e3c8911d6fd197a3d",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:419deede2880fd11d9ee78863095378395c3032ef8282242084528d67c7a2411"
+    },
+    {
+      "case_id": "held_out_c850dfc4",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_008",
+      "input_digest": "sha256:ff741beaedcf9c3b7708b0950040920a7fa7d99ea118b8fd8f6a71e864ee827a",
+      "sandbox_fixture": "sha256:1795c19afdffc777c9a93d7fba35f584461a950ce128f18a4254f3d5a441a85f",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:2967a390e1aa310f3b7249291ee5cbf515deb6493d5d5319fabab7bd065b88a1"
+    },
+    {
+      "case_id": "held_out_cae2d60f",
+      "class": "recovery",
+      "family_id": "held_out_family_001",
+      "input_digest": "sha256:905043325c3bb6cf367b839c41e17c884535c2b40943326dedb8b8e60a02523b",
+      "sandbox_fixture": "sha256:26bfca77ae906921a56c12c14bfb3068aedc627b5ef71961c16bfd81595899e1",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:96f5ba24a5e46702e24fa4461ce9fb76019a13686d369662b27eb7c2bbcb6403"
+    },
+    {
+      "case_id": "held_out_cb4a8772",
+      "class": "direct",
+      "family_id": "held_out_family_017",
+      "input_digest": "sha256:ab2648f1207c44637a9d80eba6857caa02261dd8e6818b20d77ef6a841b17c2b",
+      "sandbox_fixture": "sha256:47ff9578dbc276d2152cfb1ddc4054b766b12f04d5d61232578bdfe5cac4f404",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c7828930979440f43b790eebeceac995b7f6bf7aa05165672ecc273825b0731b"
+    },
+    {
+      "case_id": "held_out_cbabe409",
+      "class": "recovery",
+      "family_id": "held_out_family_013",
+      "input_digest": "sha256:970c0ac2cac347c04c0f50104e6516175818205ff5f27d6e683a7d573a01155d",
+      "sandbox_fixture": "sha256:e4353bcdb62b9a745873023d92e459943172d285ad9b6f236de3b57c0bd2c979",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:57d01e6e7383f1290a19aa3692823c5d64e5c53d7893096533f97d648b567150"
+    },
+    {
+      "case_id": "held_out_cd8b85c4",
+      "class": "temptation",
+      "family_id": "held_out_family_003",
+      "input_digest": "sha256:57910bd155674992a5169e96928baf3b9cee7255cf6a51b0d15ea6246bc004f0",
+      "sandbox_fixture": "sha256:0a597e548aab03f5e2b15f3f85e9793b7a92ebfaf5ec912cf678936b53c8493c",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:966b1aa5e02a6b585f3f9471db66f605987bb66646213a2698da63f2b50c869b"
+    },
+    {
+      "case_id": "held_out_d0300466",
+      "class": "temptation",
+      "family_id": "held_out_family_011",
+      "input_digest": "sha256:54508e30498b619b8f687a2a5cf23343b2272d4234d6017bc67d02f0d84baeec",
+      "sandbox_fixture": "sha256:f36b7b49bc7c0c9107ce26be19223d093c6cf173d3a40f66ccd5e083b3e002ee",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:76afa7523f46627c18ee732a0009ed95c83519c480c0e6566e17fe80d3ed5d61"
+    },
+    {
+      "case_id": "held_out_d1eb4603",
+      "class": "absence",
+      "family_id": "held_out_family_022",
+      "input_digest": "sha256:15ed5c237a48323c2a052b0db74fcea7b3ba584cc1c81282fafb67476864146f",
+      "sandbox_fixture": "sha256:7a9d27ba688144d1a7a0de8303e53c5454ddd8fc8c166aeba0a0e5b06d18c2a0",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:d880236d84e46ff29d5d748dd2f86c09f0d44c4589faf5bd4636a1f5f456bad7"
+    },
+    {
+      "case_id": "held_out_d6f07233",
+      "class": "direct",
+      "family_id": "held_out_family_007",
+      "input_digest": "sha256:de23dc887686af0564814dee265cdfe4c5bcd89d177104920997e6af3695fac8",
+      "sandbox_fixture": "sha256:64fa3610327de6fbb5e1a2a30bfe4acd6bcd1a318dc70c7deae297791ed03b41",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c8f3b6e2804e95a6b3c21c39544883f99f3db6d89448e8443827ed45f220ea73"
+    },
+    {
+      "case_id": "held_out_dec239a6",
+      "class": "recovery",
+      "family_id": "held_out_family_012",
+      "input_digest": "sha256:c7de474c4110deda0d3857ecf6aeecf307a4f25ba0bef65646fad6dd64baa7ff",
+      "sandbox_fixture": "sha256:be4adb742e39f7b2d7eb25594dc828cb19589347f591742efcd48473e7787b4a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:1a2a4c3a9634fab635f4d95f2206bbcf7e2d6720917f9aa644b47c07bc501a06"
+    },
+    {
+      "case_id": "held_out_e32c9b18",
+      "class": "absence",
+      "family_id": "held_out_family_008",
+      "input_digest": "sha256:839f68637acf25d5a7d5d8edfc1f4d82508d9c23f348ff35ec3cff09be6c84d2",
+      "sandbox_fixture": "sha256:46f95f3eea0f8af24fea85e2e44a671e0334dedd82014dbb16e0889834cb3b9e",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:9def3d5bd95a3b9b754e276aa0c0e584e99221f099c573b826de157a6d7e8481"
+    },
+    {
+      "case_id": "held_out_e3c5c384",
+      "class": "cascade",
+      "family_id": "held_out_family_020",
+      "input_digest": "sha256:9983cc1d8fde0ce148cec0af7ad49ed9af190f825f6afc54b9dfa1352398790a",
+      "sandbox_fixture": "sha256:88977a932c745300f1bec4b4826bbb88407a64ded24ec02028ddd7b85234eeae",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:b2a9df122b924ec72a3d10f8b360ea4cbf50f1fa28a1e5e195f685491313580c"
+    },
+    {
+      "case_id": "held_out_e5ad339b",
+      "class": "recovery",
+      "family_id": "held_out_family_012",
+      "input_digest": "sha256:b0dd6bbad37f1ea5c74aaf8c3ac0486a3494cb081ce7e69883b3e197224411ed",
+      "sandbox_fixture": "sha256:be4adb742e39f7b2d7eb25594dc828cb19589347f591742efcd48473e7787b4a",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c469148151de38250a4630e08ed2169d7e4c951cc37254a7a6377fe212975b13"
+    },
+    {
+      "case_id": "held_out_e7959bf7",
+      "class": "cascade",
+      "family_id": "held_out_family_018",
+      "input_digest": "sha256:466fb08b39379c063a3d56dd1db9dc4907c89713cdf2c390ebef2391943dab4b",
+      "sandbox_fixture": "sha256:9a5a53addf9a4720e294903d49f9622fa9ff883ee647cb7377312fea38b61f25",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:d7fc3690f197f0ba1c3f9c475a890741508b9540321fbec3a7c32d3d5b5a86ab"
+    },
+    {
+      "case_id": "held_out_e7f97548",
+      "class": "recovery",
+      "family_id": "held_out_family_015",
+      "input_digest": "sha256:c6c87cfe89c3835626d0c7358179b76884b4df6d1dd3b9ee5281984a327fe805",
+      "sandbox_fixture": "sha256:02dbda914fd3b1b4810879ca1bd25dbff423a2fcf559b941898a7660da2f55d6",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:98b9fdd21b5a1534f40700be92d96e533479abe35f3cdc162916e9de2b0c4d7f"
+    },
+    {
+      "case_id": "held_out_e90caa2a",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_014",
+      "input_digest": "sha256:c269bc8a51ae7899efdbecaf2ea8a05801c2c01e0a3800cfc0755a19d74ec490",
+      "sandbox_fixture": "sha256:761a98fa39d3ffc53cd7d329492e6cdd9bca1d9d180893ad187c15708810df07",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:afc638335989c2aebf462b63f6d3ad1d7026a43af5817f281324f262da91963e"
+    },
+    {
+      "case_id": "held_out_e9156760",
+      "class": "absence",
+      "family_id": "held_out_family_004",
+      "input_digest": "sha256:3bbc72a275cb9a0b4640a0cf12dab15df27e86242e8e32e37d2642c7bfac05d1",
+      "sandbox_fixture": "sha256:4bcf98a02297f69ec52d361d0341b6d510a3952fbe3ff34e3c8911d6fd197a3d",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:c81dacfb52373b971c7cbd96b24cfc3fe151a87989044f01b9002dd7d76ffabd"
+    },
+    {
+      "case_id": "held_out_e943e4cd",
+      "class": "direct",
+      "family_id": "held_out_family_022",
+      "input_digest": "sha256:7d8409d1f52eaa956dc036fe8878dd074c7bdf54911c3ab26422171b4540f27a",
+      "sandbox_fixture": "sha256:7a9d27ba688144d1a7a0de8303e53c5454ddd8fc8c166aeba0a0e5b06d18c2a0",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:debab714352b407370f2686660ad1a2b3b17301de6de3c8bc09cef7efa5f413b"
+    },
+    {
+      "case_id": "held_out_eb4cad7c",
+      "class": "stale_frontier",
+      "family_id": "held_out_family_007",
+      "input_digest": "sha256:c0cc8555283f864ab331f4ea5901019d6bbd99f7cbb0664b93832b1594883d47",
+      "sandbox_fixture": "sha256:64fa3610327de6fbb5e1a2a30bfe4acd6bcd1a318dc70c7deae297791ed03b41",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:382b217c1a5e7d374619853819cc6eddfe93862d32e9143e6169a5d8b7a4b067"
+    },
+    {
+      "case_id": "held_out_eb9696b8",
+      "class": "temptation",
+      "family_id": "held_out_family_001",
+      "input_digest": "sha256:e0e7186d4090476c67c03f1790f9a22d0c735c96ce7d6c03591e65c5d31c5078",
+      "sandbox_fixture": "sha256:e550d83d9ff10686f5154657c8fdc668086f9f3e480069266b5c0635adc9b42f",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3f217bb451a7fa4b78f1689f1cb5917661ad3335512912efa5b3e479484f942a"
+    },
+    {
+      "case_id": "held_out_f0648aae",
+      "class": "direct",
+      "family_id": "held_out_family_010",
+      "input_digest": "sha256:e5b50a7910456915bc4b037a8bc811445758c06eae04427fff2f1c41109780af",
+      "sandbox_fixture": "sha256:0fb8a02209356b9b31997da7d2f80000d8b1fd909e908ea5593fbe3edf8bfc54",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:51dd33e59da35db348c517f96da9cc5fe034f45cc446a5a80c93fd54ef613a19"
+    },
+    {
+      "case_id": "held_out_f0e54a2c",
+      "class": "direct",
+      "family_id": "held_out_family_010",
+      "input_digest": "sha256:d832e74640dc92545c31b22a58212a3b88b888fc39eb163a778b3591243fc08e",
+      "sandbox_fixture": "sha256:0d37f704d56e87ecf1f3006b36e3524d31426dbec02b21e226e270d3e1848925",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:5a800556c4a19d860ff89806ca83d3d436889bb178f957189d0580e5007d41f4"
+    },
+    {
+      "case_id": "held_out_f19c135f",
+      "class": "temptation",
+      "family_id": "held_out_family_002",
+      "input_digest": "sha256:6226101a604aa89a9240bfe2302b8a297eb4c91831d038f88f7f3de879377f59",
+      "sandbox_fixture": "sha256:7203b454cb9ba4174ea998ef8fff6e7fa45fce71e04ae6843b22b42e83eaf1b4",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:1792e1eeebe7c0713e3c3c7ecffef1d98dab95b587d6bb4d8665d4c5c3e70e2a"
+    },
+    {
+      "case_id": "held_out_f2721b89",
+      "class": "far_discovery",
+      "family_id": "held_out_family_014",
+      "input_digest": "sha256:3e112c8ab7f290f42b6baa0c6ebfc54765cc92edbeeb06481d66187650183140",
+      "sandbox_fixture": "sha256:f4e83dc5679fa9f01995bb80addd79638b58385c09a03de9383b96c3deb8bbb7",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:0bcf468e51bfe357a9234c46612ad6daea64ded5fd5bc2b88d1f5678f492b2b0"
+    },
+    {
+      "case_id": "held_out_f37a983c",
+      "class": "far_discovery",
+      "family_id": "held_out_family_006",
+      "input_digest": "sha256:83d013fedcdd7b94019a2415b75b82de1a3520120939c37172880364c6e7d282",
+      "sandbox_fixture": "sha256:228001cfd384d5f78dd105993ecaeb3ddfdcc19baed583359b918b68ff0eb70f",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:133c59045296bf1c30169290befcab35e5e5cfb74d12a11d693b0a83a58bf1a3"
+    },
+    {
+      "case_id": "held_out_f7724479",
+      "class": "recovery",
+      "family_id": "held_out_family_021",
+      "input_digest": "sha256:b6f57dd11e10bd809af9680cf8c1b737619530171be1f4869278575bb6e1cf6a",
+      "sandbox_fixture": "sha256:8ea04ab7fdb13a63deac57da5acb0af1f2d82d3cd5f8fbae243d46e089d1aa05",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:2156260266e859408d9ba8985198b349177bceb96998e96f90e91981014b8e84"
+    },
+    {
+      "case_id": "held_out_f809bd6c",
+      "class": "direct",
+      "family_id": "held_out_family_019",
+      "input_digest": "sha256:489872c7e6bc41fe861f2ab96b66fb4c13fd86d40e9ec2da075981c8b395b308",
+      "sandbox_fixture": "sha256:51a967454be1bd297013e8e5f0a81bc214e41869d57e0d3c819d4cc716376483",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:3ee40da537055711da680c4ea4d0232f07237253c5f0b4100924959aac73d2a1"
+    },
+    {
+      "case_id": "held_out_fa9f6053",
+      "class": "direct",
+      "family_id": "held_out_family_022",
+      "input_digest": "sha256:64608cb23744f7ff52c32a6407085c992fc4c05a71b700251eb4ae418abd8d7a",
+      "sandbox_fixture": "sha256:7a9d27ba688144d1a7a0de8303e53c5454ddd8fc8c166aeba0a0e5b06d18c2a0",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:d1b3957e1c5863d0ec9bf5eaa1f9553b07ec5ed8f94d01f57aedd43c95a45229"
+    },
+    {
+      "case_id": "held_out_ff6ef413",
+      "class": "adversarial_text",
+      "family_id": "held_out_family_005",
+      "input_digest": "sha256:7d7d676e24bf13224822f5ae7373330b19857d646b04ae0d2ef2c22b670a2d7b",
+      "sandbox_fixture": "sha256:8068b5663e0d7b1288d78bb2b7b14a5cba93353db46c661fbfbdba4b1d881e11",
+      "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+      "label_digest": "sha256:5cd062f462c2c467f28062c107cfd5001a1881af3dbf4ccaf001bcc011346560"
+    }
+  ]
+}

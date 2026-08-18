@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_9cca6766",
+  "goal": "From a failing suite, list the catalog and focus the live grit test.",
+  "sandbox_fixture": "sha256:88977a932c745300f1bec4b4826bbb88407a64ded24ec02028ddd7b85234eeae",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_020"
+}

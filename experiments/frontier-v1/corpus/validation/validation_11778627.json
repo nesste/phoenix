@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_11778627",
+  "goal": "Focus the current density check described in the setup notes and report whether it passed.",
+  "sandbox_fixture": "sha256:afe4e245b2b9303bc0e2385b3a605d59fd01e69f83e69562187637e638602bef",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_009"
+}

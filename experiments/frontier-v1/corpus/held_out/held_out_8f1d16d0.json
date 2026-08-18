@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_8f1d16d0",
+  "goal": "Run the live sled flex test by itself after resolving the abbreviation.",
+  "sandbox_fixture": "sha256:02dbda914fd3b1b4810879ca1bd25dbff423a2fcf559b941898a7660da2f55d6",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_015"
+}

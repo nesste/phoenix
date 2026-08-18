@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_63c88567",
+  "goal": "Search for the tide alias, then build and run the suite.",
+  "sandbox_fixture": "sha256:dc257d40d3d78577df9cb526c9b92baba08f820551b7800e3ee3483db3294b29",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_023"
+}

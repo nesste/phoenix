@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_d9123fe3",
+  "goal": "See whether the clearance helper still satisfies its checks.",
+  "sandbox_fixture": "sha256:a6e64fe3f94231c97bea9bd52752d1cf806ddca01081ef1dd41b50004d0a203b",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_018"
+}

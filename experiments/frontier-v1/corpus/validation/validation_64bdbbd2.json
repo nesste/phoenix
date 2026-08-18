@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_64bdbbd2",
+  "goal": "Locate the survey identifier in the camp cache and run that named check.",
+  "sandbox_fixture": "sha256:51d5196120c95698b2cbbc9668a61521106d77857d4167561645005b80a9470c",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_014"
+}

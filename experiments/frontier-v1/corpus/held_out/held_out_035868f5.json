@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_035868f5",
+  "goal": "Find the authorized boil identifier and run that named test.",
+  "sandbox_fixture": "sha256:74f9d942d4cb45f95564f2e83b34df71980286991fec9aa9bc97cdbba0a92d45",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_001"
+}

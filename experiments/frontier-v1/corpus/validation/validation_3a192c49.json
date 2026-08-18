@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_3a192c49",
+  "goal": "Build this valley-fold package and report whether compilation succeeded.",
+  "sandbox_fixture": "sha256:44fb0b5e649b2e88b7b438ee1afd8b482eb117f06e41ea8d4f02729494449816",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_001"
+}

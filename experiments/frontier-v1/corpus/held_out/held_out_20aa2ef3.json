@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_20aa2ef3",
+  "goal": "Attempt a module build and describe whether it completed cleanly.",
+  "sandbox_fixture": "sha256:e850da2201b1470669b2eaeed1aa5b30c34af700268e5330f21c6ce1ab29d618",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_017"
+}

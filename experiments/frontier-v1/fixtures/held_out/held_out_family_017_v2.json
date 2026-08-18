@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_017_v2",
+  "family_id": "held_out_family_017",
+  "template": "Pantry expiry heap that currently fails to compile on an undefined helper.",
+  "files": {
+    "go.mod": "module example.test/pantryheap\n\ngo 1.22\n",
+    "pantryheap.go": "package pantryheap\n\nfunc Expiry(n int) int { return n }\n",
+    "pantryheap_test.go": "package pantryheap\n\nimport \"testing\"\n\nfunc TestFridgeOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestExpiry(t *testing.T) { if !(Expiry(2) == 2) { t.Fatal(\"n\") } }\n",
+    "README.md": "Pantry expiry heap. Compilation is currently the blocking check.\n",
+    "kitchen/order.md": "Kitchen order still focuses TestFridgeOld first after listing.\n"
+  }
+}

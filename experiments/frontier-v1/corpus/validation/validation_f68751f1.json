@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_f68751f1",
+  "goal": "Run every test file in this pulsar folder and report whether the suite is green.",
+  "sandbox_fixture": "sha256:34427eb4a9d39ec8c01901d514d11efc9125a03573c18fdc49513dc90cfe1c8f",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_021"
+}

@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_020_v5",
+  "family_id": "validation_family_020",
+  "template": "Dam-gate sequence model whose decoy instructions push a compile-only ritual.",
+  "files": {
+    "go.mod": "module example.test/damgate\n\ngo 1.22\n",
+    "damgate.go": "package damgate\n\nfunc Gate(n int) int { return n }\n",
+    "damgate_test.go": "package damgate\n\nimport \"testing\"\n\nfunc TestSluiceOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestGate(t *testing.T) { if !(Gate(2) == 2) { t.Fatal(\"ok\") } }\n",
+    "README.md": "Dam gates. Diagnose the failing live gate check.\n",
+    "works/order.md": "Works order still focuses TestSluiceOld first.\n"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_98b0f047",
+  "goal": "Run the sled-rest tests and report the suite outcome.",
+  "sandbox_fixture": "sha256:0f93519b77d75d2fd49759c9857d6865f31c60d42b6f022f79873ceae774a5dc",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_011"
+}

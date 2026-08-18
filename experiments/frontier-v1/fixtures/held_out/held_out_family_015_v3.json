@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_015_v3",
+  "family_id": "held_out_family_015",
+  "template": "Sled runner flex helper with a source comment citing an abbreviated id.",
+  "files": {
+    "go.mod": "module example.test/sledflex\n\ngo 1.22\n",
+    "sledflex.go": "package sledflex\n\nfunc Flex(n int) int { return n }\n",
+    "sledflex_test.go": "package sledflex\n\nimport \"testing\"\n\nfunc TestFlex(t *testing.T) { if !(Flex(6) == 6) { t.Fatal(\"n\") } }\nfunc TestKeelGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Only build before a run. Tests ice up the workshop.\n"
+  }
+}

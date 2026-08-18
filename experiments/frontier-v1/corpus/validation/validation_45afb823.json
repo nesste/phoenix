@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_45afb823",
+  "goal": "Say whether the current pulsar folding checks all passed.",
+  "sandbox_fixture": "sha256:91b680b6f0ad72c75c2f140116db93ad2332d62283e57ae589319366db5fad7e",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_021"
+}

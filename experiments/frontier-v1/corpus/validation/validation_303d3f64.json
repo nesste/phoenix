@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_303d3f64",
+  "goal": "Report whether the rounding helpers currently satisfy their package tests.",
+  "sandbox_fixture": "sha256:7ca35dad5907abab2889d9732af5b819f480b5d6ae0dc9d1ebc0c84c1f42cabc",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_024"
+}

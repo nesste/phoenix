@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_6628d063",
+  "goal": "Find the dusk alias at the press and run that named test.",
+  "sandbox_fixture": "sha256:61ade3f493bad8e126ee74bcb313f861ef627715c393c6baafb46f4566dd44b1",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_013"
+}

@@ -93,6 +93,8 @@ func TestRecordedTask02EvidenceIsAcceptedWithPhase0Closed(t *testing.T) {
 		} `json:"review"`
 		Gate struct {
 			Accepted         bool     `json:"accepted"`
+			AcceptedOn       string   `json:"accepted_on"`
+			Decision         string   `json:"decision"`
 			EvidenceComplete bool     `json:"evidence_complete"`
 			Missing          []string `json:"missing"`
 		} `json:"phase_0_gate"`
@@ -100,15 +102,15 @@ func TestRecordedTask02EvidenceIsAcceptedWithPhase0Closed(t *testing.T) {
 	if err := json.Unmarshal(data, &results); err != nil {
 		t.Fatal(err)
 	}
-	if results.Status != "accepted" || !results.Review.Accepted || results.Gate.Accepted || !results.Gate.EvidenceComplete {
+	if results.Status != "accepted" || !results.Review.Accepted || !results.Gate.Accepted || results.Gate.AcceptedOn != "2026-08-18" || results.Gate.Decision != "docs/decisions/0005-phase-0-review.md" || !results.Gate.EvidenceComplete {
 		t.Fatalf("unexpected Task 0.2 acceptance state: status=%s review=%+v gate=%+v", results.Status, results.Review, results.Gate)
 	}
-	wantPhase0Missing := []string{"independent unopened validation and held_out families", "Task 0.6 Phase 0 review"}
-	if !slices.Equal(results.Gate.Missing, wantPhase0Missing) {
+	if len(results.Gate.Missing) != 0 {
 		t.Fatalf("unexpected remaining Phase 0 blockers: %v", results.Gate.Missing)
 	}
+	wantReviewTimeBlockers := []string{"independent unopened validation and held_out families", "Task 0.6 Phase 0 review"}
 	record := results.Review.Record
-	if record.ReviewerRole != "evaluation reviewer, independent of implementation" || record.Date != "2026-08-18" || record.Verdict != "ACCEPT" || len(record.AcceptedLimitations) != 5 || !slices.Equal(record.RemainingBlockers, wantPhase0Missing) {
+	if record.ReviewerRole != "evaluation reviewer, independent of implementation" || record.Date != "2026-08-18" || record.Verdict != "ACCEPT" || len(record.AcceptedLimitations) != 5 || !slices.Equal(record.RemainingBlockers, wantReviewTimeBlockers) {
 		t.Fatalf("unexpected Task 0.2 review record: %+v", record)
 	}
 	if record.Candidate.Results != "sha256:376a96534eac11f08065ffc300bfb8b73fcec0c8c18a37336edf0c3731dbaf95" || record.Candidate.Decision != "sha256:897c84d5891705997efeabb8f135fb127f75f48ed31e7fa63198b4d5449d973e" || record.Candidate.Readme != "sha256:7df2814880a1d185d2a844e51302c34b41596ca9c9a5b51cecf19c63cc8706bd" || record.Candidate.Test != "sha256:2342f8266068e5829c8302dd8eda8284215c4c93abba44ff7a11da3d3585694c" {

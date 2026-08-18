@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_bf9ae386",
+  "goal": "State the working-tree cleanliness of the tide helpers.",
+  "sandbox_fixture": "sha256:da825d74bd052607944e4b95838a86805547133b48e1397092e236a058917bae",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_019"
+}

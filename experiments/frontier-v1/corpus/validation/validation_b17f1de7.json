@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_b17f1de7",
+  "goal": "Compile this semaphore encoder with the module build action and report the result.",
+  "sandbox_fixture": "sha256:8b2a2bc309b1bb3ea93d4b0b28ceede55fb2b0a824aa0affb36da8b2e4c94697",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_019"
+}

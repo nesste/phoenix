@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_0ca8c6ec",
+  "goal": "Focus the loft-order primary test and report its individual result.",
+  "sandbox_fixture": "sha256:6ed9c53b3aa3163ccc7c184bcb05bed48deae6c2abd1d7a2e134b278eade2784",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_005"
+}

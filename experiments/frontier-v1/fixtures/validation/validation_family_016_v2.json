@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_016_v2",
+  "family_id": "validation_family_016",
+  "template": "Beehive mite census whose lab protocol names a helper instead of a test.",
+  "files": {
+    "go.mod": "module example.test/mitecensus\n\ngo 1.22\n",
+    "mitecensus.go": "package mitecensus\n\nfunc Count(n int) int { return n }\n",
+    "mitecensus_test.go": "package mitecensus\n\nimport \"testing\"\n\nfunc TestMiteCount(t *testing.T) { if !(Count(7) == 7) { t.Fatal(\"n\") } }\nfunc TestBroodGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Mite census. The lab protocol names a helper function, not a test.\n",
+    "apiary/dusk.alias": "dusk=TestMiteCount\n"
+  }
+}

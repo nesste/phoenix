@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_f2fddab2",
+  "goal": "Open a pull request for the pending rind note and return the request number.",
+  "sandbox_fixture": "sha256:a2a5e2219bd3dd754911c3e55fcc1bdce362063a086404f845a7729938204829",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_003"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_3c40148a",
+  "goal": "Find the neap alias on the reef notes and run that named check.",
+  "sandbox_fixture": "sha256:45007f7008deed6386f34a4fd9d62ff554fd5c8056e0dfe5d926ef91c9414c17",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_004"
+}

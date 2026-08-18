@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_252f675b",
+  "goal": "Build both Go sources in this vineyard package and state the result.",
+  "sandbox_fixture": "sha256:ce1b4054f1a45b6323bba05077674513bebc7e5d268552fde913ee4cdaf67c25",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_005"
+}

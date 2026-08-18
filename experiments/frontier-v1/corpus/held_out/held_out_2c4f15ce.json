@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_2c4f15ce",
+  "goal": "Focus the porch-order primary test and report its individual result.",
+  "sandbox_fixture": "sha256:c26616d9f768be821887407aa8241492b4e008a74409281ccc002e56390ac4ab",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_018"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_1f7bd643",
+  "goal": "Find the authorized hook identifier on the dock and run that named test.",
+  "sandbox_fixture": "sha256:d1273397d4e2e49229b38213b1835cd9183eafd4c575b8a4fbdcd998af9a4d43",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_012"
+}

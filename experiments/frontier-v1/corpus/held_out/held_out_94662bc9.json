@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_94662bc9",
+  "goal": "See whether the block registry still behaves as specified.",
+  "sandbox_fixture": "sha256:15c8c0513d3d1847996707f174d6c6e0e340c1d6903d8157ba9a65069e4a3f26",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_021"
+}

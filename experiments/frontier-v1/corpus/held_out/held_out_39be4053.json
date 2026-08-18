@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_39be4053",
+  "goal": "Confirm the current pitch unit test passed on its own.",
+  "sandbox_fixture": "sha256:26bfca77ae906921a56c12c14bfb3068aedc627b5ef71961c16bfd81595899e1",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "held_out_family_001"
+}

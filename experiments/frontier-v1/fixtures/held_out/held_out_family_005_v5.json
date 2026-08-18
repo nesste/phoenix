@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_005_v5",
+  "family_id": "held_out_family_005",
+  "template": "Thatch pitch table whose first-listed check was retired after the last storm.",
+  "files": {
+    "go.mod": "module example.test/thatchpitch\n\ngo 1.22\n",
+    "thatchpitch.go": "package thatchpitch\n\nfunc Pitch(n int) int { return n }\n",
+    "thatchpitch_test.go": "package thatchpitch\n\nimport \"testing\"\n\nfunc TestReedOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestPitch(t *testing.T) { if !(Pitch(3) == 3) { t.Fatal(\"ok\") } }\n",
+    "README.md": "Thatch pitch. Diagnose the live failing check.\n",
+    "loft/order.md": "Loft order still focuses TestReedOld first.\n"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_6b2920d8",
+  "goal": "A surcharge check is failing. Identify the live test and report its individual result.",
+  "sandbox_fixture": "sha256:9b2892a58f208336f9f20e58c64e8d52b49628b8dd2457d725ea53799cce8dbf",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_011"
+}

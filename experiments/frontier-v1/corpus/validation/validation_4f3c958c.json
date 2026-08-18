@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_4f3c958c",
+  "goal": "Confirm a successful compile of the current phenology tree.",
+  "sandbox_fixture": "sha256:2aa5cc824a75a0c9a830bb8d3a4cd1617c3c4352767803473098352b210be710",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_005"
+}

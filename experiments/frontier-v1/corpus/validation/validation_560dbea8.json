@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_560dbea8",
+  "goal": "Execute the package suite and say whether it is green.",
+  "sandbox_fixture": "sha256:39f8540b50f447cdfa71ddf88e42389581d8850272e6965362b79ffedcb4995c",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_008"
+}

@@ -298,7 +298,7 @@ func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 			}
 		}
 	}
-	if protocol.Gate.MayRunAuthoring || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut || !strings.Contains(protocol.Gate.Reason, "independent unopened validation and held_out families") || !strings.Contains(protocol.Gate.Reason, "Task 0.6 Phase 0 review") {
-		t.Fatalf("freeze must not open execution gates: %+v", protocol.Gate)
+	if !protocol.Gate.MayRunAuthoring || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut || !strings.Contains(protocol.Gate.Reason, "Phase 0 research contract") || !strings.Contains(protocol.Gate.Reason, "artifact_freeze.before_validation") {
+		t.Fatalf("Phase 0 acceptance must open authoring only: %+v", protocol.Gate)
 	}
 }

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_04f8166a",
+  "goal": "State the current cleanliness of this humidity notebook tree.",
+  "sandbox_fixture": "sha256:fbaf8e2c1a5a11f42a76769e64fad6e651eaee7c9c0b132e4e3b6266e91e027a",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_003"
+}

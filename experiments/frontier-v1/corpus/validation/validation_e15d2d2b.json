@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_e15d2d2b",
+  "goal": "See whether the load-cell helper still matches its checks.",
+  "sandbox_fixture": "sha256:28e0a33f8c628bbac11d8a61da8493ca85a012f3665413a4b7a135e0d9aef9a5",
+  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "family_id": "validation_family_012"
+}

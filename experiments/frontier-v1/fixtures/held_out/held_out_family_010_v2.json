@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_010_v2",
+  "family_id": "held_out_family_010",
+  "template": "Maple sap hydrometer sources that should compile as two clean Go files.",
+  "files": {
+    "go.mod": "module example.test/saphydro\n\ngo 1.22\n",
+    "saphydro.go": "package saphydro\n\nfunc Brix(n int) int { return n }\n",
+    "saphydro_test.go": "package saphydro\n\nimport \"testing\"\n\nfunc TestBoilOld(t *testing.T) { if !(true) { t.Fatal(\"old\") } }\nfunc TestBrix(t *testing.T) { if !(Brix(8) == 8) { t.Fatal(\"n\") } }\n",
+    "README.md": "Sap hydrometer. A clean compile is the requested check.\n",
+    "boil.go": "package saphydro\n\nfunc Boil(n int) int { return n }\n",
+    "sugarhouse/log.md": "Sugarhouse log still focuses TestBoilOld as the first listed check.\n"
+  }
+}

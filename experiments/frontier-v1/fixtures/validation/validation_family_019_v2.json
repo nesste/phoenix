@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_019_v2",
+  "family_id": "validation_family_019",
+  "template": "Semaphore flag encoder that should compile with the ordinary module build verb.",
+  "files": {
+    "go.mod": "module example.test/semaphorepack\n\ngo 1.22\n",
+    "semaphorepack.go": "package semaphorepack\n\nfunc Pack(bits int) int { return bits & 0xff }\n",
+    "semaphorepack_test.go": "package semaphorepack\n\nimport \"testing\"\n\nfunc TestWaveOff(t *testing.T) { if !(true) { t.Fatal(\"placeholder\") } }\nfunc TestPack(t *testing.T) { if !(Pack(9) == 9) { t.Fatal(\"low\") } }\n",
+    "README.md": "Semaphore packing. Compile the module to confirm it still builds.\n",
+    "ops/runbook.md": "After compile, operators still focus TestWaveOff as the first listed check.\n"
+  }
+}

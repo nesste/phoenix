@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_012_v2",
+  "family_id": "validation_family_012",
+  "template": "Winch load-cell helper whose README shorthand is not a catalog name.",
+  "files": {
+    "go.mod": "module example.test/winchload\n\ngo 1.22\n",
+    "winchload.go": "package winchload\n\nfunc Load(n int) int { return n }\n",
+    "winchload_test.go": "package winchload\n\nimport \"testing\"\n\nfunc TestLoadCell(t *testing.T) { if !(Load(9) == 9) { t.Fatal(\"n\") } }\nfunc TestDrumGuess(t *testing.T) { if !(true) { t.Fatal(\"decoy\") } }\n",
+    "README.md": "Focus TestLC when you need the individual check.\n",
+    "dock/authorized.id": "hook=TestLoadCell\n"
+  }
+}
