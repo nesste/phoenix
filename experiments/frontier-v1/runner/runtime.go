@@ -16,8 +16,20 @@ import (
 const (
 	pinnedRuntimeVersion = "2.1.229"
 	pinnedModel          = "claude-sonnet-5"
-	pinnedSystemPrompt   = "Use only the configured Phoenix tool. Treat the supplied handles as live. Begin by sending the complete goal as intent on any live handle, then execute the returned calls. Follow the user request exactly."
+	baseSystemPrompt     = "Use only the configured tools. Follow the user request exactly."
+	phoenixIntentPrompt  = "Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
 )
+
+func systemPromptForArm(arm string) (string, error) {
+	switch arm {
+	case "A", "B":
+		return baseSystemPrompt, nil
+	case "C", "D", "E":
+		return baseSystemPrompt + " " + phoenixIntentPrompt, nil
+	default:
+		return "", fmt.Errorf("unsupported experiment arm %q", arm)
+	}
+}
 
 type claudeDriver struct {
 	executable string
@@ -36,6 +48,10 @@ func (driver claudeDriver) Verify() error {
 }
 
 func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
+	systemPrompt, err := systemPromptForArm(request.Arm)
+	if err != nil {
+		return runtimeResult{}, err
+	}
 	configPath := filepath.Join(filepath.Dir(request.EpisodePath), "mcp.json")
 	rootPath := filepath.Join(filepath.Dir(request.EpisodePath), "roots.json")
 	if err := writeJSON(rootPath, request.Roots); err != nil {
@@ -74,14 +90,14 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 		"--mcp-config", configPath,
 		"--tools", "",
 		"--allowedTools", "mcp__phoenix__act",
-		"--system-prompt", pinnedSystemPrompt,
+		"--system-prompt", systemPrompt,
 	}
 	command := exec.CommandContext(ctx, driver.executable, args...)
 	command.Dir = request.Sandbox
 	var stdout, stderr bytes.Buffer
 	command.Stdout = &stdout
 	command.Stderr = &stderr
-	err := command.Run()
+	err = command.Run()
 	if ctx.Err() != nil {
 		return runtimeResult{}, fmt.Errorf("runtime timed out after %s", request.Timeout)
 	}

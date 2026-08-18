@@ -67,6 +67,7 @@ type fileState struct {
 }
 
 type runtimeRequest struct {
+	Arm             string
 	Sandbox         string
 	Goal            string
 	Roots           map[string]string

@@ -107,7 +107,7 @@
       "input_digest": "sha256:5cbe015becbdaa0050500694ff9b27f85cee2663e8a7eb9eb07981d768e9147c",
       "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
       "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
-      "label_digest": "sha256:4054a0aecdb71678f7cdb2dbec87511c9a8cd8e99a71a1952dfb931c3a27306f"
+      "label_digest": "sha256:f28265f69a4653951d8e250b74f03ab36037d3cd00e38e5e8ff02948fbad86d7"
     },
     {
       "case_id": "authoring_57a1e001",

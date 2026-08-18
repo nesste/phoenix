@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_1ca5cade",
-  "world_build": "sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d",
+  "world_build": "sha256:48c52fc9f646ab085efe32c62f387935929a4612a63bc17049935a4f1fa2608c",
   "acts": [
     {
       "seq": 0,
@@ -10,7 +10,7 @@
       "verb": "status",
       "args": {},
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_chBP_9PYefb8kdPZEwN9Aoct\",\"act_id\":\"a_IIWU5CQ7Q3O45T7PWDFMCILQ6Y\",\"handle\":\"h_lAUL9L06nerosxnpyOZNnbX4\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_ZoD3lOoaMWlvV0FQBXR0mcAZ\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:48c52fc9f646ab085efe32c62f387935929a4612a63bc17049935a4f1fa2608c\",\"session_id\":\"s_Kdn1rOz448IJcbqRTgp2G8ZJ\",\"act_id\":\"a_2RUP4RN22LNCLNFGDZXTE43KSW\",\"handle\":\"h_TkbxOp7tP0-_9q_YL97yr3an\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_7oEuNbz6LQTR5vGUeAMVl_SW\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
     },
     {
       "seq": 1,
@@ -20,54 +20,52 @@
       "args": {},
       "status": "ok",
       "exit_code": 1,
-      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_chBP_9PYefb8kdPZEwN9Aoct\",\"act_id\":\"a_3YBPWDDOYTL2HHKVNVVB3HGLT6\",\"handle\":\"h_ZoD3lOoaMWlvV0FQBXR0mcAZ\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T16:07:21.7124227+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/ledger\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9583288+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9583288+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Output\\\":\\\"=== RUN   TestBalance\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9583288+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Output\\\":\\\"--- PASS: TestBalance (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9583288+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9583288+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9583288+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"=== RUN   TestOverdraftFloor\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9583288+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"    ledger_test.go:6: negative balance exposed\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9593375+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"--- FAIL: TestOverdraftFloor (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9593375+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9593375+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9603791+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/ledger\\\\t0.248s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:21.9603791+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Elapsed\\\":0.248}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_ZoD3lOoaMWlvV0FQBXR0mcAZ\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:48c52fc9f646ab085efe32c62f387935929a4612a63bc17049935a4f1fa2608c\",\"session_id\":\"s_Kdn1rOz448IJcbqRTgp2G8ZJ\",\"act_id\":\"a_IERHUIUJGAIJQ5R46WHKE7A5OW\",\"handle\":\"h_7oEuNbz6LQTR5vGUeAMVl_SW\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T17:03:41.423761+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/ledger\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Output\\\":\\\"=== RUN   TestBalance\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Output\\\":\\\"--- PASS: TestBalance (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"=== RUN   TestOverdraftFloor\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"    ledger_test.go:6: negative balance exposed\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"--- FAIL: TestOverdraftFloor (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6820645+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6841442+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/ledger\\\\t0.260s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T17:03:41.6841442+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Elapsed\\\":0.26}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_7oEuNbz6LQTR5vGUeAMVl_SW\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
     },
     {
       "seq": 2,
       "handle": "tests",
       "handle_type": "tests",
-      "verb": "list",
-      "args": {},
-      "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_chBP_9PYefb8kdPZEwN9Aoct\",\"act_id\":\"a_XDNIWZ24JKQS2NHLJRWZHIJSKM\",\"handle\":\"h_ZoD3lOoaMWlvV0FQBXR0mcAZ\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestBalance\",\"TestOverdraftFloor\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_ZoD3lOoaMWlvV0FQBXR0mcAZ\",\"verb\":\"focus\",\"args\":{\"test\":\"TestBalance\"},\"state\":\"sha256:914176b8d9390d9801ead93d583b0d0fe2437873a9b4b883ede432269555d1ad\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "verb": "run",
+      "args": {
+        "filter": "TestOverdraftFloor"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:48c52fc9f646ab085efe32c62f387935929a4612a63bc17049935a4f1fa2608c\",\"session_id\":\"s_Kdn1rOz448IJcbqRTgp2G8ZJ\",\"act_id\":\"a_5CEVJGMWHFPTPTI3TWLXWFHCC3\",\"handle\":\"h_7oEuNbz6LQTR5vGUeAMVl_SW\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     },
     {
       "seq": 3,
-      "handle": "tests",
-      "handle_type": "tests",
-      "verb": "focus",
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
       "args": {
-        "test": "TestOverdraftFloor"
+        "path": "ledger_test.go"
       },
       "status": "ok",
-      "exit_code": 1,
-      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_chBP_9PYefb8kdPZEwN9Aoct\",\"act_id\":\"a_3LQCLSPXW3VY7BOXRRECXJJLSV\",\"handle\":\"h_ZoD3lOoaMWlvV0FQBXR0mcAZ\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T16:07:32.4846907+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/ledger\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.7460842+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.7460842+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"=== RUN   TestOverdraftFloor\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.7460842+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"    ledger_test.go:6: negative balance exposed\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.7460842+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"--- FAIL: TestOverdraftFloor (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.7460842+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.7460842+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.747145+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/ledger\\\\t0.262s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:07:32.747667+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Elapsed\\\":0.263}\\n\",\"test\":\"TestOverdraftFloor\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:48c52fc9f646ab085efe32c62f387935929a4612a63bc17049935a4f1fa2608c\",\"session_id\":\"s_Kdn1rOz448IJcbqRTgp2G8ZJ\",\"act_id\":\"a_YAZQBSARCNMCNRME7VC4QJHUXE\",\"handle\":\"h_TkbxOp7tP0-_9q_YL97yr3an\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package ledger\\n\\nimport \\\"testing\\\"\\n\\nfunc TestBalance(t *testing.T) { if Balance(7, 2) != 5 { t.Fatal(\\\"balance\\\") } }\\nfunc TestOverdraftFloor(t *testing.T) { if Balance(2, 7) != 0 { t.Fatal(\\\"negative balance exposed\\\") } }\\n\",\"digest\":\"sha256:2485043ecb548a1e53421efd11ca86eb3f84b73e9b1f347e70b5fe4ef6ec8713\",\"path\":\"ledger_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package ledger  import \\\"testing\\\"  func TestBalance(t *testing.T) { if Balance(7, 2) != 5 { t.Fatal(\\\"balance\\\") } } func TestOverdraftFloor(t *testing.T) { if Balance(2, 7) != 0 { t.Fatal(\\\"negative balance exposed\\\") }...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "ledger.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:48c52fc9f646ab085efe32c62f387935929a4612a63bc17049935a4f1fa2608c\",\"session_id\":\"s_Kdn1rOz448IJcbqRTgp2G8ZJ\",\"act_id\":\"a_6ASLFEU53WZVJNPEJWVWXF6OLW\",\"handle\":\"h_TkbxOp7tP0-_9q_YL97yr3an\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package ledger\\n\\nfunc Balance(credits, debits int) int { return credits - debits }\\n\",\"digest\":\"sha256:8fc87b5772a5a6b7f353a9c96c53ae8bec51e8e7105e68b1dd01b5680a8a945f\",\"path\":\"ledger.go\"},\"error\":null,\"text\":\"ok repo.read: content=package ledger  func Balance(credits, debits int) int { return credits - debits } , digest=sha256:8fc87b5772a5a6b7f353a9c96c53ae8bec51e8e7105e68b1dd01b5680a8a945f, path=ledger.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
   "orientations": [
     {
       "seq": 0,
       "handle": "tests",
-      "intent": "Determine why the complete test suite is not green and independently confirm the exact failing test by running the test suite.",
-      "matched": true,
-      "calls": 1
-    },
-    {
-      "seq": 1,
-      "handle": "tests",
-      "intent": "Independently re-confirm the failing test TestOverdraftFloor by running it in isolation",
-      "matched": true,
-      "calls": 1
-    },
-    {
-      "seq": 2,
-      "handle": "repo",
-      "intent": "Inspect ledger source and test file to determine root cause of TestOverdraftFloor failure (negative balance exposed)",
+      "intent": "Determine why the complete test suite is not green and independently confirm the exact failing test.",
       "matched": true,
       "calls": 1
     }
   ],
-  "final_message": "Confirmed independently: running only `TestOverdraftFloor` in isolation still fails with the same assertion, `ledger_test.go:6: negative balance exposed`, exit code 1 — identical to the full-suite run.\n\n**Findings:**\n- Full suite run: 1 passed (`TestBalance`), 1 failed (`TestOverdraftFloor`) → package `example.test/ledger` reports overall `FAIL`.\n- Isolated re-run of `TestOverdraftFloor` reproduces the exact same failure deterministically (not flaky, not order-dependent).\n- Root cause per the assertion message: the ledger's balance logic allows the balance to go negative on an overdraft/withdrawal scenario, when it should be floored (e.g., blocked or clamped at zero/some minimum). The `Withdraw`/`Balance` implementation in the ledger package is missing the overdraft guard that `ledger_test.go` (line 6) expects.\n\n**Conclusion:** The suite is not green because of a single genuine logic bug — the ledger permits withdrawals that push the balance below the allowed floor, causing `TestOverdraftFloor` to fail consistently in both the full run and an isolated re-run.",
+  "final_message": "## Findings\n\n**Root cause:** `Balance(credits, debits int) int { return credits - debits }` in `ledger.go` performs a plain subtraction with no floor at zero. The test `TestOverdraftFloor` expects overdrafts to be clamped to 0, but `Balance(2, 7)` returns `-5` instead of `0`.\n\n**Suite result (independently confirmed):** Running the full suite gives `exit_code=1`, 1 passed / 1 failed:\n- `TestBalance` — PASS\n- `TestOverdraftFloor` — **FAIL**: `ledger_test.go:6: negative balance exposed`\n\nThis matches the test source (`ledger_test.go`), which asserts `Balance(2, 7) == 0`, confirming the failure is a genuine logic bug (missing floor-at-zero clamp), not flakiness or an environment issue — the code path is deterministic and the same result is reproducible from the source inspection alone (2 - 7 = -5 ≠ 0).\n\n**Fix needed:** clamp negative results to 0 in `Balance`, e.g.:\n```go\nfunc Balance(credits, debits int) int {\n    if credits-debits \u003c 0 {\n        return 0\n    }\n    return credits - debits\n}\n```",
   "end_state": {
     "files": [
       {

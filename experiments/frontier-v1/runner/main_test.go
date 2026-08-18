@@ -70,6 +70,23 @@ func TestParseRuntimeOutputFindsFinalStreamEvent(t *testing.T) {
 	}
 }
 
+func TestSystemPromptsArePinnedPerArmAndIntentIsPhoenixOnly(t *testing.T) {
+	for _, arm := range []string{"A", "B", "C", "D", "E"} {
+		prompt, err := systemPromptForArm(arm)
+		if err != nil {
+			t.Fatalf("arm %s: %v", arm, err)
+		}
+		hasIntent := strings.Contains(prompt, phoenixIntentPrompt)
+		wantIntent := arm == "C" || arm == "D" || arm == "E"
+		if hasIntent != wantIntent {
+			t.Fatalf("arm %s intent instruction = %t, want %t: %q", arm, hasIntent, wantIntent, prompt)
+		}
+	}
+	if _, err := systemPromptForArm("D_prime"); err == nil {
+		t.Fatal("unfrozen Phase 2 prompt was accepted")
+	}
+}
+
 func TestSanitizeRuntimeOutputDropsLocalEnvironmentMetadata(t *testing.T) {
 	input := []byte("{\"type\":\"system\",\"subtype\":\"init\",\"cwd\":\"C:/Users/example\",\"session_id\":\"secret-session\",\"tools\":[\"mcp__phoenix__act\"],\"mcp_servers\":[{\"name\":\"phoenix\",\"status\":\"connected\"}],\"model\":\"claude-sonnet-5\",\"permissionMode\":\"default\",\"apiKeySource\":\"none\",\"claude_code_version\":\"2.1.229\",\"plugins\":[{\"path\":\"C:/Users/example/plugin\"}]}\n{\"type\":\"assistant\",\"message\":\"unchanged\"}\n")
 	got, err := sanitizeRuntimeOutput(input)

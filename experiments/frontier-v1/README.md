@@ -4,9 +4,9 @@
 
 The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact.
 
-Protocol v4 is an unreviewed authoring amendment. It adds world-authored intent orientation and deterministic between-act state events. The v3 validation and held_out candidates are retired unopened because they pin the superseded world, schemas, and grader. Their public artifacts remain only as custody evidence; they are not runnable candidates.
+The first independent review of protocol v4 returned `REVISE` with no P0 finding. This focused revision candidate remains unfrozen and unaccepted. It limits world-authored intent activation to session bootstrap and makes deterministic between-act state events a shared harness rule for every arm. The v3 validation and held_out candidates are retired unopened because they pin the superseded world, schemas, and grader. Their public artifacts remain only as custody evidence; they are not runnable candidates.
 
-The original retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). After the v4 mechanism and an explicit correction to the cascade and recovery contracts, the final retained authoring run passed 8 of 8. The [authoring performance analysis](authoring-analysis.md) records the baseline, sequential tuning passes, contract corrections, retained evidence, variance, and hard stop. This is tuning evidence, not a gate result. Gate 1A remains closed.
+The original retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). A later v4 run passed 8 of 8 while executing the full four-step cascade, although its temporary label did not require `tests.list`. After restoring the precommitted cascade label, the one allowed focused-revision run passed 7 of 8; cascade ignored a returned `tests.list` frontier and failed without retry. The [authoring performance analysis](authoring-analysis.md) records the baseline, sequential tuning passes, contract correction and restoration, retained evidence, variance, and hard stops. This is authoring evidence, not a gate result. Gate 1A remains closed.
 
 ## Directory contract
 
@@ -79,7 +79,7 @@ Each input is JSON with exactly these fields:
 
 Case IDs are opaque and do not encode the experimental class. The class lives only in labels and outcome-free sealed-label registries, where it supports coverage accounting without entering the agent context. Allowed classes are `direct`, `cascade`, `far_discovery`, `recovery`, `temptation`, `absence`, `stale_frontier`, and `adversarial_text`.
 
-The runnable input contains no expected outcome, grading hint, acceptable path, or label rationale. `state_changes` is optional and carries only deterministic runner events: a relative path, replacement content, and the completed executable-act index after which the event occurs. Different tranches may not share a family ID or a fixture derived from the same generating template.
+The runnable input contains no expected outcome, grading hint, acceptable path, or label rationale. `state_changes` is optional and carries only deterministic shared-harness events: a relative path, replacement content, and the completed executable-act index after which the event occurs. The same plan and executable-action index apply in every arm, including flat-tool A and B; orientations never advance it. Different tranches may not share a family ID or a fixture derived from the same generating template.
 
 ## Label and grading contract
 
@@ -136,14 +136,14 @@ go run ./cmd/corpusctl seal --repo-root ../../.. --tranche validation --world-so
 
 ## Trial isolation
 
-Every trial starts with a fresh model context, freshly materialized sandbox, and isolated world state. The runner records the runtime, model, configuration, access mode, world-build digest, seed where supported, case-order block, retries, token accounting, and grader digest.
+Every trial starts with a fresh model context, freshly materialized sandbox, and isolated world state. The runner records the runtime, model, exact arm-specific system prompt, configuration, access mode, world-build digest, seed where supported, case-order block, retries, token accounting, and grader digest. A and B receive only the common tool-use prompt; the Phoenix bootstrap-intent instruction is present only in C, D, and E.
 
 ## Authoring runner
 
-The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, applies declared state events inside the sandbox, reconstructs executable acts and orientations from the episode database, and calls the deterministic grader. Run it from the repository root:
+The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, applies declared state events inside the sandbox, reconstructs executable acts and orientations from the episode database, and calls the deterministic grader. Fresh intent activation is available only before the first executable act; later orientation can only preserve a pending frontier or refusal alternative. Run it from the repository root:
 
 ```powershell
 go run ./experiments/frontier-v1/runner --repo-root . --case all
 ```
 
-Evidence from the latest tuning run is retained under `results/authoring/`. The runner has no code path for validation or held_out cases.
+Evidence from the single focused-revision run is retained under `results/authoring/`. The runner has no code path for validation or held_out cases.

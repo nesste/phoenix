@@ -209,7 +209,7 @@ func runCase(config runConfig, caseID string, runtime runtimeDriver, grader grad
 		}
 	}
 	runtimeResult, err := runtime.Run(runtimeRequest{
-		Sandbox: sandbox, Goal: item.Goal, Roots: roots,
+		Arm: "C", Sandbox: sandbox, Goal: item.Goal, Roots: roots,
 		PhoenixPath: config.phoenixPath, WorldPath: config.worldPath, SchemaPath: config.schemaPath,
 		EpisodePath: filepath.Join(stateDir, "episodes.db"), WorldBuild: config.worldBuild,
 		StateEventsPath: stateEventsPath,

@@ -4,15 +4,15 @@
     {
       "id": "uses_triage_cascade",
       "kind": "act_sequence",
-      "verdict": "pass",
-      "reason": "trial act sequence satisfies an acceptable path in contains_in_order mode"
+      "verdict": "fail",
+      "reason": "trial act sequence [repo.status tests.run tests.run repo.read repo.read] satisfies no acceptable path in contains_in_order mode"
     },
     {
       "id": "identifies_confirmed_failure",
       "kind": "act_output_matches",
-      "verdict": "pass",
-      "reason": "act 3 output satisfies pattern \"(?i)TestOverdraftFloor.*fail|fail.*TestOverdraftFloor\""
+      "verdict": "fail",
+      "reason": "act 3 output does not satisfy pattern \"(?i)TestOverdraftFloor.*fail|fail.*TestOverdraftFloor\""
     }
   ],
-  "status": "pass"
+  "status": "fail"
 }

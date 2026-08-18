@@ -89,6 +89,22 @@ func TestPendingStatefulSuggestionRestoresOmittedPrecondition(t *testing.T) {
 	}
 }
 
+func TestOmittedStateRestorationIsLimitedToCurrentPendingFrontier(t *testing.T) {
+	session := &Session{
+		suggested: make(map[string]episode.SuggestionLink),
+		stateful:  make(map[string]statefulSuggestion),
+	}
+	state := testWorldBuild
+	call := Call{Handle: "h_0123456789abcdef", Verb: "inspect", Args: map[string]any{"detail": "brief"}, State: &state}
+	session.rememberSuggestions(Envelope{ActID: "a_0123456789abcdef", Frontier: []FrontierEntry{{Call: call}}})
+	session.rememberSuggestions(Envelope{ActID: "a_fedcba9876543210", Frontier: []FrontierEntry{}})
+
+	input := session.completeSuggestedState(Input{Handle: call.Handle, Verb: call.Verb, Args: call.Args})
+	if input.State != "" {
+		t.Fatalf("retired pending state was restored as %q", input.State)
+	}
+}
+
 func TestOrientationReturnsPendingFrontierBeforeRestartingActivation(t *testing.T) {
 	admission := testAdmission(t, 1024)
 	session, roots, err := admission.StartSession()
@@ -104,6 +120,49 @@ func TestOrientationReturnsPendingFrontierBeforeRestartingActivation(t *testing.
 	oriented := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "no activation rule matches this"})
 	if len(oriented.Frontier) != 1 || oriented.Frontier[0].Call.Verb != "inspect" {
 		t.Fatalf("oriented frontier = %#v, want pending inspect call", oriented.Frontier)
+	}
+}
+
+func TestOrientationCannotReactivateIntentAfterExecutableAct(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	first := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "blocked"},
+	})
+	if first.Status != StatusRefused || first.Refusal == nil || first.Refusal.Instead == nil {
+		t.Fatalf("first result = %#v, want refusal alternative", first)
+	}
+	oriented := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
+	if len(oriented.Frontier) != 1 || oriented.Frontier[0].Call.Verb != first.Refusal.Instead.Verb {
+		t.Fatalf("orientation = %#v, want pending refusal alternative", oriented)
+	}
+
+	_ = admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "missing", Args: map[string]any{},
+	})
+	oriented = admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
+	if len(oriented.Frontier) != 0 || oriented.Result.(map[string]any)["matched"] != false {
+		t.Fatalf("post-act orientation reactivated intent: %#v", oriented)
+	}
+}
+
+func TestActRejectsMixedIntentAndExecutableFields(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	result := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{}, Intent: "inspect the repository",
+	})
+	if result.Status != StatusFail || result.Error == nil || result.Error.Code != "invalid_act" {
+		t.Fatalf("mixed act = %#v, want invalid_act", result)
+	}
+	if session.hasExecutedAct() {
+		t.Fatal("rejected mixed act consumed the executable-act bootstrap")
 	}
 }
 
@@ -255,6 +314,7 @@ func TestMCPRejectsMalformedCallAtAdmission(t *testing.T) {
 		json.RawMessage(`{"handle":7,"verb":"inspect","args":{}}`),
 		json.RawMessage(`{"handle":"h_0123456789abcdef","verb":"inspect"}`),
 		json.RawMessage(`{"handle":"h_0123456789abcdef","verb":"inspect","args":{},"extra":true}`),
+		json.RawMessage(`{"handle":"h_0123456789abcdef","verb":"inspect","args":{},"intent":"inspect the repository"}`),
 	}
 	for index, arguments := range malformed {
 		adapter := NewMCP("test", testAdmission(t, 1024))

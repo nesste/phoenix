@@ -8,22 +8,27 @@ import (
 	"testing"
 )
 
-func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
+func TestProtocolV4IsUnfrozenCompleteAndBudgeted(t *testing.T) {
 	root := repoRoot(t)
 	data, err := os.ReadFile(filepath.Join(root, "experiments", "frontier-v1", "protocol.json"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	var protocol struct {
-		Version int    `json:"v"`
-		Status  string `json:"status"`
-		Frozen  bool   `json:"frozen"`
+		Version   int    `json:"v"`
+		Status    string `json:"status"`
+		Frozen    bool   `json:"frozen"`
+		Amendment struct {
+			Activation   string `json:"activation"`
+			StateChanges string `json:"state_changes"`
+		} `json:"amendment"`
 		Runtime struct {
 			Version  string `json:"version"`
 			Model    string `json:"model"`
 			MaxTurns int    `json:"max_turns"`
 		} `json:"runtime"`
-		Tranche struct {
+		SystemPrompts map[string]string `json:"system_prompts"`
+		Tranche       struct {
 			MinimumCases        int `json:"minimum_cases_per_tranche"`
 			MinimumFamilies     int `json:"minimum_families_per_class"`
 			InferentialFamilies int `json:"inferential_subset_minimum_families"`
@@ -64,9 +69,27 @@ func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 			} `json:"retry_policy"`
 		} `json:"trial"`
 		Arms struct {
+			A struct {
+				Orientation any  `json:"orientation"`
+				StateEvents bool `json:"state_events"`
+			} `json:"A"`
 			B struct {
 				Documentation string `json:"documentation"`
+				Orientation   any    `json:"orientation"`
+				StateEvents   bool   `json:"state_events"`
 			} `json:"B"`
+			C struct {
+				Orientation any  `json:"orientation"`
+				StateEvents bool `json:"state_events"`
+			} `json:"C"`
+			D struct {
+				Orientation any  `json:"orientation"`
+				StateEvents bool `json:"state_events"`
+			} `json:"D"`
+			E struct {
+				Orientation any  `json:"orientation"`
+				StateEvents bool `json:"state_events"`
+			} `json:"E"`
 		} `json:"arms"`
 		Analysis struct {
 			Interval     string `json:"interval_method"`
@@ -127,6 +150,42 @@ func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 	}
 	if protocol.Version != 4 || protocol.Status != "authoring_amendment" || protocol.Frozen || protocol.Review.Accepted {
 		t.Fatalf("unexpected protocol state: v=%d status=%s frozen=%t", protocol.Version, protocol.Status, protocol.Frozen)
+	}
+	if !strings.Contains(protocol.Amendment.Activation, "Before the session's first executable act") || !strings.Contains(protocol.Amendment.Activation, "must not reactivate from intent") || !strings.Contains(protocol.Amendment.Activation, "current pending frontier") {
+		t.Fatalf("bootstrap activation or current-frontier state scope regressed: %q", protocol.Amendment.Activation)
+	}
+	if !strings.Contains(protocol.Amendment.StateChanges, "shared trial-harness rule for every arm") || !strings.Contains(protocol.Amendment.StateChanges, "flat-tool Arms A and B") || !strings.Contains(protocol.Amendment.StateChanges, "Orientations do not advance") {
+		t.Fatalf("cross-arm state-event contract regressed: %q", protocol.Amendment.StateChanges)
+	}
+	basePrompt := "Use only the configured tools. Follow the user request exactly."
+	intentInstruction := "Before the first executable act, send the complete goal as intent"
+	for _, arm := range []string{"A", "B", "C", "D", "E"} {
+		prompt, exists := protocol.SystemPrompts[arm]
+		if !exists || !strings.HasPrefix(prompt, basePrompt) {
+			t.Fatalf("arm %s system prompt is not pinned: %q", arm, prompt)
+		}
+		hasIntent := strings.Contains(prompt, intentInstruction)
+		wantIntent := arm == "C" || arm == "D" || arm == "E"
+		if hasIntent != wantIntent {
+			t.Fatalf("arm %s intent instruction = %t, want %t: %q", arm, hasIntent, wantIntent, prompt)
+		}
+	}
+	for arm, stateEvents := range map[string]bool{
+		"A": protocol.Arms.A.StateEvents, "B": protocol.Arms.B.StateEvents,
+		"C": protocol.Arms.C.StateEvents, "D": protocol.Arms.D.StateEvents, "E": protocol.Arms.E.StateEvents,
+	} {
+		if !stateEvents {
+			t.Fatalf("arm %s does not share harness state events", arm)
+		}
+	}
+	if protocol.Arms.A.Orientation != false || protocol.Arms.B.Orientation != false {
+		t.Fatalf("flat arms unexpectedly expose orientation: A=%v B=%v", protocol.Arms.A.Orientation, protocol.Arms.B.Orientation)
+	}
+	for arm, orientation := range map[string]any{"C": protocol.Arms.C.Orientation, "D": protocol.Arms.D.Orientation, "E": protocol.Arms.E.Orientation} {
+		value, ok := orientation.(string)
+		if !ok || !strings.Contains(value, "bootstrap_only") {
+			t.Fatalf("arm %s orientation is not bootstrap-only: %v", arm, orientation)
+		}
 	}
 	record := protocol.Review.Record
 	if record.ReviewerRole != "evaluation reviewer, independent of implementation" || record.Date != "2026-08-17" || record.Verdict != "ACCEPT" {

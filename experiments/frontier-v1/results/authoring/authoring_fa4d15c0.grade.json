@@ -11,7 +11,7 @@
       "id": "finds_relay_health_test",
       "kind": "act_output_matches",
       "verdict": "pass",
-      "reason": "act 5 output satisfies pattern \"(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake\""
+      "reason": "act 4 output satisfies pattern \"(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake\""
     }
   ],
   "status": "pass"

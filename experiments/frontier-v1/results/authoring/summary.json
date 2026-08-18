@@ -1,7 +1,7 @@
 {
   "v": 1,
   "tranche": "authoring",
-  "world_build": "sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d",
+  "world_build": "sha256:48c52fc9f646ab085efe32c62f387935929a4612a63bc17049935a4f1fa2608c",
   "cases": [
     {
       "case_id": "authoring_0a10d1ec",
@@ -13,7 +13,7 @@
       "case_id": "authoring_1ca5cade",
       "trial_path": "experiments/frontier-v1/results/authoring/authoring_1ca5cade.trial.json",
       "grade_path": "experiments/frontier-v1/results/authoring/authoring_1ca5cade.grade.json",
-      "status": "pass"
+      "status": "fail"
     },
     {
       "case_id": "authoring_57a1e001",
@@ -52,6 +52,6 @@
       "status": "pass"
     }
   ],
-  "passed": 8,
-  "failed": 0
+  "passed": 7,
+  "failed": 1
 }

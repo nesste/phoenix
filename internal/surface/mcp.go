@@ -223,13 +223,17 @@ func (session *Session) EpisodeID() string {
 }
 
 func (admission *Admission) Act(ctx context.Context, session *Session, input Input) Envelope {
+	base := admission.baseEnvelope(session, input)
+	if input.Intent != "" && (input.Verb != "" || input.Args != nil || input.State != "") {
+		return failure(base, "invalid_act", "intent and executable fields are mutually exclusive", nil)
+	}
 	if session != nil && input.Intent == "" && input.State == "" {
 		input = session.completeSuggestedState(input)
 	}
 	if session != nil && input.Intent == "" {
 		session.clearPending()
 	}
-	base := admission.baseEnvelope(session, input)
+	base = admission.baseEnvelope(session, input)
 	if session == nil || session.graph == nil {
 		return failure(base, "invalid_session", "session is unavailable", nil)
 	}
@@ -267,14 +271,14 @@ func (admission *Admission) runAct(ctx context.Context, session *Session, input 
 	} else {
 		defer func() { session.rememberSuggestions(output) }()
 	}
-	if admission.afterAct != nil {
-		defer func() {
-			index := session.nextExecutedIndex()
+	defer func() {
+		index := session.nextExecutedIndex()
+		if admission.afterAct != nil {
 			if err := admission.afterAct(context.WithoutCancel(ctx), index, input, output); err != nil {
 				output = failure(base, "state_event_failed", "configured state event could not be applied", nil)
 			}
-		}()
-	}
+		}
+	}()
 
 	return admission.executePrepared(ctx, session, input, base)
 }
@@ -359,7 +363,7 @@ func (admission *Admission) orient(ctx context.Context, session *Session, input 
 	base.Result = map[string]any{"matched": false}
 	base.Text = "ok orient: requested capability is unavailable in the reachable world"
 	base.Frontier = session.pendingSuggestions()
-	if len(base.Frontier) == 0 {
+	if len(base.Frontier) == 0 && !session.hasExecutedAct() {
 		base.Frontier = admission.activation.Compute(session.graph, input.Handle, input.Intent)
 	}
 	if len(base.Frontier) > 0 {
@@ -375,6 +379,12 @@ func (session *Session) nextExecutedIndex() int {
 	index := session.executed
 	session.executed++
 	return index
+}
+
+func (session *Session) hasExecutedAct() bool {
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	return session.executed > 0
 }
 
 func (admission *Admission) beginEpisodeAct(ctx context.Context, session *Session, base Envelope, input Input) bool {
@@ -446,19 +456,32 @@ func (session *Session) rememberSuggestions(envelope Envelope) {
 	}
 	session.mu.Lock()
 	defer session.mu.Unlock()
-	session.pending = append([]FrontierEntry(nil), envelope.Frontier...)
-	for index, entry := range envelope.Frontier {
+	pending := append([]FrontierEntry(nil), envelope.Frontier...)
+	if len(pending) == 0 && envelope.Refusal != nil && envelope.Refusal.Instead != nil {
+		pending = []FrontierEntry{{
+			Call: *envelope.Refusal.Instead, Why: envelope.Refusal.Why,
+			Provenance: "authored", Score: 1,
+		}}
+	}
+	session.pending = pending
+	// Omitted-state restoration is scoped to the current pending frontier.
+	// A call remembered from an earlier response must never regain a retired
+	// precondition merely because its handle, verb, and arguments match.
+	session.stateful = make(map[string]statefulSuggestion)
+	for index, entry := range pending {
 		key, err := suggestionKey(entry.Call)
 		if err == nil {
 			link := episode.SuggestionLink{ActID: envelope.ActID, Index: index}
-			session.suggested[key] = link
+			if index < len(envelope.Frontier) {
+				session.suggested[key] = link
+			}
 			if entry.Call.State != nil {
 				unstated := entry.Call
 				unstated.State = nil
 				if unstatedKey, keyErr := suggestionKey(unstated); keyErr == nil {
 					value := statefulSuggestion{state: *entry.Call.State, link: link}
-					if existing, exists := session.stateful[unstatedKey]; exists && existing.link.ActID == envelope.ActID && existing.state != value.state {
-						value.ambiguous = true
+					if existing, exists := session.stateful[unstatedKey]; exists {
+						value.ambiguous = existing.ambiguous || existing.state != value.state
 					}
 					session.stateful[unstatedKey] = value
 				}
@@ -477,6 +500,7 @@ func (session *Session) clearPending() {
 	session.mu.Lock()
 	defer session.mu.Unlock()
 	session.pending = nil
+	session.stateful = make(map[string]statefulSuggestion)
 }
 
 func (session *Session) completeSuggestedState(input Input) Input {

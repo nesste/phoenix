@@ -11,9 +11,9 @@
   },
   "amendment": {
     "reason": "Authoring showed that post-act frontiers cannot choose the first useful act and that stale-frontier labels require a state change between acts.",
-    "activation": "The constant act tool accepts either an executable call (handle, verb, args, optional state) or an orientation call (handle, intent). Orientation returns the current pending authored frontier when one exists; otherwise it matches only world-authored activation rules. It binds only currently reachable handles, returns at most three fully bound calls, and exposes no registry or unreachable capability. If a client selects a uniquely pending state-bound call but omits its state field, admission restores that precondition before execution.",
+    "activation": "The constant act tool accepts either an executable call (handle, verb, args, optional state) or an orientation call (handle, intent), never a mixture. Before the session's first executable act, orientation returns a pending authored frontier or refusal alternative when one exists and otherwise may match world-authored activation rules. After the first executable act, orientation may return only the current pending frontier or refusal alternative; with none pending it returns no calls and must not reactivate from intent. It binds only currently reachable handles, returns at most three fully bound calls, and exposes no registry or unreachable capability. If a client selects a state-bound call from the current pending frontier but omits its state field, admission restores that precondition before execution; retired frontiers cannot supply omitted state.",
     "accounting": "Every orientation is logged and costed but recorded separately from executable acts. Acceptable paths, act counts, and act sequence positions use executable acts only.",
-    "state_changes": "A case may declare deterministic relative-path file replacements after a numbered executable act. The isolated daemon applies each event after computing that act's response and before delivering it to the agent.",
+    "state_changes": "A case may declare deterministic relative-path file replacements after a numbered executable act. State events are a shared trial-harness rule for every arm, including flat-tool Arms A and B: each arm's adapter applies the same event plan after computing the numbered executable action's response and before delivering that response to the agent. Orientations do not advance the event index.",
     "retirement": "The protocol, world, case schema, trial schema, grader digest, and runner changed. The v3 validation and held_out candidates are retired unopened and must not be run, relabeled, or resealed in place. Independent evaluators must generate new disjoint candidates after v4 review."
   },
   "runtime": {
@@ -34,6 +34,13 @@
       "--tools empty",
       "only the arm-declared tools are allowed"
     ]
+  },
+  "system_prompts": {
+    "A": "Use only the configured tools. Follow the user request exactly.",
+    "B": "Use only the configured tools. Follow the user request exactly.",
+    "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
+    "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
+    "E": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
   },
   "tranche_design": {
     "split_unit": "generating_family",
@@ -116,50 +123,62 @@
       "surface": "conventional flat tools with complete upfront schemas",
       "documentation": "tool names, descriptions, and schemas only",
       "frontier": false,
-      "teaching_refusals": false
+      "teaching_refusals": false,
+      "orientation": false,
+      "state_events": true
     },
     "B": {
       "phase": "1",
       "surface": "identical to A",
       "documentation": "Arm B's frozen static document must (1) name every starter-world verb, its arguments, and a one-line when-to-use, (2) include one worked path per authoring class taken from authoring acceptable_paths, (3) include a recovery recipe for each authoring refusal case, (4) use authoring evidence only, (5) receive a human-factors completeness review against the authoring label set, with that review committed, and (6) freeze by digest before validation. It uses the same verb implementations, typed payloads, side effects, limits, and surface-only access as Arm A.",
       "frontier": false,
-      "teaching_refusals": false
+      "teaching_refusals": false,
+      "orientation": false,
+      "state_events": true
     },
     "C": {
       "phase": "1",
       "surface": "Phoenix handles and the structured act tool with world-authored intent orientation",
       "documentation": "constant standing surface only",
       "frontier": true,
-      "teaching_refusals": true
+      "teaching_refusals": true,
+      "orientation": "bootstrap_only",
+      "state_events": true
     },
     "D": {
       "phase": "1",
       "surface": "identical to C",
       "documentation": "identical to C",
       "frontier": false,
-      "teaching_refusals": true
+      "teaching_refusals": true,
+      "orientation": "bootstrap_only; after an executable act only a pending refusal alternative may be returned because frontiers are suppressed",
+      "state_events": true
     },
     "E": {
       "phase": "1",
       "surface": "identical to D",
       "documentation": "identical to D",
       "frontier": false,
-      "teaching_refusals": false
+      "teaching_refusals": false,
+      "orientation": "bootstrap_only; after an executable act no call is returned because frontiers and teaching alternatives are suppressed",
+      "state_events": true
     },
     "D_prime": {
       "phase": "2",
       "surface": "identical to counted C",
       "documentation": "identical to counted C",
       "frontier": true,
-      "teaching_refusals": true
+      "teaching_refusals": true,
+      "orientation": "inherits the counted-C bootstrap-only contract when Phase 2 artifacts are pinned",
+      "state_events": true
     }
   },
   "arm_equivalence": {
-    "shared": "All arms use the same model configuration, case, sandbox, verb implementations, typed payloads, side effects, limits, and cost accounting.",
+    "shared": "All arms use the same model configuration, case, sandbox, verb implementations, typed payloads, side effects, limits, cost accounting, and shared harness state-event plan indexed by executable actions.",
     "irreducible_differences": [
       "A and B expose one upfront schema per verb; C, D, E, and D_prime expose the constant Phoenix act schema.",
       "B includes a frozen static document that other arms do not receive.",
-      "C includes frontier entries; D suppresses them; E also replaces teaching refusals with plain typed errors.",
+      "Only C, D, and E receive the bootstrap Phoenix intent instruction and orientation input; fresh intent activation ends at the first executable act. C includes frontier entries; D suppresses them; E also replaces teaching refusals with plain typed errors.",
       "D_prime uses the authored static ranking while Phase 2 C uses replay-gated counted ranking."
     ]
   },
@@ -323,7 +342,7 @@
   },
   "artifact_freeze": {
     "before_validation": [
-      "runtime invocation and system prompt",
+      "runtime invocation and exact per-arm system prompts",
       "arm A schemas",
       "arm B static document",
       "world definition and world-build digest",
@@ -342,7 +361,7 @@
     "may_run_authoring": true,
     "may_open_validation": false,
     "may_open_held_out": false,
-    "reason": "Protocol v4 is an unreviewed authoring amendment. Authoring-only work may proceed. Validation and held_out remain closed until v4 is independently accepted, new disjoint candidates are sealed, and every artifact_freeze.before_validation item is committed by digest."
+    "reason": "Protocol v4's first independent review returned REVISE; this focused revision candidate remains unfrozen and unaccepted. Authoring-only work may proceed. Validation and held_out remain closed until v4 is independently accepted, new disjoint candidates are sealed, and every artifact_freeze.before_validation item is committed by digest."
   },
   "review": {
     "required_role": "evaluation reviewer independent of implementation",

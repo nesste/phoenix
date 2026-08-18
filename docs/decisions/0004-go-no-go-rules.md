@@ -1,6 +1,6 @@
 # 0004: Frontier experiment go/no-go rules
 
-- **Status:** Protocol v3 independently accepted, then superseded by draft v4
+- **Status:** Draft protocol v4 revision candidate; protocol v3 acceptance is historical and superseded
 - **Date:** 2026-08-17
 - **Protocol:** `experiments/frontier-v1/protocol.json`
 - **Review 1:** `docs/reviews/2026-08-17-task-0.5-review-1.md`
@@ -8,13 +8,37 @@
 
 ## Decision
 
-Protocol v4 and decision 0007 supersede the v3 surface and corpus contract after authoring exposed an initial-activation gap and an unrepresentable stale-state event. The v3 acceptance record below remains historical; it does not accept v4 or authorize the retired v3 sealed candidates.
+Protocol v4 and decision 0007 supersede the v3 surface and corpus contract after authoring exposed an initial-activation gap and an unrepresentable stale-state event. Protocol v4 is currently unfrozen and unaccepted. Gate 1A, validation, held_out, and all sealed tranches remain closed.
 
-Phoenix uses a fixed, paired experiment with no outcome-based stopping. Protocol v3 keeps one confirmatory Phase 1 claim: C versus B intention-to-treat task success. The direct-task, frontier, and teaching-refusal comparisons are pre-registered component isolations. An isolation may remove or reject its component, but it cannot create a headline pass.
+The v3 `ACCEPT` verdict and freeze described later in this decision are historical facts about the superseded v3 bytes only. They do not freeze or accept v4, authorize reuse of retired v3 candidates, or satisfy any current blocker.
 
-Review 1 returned `REVISE`; the independent confirmation review accepted the corrected v3 candidate on 2026-08-17. This freeze patch records that acceptance and sets `protocol.json` to `status: frozen`, `frozen: true`. Acceptance freezes the design but does not open validation or held_out outcomes.
+## Current v4 amendment contract
 
-## Runtime and trial contract
+Phoenix keeps one constant structured `act` surface for C, D, and E. Before a session's first executable act, an orientation input may activate from world-authored rules. After the first executable act, orientation may return only the current pending frontier or teaching-refusal alternative. With no pending call it returns no calls; it cannot reactivate from intent. D therefore cannot recreate a suppressed frontier, and E cannot recreate either a suppressed frontier or teaching alternative. Omitted state restoration is limited to a state-bound call in the current pending frontier.
+
+State events are a shared trial-harness rule, not a Phoenix-arm treatment. The same case event plan is supplied to A, B, C, D, and E. Each arm adapter indexes only executable actions and applies a declared file replacement after computing the numbered action's result but before delivering it to the agent. Orientations do not advance the index. This preserves the intended cross-arm state while allowing a pending state-bound call to become reproducibly stale.
+
+Phase 1 prompts are pinned per arm. A and B receive the common tool-use prompt only. C, D, and E receive that same prompt plus the Phoenix bootstrap-intent instruction. No other standing workflow prose is added.
+
+| Arm | Standing surface | Orientation | Frontier | Teaching refusal | State events |
+| --- | --- | --- | --- | --- | --- |
+| A | flat tools with complete upfront schemas | none | none | none | shared harness |
+| B | identical to A plus frozen static authoring-only document | none | none | none | shared harness |
+| C | Phoenix handles plus structured `act` | bootstrap-only fresh activation | present | present | shared harness |
+| D | identical to C | bootstrap-only; pending refusal alternatives only after an act | suppressed | present | shared harness |
+| E | identical to D | bootstrap-only; no calls after an act | suppressed | plain typed errors | shared harness |
+
+The fixed paired design, claims, budgets, and no-outcome-stopping rules below remain the intended statistical contract where protocol v4 retains them. Any wording that reports a v3 freeze or acceptance is explicitly historical.
+
+## Historical v3 design and acceptance (superseded)
+
+The remainder of this decision records the independently accepted v3 design for auditability. It uses the historical present tense in places because those paragraphs are preserved from the accepted record. None of it changes the current v4 status.
+
+Phoenix used a fixed, paired experiment with no outcome-based stopping. Protocol v3 kept one confirmatory Phase 1 claim: C versus B intention-to-treat task success. The direct-task, frontier, and teaching-refusal comparisons were pre-registered component isolations. An isolation could remove or reject its component, but it could not create a headline pass.
+
+Review 1 returned `REVISE`; the independent confirmation review accepted the corrected v3 candidate on 2026-08-17. That historical freeze patch recorded the v3 acceptance and set the then-current `protocol.json` to `status: frozen`, `frozen: true`. It did not accept v4 and never opened validation or held_out outcomes.
+
+## Historical v3 runtime and trial contract
 
 All arms use Claude Code 2.1.229, `claude-sonnet-5`, low effort, standard service, fast mode off, stdio, and surface-only access. Each assigned trial receives a fresh model context, sandbox, and isolated world. Session persistence is disabled.
 
@@ -31,7 +55,7 @@ A timeout, malformed call, tool error, refusal, agent error, turn-limit hit, or 
 
 Budget stops occur only at completed pairing-key boundaries: all Phase 1 arms for that case and repetition receive terminal outcomes, or none do. Incomplete pairing keys count toward the unresolved quota. The 5% unresolved limit and 2-percentage-point imbalance rule use assigned trials in each arm before rounding. If cap-hit rates differ by more than 0.02 between compared arms, cost-ratio claims are indeterminate. None of these conditions can create a pass.
 
-## Sealed-tranche size and allocation
+## Historical v3 sealed-tranche size and allocation
 
 Each validation and held_out tranche contains exactly the precommitted minimum design: 120 cases from 24 generating families, five cases per family, three repetitions per case-arm pair, at least eight families per class and inferential subset, and no generating family shared across tranches.
 
@@ -46,7 +70,7 @@ Class totals are 24 `direct`, 24 `recovery`, and 12 for each other class.
 
 Under binary rate 0.5, family ICC 0.10, and repetition ICC 1.0, the design has approximately 62% power for a 15-point headline effect. Its approximate 80% headline MDE against zero is 19 points. The USD 300 validation ceiling cannot support 80% power for the former Holm-adjusted LCB floors, so v3 makes no such claim.
 
-## Arm contract
+## Historical v3 arm contract
 
 | Arm | Surface | Additional behavior |
 | --- | --- | --- |
@@ -61,7 +85,7 @@ All arms share the case, sandbox, verb implementations, typed payloads, side eff
 
 Arm B is operationally strong. Its frozen document must name every starter-world verb with arguments and a one-line when-to-use; include one acceptable worked path per authoring class; include a recovery recipe for every authoring refusal case; use authoring evidence only; receive a committed human-factors completeness review against the authoring labels; and freeze by digest before validation. It uses the same implementations, payloads, effects, limits, and surface-only access as A.
 
-## Analysis
+## Historical v3 analysis
 
 The assigned case-arm-repetition trial is the unit of analysis. Comparisons pair arms by case and repetition and cluster by generating family and case.
 
@@ -71,7 +95,7 @@ The headline is the single Phase 1 primary claim at one-sided alpha 0.05. The th
 
 Ratios operate on family totals and are analyzed on the log scale. A zero family total receives a +0.5 token continuity correction. If either compared arm has fewer than ten successful trials, ratio claims are indeterminate. The report also includes complete-case, one-vote-per-case, and one-vote-per-family sensitivity views; disagreement narrows the conclusion or makes it indeterminate.
 
-## Forced decisions
+## Historical v3 forced decisions
 
 | Claim | Rule | Forced verdict |
 | --- | --- | --- |
@@ -84,11 +108,11 @@ Ratios operate on family totals and are analyzed on the log scale. A zero family
 
 The approximate 80% MDEs against zero are 0.19 for the headline and learning claims, 0.26 for the frontier isolation at its allocated 16 families and 60 cases, and 0.39 for both the direct harm gate and the teaching isolation at their effective sample sizes of 20. Direct-gate power is about 0.16 for a 10-point tax and 0.35 for a 20-point tax; the evaluator-specified 0.30 effect size is not an 80% MDE. These values describe sensitivity, not pass floors.
 
-## Phase 2
+## Historical v3 Phase 2
 
 Phase 2 disables online updates and freezes the daemon, verbs, authored rules, candidate weights, and training-episode digest. Its arms are counted C, D', and B. Counted C versus D' is the learning claim. Counted C versus B repeats the Phase 1 headline success threshold without consuming Phase 1 alpha. If Phase 1 passed but the held_out replication fails, held_out is indeterminate and cannot pass.
 
-## Engineering gates
+## Historical v3 engineering gates
 
 The inferential claims do not override these hard checks:
 
@@ -100,7 +124,7 @@ The inferential claims do not override these hard checks:
 
 Failure blocks the surface claim. Repairing a failed gate after seeing validation outcomes burns the tranche.
 
-## Budget
+## Historical v3 budget
 
 The hard budget remains USD 565:
 
@@ -113,13 +137,13 @@ The hard budget remains USD 565:
 
 The 10% allowance is pooled infrastructure capacity, not authorization for every trial to retry. A budget or safety stop is indeterminate, never a pass.
 
-## Freeze boundary
+## Historical v3 freeze boundary
 
-Before validation opens, commit separate digests for the runtime invocation, system prompt, A schemas, B document, world build, runner, schedule, grader, analysis implementation, and report template. These artifacts may use authoring outcomes only.
+The v3 contract required separate digests for the runtime invocation, system prompt, A schemas, B document, world build, runner, schedule, grader, analysis implementation, and report template before validation could open. Those historical digests cannot freeze v4 artifacts.
 
-Review 1 identified the v2 protocol by LF-normalized UTF-8 SHA-256 and returned `REVISE`; it did not issue an acceptance record. The independent confirmation review accepted the corrected v3 candidate, so the protocol is frozen. An independent reviewer accepted Task 0.2 on 2026-08-18. Validation remains closed until independent unopened sealed families exist and the Task 0.6 Phase 0 review is complete.
+Review 1 identified the v2 protocol by LF-normalized UTF-8 SHA-256 and returned `REVISE`; it did not issue an acceptance record. The independent confirmation review accepted and froze only the corrected v3 candidate. An independent reviewer accepted Task 0.2 on 2026-08-18. Those historical acceptances do not apply to v4.
 
-## Independent acceptance record
+## Historical independent v3 acceptance record
 
 - **Reviewer role:** Evaluation reviewer, independent of implementation
 - **Date:** 2026-08-17
@@ -139,4 +163,4 @@ Remaining execution blockers:
 - independent unopened validation and held_out families;
 - Task 0.6 Phase 0 review.
 
-Until all blockers are cleared, `may_open_validation` and `may_open_held_out` remain false. This freeze does not authorize sealed-family creation, private labels, authoring outcomes, or validation or held_out outcome runs.
+This record applied only to the superseded v3 candidate. It is retained for custody and must not be read as a current freeze, current acceptance, permission to create sealed families, or authorization to run validation or held_out outcomes.
