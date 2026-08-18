@@ -1,19 +1,19 @@
 # Protocol v4 independent review prompt
 
-After the final authoring candidate is committed, replace the five angle-bracketed candidate fields. Then copy the text below into a fresh evaluator session that did not implement Phoenix.
+Copy the text below into a fresh evaluator session that did not implement Phoenix.
 
 ```text
 Act as the independent evaluation reviewer for the Phoenix frontier-v1 protocol v4 amendment. This is a protocol and implementation-contract review. It is not an outcome run, a corpus-authoring task, or permission to open a sealed tranche.
 
 Repository: https://github.com/nesste/phoenix
-Candidate commit: <COMMIT>
+Candidate commit: 7dea5dcb9dc33afc87e7dc70a33d3c01a935c35b
 
 Identify the candidate before reviewing it. Compute SHA-256 over LF-normalized UTF-8 bytes and require these exact values:
 
-- experiments/frontier-v1/protocol.json: <PROTOCOL_SHA256>
-- docs/decisions/0007-authoring-activation-amendment.md: <DECISION_0007_SHA256>
-- docs/decisions/0004-go-no-go-rules.md: <DECISION_0004_SHA256>
-- experiments/frontier-v1/authoring-analysis.md: <AUTHORING_ANALYSIS_SHA256>
+- experiments/frontier-v1/protocol.json: sha256:577c463bd1ca967d87d37ac0c35b2629037587a6e29241fd7f525448e6522c6b
+- docs/decisions/0007-authoring-activation-amendment.md: sha256:e87cb58458f306bedc35f143b77a6d6824fee2526abd70ba15f25b851d9d317a
+- docs/decisions/0004-go-no-go-rules.md: sha256:b6cc08fffa515fade3297ad0dfef09268678a67922ec299b36720f45e8207b0f
+- experiments/frontier-v1/authoring-analysis.md: sha256:c37bffe5c8fad7d0368d8ddff00beb44b55a1a9fa3eac315a9aca10ade2902bc
 
 Return REVISE without reviewing the candidate if the commit or any digest differs.
 
@@ -91,7 +91,7 @@ Required review questions
 
 13. Test adequacy: Identify v4 invariants asserted only in prose, implementation branches without a behavior owner, stale test names or assertions, and tests that could pass while the amendment contract is broken. Apply the repository standard: recommend extending the nearest existing behavioral test for a bug; recommend a new test only for genuinely new functionality.
 
-14. Authoring result: First confirm that the retained summary and every referenced trial were produced by the candidate world and grader. Report the retained score rather than relying on the implementer's prose. The earlier v4 candidate retained 6/8 after a behavior-identical 7/8 tuning pass, with cascade and recovery failing. The submitted candidate may contain authoring corrections. Decide separately:
+14. Authoring result: First confirm that the retained summary and every referenced trial were produced by the candidate world and grader. Report the retained score rather than relying on the implementer's prose. The submitted candidate claims a final 8/8 after correcting the cascade and recovery contracts; the earlier v4 candidate retained 6/8 after a behavior-identical 7/8 tuning pass. Decide separately:
     a. whether the retained failures reveal a protocol or mechanism defect;
     b. whether allowing cascade to omit `tests.list` after `tests.run` names the failing test is a legitimate contract correction or outcome-driven label weakening;
     c. whether typed evidence connecting `TestSwitchyardHandshake` to `TestRelayHandshake` makes recovery well-specified without leaking a solution;
