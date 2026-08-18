@@ -5,7 +5,7 @@
       "id": "uses_test_path_only",
       "kind": "act_sequence",
       "verdict": "fail",
-      "reason": "trial act sequence [tests.run tests.help tests.run] satisfies no acceptable path in exact mode"
+      "reason": "trial act sequence [tests.run tests.list tests.focus] satisfies no acceptable path in exact mode"
     },
     {
       "id": "reports_beacon_test",

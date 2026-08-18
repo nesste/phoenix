@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_5ec0be12",
-  "world_build": "sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56",
+  "world_build": "sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9",
   "acts": [
     {
       "seq": 0,
@@ -12,28 +12,19 @@
         "test": "TestSwitchyardHandshake"
       },
       "status": "fail",
-      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_l5rdgM1HF98b4_Tz4wDzxgsb\",\"act_id\":\"a_OPNYJN6JA4GKQM7WAZ3M4FGCBE\",\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_u1o3fAd45v0Z5sOLXchAOtcZ\",\"act_id\":\"a_HF36U63Y6H54YPI7SCFTWGNDQO\",\"handle\":\"h_jbPP1pxTW8ekAoqmmBM_1G3R\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     },
     {
       "seq": 1,
       "handle": "tests",
       "handle_type": "tests",
-      "verb": "help",
-      "args": {},
-      "status": "absent",
-      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_l5rdgM1HF98b4_Tz4wDzxgsb\",\"act_id\":\"a_DLVY43AOVM4ATXHK6RDQLFEHLH\",\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"help\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
-    },
-    {
-      "seq": 2,
-      "handle": "tests",
-      "handle_type": "tests",
       "verb": "list",
       "args": {},
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_l5rdgM1HF98b4_Tz4wDzxgsb\",\"act_id\":\"a_XI4PJWPWJCDCMQPNPXOE4TA5V2\",\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"tests\":[\"TestRelayHandshake\",\"TestRelayTimeout\"]},\"error\":null,\"text\":\"ok tests.list: tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRelayHandshake\"},\"state\":\"sha256:bfd2c2f172f09b77952139f9c61c19e2a23cc671b7d6065b15d837e67cf76e75\"},\"why\":\"focus the first bound test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_u1o3fAd45v0Z5sOLXchAOtcZ\",\"act_id\":\"a_F2KS67THOHFEKXWVVB6LH3TCGO\",\"handle\":\"h_jbPP1pxTW8ekAoqmmBM_1G3R\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"tests\":[\"TestRelayHandshake\",\"TestRelayTimeout\"]},\"error\":null,\"text\":\"ok tests.list: tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_jbPP1pxTW8ekAoqmmBM_1G3R\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRelayHandshake\"},\"state\":\"sha256:bfd2c2f172f09b77952139f9c61c19e2a23cc671b7d6065b15d837e67cf76e75\"},\"why\":\"focus the first bound test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
     }
   ],
-  "final_message": "TestSwitchyardHandshake does not exist in this test suite. The only tests available are **TestRelayHandshake** and **TestRelayTimeout** — so TestSwitchyardHandshake cannot be reported as passing or failing; it isn't present to run.",
+  "final_message": "There is no test named **TestSwitchyardHandshake** in this test suite. The available tests are:\n\n- TestRelayHandshake\n- TestRelayTimeout\n\nTestSwitchyardHandshake does not exist, so it cannot be reported as passing or failing — please confirm the correct test name (perhaps you meant TestRelayHandshake?).",
   "end_state": {
     "files": [
       {

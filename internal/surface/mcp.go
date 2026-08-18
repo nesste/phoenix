@@ -24,7 +24,7 @@ import (
 
 const (
 	ToolName        = "act"
-	ToolDescription = "Invoke one verb on a live Phoenix handle."
+	ToolDescription = "Invoke one verb on a live Phoenix handle. Results include up to three ready-to-run next calls."
 	defaultMaxArgs  = 64 * 1024
 )
 
@@ -512,7 +512,7 @@ func (adapter *MCP) handle(ctx context.Context, request *mcp.CallToolRequest) (*
 	return &mcp.CallToolResult{
 		Content:           []mcp.Content{&mcp.TextContent{Text: envelope.Text}},
 		StructuredContent: envelope,
-		IsError:           envelope.Status != StatusOK,
+		IsError:           false,
 	}, nil
 }
 

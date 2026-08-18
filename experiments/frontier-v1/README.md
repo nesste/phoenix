@@ -6,7 +6,7 @@ The authoring tranche is present and mechanically validated. It contains eight c
 
 The unopened validation and held_out corpora are imported from the reviewed evaluator patch. Each has 120 cases in 24 generating families, with only outcome-free label digests in this workspace. Full labels remain with the external custodian.
 
-The Task 1.8 production world and authoring runner are assembled. The retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). Six cases failed their precommitted action-path checks, primarily because the runtime probed for a capability catalog before reaching a frontier. Several still reached the correct final conclusion. This is tuning evidence, not a gate result; Gate 1A remains closed and no validation or held_out outcome run is authorized until every pre-validation artifact listed in `protocol.json` is frozen by digest.
+The Task 1.8 production world and authoring runner are assembled. The retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). Six cases failed their precommitted action-path checks. Most failures occur during initial verb selection, before a frontier or teaching refusal can help; the stale case also lacks the between-act state mutation its label requires. The [authoring performance analysis](authoring-analysis.md) records the evidence and stop condition. This is tuning evidence, not a gate result; Gate 1A remains closed and no validation or held_out outcome run is authorized until every pre-validation artifact listed in `protocol.json` is frozen by digest.
 
 ## Directory contract
 

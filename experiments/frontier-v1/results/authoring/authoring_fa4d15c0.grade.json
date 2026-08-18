@@ -5,7 +5,7 @@
       "id": "uses_discovery_path",
       "kind": "act_sequence",
       "verdict": "fail",
-      "reason": "trial act sequence [repo.grep tests.list repo.help tests.focus tests.focus repo.grep repo.list] satisfies no acceptable path in contains_in_order mode"
+      "reason": "trial act sequence [repo.search tests.list repo.list tests.focus episodes.search tests.focus] satisfies no acceptable path in contains_in_order mode"
     },
     {
       "id": "finds_relay_health_test",

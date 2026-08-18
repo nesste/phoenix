@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_ad0e25a1",
-  "world_build": "sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56",
+  "world_build": "sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9",
   "acts": [
     {
       "seq": 0,
@@ -12,29 +12,31 @@
         "filter": "Beacon"
       },
       "status": "fail",
-      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_tfEgdnzkYhqbFprClEs0oP2n\",\"act_id\":\"a_WAF5PNJY37DNT7SBZCOUPXYX7T\",\"handle\":\"h_zokdErAjJXGk1bj0c9x_NbjA\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_LGOoUWxud78mn0P07JAHDVmK\",\"act_id\":\"a_YTLEXQ53WS4SEPUN6PNUWLPZ7P\",\"handle\":\"h_wZq5XPiAw-LkGKlukzsfZFBt\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     },
     {
       "seq": 1,
       "handle": "tests",
       "handle_type": "tests",
-      "verb": "help",
+      "verb": "list",
       "args": {},
-      "status": "absent",
-      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_tfEgdnzkYhqbFprClEs0oP2n\",\"act_id\":\"a_R2G6KRVZX2VFNKGXEWEXCN4G6B\",\"handle\":\"h_zokdErAjJXGk1bj0c9x_NbjA\",\"verb\":\"help\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_LGOoUWxud78mn0P07JAHDVmK\",\"act_id\":\"a_FC3BCZGBCI2N4JNP443FCCRO7B\",\"handle\":\"h_wZq5XPiAw-LkGKlukzsfZFBt\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"tests\":[\"TestBeaconCurrent\",\"TestBeaconFallback\"]},\"error\":null,\"text\":\"ok tests.list: tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_wZq5XPiAw-LkGKlukzsfZFBt\",\"verb\":\"focus\",\"args\":{\"test\":\"TestBeaconCurrent\"},\"state\":\"sha256:8a4dc25e3f4847d8b59e6280eb9985cab61042f815fc4701718db044765daa14\"},\"why\":\"focus the first bound test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
     },
     {
       "seq": 2,
       "handle": "tests",
       "handle_type": "tests",
-      "verb": "run",
-      "args": {},
+      "verb": "focus",
+      "args": {
+        "test": "TestBeaconCurrent"
+      },
       "status": "ok",
       "exit_code": 0,
-      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_tfEgdnzkYhqbFprClEs0oP2n\",\"act_id\":\"a_7KIEBQKYRS4EJZHARCSVJXYBYB\",\"handle\":\"h_zokdErAjJXGk1bj0c9x_NbjA\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T13:40:51.6629412+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.com/beacon\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9073375+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"=== RUN   TestBeaconCurrent\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"--- PASS: TestBeaconCurrent (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconFallback\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconFallback\\\",\\\"Output\\\":\\\"=== RUN   TestBeaconFallback\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconFallback\\\",\\\"Output\\\":\\\"--- PASS: TestBeaconFallback (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconFallback\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9078639+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9092408+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"ok  \\\\texample.com/beacon\\\\t0.246s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:40:51.9160151+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Elapsed\\\":0.253}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_LGOoUWxud78mn0P07JAHDVmK\",\"act_id\":\"a_BC6C55F5VZ756QSNVQL6PAICHL\",\"handle\":\"h_wZq5XPiAw-LkGKlukzsfZFBt\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T14:12:05.8679485+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.com/beacon\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T14:12:06.1237832+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T14:12:06.1237832+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"=== RUN   TestBeaconCurrent\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T14:12:06.1237832+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"--- PASS: TestBeaconCurrent (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T14:12:06.1237832+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T14:12:06.1237832+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T14:12:06.1253284+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"ok  \\\\texample.com/beacon\\\\t0.257s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T14:12:06.1315395+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Elapsed\\\":0.264}\\n\",\"test\":\"TestBeaconCurrent\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
-  "final_message": "The Beacon test suite passes. Both tests in `example.com/beacon` succeeded:\n\n- **TestBeaconCurrent** — PASS\n- **TestBeaconFallback** — PASS\n\nOverall result: `exit_code=0`, 2 passed, 0 failed.",
+  "final_message": "The current Beacon test — **TestBeaconCurrent** — **passes** ✅ (exit code 0, `--- PASS: TestBeaconCurrent`).",
   "end_state": {
     "files": [
       {

@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_7e4d7a10",
-  "world_build": "sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56",
+  "world_build": "sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9",
   "acts": [
     {
       "seq": 0,
@@ -11,10 +11,10 @@
       "args": {},
       "status": "ok",
       "exit_code": 0,
-      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_gFjSD1lfZpPfN4czBjCIyKcn\",\"act_id\":\"a_BCT5FQONGJ6OWA6GASXWVLGOXA\",\"handle\":\"h_gqHdYLI4httNffCb9NE8km-3\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/parcel\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/parcel\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_3QCJVKxw1aXnCyvAn5c0ok7O\",\"act_id\":\"a_ZUCAR3CBD2BXMTKKDLECKWM3CU\",\"handle\":\"h_5jDj2ia-seE5BO-jSE9ZbhD1\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/parcel\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/parcel\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
-  "final_message": "The Parcel library compiles successfully — `repo.build` returned exit code 0 with no errors.",
+  "final_message": "The Parcel library compiles successfully — the build completed with exit code 0 and no errors (it appears to be a Go module with no test files present, but the build itself passed cleanly).",
   "end_state": {
     "files": [
       {

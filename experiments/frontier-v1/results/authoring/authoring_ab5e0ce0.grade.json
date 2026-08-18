@@ -5,7 +5,7 @@
       "id": "avoids_flailing",
       "kind": "act_count",
       "verdict": "fail",
-      "reason": "trial recorded 4 acts, maximum is 1"
+      "reason": "trial recorded 17 acts, maximum is 1"
     },
     {
       "id": "states_deploy_absence",

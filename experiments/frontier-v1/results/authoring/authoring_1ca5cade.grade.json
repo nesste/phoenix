@@ -5,7 +5,7 @@
       "id": "uses_triage_cascade",
       "kind": "act_sequence",
       "verdict": "fail",
-      "reason": "trial act sequence [tests.help repo.help git.help episodes.help tests.run repo.status git.log episodes.list repo.read repo.list repo.read] satisfies no acceptable path in contains_in_order mode"
+      "reason": "trial act sequence [tests.run git.status repo.read repo.read tests.run tests.run] satisfies no acceptable path in contains_in_order mode"
     },
     {
       "id": "identifies_confirmed_failure",

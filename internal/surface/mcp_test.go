@@ -308,6 +308,41 @@ func TestMCPServesOnlyActWithStructuredOutput(t *testing.T) {
 	validateEnvelope(t, envelope)
 }
 
+func TestMCPApplicationFailureRemainsStructuredToolResult(t *testing.T) {
+	adapter := NewMCP("test", testAdmission(t, 1024))
+	clientSession, serverSession, cleanup := connect(t, adapter)
+	defer cleanup()
+	session, roots, err := adapter.admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	adapter.sessions.Store(serverSession, session)
+
+	result, err := clientSession.CallTool(context.Background(), &mcp.CallToolParams{
+		Name: ToolName,
+		Arguments: json.RawMessage(fmt.Sprintf(
+			`{"handle":%q,"verb":"inspect","args":{"detail":"blocked"}}`, roots[0].Ref,
+		)),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result.IsError || result.StructuredContent == nil || len(result.Content) != 1 {
+		t.Fatalf("application result = %#v, want non-transport error with structured envelope", result)
+	}
+	var envelope Envelope
+	encoded, err := json.Marshal(result.StructuredContent)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := json.Unmarshal(encoded, &envelope); err != nil {
+		t.Fatal(err)
+	}
+	if envelope.Status != StatusRefused || envelope.Refusal == nil || envelope.Refusal.Instead == nil {
+		t.Fatalf("application envelope = %#v, want structured teaching refusal", envelope)
+	}
+}
+
 func testAdmission(t *testing.T, maxArgs int) *Admission {
 	return testAdmissionWithEpisodes(t, maxArgs, nil, nil)
 }

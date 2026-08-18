@@ -5,7 +5,7 @@
       "id": "uses_recovery_path",
       "kind": "act_sequence",
       "verdict": "fail",
-      "reason": "trial act sequence [tests.run tests.help tests.list] satisfies no acceptable path in contains_in_order mode"
+      "reason": "trial act sequence [tests.run tests.list] satisfies no acceptable path in contains_in_order mode"
     },
     {
       "id": "first_focus_refused",
@@ -17,7 +17,7 @@
       "id": "recovers_to_current_test",
       "kind": "act_output_matches",
       "verdict": "fail",
-      "reason": "act 2 output does not satisfy pattern \"(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake\""
+      "reason": "trial has no act at the required sequence"
     }
   ],
   "status": "fail"
