@@ -58,6 +58,13 @@ func TestServeStdioHandshake(t *testing.T) {
 	if result.Instructions != "" {
 		t.Fatalf("standing instructions = %q, want empty", result.Instructions)
 	}
+	tools, err := session.ListTools(ctx, nil)
+	if err != nil {
+		t.Fatalf("list tools: %v", err)
+	}
+	if len(tools.Tools) != 1 || tools.Tools[0].Name != "act" {
+		t.Fatalf("served tools = %#v, want only act", tools.Tools)
+	}
 
 	if err := session.Close(); err != nil {
 		t.Fatalf("close client session: %v", err)
