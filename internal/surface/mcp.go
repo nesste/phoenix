@@ -15,6 +15,7 @@ import (
 	"sync"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 )
@@ -77,19 +78,9 @@ type HandleDelta struct {
 	Revoke []string      `json:"revoke"`
 }
 
-type Call struct {
-	Handle string         `json:"handle"`
-	Verb   string         `json:"verb"`
-	Args   map[string]any `json:"args"`
-	State  *string        `json:"state,omitempty"`
-}
+type Call = frontier.Call
 
-type FrontierEntry struct {
-	Call       Call    `json:"call"`
-	Why        string  `json:"why"`
-	Provenance string  `json:"provenance"`
-	Score      float64 `json:"score"`
-}
+type FrontierEntry = frontier.Entry
 
 type Refusal struct {
 	What          string `json:"what"`
@@ -118,6 +109,7 @@ type Config struct {
 	WorldBuild   string
 	Graph        *world.Graph
 	Executor     *verb.Executor
+	Frontier     *frontier.Engine
 	MaxArgsBytes int
 }
 
@@ -125,6 +117,7 @@ type Admission struct {
 	worldBuild   string
 	graph        *world.Graph
 	executor     *verb.Executor
+	frontier     *frontier.Engine
 	maxArgsBytes int
 }
 
@@ -142,12 +135,15 @@ func New(config Config) (*Admission, error) {
 	if config.Executor == nil {
 		return nil, fmt.Errorf("verb executor is required")
 	}
+	if config.Frontier == nil {
+		return nil, fmt.Errorf("frontier engine is required")
+	}
 	if config.MaxArgsBytes <= 0 {
 		config.MaxArgsBytes = defaultMaxArgs
 	}
 	return &Admission{
 		worldBuild: config.WorldBuild, graph: config.Graph,
-		executor: config.Executor, maxArgsBytes: config.MaxArgsBytes,
+		executor: config.Executor, frontier: config.Frontier, maxArgsBytes: config.MaxArgsBytes,
 	}, nil
 }
 
@@ -194,15 +190,32 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 			Reachable: session.graph,
 		})
 		if result.Status == verb.StatusFail {
-			return failure(base, result.Error.Code, result.Error.Message, result.Error.Details)
+			failed := failure(base, result.Error.Code, result.Error.Message, result.Error.Details)
+			failed.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
+				HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+				Status: string(StatusFail), Result: failureFeatures(result.Error), State: access.State,
+			})
+			return failed
 		}
 		base.Status = StatusOK
 		base.Result = result.Value
 		base.Text = renderSuccess(access.Target.Type, input.Verb, result.Value)
+		base.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
+			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+			Status: string(StatusOK), Result: result.Value, State: access.State,
+		})
 		return base
 	default:
 		return failure(base, "execution_failed", "verb execution failed", nil)
 	}
+}
+
+func failureFeatures(failure *verb.Failure) map[string]any {
+	features := map[string]any{"code": failure.Code, "message": failure.Message}
+	if failure.Details != nil {
+		features["details"] = failure.Details
+	}
+	return features
 }
 
 func (admission *Admission) baseEnvelope(session *Session, input Input) Envelope {

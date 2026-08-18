@@ -122,7 +122,7 @@ func Load(schemaPath, definitionPath string) (*Definition, error) {
 		return nil, fmt.Errorf("decode typed world definition: %w", err)
 	}
 	definition.digest = digestBytes(canonical)
-	if err := validateDefinition(&definition); err != nil {
+	if err := ValidateDefinition(&definition); err != nil {
 		return nil, fmt.Errorf("world semantic validation failed: %w", err)
 	}
 	return &definition, nil

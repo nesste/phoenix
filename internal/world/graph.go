@@ -30,6 +30,7 @@ type Session struct {
 	resolver   Resolver
 	mu         sync.RWMutex
 	reachable  map[string]*reachableHandle
+	roots      map[string]string
 }
 
 type reachableHandle struct {
@@ -122,6 +123,7 @@ func (graph *Graph) StartSession() (*Session, []RootHandle, error) {
 		definition: graph.definition,
 		resolver:   graph.resolver,
 		reachable:  make(map[string]*reachableHandle, len(graph.definition.Roots)),
+		roots:      make(map[string]string, len(graph.definition.Roots)),
 	}
 	roots := make([]RootHandle, 0, len(graph.definition.Roots))
 	for _, root := range graph.definition.Roots {
@@ -131,9 +133,36 @@ func (graph *Graph) StartSession() (*Session, []RootHandle, error) {
 		}
 		handle := Handle{Ref: ref, Type: root.Type, Label: root.Label}
 		session.reachable[ref] = &reachableHandle{Handle: handle, resource: root.Resource}
+		session.roots[root.Name] = ref
 		roots = append(roots, RootHandle{Name: root.Name, Handle: handle})
 	}
 	return session, roots, nil
+}
+
+// RootHandle resolves an authored root name to this session's opaque handle.
+func (session *Session) RootHandle(name string) (Handle, bool) {
+	session.mu.RLock()
+	defer session.mu.RUnlock()
+	ref, exists := session.roots[name]
+	if !exists {
+		return Handle{}, false
+	}
+	handle, reachable := session.reachable[ref]
+	if !reachable {
+		return Handle{}, false
+	}
+	return handle.Handle, true
+}
+
+// ReachableHandle returns public identity only for a currently live handle.
+func (session *Session) ReachableHandle(ref string) (Handle, bool) {
+	session.mu.RLock()
+	defer session.mu.RUnlock()
+	handle, exists := session.reachable[ref]
+	if !exists {
+		return Handle{}, false
+	}
+	return handle.Handle, true
 }
 
 func (session *Session) ID() string {

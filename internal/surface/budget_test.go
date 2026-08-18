@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 )
@@ -77,10 +78,15 @@ func syntheticMCP(t *testing.T, verbCount int) *MCP {
 		HandleTypes: map[string]world.HandleType{"synthetic": {Verbs: verbs}},
 		Transitions: []world.Transition{},
 	}
+	frontierEngine, err := frontier.New(definition)
+	if err != nil {
+		t.Fatal(err)
+	}
 	admission, err := New(Config{
 		WorldBuild:   testWorldBuild,
 		Graph:        world.NewGraph(definition, staticResolver{}),
 		Executor:     verb.NewExecutor(verb.NewRegistry(), verb.Options{}),
+		Frontier:     frontierEngine,
 		MaxArgsBytes: 1024,
 	})
 	if err != nil {

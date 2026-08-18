@@ -93,4 +93,4 @@ requires byte-for-byte equality, applies a conservative 600-ASCII-byte token
 ceiling, and requires empty MCP instructions plus the single reviewed tool
 description. Any additional standing rule text or capability schema fails CI.
 
-`make manifest` writes `build/manifest.json`. From Task 1.3 onward it hashes the daemon, accepted schemas, the typed registry/executor boundary, and every source file in the registered dev-repo verb set. It still records an empty authored-rule set plus absent world-definition and active-weight artifacts until those components are assembled. Gate 1A freezes the complete manifest before validation opens.
+`make manifest` writes `build/manifest.json`. It hashes the daemon, accepted schemas, the typed registry/executor boundary, every source file in the registered dev-repo verb set, and, from Task 1.5 onward, the authored dev-repo transition source. The world-definition and active-weight artifacts remain absent until those components are assembled. Gate 1A freezes the complete manifest before validation opens.

@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 )
@@ -30,6 +31,36 @@ func TestDefinitionsContainOnlyTheStarterVerbSet(t *testing.T) {
 	}
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("starter verbs = %#v, want %#v", got, want)
+	}
+}
+
+func TestAuthoredTransitionsCompileAndBindToDevRepoRoots(t *testing.T) {
+	definition := authoredWorld(t)
+	engine, err := frontier.New(definition)
+	if err != nil {
+		t.Fatal(err)
+	}
+	session, roots, err := world.NewGraph(definition, authoredResolver{}).StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	refs := make(map[string]string, len(roots))
+	for _, root := range roots {
+		refs[root.Name] = root.Ref
+	}
+
+	entries := engine.Compute(session, frontier.Observation{
+		HandleType: "repo", Handle: refs["repo"], Verb: "edit", Status: "ok",
+		Result: map[string]any{"path": "main.go", "changed": true, "digest": "sha256:value"},
+	})
+	if got, want := len(entries), 2; got != want {
+		t.Fatalf("edit frontier length = %d, want %d: %#v", got, want, entries)
+	}
+	if entries[0].Call.Handle != refs["tests"] || entries[0].Call.Verb != "run" {
+		t.Fatalf("first edit suggestion = %#v, want reachable tests.run", entries[0])
+	}
+	if entries[1].Call.Handle != refs["git"] || entries[1].Call.Verb != "diff" {
+		t.Fatalf("second edit suggestion = %#v, want reachable git.diff", entries[1])
 	}
 }
 
@@ -191,4 +222,40 @@ func anyStrings(values []any) []string {
 		result = append(result, value.(string))
 	}
 	return result
+}
+
+func authoredWorld(t *testing.T) *world.Definition {
+	t.Helper()
+	definitions, err := Definitions(Config{Runner: &fakeRunner{}, GoExecutable: "go", GitExecutable: "git"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	handleTypes := make(map[string]world.HandleType)
+	for _, definition := range definitions {
+		descriptor := handleTypes[definition.HandleType]
+		if descriptor.Verbs == nil {
+			descriptor.Verbs = make(map[string]world.Verb)
+		}
+		descriptor.Verbs[definition.Name] = world.Verb{
+			ArgsSchema: definition.ArgsSchema, ResultSchema: definition.ResultSchema,
+		}
+		handleTypes[definition.HandleType] = descriptor
+	}
+	roots := make([]world.Root, 0, len(handleTypes))
+	for _, name := range []string{"repo", "tests", "git", "episodes"} {
+		roots = append(roots, world.Root{
+			Name: name, Type: name, Label: name,
+			Resource: world.Resource{Kind: "logical", Value: name},
+		})
+	}
+	return &world.Definition{
+		V: 1, ID: "dev_repo", Roots: roots, HandleTypes: handleTypes,
+		Transitions: AuthoredTransitions(),
+	}
+}
+
+type authoredResolver struct{}
+
+func (authoredResolver) Resolve(context.Context, world.Resource) (any, error) {
+	return map[string]any{}, nil
 }

@@ -59,6 +59,7 @@ manifest: build
 		--verb verbs/dev-repo/register.go \
 		--verb verbs/dev-repo/repository.go \
 		--verb verbs/dev-repo/schemas.go \
+		--rule verbs/dev-repo/transitions.go \
 		--schema spec/result.schema.json \
 		--schema spec/world.schema.json \
 		--goos $(TARGET_GOOS) \

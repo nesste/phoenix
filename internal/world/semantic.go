@@ -7,7 +7,11 @@ import (
 	"strings"
 )
 
-func validateDefinition(definition *Definition) error {
+// ValidateDefinition checks cross-references that JSON Schema cannot express.
+func ValidateDefinition(definition *Definition) error {
+	if definition == nil {
+		return fmt.Errorf("world definition is required")
+	}
 	roots, err := validateRoots(definition)
 	if err != nil {
 		return err

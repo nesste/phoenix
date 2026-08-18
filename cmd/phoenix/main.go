@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/surface"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
@@ -74,10 +75,15 @@ func defaultSurface(serverVersion string) (*surface.MCP, error) {
 		V: 1, ID: "unassembled", Roots: []world.Root{},
 		HandleTypes: map[string]world.HandleType{}, Transitions: []world.Transition{},
 	}
+	frontierEngine, err := frontier.New(definition)
+	if err != nil {
+		return nil, err
+	}
 	admission, err := surface.New(surface.Config{
 		WorldBuild: unassembledWorldBuild,
 		Graph:      world.NewGraph(definition, emptyResolver{}),
 		Executor:   verb.NewExecutor(verb.NewRegistry(), verb.Options{}),
+		Frontier:   frontierEngine,
 	})
 	if err != nil {
 		return nil, err

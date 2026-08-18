@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 	"github.com/santhosh-tekuri/jsonschema/v6"
@@ -37,8 +38,11 @@ func TestActReturnsCompactTextAndStructuredEnvelope(t *testing.T) {
 	if envelope.Text == "" || strings.Contains(envelope.Text, "{") {
 		t.Fatalf("text = %q, want compact rendering", envelope.Text)
 	}
-	if len(envelope.Frontier) != 0 || envelope.Handles.Grant == nil || envelope.Handles.Revoke == nil {
-		t.Fatalf("empty frontier/delta not encoded explicitly: %#v", envelope)
+	if len(envelope.Frontier) != 1 || envelope.Handles.Grant == nil || envelope.Handles.Revoke == nil {
+		t.Fatalf("frontier/delta not encoded explicitly: %#v", envelope)
+	}
+	if got := envelope.Frontier[0]; got.Call.Handle != roots[0].Ref || got.Call.Verb != "inspect" || got.Call.Args["detail"] != "repository brief" {
+		t.Fatalf("frontier call = %#v, want reachable call with bound result", got)
 	}
 	validateEnvelope(t, envelope)
 }
@@ -213,7 +217,20 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 				"inspect": {ArgsSchema: inspectArgs, ResultSchema: inspectResult},
 			}},
 		},
-		Transitions: []world.Transition{},
+		Transitions: []world.Transition{{
+			ID: "inspect_again",
+			Match: world.Match{
+				HandleType: "repo", Verb: "inspect", Status: "ok",
+				ResultWhen: json.RawMessage(`{"required":["summary"]}`),
+			},
+			Suggestions: []world.Suggestion{{
+				Call: world.CallTemplate{
+					Handle: world.HandleSelector{Source: "self"}, Verb: "inspect",
+					Args: map[string]world.Binding{"detail": resultBinding("/summary")},
+				},
+				Why: "inspect the current summary", Score: 1,
+			}},
+		}},
 	}
 	registry := verb.NewRegistry()
 	err := registry.Register(verb.Definition{
@@ -226,16 +243,25 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 	if err != nil {
 		t.Fatal(err)
 	}
+	frontierEngine, err := frontier.New(definition)
+	if err != nil {
+		t.Fatal(err)
+	}
 	admission, err := New(Config{
 		WorldBuild:   testWorldBuild,
 		Graph:        world.NewGraph(definition, staticResolver{}),
 		Executor:     verb.NewExecutor(registry, verb.Options{}),
+		Frontier:     frontierEngine,
 		MaxArgsBytes: maxArgs,
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
 	return admission
+}
+
+func resultBinding(pointer string) world.Binding {
+	return world.Binding{ResultPointer: &pointer}
 }
 
 var inspectArgs = json.RawMessage(`{

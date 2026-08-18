@@ -6,7 +6,7 @@ It runs as a local environment service called a **world**. An agent starts with 
 
 Phoenix does not call a model or run an agent loop. It provides the environment an external agent acts inside.
 
-> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation is underway: Tasks 1.1–1.4 provide the command shell, strict world loader, isolated session graph, opaque handles, typed verb execution, the closed dev-repo starter verb set, the constant `act` MCP surface, quality gate, and content-addressed build manifest.
+> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation is underway: Tasks 1.1–1.5 provide the command shell, strict world loader, isolated session graph, opaque handles, typed verb execution, the closed dev-repo starter verb set, the constant `act` MCP surface, authored frontier computation, quality gate, and content-addressed build manifest.
 
 ## The problem Phoenix is testing
 
@@ -73,7 +73,7 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
 | Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
-| Production daemon | Tasks 1.1–1.4 implemented: command shell, one instruction-free `act` MCP tool, strict world loading, stable digests, scoped handles, explicit grants/revocations, generic absence, bounded admission/execution, and starter repo/test/git/find/recall verbs. The starter world is assembled in Task 1.8; until then the CLI surface has no reachable roots. |
+| Production daemon | Tasks 1.1–1.5 implemented: command shell, one instruction-free `act` MCP tool, strict world loading, stable digests, scoped handles, explicit grants/revocations, generic absence, bounded admission/execution, starter repo/test/git/find/recall verbs, and deterministic authored frontiers capped at three bound calls. The starter world is assembled in Task 1.8; until then the CLI surface has no reachable roots. |
 
 ## Build the Phase 1 daemon shell
 
