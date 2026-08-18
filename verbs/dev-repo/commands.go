@@ -2,9 +2,13 @@ package devrepo
 
 import (
 	"bufio"
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
+	"io"
+	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -40,8 +44,63 @@ func testsListHandler(config Config) verb.HandlerFunc {
 		if result.ExitCode != 0 {
 			return nil, verb.NewFailure("test_list_failed", "test listing failed", map[string]any{"exit_code": result.ExitCode})
 		}
-		return map[string]any{"tests": stringsAsAny(listedTests(result.Stdout))}, nil
+		tests := listedTests(result.Stdout)
+		renames, err := listedTestRenames(request, config.MaxReadBytes, tests)
+		if err != nil {
+			return nil, err
+		}
+		return map[string]any{"tests": stringsAsAny(tests), "renames": renames}, nil
 	}
+}
+
+type testRename struct {
+	From string `json:"from"`
+	To   string `json:"to"`
+}
+
+type testRenameManifest struct {
+	Renames []testRename `json:"renames"`
+}
+
+func listedTestRenames(request verb.Request, maxBytes int64, liveTests []string) ([]any, error) {
+	root, err := repoRoot(request.Resource)
+	if err != nil {
+		return nil, err
+	}
+	path := filepath.Join(root, "tests", "renames.json")
+	info, err := os.Lstat(path)
+	if os.IsNotExist(err) {
+		return []any{}, nil
+	}
+	if err != nil || !info.Mode().IsRegular() || info.Mode()&os.ModeSymlink != 0 {
+		return nil, verb.NewFailure("test_renames_invalid", "test rename evidence is not a regular repository file", nil)
+	}
+	contents, err := readBounded(path, maxBytes)
+	if err != nil {
+		return nil, err
+	}
+	decoder := json.NewDecoder(bytes.NewReader(contents))
+	decoder.DisallowUnknownFields()
+	var manifest testRenameManifest
+	if err := decoder.Decode(&manifest); err != nil {
+		return nil, verb.NewFailure("test_renames_invalid", "test rename evidence is not valid JSON", nil)
+	}
+	if err := decoder.Decode(&struct{}{}); !errors.Is(err, io.EOF) {
+		return nil, verb.NewFailure("test_renames_invalid", "test rename evidence contains multiple JSON values", nil)
+	}
+
+	renames := make([]any, 0, len(manifest.Renames))
+	for index, rename := range manifest.Renames {
+		if rename.From == "" || rename.To == "" || rename.From == rename.To || !containsTest(liveTests, rename.To) {
+			return nil, verb.NewFailure(
+				"test_renames_invalid",
+				"test rename evidence does not identify a distinct live replacement",
+				map[string]any{"index": index},
+			)
+		}
+		renames = append(renames, map[string]any{"from": rename.From, "to": rename.To})
+	}
+	return renames, nil
 }
 
 func testsFocusHandler(config Config) verb.HandlerFunc {

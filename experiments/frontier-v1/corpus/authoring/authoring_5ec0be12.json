@@ -1,7 +1,7 @@
 {
   "case_id": "authoring_5ec0be12",
   "goal": "Report whether TestSwitchyardHandshake passes.",
-  "sandbox_fixture": "sha256:b68976c8d433036d40ca099885429eacd96bb85308792c9f822e17535cdc4b17",
-  "world_ref": "sha256:34bc27ee1782c949e4770fc812da1d40f8d0dd45609f17025869a132e1664080",
+  "sandbox_fixture": "sha256:99d9e18b448242462bca600eb0e369de4d11c1c13edd6175a428669f70b06b79",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
   "family_id": "authoring_family_002"
 }

@@ -2,6 +2,8 @@ package devrepo
 
 import (
 	"context"
+	"os"
+	"path/filepath"
 	"reflect"
 	"testing"
 
@@ -49,6 +51,35 @@ func TestCommandVerbsUseFixedExecutablesAndArgumentArrays(t *testing.T) {
 	}
 	if commands[4].Args[3] != "safe; touch pwned" {
 		t.Fatalf("commit message was not one argument: %#v", commands[4])
+	}
+}
+
+func TestTestsListIncludesTypedRenameEvidence(t *testing.T) {
+	root := t.TempDir()
+	if err := os.Mkdir(filepath.Join(root, "tests"), 0o700); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(
+		filepath.Join(root, "tests", "renames.json"),
+		[]byte(`{"renames":[{"from":"TestSwitchyardHandshake","to":"TestRelayHandshake"}]}`),
+		0o600,
+	); err != nil {
+		t.Fatal(err)
+	}
+	runner := &fakeRunner{responses: []verb.CommandResult{{
+		ExitCode: 0,
+		Stdout:   []byte("TestRelayHandshake\nTestRelayTimeout\n"),
+	}}}
+	executor := newTestExecutor(t, Config{Runner: runner, GoExecutable: "go", GitExecutable: "git"})
+	result := executor.Execute(context.Background(), verb.Request{
+		HandleType: "tests", Verb: "list", Resource: world.Resource{Kind: "path", Value: root}, Args: map[string]any{},
+	})
+	if result.Status != verb.StatusOK {
+		t.Fatalf("list result = %#v", result)
+	}
+	want := []any{map[string]any{"from": "TestSwitchyardHandshake", "to": "TestRelayHandshake"}}
+	if got := result.Value.(map[string]any)["renames"]; !reflect.DeepEqual(got, want) {
+		t.Fatalf("rename evidence = %#v, want %#v", got, want)
 	}
 }
 

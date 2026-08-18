@@ -2,6 +2,6 @@
   "case_id": "authoring_ad0e25a1",
   "goal": "Report whether the current Beacon test passes.",
   "sandbox_fixture": "sha256:f9ed60a000ebb37bf1ba89e8e0f264d784ed4137b70444c43e65fa3bb3cc93a9",
-  "world_ref": "sha256:34bc27ee1782c949e4770fc812da1d40f8d0dd45609f17025869a132e1664080",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
   "family_id": "authoring_family_004"
 }

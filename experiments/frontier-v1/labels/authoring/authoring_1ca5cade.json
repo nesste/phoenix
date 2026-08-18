@@ -11,12 +11,12 @@
       {
         "id": "identifies_confirmed_failure",
         "kind": "act_output_matches",
-        "seq": 3,
+        "seq": 2,
         "pattern": "(?i)TestOverdraftFloor.*fail|fail.*TestOverdraftFloor"
       }
     ]
   },
   "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
-  "acceptable_paths": [["repo.status", "tests.run", "tests.list", "tests.focus"]],
-  "label_rationale": "The task requires a multi-step diagnostic cascade rather than guessing a test name from fixture prose or stopping at the aggregate failure."
+  "acceptable_paths": [["repo.status", "tests.run", "tests.focus"]],
+  "label_rationale": "The task requires a diagnostic cascade through the repository status and aggregate suite result before independently focusing the failing test named by that result."
 }

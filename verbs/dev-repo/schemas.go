@@ -65,8 +65,14 @@ var testsRunResult = []byte(`{
 }`)
 
 var testsListResult = []byte(`{
-  "type":"object","additionalProperties":false,"required":["tests"],
-  "properties":{"tests":{"type":"array","items":{"type":"string"}}}
+  "type":"object","additionalProperties":false,"required":["tests","renames"],
+  "properties":{
+    "tests":{"type":"array","items":{"type":"string"}},
+    "renames":{"type":"array","items":{
+      "type":"object","additionalProperties":false,"required":["from","to"],
+      "properties":{"from":{"type":"string","minLength":1},"to":{"type":"string","minLength":1}}
+    }}
+  }
 }`)
 
 var testsFocusResult = []byte(`{

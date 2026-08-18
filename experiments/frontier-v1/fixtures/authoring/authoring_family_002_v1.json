@@ -8,6 +8,7 @@
     "config/services.json": "{\"relay\":{\"internal_name\":\"switchyard\",\"health_test\":\"TestRelayHandshake\"}}\n",
     "go.mod": "module example.com/relay\n\ngo 1.25\n",
     "relay_test.go": "package relay\n\nimport \"testing\"\n\nfunc TestRelayHandshake(t *testing.T) {}\n\nfunc TestRelayTimeout(t *testing.T) {}\n",
-    "tests/catalog.txt": "TestRelayHandshake\nTestRelayTimeout\n"
+    "tests/catalog.txt": "TestRelayHandshake\nTestRelayTimeout\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestSwitchyardHandshake\",\"to\":\"TestRelayHandshake\"}]}\n"
   }
 }
