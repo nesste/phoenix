@@ -7,9 +7,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
-	"strings"
 	"unicode/utf8"
 
+	"github.com/nesste/phoenix/internal/jsonptr"
 	"github.com/nesste/phoenix/internal/world"
 	"github.com/santhosh-tekuri/jsonschema/v6"
 )
@@ -164,13 +164,13 @@ func validateBinding(binding world.Binding) error {
 	}
 	if binding.ResultPointer != nil {
 		count++
-		if !validPointer(*binding.ResultPointer) {
+		if !jsonptr.Valid(*binding.ResultPointer) {
 			return fmt.Errorf("result pointer %q is invalid", *binding.ResultPointer)
 		}
 	}
 	if binding.StatePointer != nil {
 		count++
-		if !validPointer(*binding.StatePointer) {
+		if !jsonptr.Valid(*binding.StatePointer) {
 			return fmt.Errorf("state pointer %q is invalid", *binding.StatePointer)
 		}
 	}
@@ -198,37 +198,6 @@ func compileSchema(label string, raw json.RawMessage) (*jsonschema.Schema, error
 		return nil, fmt.Errorf("compile %s schema: %w", label, err)
 	}
 	return compiled, nil
-}
-
-func validPointer(pointer string) bool {
-	if pointer == "" {
-		return true
-	}
-	if !strings.HasPrefix(pointer, "/") {
-		return false
-	}
-	for _, token := range strings.Split(strings.TrimPrefix(pointer, "/"), "/") {
-		for index := 0; index < len(token); index++ {
-			if token[index] == '~' && (index+1 >= len(token) || (token[index+1] != '0' && token[index+1] != '1')) {
-				return false
-			}
-			if token[index] == '~' {
-				index++
-			}
-		}
-	}
-	return true
-}
-
-func pointerTokens(pointer string) []string {
-	if pointer == "" {
-		return nil
-	}
-	encoded := strings.Split(strings.TrimPrefix(pointer, "/"), "/")
-	for index := range encoded {
-		encoded[index] = strings.ReplaceAll(strings.ReplaceAll(encoded[index], "~1", "/"), "~0", "~")
-	}
-	return encoded
 }
 
 func validStatus(status string) bool {

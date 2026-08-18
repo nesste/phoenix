@@ -16,6 +16,7 @@ import (
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/nesste/phoenix/internal/frontier"
+	"github.com/nesste/phoenix/internal/teach"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 )
@@ -82,12 +83,7 @@ type Call = frontier.Call
 
 type FrontierEntry = frontier.Entry
 
-type Refusal struct {
-	What          string `json:"what"`
-	Why           string `json:"why"`
-	Instead       *Call  `json:"instead"`
-	NoAlternative string `json:"no_alternative,omitempty"`
-}
+type Refusal = teach.Refusal
 
 type Envelope struct {
 	V          int             `json:"v"`
@@ -110,6 +106,7 @@ type Config struct {
 	Graph        *world.Graph
 	Executor     *verb.Executor
 	Frontier     *frontier.Engine
+	Teacher      *teach.Engine
 	MaxArgsBytes int
 }
 
@@ -118,6 +115,7 @@ type Admission struct {
 	graph        *world.Graph
 	executor     *verb.Executor
 	frontier     *frontier.Engine
+	teacher      *teach.Engine
 	maxArgsBytes int
 }
 
@@ -138,12 +136,16 @@ func New(config Config) (*Admission, error) {
 	if config.Frontier == nil {
 		return nil, fmt.Errorf("frontier engine is required")
 	}
+	if config.Teacher == nil {
+		return nil, fmt.Errorf("teaching engine is required")
+	}
 	if config.MaxArgsBytes <= 0 {
 		config.MaxArgsBytes = defaultMaxArgs
 	}
 	return &Admission{
 		worldBuild: config.WorldBuild, graph: config.Graph,
-		executor: config.Executor, frontier: config.Frontier, maxArgsBytes: config.MaxArgsBytes,
+		executor: config.Executor, frontier: config.Frontier,
+		teacher: config.Teacher, maxArgsBytes: config.MaxArgsBytes,
 	}, nil
 }
 
@@ -184,12 +186,23 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 	case world.AccessStale, world.AccessFailed:
 		return failure(base, access.Problem.Code, access.Problem.Message, nil)
 	case world.AccessReady:
+		observation := teach.Observation{
+			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+			Args: input.Args, State: access.State,
+		}
+		if shaped := admission.evaluateRefusal(base, session, observation); shaped != nil {
+			return *shaped
+		}
 		result := admission.executor.Execute(ctx, verb.Request{
 			SessionID: session.ID(), HandleType: access.Target.Type, Verb: input.Verb,
 			Resource: access.Target.Resource, State: access.State, Args: input.Args,
 			Reachable: session.graph,
 		})
 		if result.Status == verb.StatusFail {
+			observation.Failure = failureFeatures(result.Error)
+			if shaped := admission.evaluateRefusal(base, session, observation); shaped != nil {
+				return *shaped
+			}
 			failed := failure(base, result.Error.Code, result.Error.Message, result.Error.Details)
 			failed.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
 				HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
@@ -208,6 +221,19 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 	default:
 		return failure(base, "execution_failed", "verb execution failed", nil)
 	}
+}
+
+func (admission *Admission) evaluateRefusal(base Envelope, session *Session, observation teach.Observation) *Envelope {
+	refusal, matched, err := admission.teacher.Evaluate(session.graph, observation)
+	if err != nil {
+		failed := failure(base, "refusal_invalid", "authored refusal could not bind a reachable alternative", nil)
+		return &failed
+	}
+	if !matched {
+		return nil
+	}
+	shaped := refused(base, refusal)
+	return &shaped
 }
 
 func failureFeatures(failure *verb.Failure) map[string]any {
@@ -238,6 +264,16 @@ func failure(envelope Envelope, code, message string, details map[string]any) En
 	envelope.Status = StatusFail
 	envelope.Error = &Error{Code: code, Message: message, Details: details}
 	envelope.Text = "failed " + envelope.Verb + ": " + message
+	return envelope
+}
+
+func refused(envelope Envelope, refusal teach.Refusal) Envelope {
+	envelope.Status = StatusRefused
+	envelope.Refusal = &refusal
+	envelope.Text = "refused " + refusal.What + ": " + refusal.Why
+	if refusal.Instead != nil {
+		envelope.Text += "\ninstead: " + refusal.Instead.Handle + "." + refusal.Instead.Verb
+	}
 	return envelope
 }
 

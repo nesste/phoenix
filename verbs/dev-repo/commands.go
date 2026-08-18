@@ -121,8 +121,15 @@ func gitCommitHandler(config Config) verb.HandlerFunc {
 		if err != nil {
 			return nil, err
 		}
+		if committed.ExitCode != 0 {
+			output := strings.ToLower(string(committed.Stdout) + "\n" + string(committed.Stderr))
+			if strings.Contains(output, "nothing to commit") || strings.Contains(output, "no changes added to commit") {
+				return nil, verb.NewFailure("nothing_to_commit", "no changes are available to commit", nil)
+			}
+			return nil, verb.NewFailure("git_failed", "git commit failed", map[string]any{"exit_code": committed.ExitCode})
+		}
 		return map[string]any{
-			"committed": committed.ExitCode == 0, "stdout": string(committed.Stdout), "stderr": string(committed.Stderr),
+			"committed": true, "stdout": string(committed.Stdout), "stderr": string(committed.Stderr),
 		}, nil
 	}
 }

@@ -95,7 +95,12 @@
           "refusals": [
             {
               "id": "missing_test",
-              "when": { "not": { "required": ["test"] } },
+              "when": {
+                "properties": {
+                  "args": { "not": { "required": ["test"] } }
+                },
+                "required": ["args"]
+              },
               "what": "tests.focus requires a test name",
               "why": "the world cannot bind an unspecified test",
               "instead": {

@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/nesste/phoenix/internal/frontier"
+	"github.com/nesste/phoenix/internal/teach"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 )
@@ -61,6 +62,36 @@ func TestAuthoredTransitionsCompileAndBindToDevRepoRoots(t *testing.T) {
 	}
 	if entries[1].Call.Handle != refs["git"] || entries[1].Call.Verb != "diff" {
 		t.Fatalf("second edit suggestion = %#v, want reachable git.diff", entries[1])
+	}
+}
+
+func TestAuthoredRefusalsTeachReachableOrExplicitAlternatives(t *testing.T) {
+	definition := authoredWorld(t)
+	engine, err := teach.New(definition)
+	if err != nil {
+		t.Fatal(err)
+	}
+	session, roots, err := world.NewGraph(definition, authoredResolver{}).StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	refs := make(map[string]string, len(roots))
+	for _, root := range roots {
+		refs[root.Name] = root.Ref
+	}
+
+	missing, matched, err := engine.Evaluate(session, teach.Observation{
+		HandleType: "tests", Handle: refs["tests"], Verb: "focus", Args: map[string]any{},
+	})
+	if err != nil || !matched || missing.Instead == nil || missing.Instead.Verb != "list" {
+		t.Fatalf("missing-test refusal = (%#v, %v, %v), want reachable tests.list", missing, matched, err)
+	}
+	conflict, matched, err := engine.Evaluate(session, teach.Observation{
+		HandleType: "repo", Handle: refs["repo"], Verb: "edit", Args: map[string]any{},
+		Failure: map[string]any{"code": "edit_conflict", "message": "conflict"},
+	})
+	if err != nil || !matched || conflict.Instead != nil || conflict.NoAlternative == "" {
+		t.Fatalf("edit-conflict refusal = (%#v, %v, %v), want explicit reason", conflict, matched, err)
 	}
 }
 
@@ -141,6 +172,21 @@ func TestCommandVerbsUseFixedExecutablesAndArgumentArrays(t *testing.T) {
 	}
 	if commands[3].Args[3] != "safe; touch pwned" {
 		t.Fatalf("commit message was not one argument: %#v", commands[3].Args)
+	}
+}
+
+func TestGitCommitReportsNothingToCommitAsAConstraint(t *testing.T) {
+	runner := &fakeRunner{responses: []verb.CommandResult{
+		{ExitCode: 0},
+		{ExitCode: 1, Stdout: []byte("nothing to commit, working tree clean")},
+	}}
+	executor := newTestExecutor(t, Config{Runner: runner, GoExecutable: "go", GitExecutable: "git"})
+	result := executor.Execute(context.Background(), verb.Request{
+		HandleType: "git", Verb: "commit", Resource: world.Resource{Kind: "path", Value: t.TempDir()},
+		Args: map[string]any{"message": "checkpoint"},
+	})
+	if result.Status != verb.StatusFail || result.Error == nil || result.Error.Code != "nothing_to_commit" {
+		t.Fatalf("commit result = %#v, want shapeable nothing_to_commit constraint", result)
 	}
 }
 
@@ -240,6 +286,13 @@ func authoredWorld(t *testing.T) *world.Definition {
 			ArgsSchema: definition.ArgsSchema, ResultSchema: definition.ResultSchema,
 		}
 		handleTypes[definition.HandleType] = descriptor
+	}
+	for _, authored := range AuthoredRefusals() {
+		descriptor := handleTypes[authored.HandleType]
+		verb := descriptor.Verbs[authored.Verb]
+		verb.Refusals = append([]world.RefusalRule(nil), authored.Rules...)
+		descriptor.Verbs[authored.Verb] = verb
+		handleTypes[authored.HandleType] = descriptor
 	}
 	roots := make([]world.Root, 0, len(handleTypes))
 	for _, name := range []string{"repo", "tests", "git", "episodes"} {

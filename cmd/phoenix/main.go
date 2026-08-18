@@ -10,6 +10,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/surface"
+	"github.com/nesste/phoenix/internal/teach"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 )
@@ -79,11 +80,16 @@ func defaultSurface(serverVersion string) (*surface.MCP, error) {
 	if err != nil {
 		return nil, err
 	}
+	teachingEngine, err := teach.New(definition)
+	if err != nil {
+		return nil, err
+	}
 	admission, err := surface.New(surface.Config{
 		WorldBuild: unassembledWorldBuild,
 		Graph:      world.NewGraph(definition, emptyResolver{}),
 		Executor:   verb.NewExecutor(verb.NewRegistry(), verb.Options{}),
 		Frontier:   frontierEngine,
+		Teacher:    teachingEngine,
 	})
 	if err != nil {
 		return nil, err

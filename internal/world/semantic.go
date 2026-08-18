@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
-	"strings"
+
+	"github.com/nesste/phoenix/internal/jsonptr"
 )
 
 // ValidateDefinition checks cross-references that JSON Schema cannot express.
@@ -202,12 +203,11 @@ func pointerResolves(rawSchema json.RawMessage, pointer string) bool {
 	if pointer == "" {
 		return true
 	}
-	if !strings.HasPrefix(pointer, "/") {
+	if !jsonptr.Valid(pointer) {
 		return false
 	}
 	current := schema
-	for _, encoded := range strings.Split(strings.TrimPrefix(pointer, "/"), "/") {
-		token := strings.ReplaceAll(strings.ReplaceAll(encoded, "~1", "/"), "~0", "~")
+	for _, token := range jsonptr.Tokens(pointer) {
 		member, ok := current.(map[string]any)
 		if !ok {
 			return false

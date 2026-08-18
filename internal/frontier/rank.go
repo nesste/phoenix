@@ -3,8 +3,8 @@ package frontier
 import (
 	"encoding/json"
 	"sort"
-	"strconv"
 
+	"github.com/nesste/phoenix/internal/jsonptr"
 	"github.com/nesste/phoenix/internal/world"
 )
 
@@ -83,7 +83,7 @@ func bindHandle(topology Topology, observation Observation, selector world.Handl
 	case "root":
 		handle, ok = topology.RootHandle(selector.Name)
 	case "result":
-		value, found := resolvePointer(observation.Result, selector.ResultPointer)
+		value, found := jsonptr.Resolve(observation.Result, selector.ResultPointer)
 		if !found {
 			return world.Handle{}, false
 		}
@@ -105,43 +105,12 @@ func bindValue(binding world.Binding, observation Observation) (any, bool) {
 		return value, true
 	}
 	if binding.ResultPointer != nil {
-		return resolvePointer(observation.Result, *binding.ResultPointer)
+		return jsonptr.Resolve(observation.Result, *binding.ResultPointer)
 	}
 	if binding.StatePointer != nil && observation.State != nil {
-		return resolvePointer(observation.State.Value, *binding.StatePointer)
+		return jsonptr.Resolve(observation.State.Value, *binding.StatePointer)
 	}
 	return nil, false
-}
-
-func resolvePointer(value any, pointer string) (any, bool) {
-	current := value
-	for _, token := range pointerTokens(pointer) {
-		switch typed := current.(type) {
-		case map[string]any:
-			var exists bool
-			current, exists = typed[token]
-			if !exists {
-				return nil, false
-			}
-		case []any:
-			index, err := jsonPointerIndex(token, len(typed))
-			if err != nil {
-				return nil, false
-			}
-			current = typed[index]
-		default:
-			return nil, false
-		}
-	}
-	return current, true
-}
-
-func jsonPointerIndex(token string, length int) (int, error) {
-	index, err := strconv.Atoi(token)
-	if err != nil || index < 0 || index >= length {
-		return 0, strconv.ErrSyntax
-	}
-	return index, nil
 }
 
 func rank(candidates []candidate) []Entry {

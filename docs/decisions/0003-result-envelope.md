@@ -32,6 +32,8 @@ A world definition declares:
 
 Bindings may use a literal, a JSON Pointer into the typed result, or a JSON Pointer into live state. A target handle comes from the current handle, a named root, or an explicitly granted handle in the result. The loader must reject missing handle types, verbs not attached to the selected type, invalid JSON Pointers, unbound arguments, and result grants not declared by the verb. Those are graph-semantic checks beyond what JSON Schema alone can express.
 
+A refusal `when` schema evaluates a structured feature object. `args` is always present; `state` and `state_digest` are present after live resolution; `failure` is present only when evaluating a typed verb failure. Request/state refusals run before the handler, and failure-shaped refusals run before an ordinary `fail` envelope is returned. Human-readable result text is never a refusal input.
+
 ## Canonicalization and digests
 
 Protocol JSON is canonicalized with RFC 8785 before hashing. Digests use lowercase SHA-256 encoded as `sha256:` plus 64 hexadecimal characters.

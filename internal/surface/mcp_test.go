@@ -10,6 +10,7 @@ import (
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/nesste/phoenix/internal/frontier"
+	"github.com/nesste/phoenix/internal/teach"
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 	"github.com/santhosh-tekuri/jsonschema/v6"
@@ -67,6 +68,31 @@ func TestUnknownHandleIsGenericAbsent(t *testing.T) {
 	}
 	if envelope.Result != nil || len(envelope.Frontier) != 0 || envelope.Refusal != nil {
 		t.Fatalf("absent result leaked topology: %#v", envelope)
+	}
+	validateEnvelope(t, envelope)
+}
+
+func TestActDistinguishesTeachingRefusalFromAbsenceAndFailure(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	envelope := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "blocked"},
+	})
+	if envelope.Status != StatusRefused || envelope.Error != nil || envelope.Result != nil {
+		t.Fatalf("result = %#v, want refused without error payload", envelope)
+	}
+	if envelope.Refusal == nil || envelope.Refusal.What == "" || envelope.Refusal.Why == "" || envelope.Refusal.Instead == nil {
+		t.Fatalf("teaching refusal is incomplete: %#v", envelope.Refusal)
+	}
+	if envelope.Refusal.Instead.Handle != roots[0].Ref || envelope.Refusal.Instead.Verb != "inspect" || envelope.Refusal.Instead.Args["detail"] != "brief" {
+		t.Fatalf("alternative = %#v, want reachable bound inspect call", envelope.Refusal.Instead)
+	}
+	if len(envelope.Frontier) != 0 || !strings.Contains(envelope.Text, "instead:") {
+		t.Fatalf("refusal rendering/frontier = %q / %#v", envelope.Text, envelope.Frontier)
 	}
 	validateEnvelope(t, envelope)
 }
@@ -214,7 +240,18 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 		}},
 		HandleTypes: map[string]world.HandleType{
 			"repo": {Verbs: map[string]world.Verb{
-				"inspect": {ArgsSchema: inspectArgs, ResultSchema: inspectResult},
+				"inspect": {
+					ArgsSchema: inspectArgs, ResultSchema: inspectResult,
+					Refusals: []world.RefusalRule{{
+						ID:   "blocked_inspection",
+						When: json.RawMessage(`{"properties":{"failure":{"properties":{"code":{"const":"inspection_blocked"}},"required":["code"]}},"required":["failure"]}`),
+						What: "repo.inspect cannot use blocked detail", Why: "the detail is unavailable in the current state",
+						Instead: &world.CallTemplate{
+							Handle: world.HandleSelector{Source: "self"}, Verb: "inspect",
+							Args: map[string]world.Binding{"detail": literalBinding(`"brief"`)},
+						},
+					}},
+				},
 			}},
 		},
 		Transitions: []world.Transition{{
@@ -237,6 +274,9 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 		HandleType: "repo", Name: "inspect", ArgsSchema: inspectArgs, ResultSchema: inspectResult,
 		Handler: verb.HandlerFunc(func(_ context.Context, request verb.Request) (any, error) {
 			detail, _ := request.Args["detail"].(string)
+			if detail == "blocked" {
+				return nil, verb.NewFailure("inspection_blocked", "inspection detail is blocked", nil)
+			}
 			return map[string]any{"summary": "repository " + detail}, nil
 		}),
 	})
@@ -247,11 +287,16 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 	if err != nil {
 		t.Fatal(err)
 	}
+	teachingEngine, err := teach.New(definition)
+	if err != nil {
+		t.Fatal(err)
+	}
 	admission, err := New(Config{
 		WorldBuild:   testWorldBuild,
 		Graph:        world.NewGraph(definition, staticResolver{}),
 		Executor:     verb.NewExecutor(registry, verb.Options{}),
 		Frontier:     frontierEngine,
+		Teacher:      teachingEngine,
 		MaxArgsBytes: maxArgs,
 	})
 	if err != nil {
@@ -262,6 +307,10 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 
 func resultBinding(pointer string) world.Binding {
 	return world.Binding{ResultPointer: &pointer}
+}
+
+func literalBinding(value string) world.Binding {
+	return world.Binding{Literal: json.RawMessage(value)}
 }
 
 var inspectArgs = json.RawMessage(`{
