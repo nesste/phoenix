@@ -1,14 +1,27 @@
 package main
 
 import (
+	"crypto/sha256"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
+	"sort"
+	"strings"
 	"testing"
 )
 
-func TestArmBPreValidationFreezeMatchesAcceptedCandidate(t *testing.T) {
+type frozenFileSet struct {
+	Commit    string            `json:"candidate_commit"`
+	Review    string            `json:"review_record"`
+	Verdict   string            `json:"review_verdict"`
+	SetDigest string            `json:"artifact_set_lf_normalized_utf8_sha256"`
+	Files     map[string]string `json:"files"`
+	Frozen    bool              `json:"frozen"`
+}
+
+func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	repositoryRoot := filepath.Join("..", "..", "..")
 	var freeze struct {
 		Status string `json:"status"`
@@ -25,6 +38,8 @@ func TestArmBPreValidationFreezeMatchesAcceptedCandidate(t *testing.T) {
 				Verdict string `json:"review_verdict"`
 				Frozen  bool   `json:"frozen"`
 			} `json:"arm_b_static_document"`
+			Runner   frozenFileSet `json:"scheduled_runner"`
+			Analysis frozenFileSet `json:"analysis_implementation_and_report_template"`
 		} `json:"artifacts"`
 		Remaining []string `json:"remaining"`
 	}
@@ -47,6 +62,10 @@ func TestArmBPreValidationFreezeMatchesAcceptedCandidate(t *testing.T) {
 	if actual != armB.Digest {
 		t.Fatalf("Arm B digest = %s, freeze requires %s", actual, armB.Digest)
 	}
+	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Runner,
+		"b4df919070bb9a6d2912662b4a59674b0e25a332", 9)
+	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Analysis,
+		"62946f4a1a03ea89636c5b3243f3b4d53b166682", 9)
 
 	var protocol struct {
 		ArtifactFreeze struct {
@@ -54,9 +73,40 @@ func TestArmBPreValidationFreezeMatchesAcceptedCandidate(t *testing.T) {
 		} `json:"artifact_freeze"`
 	}
 	readJSONForTest(t, filepath.Join("..", "protocol.json"), &protocol)
-	wantRemaining := withoutString(protocol.ArtifactFreeze.BeforeValidation, "arm B static document")
+	wantRemaining := withoutStrings(protocol.ArtifactFreeze.BeforeValidation,
+		"arm B static document", "runner digest", "analysis implementation and report template")
 	if !reflect.DeepEqual(freeze.Remaining, wantRemaining) {
 		t.Fatalf("remaining freeze set = %#v, want %#v", freeze.Remaining, wantRemaining)
+	}
+}
+
+func verifyFrozenFileSet(t *testing.T, repositoryRoot string, artifact frozenFileSet, commit string, fileCount int) {
+	t.Helper()
+	if !artifact.Frozen || artifact.Commit != commit || artifact.Verdict != "ACCEPT" || len(artifact.Files) != fileCount {
+		t.Fatalf("frozen file set metadata = %#v", artifact)
+	}
+	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(artifact.Review))); err != nil {
+		t.Fatalf("review record: %v", err)
+	}
+	paths := make([]string, 0, len(artifact.Files))
+	for path := range artifact.Files {
+		paths = append(paths, path)
+	}
+	sort.Strings(paths)
+	var identity strings.Builder
+	for _, path := range paths {
+		actual, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(path)))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if actual != artifact.Files[path] {
+			t.Fatalf("%s digest = %s, freeze requires %s", path, actual, artifact.Files[path])
+		}
+		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
+	}
+	digest := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(identity.String())))
+	if digest != artifact.SetDigest {
+		t.Fatalf("artifact set digest = %s, freeze requires %s", digest, artifact.SetDigest)
 	}
 }
 
@@ -71,10 +121,14 @@ func readJSONForTest(t *testing.T, path string, target any) {
 	}
 }
 
-func withoutString(values []string, omitted string) []string {
+func withoutStrings(values []string, omitted ...string) []string {
+	omissions := make(map[string]struct{}, len(omitted))
+	for _, value := range omitted {
+		omissions[value] = struct{}{}
+	}
 	result := make([]string, 0, len(values))
 	for _, value := range values {
-		if value != omitted {
+		if _, skip := omissions[value]; !skip {
 			result = append(result, value)
 		}
 	}

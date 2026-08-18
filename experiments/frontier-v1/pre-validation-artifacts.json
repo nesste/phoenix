@@ -14,15 +14,52 @@
       "review_record": "docs/reviews/2026-08-18-arm-b-human-factors.md",
       "review_verdict": "ACCEPT",
       "frozen": true
+    },
+    "scheduled_runner": {
+      "candidate_commit": "b4df919070bb9a6d2912662b4a59674b0e25a332",
+      "review_record": "docs/reviews/2026-08-18-phase1-scheduled-runner-review.md",
+      "review_verdict": "ACCEPT",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:9947438305fe3e8be351e82ad2cdbfe072c72e9ac67b3e8a2767567b111cbadd",
+      "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
+      "files": {
+        "experiments/frontier-v1/runner/main.go": "sha256:e0949c0abf26fa6fe9f3b2ccd8c8c8c937d69098110a8454c08fad8b96c06c35",
+        "experiments/frontier-v1/runner/main_test.go": "sha256:a8ad317b9e10f541d5ace06ea0ac9422ccf8b04077bb573b9e6bcfa4e8cf9847",
+        "experiments/frontier-v1/runner/runtime.go": "sha256:fe7d608fb2b64defb2ae5097235b93191d7e386e75693a9b8cfd6103940aeb56",
+        "experiments/frontier-v1/runner/runtime_test.go": "sha256:899f1ac588082420f652b1d6fdd7eb0ca20065dc2b11eabd50839eeac93183b2",
+        "experiments/frontier-v1/runner/schedule.go": "sha256:d04884d84036d3d8dd8cdd6f1fccdc4f889f3289831bb9ecec0e84292e894c95",
+        "experiments/frontier-v1/runner/schedule_test.go": "sha256:73c9bb9238ab26b1c64cd49e5989ee2e16d92f44b3203a465bced09f962729ec",
+        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:4a86b8d84789fa60c9b1991dcfaf0c9b82e9cee7d37459af79df84d69d0ba1cf",
+        "experiments/frontier-v1/runner/scheduled_run_test.go": "sha256:080ce37de7acd2c7d741a10cb3b1658bd77a39809b546d606f43c78af960be83",
+        "experiments/frontier-v1/runner/types.go": "sha256:54da663664141753fab65d89ed8db98101bb01613237c8a5dd75df78f908fc94"
+      },
+      "frozen": true
+    },
+    "analysis_implementation_and_report_template": {
+      "candidate_commit": "62946f4a1a03ea89636c5b3243f3b4d53b166682",
+      "review_record": "docs/reviews/2026-08-18-phase1-analysis-review-2.md",
+      "review_verdict": "ACCEPT",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:5b0002d7f07e6ba51035a2360f2cee5b03a191712f7244ef75424a85c28e12cc",
+      "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
+      "accepted_limitation": "Two-sided 95% intervals for descriptive measures are absent; the independent reviewer classified this as a non-blocking completeness limitation because those intervals enter no forced decision.",
+      "files": {
+        "experiments/frontier-v1/analysis/README.md": "sha256:65f0ff8b929327341e0ccec0555841f30c980efbc67e5c2d27f3de67594e0d94",
+        "experiments/frontier-v1/analysis/analysis_test.go": "sha256:e28f48153b6d4e90cac3011309809e2ea8b275031fe443446dbcd8619f18b029",
+        "experiments/frontier-v1/analysis/claims.go": "sha256:ff34599bbc1eee374ee149998b124babdd1a1c7993ecba5c11c96b3a0c9a5a0b",
+        "experiments/frontier-v1/analysis/load.go": "sha256:94fc85440eaa6c8010423a9732d68628dfa1e29f5be4eeaacb948b3a3bc58c19",
+        "experiments/frontier-v1/analysis/main.go": "sha256:b41d11132a40d56caba4038c7bdbc43a9dd1c3fb99b5bb9b36baffbe2459fc09",
+        "experiments/frontier-v1/analysis/report-template.md.tmpl": "sha256:361641401cc85e8951cf08f5279aac8488713d8dcd52a4df2f2a539a66bdbede",
+        "experiments/frontier-v1/analysis/report.go": "sha256:947a36d5fdce8379b68a72a36d9c1f2c1ba09495910abd90f300368b2c2c340a",
+        "experiments/frontier-v1/analysis/statistics.go": "sha256:8263fbbc5bd0e7708b701cb0ed95aea37e18b0cc26fea38aaa9b30215037b6ef",
+        "experiments/frontier-v1/analysis/types.go": "sha256:26d2d922f84214eee87346ba429cc6b9bd62a911a031087ee870f4dcfad1d200"
+      },
+      "frozen": true
     }
   },
   "remaining": [
     "runtime invocation and exact per-arm system prompts",
     "arm A schemas",
     "world definition and world-build digest",
-    "runner digest",
     "schedule digest",
-    "grader digest",
-    "analysis implementation and report template"
+    "grader digest"
   ]
 }

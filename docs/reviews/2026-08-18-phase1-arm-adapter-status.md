@@ -18,14 +18,15 @@ Protocol v4 is accepted and frozen. This status covers the arm adapters and sche
 - Scheduled execution keeps every five-arm pairing key contiguous and reserves its five trial caps plus the pooled 10% infrastructure capacity before launch.
 - Every retry gets a fresh context, sandbox, world, handles, episode store, and state-event plan. Only one eligible pre-token infrastructure retry is permitted.
 - Assignment records distinguish graded pass/fail, manual-required failure, terminal cap failure, exhausted infrastructure, budget stop, and safety stop. They retain every attempt's token buckets, USD, turns, API time, wall time, and first-token status.
-- The scheduled runner at `b4df919070bb9a6d2912662b4a59674b0e25a332` received an independent `ACCEPT` with no findings. The acceptance permits freezing those runner bytes only after the analysis implementation and report template are committed and independently accepted.
-- The Phase 1 analysis candidate implements ITT accounting, whole-pair safety-stop handling, unresolved and cap-imbalance rules, paired hierarchical bootstrap and family sign flips, paired-success token ratios, the three component contrasts, sensitivity views, and a deterministic Markdown report template. It reconstructs frontier linkage from retained runtime evidence and does not modify the accepted runner bytes.
+- The scheduled runner at `b4df919070bb9a6d2912662b4a59674b0e25a332` received an independent `ACCEPT` with no findings. Its nine reviewed files are frozen as one file-digest set in `pre-validation-artifacts.json`.
+- The Phase 1 analysis implements ITT accounting, whole-pair safety-stop handling, unresolved and cap-imbalance rules, paired hierarchical bootstrap and family sign flips, paired-success token ratios, the three component contrasts, sensitivity views, and a deterministic Markdown report template. It reconstructs frontier linkage from retained runtime evidence.
+- The focused analysis revision at `62946f4a1a03ea89636c5b3243f3b4d53b166682` received an independent `ACCEPT` with no findings. The nine analysis and report artifacts are frozen by digest. The accepted non-blocking limitation is that descriptive measures do not yet carry two-sided 95% intervals; those intervals enter no forced decision.
 
 ## Still required before a Phase 1 outcome run
 
-1. Obtain an independent review of the analysis implementation and report template. Do not freeze either artifact from implementation self-review.
-2. Generate the accepted replacement validation schedule and freeze its digest. The authoring schedule is not a substitute.
-3. Freeze every `artifact_freeze.before_validation` item by digest. The current manifest remains `partial` with seven entries, including the analysis candidate.
-4. Independently generate and seal new disjoint validation and held-out candidates. Do not inspect or execute their outcomes while completing the items above.
+1. Independently generate and seal new disjoint validation and held-out candidates. Do not inspect or execute their outcomes while completing the remaining artifacts.
+2. Freeze the runtime invocation and exact prompts, Arm A schemas, world definition and world-build digest, and grader digest.
+3. Generate the validation schedule only from the accepted replacement validation cases and freeze its digest. The authoring schedule is not a substitute.
+4. Keep the manifest `partial` and both outcome gates false until all five remaining entries are frozen and every external blocker is closed.
 
 The current runner remains authoring-only. No authoring execution is required by this implementation tranche, and the retained 7/8 focused-revision run is unchanged.
