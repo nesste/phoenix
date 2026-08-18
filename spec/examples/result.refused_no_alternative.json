@@ -1,0 +1,23 @@
+{
+  "v": 1,
+  "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "session_id": "s_0123456789abcdef",
+  "act_id": "a_4123456789abcdef",
+  "handle": "h_0123456789abcdef",
+  "verb": "commit",
+  "status": "refused",
+  "result": null,
+  "error": null,
+  "text": "refused: no changes are available to commit",
+  "handles": {
+    "grant": [],
+    "revoke": []
+  },
+  "frontier": [],
+  "refusal": {
+    "what": "commit cannot run",
+    "why": "no changes are available to commit",
+    "instead": null,
+    "no_alternative": "make a reachable edit before committing"
+  }
+}

@@ -17,6 +17,7 @@ The Phase 0 experiment modules remain independently reproducible with their acce
 | Go language | `1.26.0` | Declared in root `go.mod`. |
 | Go toolchain | `go1.26.6` | Declared in root `go.mod`; CI must not float to a newer patch. Phase 0 evidence remains pinned to `go1.26.5`; production advanced to the security-fixed patch after the Task 1.1 vulnerability gate found reachable standard-library advisories in `1.26.5`. |
 | MCP Go SDK | `github.com/modelcontextprotocol/go-sdk v1.6.1` | Preserves the independently accepted Phase 0 surface. Upgrade only through a reviewed decision and repeated surface checks. |
+| JSON canonicalization | `github.com/gowebpki/jcs v1.0.1` | RFC 8785 canonicalization for world and live-state digests. |
 | JSON Schema | `github.com/santhosh-tekuri/jsonschema/v6 v6.0.3` | Draft 2020-12 validation. |
 | SQLite | `modernc.org/sqlite v1.56.0` | Pure-Go driver reserved for the Phase 1 episode store; no `mattn/go-sqlite3` or other CGO driver. |
 | Staticcheck | `honnef.co/go/tools/cmd/staticcheck v0.7.0` | Invoked by exact version from `make lint`. |

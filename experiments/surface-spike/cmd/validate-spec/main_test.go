@@ -36,6 +36,43 @@ func TestAbsentResultCannotCarryGuidance(t *testing.T) {
 	}
 }
 
+func TestAbsentResultCannotCarryDetailsOrHandleMutations(t *testing.T) {
+	tests := []struct {
+		name string
+		edit func(map[string]any)
+	}{
+		{
+			name: "error details",
+			edit: func(instance map[string]any) {
+				instance["error"].(map[string]any)["details"] = map[string]any{"leak": true}
+			},
+		},
+		{
+			name: "handle grant",
+			edit: func(instance map[string]any) {
+				instance["handles"].(map[string]any)["grant"] = []any{map[string]any{
+					"ref": "h_1111111111111111", "type": "repo", "label": "leaked handle",
+				}}
+			},
+		},
+		{
+			name: "handle revoke",
+			edit: func(instance map[string]any) {
+				instance["handles"].(map[string]any)["revoke"] = []any{"h_1111111111111111"}
+			},
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			schema, instance := loadResultFixture(t, "result.absent.json")
+			test.edit(instance)
+			if err := schema.Validate(instance); err == nil {
+				t.Fatal("absent result carrying hidden state passed validation")
+			}
+		})
+	}
+}
+
 func loadResultFixture(t *testing.T, name string) (*jsonschema.Schema, map[string]any) {
 	t.Helper()
 	root := repositoryRoot(t)

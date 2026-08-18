@@ -89,10 +89,22 @@
         "properties": {
           "result": { "type": "null" },
           "error": {
-            "allOf": [
-              { "$ref": "#/$defs/error" },
-              { "properties": { "code": { "const": "absent" } } }
-            ]
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "message"],
+            "properties": {
+              "code": { "const": "absent" },
+              "message": { "const": "handle is not reachable" }
+            }
+          },
+          "handles": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["grant", "revoke"],
+            "properties": {
+              "grant": { "type": "array", "maxItems": 0 },
+              "revoke": { "type": "array", "maxItems": 0 }
+            }
           },
           "frontier": { "maxItems": 0 },
           "refusal": { "type": "null" }

@@ -25,7 +25,9 @@ func main() {
 	}
 	validations := []validation{
 		{schema: "spec/result.schema.json", instance: "spec/examples/result.ok.json"},
+		{schema: "spec/result.schema.json", instance: "spec/examples/result.fail.json"},
 		{schema: "spec/result.schema.json", instance: "spec/examples/result.refused.json"},
+		{schema: "spec/result.schema.json", instance: "spec/examples/result.refused_no_alternative.json"},
 		{schema: "spec/result.schema.json", instance: "spec/examples/result.absent.json"},
 		{schema: "spec/world.schema.json", instance: "spec/examples/world.dev_repo.json"},
 	}
