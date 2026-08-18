@@ -5,13 +5,13 @@
       "id": "uses_recovery_path",
       "kind": "act_sequence",
       "verdict": "fail",
-      "reason": "trial act sequence [tests.run tests.list] satisfies no acceptable path in contains_in_order mode"
+      "reason": "trial act sequence [tests.focus] satisfies no acceptable path in contains_in_order mode"
     },
     {
       "id": "first_focus_refused",
       "kind": "act_status",
-      "verdict": "fail",
-      "reason": "act 0 has status fail, expected refused"
+      "verdict": "pass",
+      "reason": "act 0 has expected status refused"
     },
     {
       "id": "recovers_to_current_test",

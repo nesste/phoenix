@@ -16,7 +16,7 @@ import (
 const (
 	pinnedRuntimeVersion = "2.1.229"
 	pinnedModel          = "claude-sonnet-5"
-	pinnedSystemPrompt   = "Use only the configured Phoenix tool. Treat the supplied handles as live. Act directly from the goal and handle type. Follow the user request exactly."
+	pinnedSystemPrompt   = "Use only the configured Phoenix tool. Treat the supplied handles as live. Begin by sending the complete goal as intent on any live handle, then execute the returned calls. Follow the user request exactly."
 )
 
 type claudeDriver struct {
@@ -51,6 +51,10 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 			"env": map[string]string{},
 		},
 	}}
+	if request.StateEventsPath != "" {
+		server := mcpConfig["mcpServers"].(map[string]any)["phoenix"].(map[string]any)
+		server["args"] = append(server["args"].([]string), "--state-events", request.StateEventsPath)
+	}
 	if err := writeJSON(configPath, mcpConfig); err != nil {
 		return runtimeResult{}, err
 	}

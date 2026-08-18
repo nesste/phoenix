@@ -16,7 +16,7 @@
       }
     ]
   },
-  "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c",
+  "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
   "acceptable_paths": [["tests.run"]],
   "label_rationale": "This is the low-discovery baseline: one obvious suite action is sufficient, and extra diagnostic actions are unnecessary overhead."
 }

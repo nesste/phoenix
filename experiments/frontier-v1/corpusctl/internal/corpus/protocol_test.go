@@ -125,7 +125,7 @@ func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 	if err := json.Unmarshal(data, &protocol); err != nil {
 		t.Fatal(err)
 	}
-	if protocol.Version != 3 || protocol.Status != "frozen" || !protocol.Frozen || !protocol.Review.Accepted {
+	if protocol.Version != 4 || protocol.Status != "authoring_amendment" || protocol.Frozen || protocol.Review.Accepted {
 		t.Fatalf("unexpected protocol state: v=%d status=%s frozen=%t", protocol.Version, protocol.Status, protocol.Frozen)
 	}
 	record := protocol.Review.Record
@@ -272,8 +272,8 @@ func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 	if !hasScheduleDigest {
 		t.Fatal("schedule digest must be frozen explicitly")
 	}
-	if len(protocol.Unresolved) != 0 {
-		t.Fatalf("accepted frozen protocol has unresolved freeze blockers: %v", protocol.Unresolved)
+	if len(protocol.Unresolved) != 2 || !strings.Contains(protocol.Unresolved[0], "protocol v4") || !strings.Contains(protocol.Unresolved[1], "regeneration") {
+		t.Fatalf("amended protocol must retain review and resealing blockers: %v", protocol.Unresolved)
 	}
 	wantLimitations := []string{
 		"Conclusions are limited to Claude Code 2.1.229, claude-sonnet-5, the frozen dev-repo world, and the eight task classes.",
@@ -298,7 +298,7 @@ func TestProtocolIsFrozenCompleteAndBudgeted(t *testing.T) {
 			}
 		}
 	}
-	if !protocol.Gate.MayRunAuthoring || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut || !strings.Contains(protocol.Gate.Reason, "Phase 0 research contract") || !strings.Contains(protocol.Gate.Reason, "artifact_freeze.before_validation") {
-		t.Fatalf("Phase 0 acceptance must open authoring only: %+v", protocol.Gate)
+	if !protocol.Gate.MayRunAuthoring || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut || !strings.Contains(protocol.Gate.Reason, "Protocol v4") || !strings.Contains(protocol.Gate.Reason, "independently accepted") {
+		t.Fatalf("v4 amendment must keep only authoring open: %+v", protocol.Gate)
 	}
 }

@@ -1,13 +1,20 @@
 {
-  "v": 3,
-  "status": "frozen",
-  "frozen": true,
-  "recorded_on": "2026-08-17",
+  "v": 4,
+  "status": "authoring_amendment",
+  "frozen": false,
+  "recorded_on": "2026-08-18",
   "scope": {
     "runtime_population": "Claude Code 2.1.229 with claude-sonnet-5 at low effort",
     "world_population": "the frozen Phoenix dev-repo world build",
     "task_population": "the eight frontier-v1 case classes",
     "claim_limit": "No result generalizes to another runtime, model, world, or task class without a new protocol and sealed tranche."
+  },
+  "amendment": {
+    "reason": "Authoring showed that post-act frontiers cannot choose the first useful act and that stale-frontier labels require a state change between acts.",
+    "activation": "The constant act tool accepts either an executable call (handle, verb, args, optional state) or an orientation call (handle, intent). Orientation returns the current pending authored frontier when one exists; otherwise it matches only world-authored activation rules. It binds only currently reachable handles, returns at most three fully bound calls, and exposes no registry or unreachable capability. If a client selects a uniquely pending state-bound call but omits its state field, admission restores that precondition before execution.",
+    "accounting": "Every orientation is logged and costed but recorded separately from executable acts. Acceptable paths, act counts, and act sequence positions use executable acts only.",
+    "state_changes": "A case may declare deterministic relative-path file replacements after a numbered executable act. The isolated daemon applies each event after computing that act's response and before delivering it to the agent.",
+    "retirement": "The protocol, world, case schema, trial schema, grader digest, and runner changed. The v3 validation and held_out candidates are retired unopened and must not be run, relabeled, or resealed in place. Independent evaluators must generate new disjoint candidates after v4 review."
   },
   "runtime": {
     "name": "claude-code",
@@ -120,7 +127,7 @@
     },
     "C": {
       "phase": "1",
-      "surface": "Phoenix handles and structured act tool",
+      "surface": "Phoenix handles and the structured act tool with world-authored intent orientation",
       "documentation": "constant standing surface only",
       "frontier": true,
       "teaching_refusals": true
@@ -327,20 +334,24 @@
     ],
     "source_limit": "Arm artifacts may use authoring outcomes only. No validation or held_out outcome may inform them."
   },
-  "unresolved_before_freeze": [],
+  "unresolved_before_freeze": [
+    "independent review and acceptance of protocol v4 and its amended surface contract",
+    "independent regeneration and sealing of validation and held_out candidates against the v4 world, schemas, and grader"
+  ],
   "gate": {
     "may_run_authoring": true,
     "may_open_validation": false,
     "may_open_held_out": false,
-    "reason": "The Phase 0 research contract and independent unopened validation and held_out families are accepted. Authoring-only Phase 1 work may proceed; validation and held_out remain closed until every artifact_freeze.before_validation item is committed by digest."
+    "reason": "Protocol v4 is an unreviewed authoring amendment. Authoring-only work may proceed. Validation and held_out remain closed until v4 is independently accepted, new disjoint candidates are sealed, and every artifact_freeze.before_validation item is committed by digest."
   },
   "review": {
     "required_role": "evaluation reviewer independent of implementation",
-    "accepted": true,
+    "accepted": false,
     "review_record": {
       "reviewer_role": "evaluation reviewer, independent of implementation",
       "date": "2026-08-17",
       "verdict": "ACCEPT",
+      "applies_to": "superseded protocol v3 only",
       "candidate_lf_normalized_utf8_sha256": {
         "protocol_json": "sha256:4d13c140742ba462d68af865d4ed12b08e6c2e1aba4f652fed4e35adf782a47d",
         "decision_0004": "sha256:399d337ef957ff1a43e7b384a03a7ddfe1e3a360b9f5337ae1d662338dfe3849"

@@ -24,6 +24,7 @@ type ActRequest struct {
 	Verb   string         `json:"verb"`
 	Args   map[string]any `json:"args"`
 	State  string         `json:"state,omitempty"`
+	Intent string         `json:"intent,omitempty"`
 }
 
 type SuggestionLink struct {

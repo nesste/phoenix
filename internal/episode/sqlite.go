@@ -389,13 +389,30 @@ func validateStartedAct(act StartedAct) error {
 	if !digestPattern.MatchString(act.WorldBuild) {
 		return fmt.Errorf("world build must be a sha256 digest")
 	}
-	if act.Request.Handle == "" || act.Request.Verb == "" || act.Request.Args == nil {
+	if !validActRequest(act.Request) {
 		return fmt.Errorf("structured act request is incomplete")
 	}
-	if act.SuggestionTaken != nil && (!idPattern.MatchString(act.SuggestionTaken.ActID) || act.SuggestionTaken.Index < 0 || act.SuggestionTaken.Index > 2) {
+	if !validSuggestionLink(act.SuggestionTaken) {
 		return fmt.Errorf("suggestion linkage is invalid")
 	}
 	return nil
+}
+
+func validActRequest(request ActRequest) bool {
+	if request.Handle == "" || request.Args == nil || request.Verb == "" {
+		return false
+	}
+	if request.Intent == "" {
+		return true
+	}
+	return request.Verb == "orient" && strings.TrimSpace(request.Intent) != "" && request.State == ""
+}
+
+func validSuggestionLink(link *SuggestionLink) bool {
+	if link == nil {
+		return true
+	}
+	return idPattern.MatchString(link.ActID) && link.Index >= 0 && link.Index <= 2
 }
 
 func formatTime(value time.Time) string {

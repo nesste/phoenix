@@ -1,30 +1,30 @@
 {
   "v": 1,
   "case_id": "authoring_5ec0be12",
-  "world_build": "sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9",
+  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
   "acts": [
     {
       "seq": 0,
       "handle": "tests",
       "handle_type": "tests",
-      "verb": "run",
+      "verb": "focus",
       "args": {
         "test": "TestSwitchyardHandshake"
       },
-      "status": "fail",
-      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_u1o3fAd45v0Z5sOLXchAOtcZ\",\"act_id\":\"a_HF36U63Y6H54YPI7SCFTWGNDQO\",\"handle\":\"h_jbPP1pxTW8ekAoqmmBM_1G3R\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
-    },
-    {
-      "seq": 1,
-      "handle": "tests",
-      "handle_type": "tests",
-      "verb": "list",
-      "args": {},
-      "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_u1o3fAd45v0Z5sOLXchAOtcZ\",\"act_id\":\"a_F2KS67THOHFEKXWVVB6LH3TCGO\",\"handle\":\"h_jbPP1pxTW8ekAoqmmBM_1G3R\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"tests\":[\"TestRelayHandshake\",\"TestRelayTimeout\"]},\"error\":null,\"text\":\"ok tests.list: tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_jbPP1pxTW8ekAoqmmBM_1G3R\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRelayHandshake\"},\"state\":\"sha256:bfd2c2f172f09b77952139f9c61c19e2a23cc671b7d6065b15d837e67cf76e75\"},\"why\":\"focus the first bound test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_PX0H49T2_l_MkBkiwfuO0a3J\",\"act_id\":\"a_P6CSCZGXOOFRE7ZIMOTBYTMTDQ\",\"handle\":\"h_EW1UkxQgvBOJTUdsDmik7o9-\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined the test name: the requested test is not in the live suite\\ninstead: h_EW1UkxQgvBOJTUdsDmik7o9-.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined the test name\",\"why\":\"the requested test is not in the live suite\",\"instead\":{\"handle\":\"h_EW1UkxQgvBOJTUdsDmik7o9-\",\"verb\":\"list\",\"args\":{}}}}"
     }
   ],
-  "final_message": "There is no test named **TestSwitchyardHandshake** in this test suite. The available tests are:\n\n- TestRelayHandshake\n- TestRelayTimeout\n\nTestSwitchyardHandshake does not exist, so it cannot be reported as passing or failing — please confirm the correct test name (perhaps you meant TestRelayHandshake?).",
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Run test TestSwitchyardHandshake and report whether it passes",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "TestSwitchyardHandshake does not exist in the live test suite, so it cannot pass — it's not a recognized test (the test runner refused, indicating no such test is present).",
   "end_state": {
     "files": [
       {

@@ -19,6 +19,10 @@
       "propertyNames": { "$ref": "#/$defs/identifier" },
       "additionalProperties": { "$ref": "#/$defs/handleType" }
     },
+    "activations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/activationRule" }
+    },
     "transitions": {
       "type": "array",
       "items": { "$ref": "#/$defs/transition" }
@@ -109,6 +113,12 @@
           "additionalProperties": false,
           "required": ["state_digest"],
           "properties": { "state_digest": { "const": true } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["intent_capture"],
+          "properties": { "intent_capture": { "type": "integer", "minimum": 1 } }
         }
       ]
     },
@@ -178,6 +188,29 @@
           "else": { "not": { "required": ["no_alternative"] } }
         }
       ]
+    },
+    "activationRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "pattern", "suggestions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "pattern": { "type": "string", "minLength": 1, "maxLength": 400 },
+        "suggestions": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["call", "why", "score"],
+            "properties": {
+              "call": { "$ref": "#/$defs/callTemplate" },
+              "why": { "type": "string", "minLength": 1, "maxLength": 80 },
+              "score": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        }
+      }
     },
     "transition": {
       "type": "object",

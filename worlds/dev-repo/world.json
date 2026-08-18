@@ -412,6 +412,83 @@
       }
     }
   },
+  "activations": [
+    {
+      "id": "diagnose_complete_suite",
+      "pattern": "(?i)(determine|diagnose|why).*(complete|suite).*(not green|fail|exact)",
+      "suggestions": [
+        {
+          "call": { "handle": { "source": "root", "name": "repo" }, "verb": "status", "args": {} },
+          "why": "establish repository state before suite diagnosis",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "run_complete_suite",
+      "pattern": "(?i)^\\s*(run|execute).*(complete|entire|full).*(test|suite)",
+      "suggestions": [
+        {
+          "call": { "handle": { "source": "root", "name": "tests" }, "verb": "run", "args": {} },
+          "why": "run the complete reachable test suite",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "id": "focus_named_test",
+      "pattern": "\\b(Test[A-Za-z0-9_]+)\\b",
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "root", "name": "tests" },
+            "verb": "focus",
+            "args": { "test": { "intent_capture": 1 } }
+          },
+          "why": "run the test named in the intent",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "discover_internal_service_test",
+      "pattern": "(?i)find.*internal.*test.*public\\s+([A-Za-z0-9_-]+)\\s+service",
+      "suggestions": [
+        {
+          "call": {
+            "handle": { "source": "root", "name": "repo" },
+            "verb": "find",
+            "args": { "query": { "intent_capture": 1 } }
+          },
+          "why": "bridge the public service name through repository search",
+          "score": 1
+        }
+      ]
+    },
+    {
+      "id": "list_contextual_test",
+      "pattern": "(?i)(first test|current [A-Za-z0-9_-]* ?test|whether .* test passes)",
+      "suggestions": [
+        {
+          "call": { "handle": { "source": "root", "name": "tests" }, "verb": "list", "args": {} },
+          "why": "bind the requested test from the live suite",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "id": "build_repository",
+      "pattern": "(?i)\\b(compile|compiles|builds)\\b",
+      "suggestions": [
+        {
+          "call": { "handle": { "source": "root", "name": "repo" }, "verb": "build", "args": {} },
+          "why": "check whether the reachable repository builds",
+          "score": 1
+        }
+      ]
+    }
+  ],
+
   "transitions": [
     {
       "id": "status_to_run",
@@ -467,20 +544,6 @@
           "call": { "handle": { "source": "self" }, "verb": "list", "args": {} },
           "why": "list tests before focusing the failure",
           "score": 1
-        },
-        {
-          "call": {
-            "handle": { "source": "root", "name": "episodes" },
-            "verb": "recall",
-            "args": { "query": { "result_pointer": "/stderr" } }
-          },
-          "why": "recall prior resolutions for this failure",
-          "score": 0
-        },
-        {
-          "call": { "handle": { "source": "root", "name": "git" }, "verb": "diff", "args": {} },
-          "why": "inspect changes associated with the failure",
-          "score": 0
         }
       ]
     },
@@ -521,7 +584,7 @@
             "args": { "test": { "result_pointer": "/tests/0" } },
             "state": { "state_digest": true }
           },
-          "why": "focus the first bound test",
+          "why": "complete the requested check with the bound live test",
           "score": 1
         }
       ]

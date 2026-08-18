@@ -140,7 +140,7 @@ func buildPhoenix(root string) (string, string, func(), error) {
 		},
 		Schemas:         []string{"spec/result.schema.json", "spec/episode.schema.json", "spec/world.schema.json"},
 		WorldDefinition: "worlds/dev-repo/world.json",
-		AuthoredRules:   []string{"verbs/dev-repo/refusals.go", "verbs/dev-repo/transitions.go"},
+		AuthoredRules:   []string{"verbs/dev-repo/activations.go", "verbs/dev-repo/refusals.go", "verbs/dev-repo/transitions.go"},
 		GOOS:            runtime.GOOS, GOARCH: runtime.GOARCH, CGOEnabled: false,
 	})
 	if err != nil {
@@ -201,11 +201,19 @@ func runCase(config runConfig, caseID string, runtime runtimeDriver, grader grad
 	if err != nil {
 		return caseResult{}, err
 	}
+	stateEventsPath := ""
+	if len(item.StateChanges) > 0 {
+		stateEventsPath = filepath.Join(stateDir, "state-events.json")
+		if err := writeJSON(stateEventsPath, map[string]any{"v": 1, "events": item.StateChanges}); err != nil {
+			return caseResult{}, err
+		}
+	}
 	runtimeResult, err := runtime.Run(runtimeRequest{
 		Sandbox: sandbox, Goal: item.Goal, Roots: roots,
 		PhoenixPath: config.phoenixPath, WorldPath: config.worldPath, SchemaPath: config.schemaPath,
 		EpisodePath: filepath.Join(stateDir, "episodes.db"), WorldBuild: config.worldBuild,
-		Timeout: config.timeout, BudgetUSD: config.budgetUSD,
+		StateEventsPath: stateEventsPath,
+		Timeout:         config.timeout, BudgetUSD: config.budgetUSD,
 	})
 	if err != nil {
 		return caseResult{}, err
@@ -231,7 +239,7 @@ func finishCase(
 	if err != nil {
 		return caseResult{}, err
 	}
-	acts, err := episodeActs(record, roots)
+	acts, orientations, err := episodeEvidence(record, roots)
 	if err != nil {
 		return caseResult{}, err
 	}
@@ -241,7 +249,7 @@ func finishCase(
 	}
 	trialRecord := trial{
 		V: 1, CaseID: caseID, WorldBuild: config.worldBuild,
-		Acts: acts, FinalMessage: runtimeResult.FinalMessage, EndState: end,
+		Acts: acts, Orientations: orientations, FinalMessage: runtimeResult.FinalMessage, EndState: end,
 	}
 	trialPath := filepath.Join(config.outputDir, caseID+".trial.json")
 	if err := writeJSON(trialPath, trialRecord); err != nil {
@@ -280,30 +288,38 @@ func readTrialEpisode(path string) (episode.Record, error) {
 	return store.Latest(context.Background())
 }
 
-func episodeActs(record episode.Record, roots map[string]string) ([]act, error) {
+func episodeEvidence(record episode.Record, roots map[string]string) ([]act, []orientation, error) {
 	handleTypes := make(map[string]string, len(roots))
 	for name, ref := range roots {
 		handleTypes[ref] = name
 	}
 	acts := make([]act, 0, len(record.Acts))
-	for index, recorded := range record.Acts {
+	orientations := []orientation{}
+	for _, recorded := range record.Acts {
 		encoded, err := json.Marshal(recorded.Result)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		var envelope surface.Envelope
 		if err := json.Unmarshal(encoded, &envelope); err != nil {
-			return nil, fmt.Errorf("decode act %s result: %w", recorded.ActID, err)
+			return nil, nil, fmt.Errorf("decode act %s result: %w", recorded.ActID, err)
 		}
 		for _, grant := range envelope.Handles.Grant {
 			handleTypes[grant.Ref] = grant.Type
 		}
+		if recorded.Request.Intent != "" {
+			orientations = append(orientations, orientation{
+				Seq: len(orientations), Handle: handleTypes[recorded.Request.Handle], Intent: recorded.Request.Intent,
+				Matched: len(envelope.Frontier) > 0, Calls: len(envelope.Frontier),
+			})
+			continue
+		}
 		output, err := json.Marshal(envelope)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		item := act{
-			Seq: index, Handle: handleTypes[recorded.Request.Handle], HandleType: handleTypes[recorded.Request.Handle],
+			Seq: len(acts), Handle: handleTypes[recorded.Request.Handle], HandleType: handleTypes[recorded.Request.Handle],
 			Verb: recorded.Request.Verb, Args: recorded.Request.Args, Status: string(envelope.Status), Output: string(output),
 		}
 		if item.HandleType == "" {
@@ -318,7 +334,7 @@ func episodeActs(record episode.Record, roots map[string]string) ([]act, error) 
 		}
 		acts = append(acts, item)
 	}
-	return acts, nil
+	return acts, orientations, nil
 }
 
 func opaqueRoots() (map[string]string, error) {

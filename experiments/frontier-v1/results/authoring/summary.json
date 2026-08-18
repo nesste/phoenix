@@ -1,7 +1,7 @@
 {
   "v": 1,
   "tranche": "authoring",
-  "world_build": "sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9",
+  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
   "cases": [
     {
       "case_id": "authoring_0a10d1ec",
@@ -19,7 +19,7 @@
       "case_id": "authoring_57a1e001",
       "trial_path": "experiments/frontier-v1/results/authoring/authoring_57a1e001.trial.json",
       "grade_path": "experiments/frontier-v1/results/authoring/authoring_57a1e001.grade.json",
-      "status": "fail"
+      "status": "pass"
     },
     {
       "case_id": "authoring_5ec0be12",
@@ -37,21 +37,21 @@
       "case_id": "authoring_ab5e0ce0",
       "trial_path": "experiments/frontier-v1/results/authoring/authoring_ab5e0ce0.trial.json",
       "grade_path": "experiments/frontier-v1/results/authoring/authoring_ab5e0ce0.grade.json",
-      "status": "fail"
+      "status": "pass"
     },
     {
       "case_id": "authoring_ad0e25a1",
       "trial_path": "experiments/frontier-v1/results/authoring/authoring_ad0e25a1.trial.json",
       "grade_path": "experiments/frontier-v1/results/authoring/authoring_ad0e25a1.grade.json",
-      "status": "fail"
+      "status": "pass"
     },
     {
       "case_id": "authoring_fa4d15c0",
       "trial_path": "experiments/frontier-v1/results/authoring/authoring_fa4d15c0.trial.json",
       "grade_path": "experiments/frontier-v1/results/authoring/authoring_fa4d15c0.grade.json",
-      "status": "fail"
+      "status": "pass"
     }
   ],
-  "passed": 2,
-  "failed": 6
+  "passed": 6,
+  "failed": 2
 }

@@ -2,6 +2,6 @@
   "case_id": "authoring_1ca5cade",
   "goal": "Determine why the complete suite is not green and independently confirm the exact failing test.",
   "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
-  "world_ref": "sha256:19b0279779c206a938449a95c377423e1502d7faa3e020b53db0ccec30fcab59",
+  "world_ref": "sha256:34bc27ee1782c949e4770fc812da1d40f8d0dd45609f17025869a132e1664080",
   "family_id": "authoring_family_001"
 }

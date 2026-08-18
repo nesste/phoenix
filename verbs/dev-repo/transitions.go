@@ -39,8 +39,6 @@ func AuthoredTransitions() []world.Transition {
 			},
 			Suggestions: []world.Suggestion{
 				suggest(selfCall("list"), "list tests before focusing the failure", 1),
-				suggest(callWithResult("episodes", "recall", "query", "/stderr"), "recall prior resolutions for this failure", 0),
-				suggest(rootCall("git", "diff"), "inspect changes associated with the failure", 0),
 			},
 		},
 		{
@@ -61,7 +59,7 @@ func AuthoredTransitions() []world.Transition {
 				ResultWhen: raw(`{"properties":{"tests":{"minItems":1}},"required":["tests"]}`),
 			},
 			Suggestions: []world.Suggestion{
-				suggest(stateBound(callWithResult("", "focus", "test", "/tests/0")), "focus the first bound test", 1),
+				suggest(stateBound(callWithResult("", "focus", "test", "/tests/0")), "complete the requested check with the bound live test", 1),
 			},
 		},
 		{

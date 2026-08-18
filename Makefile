@@ -63,6 +63,7 @@ manifest: build
 		--verb verbs/dev-repo/repository.go \
 		--verb verbs/dev-repo/schemas.go \
 		--rule verbs/dev-repo/refusals.go \
+		--rule verbs/dev-repo/activations.go \
 		--rule verbs/dev-repo/transitions.go \
 		--world-definition worlds/dev-repo/world.json \
 		--schema spec/result.schema.json \

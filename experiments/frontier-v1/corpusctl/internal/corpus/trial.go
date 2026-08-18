@@ -6,12 +6,21 @@ import "fmt"
 // carries no expected outcome; grading happens externally by comparing a
 // Trial against a Label (see grade.go).
 type Trial struct {
-	V            int      `json:"v"`
-	CaseID       string   `json:"case_id"`
-	WorldBuild   string   `json:"world_build"`
-	Acts         []Act    `json:"acts"`
-	FinalMessage string   `json:"final_message"`
-	EndState     EndState `json:"end_state"`
+	V            int           `json:"v"`
+	CaseID       string        `json:"case_id"`
+	WorldBuild   string        `json:"world_build"`
+	Acts         []Act         `json:"acts"`
+	Orientations []Orientation `json:"orientations"`
+	FinalMessage string        `json:"final_message"`
+	EndState     EndState      `json:"end_state"`
+}
+
+type Orientation struct {
+	Seq     int    `json:"seq"`
+	Handle  string `json:"handle"`
+	Intent  string `json:"intent"`
+	Matched bool   `json:"matched"`
+	Calls   int    `json:"calls"`
 }
 
 // Act is one structured step the trial took. Its position in Trial.Acts is
@@ -66,6 +75,14 @@ func LoadTrial(root, path string) (Document, Trial, error) {
 }
 
 func validateTrial(trial Trial) error {
+	for index, orientation := range trial.Orientations {
+		if orientation.Seq != index {
+			return fmt.Errorf("orientation seq %d at index %d; sequence must be contiguous from zero", orientation.Seq, index)
+		}
+		if orientation.Matched != (orientation.Calls > 0) {
+			return fmt.Errorf("orientation %d matched flag disagrees with its call count", index)
+		}
+	}
 	for index, act := range trial.Acts {
 		if act.Seq != index {
 			return fmt.Errorf("act seq %d at index %d; sequence must be contiguous from zero", act.Seq, index)

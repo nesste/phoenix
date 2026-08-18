@@ -18,6 +18,11 @@
       "description": "Ordered record of every act the trial took. Order is significant: it is the sequence matched against a label's acceptable_paths. No separate ordering field exists.",
       "items": { "$ref": "#/$defs/act" }
     },
+    "orientations": {
+      "type": "array",
+      "description": "Ordered intent activations. These calls are audit evidence and are not executable acts or acceptable-path steps.",
+      "items": { "$ref": "#/$defs/orientation" }
+    },
     "final_message": {
       "type": "string",
       "description": "The agent's final reported message for the trial. Usable only for deterministic pattern checks, never for outcome judgment by this schema."
@@ -35,6 +40,18 @@
     }
   },
   "$defs": {
+    "orientation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seq", "handle", "intent", "matched", "calls"],
+      "properties": {
+        "seq": { "type": "integer", "minimum": 0 },
+        "handle": { "$ref": "common.schema.json#/$defs/identifier" },
+        "intent": { "type": "string", "minLength": 1, "maxLength": 800 },
+        "matched": { "type": "boolean" },
+        "calls": { "type": "integer", "minimum": 0, "maximum": 3 }
+      }
+    },
     "act": {
       "type": "object",
       "additionalProperties": false,

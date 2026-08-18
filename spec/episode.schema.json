@@ -61,8 +61,13 @@
         "handle": { "type": "string", "minLength": 1 },
         "verb": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$" },
         "args": { "type": "object" },
-        "state": { "$ref": "#/$defs/digest" }
-      }
+        "state": { "$ref": "#/$defs/digest" },
+        "intent": { "type": "string", "minLength": 1, "maxLength": 800 }
+      },
+      "oneOf": [
+        { "not": { "required": ["intent"] } },
+        { "required": ["intent"], "properties": { "verb": { "const": "orient" } }, "not": { "required": ["state"] } }
+      ]
     },
     "suggestionLink": {
       "type": "object",

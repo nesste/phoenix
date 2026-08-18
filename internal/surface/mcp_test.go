@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/activate"
 	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/teach"
@@ -49,6 +50,61 @@ func TestActReturnsCompactTextAndStructuredEnvelope(t *testing.T) {
 		t.Fatalf("frontier call = %#v, want reachable call with bound result", got)
 	}
 	validateEnvelope(t, envelope)
+}
+
+func TestIntentOrientationReturnsBoundCallsWithoutExecutingVerb(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	envelope := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
+	if envelope.Status != StatusOK || envelope.Verb != "orient" || len(envelope.Frontier) != 1 {
+		t.Fatalf("orientation = %#v, want one ready call", envelope)
+	}
+	call := envelope.Frontier[0].Call
+	if call.Handle != roots[0].Ref || call.Verb != "inspect" || call.Args["detail"] != "brief" {
+		t.Fatalf("activation call = %#v, want bound repo.inspect", call)
+	}
+	validateEnvelope(t, envelope)
+}
+
+func TestPendingStatefulSuggestionRestoresOmittedPrecondition(t *testing.T) {
+	session := &Session{
+		suggested: make(map[string]episode.SuggestionLink),
+		stateful:  make(map[string]statefulSuggestion),
+	}
+	state := testWorldBuild
+	session.rememberSuggestions(Envelope{
+		ActID: "a_0123456789abcdef",
+		Frontier: []FrontierEntry{{Call: Call{
+			Handle: "h_0123456789abcdef", Verb: "inspect", Args: map[string]any{"detail": "brief"}, State: &state,
+		}}},
+	})
+	input := session.completeSuggestedState(Input{
+		Handle: "h_0123456789abcdef", Verb: "inspect", Args: map[string]any{"detail": "brief"},
+	})
+	if input.State != state {
+		t.Fatalf("completed state = %q, want %q", input.State, state)
+	}
+}
+
+func TestOrientationReturnsPendingFrontierBeforeRestartingActivation(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	first := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "brief"},
+	})
+	if len(first.Frontier) != 1 {
+		t.Fatalf("first frontier = %#v, want one pending call", first.Frontier)
+	}
+	oriented := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "no activation rule matches this"})
+	if len(oriented.Frontier) != 1 || oriented.Frontier[0].Call.Verb != "inspect" {
+		t.Fatalf("oriented frontier = %#v, want pending inspect call", oriented.Frontier)
+	}
 }
 
 func TestUnknownHandleIsGenericAbsent(t *testing.T) {
@@ -383,6 +439,16 @@ func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, w
 				},
 			}},
 		},
+		Activations: []world.ActivationRule{{
+			ID: "inspect_intent", Pattern: `(?i)inspect`,
+			Suggestions: []world.Suggestion{{
+				Call: world.CallTemplate{
+					Handle: world.HandleSelector{Source: "root", Name: "repo"}, Verb: "inspect",
+					Args: map[string]world.Binding{"detail": literalBinding(`"brief"`)},
+				},
+				Why: "inspect the reachable repository", Score: 1,
+			}},
+		}},
 		Transitions: []world.Transition{{
 			ID: "inspect_again",
 			Match: world.Match{
@@ -416,6 +482,10 @@ func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, w
 	if err != nil {
 		t.Fatal(err)
 	}
+	activationEngine, err := activate.New(definition)
+	if err != nil {
+		t.Fatal(err)
+	}
 	teachingEngine, err := teach.New(definition)
 	if err != nil {
 		t.Fatal(err)
@@ -425,6 +495,7 @@ func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, w
 		Graph:        world.NewGraph(definition, staticResolver{}),
 		Executor:     verb.NewExecutor(registry, verb.Options{}),
 		Frontier:     frontierEngine,
+		Activation:   activationEngine,
 		Teacher:      teachingEngine,
 		Episodes:     episodes,
 		Warning:      warning,

@@ -16,5 +16,20 @@
     "sandbox_fixture": { "$ref": "common.schema.json#/$defs/digest" },
     "world_ref": { "$ref": "common.schema.json#/$defs/digest" },
     "family_id": { "$ref": "common.schema.json#/$defs/familyId" }
+    ,
+    "state_changes": {
+      "type": "array",
+      "description": "Deterministic runner-controlled file changes applied after a completed executable act and before its result reaches the agent.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["after_act", "path", "content"],
+        "properties": {
+          "after_act": { "type": "integer", "minimum": 0, "maximum": 11 },
+          "path": { "$ref": "common.schema.json#/$defs/relativePath" },
+          "content": { "type": "string", "maxLength": 200000 }
+        }
+      }
+    }
   }
 }

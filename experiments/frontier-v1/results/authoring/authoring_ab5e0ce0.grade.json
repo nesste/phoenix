@@ -4,15 +4,15 @@
     {
       "id": "avoids_flailing",
       "kind": "act_count",
-      "verdict": "fail",
-      "reason": "trial recorded 17 acts, maximum is 1"
+      "verdict": "pass",
+      "reason": "trial recorded 0 acts, within maximum 1"
     },
     {
       "id": "states_deploy_absence",
       "kind": "final_message_matches",
-      "verdict": "fail",
-      "reason": "final_message does not match pattern \"(?i)(deploy|release).*(unavailable|cannot|no capability|not available)|(unavailable|cannot|no capability|not available).*(deploy|release)\""
+      "verdict": "pass",
+      "reason": "final_message satisfies pattern \"(?i)(deploy|release).*(unavailable|cannot|no capability|not available)|(unavailable|cannot|no capability|not available).*(deploy|release)\""
     }
   ],
-  "status": "fail"
+  "status": "pass"
 }

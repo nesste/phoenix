@@ -3,11 +3,18 @@ package main
 import "time"
 
 type runnableCase struct {
-	CaseID         string `json:"case_id"`
-	Goal           string `json:"goal"`
-	SandboxFixture string `json:"sandbox_fixture"`
-	WorldRef       string `json:"world_ref"`
-	FamilyID       string `json:"family_id"`
+	CaseID         string        `json:"case_id"`
+	Goal           string        `json:"goal"`
+	SandboxFixture string        `json:"sandbox_fixture"`
+	WorldRef       string        `json:"world_ref"`
+	FamilyID       string        `json:"family_id"`
+	StateChanges   []stateChange `json:"state_changes"`
+}
+
+type stateChange struct {
+	AfterAct int    `json:"after_act"`
+	Path     string `json:"path"`
+	Content  string `json:"content"`
 }
 
 type fixture struct {
@@ -20,12 +27,21 @@ type fixture struct {
 }
 
 type trial struct {
-	V            int      `json:"v"`
-	CaseID       string   `json:"case_id"`
-	WorldBuild   string   `json:"world_build"`
-	Acts         []act    `json:"acts"`
-	FinalMessage string   `json:"final_message"`
-	EndState     endState `json:"end_state"`
+	V            int           `json:"v"`
+	CaseID       string        `json:"case_id"`
+	WorldBuild   string        `json:"world_build"`
+	Acts         []act         `json:"acts"`
+	Orientations []orientation `json:"orientations"`
+	FinalMessage string        `json:"final_message"`
+	EndState     endState      `json:"end_state"`
+}
+
+type orientation struct {
+	Seq     int    `json:"seq"`
+	Handle  string `json:"handle"`
+	Intent  string `json:"intent"`
+	Matched bool   `json:"matched"`
+	Calls   int    `json:"calls"`
 }
 
 type act struct {
@@ -51,16 +67,17 @@ type fileState struct {
 }
 
 type runtimeRequest struct {
-	Sandbox     string
-	Goal        string
-	Roots       map[string]string
-	PhoenixPath string
-	WorldPath   string
-	SchemaPath  string
-	EpisodePath string
-	WorldBuild  string
-	Timeout     time.Duration
-	BudgetUSD   string
+	Sandbox         string
+	Goal            string
+	Roots           map[string]string
+	PhoenixPath     string
+	WorldPath       string
+	SchemaPath      string
+	EpisodePath     string
+	WorldBuild      string
+	StateEventsPath string
+	Timeout         time.Duration
+	BudgetUSD       string
 }
 
 type runtimeResult struct {

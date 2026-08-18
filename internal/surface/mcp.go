@@ -15,6 +15,7 @@ import (
 	"sync"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/activate"
 	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/teach"
@@ -24,7 +25,7 @@ import (
 
 const (
 	ToolName        = "act"
-	ToolDescription = "Invoke one verb on a live Phoenix handle. Results include up to three ready-to-run next calls."
+	ToolDescription = "Invoke one verb on a live Phoenix handle, or provide intent to receive up to three ready-to-run reachable calls."
 	defaultMaxArgs  = 64 * 1024
 )
 
@@ -37,12 +38,13 @@ var (
 var actInputSchema = json.RawMessage(`{
 	"type":"object",
 	"additionalProperties":false,
-	"required":["handle","verb","args"],
+	"required":["handle"],
 	"properties":{
 		"handle":{"type":"string","pattern":"^h_[A-Za-z0-9_-]{16,}$"},
 		"verb":{"type":"string","pattern":"^[a-z][a-z0-9_]{0,63}$"},
 		"args":{"type":"object"},
-		"state":{"type":"string","pattern":"^sha256:[0-9a-f]{64}$"}
+		"state":{"type":"string","pattern":"^sha256:[0-9a-f]{64}$"},
+		"intent":{"type":"string","minLength":1,"maxLength":800}
 	}
 }`)
 
@@ -51,6 +53,7 @@ type Input struct {
 	Verb   string         `json:"verb"`
 	Args   map[string]any `json:"args"`
 	State  string         `json:"state,omitempty"`
+	Intent string         `json:"intent,omitempty"`
 }
 
 type Status string
@@ -107,10 +110,12 @@ type Config struct {
 	Graph        *world.Graph
 	Executor     *verb.Executor
 	Frontier     *frontier.Engine
+	Activation   *activate.Engine
 	Teacher      *teach.Engine
 	Episodes     EpisodeLog
 	Warning      io.Writer
 	MaxArgsBytes int
+	AfterAct     func(context.Context, int, Input, Envelope) error
 }
 
 type EpisodeLog interface {
@@ -124,10 +129,12 @@ type Admission struct {
 	graph        *world.Graph
 	executor     *verb.Executor
 	frontier     *frontier.Engine
+	activation   *activate.Engine
 	teacher      *teach.Engine
 	episodes     EpisodeLog
 	warning      io.Writer
 	maxArgsBytes int
+	afterAct     func(context.Context, int, Input, Envelope) error
 }
 
 type Session struct {
@@ -135,6 +142,15 @@ type Session struct {
 	episodeID string
 	mu        sync.Mutex
 	suggested map[string]episode.SuggestionLink
+	stateful  map[string]statefulSuggestion
+	pending   []FrontierEntry
+	executed  int
+}
+
+type statefulSuggestion struct {
+	state     string
+	link      episode.SuggestionLink
+	ambiguous bool
 }
 
 func New(config Config) (*Admission, error) {
@@ -150,6 +166,9 @@ func New(config Config) (*Admission, error) {
 	if config.Frontier == nil {
 		return nil, fmt.Errorf("frontier engine is required")
 	}
+	if config.Activation == nil {
+		return nil, fmt.Errorf("activation engine is required")
+	}
 	if config.Teacher == nil {
 		return nil, fmt.Errorf("teaching engine is required")
 	}
@@ -161,9 +180,9 @@ func New(config Config) (*Admission, error) {
 	}
 	return &Admission{
 		worldBuild: config.WorldBuild, graph: config.Graph,
-		executor: config.Executor, frontier: config.Frontier,
+		executor: config.Executor, frontier: config.Frontier, activation: config.Activation,
 		teacher: config.Teacher, episodes: config.Episodes, warning: config.Warning,
-		maxArgsBytes: config.MaxArgsBytes,
+		maxArgsBytes: config.MaxArgsBytes, afterAct: config.AfterAct,
 	}, nil
 }
 
@@ -172,7 +191,10 @@ func (admission *Admission) StartSession() (*Session, []world.RootHandle, error)
 	if err != nil {
 		return nil, nil, err
 	}
-	session := &Session{graph: graphSession, suggested: make(map[string]episode.SuggestionLink)}
+	session := &Session{
+		graph: graphSession, suggested: make(map[string]episode.SuggestionLink),
+		stateful: make(map[string]statefulSuggestion),
+	}
 	if admission.episodes != nil {
 		episodeID, startErr := admission.episodes.StartEpisode(context.Background(), graphSession.ID(), admission.worldBuild)
 		if startErr != nil {
@@ -200,20 +222,42 @@ func (session *Session) EpisodeID() string {
 	return session.episodeID
 }
 
-func (admission *Admission) Act(ctx context.Context, session *Session, input Input) (output Envelope) {
+func (admission *Admission) Act(ctx context.Context, session *Session, input Input) Envelope {
+	if session != nil && input.Intent == "" && input.State == "" {
+		input = session.completeSuggestedState(input)
+	}
+	if session != nil && input.Intent == "" {
+		session.clearPending()
+	}
 	base := admission.baseEnvelope(session, input)
 	if session == nil || session.graph == nil {
 		return failure(base, "invalid_session", "session is unavailable", nil)
 	}
+	if input.Intent != "" {
+		return admission.orient(ctx, session, input, base)
+	}
+	if failed := admission.validateExecutionInput(base, input); failed != nil {
+		return *failed
+	}
+	return admission.runAct(ctx, session, input, base)
+}
+
+func (admission *Admission) validateExecutionInput(base Envelope, input Input) *Envelope {
 	encodedArgs, err := json.Marshal(input.Args)
 	if err != nil || input.Args == nil {
-		return failure(base, "invalid_arguments", "act arguments must be a JSON object", nil)
+		failed := failure(base, "invalid_arguments", "act arguments must be a JSON object", nil)
+		return &failed
 	}
 	if len(encodedArgs) > admission.maxArgsBytes {
-		return failure(base, "arguments_too_large", "act arguments exceeded the size limit", map[string]any{
+		failed := failure(base, "arguments_too_large", "act arguments exceeded the size limit", map[string]any{
 			"limit_bytes": admission.maxArgsBytes,
 		})
+		return &failed
 	}
+	return nil
+}
+
+func (admission *Admission) runAct(ctx context.Context, session *Session, input Input, base Envelope) (output Envelope) {
 	logContext := context.WithoutCancel(ctx)
 	if admission.beginEpisodeAct(logContext, session, base, input) {
 		defer func() {
@@ -223,7 +267,19 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 	} else {
 		defer func() { session.rememberSuggestions(output) }()
 	}
+	if admission.afterAct != nil {
+		defer func() {
+			index := session.nextExecutedIndex()
+			if err := admission.afterAct(context.WithoutCancel(ctx), index, input, output); err != nil {
+				output = failure(base, "state_event_failed", "configured state event could not be applied", nil)
+			}
+		}()
+	}
 
+	return admission.executePrepared(ctx, session, input, base)
+}
+
+func (admission *Admission) executePrepared(ctx context.Context, session *Session, input Input, base Envelope) Envelope {
 	access := session.graph.Prepare(ctx, input.Handle, input.Verb, input.State)
 	switch access.Status {
 	case world.AccessAbsent:
@@ -241,41 +297,84 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 	case world.AccessFailed:
 		return failure(base, access.Problem.Code, access.Problem.Message, nil)
 	case world.AccessReady:
-		observation := teach.Observation{
-			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
-			Args: input.Args, State: access.State,
-		}
-		if shaped := admission.evaluateRefusal(base, session, observation); shaped != nil {
-			return *shaped
-		}
-		result := admission.executor.Execute(ctx, verb.Request{
-			SessionID: session.ID(), HandleType: access.Target.Type, Verb: input.Verb,
-			Resource: access.Target.Resource, State: access.State, Args: input.Args,
-			Reachable: session.graph,
-		})
-		if result.Status == verb.StatusFail {
-			observation.Failure = failureFeatures(result.Error)
-			if shaped := admission.evaluateRefusal(base, session, observation); shaped != nil {
-				return *shaped
-			}
-			failed := failure(base, result.Error.Code, result.Error.Message, result.Error.Details)
-			failed.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
-				HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
-				Status: string(StatusFail), Result: failureFeatures(result.Error), State: access.State,
-			})
-			return failed
-		}
-		base.Status = StatusOK
-		base.Result = result.Value
-		base.Text = renderSuccess(access.Target.Type, input.Verb, result.Value)
-		base.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
-			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
-			Status: string(StatusOK), Result: result.Value, State: access.State,
-		})
-		return base
+		return admission.executeReady(ctx, session, input, base, access)
 	default:
 		return failure(base, "execution_failed", "verb execution failed", nil)
 	}
+}
+
+func (admission *Admission) executeReady(ctx context.Context, session *Session, input Input, base Envelope, access world.Access) Envelope {
+	observation := teach.Observation{
+		HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+		Args: input.Args, State: access.State,
+	}
+	if shaped := admission.evaluateRefusal(base, session, observation); shaped != nil {
+		return *shaped
+	}
+	result := admission.executor.Execute(ctx, verb.Request{
+		SessionID: session.ID(), HandleType: access.Target.Type, Verb: input.Verb,
+		Resource: access.Target.Resource, State: access.State, Args: input.Args,
+		Reachable: session.graph,
+	})
+	if result.Status == verb.StatusFail {
+		return admission.failedExecution(base, session, input, access, observation, result)
+	}
+	base.Status = StatusOK
+	base.Result = result.Value
+	base.Text = renderSuccess(access.Target.Type, input.Verb, result.Value)
+	base.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
+		HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+		Status: string(StatusOK), Result: result.Value, State: access.State,
+	})
+	return base
+}
+
+func (admission *Admission) failedExecution(base Envelope, session *Session, input Input, access world.Access, observation teach.Observation, result verb.Result) Envelope {
+	observation.Failure = failureFeatures(result.Error)
+	if shaped := admission.evaluateRefusal(base, session, observation); shaped != nil {
+		return *shaped
+	}
+	failed := failure(base, result.Error.Code, result.Error.Message, result.Error.Details)
+	failed.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
+		HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+		Status: string(StatusFail), Result: failureFeatures(result.Error), State: access.State,
+	})
+	return failed
+}
+
+func (admission *Admission) orient(ctx context.Context, session *Session, input Input, base Envelope) (output Envelope) {
+	if len([]byte(input.Intent)) > admission.maxArgsBytes {
+		return failure(base, "intent_too_large", "intent exceeded the size limit", map[string]any{"limit_bytes": admission.maxArgsBytes})
+	}
+	logContext := context.WithoutCancel(ctx)
+	if admission.beginEpisodeAct(logContext, session, base, input) {
+		defer func() {
+			admission.completeEpisodeAct(logContext, session, base.ActID, output)
+			session.rememberSuggestions(output)
+		}()
+	} else {
+		defer func() { session.rememberSuggestions(output) }()
+	}
+	base.Status = StatusOK
+	base.Result = map[string]any{"matched": false}
+	base.Text = "ok orient: requested capability is unavailable in the reachable world"
+	base.Frontier = session.pendingSuggestions()
+	if len(base.Frontier) == 0 {
+		base.Frontier = admission.activation.Compute(session.graph, input.Handle, input.Intent)
+	}
+	if len(base.Frontier) > 0 {
+		base.Result = map[string]any{"matched": true}
+		base.Text = fmt.Sprintf("ok orient: %d ready call(s)", len(base.Frontier))
+	}
+	return base
+}
+
+func (session *Session) nextExecutedIndex() int {
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	index := session.executed
+	session.executed++
+	return index
 }
 
 func (admission *Admission) beginEpisodeAct(ctx context.Context, session *Session, base Envelope, input Input) bool {
@@ -283,9 +382,15 @@ func (admission *Admission) beginEpisodeAct(ctx context.Context, session *Sessio
 	if admission.episodes == nil || episodeID == "" {
 		return false
 	}
+	verbName, arguments := input.Verb, input.Args
+	if input.Intent != "" {
+		verbName, arguments = "orient", map[string]any{}
+	}
 	started := episode.StartedAct{
 		EpisodeID: episodeID, ActID: base.ActID, WorldBuild: admission.worldBuild,
-		Request:         episode.ActRequest{Handle: input.Handle, Verb: input.Verb, Args: input.Args, State: input.State},
+		Request: episode.ActRequest{
+			Handle: input.Handle, Verb: verbName, Args: arguments, State: input.State, Intent: input.Intent,
+		},
 		SuggestionTaken: session.takeSuggestion(input),
 	}
 	if err := admission.episodes.BeginAct(ctx, started); err != nil {
@@ -341,12 +446,54 @@ func (session *Session) rememberSuggestions(envelope Envelope) {
 	}
 	session.mu.Lock()
 	defer session.mu.Unlock()
+	session.pending = append([]FrontierEntry(nil), envelope.Frontier...)
 	for index, entry := range envelope.Frontier {
 		key, err := suggestionKey(entry.Call)
 		if err == nil {
-			session.suggested[key] = episode.SuggestionLink{ActID: envelope.ActID, Index: index}
+			link := episode.SuggestionLink{ActID: envelope.ActID, Index: index}
+			session.suggested[key] = link
+			if entry.Call.State != nil {
+				unstated := entry.Call
+				unstated.State = nil
+				if unstatedKey, keyErr := suggestionKey(unstated); keyErr == nil {
+					value := statefulSuggestion{state: *entry.Call.State, link: link}
+					if existing, exists := session.stateful[unstatedKey]; exists && existing.link.ActID == envelope.ActID && existing.state != value.state {
+						value.ambiguous = true
+					}
+					session.stateful[unstatedKey] = value
+				}
+			}
 		}
 	}
+}
+
+func (session *Session) pendingSuggestions() []FrontierEntry {
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	return append([]FrontierEntry(nil), session.pending...)
+}
+
+func (session *Session) clearPending() {
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	session.pending = nil
+}
+
+func (session *Session) completeSuggestedState(input Input) Input {
+	call := frontier.Call{Handle: input.Handle, Verb: input.Verb, Args: input.Args}
+	key, err := suggestionKey(call)
+	if err != nil {
+		return input
+	}
+	session.mu.Lock()
+	defer session.mu.Unlock()
+	suggestion, exists := session.stateful[key]
+	if !exists || suggestion.ambiguous {
+		return input
+	}
+	delete(session.stateful, key)
+	input.State = suggestion.state
+	return input
 }
 
 func inputSuggestionKey(input Input) (string, bool) {
@@ -388,9 +535,13 @@ func failureFeatures(failure *verb.Failure) map[string]any {
 }
 
 func (admission *Admission) baseEnvelope(session *Session, input Input) Envelope {
+	verb := input.Verb
+	if input.Intent != "" {
+		verb = "orient"
+	}
 	return Envelope{
 		V: 1, WorldBuild: admission.worldBuild, SessionID: session.ID(), ActID: "a_" + rand.Text(),
-		Handle: input.Handle, Verb: input.Verb, Result: nil, Error: nil,
+		Handle: input.Handle, Verb: verb, Result: nil, Error: nil,
 		Handles:  HandleDelta{Grant: []HandleGrant{}, Revoke: []string{}},
 		Frontier: []FrontierEntry{}, Refusal: nil,
 	}
@@ -544,7 +695,9 @@ func decodeInput(raw json.RawMessage) (Input, error) {
 	if err := decoder.Decode(&struct{}{}); err != io.EOF {
 		return Input{}, fmt.Errorf("trailing JSON data")
 	}
-	if !handlePattern.MatchString(input.Handle) || !verbPattern.MatchString(input.Verb) || input.Args == nil {
+	execution := verbPattern.MatchString(input.Verb) && input.Args != nil && input.Intent == ""
+	orientation := input.Verb == "" && input.Args == nil && strings.TrimSpace(input.Intent) != "" && len(input.Intent) <= 800 && input.State == ""
+	if !handlePattern.MatchString(input.Handle) || (!execution && !orientation) {
 		return Input{}, fmt.Errorf("invalid act identity")
 	}
 	if input.State != "" && !digestPattern.MatchString(input.State) {

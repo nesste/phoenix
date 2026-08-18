@@ -45,6 +45,9 @@ func TestProductionWorldMatchesRegisteredVerbsAndAuthoredRules(t *testing.T) {
 	if !sameJSON(definition.Transitions, AuthoredTransitions()) {
 		t.Fatal("world transitions differ from AuthoredTransitions")
 	}
+	if !sameJSON(definition.Activations, AuthoredActivations()) {
+		t.Fatal("world activations differ from AuthoredActivations")
+	}
 }
 
 func sameRules(left, right []world.RefusalRule) bool {

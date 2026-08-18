@@ -14,6 +14,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/nesste/phoenix/internal/activate"
 	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/surface"
@@ -26,13 +27,14 @@ import (
 const externalOutputLimit = 256 * 1024
 
 type serveOptions struct {
-	serverVersion string
-	worldPath     string
-	schemaPath    string
-	episodePath   string
-	rootRefsPath  string
-	worldBuild    string
-	warning       io.Writer
+	serverVersion   string
+	worldPath       string
+	schemaPath      string
+	episodePath     string
+	rootRefsPath    string
+	stateEventsPath string
+	worldBuild      string
+	warning         io.Writer
 }
 
 type servePaths struct {
@@ -62,6 +64,10 @@ func assembleSurface(options serveOptions) (*assembledSurface, error) {
 	if err != nil {
 		return nil, err
 	}
+	afterAct, err := loadStateEvents(options.stateEventsPath)
+	if err != nil {
+		return nil, err
+	}
 	graph, err := configuredGraph(definition, repositoryResolver{}, rootRefs)
 	if err != nil {
 		return nil, err
@@ -84,6 +90,10 @@ func assembleSurface(options serveOptions) (*assembledSurface, error) {
 	if err != nil {
 		return nil, closeOnError(store, err)
 	}
+	activationEngine, err := activate.New(definition)
+	if err != nil {
+		return nil, closeOnError(store, err)
+	}
 	teachingEngine, err := teach.New(definition)
 	if err != nil {
 		return nil, closeOnError(store, err)
@@ -95,8 +105,9 @@ func assembleSurface(options serveOptions) (*assembledSurface, error) {
 	admission, err := surface.New(surface.Config{
 		WorldBuild: build, Graph: graph,
 		Executor: verb.NewExecutor(registry, verb.Options{}),
-		Frontier: frontierEngine, Teacher: teachingEngine,
+		Frontier: frontierEngine, Activation: activationEngine, Teacher: teachingEngine,
 		Episodes: store, Warning: options.warning,
+		AfterAct: afterAct,
 	})
 	if err != nil {
 		return nil, closeOnError(store, err)

@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_7e4d7a10",
-  "world_build": "sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9",
+  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
   "acts": [
     {
       "seq": 0,
@@ -11,10 +11,19 @@
       "args": {},
       "status": "ok",
       "exit_code": 0,
-      "output": "{\"v\":1,\"world_build\":\"sha256:109d5118c95204bfb9d30fdf79c07cd19e1a0e8840f338f1f4176dfd67d807d9\",\"session_id\":\"s_3QCJVKxw1aXnCyvAn5c0ok7O\",\"act_id\":\"a_ZUCAR3CBD2BXMTKKDLECKWM3CU\",\"handle\":\"h_5jDj2ia-seE5BO-jSE9ZbhD1\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/parcel\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/parcel\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_3XWHQeEO-EuXLq93bK9CBhbt\",\"act_id\":\"a_OXFE7IEJXAEEKVXI7CRUGNUH4T\",\"handle\":\"h_YUtHEuldg_8DE-Bhiq18lg7S\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/parcel\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/parcel\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
-  "final_message": "The Parcel library compiles successfully — the build completed with exit code 0 and no errors (it appears to be a Go module with no test files present, but the build itself passed cleanly).",
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Report whether the Parcel library compiles.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The Parcel library compiles successfully. The build completed with exit code 0 and no errors (stderr empty), confirming a clean compile.",
   "end_state": {
     "files": [
       {

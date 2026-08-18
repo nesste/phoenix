@@ -1,12 +1,14 @@
 # 0004: Frontier experiment go/no-go rules
 
-- **Status:** Protocol v3 frozen; independently accepted
+- **Status:** Protocol v3 independently accepted, then superseded by draft v4
 - **Date:** 2026-08-17
 - **Protocol:** `experiments/frontier-v1/protocol.json`
 - **Review 1:** `docs/reviews/2026-08-17-task-0.5-review-1.md`
 - **Second-review prompt:** `docs/reviews/2026-08-17-task-0.5-evaluator-prompt-v2.md`
 
 ## Decision
+
+Protocol v4 and decision 0007 supersede the v3 surface and corpus contract after authoring exposed an initial-activation gap and an unrepresentable stale-state event. The v3 acceptance record below remains historical; it does not accept v4 or authorize the retired v3 sealed candidates.
 
 Phoenix uses a fixed, paired experiment with no outcome-based stopping. Protocol v3 keeps one confirmatory Phase 1 claim: C versus B intention-to-treat task success. The direct-task, frontier, and teaching-refusal comparisons are pre-registered component isolations. An isolation may remove or reject its component, but it cannot create a headline pass.
 

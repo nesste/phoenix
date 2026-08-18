@@ -3,6 +3,7 @@ package world
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"strconv"
 
 	"github.com/nesste/phoenix/internal/jsonptr"
@@ -20,7 +21,95 @@ func ValidateDefinition(definition *Definition) error {
 	if err := validateHandleTypes(definition, roots); err != nil {
 		return err
 	}
+	if err := validateActivations(definition, roots); err != nil {
+		return err
+	}
 	return validateTransitions(definition, roots)
+}
+
+func validateActivations(definition *Definition, roots map[string]Root) error {
+	seen := make(map[string]struct{}, len(definition.Activations))
+	for _, activation := range definition.Activations {
+		if _, exists := seen[activation.ID]; exists {
+			return fmt.Errorf("duplicate activation id %q", activation.ID)
+		}
+		seen[activation.ID] = struct{}{}
+		pattern, err := regexp.Compile(activation.Pattern)
+		if err != nil {
+			return fmt.Errorf("activation %q has invalid pattern: %w", activation.ID, err)
+		}
+		for index, suggestion := range activation.Suggestions {
+			if suggestion.Call.Handle.Source == "result" {
+				return fmt.Errorf("activation %q suggestion %d cannot select a result handle", activation.ID, index)
+			}
+			targetTypes, err := selectedTypes(definition, roots, "", Verb{}, suggestion.Call.Handle, false)
+			if err != nil {
+				return fmt.Errorf("activation %q suggestion %d: %w", activation.ID, index, err)
+			}
+			for _, targetType := range targetTypes {
+				targetVerb, exists := definition.HandleTypes[targetType].Verbs[suggestion.Call.Verb]
+				if !exists {
+					return fmt.Errorf("activation %q suggestion %d: verb %q is not attached to selected handle type %q", activation.ID, index, suggestion.Call.Verb, targetType)
+				}
+				if err := validateActivationArguments(suggestion.Call.Args, targetVerb.ArgsSchema, pattern.NumSubexp()); err != nil {
+					return fmt.Errorf("activation %q suggestion %d: call to %s.%s: %w", activation.ID, index, targetType, suggestion.Call.Verb, err)
+				}
+			}
+			if suggestion.Call.State != nil {
+				return fmt.Errorf("activation %q suggestion %d cannot bind state before an observation", activation.ID, index)
+			}
+		}
+	}
+	return nil
+}
+
+func validateActivationArguments(arguments map[string]Binding, argumentSchema json.RawMessage, captures int) error {
+	var schema map[string]any
+	if err := json.Unmarshal(argumentSchema, &schema); err != nil {
+		return fmt.Errorf("decode argument schema: %w", err)
+	}
+	if err := validateActivationArgumentNames(arguments, schema); err != nil {
+		return err
+	}
+	for name, binding := range arguments {
+		if err := validateActivationBinding(binding, captures); err != nil {
+			return fmt.Errorf("argument %q: %w", name, err)
+		}
+	}
+	return nil
+}
+
+func validateActivationArgumentNames(arguments map[string]Binding, schema map[string]any) error {
+	if required, ok := schema["required"].([]any); ok {
+		for _, item := range required {
+			name, _ := item.(string)
+			if _, exists := arguments[name]; !exists {
+				return fmt.Errorf("does not bind required argument %q", name)
+			}
+		}
+	}
+	if additional, exists := schema["additionalProperties"].(bool); exists && !additional {
+		properties, _ := schema["properties"].(map[string]any)
+		for name := range arguments {
+			if _, exists := properties[name]; !exists {
+				return fmt.Errorf("binds undeclared argument %q", name)
+			}
+		}
+	}
+	return nil
+}
+
+func validateActivationBinding(binding Binding, captures int) error {
+	if binding.IntentCapture == nil {
+		return validateBinding(binding, nil, false)
+	}
+	if bindingSourceCount(binding) != 1 {
+		return fmt.Errorf("binding must select exactly one source")
+	}
+	if *binding.IntentCapture < 1 || *binding.IntentCapture > captures {
+		return fmt.Errorf("intent capture %d is outside 1..%d", *binding.IntentCapture, captures)
+	}
+	return nil
 }
 
 func validateRoots(definition *Definition) (map[string]Root, error) {
@@ -183,15 +272,9 @@ func validateArguments(arguments map[string]Binding, argumentSchema, resultSchem
 }
 
 func validateBinding(binding Binding, resultSchema json.RawMessage, allowResult bool) error {
-	selected := 0
-	if binding.Literal != nil {
-		selected++
-	}
-	if binding.StatePointer != nil {
-		selected++
-	}
-	if binding.StateDigest {
-		selected++
+	selected := bindingSourceCount(binding)
+	if binding.IntentCapture != nil {
+		return fmt.Errorf("intent captures are available only in activation rules")
 	}
 	if binding.ResultPointer == nil {
 		if selected != 1 {
@@ -199,7 +282,6 @@ func validateBinding(binding Binding, resultSchema json.RawMessage, allowResult 
 		}
 		return nil
 	}
-	selected++
 	if selected != 1 {
 		return fmt.Errorf("binding must select exactly one source")
 	}
@@ -210,6 +292,26 @@ func validateBinding(binding Binding, resultSchema json.RawMessage, allowResult 
 		return fmt.Errorf("result pointer %q does not resolve", *binding.ResultPointer)
 	}
 	return nil
+}
+
+func bindingSourceCount(binding Binding) int {
+	selected := 0
+	if binding.Literal != nil {
+		selected++
+	}
+	if binding.ResultPointer != nil {
+		selected++
+	}
+	if binding.StatePointer != nil {
+		selected++
+	}
+	if binding.StateDigest {
+		selected++
+	}
+	if binding.IntentCapture != nil {
+		selected++
+	}
+	return selected
 }
 
 func pointerResolves(rawSchema json.RawMessage, pointer string) bool {

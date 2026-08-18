@@ -19,6 +19,7 @@ type Definition struct {
 	ID          string                `json:"id"`
 	Roots       []Root                `json:"roots"`
 	HandleTypes map[string]HandleType `json:"handle_types"`
+	Activations []ActivationRule      `json:"activations"`
 	Transitions []Transition          `json:"transitions"`
 	digest      string
 }
@@ -62,6 +63,12 @@ type Transition struct {
 	Suggestions []Suggestion `json:"suggestions"`
 }
 
+type ActivationRule struct {
+	ID          string       `json:"id"`
+	Pattern     string       `json:"pattern"`
+	Suggestions []Suggestion `json:"suggestions"`
+}
+
 type Match struct {
 	HandleType string          `json:"handle_type"`
 	Verb       string          `json:"verb"`
@@ -93,6 +100,7 @@ type Binding struct {
 	ResultPointer *string         `json:"result_pointer,omitempty"`
 	StatePointer  *string         `json:"state_pointer,omitempty"`
 	StateDigest   bool            `json:"state_digest,omitempty"`
+	IntentCapture *int            `json:"intent_capture,omitempty"`
 }
 
 func Load(schemaPath, definitionPath string) (*Definition, error) {

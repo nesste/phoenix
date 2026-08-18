@@ -183,7 +183,7 @@
       "properties": {
         "call": { "$ref": "#/$defs/call" },
         "why": { "type": "string", "minLength": 1, "maxLength": 80 },
-        "provenance": { "enum": ["authored", "counted"] },
+        "provenance": { "enum": ["authored", "activation", "counted"] },
         "score": { "type": "number", "minimum": 0, "maximum": 1 }
       }
     },

@@ -48,6 +48,7 @@ func runServe(ctx context.Context, args []string, stdin io.ReadCloser, stdout io
 	schemaPath := flags.String("world-schema", defaults.schema, "world schema path")
 	episodePath := flags.String("episode-db", defaults.episodes, "episode database path; empty disables logging")
 	rootRefsPath := flags.String("root-refs", "", "isolated runner root-reference JSON path")
+	stateEventsPath := flags.String("state-events", "", "authoring runner state-event JSON path")
 	worldBuild := flags.String("world-build", "", "complete world-build digest; defaults to the world definition digest")
 	if err := flags.Parse(args); err != nil {
 		return 2
@@ -59,7 +60,7 @@ func runServe(ctx context.Context, args []string, stdin io.ReadCloser, stdout io
 
 	assembled, err := assembleSurface(serveOptions{
 		serverVersion: version, worldPath: *worldPath, schemaPath: *schemaPath,
-		episodePath: *episodePath, rootRefsPath: *rootRefsPath, worldBuild: *worldBuild,
+		episodePath: *episodePath, rootRefsPath: *rootRefsPath, stateEventsPath: *stateEventsPath, worldBuild: *worldBuild,
 		warning: stderr,
 	})
 	if err != nil {

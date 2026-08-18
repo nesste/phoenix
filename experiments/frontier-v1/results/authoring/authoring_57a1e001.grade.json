@@ -4,21 +4,21 @@
     {
       "id": "uses_revalidation_path",
       "kind": "act_sequence",
-      "verdict": "fail",
-      "reason": "trial act sequence [tests.list tests.help tests.discover tests.list tests.focus] satisfies no acceptable path in contains_in_order mode"
+      "verdict": "pass",
+      "reason": "trial act sequence satisfies an acceptable path in contains_in_order mode"
     },
     {
       "id": "stale_focus_refused",
       "kind": "act_status",
-      "verdict": "fail",
-      "reason": "act 1 has status absent, expected refused"
+      "verdict": "pass",
+      "reason": "act 1 has expected status refused"
     },
     {
       "id": "revalidates_suite_state",
       "kind": "act_output_matches",
-      "verdict": "fail",
-      "reason": "act 3 output does not satisfy pattern \"(?i)TestBeacon(Current|Fallback).*(pass|fail)|(pass|fail).*TestBeacon(Current|Fallback)\""
+      "verdict": "pass",
+      "reason": "act 3 output satisfies pattern \"(?i)TestBeacon(Current|Fallback).*(pass|fail)|(pass|fail).*TestBeacon(Current|Fallback)\""
     }
   ],
-  "status": "fail"
+  "status": "pass"
 }

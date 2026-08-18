@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/nesste/phoenix/internal/activate"
 	"github.com/nesste/phoenix/internal/frontier"
 	"github.com/nesste/phoenix/internal/teach"
 	"github.com/nesste/phoenix/internal/verb"
@@ -83,6 +84,10 @@ func syntheticMCP(t *testing.T, verbCount int) *MCP {
 	if err != nil {
 		t.Fatal(err)
 	}
+	activationEngine, err := activate.New(definition)
+	if err != nil {
+		t.Fatal(err)
+	}
 	teachingEngine, err := teach.New(definition)
 	if err != nil {
 		t.Fatal(err)
@@ -92,6 +97,7 @@ func syntheticMCP(t *testing.T, verbCount int) *MCP {
 		Graph:        world.NewGraph(definition, staticResolver{}),
 		Executor:     verb.NewExecutor(verb.NewRegistry(), verb.Options{}),
 		Frontier:     frontierEngine,
+		Activation:   activationEngine,
 		Teacher:      teachingEngine,
 		MaxArgsBytes: 1024,
 	})

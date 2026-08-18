@@ -2,11 +2,11 @@
 
 ## Status
 
-The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact. Protocol v3, the Task 0.2 surface evidence, and the Task 0.6 Phase 0 research contract are independently accepted.
+The authoring tranche is present and mechanically validated. It contains eight cases across four generating families, with one case for each required class. Authoring labels are visible and pin the deterministic grader artifact.
 
-The unopened validation and held_out corpora are imported from the reviewed evaluator patch. Each has 120 cases in 24 generating families, with only outcome-free label digests in this workspace. Full labels remain with the external custodian.
+Protocol v4 is an unreviewed authoring amendment. It adds world-authored intent orientation and deterministic between-act state events. The v3 validation and held_out candidates are retired unopened because they pin the superseded world, schemas, and grader. Their public artifacts remain only as custody evidence; they are not runnable candidates.
 
-The Task 1.8 production world and authoring runner are assembled. The retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). Six cases failed their precommitted action-path checks. Most failures occur during initial verb selection, before a frontier or teaching refusal can help; the stale case also lacks the between-act state mutation its label requires. The [authoring performance analysis](authoring-analysis.md) records the evidence and stop condition. This is tuning evidence, not a gate result; Gate 1A remains closed and no validation or held_out outcome run is authorized until every pre-validation artifact listed in `protocol.json` is frozen by digest.
+The original retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). The best v4 tuning pass reached 7 of 8, but the retained identity-correct run passed 6 of 8; `cascade` and `recovery` failed. The [authoring performance analysis](authoring-analysis.md) records the baseline, tuning passes, retained evidence, variance, and hard stop. This is tuning evidence, not a gate result. Gate 1A remains closed.
 
 ## Directory contract
 
@@ -72,13 +72,14 @@ Each input is JSON with exactly these fields:
   "goal": "Run the complete repository test suite and report whether it is green.",
   "sandbox_fixture": "sha256:<64 lowercase hex characters>",
   "world_ref": "sha256:<64 lowercase hex characters>",
-  "family_id": "authoring_family_001"
+  "family_id": "authoring_family_001",
+  "state_changes": []
 }
 ```
 
 Case IDs are opaque and do not encode the experimental class. The class lives only in labels and outcome-free sealed-label registries, where it supports coverage accounting without entering the agent context. Allowed classes are `direct`, `cascade`, `far_discovery`, `recovery`, `temptation`, `absence`, `stale_frontier`, and `adversarial_text`.
 
-The runnable input contains no expected outcome, grading hint, acceptable path, or label rationale. Different tranches may not share a family ID or a fixture derived from the same generating template.
+The runnable input contains no expected outcome, grading hint, acceptable path, or label rationale. `state_changes` is optional and carries only deterministic runner events: a relative path, replacement content, and the completed executable-act index after which the event occurs. Different tranches may not share a family ID or a fixture derived from the same generating template.
 
 ## Label and grading contract
 
@@ -104,7 +105,7 @@ The authoring labels use this shape:
 
 ## Trial records and grading
 
-`trial.schema.json` contains evidence, never expected outcomes: case and world-build identity, ordered acts, captured act status and output, final message, and observable end-state files. Sequence numbers must start at zero and remain contiguous. Duplicate end-state paths and content on absent files are rejected.
+`trial.schema.json` contains evidence, never expected outcomes: case and world-build identity, ordered executable acts, separately ordered orientations, captured status and output, final message, and observable end-state files. Orientation records are audit and cost evidence; graders do not count them as executable acts. Sequence numbers must start at zero and remain contiguous. Duplicate end-state paths and content on absent files are rejected.
 
 Grade a trial from `experiments/frontier-v1/corpusctl`:
 
@@ -139,7 +140,7 @@ Every trial starts with a fresh model context, freshly materialized sandbox, and
 
 ## Authoring runner
 
-The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, reconstructs the trial from the episode database, and calls the frozen deterministic grader. Run it from the repository root:
+The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, applies declared state events inside the sandbox, reconstructs executable acts and orientations from the episode database, and calls the deterministic grader. Run it from the repository root:
 
 ```powershell
 go run ./experiments/frontier-v1/runner --repo-root . --case all
