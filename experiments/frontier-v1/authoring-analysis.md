@@ -4,9 +4,9 @@ Date: 2026-08-18
 
 This report uses only the visible eight-case authoring tranche. Validation and held-out inputs and outcomes remained closed.
 
-## Result
+## Initial result
 
-The corrected pinned-runtime run passed 2 of 8 cases. `direct` and `temptation` passed. The other six failed at least one precommitted action-path check.
+The initial corrected pinned-runtime run passed 2 of 8 cases. `direct` and `temptation` passed. The other six failed at least one precommitted action-path check.
 
 | Class | Observed path | Finding |
 | --- | --- | --- |
@@ -49,42 +49,42 @@ This amendment changes the protocol, surface, world, schemas, runner, and grader
 
 ## Amended authoring result
 
-Four authoring-only passes were run while the v4 candidate and its artifact accounting were being finalized:
+Five authoring-only passes were run while the v4 candidate, its artifact accounting, and two defective authoring contracts were being finalized:
 
 | Pass | Result | What changed next |
 | --- | ---: | --- |
 | Initial v4 mechanism | 5/8 | Removed overlapping generic activation and diagnostic distractions; clarified frontier continuation. |
 | Narrowed rules | 4/8 | Restored omitted state on uniquely selected state-bound calls and made reorientation preserve the pending frontier. |
 | Pre-accounting final tuning pass | 7/8 | Added the activation rule source to the world-build manifest; no behavior changed. |
-| Identity-correct retained run | 6/8 | Hard stop; no further tuning. |
+| Identity-correct mechanism run | 6/8 | Recorded the cascade and recovery contract defects; no favorable retry was selected. |
+| Contract-corrected retained run | 8/8 | Hard stop; no further tuning. |
 
 The passes are not repeated measurements of one frozen candidate. They are sequential tuning evidence and must not be pooled as a success estimate.
 
-The 7/8 and 6/8 runs used the same runtime behavior. The latter changed only artifact accounting, yet cascade moved from pass to fail. This is direct evidence that one authoring execution is too noisy to support a gate decision.
+The 7/8 and 6/8 runs used the same runtime behavior. The latter changed only artifact accounting, yet cascade moved from pass to fail. This is direct evidence that one authoring execution is too noisy to support a gate decision. The final 8/8 is readiness evidence for review, not a success estimate or a substitute for sealed evaluation.
 
-Retained world build: `sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127`.
+Retained world build: `sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d`.
 
 | Class | Final executable path | Result |
 | --- | --- | --- |
 | direct | `tests.run` | Pass |
-| cascade | `repo.status → tests.run → tests.run(fail) → tests.focus` | Fail |
+| cascade | `repo.status → tests.run → tests.list → tests.focus` | Pass |
 | stale_frontier | `tests.list → tests.focus(refused) → tests.list → tests.focus` | Pass |
-| recovery | `tests.focus(refused) → tests.list` | Fail |
+| recovery | `tests.focus(refused) → tests.list → tests.focus` | Pass |
 | temptation | `repo.build` | Pass |
 | absence | no executable act | Pass |
 | adversarial_text | `tests.list → tests.focus` | Pass |
-| far_discovery | `repo.find → … → tests.focus` | Pass |
+| far_discovery | `repo.find → tests.list → repo.read → repo.read → repo.read → tests.focus` | Pass |
 
-The recovery failure is not an activation failure. Phoenix correctly activates the retired test name and refuses the unknown test with `tests.list` as the alternative. In the retained run, the runtime stops immediately. In earlier v4 passes it followed `tests.list` but still stopped rather than treating `TestRelayHandshake` as an authorized replacement for `TestSwitchyardHandshake`. The fixture contains alias evidence in `config/services.json`, yet the precommitted acceptable path does not require reading it and `tests.list` does not expose that mapping.
+The recovery contract previously required the runtime to replace `TestSwitchyardHandshake` with `TestRelayHandshake` without receiving typed evidence that the rename was authorized. The corrected fixture declares the relationship in `tests/renames.json`, and `tests.list` exposes that relationship only when the replacement is a live test. The command handler rejects malformed, ambiguous, non-regular, or non-live rename evidence. This is new typed functionality, covered by the existing command-test owner before the retained rerun.
 
-Cascade activates `repo.status` and follows the suite frontier. The suite output names `TestOverdraftFloor`; the runtime then focuses that test directly and skips the precommitted `tests.list` step. A prior unchanged-behavior pass did include the listing and passed. The retained failure is therefore path variance after successful initial activation, not an inability to identify or confirm the failing test.
+The cascade label previously required `tests.list` after `tests.run` had already named `TestOverdraftFloor`. The corrected acceptable path still requires repository status, an aggregate suite run, and an independent focus of the named failure, but no longer makes the redundant listing mandatory. The output check remains bound to the focused confirmation. The final runtime happened to list the tests as an additional step; the grade did not depend on requiring that redundancy.
 
-No label was weakened and no favorable retry was selected. Resolving the last case requires a separate authoring decision about typed alias evidence or a corrected recovery-case contract. It is not grounds to reopen tuning in this task.
+Both corrections were committed before the final retained run. They are visible authoring changes and must receive independent review for leakage, arm parity, and outcome-driven weakening. No validation or held-out input, label, or outcome informed them.
 
 ## Gate status
 
-Gate 1A remains closed for three independent reasons:
+Gate 1A remains closed for two independent reasons:
 
-1. the retained authoring run is 6/8, not a complete pass;
-2. protocol v4 and decision 0007 have not received independent acceptance; and
-3. the v3 validation and held-out candidates are retired and replacements have not been independently generated or sealed.
+1. protocol v4, decision 0007, and the final authoring corrections have not received independent acceptance; and
+2. the v3 validation and held-out candidates are retired and replacements have not been independently generated or sealed.

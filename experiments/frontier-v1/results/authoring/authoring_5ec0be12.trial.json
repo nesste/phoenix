@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_5ec0be12",
-  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
+  "world_build": "sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d",
   "acts": [
     {
       "seq": 0,
@@ -12,19 +12,40 @@
         "test": "TestSwitchyardHandshake"
       },
       "status": "refused",
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_PX0H49T2_l_MkBkiwfuO0a3J\",\"act_id\":\"a_P6CSCZGXOOFRE7ZIMOTBYTMTDQ\",\"handle\":\"h_EW1UkxQgvBOJTUdsDmik7o9-\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined the test name: the requested test is not in the live suite\\ninstead: h_EW1UkxQgvBOJTUdsDmik7o9-.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined the test name\",\"why\":\"the requested test is not in the live suite\",\"instead\":{\"handle\":\"h_EW1UkxQgvBOJTUdsDmik7o9-\",\"verb\":\"list\",\"args\":{}}}}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_-N_xsYQ9Gk1_5FmpJ1z__LGE\",\"act_id\":\"a_QLGFEDPBR75OWV6W2RFYUDFONE\",\"handle\":\"h_qyfo1XJL4YVhuHhbiPcKYS9P\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined the test name: the requested test is not in the live suite\\ninstead: h_qyfo1XJL4YVhuHhbiPcKYS9P.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined the test name\",\"why\":\"the requested test is not in the live suite\",\"instead\":{\"handle\":\"h_qyfo1XJL4YVhuHhbiPcKYS9P\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_-N_xsYQ9Gk1_5FmpJ1z__LGE\",\"act_id\":\"a_PNTSJPKA3BRDPMCFEBP6O6CXNZ\",\"handle\":\"h_qyfo1XJL4YVhuHhbiPcKYS9P\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestSwitchyardHandshake\",\"to\":\"TestRelayHandshake\"}],\"tests\":[\"TestRelayHandshake\",\"TestRelayTimeout\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_qyfo1XJL4YVhuHhbiPcKYS9P\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRelayHandshake\"},\"state\":\"sha256:7673565db71985e726c706310d37708e5a2ac3cab74b169ab9862d2df9e886c0\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRelayHandshake"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_-N_xsYQ9Gk1_5FmpJ1z__LGE\",\"act_id\":\"a_VRF6PL7VFNSZA67MLXSPYTP5DS\",\"handle\":\"h_qyfo1XJL4YVhuHhbiPcKYS9P\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T16:08:13.1664037+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.com/relay\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:13.40882+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:13.40882+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Output\\\":\\\"=== RUN   TestRelayHandshake\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:13.40882+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Output\\\":\\\"--- PASS: TestRelayHandshake (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:13.40882+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:13.40882+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:13.4098633+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Output\\\":\\\"ok  \\\\texample.com/relay\\\\t0.243s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:13.4168957+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Elapsed\\\":0.25}\\n\",\"test\":\"TestRelayHandshake\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
   "orientations": [
     {
       "seq": 0,
       "handle": "tests",
-      "intent": "Run test TestSwitchyardHandshake and report whether it passes",
+      "intent": "Report whether TestSwitchyardHandshake passes",
       "matched": true,
       "calls": 1
     }
   ],
-  "final_message": "TestSwitchyardHandshake does not exist in the live test suite, so it cannot pass — it's not a recognized test (the test runner refused, indicating no such test is present).",
+  "final_message": "Result: **Passes.**\n\nNote: `TestSwitchyardHandshake` no longer exists under that name in the live suite — it was renamed to `TestRelayHandshake`. Running that test gives:\n\n```\n--- PASS: TestRelayHandshake (0.00s)\nPASS\nok  \texample.com/relay\t0.243s\n```\n\nSo the test corresponding to TestSwitchyardHandshake passes (exit code 0).",
   "end_state": {
     "files": [
       {
@@ -51,6 +72,11 @@
         "path": "tests/catalog.txt",
         "present": true,
         "content": "TestRelayHandshake\nTestRelayTimeout\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestSwitchyardHandshake\",\"to\":\"TestRelayHandshake\"}]}\n"
       }
     ]
   }

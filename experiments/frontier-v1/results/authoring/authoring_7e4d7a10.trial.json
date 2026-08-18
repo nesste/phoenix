@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_7e4d7a10",
-  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
+  "world_build": "sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d",
   "acts": [
     {
       "seq": 0,
@@ -11,19 +11,19 @@
       "args": {},
       "status": "ok",
       "exit_code": 0,
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_3XWHQeEO-EuXLq93bK9CBhbt\",\"act_id\":\"a_OXFE7IEJXAEEKVXI7CRUGNUH4T\",\"handle\":\"h_YUtHEuldg_8DE-Bhiq18lg7S\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/parcel\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/parcel\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_rRZ_aenErsUWnq2vpnGhWn4t\",\"act_id\":\"a_BU26PBXJYNDWY5AEOBT6M2CTG6\",\"handle\":\"h_s8fRLTtOivZZ-roUiRIzwV9t\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/parcel\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/parcel\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
   "orientations": [
     {
       "seq": 0,
       "handle": "repo",
-      "intent": "Report whether the Parcel library compiles.",
+      "intent": "Check whether the Parcel library compiles successfully",
       "matched": true,
       "calls": 1
     }
   ],
-  "final_message": "The Parcel library compiles successfully. The build completed with exit code 0 and no errors (stderr empty), confirming a clean compile.",
+  "final_message": "The Parcel library compiles successfully. The build completed with exit code 0 and no errors (output: `?   example.test/parcel  [no test files]`, meaning it built cleanly with no compilation errors, just no test files were present).",
   "end_state": {
     "files": [
       {

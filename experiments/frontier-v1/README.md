@@ -6,7 +6,7 @@ The authoring tranche is present and mechanically validated. It contains eight c
 
 Protocol v4 is an unreviewed authoring amendment. It adds world-authored intent orientation and deterministic between-act state events. The v3 validation and held_out candidates are retired unopened because they pin the superseded world, schemas, and grader. Their public artifacts remain only as custody evidence; they are not runnable candidates.
 
-The original retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). The best v4 tuning pass reached 7 of 8, but the retained identity-correct run passed 6 of 8; `cascade` and `recovery` failed. The [authoring performance analysis](authoring-analysis.md) records the baseline, tuning passes, retained evidence, variance, and hard stop. This is tuning evidence, not a gate result. Gate 1A remains closed.
+The original retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). After the v4 mechanism and an explicit correction to the cascade and recovery contracts, the final retained authoring run passed 8 of 8. The [authoring performance analysis](authoring-analysis.md) records the baseline, sequential tuning passes, contract corrections, retained evidence, variance, and hard stop. This is tuning evidence, not a gate result. Gate 1A remains closed.
 
 ## Directory contract
 

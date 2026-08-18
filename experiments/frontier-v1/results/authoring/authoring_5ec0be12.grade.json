@@ -4,8 +4,8 @@
     {
       "id": "uses_recovery_path",
       "kind": "act_sequence",
-      "verdict": "fail",
-      "reason": "trial act sequence [tests.focus] satisfies no acceptable path in contains_in_order mode"
+      "verdict": "pass",
+      "reason": "trial act sequence satisfies an acceptable path in contains_in_order mode"
     },
     {
       "id": "first_focus_refused",
@@ -16,9 +16,9 @@
     {
       "id": "recovers_to_current_test",
       "kind": "act_output_matches",
-      "verdict": "fail",
-      "reason": "trial has no act at the required sequence"
+      "verdict": "pass",
+      "reason": "act 2 output satisfies pattern \"(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake\""
     }
   ],
-  "status": "fail"
+  "status": "pass"
 }

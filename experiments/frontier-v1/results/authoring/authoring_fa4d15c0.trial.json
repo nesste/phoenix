@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_fa4d15c0",
-  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
+  "world_build": "sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d",
   "acts": [
     {
       "seq": 0,
@@ -12,7 +12,7 @@
         "query": "relay"
       },
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_9hpsn0KO7gTGYJk7tuMOfo27\",\"act_id\":\"a_PRAGJRMI5HSRGMPTYD4PJKKAVW\",\"handle\":\"h_3tRaMENdd-HMUZysIOYmVYbK\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"README.md\",\"config/services.json\",\"go.mod\",\"relay_test.go\",\"tests/catalog.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=5 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_3tRaMENdd-HMUZysIOYmVYbK\",\"verb\":\"read\",\"args\":{\"path\":\"README.md\"}},\"why\":\"inspect the first matching repository file\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_gwNUTwArpT_C-nlqqVUe5wFS\",\"act_id\":\"a_ET7ELDB6SC3VKSMUAB7G2RIVUH\",\"handle\":\"h_8CqCi5gobwkOP0bPr-2Fa3IN\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"README.md\",\"config/services.json\",\"go.mod\",\"relay_test.go\",\"tests/catalog.txt\",\"tests/renames.json\"]},\"error\":null,\"text\":\"ok repo.find: matches=6 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_8CqCi5gobwkOP0bPr-2Fa3IN\",\"verb\":\"read\",\"args\":{\"path\":\"README.md\"}},\"why\":\"inspect the first matching repository file\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
     },
     {
       "seq": 1,
@@ -21,7 +21,7 @@
       "verb": "list",
       "args": {},
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_9hpsn0KO7gTGYJk7tuMOfo27\",\"act_id\":\"a_OIMIIIJSSSJWY2VBT6BTCG2WJW\",\"handle\":\"h_KXWkn-neb8TMLHlJL9ecoWzz\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"tests\":[\"TestRelayHandshake\",\"TestRelayTimeout\"]},\"error\":null,\"text\":\"ok tests.list: tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_KXWkn-neb8TMLHlJL9ecoWzz\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRelayHandshake\"},\"state\":\"sha256:bfd2c2f172f09b77952139f9c61c19e2a23cc671b7d6065b15d837e67cf76e75\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_gwNUTwArpT_C-nlqqVUe5wFS\",\"act_id\":\"a_O7AVDZFW3T2YHVGR4CA35S2KET\",\"handle\":\"h_4IzdBaE5httE5534Ir46_ovR\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestSwitchyardHandshake\",\"to\":\"TestRelayHandshake\"}],\"tests\":[\"TestRelayHandshake\",\"TestRelayTimeout\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_4IzdBaE5httE5534Ir46_ovR\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRelayHandshake\"},\"state\":\"sha256:7673565db71985e726c706310d37708e5a2ac3cab74b169ab9862d2df9e886c0\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
     },
     {
       "seq": 2,
@@ -29,10 +29,10 @@
       "handle_type": "repo",
       "verb": "read",
       "args": {
-        "path": "tests/catalog.txt"
+        "path": "config/services.json"
       },
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_9hpsn0KO7gTGYJk7tuMOfo27\",\"act_id\":\"a_YOIUUQVVBNMKTGFEALQC6WACCX\",\"handle\":\"h_3tRaMENdd-HMUZysIOYmVYbK\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"TestRelayHandshake\\nTestRelayTimeout\\n\",\"digest\":\"sha256:5d0bad381ebddc62fc9d1733a06e9ba7c89659053530ac7274e9ba3cf54f56cd\",\"path\":\"tests/catalog.txt\"},\"error\":null,\"text\":\"ok repo.read: content=TestRelayHandshake TestRelayTimeout , digest=sha256:5d0bad381ebddc62fc9d1733a06e9ba7c89659053530ac7274e9ba3cf54f56cd, path=tests/catalog.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_gwNUTwArpT_C-nlqqVUe5wFS\",\"act_id\":\"a_HQRNDYKCWSH75IEXRLY6FOU4XC\",\"handle\":\"h_8CqCi5gobwkOP0bPr-2Fa3IN\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"{\\\"relay\\\":{\\\"internal_name\\\":\\\"switchyard\\\",\\\"health_test\\\":\\\"TestRelayHandshake\\\"}}\\n\",\"digest\":\"sha256:bc5320a05c10c513af94557a2d4da5fb3fbf0a4b272c866c8a5e2adc6734f6a7\",\"path\":\"config/services.json\"},\"error\":null,\"text\":\"ok repo.read: content={\\\"relay\\\":{\\\"internal_name\\\":\\\"switchyard\\\",\\\"health_test\\\":\\\"TestRelayHandshake\\\"}} , digest=sha256:bc5320a05c10c513af94557a2d4da5fb3fbf0a4b272c866c8a5e2adc6734f6a7, path=config/services.json\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     },
     {
       "seq": 3,
@@ -43,7 +43,7 @@
         "path": "relay_test.go"
       },
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_9hpsn0KO7gTGYJk7tuMOfo27\",\"act_id\":\"a_4MH6BA6HOXCXMASNK6QDWQ35QH\",\"handle\":\"h_3tRaMENdd-HMUZysIOYmVYbK\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package relay\\n\\nimport \\\"testing\\\"\\n\\nfunc TestRelayHandshake(t *testing.T) {}\\n\\nfunc TestRelayTimeout(t *testing.T) {}\\n\",\"digest\":\"sha256:637efb6ac7488c0ff7e6b07e6eb488b056d2f63e2388eccea602cb102e7382ea\",\"path\":\"relay_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package relay  import \\\"testing\\\"  func TestRelayHandshake(t *testing.T) {}  func TestRelayTimeout(t *testing.T) {} , digest=sha256:637efb6ac7488c0ff7e6b07e6eb488b056d2f63e2388eccea602cb102e7382ea, path=relay_test.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_gwNUTwArpT_C-nlqqVUe5wFS\",\"act_id\":\"a_WCO6CNUP26DVNCCGZI26UBQ5LW\",\"handle\":\"h_8CqCi5gobwkOP0bPr-2Fa3IN\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package relay\\n\\nimport \\\"testing\\\"\\n\\nfunc TestRelayHandshake(t *testing.T) {}\\n\\nfunc TestRelayTimeout(t *testing.T) {}\\n\",\"digest\":\"sha256:637efb6ac7488c0ff7e6b07e6eb488b056d2f63e2388eccea602cb102e7382ea\",\"path\":\"relay_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package relay  import \\\"testing\\\"  func TestRelayHandshake(t *testing.T) {}  func TestRelayTimeout(t *testing.T) {} , digest=sha256:637efb6ac7488c0ff7e6b07e6eb488b056d2f63e2388eccea602cb102e7382ea, path=relay_test.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     },
     {
       "seq": 4,
@@ -51,10 +51,10 @@
       "handle_type": "repo",
       "verb": "read",
       "args": {
-        "path": "config/services.json"
+        "path": "tests/catalog.txt"
       },
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_9hpsn0KO7gTGYJk7tuMOfo27\",\"act_id\":\"a_QE3FCSOZAFPZDGZORWKFLOLOZF\",\"handle\":\"h_3tRaMENdd-HMUZysIOYmVYbK\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"{\\\"relay\\\":{\\\"internal_name\\\":\\\"switchyard\\\",\\\"health_test\\\":\\\"TestRelayHandshake\\\"}}\\n\",\"digest\":\"sha256:bc5320a05c10c513af94557a2d4da5fb3fbf0a4b272c866c8a5e2adc6734f6a7\",\"path\":\"config/services.json\"},\"error\":null,\"text\":\"ok repo.read: content={\\\"relay\\\":{\\\"internal_name\\\":\\\"switchyard\\\",\\\"health_test\\\":\\\"TestRelayHandshake\\\"}} , digest=sha256:bc5320a05c10c513af94557a2d4da5fb3fbf0a4b272c866c8a5e2adc6734f6a7, path=config/services.json\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_gwNUTwArpT_C-nlqqVUe5wFS\",\"act_id\":\"a_BKIMOJSMSJPBRZC5JIMHLRL3IA\",\"handle\":\"h_8CqCi5gobwkOP0bPr-2Fa3IN\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"TestRelayHandshake\\nTestRelayTimeout\\n\",\"digest\":\"sha256:5d0bad381ebddc62fc9d1733a06e9ba7c89659053530ac7274e9ba3cf54f56cd\",\"path\":\"tests/catalog.txt\"},\"error\":null,\"text\":\"ok repo.read: content=TestRelayHandshake TestRelayTimeout , digest=sha256:5d0bad381ebddc62fc9d1733a06e9ba7c89659053530ac7274e9ba3cf54f56cd, path=tests/catalog.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     },
     {
       "seq": 5,
@@ -66,7 +66,7 @@
       },
       "status": "ok",
       "exit_code": 0,
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_9hpsn0KO7gTGYJk7tuMOfo27\",\"act_id\":\"a_22HOSHYCDN4ZOANPFWJEVLGSX5\",\"handle\":\"h_KXWkn-neb8TMLHlJL9ecoWzz\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T15:45:48.8021736+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.com/relay\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:49.0386128+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:49.0386128+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Output\\\":\\\"=== RUN   TestRelayHandshake\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:49.0386128+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Output\\\":\\\"--- PASS: TestRelayHandshake (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:49.0386128+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:49.0386128+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:49.0401764+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Output\\\":\\\"ok  \\\\texample.com/relay\\\\t0.238s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:49.0464302+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Elapsed\\\":0.244}\\n\",\"test\":\"TestRelayHandshake\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_gwNUTwArpT_C-nlqqVUe5wFS\",\"act_id\":\"a_EKBD4ADDVF537KN7RGLSE3PJYS\",\"handle\":\"h_4IzdBaE5httE5534Ir46_ovR\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T16:09:05.0899564+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.com/relay\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:09:05.3341427+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:09:05.3341427+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Output\\\":\\\"=== RUN   TestRelayHandshake\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:09:05.3341427+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Output\\\":\\\"--- PASS: TestRelayHandshake (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:09:05.3341427+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Test\\\":\\\"TestRelayHandshake\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T16:09:05.3341427+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:09:05.3351797+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Output\\\":\\\"ok  \\\\texample.com/relay\\\\t0.245s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:09:05.3409051+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/relay\\\",\\\"Elapsed\\\":0.251}\\n\",\"test\":\"TestRelayHandshake\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
   "orientations": [
@@ -78,7 +78,7 @@
       "calls": 2
     }
   ],
-  "final_message": "The public relay service's internal name is \"switchyard,\" and its designated health test is **TestRelayHandshake** (per `config/services.json`).\n\n**Result: PASSES** ✅ — `--- PASS: TestRelayHandshake (0.00s)`, exit code 0.",
+  "final_message": "**Result: PASS ✅**\n\n- The public relay service's internal name is **switchyard**, and its designated internal health test (per `config/services.json`) is **`TestRelayHandshake`** (this test was renamed from `TestSwitchyardHandshake`, per `tests/renames.json`).\n- Running it: `--- PASS: TestRelayHandshake (0.00s)`, exit code 0.\n\nThe internal health test for the public relay service passes.",
   "end_state": {
     "files": [
       {
@@ -105,6 +105,11 @@
         "path": "tests/catalog.txt",
         "present": true,
         "content": "TestRelayHandshake\nTestRelayTimeout\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestSwitchyardHandshake\",\"to\":\"TestRelayHandshake\"}]}\n"
       }
     ]
   }

@@ -1,7 +1,7 @@
 {
   "v": 1,
   "tranche": "authoring",
-  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
+  "world_build": "sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d",
   "cases": [
     {
       "case_id": "authoring_0a10d1ec",
@@ -13,7 +13,7 @@
       "case_id": "authoring_1ca5cade",
       "trial_path": "experiments/frontier-v1/results/authoring/authoring_1ca5cade.trial.json",
       "grade_path": "experiments/frontier-v1/results/authoring/authoring_1ca5cade.grade.json",
-      "status": "fail"
+      "status": "pass"
     },
     {
       "case_id": "authoring_57a1e001",
@@ -25,7 +25,7 @@
       "case_id": "authoring_5ec0be12",
       "trial_path": "experiments/frontier-v1/results/authoring/authoring_5ec0be12.trial.json",
       "grade_path": "experiments/frontier-v1/results/authoring/authoring_5ec0be12.grade.json",
-      "status": "fail"
+      "status": "pass"
     },
     {
       "case_id": "authoring_7e4d7a10",
@@ -52,6 +52,6 @@
       "status": "pass"
     }
   ],
-  "passed": 6,
-  "failed": 2
+  "passed": 8,
+  "failed": 0
 }

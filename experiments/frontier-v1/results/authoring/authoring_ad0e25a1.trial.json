@@ -1,7 +1,7 @@
 {
   "v": 1,
   "case_id": "authoring_ad0e25a1",
-  "world_build": "sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127",
+  "world_build": "sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d",
   "acts": [
     {
       "seq": 0,
@@ -10,7 +10,7 @@
       "verb": "list",
       "args": {},
       "status": "ok",
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_M4SXhJVC6dgI3RAqugvU9BHe\",\"act_id\":\"a_35VCNBMILN4IEX3LTJU5PL3NXF\",\"handle\":\"h_tEQGSmdm3yx_jMjrlH3FFVGA\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"tests\":[\"TestBeaconCurrent\",\"TestBeaconFallback\"]},\"error\":null,\"text\":\"ok tests.list: tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_tEQGSmdm3yx_jMjrlH3FFVGA\",\"verb\":\"focus\",\"args\":{\"test\":\"TestBeaconCurrent\"},\"state\":\"sha256:8a4dc25e3f4847d8b59e6280eb9985cab61042f815fc4701718db044765daa14\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_uaqAJmI4VL5gaavDEvL6Qk2g\",\"act_id\":\"a_AWMMKBB7IGEOQWAVJW7YLP6HAC\",\"handle\":\"h_2qDtmeFNNqQbqi5EEvOWQi50\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestBeaconCurrent\",\"TestBeaconFallback\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_2qDtmeFNNqQbqi5EEvOWQi50\",\"verb\":\"focus\",\"args\":{\"test\":\"TestBeaconCurrent\"},\"state\":\"sha256:8a4dc25e3f4847d8b59e6280eb9985cab61042f815fc4701718db044765daa14\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
     },
     {
       "seq": 1,
@@ -22,19 +22,19 @@
       },
       "status": "ok",
       "exit_code": 0,
-      "output": "{\"v\":1,\"world_build\":\"sha256:c0c2d8ddc9c39c4a14bdcd46d9d26e1ddaf946c44461f0f6e2dc471672a72127\",\"session_id\":\"s_M4SXhJVC6dgI3RAqugvU9BHe\",\"act_id\":\"a_IZCMFWOYNZCW4PLCTCRYXERN24\",\"handle\":\"h_tEQGSmdm3yx_jMjrlH3FFVGA\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T15:45:28.1757849+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.com/beacon\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:28.4113595+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:28.4113595+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"=== RUN   TestBeaconCurrent\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:28.4113595+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"--- PASS: TestBeaconCurrent (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:28.4113595+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:28.4113595+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:28.4124065+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"ok  \\\\texample.com/beacon\\\\t0.236s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T15:45:28.4186506+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Elapsed\\\":0.243}\\n\",\"test\":\"TestBeaconCurrent\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+      "output": "{\"v\":1,\"world_build\":\"sha256:ed5093870e03da828fbb0916db0b830222d95ee7f52d6e45d76ac8921a61604d\",\"session_id\":\"s_uaqAJmI4VL5gaavDEvL6Qk2g\",\"act_id\":\"a_TQV6B7VUD5S5PKBAVPESZ2NPX7\",\"handle\":\"h_2qDtmeFNNqQbqi5EEvOWQi50\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T16:08:45.1613783+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.com/beacon\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:45.4033235+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:45.4033235+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"=== RUN   TestBeaconCurrent\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:45.4033235+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Output\\\":\\\"--- PASS: TestBeaconCurrent (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:45.4033235+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Test\\\":\\\"TestBeaconCurrent\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:45.4033235+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:45.4043757+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Output\\\":\\\"ok  \\\\texample.com/beacon\\\\t0.243s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T16:08:45.4109499+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.com/beacon\\\",\\\"Elapsed\\\":0.25}\\n\",\"test\":\"TestBeaconCurrent\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
     }
   ],
   "orientations": [
     {
       "seq": 0,
       "handle": "tests",
-      "intent": "Report whether the current Beacon test passes",
+      "intent": "Report whether the current Beacon test passes.",
       "matched": true,
       "calls": 1
     }
   ],
-  "final_message": "The `TestBeaconCurrent` test **passes** ✅ (exit code 0, `--- PASS: TestBeaconCurrent (0.00s)`).",
+  "final_message": "The current Beacon test, **TestBeaconCurrent**, **PASSES** ✅ (exit code 0, `--- PASS: TestBeaconCurrent (0.00s)`).",
   "end_state": {
     "files": [
       {
