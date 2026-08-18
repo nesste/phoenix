@@ -1,0 +1,70 @@
+# Phoenix frontier-v1 Phase 1 report
+
+## Scope and identity
+
+- Tranche: `{{.Tranche}}`
+- Analysis status: `{{.Status}}`
+- Schedule: `{{.ScheduleDigest}}`
+- World build: `{{.WorldBuild}}`
+- Runtime: Claude Code `{{.RuntimeVersion}}`, model `{{.Model}}`
+- Grader: `{{.GraderDigest}}`
+- Arm B document: `{{.ArmBDocument}}`
+- Analysis seed: `{{.AnalysisSeed}}`
+
+This report applies only to the frozen runtime, model, dev-repo world, and eight registered task classes. It does not generalize beyond that population.
+
+{{if .StatusReasons}}## Indeterminate or limiting conditions
+
+{{range .StatusReasons}}- {{.}}
+{{end}}
+{{end}}
+## Intention-to-treat accounting
+
+| Arm | Assigned | Successes | Success rate | Unresolved | Unresolved rate | Cap hits | Cap-hit rate | Tokens | USD | Turns | Wall time (ms) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+{{range $arm, $result := .Arms}}| {{$arm}} | {{$result.Assigned}} | {{$result.Successes}} | {{decimal $result.SuccessRate}} | {{$result.Unresolved}} | {{decimal $result.UnresolvedRate}} | {{$result.CapHits}} | {{decimal $result.CapHitRate}} | {{decimal $result.TotalTokens}} | {{decimal $result.TotalCostUSD}} | {{decimal $result.TotalTurns}} | {{decimal $result.WallTimeMS}} |
+{{end}}
+
+Manual-required grades, unresolved assignments, timeouts, and cap hits are failures. A safety-stop pairing key is discarded in full and all five assignments count as unresolved. No missing-data condition can create a pass.
+
+| Arm | Mean tokens to success | Mean failed-trial tokens | Mean acts to success | Mean failed-trial acts | Mean wall time (ms), ITT |
+| --- | ---: | ---: | ---: | ---: | ---: |
+{{range $arm, $result := .Arms}}| {{$arm}} | {{decimal $result.MeanTokensToSuccess}} | {{decimal $result.MeanFailedTrialTokens}} | {{decimal $result.MeanActsToSuccess}} | {{decimal $result.MeanFailedTrialActs}} | {{decimal $result.MeanWallTimeMS}} |
+{{end}}
+
+## Precommitted claims
+
+{{range .Claims}}### `{{.ID}}`: {{.Intervention}} versus {{.Comparator}}
+
+- Population: {{.Population}}
+- Endpoint: {{.Endpoint}}
+- Families and paired trials: {{.Families}} families, {{.Pairs}} pairs
+- Method: {{.Method}}
+- Point estimate: {{decimal .PointEstimate}}
+- One-sided 95% lower bound: {{optional .LowerBound}}
+- One-sided 95% upper bound: {{optional .UpperBound}}
+- One-sided harm p-value: {{optional .PWorse}}
+- Decision: `{{.Decision}}`
+- Reason: {{.Reason}}
+- Sensitivity: complete case {{optional .Sensitivity.CompleteCase}}; one vote per case {{decimal .Sensitivity.OneVotePerCase}}; one vote per family {{decimal .Sensitivity.OneVotePerFamily}}
+{{with .CostRatio}}- Paired-success token ratio: {{if .Determinate}}{{optional .Ratio}} (one-sided upper bound {{optional .UpperBound}}, {{.Pairs}} paired successes; {{.Method}}){{else}}indeterminate: {{.Reason}}{{end}}
+{{end}}{{with .DeadEndDifference}}- Dead-end-rate difference: {{decimal .Point}} (one-sided upper bound {{optional .UpperBound}})
+{{end}}{{with .CapHitDifference}}- Timeout-or-cap-hit-rate difference: {{decimal .Point}} (one-sided upper bound {{optional .UpperBound}})
+{{end}}{{with .DownstreamSuccess}}- Downstream ITT-success difference: {{decimal .Point}} (one-sided lower bound {{optional .LowerBound}})
+{{end}}
+{{end}}
+## Descriptive measures
+
+- Wrong-verb rate: {{decimal .Measures.WrongVerbRate}}
+- Dead-end rate: {{decimal .Measures.DeadEndRate}}
+- Timeout-or-cap-hit rate: {{decimal .Measures.TimeoutOrCapHitRate}}
+- Frontier take rate: {{optional .Measures.FrontierTakeRate}}
+- Frontier take-and-succeed rate: {{optional .Measures.FrontierTakeAndSucceedRate}}
+
+Tokens, wall time, USD, and acts are descriptive for capability. They cannot veto a capability pass or rescue a failed capability claim. The ITT token ratio is descriptive; only the paired-success token ratio enters the efficiency-only conjunction.
+
+## Forced interpretation
+
+`capability_pass` requires the one-sided 95% lower bound for C minus B ITT success to exceed zero. `efficiency_only` is available only when capability does not pass and every precommitted success, paired-token, dead-end, and timeout/cap condition holds. It supports only an efficiency product, not a capability claim. Component isolations can remove or replace a component but cannot create a headline pass.
+
+Gate 1A, validation, and held-out status are controlled by the artifact-freeze manifest and independent review records. This report does not open a gate.

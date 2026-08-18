@@ -25,7 +25,7 @@ test:
 	$(GO) test -count=1 ./...
 
 format-check:
-	$(GO) run ./cmd/quality-check format cmd internal verbs experiments/frontier-v1/runner
+	$(GO) run ./cmd/quality-check format cmd internal verbs experiments/frontier-v1/runner experiments/frontier-v1/analysis
 
 lint: format-check
 	$(GO) vet ./...
@@ -36,8 +36,8 @@ dependency-check:
 	$(GO) run golang.org/x/vuln/cmd/govulncheck@$(GOVULNCHECK_VERSION) ./...
 
 complexity:
-	$(GO) run github.com/fzipp/gocyclo/cmd/gocyclo@$(GOCYCLO_VERSION) -over 15 cmd internal verbs experiments/frontier-v1/runner
-	$(GO) run ./cmd/quality-check no-output -- $(GO) run github.com/mibk/dupl@$(DUPL_VERSION) -plumbing -t 100 cmd internal verbs experiments/frontier-v1/runner
+	$(GO) run github.com/fzipp/gocyclo/cmd/gocyclo@$(GOCYCLO_VERSION) -over 15 cmd internal verbs experiments/frontier-v1/runner experiments/frontier-v1/analysis
+	$(GO) run ./cmd/quality-check no-output -- $(GO) run github.com/mibk/dupl@$(DUPL_VERSION) -plumbing -t 100 cmd internal verbs experiments/frontier-v1/runner experiments/frontier-v1/analysis
 
 validate-spec:
 	cd experiments/surface-spike && $(GO) run ./cmd/validate-spec --repo-root ../..

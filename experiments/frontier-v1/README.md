@@ -174,4 +174,14 @@ The scheduled output directory must be empty at launch. It receives one assignme
 
 No scheduled authoring run was performed while implementing this machinery. An authoring schedule cannot satisfy the pre-validation schedule freeze: the validation schedule must be generated from the accepted replacement validation cases and committed by digest before that tranche can open.
 
+## Analysis and report
+
+The Phase 1 analysis command consumes a scheduled summary, its retained trial and runtime evidence, and the matching outcome-free tranche manifest. It validates complete A–E pairing keys, applies ITT and indeterminate rules before inference, reconstructs frontier linkage from the retained runtime stream, and emits a deterministic JSON analysis plus an optional report rendered from the committed template.
+
+```powershell
+go run ./experiments/frontier-v1/analysis --repo-root . --summary <scheduled-summary.json> --manifest <tranche-manifest.json> --output <analysis.json> --report <report.md>
+```
+
+The [analysis contract](analysis/README.md) records the exact operational definitions, family-count-dependent inference, sensitivity views, ratio rules, and output boundary. The command refuses to overwrite evidence. No authoring or sealed-tranche analysis was run while implementing it.
+
 The Arm B static document passed independent human-factors review at candidate commit `73adf8c608f0edf06597b569b17faa32e1a3b5b9`. Its accepted digest and review record are committed in `pre-validation-artifacts.json`. That manifest remains `partial`; its seven listed artifacts must still be frozen before validation can open.
