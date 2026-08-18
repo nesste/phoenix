@@ -38,6 +38,22 @@ func TestPinnedAuthoringWorldMatchesProductionWorld(t *testing.T) {
 	}
 }
 
+func TestAuthoringLabelsSharePinnedGraderDigest(t *testing.T) {
+	repositoryRoot := filepath.Join("..", "..", "..")
+	ids, err := authoringCaseIDs(repositoryRoot)
+	if err != nil {
+		t.Fatal(err)
+	}
+	digest, err := graderDigestForCases(repositoryRoot, ids)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const want = "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+	if digest != want {
+		t.Fatalf("authoring grader digest = %s, want %s", digest, want)
+	}
+}
+
 func TestMaterializeFixtureCreatesInitialCommitAndPendingFiles(t *testing.T) {
 	target := t.TempDir()
 	item := fixture{
@@ -147,6 +163,44 @@ func TestNormalizeArmAndDefaultOutputProtectRetainedEvidence(t *testing.T) {
 	}
 }
 
+func TestWriteScheduleCLIUsesFrozenDesignWithoutLaunchingRuntime(t *testing.T) {
+	repository := t.TempDir()
+	createRunnerFixture(t, repository)
+	relative := "experiments/frontier-v1/authoring.schedule.json"
+	if code := run([]string{"--repo-root", repository, "--write-schedule", relative}); code != 0 {
+		t.Fatalf("write schedule exit = %d", code)
+	}
+	var schedule launchSchedule
+	path := filepath.Join(repository, filepath.FromSlash(relative))
+	if err := decodeStrict(path, &schedule); err != nil {
+		t.Fatal(err)
+	}
+	if schedule.Seed != phase1ScheduleSeed || schedule.Repetitions != phase1Repetitions ||
+		len(schedule.Entries) != phase1Repetitions*len(phase1Arms) {
+		t.Fatalf("written schedule = %#v", schedule)
+	}
+	if code := run([]string{"--repo-root", repository, "--write-schedule", relative}); code == 0 {
+		t.Fatal("schedule writer replaced an existing schedule")
+	}
+}
+
+func TestScheduledOutputMustBeEmpty(t *testing.T) {
+	repository := t.TempDir()
+	output := filepath.Join(repository, "results")
+	if err := os.MkdirAll(output, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := requireEmptyScheduledOutput(repository, "results"); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(output, "existing.json"), []byte("{}\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := requireEmptyScheduledOutput(repository, "results"); err == nil {
+		t.Fatal("scheduled runner accepted an output directory containing evidence")
+	}
+}
+
 func TestFlatRuntimePromptAndAllowedToolsContainNoPhoenixHandles(t *testing.T) {
 	roots := map[string]string{"repo": "h_secret_repo", "tests": "h_secret_tests", "git": "h_secret_git", "episodes": "h_secret_episodes"}
 	prompt := runtimePromptForArm("inspect the repository", roots, "A")
@@ -198,7 +252,7 @@ func (runtime *fakeRuntime) Run(request runtimeRequest) (runtimeResult, error) {
 	if err := store.Close(); err != nil {
 		return runtimeResult{}, err
 	}
-	return runtimeResult{FinalMessage: "suite is not green", RawOutput: []byte("runtime evidence\n")}, nil
+	return runtimeResult{FinalMessage: "suite is not green", RawOutput: []byte("runtime evidence\n"), FirstModelToken: true}, nil
 }
 
 type fakeGrader struct{}

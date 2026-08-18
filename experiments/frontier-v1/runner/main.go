@@ -5,14 +5,18 @@ package main
 import (
 	"context"
 	"crypto/rand"
+	"crypto/sha256"
 	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 
@@ -34,8 +38,11 @@ func run(args []string) int {
 	outputDir := flags.String("output-dir", "", "repository-relative result directory; defaults to retained C evidence or an arm-specific probe directory")
 	arm := flags.String("arm", "C", "experiment arm: A, B, C, D, or E")
 	armBDocument := flags.String("arm-b-document", "", "frozen Arm B static document; required for Arm B")
+	writeSchedulePath := flags.String("write-schedule", "", "write a deterministic authoring A-E schedule and exit")
+	schedulePath := flags.String("schedule", "", "execute a previously written authoring A-E schedule")
 	runtimePath := flags.String("runtime", "claude", "pinned runtime executable")
 	budget := flags.String("max-budget-usd", "0.15", "maximum model cost per case")
+	runBudget := flags.String("run-budget-usd", "75", "hard authoring run budget in USD; checked at pairing-key boundaries")
 	timeout := flags.Duration("timeout", 180*time.Second, "per-case timeout")
 	if err := flags.Parse(args); err != nil || flags.NArg() != 0 {
 		return 2
@@ -45,24 +52,35 @@ func run(args []string) int {
 		fmt.Fprintln(os.Stderr, err)
 		return 2
 	}
-	config, cleanup, err := prepareRunConfig(root, *outputDir, *arm, *armBDocument, *timeout, *budget)
+	ids, err := selectedCaseIDs(root, *caseID)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	if *writeSchedulePath != "" {
+		if *schedulePath != "" {
+			fmt.Fprintln(os.Stderr, "--write-schedule and --schedule are mutually exclusive")
+			return 2
+		}
+		return writeScheduleCLI(root, *writeSchedulePath, ids)
+	}
+	if *schedulePath != "" {
+		return runScheduleCLI(root, *outputDir, *schedulePath, *armBDocument, *runtimePath, *budget, *runBudget, *timeout, ids)
+	}
+	return runProbeCLI(root, *outputDir, *arm, *armBDocument, *runtimePath, *budget, *timeout, ids)
+}
+
+func runProbeCLI(root, output, arm, armBDocument, runtimePath, budget string, timeout time.Duration, ids []string) int {
+	config, cleanup, err := prepareRunConfig(root, output, arm, armBDocument, timeout, budget)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
 	}
 	defer cleanup()
-	driver := claudeDriver{executable: *runtimePath}
+	driver := claudeDriver{executable: runtimePath}
 	if err := driver.Verify(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
-	}
-	ids := []string{*caseID}
-	if *caseID == "all" {
-		ids, err = authoringCaseIDs(root)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			return 1
-		}
 	}
 	summary, err := runCases(config, ids, driver, corpusGrader{goExecutable: "go"})
 	if err != nil {
@@ -80,6 +98,246 @@ func run(args []string) int {
 	return 0
 }
 
+func runScheduleCLI(
+	root, output, schedulePath, armBDocument, runtimePath, budget, runBudget string,
+	timeout time.Duration,
+	ids []string,
+) int {
+	prepared, err := prepareScheduledCLI(root, output, schedulePath, armBDocument, budget, runBudget, timeout, ids)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	defer prepared.cleanup()
+	driver := claudeDriver{executable: runtimePath}
+	if err := driver.Verify(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	summary, err := runScheduledCases(
+		prepared.config, prepared.schedule, prepared.scheduleDigest, prepared.runBudgetUSD,
+		driver, corpusGrader{goExecutable: "go"},
+	)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	if err := writeJSON(filepath.Join(prepared.config.outputDir, "scheduled-summary.json"), summary); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	fmt.Printf("scheduled authoring: %d pass, %d fail, %d unresolved, %d budget-stopped\n", summary.Passes, summary.Failures, summary.Unresolved, summary.BudgetStopped)
+	if summary.Status == "indeterminate" {
+		return 1
+	}
+	return 0
+}
+
+type preparedScheduledCLI struct {
+	config         runConfig
+	schedule       launchSchedule
+	scheduleDigest string
+	runBudgetUSD   float64
+	cleanup        func()
+}
+
+func prepareScheduledCLI(
+	root, output, schedulePath, armBDocument, budget, runBudget string,
+	timeout time.Duration,
+	ids []string,
+) (preparedScheduledCLI, error) {
+	if output == "" {
+		output = "experiments/frontier-v1/results/scheduled-authoring"
+	}
+	if err := requireEmptyScheduledOutput(root, output); err != nil {
+		return preparedScheduledCLI{}, err
+	}
+	config, cleanup, err := prepareRunConfig(root, output, "B", armBDocument, timeout, budget)
+	if err != nil {
+		return preparedScheduledCLI{}, err
+	}
+	fail := func(err error) (preparedScheduledCLI, error) {
+		cleanup()
+		return preparedScheduledCLI{}, err
+	}
+	cases, err := loadSelectedCases(root, ids)
+	if err != nil {
+		return fail(err)
+	}
+	resolvedSchedule := resolveRepositoryPath(root, schedulePath)
+	if err := ensureInside(root, resolvedSchedule); err != nil {
+		return fail(err)
+	}
+	var schedule launchSchedule
+	if err := decodeStrict(resolvedSchedule, &schedule); err != nil {
+		return fail(err)
+	}
+	if err := validateSchedule(schedule, cases); err != nil {
+		return fail(err)
+	}
+	if err := preflightSelectedCases(config, cases); err != nil {
+		return fail(err)
+	}
+	config.graderDigest, err = verifiedGraderDigest(root, ids)
+	if err != nil {
+		return fail(err)
+	}
+	digest, err := digestJSONFile(resolvedSchedule)
+	if err != nil {
+		return fail(err)
+	}
+	totalBudget, err := strconv.ParseFloat(runBudget, 64)
+	if err != nil || totalBudget <= 0 {
+		return fail(fmt.Errorf("--run-budget-usd must be a positive decimal value"))
+	}
+	return preparedScheduledCLI{
+		config: config, schedule: schedule, scheduleDigest: digest,
+		runBudgetUSD: totalBudget, cleanup: cleanup,
+	}, nil
+}
+
+func writeScheduleCLI(root, path string, ids []string) int {
+	cases, err := loadSelectedCases(root, ids)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	schedule, err := generatePhase1Schedule(cases)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	resolved := resolveRepositoryPath(root, path)
+	if err := ensureInside(root, resolved); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	if _, err := os.Stat(resolved); err == nil {
+		fmt.Fprintln(os.Stderr, "schedule path already exists")
+		return 1
+	} else if !errors.Is(err, os.ErrNotExist) {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	if err := writeJSON(resolved, schedule); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	digest, err := digestJSONFile(resolved)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	fmt.Printf("schedule: %s (%d launches)\n", digest, len(schedule.Entries))
+	return 0
+}
+
+func selectedCaseIDs(root, selection string) ([]string, error) {
+	if selection == "all" {
+		return authoringCaseIDs(root)
+	}
+	if _, err := loadCase(root, selection); err != nil {
+		return nil, err
+	}
+	return []string{selection}, nil
+}
+
+func loadSelectedCases(root string, ids []string) ([]runnableCase, error) {
+	cases := make([]runnableCase, 0, len(ids))
+	for _, id := range ids {
+		item, err := loadCase(root, id)
+		if err != nil {
+			return nil, err
+		}
+		cases = append(cases, item)
+	}
+	return cases, nil
+}
+
+func preflightSelectedCases(config runConfig, cases []runnableCase) error {
+	worldRef, err := digestJSONFile(config.worldPath)
+	if err != nil {
+		return err
+	}
+	for _, item := range cases {
+		if item.WorldRef != worldRef {
+			return fmt.Errorf("case %s world_ref %s does not match production world %s", item.CaseID, item.WorldRef, worldRef)
+		}
+		if _, err := loadFixture(config.repositoryRoot, item); err != nil {
+			return fmt.Errorf("case %s fixture: %w", item.CaseID, err)
+		}
+	}
+	return nil
+}
+
+func graderDigestForCases(root string, ids []string) (string, error) {
+	graderDigest := ""
+	for _, id := range ids {
+		path := filepath.Join(root, "experiments", "frontier-v1", "labels", "authoring", id+".json")
+		contents, err := os.ReadFile(path)
+		if err != nil {
+			return "", err
+		}
+		var label struct {
+			GradingScript string `json:"grading_script"`
+		}
+		if err := json.Unmarshal(contents, &label); err != nil {
+			return "", err
+		}
+		if label.GradingScript == "" {
+			return "", fmt.Errorf("label %s has no grading_script digest", id)
+		}
+		if graderDigest != "" && graderDigest != label.GradingScript {
+			return "", fmt.Errorf("selected authoring labels do not share one grader digest")
+		}
+		graderDigest = label.GradingScript
+	}
+	return graderDigest, nil
+}
+
+func verifiedGraderDigest(root string, ids []string) (string, error) {
+	declared, err := graderDigestForCases(root, ids)
+	if err != nil {
+		return "", err
+	}
+	command := exec.Command("go", "run", "./cmd/corpusctl", "grader-digest", "--repo-root", "../../..")
+	command.Dir = filepath.Join(root, "experiments", "frontier-v1", "corpusctl")
+	output, err := command.CombinedOutput()
+	if err != nil {
+		return "", fmt.Errorf("compute grader digest: %w: %s", err, strings.TrimSpace(string(output)))
+	}
+	actual := strings.TrimSpace(string(output))
+	if actual != declared {
+		return "", fmt.Errorf("current grader digest %s does not match selected labels %s", actual, declared)
+	}
+	return actual, nil
+}
+
+func resolveRepositoryPath(root, path string) string {
+	if filepath.IsAbs(path) {
+		return path
+	}
+	return filepath.Join(root, filepath.FromSlash(path))
+}
+
+func requireEmptyScheduledOutput(root, output string) error {
+	path := resolveRepositoryPath(root, output)
+	if err := ensureInside(root, path); err != nil {
+		return err
+	}
+	entries, err := os.ReadDir(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	if len(entries) != 0 {
+		return fmt.Errorf("scheduled output directory must not already contain evidence")
+	}
+	return nil
+}
+
 func prepareRunConfig(root, output, arm, armBDocument string, timeout time.Duration, budget string) (runConfig, func(), error) {
 	if timeout <= 0 || strings.TrimSpace(budget) == "" {
 		return runConfig{}, func() {}, fmt.Errorf("positive timeout and budget are required")
@@ -91,6 +349,13 @@ func prepareRunConfig(root, output, arm, armBDocument string, timeout time.Durat
 	armBDocument, err = resolveArmBDocument(arm, armBDocument)
 	if err != nil {
 		return runConfig{}, func() {}, err
+	}
+	armBDocumentDigest := ""
+	if arm == "B" {
+		armBDocumentDigest, err = digestLFNormalizedFile(armBDocument)
+		if err != nil {
+			return runConfig{}, func() {}, err
+		}
 	}
 	outputPath := resolveOutputPath(root, output, arm)
 	if err := ensureInside(root, outputPath); err != nil {
@@ -111,7 +376,7 @@ func prepareRunConfig(root, output, arm, armBDocument string, timeout time.Durat
 		return runConfig{}, func() {}, err
 	}
 	return runConfig{
-		arm: arm, armBDocument: armBDocument, flatToolNames: flatToolNames,
+		arm: arm, armBDocument: armBDocument, armBDocumentDigest: armBDocumentDigest, flatToolNames: flatToolNames,
 		repositoryRoot: root, outputDir: outputPath,
 		worldPath:   worldPath,
 		schemaPath:  schemaPath,
@@ -136,6 +401,16 @@ func resolveArmBDocument(arm, path string) (string, error) {
 		return "", fmt.Errorf("arm B document must be a regular file")
 	}
 	return resolved, nil
+}
+
+func digestLFNormalizedFile(path string) (string, error) {
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
+	digest := sha256.Sum256([]byte(normalized))
+	return "sha256:" + hex.EncodeToString(digest[:]), nil
 }
 
 func resolveOutputPath(root, output, arm string) string {
@@ -237,46 +512,77 @@ func runCases(config runConfig, ids []string, runtime runtimeDriver, grader grad
 }
 
 func runCase(config runConfig, caseID string, runtime runtimeDriver, grader gradeDriver) (caseResult, error) {
-	item, err := loadCase(config.repositoryRoot, caseID)
+	attempt, result, err := executeCaseAttempt(config, caseID, runtime)
 	if err != nil {
 		return caseResult{}, err
+	}
+	defer attempt.cleanup()
+	if _, err := writeRuntimeEvidence(config, caseID+".runtime.jsonl", result.RawOutput); err != nil {
+		return caseResult{}, err
+	}
+	if result.Failure != nil {
+		return caseResult{}, fmt.Errorf("runtime %s: %s", result.Failure.Code, result.Failure.Message)
+	}
+	return finishCase(config, caseID, caseID, attempt.sandbox, attempt.stateDir, attempt.roots, result, grader)
+}
+
+type caseAttempt struct {
+	sandbox  string
+	stateDir string
+	roots    map[string]string
+}
+
+func (attempt caseAttempt) cleanup() {
+	_ = os.RemoveAll(attempt.sandbox)
+	_ = os.RemoveAll(attempt.stateDir)
+}
+
+func executeCaseAttempt(config runConfig, caseID string, runtime runtimeDriver) (caseAttempt, runtimeResult, error) {
+	item, err := loadCase(config.repositoryRoot, caseID)
+	if err != nil {
+		return caseAttempt{}, runtimeResult{}, err
 	}
 	worldRef, err := digestJSONFile(config.worldPath)
 	if err != nil {
-		return caseResult{}, err
+		return caseAttempt{}, runtimeResult{}, err
 	}
 	if item.WorldRef != worldRef {
-		return caseResult{}, fmt.Errorf("case world_ref %s does not match production world %s", item.WorldRef, worldRef)
+		return caseAttempt{}, runtimeResult{}, fmt.Errorf("case world_ref %s does not match production world %s", item.WorldRef, worldRef)
 	}
 	fixture, err := loadFixture(config.repositoryRoot, item)
 	if err != nil {
-		return caseResult{}, err
+		return caseAttempt{}, runtimeResult{}, err
 	}
 	sandbox, err := os.MkdirTemp("", caseID+"-")
 	if err != nil {
-		return caseResult{}, err
+		return caseAttempt{}, runtimeResult{}, err
 	}
-	defer os.RemoveAll(sandbox)
+	attempt := caseAttempt{sandbox: sandbox}
 	if err := materializeFixture(sandbox, fixture); err != nil {
-		return caseResult{}, err
+		attempt.cleanup()
+		return caseAttempt{}, runtimeResult{}, err
 	}
 	stateDir, err := os.MkdirTemp("", caseID+"-state-")
 	if err != nil {
-		return caseResult{}, err
+		attempt.cleanup()
+		return caseAttempt{}, runtimeResult{}, err
 	}
-	defer os.RemoveAll(stateDir)
+	attempt.stateDir = stateDir
 	roots, err := opaqueRoots()
 	if err != nil {
-		return caseResult{}, err
+		attempt.cleanup()
+		return caseAttempt{}, runtimeResult{}, err
 	}
+	attempt.roots = roots
 	stateEventsPath := ""
 	if len(item.StateChanges) > 0 {
 		stateEventsPath = filepath.Join(stateDir, "state-events.json")
 		if err := writeJSON(stateEventsPath, map[string]any{"v": 1, "events": item.StateChanges}); err != nil {
-			return caseResult{}, err
+			attempt.cleanup()
+			return caseAttempt{}, runtimeResult{}, err
 		}
 	}
-	runtimeResult, err := runtime.Run(runtimeRequest{
+	result, err := runtime.Run(runtimeRequest{
 		Arm: config.arm, ArmBDocument: config.armBDocument,
 		FlatToolNames: config.flatToolNames,
 		Sandbox:       sandbox, Goal: item.Goal, Roots: roots,
@@ -286,25 +592,19 @@ func runCase(config runConfig, caseID string, runtime runtimeDriver, grader grad
 		Timeout:         config.timeout, BudgetUSD: config.budgetUSD,
 	})
 	if err != nil {
-		return caseResult{}, err
+		attempt.cleanup()
+		return caseAttempt{}, runtimeResult{}, err
 	}
-	return finishCase(config, caseID, sandbox, stateDir, roots, runtimeResult, grader)
+	return attempt, result, nil
 }
 
 func finishCase(
 	config runConfig,
-	caseID, sandbox, stateDir string,
+	stem, caseID, sandbox, stateDir string,
 	roots map[string]string,
 	runtimeResult runtimeResult,
 	grader gradeDriver,
 ) (caseResult, error) {
-	sanitizedRuntime, err := sanitizeRuntimeOutput(runtimeResult.RawOutput)
-	if err != nil {
-		return caseResult{}, err
-	}
-	if err := os.WriteFile(filepath.Join(config.outputDir, caseID+".runtime.jsonl"), sanitizedRuntime, 0o644); err != nil {
-		return caseResult{}, err
-	}
 	record, err := readTrialEpisode(filepath.Join(stateDir, "episodes.db"))
 	if err != nil {
 		return caseResult{}, err
@@ -321,7 +621,7 @@ func finishCase(
 		V: 1, CaseID: caseID, WorldBuild: config.worldBuild,
 		Acts: acts, Orientations: orientations, FinalMessage: runtimeResult.FinalMessage, EndState: end,
 	}
-	trialPath := filepath.Join(config.outputDir, caseID+".trial.json")
+	trialPath := filepath.Join(config.outputDir, stem+".trial.json")
 	if err := writeJSON(trialPath, trialRecord); err != nil {
 		return caseResult{}, err
 	}
@@ -334,7 +634,7 @@ func finishCase(
 	if err != nil {
 		return caseResult{}, err
 	}
-	gradePath := filepath.Join(config.outputDir, caseID+".grade.json")
+	gradePath := filepath.Join(config.outputDir, stem+".grade.json")
 	if err := os.WriteFile(gradePath, grade, 0o644); err != nil {
 		return caseResult{}, err
 	}
@@ -349,13 +649,36 @@ func finishCase(
 	}, nil
 }
 
+func writeRuntimeEvidence(config runConfig, name string, output []byte) (string, error) {
+	sanitized, err := sanitizeRuntimeOutput(output)
+	if err != nil {
+		return "", err
+	}
+	path := filepath.Join(config.outputDir, name)
+	if err := os.WriteFile(path, sanitized, 0o644); err != nil {
+		return "", err
+	}
+	relative, err := filepath.Rel(config.repositoryRoot, path)
+	if err != nil {
+		return "", err
+	}
+	return filepath.ToSlash(relative), nil
+}
+
 func readTrialEpisode(path string) (episode.Record, error) {
+	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
+		return episode.Record{Acts: []episode.ActRecord{}}, nil
+	}
 	store, err := episode.Open(path, episode.Options{})
 	if err != nil {
 		return episode.Record{}, err
 	}
 	defer store.Close()
-	return store.Latest(context.Background())
+	record, err := store.Latest(context.Background())
+	if errors.Is(err, episode.ErrNotFound) {
+		return episode.Record{Acts: []episode.ActRecord{}}, nil
+	}
+	return record, err
 }
 
 func episodeEvidence(record episode.Record, roots map[string]string) ([]act, []orientation, error) {

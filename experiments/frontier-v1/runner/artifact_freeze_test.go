@@ -1,13 +1,10 @@
 package main
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
 	"os"
 	"path/filepath"
 	"reflect"
-	"strings"
 	"testing"
 )
 
@@ -43,13 +40,10 @@ func TestArmBPreValidationFreezeMatchesAcceptedCandidate(t *testing.T) {
 	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(armB.Review))); err != nil {
 		t.Fatalf("Arm B review record: %v", err)
 	}
-	contents, err := os.ReadFile(filepath.Join(repositoryRoot, filepath.FromSlash(armB.Path)))
+	actual, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(armB.Path)))
 	if err != nil {
 		t.Fatal(err)
 	}
-	normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
-	digest := sha256.Sum256([]byte(normalized))
-	actual := "sha256:" + hex.EncodeToString(digest[:])
 	if actual != armB.Digest {
 		t.Fatalf("Arm B digest = %s, freeze requires %s", actual, armB.Digest)
 	}

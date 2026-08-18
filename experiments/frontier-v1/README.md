@@ -148,6 +148,30 @@ go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id>
 go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id> --arm B --arm-b-document experiments/frontier-v1/arms/arm-b.md
 ```
 
-Arm C remains the default and writes to `results/authoring/`; non-C defaults write under `results/arm-probes/<arm>/` so they cannot replace retained evidence accidentally. Evidence from the single focused-revision run is retained under `results/authoring/`. The runner has no code path for validation or held_out cases. It is not yet the randomized Phase 1 evaluator: scheduling, three-repetition execution, infrastructure retry classification, pairing-key budget stops, complete attempt/cost metadata, analysis, and report generation remain to be implemented and frozen.
+Arm C remains the default for a single-arm probe and writes to `results/authoring/`; non-C probes default to `results/arm-probes/<arm>/` so they cannot replace retained evidence accidentally. Evidence from the single focused-revision run stays under `results/authoring/`. The runner has no code path for validation or held_out cases.
+
+## Scheduled authoring runner
+
+The schedule writer groups cases by generating family and emits each family as one contiguous block. Within a family it deterministically shuffles `(case_id, repetition)` pairing keys with seed `20260817`. Every pairing key contains all five arms consecutively in one row of the ten-row Williams design for five treatments. Three repetitions produce 120 launches for the current eight-case authoring set.
+
+```powershell
+go run ./experiments/frontier-v1/runner --repo-root . --case all --write-schedule experiments/frontier-v1/schedules/authoring.json
+```
+
+The writer prints the canonical schedule digest and refuses to overwrite an existing file. The loader reconstructs the schedule from the selected authoring cases and rejects changes to its seed, repetitions, arms, family order, pairing order, or launch order.
+
+Run a previously written authoring schedule with:
+
+```powershell
+go run ./experiments/frontier-v1/runner --repo-root . --case all --schedule experiments/frontier-v1/schedules/authoring.json --arm-b-document experiments/frontier-v1/arms/arm-b.md --run-budget-usd 75
+```
+
+Before each pairing key, the runner reserves 110% of the five-arm per-trial cap: the five assigned trials plus the protocol's pooled 10% infrastructure capacity. This reserve does not authorize a retry unless the attempt meets the pre-token eligibility rule. If the remaining run budget cannot cover the boundary, none of the five arms launch and every remaining assignment is recorded as budget-stopped. A hard budget or runner safety stop makes the scheduled run indeterminate.
+
+Each assigned trial gets a fresh model context, sandbox, world state, handle set, episode store, and state-event plan. Only a provider 429/5xx, runtime launch failure, or MCP connection failure before the first model token receives one fresh retry. Timeout, turn limit, cost cap, malformed output, agent failure, and post-token failures are terminal ITT failures. Manual-required grades are also ITT failures. Retry exhaustion is unresolved, which still counts as failure in the primary ITT analysis.
+
+The scheduled output directory must be empty at launch. It receives one assignment record per launch, sanitized runtime JSONL for every attempt, trial and grade evidence for completed attempts, and `scheduled-summary.json`. Attempt records include all Claude result token buckets, their sum, USD cost, turns, API time, wall time, first-token status, retry classification, and cap status. The summary pins the runtime/model settings, exact A–E prompts, timeout, cost cap, retry limit, schedule seed, repetitions, Arm B document and digest, and grader digest.
+
+No scheduled authoring run was performed while implementing this machinery. An authoring schedule cannot satisfy the pre-validation schedule freeze: the validation schedule must be generated from the accepted replacement validation cases and committed by digest before that tranche can open.
 
 The Arm B static document passed independent human-factors review at candidate commit `73adf8c608f0edf06597b569b17faa32e1a3b5b9`. Its accepted digest and review record are committed in `pre-validation-artifacts.json`. That manifest remains `partial`; its seven listed artifacts must still be frozen before validation can open.

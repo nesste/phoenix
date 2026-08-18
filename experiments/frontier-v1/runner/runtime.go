@@ -10,7 +10,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
+	"strconv"
 	"strings"
+	"time"
 )
 
 const (
@@ -19,6 +22,8 @@ const (
 	baseSystemPrompt     = "Use only the configured tools. Follow the user request exactly."
 	phoenixIntentPrompt  = "Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
 )
+
+var providerStatusPattern = regexp.MustCompile(`\b(?:429|5[0-9]{2})\b`)
 
 func systemPromptForArm(arm string) (string, error) {
 	switch arm {
@@ -59,10 +64,35 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 	if request.Arm == "B" && request.ArmBDocument == "" {
 		return runtimeResult{}, fmt.Errorf("arm B document is required")
 	}
+	args, err := prepareRuntimeInvocation(request, systemPrompt, allowedTools)
+	if err != nil {
+		return runtimeResult{}, err
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), request.Timeout)
+	defer cancel()
+	command := exec.CommandContext(ctx, driver.executable, args...)
+	command.Dir = request.Sandbox
+	var stdout, stderr bytes.Buffer
+	command.Stdout = &stdout
+	command.Stderr = &stderr
+	started := time.Now()
+	err = command.Run()
+	elapsed := time.Since(started)
+	observation, parseErr := inspectRuntimeOutput(stdout.Bytes())
+	observation.metrics.WallTimeMS = elapsed.Milliseconds()
+	result := runtimeResult{
+		FinalMessage: observation.finalMessage, RawOutput: stdout.Bytes(),
+		FirstModelToken: observation.modelOutputSeen, Metrics: observation.metrics,
+	}
+	return finishRuntimeInvocation(result, observation, parseErr, err, ctx.Err(), stderr.String(), request.Timeout)
+}
+
+func prepareRuntimeInvocation(request runtimeRequest, systemPrompt string, allowedTools []string) ([]string, error) {
 	configPath := filepath.Join(filepath.Dir(request.EpisodePath), "mcp.json")
 	rootPath := filepath.Join(filepath.Dir(request.EpisodePath), "roots.json")
 	if err := writeJSON(rootPath, request.Roots); err != nil {
-		return runtimeResult{}, err
+		return nil, err
 	}
 	mcpConfig := map[string]any{"mcpServers": map[string]any{
 		"phoenix": map[string]any{
@@ -80,11 +110,8 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 		server["args"] = append(server["args"].([]string), "--state-events", request.StateEventsPath)
 	}
 	if err := writeJSON(configPath, mcpConfig); err != nil {
-		return runtimeResult{}, err
+		return nil, err
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), request.Timeout)
-	defer cancel()
 	args := []string{
 		"-p", runtimePromptForArm(request.Goal, request.Roots, request.Arm),
 		"--model", pinnedModel,
@@ -103,23 +130,44 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 	if request.Arm == "B" {
 		args = append(args, "--append-system-prompt-file", request.ArmBDocument)
 	}
-	command := exec.CommandContext(ctx, driver.executable, args...)
-	command.Dir = request.Sandbox
-	var stdout, stderr bytes.Buffer
-	command.Stdout = &stdout
-	command.Stderr = &stderr
-	err = command.Run()
-	if ctx.Err() != nil {
-		return runtimeResult{}, fmt.Errorf("runtime timed out after %s", request.Timeout)
+	return args, nil
+}
+
+func finishRuntimeInvocation(
+	result runtimeResult,
+	observation runtimeObservation,
+	parseErr, runErr, contextErr error,
+	stderr string,
+	timeout time.Duration,
+) (runtimeResult, error) {
+	if contextErr != nil {
+		result.Failure = terminalRuntimeFailure("timeout", fmt.Sprintf("runtime timed out after %s", timeout), observation.modelOutputSeen, true)
+		return result, nil
 	}
-	if err != nil {
-		return runtimeResult{}, fmt.Errorf("runtime failed: %w: %s", err, strings.TrimSpace(stderr.String()))
+	if runErr != nil {
+		message := strings.TrimSpace(stderr)
+		if message == "" {
+			message = runErr.Error()
+		}
+		result.Failure = classifyRuntimeFailure(runErr, message, observation)
+		return result, nil
 	}
-	final, err := parseRuntimeOutput(stdout.Bytes())
-	if err != nil {
-		return runtimeResult{}, err
+	if failure := resultFailure(observation); failure != nil {
+		message := observation.finalMessage
+		if message == "" {
+			message = failure.Message
+		}
+		result.Failure = classifyRuntimeFailure(errors.New("runtime result error"), message, observation)
+		return result, nil
 	}
-	return runtimeResult{FinalMessage: final, RawOutput: stdout.Bytes()}, nil
+	if !observation.modelOutputSeen && observation.mcpFailed {
+		result.Failure = retryableRuntimeFailure("mcp_connection", "Phoenix MCP server did not connect before model output")
+		return result, nil
+	}
+	if parseErr != nil {
+		result.Failure = terminalRuntimeFailure("malformed_output", parseErr.Error(), observation.modelOutputSeen, false)
+	}
+	return result, nil
 }
 
 func runtimePromptForArm(goal string, roots map[string]string, arm string) string {
@@ -148,25 +196,208 @@ func allowedToolsForArm(arm string, flatToolNames []string) []string {
 }
 
 func parseRuntimeOutput(output []byte) (string, error) {
-	var final string
+	observation, err := inspectRuntimeOutput(output)
+	if err != nil {
+		return "", err
+	}
+	return observation.finalMessage, nil
+}
+
+type runtimeObservation struct {
+	finalMessage    string
+	resultSubtype   string
+	resultError     bool
+	modelOutputSeen bool
+	mcpFailed       bool
+	metrics         runtimeMetrics
+}
+
+func inspectRuntimeOutput(output []byte) (runtimeObservation, error) {
+	var observation runtimeObservation
 	scanner := bufio.NewScanner(bytes.NewReader(output))
 	scanner.Buffer(make([]byte, 64*1024), 4*1024*1024)
 	for scanner.Scan() {
-		var event struct {
-			Type   string `json:"type"`
-			Result string `json:"result"`
+		var event map[string]any
+		decoder := json.NewDecoder(bytes.NewReader(scanner.Bytes()))
+		decoder.UseNumber()
+		if decoder.Decode(&event) != nil {
+			continue
 		}
-		if json.Unmarshal(scanner.Bytes(), &event) == nil && event.Type == "result" {
-			final = event.Result
+		typeName, _ := event["type"].(string)
+		if typeName == "assistant" {
+			observation.modelOutputSeen = true
+		}
+		if typeName == "system" {
+			observation.mcpFailed = observation.mcpFailed || hasFailedMCPServer(event)
+		}
+		if typeName == "result" {
+			observation.finalMessage, _ = event["result"].(string)
+			observation.resultSubtype, _ = event["subtype"].(string)
+			observation.resultError, _ = event["is_error"].(bool)
+			observation.metrics = resultMetrics(event)
 		}
 	}
 	if err := scanner.Err(); err != nil {
-		return "", fmt.Errorf("read runtime stream: %w", err)
+		return observation, fmt.Errorf("read runtime stream: %w", err)
 	}
-	if final == "" {
-		return "", fmt.Errorf("runtime stream contains no final result")
+	if observation.finalMessage == "" {
+		return observation, fmt.Errorf("runtime stream contains no final result")
 	}
-	return final, nil
+	return observation, nil
+}
+
+func resultMetrics(event map[string]any) runtimeMetrics {
+	metrics := runtimeMetrics{
+		Turns: intValue(event["num_turns"]), CostUSD: floatValue(event["total_cost_usd"]),
+		APITimeMS: int64(intValue(event["duration_api_ms"])),
+	}
+	if usage, ok := event["usage"].(map[string]any); ok {
+		metrics.InputTokens = int64(intValue(usage["input_tokens"]))
+		metrics.CacheCreationInputTokens = int64(intValue(usage["cache_creation_input_tokens"]))
+		metrics.CacheReadInputTokens = int64(intValue(usage["cache_read_input_tokens"]))
+		metrics.OutputTokens = int64(intValue(usage["output_tokens"]))
+	}
+	if metrics.InputTokens == 0 && metrics.OutputTokens == 0 {
+		sumModelUsage(event["modelUsage"], &metrics)
+	}
+	metrics.TotalTokens = metrics.InputTokens + metrics.CacheCreationInputTokens + metrics.CacheReadInputTokens + metrics.OutputTokens
+	return metrics
+}
+
+func sumModelUsage(value any, metrics *runtimeMetrics) {
+	models, ok := value.(map[string]any)
+	if !ok {
+		return
+	}
+	var modelCost float64
+	for _, raw := range models {
+		usage, ok := raw.(map[string]any)
+		if !ok {
+			continue
+		}
+		metrics.InputTokens += int64(intValue(usage["inputTokens"]))
+		metrics.CacheCreationInputTokens += int64(intValue(usage["cacheCreationInputTokens"]))
+		metrics.CacheReadInputTokens += int64(intValue(usage["cacheReadInputTokens"]))
+		metrics.OutputTokens += int64(intValue(usage["outputTokens"]))
+		modelCost += floatValue(usage["costUSD"])
+	}
+	if metrics.CostUSD == 0 {
+		metrics.CostUSD = modelCost
+	}
+}
+
+func intValue(value any) int {
+	switch typed := value.(type) {
+	case json.Number:
+		parsed, _ := strconv.ParseInt(string(typed), 10, 64)
+		return int(parsed)
+	case float64:
+		return int(typed)
+	default:
+		return 0
+	}
+}
+
+func floatValue(value any) float64 {
+	switch typed := value.(type) {
+	case json.Number:
+		parsed, _ := strconv.ParseFloat(string(typed), 64)
+		return parsed
+	case float64:
+		return typed
+	default:
+		return 0
+	}
+}
+
+func hasFailedMCPServer(event map[string]any) bool {
+	servers, ok := event["mcp_servers"].([]any)
+	if !ok {
+		return false
+	}
+	for _, raw := range servers {
+		server, ok := raw.(map[string]any)
+		if !ok || server["name"] != "phoenix" {
+			continue
+		}
+		status, _ := server["status"].(string)
+		status = strings.ToLower(status)
+		return strings.Contains(status, "fail") || strings.Contains(status, "error") || status == "disconnected"
+	}
+	return false
+}
+
+func classifyRuntimeFailure(runErr error, message string, observation runtimeObservation) *runtimeFailure {
+	beforeToken := !observation.modelOutputSeen
+	if failure := resultFailure(observation); failure != nil {
+		if failure.CapHit {
+			failure.Message = message
+			return failure
+		}
+	}
+	if beforeToken && isLaunchFailure(runErr) {
+		return retryableRuntimeFailure("runtime_launch", message)
+	}
+	if beforeToken && isTransientProviderFailure(message) {
+		return retryableRuntimeFailure("provider_transient", message)
+	}
+	if beforeToken && (observation.mcpFailed || isMCPConnectionFailure(message)) {
+		return retryableRuntimeFailure("mcp_connection", message)
+	}
+	if failure := resultFailure(observation); failure != nil {
+		failure.Message = message
+		return failure
+	}
+	return terminalRuntimeFailure("runtime_error", message, observation.modelOutputSeen, false)
+}
+
+func resultFailure(observation runtimeObservation) *runtimeFailure {
+	subtype := strings.ToLower(observation.resultSubtype)
+	switch {
+	case strings.Contains(subtype, "max_turn"):
+		return terminalRuntimeFailure("turn_limit", "runtime reached the turn limit", observation.modelOutputSeen, true)
+	case strings.Contains(subtype, "budget") || strings.Contains(subtype, "cost"):
+		return terminalRuntimeFailure("cost_cap", "runtime reached the cost cap", observation.modelOutputSeen, true)
+	case observation.resultError:
+		return terminalRuntimeFailure("agent_error", "runtime returned an error result", observation.modelOutputSeen, false)
+	default:
+		return nil
+	}
+}
+
+func retryableRuntimeFailure(code, message string) *runtimeFailure {
+	return &runtimeFailure{Code: code, Message: message, BeforeFirstModelToken: true, RetryEligible: true}
+}
+
+func terminalRuntimeFailure(code, message string, modelOutputSeen, capHit bool) *runtimeFailure {
+	return &runtimeFailure{
+		Code: code, Message: message, BeforeFirstModelToken: !modelOutputSeen,
+		RetryEligible: false, CapHit: capHit,
+	}
+}
+
+func isLaunchFailure(err error) bool {
+	var execError *exec.Error
+	var pathError *os.PathError
+	return errors.As(err, &execError) || errors.As(err, &pathError)
+}
+
+func isTransientProviderFailure(message string) bool {
+	lower := strings.ToLower(message)
+	if providerStatusPattern.MatchString(lower) {
+		return true
+	}
+	for _, marker := range []string{"rate limit", "internal server error", "service unavailable", "overloaded"} {
+		if strings.Contains(lower, marker) {
+			return true
+		}
+	}
+	return false
+}
+
+func isMCPConnectionFailure(message string) bool {
+	lower := strings.ToLower(message)
+	return strings.Contains(lower, "mcp connection") || strings.Contains(lower, "failed to connect to mcp")
 }
 
 type runtimeInitEvent struct {

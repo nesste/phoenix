@@ -6,7 +6,7 @@ It runs as a local environment service called a **world**. An agent starts with 
 
 Phoenix does not call a model or run an agent loop. It provides the environment an external agent acts inside.
 
-> **Project status:** Protocol v4 is independently accepted and frozen. Validation and held-out remain closed and no sealed outcome has been opened. Phase 1 implementation includes the A–E surface policies, shared state-event harness, conventional flat-tool adapters for A/B, pinned arm prompts, and an authoring-only arm selector. The Arm B document is independently accepted and frozen by digest. Randomized scheduling, repetition/retry accounting, analysis/report artifacts, and the remaining pre-validation digests are incomplete; Gate 1A is closed.
+> **Project status:** Protocol v4 is independently accepted and frozen. Validation and held-out remain closed and no sealed outcome has been opened. Phase 1 implementation includes the A–E surfaces, shared state events, pinned prompts, deterministic family-blocked Williams scheduling, three repetitions, fresh retry isolation, ITT termination records, and token/USD/time accounting. The Arm B document is independently accepted and frozen by digest. Analysis/report artifacts and the remaining pre-validation digests are incomplete; Gate 1A is closed.
 
 ## The problem Phoenix is testing
 
@@ -70,9 +70,9 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | System boundary | Accepted. Phoenix is a local world service and never calls models. |
 | Result and world formats | Version 1 JSON Schemas and examples are checked in under [`spec/`](spec/). |
 | Surface spike | Working Go/MCP prototype with structured `act` and restricted `eval` variants. Task 0.2 evidence is independently accepted. |
-| Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
+| Experiment protocol | Frontier experiment protocol v4 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
-| Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
+| Sealed evaluation | The v3 validation and held-out candidates remain unopened and retired. Protocol-v4 replacement candidates must be generated and accepted independently. Both outcome gates are closed. |
 | Production daemon | The assembled dev-repo world supports the protocol-v4 C/D/E `act` variants and A/B conventional flat tools over the same graph, executor, state events, and reconstructable WAL-backed episodes. The retained focused-revision authoring run is 7/8 on Arm C and is readiness evidence only. Gate 1A remains closed. |
 
 ## Build the Phase 1 daemon shell
@@ -90,6 +90,8 @@ go run ./cmd/phoenix version
 go run ./cmd/phoenix serve --stdio
 ```
 
+The `serve` command waits for an MCP client on standard input and output.
+
 Run the visible tuning tranche with the pinned runtime (validation and held-out inputs are rejected by this runner):
 
 ```powershell
@@ -103,7 +105,14 @@ go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id>
 go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id> --arm B --arm-b-document experiments/frontier-v1/arms/arm-b.md
 ```
 
-The second command waits for an MCP client on standard input and output.
+Generate an outcome-free authoring schedule, then execute it only when an authoring run is intended:
+
+```powershell
+go run ./experiments/frontier-v1/runner --repo-root . --case all --write-schedule experiments/frontier-v1/schedules/authoring.json
+go run ./experiments/frontier-v1/runner --repo-root . --case all --schedule experiments/frontier-v1/schedules/authoring.json --arm-b-document experiments/frontier-v1/arms/arm-b.md
+```
+
+The schedule writer uses protocol seed `20260817`, three repetitions, and Arms A–E. It refuses to replace an existing schedule. Generating an authoring schedule does not freeze the validation schedule.
 
 The accepted surface evidence recorded zero malformed calls in 20 fresh sessions for each candidate. On Ubuntu 24.04.4 under WSL2, the structured `act` spike measured 636.5 microseconds median daemon-only latency and 837 microseconds p95 across 100 calls.
 
