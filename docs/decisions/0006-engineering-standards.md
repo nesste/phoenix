@@ -41,6 +41,8 @@ Direct runtime dependencies must use exact module versions in `go.mod`; transiti
 
 Production behavior is developed test-first: add the smallest focused failing test, confirm its intended failure, implement the behavior, rerun the focused test, then run `make quality`. Tests must be deterministic and must not depend on real project paths, ambient credentials, network access, sealed labels, or validation and held-out outcomes.
 
+When fixing a bug in existing behavior, update the nearest existing behavioral test or add a case to its table. Do not add a second standalone regression test that repeats coverage already owned by another test. Add a new test only for new functionality with no existing test owner. If a bug exposes missing coverage, extend the closest existing test so the behavior has one clear owner.
+
 Temporary filesystem and process tests use per-test directories and bounded contexts. Concurrent code receives race-detector coverage in a dedicated supported environment; the race build is not the production artifact and must not weaken the CGO-disabled production policy. Failures at process or persistence boundaries must be represented as typed terminal states once those layers exist.
 
 ## Maintainability review
