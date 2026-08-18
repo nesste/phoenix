@@ -6,7 +6,7 @@ It runs as a local environment service called a **world**. An agent starts with 
 
 Phoenix does not call a model or run an agent loop. It provides the environment an external agent acts inside.
 
-> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation is underway: Tasks 1.1 and 1.2 provide the production command shell, strict world loader, isolated session graph, opaque handles, live-state checks, quality gate, and content-addressed build manifest. Typed verb execution is next; the daemon does not expose `act` yet.
+> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation is underway: Tasks 1.1–1.3 provide the command shell, strict world loader, isolated session graph, opaque handles, typed verb execution, the closed dev-repo starter verb set, quality gate, and content-addressed build manifest. The daemon does not expose `act` until Task 1.4.
 
 ## The problem Phoenix is testing
 
@@ -73,7 +73,7 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
 | Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
-| Production daemon | Tasks 1.1–1.2 implemented: command shell, instruction-free MCP handshake, strict world loading, stable RFC 8785 digests, session-scoped handles, explicit grants/revocations, generic absence, and live-state preconditions. Verb execution and the `act` surface remain unimplemented. |
+| Production daemon | Tasks 1.1–1.3 implemented: command shell, instruction-free MCP handshake, strict world loading, stable digests, scoped handles, explicit grants/revocations, generic absence, live-state checks, typed bounded execution, and starter repo/test/git/find/recall verbs. The `act` surface remains unimplemented. |
 
 ## Build the Phase 1 daemon shell
 

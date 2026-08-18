@@ -145,6 +145,21 @@ func TestApplyDeltaRejectsUndeclaredGrantAtomically(t *testing.T) {
 	}
 }
 
+func TestFindReachableDoesNotSearchTheGlobalWorldDefinition(t *testing.T) {
+	definition := loadBaseWorld(t)
+	session, roots, err := NewGraph(definition, &sequenceResolver{values: []any{map[string]any{}}}).StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	matches := session.FindReachable("inspect")
+	if got, want := len(matches), 1; got != want || matches[0].Handle != roots[0].Ref || matches[0].Verb != "inspect" {
+		t.Fatalf("reachable matches = %#v, want root inspect verb", matches)
+	}
+	if hidden := session.FindReachable("show"); len(hidden) != 0 {
+		t.Fatalf("find exposed unreachable detail verb: %#v", hidden)
+	}
+}
+
 func loadBaseWorld(t *testing.T) *Definition {
 	t.Helper()
 	definition, err := Load(schemaPath(t), writeWorld(t, baseWorldJSON))

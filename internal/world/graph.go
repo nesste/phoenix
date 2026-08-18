@@ -6,6 +6,8 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"sort"
+	"strings"
 	"sync"
 )
 
@@ -95,6 +97,13 @@ type Delta struct {
 	Revoke []string `json:"revoke"`
 }
 
+type ReachableMatch struct {
+	Handle string `json:"handle"`
+	Type   string `json:"type"`
+	Label  string `json:"label"`
+	Verb   string `json:"verb"`
+}
+
 var ErrAbsent = errors.New("handle is not reachable")
 
 func (graph *Graph) StartSession() (*Session, []RootHandle, error) {
@@ -135,6 +144,34 @@ func (session *Session) ReachableCount() int {
 	session.mu.RLock()
 	defer session.mu.RUnlock()
 	return len(session.reachable)
+}
+
+// FindReachable searches only handles and attached verbs already reachable in
+// this session. It is intentionally not a global registry search.
+func (session *Session) FindReachable(query string) []ReachableMatch {
+	query = strings.ToLower(strings.TrimSpace(query))
+	if query == "" {
+		return []ReachableMatch{}
+	}
+	session.mu.RLock()
+	defer session.mu.RUnlock()
+	var matches []ReachableMatch
+	for ref, handle := range session.reachable {
+		verbs := session.definition.HandleTypes[handle.Type].Verbs
+		for verb := range verbs {
+			text := strings.ToLower(handle.Type + " " + handle.Label + " " + verb)
+			if strings.Contains(text, query) {
+				matches = append(matches, ReachableMatch{Handle: ref, Type: handle.Type, Label: handle.Label, Verb: verb})
+			}
+		}
+	}
+	sort.Slice(matches, func(i, j int) bool {
+		if matches[i].Handle == matches[j].Handle {
+			return matches[i].Verb < matches[j].Verb
+		}
+		return matches[i].Handle < matches[j].Handle
+	})
+	return matches
 }
 
 func (session *Session) Prepare(ctx context.Context, ref, verbName, expectedState string) Access {

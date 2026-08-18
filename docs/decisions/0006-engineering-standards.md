@@ -87,4 +87,4 @@ Every target returns `0` only when all named checks pass and a nonzero status on
 | `make validate-spec` | Runs the accepted Draft 2020-12 validator over checked-in result and world examples. |
 | `make quality` | CI entry point: tests, lint, dependency verification and vulnerability scan, complexity and duplication checks, schema validation, build, and manifest generation. |
 
-`make manifest` writes `build/manifest.json`. In Task 1.1 it hashes the daemon and both accepted schemas and explicitly records empty registered-verb and authored-rule sets plus absent world-definition and active-weight artifacts. Later tasks must populate those fields; Gate 1A freezes the complete manifest before validation opens.
+`make manifest` writes `build/manifest.json`. From Task 1.3 onward it hashes the daemon, accepted schemas, the typed registry/executor boundary, and every source file in the registered dev-repo verb set. It still records an empty authored-rule set plus absent world-definition and active-weight artifacts until those components are assembled. Gate 1A freezes the complete manifest before validation opens.

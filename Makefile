@@ -25,7 +25,7 @@ test:
 	$(GO) test -count=1 ./...
 
 format-check:
-	$(GO) run ./cmd/quality-check format cmd internal
+	$(GO) run ./cmd/quality-check format cmd internal verbs
 
 lint: format-check
 	$(GO) vet ./...
@@ -36,8 +36,8 @@ dependency-check:
 	$(GO) run golang.org/x/vuln/cmd/govulncheck@$(GOVULNCHECK_VERSION) ./...
 
 complexity:
-	$(GO) run github.com/fzipp/gocyclo/cmd/gocyclo@$(GOCYCLO_VERSION) -over 15 cmd internal
-	$(GO) run ./cmd/quality-check no-output -- $(GO) run github.com/mibk/dupl@$(DUPL_VERSION) -plumbing -t 100 cmd internal
+	$(GO) run github.com/fzipp/gocyclo/cmd/gocyclo@$(GOCYCLO_VERSION) -over 15 cmd internal verbs
+	$(GO) run ./cmd/quality-check no-output -- $(GO) run github.com/mibk/dupl@$(DUPL_VERSION) -plumbing -t 100 cmd internal verbs
 
 validate-spec:
 	cd experiments/surface-spike && $(GO) run ./cmd/validate-spec --repo-root ../..
@@ -51,6 +51,14 @@ manifest: build
 		--repo-root . \
 		--output build/manifest.json \
 		--executable bin/phoenix \
+		--verb internal/verb/exec.go \
+		--verb internal/verb/external.go \
+		--verb internal/verb/registry.go \
+		--verb verbs/dev-repo/commands.go \
+		--verb verbs/dev-repo/episodes.go \
+		--verb verbs/dev-repo/register.go \
+		--verb verbs/dev-repo/repository.go \
+		--verb verbs/dev-repo/schemas.go \
 		--schema spec/result.schema.json \
 		--schema spec/world.schema.json \
 		--goos $(TARGET_GOOS) \
