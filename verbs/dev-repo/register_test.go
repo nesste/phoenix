@@ -2,6 +2,7 @@ package devrepo
 
 import (
 	"context"
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -16,6 +17,64 @@ import (
 	"github.com/nesste/phoenix/internal/verb"
 	"github.com/nesste/phoenix/internal/world"
 )
+
+func TestProductionWorldMatchesRegisteredVerbsAndAuthoredRules(t *testing.T) {
+	definition, err := world.Load(
+		filepath.Join("..", "..", "spec", "world.schema.json"),
+		filepath.Join("..", "..", "worlds", "dev-repo", "world.json"),
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, want := rootNames(definition.Roots), []string{"episodes", "git", "repo", "tests"}; !reflect.DeepEqual(got, want) {
+		t.Fatalf("world roots = %#v, want %#v", got, want)
+	}
+	expected := authoredWorld(t)
+	for handleType, descriptor := range expected.HandleTypes {
+		actual := definition.HandleTypes[handleType]
+		if len(actual.Verbs) != len(descriptor.Verbs) {
+			t.Fatalf("%s verb count = %d, want %d", handleType, len(actual.Verbs), len(descriptor.Verbs))
+		}
+		for name, want := range descriptor.Verbs {
+			got, exists := actual.Verbs[name]
+			if !exists || !sameJSON(got.ArgsSchema, want.ArgsSchema) || !sameJSON(got.ResultSchema, want.ResultSchema) || !sameRules(got.Refusals, want.Refusals) {
+				t.Fatalf("world verb %s.%s differs from its registered definition", handleType, name)
+			}
+		}
+	}
+	if !sameJSON(definition.Transitions, AuthoredTransitions()) {
+		t.Fatal("world transitions differ from AuthoredTransitions")
+	}
+}
+
+func sameRules(left, right []world.RefusalRule) bool {
+	if len(left) == 0 && len(right) == 0 {
+		return true
+	}
+	return sameJSON(left, right)
+}
+
+func rootNames(roots []world.Root) []string {
+	names := make([]string, 0, len(roots))
+	for _, root := range roots {
+		names = append(names, root.Name)
+	}
+	sort.Strings(names)
+	return names
+}
+
+func sameJSON(left, right any) bool {
+	leftJSON, leftErr := json.Marshal(left)
+	rightJSON, rightErr := json.Marshal(right)
+	if leftErr != nil || rightErr != nil {
+		return false
+	}
+	var leftValue, rightValue any
+	if json.Unmarshal(leftJSON, &leftValue) != nil || json.Unmarshal(rightJSON, &rightValue) != nil {
+		return false
+	}
+	return reflect.DeepEqual(leftValue, rightValue)
+}
 
 func TestDefinitionsContainOnlyTheStarterVerbSet(t *testing.T) {
 	definitions, err := Definitions(Config{Runner: &fakeRunner{}, GoExecutable: "go", GitExecutable: "git"})
@@ -137,6 +196,7 @@ func TestRepoReadEditAndTraversalRefusal(t *testing.T) {
 func TestCommandVerbsUseFixedExecutablesAndArgumentArrays(t *testing.T) {
 	runner := &fakeRunner{responses: []verb.CommandResult{
 		{ExitCode: 0, Stdout: []byte("build ok")},
+		{ExitCode: 0, Stdout: []byte("TestX;touch_pwned\n")},
 		{ExitCode: 0, Stdout: []byte("{\"Action\":\"pass\",\"Test\":\"TestX;touch_pwned\"}\n")},
 		{ExitCode: 0},
 		{ExitCode: 0, Stdout: []byte("committed")},
@@ -165,14 +225,14 @@ func TestCommandVerbsUseFixedExecutablesAndArgumentArrays(t *testing.T) {
 	if commands[0].Executable != "go_fixed" || !reflect.DeepEqual(commands[0].Args, []string{"test", "-run=^$", "./..."}) {
 		t.Fatalf("build command = %#v", commands[0])
 	}
-	if commands[1].Executable != "go_fixed" || commands[1].Args[len(commands[1].Args)-1] != "^TestX;touch_pwned$" {
-		t.Fatalf("focus command did not preserve one typed argument: %#v", commands[1])
+	if commands[2].Executable != "go_fixed" || commands[2].Args[len(commands[2].Args)-1] != "^TestX;touch_pwned$" {
+		t.Fatalf("focus command did not preserve one typed argument: %#v", commands[2])
 	}
-	if commands[2].Executable != "git_fixed" || !reflect.DeepEqual(commands[2].Args, []string{"add", "-A", "--", "."}) {
-		t.Fatalf("git add command = %#v", commands[2])
+	if commands[3].Executable != "git_fixed" || !reflect.DeepEqual(commands[3].Args, []string{"add", "-A", "--", "."}) {
+		t.Fatalf("git add command = %#v", commands[3])
 	}
-	if commands[3].Args[3] != "safe; touch pwned" {
-		t.Fatalf("commit message was not one argument: %#v", commands[3].Args)
+	if commands[4].Args[3] != "safe; touch pwned" {
+		t.Fatalf("commit message was not one argument: %#v", commands[4].Args)
 	}
 }
 

@@ -1,0 +1,24 @@
+{
+  "case_id": "authoring_5ec0be12",
+  "checks": [
+    {
+      "id": "uses_recovery_path",
+      "kind": "act_sequence",
+      "verdict": "fail",
+      "reason": "trial act sequence [tests.run tests.help tests.list] satisfies no acceptable path in contains_in_order mode"
+    },
+    {
+      "id": "first_focus_refused",
+      "kind": "act_status",
+      "verdict": "fail",
+      "reason": "act 0 has status fail, expected refused"
+    },
+    {
+      "id": "recovers_to_current_test",
+      "kind": "act_output_matches",
+      "verdict": "fail",
+      "reason": "act 2 output does not satisfy pattern \"(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake\""
+    }
+  ],
+  "status": "fail"
+}

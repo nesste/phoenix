@@ -73,7 +73,7 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
 | Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
-| Production daemon | Tasks 1.1–1.7 implemented: command shell, one instruction-free `act` MCP tool, strict world loading, stable digests, scoped handles, explicit grants/revocations, generic absence, bounded admission/execution, starter repo/test/git/find/recall verbs, deterministic authored frontiers, state-sensitive teaching refusals, and reconstructable WAL-backed episode records with pointer-only recall. The starter world is assembled in Task 1.8; until then the CLI surface has no reachable roots. |
+| Production daemon | Tasks 1.1–1.8 implemented: the assembled dev-repo world serves four opaque roots through one instruction-free `act` tool, with typed verbs, authored frontiers, teaching refusals, live state, and reconstructable WAL-backed episodes. The pinned authoring run passed 2/8 cases; the retained failures expose first-action discovery weakness before a frontier is reached, so Gate 1A remains closed. |
 
 ## Build the Phase 1 daemon shell
 
@@ -88,6 +88,12 @@ The gate tests and analyzes the production module, validates the accepted schema
 ```powershell
 go run ./cmd/phoenix version
 go run ./cmd/phoenix serve --stdio
+```
+
+Run the visible tuning tranche with the pinned runtime (validation and held-out inputs are rejected by this runner):
+
+```powershell
+go run ./experiments/frontier-v1/runner --repo-root . --case all
 ```
 
 The second command waits for an MCP client on standard input and output.

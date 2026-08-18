@@ -1,0 +1,18 @@
+{
+  "case_id": "authoring_ad0e25a1",
+  "checks": [
+    {
+      "id": "uses_test_path_only",
+      "kind": "act_sequence",
+      "verdict": "fail",
+      "reason": "trial act sequence [tests.run tests.help tests.run] satisfies no acceptable path in exact mode"
+    },
+    {
+      "id": "reports_beacon_test",
+      "kind": "act_output_matches",
+      "verdict": "fail",
+      "reason": "act 1 output does not satisfy pattern \"(?i)TestBeacon(Current|Fallback).*(pass|fail)|(pass|fail).*TestBeacon(Current|Fallback)\""
+    }
+  ],
+  "status": "fail"
+}

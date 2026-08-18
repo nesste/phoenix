@@ -6,7 +6,7 @@ The authoring tranche is present and mechanically validated. It contains eight c
 
 The unopened validation and held_out corpora are imported from the reviewed evaluator patch. Each has 120 cases in 24 generating families, with only outcome-free label digests in this workspace. Full labels remain with the external custodian.
 
-Phase 1 implementation and authoring-only work may proceed. No validation or held_out outcome run is authorized until every pre-validation artifact listed in `protocol.json` is frozen by digest.
+The Task 1.8 production world and authoring runner are assembled. The retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). Six cases failed their precommitted action-path checks, primarily because the runtime probed for a capability catalog before reaching a frontier. Several still reached the correct final conclusion. This is tuning evidence, not a gate result; Gate 1A remains closed and no validation or held_out outcome run is authorized until every pre-validation artifact listed in `protocol.json` is frozen by digest.
 
 ## Directory contract
 
@@ -136,3 +136,13 @@ go run ./cmd/corpusctl seal --repo-root ../../.. --tranche validation --world-so
 ## Trial isolation
 
 Every trial starts with a fresh model context, freshly materialized sandbox, and isolated world state. The runner records the runtime, model, configuration, access mode, world-build digest, seed where supported, case-order block, retries, token accounting, and grader digest.
+
+## Authoring runner
+
+The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, reconstructs the trial from the episode database, and calls the frozen deterministic grader. Run it from the repository root:
+
+```powershell
+go run ./experiments/frontier-v1/runner --repo-root . --case all
+```
+
+Evidence from the latest tuning run is retained under `results/authoring/`. The runner has no code path for validation or held_out cases.

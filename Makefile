@@ -19,13 +19,13 @@ GOVULNCHECK_VERSION := v1.7.0
 GOCYCLO_VERSION := v0.6.0
 DUPL_VERSION := v1.1.0
 
-.PHONY: test lint build validate-spec quality format-check dependency-check complexity manifest
+.PHONY: test lint build validate-spec validate-authoring quality format-check dependency-check complexity manifest
 
 test:
 	$(GO) test -count=1 ./...
 
 format-check:
-	$(GO) run ./cmd/quality-check format cmd internal verbs
+	$(GO) run ./cmd/quality-check format cmd internal verbs experiments/frontier-v1/runner
 
 lint: format-check
 	$(GO) vet ./...
@@ -36,11 +36,14 @@ dependency-check:
 	$(GO) run golang.org/x/vuln/cmd/govulncheck@$(GOVULNCHECK_VERSION) ./...
 
 complexity:
-	$(GO) run github.com/fzipp/gocyclo/cmd/gocyclo@$(GOCYCLO_VERSION) -over 15 cmd internal verbs
-	$(GO) run ./cmd/quality-check no-output -- $(GO) run github.com/mibk/dupl@$(DUPL_VERSION) -plumbing -t 100 cmd internal verbs
+	$(GO) run github.com/fzipp/gocyclo/cmd/gocyclo@$(GOCYCLO_VERSION) -over 15 cmd internal verbs experiments/frontier-v1/runner
+	$(GO) run ./cmd/quality-check no-output -- $(GO) run github.com/mibk/dupl@$(DUPL_VERSION) -plumbing -t 100 cmd internal verbs experiments/frontier-v1/runner
 
 validate-spec:
 	cd experiments/surface-spike && $(GO) run ./cmd/validate-spec --repo-root ../..
+
+validate-authoring:
+	cd experiments/frontier-v1/corpusctl && $(GO) run ./cmd/corpusctl validate --repo-root ../../.. --tranche authoring --world-source experiments/frontier-v1/worlds/authoring.dev_repo.json
 
 build:
 	$(CREATE_BIN)
@@ -61,6 +64,7 @@ manifest: build
 		--verb verbs/dev-repo/schemas.go \
 		--rule verbs/dev-repo/refusals.go \
 		--rule verbs/dev-repo/transitions.go \
+		--world-definition worlds/dev-repo/world.json \
 		--schema spec/result.schema.json \
 		--schema spec/episode.schema.json \
 		--schema spec/world.schema.json \
@@ -68,4 +72,4 @@ manifest: build
 		--goarch $(TARGET_GOARCH) \
 		--cgo-enabled=false
 
-quality: test lint dependency-check complexity validate-spec manifest
+quality: test lint dependency-check complexity validate-spec validate-authoring manifest

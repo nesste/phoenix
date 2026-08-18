@@ -66,7 +66,7 @@ func TestUnknownHandleIsGenericAbsent(t *testing.T) {
 	if envelope.Status != StatusAbsent || envelope.Error == nil {
 		t.Fatalf("result = %#v, want absent error", envelope)
 	}
-	if envelope.Error.Code != "absent" || envelope.Error.Message != "handle is not reachable" {
+	if envelope.Error.Code != "absent" || envelope.Error.Message != "act is not reachable" {
 		t.Fatalf("error = %#v, want generic absence", envelope.Error)
 	}
 	if envelope.Result != nil || len(envelope.Frontier) != 0 || envelope.Refusal != nil {
@@ -98,6 +98,20 @@ func TestActDistinguishesTeachingRefusalFromAbsenceAndFailure(t *testing.T) {
 		t.Fatalf("refusal rendering/frontier = %q / %#v", envelope.Text, envelope.Frontier)
 	}
 	validateEnvelope(t, envelope)
+}
+
+func TestStaleActUsesAuthoredTeachingRefusal(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	envelope := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{}, State: testWorldBuild,
+	})
+	if envelope.Status != StatusRefused || envelope.Refusal == nil || envelope.Refusal.Instead == nil {
+		t.Fatalf("stale result = %#v, want authored teaching refusal", envelope)
+	}
 }
 
 func TestActRecordsResultsAndFrontierTakenLinkage(t *testing.T) {
@@ -171,6 +185,13 @@ func TestAdmissionRejectsOversizedArguments(t *testing.T) {
 		t.Fatalf("result = %#v, want arguments_too_large failure", envelope)
 	}
 	validateEnvelope(t, envelope)
+}
+
+func TestRenderBuildSuccessNamesTheOutcome(t *testing.T) {
+	text := renderSuccess("repo", "build", map[string]any{"exit_code": float64(0), "stdout": "", "stderr": ""})
+	if !strings.Contains(text, "build succeeded") {
+		t.Fatalf("build rendering = %q", text)
+	}
 }
 
 func TestMCPRejectsMalformedCallAtAdmission(t *testing.T) {
@@ -304,15 +325,26 @@ func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, w
 			"repo": {Verbs: map[string]world.Verb{
 				"inspect": {
 					ArgsSchema: inspectArgs, ResultSchema: inspectResult,
-					Refusals: []world.RefusalRule{{
-						ID:   "blocked_inspection",
-						When: json.RawMessage(`{"properties":{"failure":{"properties":{"code":{"const":"inspection_blocked"}},"required":["code"]}},"required":["failure"]}`),
-						What: "repo.inspect cannot use blocked detail", Why: "the detail is unavailable in the current state",
-						Instead: &world.CallTemplate{
-							Handle: world.HandleSelector{Source: "self"}, Verb: "inspect",
-							Args: map[string]world.Binding{"detail": literalBinding(`"brief"`)},
+					Refusals: []world.RefusalRule{
+						{
+							ID:   "blocked_inspection",
+							When: json.RawMessage(`{"properties":{"failure":{"properties":{"code":{"const":"inspection_blocked"}},"required":["code"]}},"required":["failure"]}`),
+							What: "repo.inspect cannot use blocked detail", Why: "the detail is unavailable in the current state",
+							Instead: &world.CallTemplate{
+								Handle: world.HandleSelector{Source: "self"}, Verb: "inspect",
+								Args: map[string]world.Binding{"detail": literalBinding(`"brief"`)},
+							},
 						},
-					}},
+						{
+							ID:   "stale_inspection",
+							When: json.RawMessage(`{"properties":{"failure":{"properties":{"code":{"const":"stale_state"}},"required":["code"]}},"required":["failure"]}`),
+							What: "repo.inspect declined stale state", Why: "the repository changed",
+							Instead: &world.CallTemplate{
+								Handle: world.HandleSelector{Source: "self"}, Verb: "inspect",
+								Args: map[string]world.Binding{"detail": literalBinding(`"brief"`)},
+							},
+						},
+					},
 				},
 			}},
 		},

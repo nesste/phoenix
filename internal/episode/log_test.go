@@ -9,6 +9,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 )
 
 const testWorldBuild = "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -131,6 +132,24 @@ func TestFinishEpisodeRejectsActiveAct(t *testing.T) {
 	}
 	if err := store.FinishEpisode(ctx, episodeID, "success"); err == nil || !strings.Contains(err.Error(), "active acts") {
 		t.Fatalf("finish with active act error = %v", err)
+	}
+}
+
+func TestLatestReturnsNewestEpisode(t *testing.T) {
+	ctx := context.Background()
+	now := time.Date(2026, time.August, 18, 12, 0, 0, 0, time.UTC)
+	store := openTestStore(t, Options{Now: func() time.Time {
+		now = now.Add(time.Second)
+		return now
+	}})
+	first, err := store.StartEpisode(ctx, "s_first", testWorldBuild)
+	mustSucceed(t, err)
+	second, err := store.StartEpisode(ctx, "s_second", testWorldBuild)
+	mustSucceed(t, err)
+	latest, err := store.Latest(ctx)
+	mustSucceed(t, err)
+	if latest.EpisodeID != second || latest.EpisodeID == first {
+		t.Fatalf("latest episode = %q, want %q", latest.EpisodeID, second)
 	}
 }
 

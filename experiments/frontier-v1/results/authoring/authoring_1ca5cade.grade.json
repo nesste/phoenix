@@ -1,0 +1,18 @@
+{
+  "case_id": "authoring_1ca5cade",
+  "checks": [
+    {
+      "id": "uses_triage_cascade",
+      "kind": "act_sequence",
+      "verdict": "fail",
+      "reason": "trial act sequence [tests.help repo.help git.help episodes.help tests.run repo.status git.log episodes.list repo.read repo.list repo.read] satisfies no acceptable path in contains_in_order mode"
+    },
+    {
+      "id": "identifies_confirmed_failure",
+      "kind": "act_output_matches",
+      "verdict": "fail",
+      "reason": "act 3 output does not satisfy pattern \"(?i)TestOverdraftFloor.*fail|fail.*TestOverdraftFloor\""
+    }
+  ],
+  "status": "fail"
+}

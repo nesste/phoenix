@@ -228,7 +228,17 @@ func (admission *Admission) Act(ctx context.Context, session *Session, input Inp
 	switch access.Status {
 	case world.AccessAbsent:
 		return absent(base)
-	case world.AccessStale, world.AccessFailed:
+	case world.AccessStale:
+		observation := teach.Observation{
+			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+			Args: input.Args, State: access.State,
+			Failure: map[string]any{"code": access.Problem.Code, "message": access.Problem.Message},
+		}
+		if shaped := admission.evaluateRefusal(base, session, observation); shaped != nil {
+			return *shaped
+		}
+		return failure(base, access.Problem.Code, access.Problem.Message, nil)
+	case world.AccessFailed:
 		return failure(base, access.Problem.Code, access.Problem.Message, nil)
 	case world.AccessReady:
 		observation := teach.Observation{
@@ -388,8 +398,8 @@ func (admission *Admission) baseEnvelope(session *Session, input Input) Envelope
 
 func absent(envelope Envelope) Envelope {
 	envelope.Status = StatusAbsent
-	envelope.Error = &Error{Code: "absent", Message: "handle is not reachable"}
-	envelope.Text = "absent: handle is not reachable"
+	envelope.Error = &Error{Code: "absent", Message: "act is not reachable"}
+	envelope.Text = "absent: act is not reachable"
 	return envelope
 }
 
@@ -416,6 +426,9 @@ func renderSuccess(handleType, name string, value any) string {
 	if !ok || len(members) == 0 {
 		return text
 	}
+	if name == "build" && members["exit_code"] == float64(0) {
+		text += ": build succeeded"
+	}
 	keys := make([]string, 0, len(members))
 	for key := range members {
 		keys = append(keys, key)
@@ -431,7 +444,11 @@ func renderSuccess(handleType, name string, value any) string {
 		}
 	}
 	if len(parts) > 0 {
-		text += ": " + strings.Join(parts, ", ")
+		separator := ": "
+		if strings.Contains(text, ":") {
+			separator = ", "
+		}
+		text += separator + strings.Join(parts, ", ")
 	}
 	if len(text) > 240 {
 		return text[:237] + "..."

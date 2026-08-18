@@ -18,14 +18,11 @@ func AuthoredRefusals() []RefusalDefinition {
 	return []RefusalDefinition{
 		{
 			HandleType: "tests", Verb: "focus",
-			Rules: []world.RefusalRule{{
-				ID: "missing_test", When: json.RawMessage(`{"properties":{"args":{"not":{"required":["test"]}}},"required":["args"]}`),
-				What: "tests.focus requires a test name", Why: "the requested test was not bound",
-				Instead: &world.CallTemplate{
-					Handle: world.HandleSelector{Source: "self"}, Verb: "list",
-					Args: map[string]world.Binding{},
-				},
-			}},
+			Rules: []world.RefusalRule{
+				focusAlternative("missing_test", json.RawMessage(`{"properties":{"args":{"not":{"required":["test"]}}},"required":["args"]}`), "tests.focus requires a test name", "the requested test was not bound"),
+				focusAlternative("unknown_test", failureCode("unknown_test"), "tests.focus declined the test name", "the requested test is not in the live suite"),
+				focusAlternative("stale_suite", failureCode("stale_state"), "tests.focus declined stale suite state", "the test suite changed after the call was suggested"),
+			},
 		},
 		{
 			HandleType: "repo", Verb: "read",
@@ -51,6 +48,16 @@ func AuthoredRefusals() []RefusalDefinition {
 			Rules: []world.RefusalRule{
 				noAlternative("recall_unavailable", "episodes.recall cannot run", "the episode store has not started", "start the episode store before recalling history"),
 			},
+		},
+	}
+}
+
+func focusAlternative(id string, when json.RawMessage, what, why string) world.RefusalRule {
+	return world.RefusalRule{
+		ID: id, When: when, What: what, Why: why,
+		Instead: &world.CallTemplate{
+			Handle: world.HandleSelector{Source: "self"}, Verb: "list",
+			Args: map[string]world.Binding{},
 		},
 	}
 }

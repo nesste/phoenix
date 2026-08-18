@@ -18,10 +18,37 @@ type Resolver interface {
 type Graph struct {
 	definition *Definition
 	resolver   Resolver
+	rootRefs   map[string]string
 }
 
 func NewGraph(definition *Definition, resolver Resolver) *Graph {
 	return &Graph{definition: definition, resolver: resolver}
+}
+
+// NewGraphWithRootReferences creates an isolated graph whose first-level
+// handles are supplied by the caller. Evaluation runners use it to hand the
+// same opaque references to a fresh runtime and its fresh Phoenix process.
+func NewGraphWithRootReferences(definition *Definition, resolver Resolver, references map[string]string) (*Graph, error) {
+	if definition == nil {
+		return nil, fmt.Errorf("world definition is required")
+	}
+	if len(references) != len(definition.Roots) {
+		return nil, fmt.Errorf("one opaque reference is required for every root")
+	}
+	copyRefs := make(map[string]string, len(references))
+	seen := make(map[string]struct{}, len(references))
+	for _, root := range definition.Roots {
+		ref, exists := references[root.Name]
+		if !exists || !strings.HasPrefix(ref, "h_") || len(ref) < 18 {
+			return nil, fmt.Errorf("root %q has no valid opaque reference", root.Name)
+		}
+		if _, duplicate := seen[ref]; duplicate {
+			return nil, fmt.Errorf("root reference %q is duplicated", ref)
+		}
+		seen[ref] = struct{}{}
+		copyRefs[root.Name] = ref
+	}
+	return &Graph{definition: definition, resolver: resolver, rootRefs: copyRefs}, nil
 }
 
 type Session struct {
@@ -105,7 +132,7 @@ type ReachableMatch struct {
 	Verb   string `json:"verb"`
 }
 
-var ErrAbsent = errors.New("handle is not reachable")
+var ErrAbsent = errors.New("act is not reachable")
 
 func (graph *Graph) StartSession() (*Session, []RootHandle, error) {
 	if graph == nil || graph.definition == nil {
@@ -127,9 +154,12 @@ func (graph *Graph) StartSession() (*Session, []RootHandle, error) {
 	}
 	roots := make([]RootHandle, 0, len(graph.definition.Roots))
 	for _, root := range graph.definition.Roots {
-		ref, err := opaqueID("h_")
-		if err != nil {
-			return nil, nil, fmt.Errorf("create root handle: %w", err)
+		ref := graph.rootRefs[root.Name]
+		if ref == "" {
+			ref, err = opaqueID("h_")
+			if err != nil {
+				return nil, nil, fmt.Errorf("create root handle: %w", err)
+			}
 		}
 		handle := Handle{Ref: ref, Type: root.Type, Label: root.Label}
 		session.reachable[ref] = &reachableHandle{Handle: handle, resource: root.Resource}
@@ -228,7 +258,12 @@ func (session *Session) Prepare(ctx context.Context, ref, verbName, expectedStat
 		return absentAccess()
 	}
 	if expectedState != "" && expectedState != digest {
-		return Access{Status: AccessStale, Problem: &Problem{Code: "stale_state", Message: "live resource state changed"}}
+		return Access{
+			Status:  AccessStale,
+			Target:  &Target{Type: handle.Type, Label: handle.Label, Resource: handle.resource, Verb: verb},
+			State:   &LiveState{Digest: digest, Value: value},
+			Problem: &Problem{Code: "stale_state", Message: "live resource state changed"},
+		}
 	}
 	return Access{
 		Status: AccessReady,

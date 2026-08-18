@@ -1,0 +1,18 @@
+{
+  "case_id": "authoring_0a10d1ec",
+  "checks": [
+    {
+      "id": "uses_suite_action",
+      "kind": "act_sequence",
+      "verdict": "pass",
+      "reason": "trial act sequence satisfies an acceptable path in contains_in_order mode"
+    },
+    {
+      "id": "reports_suite_failure",
+      "kind": "act_output_matches",
+      "verdict": "pass",
+      "reason": "act 0 output satisfies pattern \"(?i)(suite|test).*(fail|not green)|(fail|not green).*(suite|test)\""
+    }
+  ],
+  "status": "pass"
+}

@@ -94,7 +94,7 @@
             "required": ["code", "message"],
             "properties": {
               "code": { "const": "absent" },
-              "message": { "const": "handle is not reachable" }
+              "message": { "const": "act is not reachable" }
             }
           },
           "handles": {

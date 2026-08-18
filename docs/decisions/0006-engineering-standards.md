@@ -84,7 +84,8 @@ Every target returns `0` only when all named checks pass and a nonzero status on
 | `make test` | Runs the root Go tests once with CGO disabled. |
 | `make lint` | Checks formatting, `go vet`, and pinned Staticcheck. |
 | `make build` | Produces a stripped, path-trimmed Linux-amd64 daemon at `bin/phoenix`. |
-| `make validate-spec` | Runs the accepted Draft 2020-12 validator over checked-in result, world, and episode examples. |
+| `make validate-spec` | Runs the accepted Draft 2020-12 validator over checked-in result, world, and episode examples plus the production world. |
+| `make validate-authoring` | Regenerates the visible authoring manifest in memory against its pinned production-world copy; never opens validation or held-out outcomes. |
 | `make quality` | CI entry point: tests, lint, dependency verification and vulnerability scan, complexity and duplication checks, schema validation, build, and manifest generation. |
 
 The root test target includes the Task 1.4 surface-law harness. It serializes the
@@ -93,4 +94,4 @@ requires byte-for-byte equality, applies a conservative 600-ASCII-byte token
 ceiling, and requires empty MCP instructions plus the single reviewed tool
 description. Any additional standing rule text or capability schema fails CI.
 
-`make manifest` writes `build/manifest.json`. It hashes the daemon, accepted schemas (including the append-only episode-record contract), the typed registry/executor boundary, every source file in the registered dev-repo verb set, and the authored dev-repo transition and refusal sources. The world-definition and active-weight artifacts remain absent until those components are assembled. Gate 1A freezes the complete manifest before validation opens.
+`make manifest` writes `build/manifest.json`. It hashes the daemon, accepted schemas (including the append-only episode-record contract), the typed registry/executor boundary, every source file in the registered dev-repo verb set, the production world definition, and the authored dev-repo transition and refusal sources. Phase 1 authored scores live in the world definition; there is no separate mutable weight artifact. Gate 1A freezes the complete manifest before validation opens.

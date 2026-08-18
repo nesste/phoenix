@@ -54,6 +54,21 @@ func (store *Store) Episode(ctx context.Context, episodeID string) (Record, erro
 	return record, nil
 }
 
+// Latest returns the most recently started episode. Evaluation runners use a
+// fresh database per trial, so this identifies the one isolated session
+// without exposing episode contents through the agent-facing recall verb.
+func (store *Store) Latest(ctx context.Context) (Record, error) {
+	var episodeID string
+	err := store.db.QueryRowContext(ctx, `SELECT episode_id FROM episodes ORDER BY started_at DESC, episode_id DESC LIMIT 1`).Scan(&episodeID)
+	if errors.Is(err, sql.ErrNoRows) {
+		return Record{}, ErrNotFound
+	}
+	if err != nil {
+		return Record{}, fmt.Errorf("find latest episode: %w", err)
+	}
+	return store.Episode(ctx, episodeID)
+}
+
 func foldEvent(record *Record, actIndexes map[string]int, sequence int64, actID, kind string, payload []byte, createdAt string) error {
 	eventTime, err := parseTime(createdAt)
 	if err != nil {

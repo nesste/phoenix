@@ -183,8 +183,25 @@ func validateArguments(arguments map[string]Binding, argumentSchema, resultSchem
 }
 
 func validateBinding(binding Binding, resultSchema json.RawMessage, allowResult bool) error {
+	selected := 0
+	if binding.Literal != nil {
+		selected++
+	}
+	if binding.StatePointer != nil {
+		selected++
+	}
+	if binding.StateDigest {
+		selected++
+	}
 	if binding.ResultPointer == nil {
+		if selected != 1 {
+			return fmt.Errorf("binding must select exactly one source")
+		}
 		return nil
+	}
+	selected++
+	if selected != 1 {
+		return fmt.Errorf("binding must select exactly one source")
 	}
 	if !allowResult {
 		return fmt.Errorf("result pointer %q is unavailable", *binding.ResultPointer)

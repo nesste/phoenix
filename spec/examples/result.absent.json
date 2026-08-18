@@ -9,9 +9,9 @@
   "result": null,
   "error": {
     "code": "absent",
-    "message": "handle is not reachable"
+    "message": "act is not reachable"
   },
-  "text": "absent: handle is not reachable",
+  "text": "absent: act is not reachable",
   "handles": {
     "grant": [],
     "revoke": []

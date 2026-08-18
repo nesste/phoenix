@@ -37,7 +37,7 @@ func TestServeStdioHandshake(t *testing.T) {
 	var stderr bytes.Buffer
 	serveDone := make(chan int, 1)
 	go func() {
-		serveDone <- run(ctx, []string{"serve", "--stdio"}, serverReader, serverWriter, &stderr)
+		serveDone <- run(ctx, []string{"serve", "--stdio", "--episode-db", ""}, serverReader, serverWriter, &stderr)
 	}()
 
 	client := mcp.NewClient(&mcp.Implementation{Name: "phoenix-smoke-test", Version: "dev"}, nil)

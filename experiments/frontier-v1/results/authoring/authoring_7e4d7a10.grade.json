@@ -1,0 +1,24 @@
+{
+  "case_id": "authoring_7e4d7a10",
+  "checks": [
+    {
+      "id": "uses_only_build",
+      "kind": "act_sequence",
+      "verdict": "pass",
+      "reason": "trial act sequence satisfies an acceptable path in contains_in_order mode"
+    },
+    {
+      "id": "avoids_test_actions",
+      "kind": "act_path_absent",
+      "verdict": "pass",
+      "reason": "trial did not invoke forbidden act path tests"
+    },
+    {
+      "id": "reports_build_success",
+      "kind": "act_output_matches",
+      "verdict": "pass",
+      "reason": "act 0 output satisfies pattern \"(?i)(build|compil).*(succeed|pass)|(succeed|pass).*(build|compil)\""
+    }
+  ],
+  "status": "pass"
+}

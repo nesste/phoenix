@@ -1,0 +1,37 @@
+{
+  "v": 1,
+  "case_id": "authoring_0a10d1ec",
+  "world_build": "sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_S1JHvDV0fwerCFuGPT_VzOFU\",\"act_id\":\"a_X5EA4TC4WEIYQQMMXZRL37EXFN\",\"handle\":\"h_iuEwCiudhCRghWtO3-je0cs5\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-18T13:39:26.4795335+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/ledger\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Output\\\":\\\"=== RUN   TestBalance\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Output\\\":\\\"--- PASS: TestBalance (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestBalance\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"=== RUN   TestOverdraftFloor\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"    ledger_test.go:6: negative balance exposed\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Output\\\":\\\"--- FAIL: TestOverdraftFloor (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Test\\\":\\\"TestOverdraftFloor\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7165806+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7176169+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/ledger\\\\t0.238s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-18T13:39:26.7176169+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/ledger\\\",\\\"Elapsed\\\":0.238}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_iuEwCiudhCRghWtO3-je0cs5\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1},{\"call\":{\"handle\":\"h_6eakCj2deDbpPzO-N6_L1Fge\",\"verb\":\"diff\",\"args\":{}},\"why\":\"inspect changes associated with the failure\",\"provenance\":\"authored\",\"score\":0}],\"refusal\":null}"
+    }
+  ],
+  "final_message": "The test suite is **not green** — it failed.\n\n**Result: 1 passed, 1 failed (exit code 1)**\n\n- `TestBalance` — PASS\n- `TestOverdraftFloor` — **FAIL**: `ledger_test.go:6: negative balance exposed`\n\nPackage `example.test/ledger` reports overall `FAIL`. The failure indicates the ledger logic is allowing a negative balance (overdraft) that shouldn't be exposed — likely a missing floor/guard check in the balance logic. This would need to be fixed before the suite can be considered green.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/ledger\n\ngo 1.23\n"
+      },
+      {
+        "path": "ledger.go",
+        "present": true,
+        "content": "package ledger\n\nfunc Balance(credits, debits int) int { return credits - debits }\n"
+      },
+      {
+        "path": "ledger_test.go",
+        "present": true,
+        "content": "package ledger\n\nimport \"testing\"\n\nfunc TestBalance(t *testing.T) { if Balance(7, 2) != 5 { t.Fatal(\"balance\") } }\nfunc TestOverdraftFloor(t *testing.T) { if Balance(2, 7) != 0 { t.Fatal(\"negative balance exposed\") } }\n"
+      }
+    ]
+  }
+}

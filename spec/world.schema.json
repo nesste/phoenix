@@ -103,6 +103,12 @@
           "additionalProperties": false,
           "required": ["state_pointer"],
           "properties": { "state_pointer": { "$ref": "#/$defs/jsonPointer" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state_digest"],
+          "properties": { "state_digest": { "const": true } }
         }
       ]
     },

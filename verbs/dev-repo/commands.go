@@ -47,6 +47,16 @@ func testsListHandler(config Config) verb.HandlerFunc {
 func testsFocusHandler(config Config) verb.HandlerFunc {
 	return func(ctx context.Context, request verb.Request) (any, error) {
 		testName := request.Args["test"].(string)
+		listed, err := run(ctx, config, request, config.GoExecutable, []string{"test", "-list", ".", "./..."})
+		if err != nil {
+			return nil, err
+		}
+		if listed.ExitCode != 0 {
+			return nil, verb.NewFailure("test_list_failed", "test listing failed", map[string]any{"exit_code": listed.ExitCode})
+		}
+		if !containsTest(listedTests(listed.Stdout), testName) {
+			return nil, verb.NewFailure("unknown_test", "requested test is not in the live suite", nil)
+		}
 		pattern := "^" + regexp.QuoteMeta(testName) + "$"
 		result, err := run(ctx, config, request, config.GoExecutable, []string{"test", "-json", "./...", "-run", pattern})
 		if err != nil {
@@ -55,6 +65,15 @@ func testsFocusHandler(config Config) verb.HandlerFunc {
 		passed := testPassed(result.Stdout, testName) && result.ExitCode == 0
 		return commandMap(result, map[string]any{"test": testName, "passed": passed}), nil
 	}
+}
+
+func containsTest(tests []string, name string) bool {
+	for _, test := range tests {
+		if test == name {
+			return true
+		}
+	}
+	return false
 }
 
 func gitStatusHandler(config Config) verb.HandlerFunc {

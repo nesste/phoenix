@@ -97,6 +97,9 @@ func bindHandle(topology Topology, observation Observation, selector world.Handl
 }
 
 func bindValue(binding world.Binding, observation Observation) (any, bool) {
+	if binding.StateDigest && observation.State != nil {
+		return observation.State.Digest, true
+	}
 	if binding.Literal != nil {
 		var value any
 		if json.Unmarshal(binding.Literal, &value) != nil {

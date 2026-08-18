@@ -1,0 +1,57 @@
+{
+  "v": 1,
+  "tranche": "authoring",
+  "world_build": "sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56",
+  "cases": [
+    {
+      "case_id": "authoring_0a10d1ec",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_0a10d1ec.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_0a10d1ec.grade.json",
+      "status": "pass"
+    },
+    {
+      "case_id": "authoring_1ca5cade",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_1ca5cade.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_1ca5cade.grade.json",
+      "status": "fail"
+    },
+    {
+      "case_id": "authoring_57a1e001",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_57a1e001.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_57a1e001.grade.json",
+      "status": "fail"
+    },
+    {
+      "case_id": "authoring_5ec0be12",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_5ec0be12.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_5ec0be12.grade.json",
+      "status": "fail"
+    },
+    {
+      "case_id": "authoring_7e4d7a10",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_7e4d7a10.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_7e4d7a10.grade.json",
+      "status": "pass"
+    },
+    {
+      "case_id": "authoring_ab5e0ce0",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_ab5e0ce0.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_ab5e0ce0.grade.json",
+      "status": "fail"
+    },
+    {
+      "case_id": "authoring_ad0e25a1",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_ad0e25a1.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_ad0e25a1.grade.json",
+      "status": "fail"
+    },
+    {
+      "case_id": "authoring_fa4d15c0",
+      "trial_path": "experiments/frontier-v1/results/authoring/authoring_fa4d15c0.trial.json",
+      "grade_path": "experiments/frontier-v1/results/authoring/authoring_fa4d15c0.grade.json",
+      "status": "fail"
+    }
+  ],
+  "passed": 2,
+  "failed": 6
+}

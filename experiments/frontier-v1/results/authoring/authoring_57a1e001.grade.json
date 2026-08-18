@@ -1,0 +1,24 @@
+{
+  "case_id": "authoring_57a1e001",
+  "checks": [
+    {
+      "id": "uses_revalidation_path",
+      "kind": "act_sequence",
+      "verdict": "fail",
+      "reason": "trial act sequence [tests.list tests.list tests.run tests.focus] satisfies no acceptable path in contains_in_order mode"
+    },
+    {
+      "id": "stale_focus_refused",
+      "kind": "act_status",
+      "verdict": "fail",
+      "reason": "act 1 has status ok, expected refused"
+    },
+    {
+      "id": "revalidates_suite_state",
+      "kind": "act_output_matches",
+      "verdict": "pass",
+      "reason": "act 3 output satisfies pattern \"(?i)TestBeacon(Current|Fallback).*(pass|fail)|(pass|fail).*TestBeacon(Current|Fallback)\""
+    }
+  ],
+  "status": "fail"
+}

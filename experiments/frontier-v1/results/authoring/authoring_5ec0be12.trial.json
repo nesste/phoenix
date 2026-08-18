@@ -1,0 +1,66 @@
+{
+  "v": 1,
+  "case_id": "authoring_5ec0be12",
+  "world_build": "sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {
+        "test": "TestSwitchyardHandshake"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_l5rdgM1HF98b4_Tz4wDzxgsb\",\"act_id\":\"a_OPNYJN6JA4GKQM7WAZ3M4FGCBE\",\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "help",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_l5rdgM1HF98b4_Tz4wDzxgsb\",\"act_id\":\"a_DLVY43AOVM4ATXHK6RDQLFEHLH\",\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"help\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:f7470f78c28f249462a2aac72507668de8ff56fa0b7c5a53373ba9072c486e56\",\"session_id\":\"s_l5rdgM1HF98b4_Tz4wDzxgsb\",\"act_id\":\"a_XI4PJWPWJCDCMQPNPXOE4TA5V2\",\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"tests\":[\"TestRelayHandshake\",\"TestRelayTimeout\"]},\"error\":null,\"text\":\"ok tests.list: tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_q_8mAICvcQrHZwA54CIhaS31\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRelayHandshake\"},\"state\":\"sha256:bfd2c2f172f09b77952139f9c61c19e2a23cc671b7d6065b15d837e67cf76e75\"},\"why\":\"focus the first bound test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "final_message": "TestSwitchyardHandshake does not exist in this test suite. The only tests available are **TestRelayHandshake** and **TestRelayTimeout** — so TestSwitchyardHandshake cannot be reported as passing or failing; it isn't present to run.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "# Relay\n\nThe public service name is relay. Runtime aliases live under config.\n"
+      },
+      {
+        "path": "config/services.json",
+        "present": true,
+        "content": "{\"relay\":{\"internal_name\":\"switchyard\",\"health_test\":\"TestRelayHandshake\"}}\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.com/relay\n\ngo 1.25\n"
+      },
+      {
+        "path": "relay_test.go",
+        "present": true,
+        "content": "package relay\n\nimport \"testing\"\n\nfunc TestRelayHandshake(t *testing.T) {}\n\nfunc TestRelayTimeout(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/catalog.txt",
+        "present": true,
+        "content": "TestRelayHandshake\nTestRelayTimeout\n"
+      }
+    ]
+  }
+}

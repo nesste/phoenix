@@ -24,7 +24,7 @@ func TestEngineBindsReachableCallsAndRanksDeterministically(t *testing.T) {
 	observation := Observation{
 		HandleType: "repo", Handle: root["repo"], Verb: "inspect", Status: "ok",
 		Result: map[string]any{"path": "internal/frontier/rules.go", "relevant": true},
-		State:  &world.LiveState{Digest: testStateDigest, Value: map[string]any{"revision": testStateDigest}},
+		State:  &world.LiveState{Digest: testStateDigest, Value: map[string]any{"revision": "working-tree"}},
 	}
 
 	first := engine.Compute(session, observation)
@@ -176,13 +176,12 @@ func testDefinition() *world.Definition {
 	}`)
 	emptyResult := json.RawMessage(`{"type":"object"}`)
 	path := "/path"
-	revision := "/revision"
 	suggestions := []world.Suggestion{
 		{
 			Call: world.CallTemplate{
 				Handle: world.HandleSelector{Source: "root", Name: "tests"}, Verb: "focus",
 				Args:  map[string]world.Binding{"test": {ResultPointer: &path}},
-				State: &world.Binding{StatePointer: &revision},
+				State: &world.Binding{StateDigest: true},
 			},
 			Why: "run the affected test", Score: 1,
 		},

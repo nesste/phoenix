@@ -174,8 +174,11 @@ func validateBinding(binding world.Binding) error {
 			return fmt.Errorf("state pointer %q is invalid", *binding.StatePointer)
 		}
 	}
+	if binding.StateDigest {
+		count++
+	}
 	if count != 1 {
-		return fmt.Errorf("binding must select exactly one literal, result pointer, or state pointer")
+		return fmt.Errorf("binding must select exactly one literal, result pointer, state pointer, or state digest")
 	}
 	return nil
 }

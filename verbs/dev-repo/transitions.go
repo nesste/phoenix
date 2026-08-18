@@ -11,6 +11,15 @@ import (
 func AuthoredTransitions() []world.Transition {
 	return []world.Transition{
 		{
+			ID: "status_to_run",
+			Match: world.Match{
+				HandleType: "repo", Verb: "status", Status: "ok", ResultWhen: raw(`{}`),
+			},
+			Suggestions: []world.Suggestion{
+				suggest(rootCall("tests", "run"), "establish the suite baseline before diagnosis", 1),
+			},
+		},
+		{
 			ID: "build_failure_next",
 			Match: world.Match{
 				HandleType: "repo", Verb: "build", Status: "ok",
@@ -18,8 +27,8 @@ func AuthoredTransitions() []world.Transition {
 			},
 			Suggestions: []world.Suggestion{
 				suggest(rootCall("git", "diff"), "inspect changes related to the build failure", 1),
-				suggest(rootCall("tests", "run"), "separate test failures from build failures", .8),
-				suggest(callWithResult("episodes", "recall", "query", "/stderr"), "recall fixes for this failure output", .7),
+				suggest(rootCall("tests", "run"), "separate test failures from build failures", 0),
+				suggest(callWithResult("episodes", "recall", "query", "/stderr"), "recall fixes for this failure output", 0),
 			},
 		},
 		{
@@ -30,8 +39,8 @@ func AuthoredTransitions() []world.Transition {
 			},
 			Suggestions: []world.Suggestion{
 				suggest(selfCall("list"), "list tests before focusing the failure", 1),
-				suggest(callWithResult("episodes", "recall", "query", "/stderr"), "recall prior resolutions for this failure", .9),
-				suggest(rootCall("git", "diff"), "inspect changes associated with the failure", .7),
+				suggest(callWithResult("episodes", "recall", "query", "/stderr"), "recall prior resolutions for this failure", 0),
+				suggest(rootCall("git", "diff"), "inspect changes associated with the failure", 0),
 			},
 		},
 		{
@@ -42,7 +51,7 @@ func AuthoredTransitions() []world.Transition {
 			},
 			Suggestions: []world.Suggestion{
 				suggest(rootCall("tests", "run"), "run tests affected by the edit", 1),
-				suggest(rootCall("git", "diff"), "inspect the resulting edit", .8),
+				suggest(rootCall("git", "diff"), "inspect the resulting edit", 0),
 			},
 		},
 		{
@@ -52,10 +61,25 @@ func AuthoredTransitions() []world.Transition {
 				ResultWhen: raw(`{"properties":{"tests":{"minItems":1}},"required":["tests"]}`),
 			},
 			Suggestions: []world.Suggestion{
-				suggest(callWithResult("", "focus", "test", "/tests/0"), "focus the first bound test", 1),
+				suggest(stateBound(callWithResult("", "focus", "test", "/tests/0")), "focus the first bound test", 1),
+			},
+		},
+		{
+			ID: "find_match_next",
+			Match: world.Match{
+				HandleType: "repo", Verb: "find", Status: "ok",
+				ResultWhen: raw(`{"properties":{"matches":{"minItems":1}},"required":["matches"]}`),
+			},
+			Suggestions: []world.Suggestion{
+				suggest(callWithResult("", "read", "path", "/matches/0"), "inspect the first matching repository file", 1),
 			},
 		},
 	}
+}
+
+func stateBound(call world.CallTemplate) world.CallTemplate {
+	call.State = &world.Binding{StateDigest: true}
+	return call
 }
 
 func rootCall(root, verb string) world.CallTemplate {

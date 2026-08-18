@@ -8,11 +8,6 @@ import (
 	"os"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	"github.com/nesste/phoenix/internal/frontier"
-	"github.com/nesste/phoenix/internal/surface"
-	"github.com/nesste/phoenix/internal/teach"
-	"github.com/nesste/phoenix/internal/verb"
-	"github.com/nesste/phoenix/internal/world"
 )
 
 var version = "dev"
@@ -45,9 +40,15 @@ func run(ctx context.Context, args []string, stdin io.ReadCloser, stdout io.Writ
 }
 
 func runServe(ctx context.Context, args []string, stdin io.ReadCloser, stdout io.WriteCloser, stderr io.Writer) int {
+	defaults := defaultServePaths()
 	flags := flag.NewFlagSet("phoenix serve", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	stdio := flags.Bool("stdio", false, "serve Model Context Protocol over stdin and stdout")
+	worldPath := flags.String("world", defaults.world, "world definition path")
+	schemaPath := flags.String("world-schema", defaults.schema, "world schema path")
+	episodePath := flags.String("episode-db", defaults.episodes, "episode database path; empty disables logging")
+	rootRefsPath := flags.String("root-refs", "", "isolated runner root-reference JSON path")
+	worldBuild := flags.String("world-build", "", "complete world-build digest; defaults to the world definition digest")
 	if err := flags.Parse(args); err != nil {
 		return 2
 	}
@@ -56,51 +57,22 @@ func runServe(ctx context.Context, args []string, stdin io.ReadCloser, stdout io
 		return 2
 	}
 
-	server, err := defaultSurface(version)
+	assembled, err := assembleSurface(serveOptions{
+		serverVersion: version, worldPath: *worldPath, schemaPath: *schemaPath,
+		episodePath: *episodePath, rootRefsPath: *rootRefsPath, worldBuild: *worldBuild,
+		warning: stderr,
+	})
 	if err != nil {
 		fmt.Fprintf(stderr, "configure surface: %v\n", err)
 		return 1
 	}
+	defer assembled.Close()
 	transport := &mcp.IOTransport{Reader: stdin, Writer: stdout}
-	if err := server.Server().Run(ctx, transport); err != nil {
+	if err := assembled.server.Server().Run(ctx, transport); err != nil {
 		fmt.Fprintf(stderr, "serve stdio: %v\n", err)
 		return 1
 	}
 	return 0
-}
-
-const unassembledWorldBuild = "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-func defaultSurface(serverVersion string) (*surface.MCP, error) {
-	definition := &world.Definition{
-		V: 1, ID: "unassembled", Roots: []world.Root{},
-		HandleTypes: map[string]world.HandleType{}, Transitions: []world.Transition{},
-	}
-	frontierEngine, err := frontier.New(definition)
-	if err != nil {
-		return nil, err
-	}
-	teachingEngine, err := teach.New(definition)
-	if err != nil {
-		return nil, err
-	}
-	admission, err := surface.New(surface.Config{
-		WorldBuild: unassembledWorldBuild,
-		Graph:      world.NewGraph(definition, emptyResolver{}),
-		Executor:   verb.NewExecutor(verb.NewRegistry(), verb.Options{}),
-		Frontier:   frontierEngine,
-		Teacher:    teachingEngine,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return surface.NewMCP(serverVersion, admission), nil
-}
-
-type emptyResolver struct{}
-
-func (emptyResolver) Resolve(context.Context, world.Resource) (any, error) {
-	return map[string]any{}, nil
 }
 
 func printUsage(w io.Writer) {

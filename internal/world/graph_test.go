@@ -118,8 +118,8 @@ func TestPrepareResolvesLiveStateAndRejectsStalePrecondition(t *testing.T) {
 	if stale.Problem == nil || stale.Problem.Code != "stale_state" {
 		t.Fatalf("stale problem = %#v, want stale_state", stale.Problem)
 	}
-	if stale.State != nil {
-		t.Fatal("stale result exposed live state")
+	if stale.State == nil || stale.Target == nil {
+		t.Fatal("stale result did not retain typed target and current state for refusal shaping")
 	}
 	if got, want := resolver.callCount(), 3; got != want {
 		t.Fatalf("resolver calls = %d, want %d", got, want)
@@ -142,6 +142,22 @@ func TestApplyDeltaRejectsUndeclaredGrantAtomically(t *testing.T) {
 	}
 	if got, want := session.ReachableCount(), 1; got != want {
 		t.Fatalf("reachable count = %d, want %d after rejected delta", got, want)
+	}
+}
+
+func TestGraphCanUseRunnerSuppliedOpaqueRootReferences(t *testing.T) {
+	definition := loadBaseWorld(t)
+	want := "h_0123456789abcdef"
+	graph, err := NewGraphWithRootReferences(definition, &sequenceResolver{values: []any{map[string]any{}}}, map[string]string{"repo": want})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, roots, err := graph.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(roots) != 1 || roots[0].Ref != want {
+		t.Fatalf("runner roots = %#v, want %q", roots, want)
 	}
 }
 

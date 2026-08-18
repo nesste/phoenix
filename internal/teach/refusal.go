@@ -152,6 +152,9 @@ func alternativeHandle(topology Topology, observation Observation, selector worl
 }
 
 func bindValue(binding world.Binding, observation Observation) (any, bool) {
+	if binding.StateDigest && observation.State != nil {
+		return observation.State.Digest, true
+	}
 	if binding.Literal != nil {
 		var value any
 		if json.Unmarshal(binding.Literal, &value) != nil {
@@ -255,8 +258,11 @@ func validateBinding(binding world.Binding) error {
 			return fmt.Errorf("state pointer %q is invalid", *binding.StatePointer)
 		}
 	}
+	if binding.StateDigest {
+		count++
+	}
 	if count != 1 {
-		return fmt.Errorf("binding must select exactly one literal or state pointer")
+		return fmt.Errorf("binding must select exactly one literal, state pointer, or state digest")
 	}
 	return nil
 }

@@ -2,6 +2,6 @@
   "case_id": "authoring_57a1e001",
   "goal": "Report whether the first test in the Beacon suite passes.",
   "sandbox_fixture": "sha256:f9ed60a000ebb37bf1ba89e8e0f264d784ed4137b70444c43e65fa3bb3cc93a9",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
+  "world_ref": "sha256:19b0279779c206a938449a95c377423e1502d7faa3e020b53db0ccec30fcab59",
   "family_id": "authoring_family_004"
 }

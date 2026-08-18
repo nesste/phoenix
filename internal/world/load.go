@@ -92,6 +92,7 @@ type Binding struct {
 	Literal       json.RawMessage `json:"literal,omitempty"`
 	ResultPointer *string         `json:"result_pointer,omitempty"`
 	StatePointer  *string         `json:"state_pointer,omitempty"`
+	StateDigest   bool            `json:"state_digest,omitempty"`
 }
 
 func Load(schemaPath, definitionPath string) (*Definition, error) {
