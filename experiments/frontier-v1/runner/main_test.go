@@ -115,6 +115,7 @@ func TestRunCaseMaterializesRunsRecordsAndGradesWithoutHarnessDependency(t *test
 	}
 	driver := &fakeRuntime{}
 	result, err := runCase(runConfig{
+		arm:            "C",
 		repositoryRoot: repository, outputDir: output,
 		worldPath: filepath.Join(repository, "world.json"), schemaPath: filepath.Join(repository, "schema.json"),
 		worldBuild: testBuild, timeout: time.Second, budgetUSD: "0.01",
@@ -134,6 +135,30 @@ func TestRunCaseMaterializesRunsRecordsAndGradesWithoutHarnessDependency(t *test
 	}
 	if len(recorded.Acts) != 1 || recorded.Acts[0].HandleType != "tests" || recorded.Acts[0].Status != "ok" {
 		t.Fatalf("recorded acts = %#v", recorded.Acts)
+	}
+}
+
+func TestNormalizeArmAndDefaultOutputProtectRetainedEvidence(t *testing.T) {
+	if arm, err := normalizeArm(" d "); err != nil || arm != "D" {
+		t.Fatalf("normalize arm = %q, %v", arm, err)
+	}
+	if _, err := normalizeArm("D_prime"); err == nil {
+		t.Fatal("unfrozen Phase 2 arm was accepted")
+	}
+}
+
+func TestFlatRuntimePromptAndAllowedToolsContainNoPhoenixHandles(t *testing.T) {
+	roots := map[string]string{"repo": "h_secret_repo", "tests": "h_secret_tests", "git": "h_secret_git", "episodes": "h_secret_episodes"}
+	prompt := runtimePromptForArm("inspect the repository", roots, "A")
+	if prompt != "inspect the repository" || strings.Contains(prompt, "h_secret") {
+		t.Fatalf("flat prompt leaked handles: %q", prompt)
+	}
+	tools := allowedToolsForArm("A", []string{"repo_status", "tests_run"})
+	if len(tools) != 2 || tools[0] != "mcp__phoenix__repo_status" || tools[1] != "mcp__phoenix__tests_run" {
+		t.Fatalf("flat allowed tools = %v", tools)
+	}
+	if got := allowedToolsForArm("D", nil); len(got) != 1 || got[0] != "mcp__phoenix__act" {
+		t.Fatalf("Phoenix allowed tools = %v", got)
 	}
 }
 

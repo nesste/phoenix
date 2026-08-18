@@ -140,10 +140,12 @@ Every trial starts with a fresh model context, freshly materialized sandbox, and
 
 ## Authoring runner
 
-The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, applies declared state events inside the sandbox, reconstructs executable acts and orientations from the episode database, and calls the deterministic grader. Fresh intent activation is available only before the first executable act; later orientation can only preserve a pending frontier or refusal alternative. Run it from the repository root:
+The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, applies declared state events inside the sandbox, reconstructs executable acts and orientations from the episode database, and calls the deterministic grader. `--arm A|B|C|D|E` selects the protocol-v4 surface and exact pinned system prompt. A/B expose conventional tools derived from the same world definition; B additionally requires the static document. C/D/E expose only `act`, and only those arms receive the bootstrap-intent instruction. Fresh intent activation is available only before the first executable act; later orientation can only preserve a pending frontier or refusal alternative. Run it from the repository root:
 
 ```powershell
 go run ./experiments/frontier-v1/runner --repo-root . --case all
+go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id> --arm A
+go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id> --arm B --arm-b-document experiments/frontier-v1/arms/arm-b.md
 ```
 
-Evidence from the single focused-revision run is retained under `results/authoring/`. The runner has no code path for validation or held_out cases.
+Arm C remains the default and writes to `results/authoring/`; non-C defaults write under `results/arm-probes/<arm>/` so they cannot replace retained evidence accidentally. Evidence from the single focused-revision run is retained under `results/authoring/`. The runner has no code path for validation or held_out cases. It is not yet the randomized Phase 1 evaluator: scheduling, three-repetition execution, infrastructure retry classification, pairing-key budget stops, complete attempt/cost metadata, analysis, and report generation remain to be implemented and frozen.

@@ -68,6 +68,8 @@ type fileState struct {
 
 type runtimeRequest struct {
 	Arm             string
+	ArmBDocument    string
+	FlatToolNames   []string
 	Sandbox         string
 	Goal            string
 	Roots           map[string]string
@@ -96,6 +98,9 @@ type gradeDriver interface {
 }
 
 type runConfig struct {
+	arm            string
+	armBDocument   string
+	flatToolNames  []string
 	repositoryRoot string
 	outputDir      string
 	worldPath      string
@@ -116,6 +121,7 @@ type caseResult struct {
 type authoringSummary struct {
 	V          int          `json:"v"`
 	Tranche    string       `json:"tranche"`
+	Arm        string       `json:"arm"`
 	WorldBuild string       `json:"world_build"`
 	Cases      []caseResult `json:"cases"`
 	Passed     int          `json:"passed"`

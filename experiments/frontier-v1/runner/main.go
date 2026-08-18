@@ -19,6 +19,7 @@ import (
 	"github.com/nesste/phoenix/internal/buildmanifest"
 	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/surface"
+	"github.com/nesste/phoenix/internal/world"
 )
 
 func main() {
@@ -30,7 +31,9 @@ func run(args []string) int {
 	flags.SetOutput(os.Stderr)
 	repositoryRoot := flags.String("repo-root", ".", "Phoenix repository root")
 	caseID := flags.String("case", "all", "authoring case id or all")
-	outputDir := flags.String("output-dir", "experiments/frontier-v1/results/authoring", "repository-relative result directory")
+	outputDir := flags.String("output-dir", "", "repository-relative result directory; defaults to retained C evidence or an arm-specific probe directory")
+	arm := flags.String("arm", "C", "experiment arm: A, B, C, D, or E")
+	armBDocument := flags.String("arm-b-document", "", "frozen Arm B static document; required for Arm B")
 	runtimePath := flags.String("runtime", "claude", "pinned runtime executable")
 	budget := flags.String("max-budget-usd", "0.15", "maximum model cost per case")
 	timeout := flags.Duration("timeout", 180*time.Second, "per-case timeout")
@@ -42,7 +45,7 @@ func run(args []string) int {
 		fmt.Fprintln(os.Stderr, err)
 		return 2
 	}
-	config, cleanup, err := prepareRunConfig(root, *outputDir, *timeout, *budget)
+	config, cleanup, err := prepareRunConfig(root, *outputDir, *arm, *armBDocument, *timeout, *budget)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
@@ -77,14 +80,19 @@ func run(args []string) int {
 	return 0
 }
 
-func prepareRunConfig(root, output string, timeout time.Duration, budget string) (runConfig, func(), error) {
+func prepareRunConfig(root, output, arm, armBDocument string, timeout time.Duration, budget string) (runConfig, func(), error) {
 	if timeout <= 0 || strings.TrimSpace(budget) == "" {
 		return runConfig{}, func() {}, fmt.Errorf("positive timeout and budget are required")
 	}
-	outputPath := output
-	if !filepath.IsAbs(outputPath) {
-		outputPath = filepath.Join(root, filepath.FromSlash(output))
+	arm, err := normalizeArm(arm)
+	if err != nil {
+		return runConfig{}, func() {}, err
 	}
+	armBDocument, err = resolveArmBDocument(arm, armBDocument)
+	if err != nil {
+		return runConfig{}, func() {}, err
+	}
+	outputPath := resolveOutputPath(root, output, arm)
 	if err := ensureInside(root, outputPath); err != nil {
 		return runConfig{}, func() {}, err
 	}
@@ -95,13 +103,73 @@ func prepareRunConfig(root, output string, timeout time.Duration, budget string)
 	if err != nil {
 		return runConfig{}, func() {}, err
 	}
+	worldPath := filepath.Join(root, "worlds", "dev-repo", "world.json")
+	schemaPath := filepath.Join(root, "spec", "world.schema.json")
+	flatToolNames, err := loadFlatToolNames(arm, schemaPath, worldPath)
+	if err != nil {
+		cleanup()
+		return runConfig{}, func() {}, err
+	}
 	return runConfig{
+		arm: arm, armBDocument: armBDocument, flatToolNames: flatToolNames,
 		repositoryRoot: root, outputDir: outputPath,
-		worldPath:   filepath.Join(root, "worlds", "dev-repo", "world.json"),
-		schemaPath:  filepath.Join(root, "spec", "world.schema.json"),
+		worldPath:   worldPath,
+		schemaPath:  schemaPath,
 		phoenixPath: phoenixPath, worldBuild: build,
 		timeout: timeout, budgetUSD: budget,
 	}, cleanup, nil
+}
+
+func resolveArmBDocument(arm, path string) (string, error) {
+	if arm != "B" {
+		return path, nil
+	}
+	if strings.TrimSpace(path) == "" {
+		return "", fmt.Errorf("arm B requires --arm-b-document")
+	}
+	resolved, err := filepath.Abs(path)
+	if err != nil {
+		return "", fmt.Errorf("resolve arm B document: %w", err)
+	}
+	info, err := os.Stat(resolved)
+	if err != nil || !info.Mode().IsRegular() {
+		return "", fmt.Errorf("arm B document must be a regular file")
+	}
+	return resolved, nil
+}
+
+func resolveOutputPath(root, output, arm string) string {
+	if output == "" {
+		output = "experiments/frontier-v1/results/authoring"
+		if arm != "C" {
+			output = filepath.ToSlash(filepath.Join("experiments", "frontier-v1", "results", "arm-probes", arm))
+		}
+	}
+	if filepath.IsAbs(output) {
+		return output
+	}
+	return filepath.Join(root, filepath.FromSlash(output))
+}
+
+func loadFlatToolNames(arm, schemaPath, worldPath string) ([]string, error) {
+	if arm != "A" && arm != "B" {
+		return nil, nil
+	}
+	definition, err := world.Load(schemaPath, worldPath)
+	if err != nil {
+		return nil, err
+	}
+	return surface.FlatToolNames(definition)
+}
+
+func normalizeArm(arm string) (string, error) {
+	arm = strings.ToUpper(strings.TrimSpace(arm))
+	switch arm {
+	case "A", "B", "C", "D", "E":
+		return arm, nil
+	default:
+		return "", fmt.Errorf("unsupported experiment arm %q", arm)
+	}
 }
 
 func buildPhoenix(root string) (string, string, func(), error) {
@@ -151,7 +219,7 @@ func buildPhoenix(root string) (string, string, func(), error) {
 }
 
 func runCases(config runConfig, ids []string, runtime runtimeDriver, grader gradeDriver) (authoringSummary, error) {
-	summary := authoringSummary{V: 1, Tranche: "authoring", WorldBuild: config.worldBuild, Cases: []caseResult{}}
+	summary := authoringSummary{V: 1, Tranche: "authoring", Arm: config.arm, WorldBuild: config.worldBuild, Cases: []caseResult{}}
 	for _, id := range ids {
 		result, err := runCase(config, id, runtime, grader)
 		if err != nil {
@@ -209,7 +277,9 @@ func runCase(config runConfig, caseID string, runtime runtimeDriver, grader grad
 		}
 	}
 	runtimeResult, err := runtime.Run(runtimeRequest{
-		Arm: "C", Sandbox: sandbox, Goal: item.Goal, Roots: roots,
+		Arm: config.arm, ArmBDocument: config.armBDocument,
+		FlatToolNames: config.flatToolNames,
+		Sandbox:       sandbox, Goal: item.Goal, Roots: roots,
 		PhoenixPath: config.phoenixPath, WorldPath: config.worldPath, SchemaPath: config.schemaPath,
 		EpisodePath: filepath.Join(stateDir, "episodes.db"), WorldBuild: config.worldBuild,
 		StateEventsPath: stateEventsPath,

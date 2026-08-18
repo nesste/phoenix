@@ -106,16 +106,18 @@ type Envelope struct {
 }
 
 type Config struct {
-	WorldBuild   string
-	Graph        *world.Graph
-	Executor     *verb.Executor
-	Frontier     *frontier.Engine
-	Activation   *activate.Engine
-	Teacher      *teach.Engine
-	Episodes     EpisodeLog
-	Warning      io.Writer
-	MaxArgsBytes int
-	AfterAct     func(context.Context, int, Input, Envelope) error
+	WorldBuild       string
+	Graph            *world.Graph
+	Executor         *verb.Executor
+	Frontier         *frontier.Engine
+	Activation       *activate.Engine
+	Teacher          *teach.Engine
+	Episodes         EpisodeLog
+	Warning          io.Writer
+	MaxArgsBytes     int
+	AfterAct         func(context.Context, int, Input, Envelope) error
+	SuppressFrontier bool
+	SuppressTeaching bool
 }
 
 type EpisodeLog interface {
@@ -125,16 +127,18 @@ type EpisodeLog interface {
 }
 
 type Admission struct {
-	worldBuild   string
-	graph        *world.Graph
-	executor     *verb.Executor
-	frontier     *frontier.Engine
-	activation   *activate.Engine
-	teacher      *teach.Engine
-	episodes     EpisodeLog
-	warning      io.Writer
-	maxArgsBytes int
-	afterAct     func(context.Context, int, Input, Envelope) error
+	worldBuild       string
+	graph            *world.Graph
+	executor         *verb.Executor
+	frontier         *frontier.Engine
+	activation       *activate.Engine
+	teacher          *teach.Engine
+	episodes         EpisodeLog
+	warning          io.Writer
+	maxArgsBytes     int
+	afterAct         func(context.Context, int, Input, Envelope) error
+	suppressFrontier bool
+	suppressTeaching bool
 }
 
 type Session struct {
@@ -183,6 +187,7 @@ func New(config Config) (*Admission, error) {
 		executor: config.Executor, frontier: config.Frontier, activation: config.Activation,
 		teacher: config.Teacher, episodes: config.Episodes, warning: config.Warning,
 		maxArgsBytes: config.MaxArgsBytes, afterAct: config.AfterAct,
+		suppressFrontier: config.SuppressFrontier, suppressTeaching: config.SuppressTeaching,
 	}, nil
 }
 
@@ -326,10 +331,12 @@ func (admission *Admission) executeReady(ctx context.Context, session *Session, 
 	base.Status = StatusOK
 	base.Result = result.Value
 	base.Text = renderSuccess(access.Target.Type, input.Verb, result.Value)
-	base.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
-		HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
-		Status: string(StatusOK), Result: result.Value, State: access.State,
-	})
+	if !admission.suppressFrontier {
+		base.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
+			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+			Status: string(StatusOK), Result: result.Value, State: access.State,
+		})
+	}
 	return base
 }
 
@@ -339,10 +346,12 @@ func (admission *Admission) failedExecution(base Envelope, session *Session, inp
 		return *shaped
 	}
 	failed := failure(base, result.Error.Code, result.Error.Message, result.Error.Details)
-	failed.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
-		HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
-		Status: string(StatusFail), Result: failureFeatures(result.Error), State: access.State,
-	})
+	if !admission.suppressFrontier {
+		failed.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
+			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
+			Status: string(StatusFail), Result: failureFeatures(result.Error), State: access.State,
+		})
+	}
 	return failed
 }
 
@@ -538,6 +547,9 @@ func suggestionKey(call frontier.Call) (string, error) {
 }
 
 func (admission *Admission) evaluateRefusal(base Envelope, session *Session, observation teach.Observation) *Envelope {
+	if admission.suppressTeaching {
+		return nil
+	}
 	refusal, matched, err := admission.teacher.Evaluate(session.graph, observation)
 	if err != nil {
 		failed := failure(base, "refusal_invalid", "authored refusal could not bind a reachable alternative", nil)

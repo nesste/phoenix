@@ -149,6 +149,42 @@ func TestOrientationCannotReactivateIntentAfterExecutableAct(t *testing.T) {
 	}
 }
 
+func TestSuppressedFrontierCannotBecomePendingThroughReorientation(t *testing.T) {
+	admission := testAdmissionWithPolicy(t, true, false)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	result := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "brief"},
+	})
+	if len(result.Frontier) != 0 {
+		t.Fatalf("suppressed frontier leaked in act result: %#v", result.Frontier)
+	}
+	oriented := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
+	if len(oriented.Frontier) != 0 {
+		t.Fatalf("reorientation replayed a suppressed frontier: %#v", oriented.Frontier)
+	}
+}
+
+func TestSuppressedTeachingCannotBecomePendingThroughReorientation(t *testing.T) {
+	admission := testAdmissionWithPolicy(t, true, true)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	result := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "blocked"},
+	})
+	if result.Status != StatusFail || result.Refusal != nil {
+		t.Fatalf("suppressed teaching result = %#v, want plain typed failure", result)
+	}
+	oriented := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
+	if len(oriented.Frontier) != 0 {
+		t.Fatalf("reorientation replayed a suppressed refusal: %#v", oriented.Frontier)
+	}
+}
+
 func TestActRejectsMixedIntentAndExecutableFields(t *testing.T) {
 	admission := testAdmission(t, 1024)
 	session, roots, err := admission.StartSession()
@@ -463,7 +499,16 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 	return testAdmissionWithEpisodes(t, maxArgs, nil, nil)
 }
 
+func testAdmissionWithPolicy(t *testing.T, suppressFrontier, suppressTeaching bool) *Admission {
+	t.Helper()
+	return testAdmissionConfigured(t, 1024, nil, nil, suppressFrontier, suppressTeaching)
+}
+
 func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, warning *bytes.Buffer) *Admission {
+	return testAdmissionConfigured(t, maxArgs, episodes, warning, false, false)
+}
+
+func testAdmissionConfigured(t *testing.T, maxArgs int, episodes EpisodeLog, warning *bytes.Buffer, suppressFrontier, suppressTeaching bool) *Admission {
 	t.Helper()
 	definition := &world.Definition{
 		V:  1,
@@ -551,15 +596,17 @@ func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, w
 		t.Fatal(err)
 	}
 	admission, err := New(Config{
-		WorldBuild:   testWorldBuild,
-		Graph:        world.NewGraph(definition, staticResolver{}),
-		Executor:     verb.NewExecutor(registry, verb.Options{}),
-		Frontier:     frontierEngine,
-		Activation:   activationEngine,
-		Teacher:      teachingEngine,
-		Episodes:     episodes,
-		Warning:      warning,
-		MaxArgsBytes: maxArgs,
+		WorldBuild:       testWorldBuild,
+		Graph:            world.NewGraph(definition, staticResolver{}),
+		Executor:         verb.NewExecutor(registry, verb.Options{}),
+		Frontier:         frontierEngine,
+		Activation:       activationEngine,
+		Teacher:          teachingEngine,
+		Episodes:         episodes,
+		Warning:          warning,
+		MaxArgsBytes:     maxArgs,
+		SuppressFrontier: suppressFrontier,
+		SuppressTeaching: suppressTeaching,
 	})
 	if err != nil {
 		t.Fatal(err)

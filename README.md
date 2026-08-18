@@ -6,7 +6,7 @@ It runs as a local environment service called a **world**. An agent starts with 
 
 Phoenix does not call a model or run an agent loop. It provides the environment an external agent acts inside.
 
-> **Project status:** Phase 0 research contract accepted. The public validation and held-out corpora are sealed, their full labels remain external, and no sealed outcome has been opened. Phase 1 implementation is underway: Tasks 1.1–1.6 provide the command shell, strict world loader, isolated session graph, opaque handles, typed verb execution, the closed dev-repo starter verb set, the constant `act` MCP surface, authored frontier computation, teaching refusals, quality gate, and content-addressed build manifest.
+> **Project status:** Protocol v4 is independently accepted and frozen. Validation and held-out remain closed and no sealed outcome has been opened. Phase 1 implementation now includes the A–E surface policies, the shared state-event harness, conventional flat-tool adapters for A/B, pinned arm prompts, and an authoring-only arm selector. Randomized scheduling, repetition/retry accounting, analysis/report artifacts, Arm B human review, and all pre-validation digests remain incomplete; Gate 1A is closed.
 
 ## The problem Phoenix is testing
 
@@ -73,7 +73,7 @@ Phoenix is not an agent framework, model router, chat application, prompt market
 | Experiment protocol | Frontier experiment protocol v3 is independently accepted and frozen. |
 | Corpus tooling | Authoring cases, schemas, deterministic grading, canonical digests, manifest generation, and sealing checks are implemented. |
 | Sealed evaluation | 120 validation and 120 held-out cases are committed with outcome-free label digests. Full labels remain external and both outcome gates are closed. |
-| Production daemon | Tasks 1.1–1.8 implemented: the assembled dev-repo world serves four opaque roots through one instruction-free `act` tool, with typed verbs, authored frontiers, teaching refusals, live state, and reconstructable WAL-backed episodes. The pinned authoring run passed 2/8 cases; the retained failures expose first-action discovery weakness before a frontier is reached, so Gate 1A remains closed. |
+| Production daemon | The assembled dev-repo world supports the protocol-v4 C/D/E `act` variants and A/B conventional flat tools over the same graph, executor, state events, and reconstructable WAL-backed episodes. The retained focused-revision authoring run is 7/8 on Arm C and is readiness evidence only. Gate 1A remains closed. |
 
 ## Build the Phase 1 daemon shell
 
@@ -94,6 +94,13 @@ Run the visible tuning tranche with the pinned runtime (validation and held-out 
 
 ```powershell
 go run ./experiments/frontier-v1/runner --repo-root . --case all
+```
+
+Probe another arm without overwriting retained Arm C evidence:
+
+```powershell
+go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id> --arm A
+go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id> --arm B --arm-b-document experiments/frontier-v1/arms/arm-b.md
 ```
 
 The second command waits for an MCP client on standard input and output.

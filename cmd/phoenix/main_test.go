@@ -79,6 +79,60 @@ func TestServeStdioHandshake(t *testing.T) {
 	}
 }
 
+func TestServeFlatArmExposesConventionalTools(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	serverReader, clientWriter := io.Pipe()
+	clientReader, serverWriter := io.Pipe()
+	var stderr bytes.Buffer
+	serveDone := make(chan int, 1)
+	go func() {
+		serveDone <- run(ctx, []string{"serve", "--stdio", "--episode-db", "", "--arm", "A"}, serverReader, serverWriter, &stderr)
+	}()
+
+	client := mcp.NewClient(&mcp.Implementation{Name: "phoenix-flat-smoke-test", Version: "dev"}, nil)
+	session, err := client.Connect(ctx, &mcp.IOTransport{Reader: clientReader, Writer: clientWriter}, nil)
+	if err != nil {
+		t.Fatalf("connect to flat stdio server: %v; stderr: %s", err, stderr.String())
+	}
+	tools, err := session.ListTools(ctx, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(tools.Tools) != 12 {
+		t.Fatalf("flat tool count = %d, want 12", len(tools.Tools))
+	}
+	seen := map[string]bool{}
+	for _, tool := range tools.Tools {
+		seen[tool.Name] = true
+	}
+	for _, required := range []string{"repo_status", "tests_run", "tests_focus", "git_diff", "episodes_recall"} {
+		if !seen[required] {
+			t.Fatalf("flat surface omitted %s", required)
+		}
+	}
+	if err := session.Close(); err != nil {
+		t.Fatal(err)
+	}
+	select {
+	case exitCode := <-serveDone:
+		if exitCode != 0 {
+			t.Fatalf("flat serve exit code = %d; stderr: %s", exitCode, stderr.String())
+		}
+	case <-ctx.Done():
+		t.Fatalf("flat stdio server did not stop: %v", ctx.Err())
+	}
+}
+
+func TestServeRejectsUnknownArm(t *testing.T) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	exitCode := run(context.Background(), []string{"serve", "--stdio", "--episode-db", "", "--arm", "Z"}, io.NopCloser(strings.NewReader("")), nopWriteCloser{&stdout}, &stderr)
+	if exitCode != 1 || !strings.Contains(stderr.String(), "unsupported experiment arm") {
+		t.Fatalf("unknown arm = exit %d stderr %q", exitCode, stderr.String())
+	}
+}
+
 type nopWriteCloser struct {
 	io.Writer
 }

@@ -52,6 +52,13 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 	if err != nil {
 		return runtimeResult{}, err
 	}
+	allowedTools := allowedToolsForArm(request.Arm, request.FlatToolNames)
+	if len(allowedTools) == 0 {
+		return runtimeResult{}, fmt.Errorf("arm %s has no allowed tools", request.Arm)
+	}
+	if request.Arm == "B" && request.ArmBDocument == "" {
+		return runtimeResult{}, fmt.Errorf("arm B document is required")
+	}
 	configPath := filepath.Join(filepath.Dir(request.EpisodePath), "mcp.json")
 	rootPath := filepath.Join(filepath.Dir(request.EpisodePath), "roots.json")
 	if err := writeJSON(rootPath, request.Roots); err != nil {
@@ -63,6 +70,7 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 			"args": []string{
 				"serve", "--stdio", "--world", request.WorldPath, "--world-schema", request.SchemaPath,
 				"--episode-db", request.EpisodePath, "--root-refs", rootPath, "--world-build", request.WorldBuild,
+				"--arm", request.Arm,
 			},
 			"env": map[string]string{},
 		},
@@ -78,7 +86,7 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), request.Timeout)
 	defer cancel()
 	args := []string{
-		"-p", runtimePrompt(request.Goal, request.Roots),
+		"-p", runtimePromptForArm(request.Goal, request.Roots, request.Arm),
 		"--model", pinnedModel,
 		"--effort", "low",
 		"--max-turns", "12",
@@ -89,8 +97,11 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 		"--strict-mcp-config",
 		"--mcp-config", configPath,
 		"--tools", "",
-		"--allowedTools", "mcp__phoenix__act",
+		"--allowedTools", strings.Join(allowedTools, ","),
 		"--system-prompt", systemPrompt,
+	}
+	if request.Arm == "B" {
+		args = append(args, "--append-system-prompt-file", request.ArmBDocument)
 	}
 	command := exec.CommandContext(ctx, driver.executable, args...)
 	command.Dir = request.Sandbox
@@ -111,7 +122,10 @@ func (driver claudeDriver) Run(request runtimeRequest) (runtimeResult, error) {
 	return runtimeResult{FinalMessage: final, RawOutput: stdout.Bytes()}, nil
 }
 
-func runtimePrompt(goal string, roots map[string]string) string {
+func runtimePromptForArm(goal string, roots map[string]string, arm string) string {
+	if arm == "A" || arm == "B" {
+		return goal
+	}
 	names := []string{"repo", "tests", "git", "episodes"}
 	var prompt strings.Builder
 	prompt.WriteString(goal)
@@ -120,6 +134,17 @@ func runtimePrompt(goal string, roots map[string]string) string {
 		fmt.Fprintf(&prompt, "- %s: %s\n", name, roots[name])
 	}
 	return prompt.String()
+}
+
+func allowedToolsForArm(arm string, flatToolNames []string) []string {
+	if arm == "C" || arm == "D" || arm == "E" {
+		return []string{"mcp__phoenix__act"}
+	}
+	tools := make([]string, len(flatToolNames))
+	for index, name := range flatToolNames {
+		tools[index] = "mcp__phoenix__" + name
+	}
+	return tools
 }
 
 func parseRuntimeOutput(output []byte) (string, error) {

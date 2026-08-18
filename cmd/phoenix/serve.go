@@ -14,6 +14,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/nesste/phoenix/internal/activate"
 	"github.com/nesste/phoenix/internal/episode"
 	"github.com/nesste/phoenix/internal/frontier"
@@ -27,6 +28,7 @@ import (
 const externalOutputLimit = 256 * 1024
 
 type serveOptions struct {
+	arm             string
 	serverVersion   string
 	worldPath       string
 	schemaPath      string
@@ -44,7 +46,7 @@ type servePaths struct {
 }
 
 type assembledSurface struct {
-	server *surface.MCP
+	server *mcp.Server
 	store  *episode.Store
 }
 
@@ -56,6 +58,10 @@ func (assembled *assembledSurface) Close() error {
 }
 
 func assembleSurface(options serveOptions) (*assembledSurface, error) {
+	suppressFrontier, suppressTeaching, flat, err := armPolicy(options.arm)
+	if err != nil {
+		return nil, err
+	}
 	definition, err := world.Load(options.schemaPath, options.worldPath)
 	if err != nil {
 		return nil, err
@@ -77,42 +83,88 @@ func assembleSurface(options serveOptions) (*assembledSurface, error) {
 		return nil, err
 	}
 	store := openEpisodeStore(options.episodePath, options.warning)
-	registry := verb.NewRegistry()
-	if err := devrepo.Register(registry, devrepo.Config{
-		Runner: commandRunner, GoExecutable: "go", GitExecutable: "git", Episodes: store,
-	}); err != nil {
-		if store != nil {
-			_ = store.Close()
-		}
-		return nil, fmt.Errorf("register dev-repo verbs: %w", err)
-	}
-	frontierEngine, err := frontier.New(definition)
-	if err != nil {
-		return nil, closeOnError(store, err)
-	}
-	activationEngine, err := activate.New(definition)
-	if err != nil {
-		return nil, closeOnError(store, err)
-	}
-	teachingEngine, err := teach.New(definition)
-	if err != nil {
-		return nil, closeOnError(store, err)
+	var episodeLog surface.EpisodeLog
+	var episodeRecaller devrepo.EpisodeRecaller
+	if store != nil {
+		episodeLog = store
+		episodeRecaller = store
 	}
 	build := options.worldBuild
 	if build == "" {
 		build = definition.Digest()
 	}
-	admission, err := surface.New(surface.Config{
-		WorldBuild: build, Graph: graph,
-		Executor: verb.NewExecutor(registry, verb.Options{}),
-		Frontier: frontierEngine, Activation: activationEngine, Teacher: teachingEngine,
-		Episodes: store, Warning: options.warning,
-		AfterAct: afterAct,
+	admission, err := configuredAdmission(admissionConfig{
+		definition: definition, graph: graph, commandRunner: commandRunner,
+		episodeLog: episodeLog, episodeRecaller: episodeRecaller, warning: options.warning,
+		afterAct: afterAct, build: build, suppressFrontier: suppressFrontier, suppressTeaching: suppressTeaching,
 	})
 	if err != nil {
 		return nil, closeOnError(store, err)
 	}
-	return &assembledSurface{server: surface.NewMCP(options.serverVersion, admission), store: store}, nil
+	if flat {
+		adapter, flatErr := surface.NewFlatMCP(options.serverVersion, admission, definition)
+		if flatErr != nil {
+			return nil, closeOnError(store, flatErr)
+		}
+		return &assembledSurface{server: adapter.Server(), store: store}, nil
+	}
+	return &assembledSurface{server: surface.NewMCP(options.serverVersion, admission).Server(), store: store}, nil
+}
+
+type admissionConfig struct {
+	definition       *world.Definition
+	graph            *world.Graph
+	commandRunner    verb.CommandRunner
+	episodeLog       surface.EpisodeLog
+	episodeRecaller  devrepo.EpisodeRecaller
+	warning          io.Writer
+	afterAct         func(context.Context, int, surface.Input, surface.Envelope) error
+	build            string
+	suppressFrontier bool
+	suppressTeaching bool
+}
+
+func configuredAdmission(config admissionConfig) (*surface.Admission, error) {
+	registry := verb.NewRegistry()
+	if err := devrepo.Register(registry, devrepo.Config{
+		Runner: config.commandRunner, GoExecutable: "go", GitExecutable: "git", Episodes: config.episodeRecaller,
+	}); err != nil {
+		return nil, fmt.Errorf("register dev-repo verbs: %w", err)
+	}
+	frontierEngine, err := frontier.New(config.definition)
+	if err != nil {
+		return nil, err
+	}
+	activationEngine, err := activate.New(config.definition)
+	if err != nil {
+		return nil, err
+	}
+	teachingEngine, err := teach.New(config.definition)
+	if err != nil {
+		return nil, err
+	}
+	return surface.New(surface.Config{
+		WorldBuild: config.build, Graph: config.graph,
+		Executor: verb.NewExecutor(registry, verb.Options{}),
+		Frontier: frontierEngine, Activation: activationEngine, Teacher: teachingEngine,
+		Episodes: config.episodeLog, Warning: config.warning, AfterAct: config.afterAct,
+		SuppressFrontier: config.suppressFrontier, SuppressTeaching: config.suppressTeaching,
+	})
+}
+
+func armPolicy(arm string) (suppressFrontier, suppressTeaching, flat bool, err error) {
+	switch arm {
+	case "", "C":
+		return false, false, false, nil
+	case "D":
+		return true, false, false, nil
+	case "E":
+		return true, true, false, nil
+	case "A", "B":
+		return true, true, true, nil
+	default:
+		return false, false, false, fmt.Errorf("unsupported experiment arm %q", arm)
+	}
 }
 
 func configuredGraph(definition *world.Definition, resolver world.Resolver, roots map[string]string) (*world.Graph, error) {
