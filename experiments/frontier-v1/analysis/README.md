@@ -33,7 +33,7 @@ Cap-hit imbalance is narrower. A difference above 0.02 makes the affected cost-r
 
 ## Inference
 
-For 20 or more generating families, the implementation performs 10,000 paired hierarchical bootstrap replicates with seed `20260817`. Each replicate samples families, then cases within the sampled family, and retains every arm pair and repetition for a sampled case.
+For 20 or more generating families, the implementation performs 10,000 paired hierarchical bootstrap replicates with seed `20260817`. Each replicate samples families, then cases within the sampled family, and retains every arm pair and repetition for a sampled case. The bootstrap contributes registered one-sided bounds; it is not reported as a sign-flip harm p-value.
 
 Below 20 families, it first averages repetitions within case and cases within family. It then uses the unweighted family means in an exact sign-flip distribution when `G <= 16`, or 100,000 seeded sign flips when `16 < G < 20`. One-sided bounds use the empirical 5th or 95th percentile. The harm p-value is the lower-tail probability of the observed family-mean difference; Monte Carlo p-values use the add-one correction.
 

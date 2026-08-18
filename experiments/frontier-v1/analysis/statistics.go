@@ -26,7 +26,7 @@ type inference struct {
 	Point      float64
 	LowerBound float64
 	UpperBound float64
-	PWorse     float64
+	PWorse     *float64
 }
 
 func inferDifference(values []pairedValue) inference {
@@ -36,7 +36,7 @@ func inferDifference(values []pairedValue) inference {
 		return inference{
 			Method: "10000-replicate paired hierarchical bootstrap", Families: len(families), Pairs: len(values),
 			Point: meanPairDifference(values), LowerBound: quantile(distribution, 0.05),
-			UpperBound: quantile(distribution, 0.95), PWorse: tailProbability(distribution, 0),
+			UpperBound: quantile(distribution, 0.95),
 		}
 	}
 	familyMeans := unweightedFamilyMeans(values)
@@ -50,7 +50,7 @@ func inferDifference(values []pairedValue) inference {
 	}
 	return inference{
 		Method: method, Families: len(familyMeans), Pairs: len(values), Point: point,
-		LowerBound: point - critical, UpperBound: point + critical, PWorse: pWorse,
+		LowerBound: point - critical, UpperBound: point + critical, PWorse: &pWorse,
 	}
 }
 
@@ -329,16 +329,6 @@ func lowerTail(distribution []float64, observed float64, monteCarlo bool) float6
 	}
 	if monteCarlo {
 		return float64(count+1) / float64(len(distribution)+1)
-	}
-	return float64(count) / float64(len(distribution))
-}
-
-func tailProbability(distribution []float64, threshold float64) float64 {
-	count := 0
-	for _, value := range distribution {
-		if value <= threshold {
-			count++
-		}
 	}
 	return float64(count) / float64(len(distribution))
 }

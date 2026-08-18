@@ -50,8 +50,8 @@ func TestExactSignFlipRejectsConsistentHarm(t *testing.T) {
 	if result.Method != "exact family-mean sign-flip permutation" || result.Point != -1 {
 		t.Fatalf("inference = %#v", result)
 	}
-	if result.PWorse >= 0.05 {
-		t.Fatalf("p_worse = %f, want < 0.05", result.PWorse)
+	if result.PWorse == nil || *result.PWorse >= 0.05 {
+		t.Fatalf("p_worse = %#v, want < 0.05", result.PWorse)
 	}
 	if result.LowerBound != -1.5 || result.UpperBound != -0.5 {
 		t.Fatalf("bounds = [%f,%f], want [-1.5,-0.5]", result.LowerBound, result.UpperBound)
@@ -70,6 +70,9 @@ func TestHierarchicalBootstrapIsDeterministicAtTwentyFamilies(t *testing.T) {
 	}
 	if first.LowerBound != 1 || first.UpperBound != 1 {
 		t.Fatalf("constant-effect bounds = [%f,%f]", first.LowerBound, first.UpperBound)
+	}
+	if first.PWorse != nil {
+		t.Fatalf("bootstrap tail probability was mislabeled as a harm p-value: %f", *first.PWorse)
 	}
 }
 
@@ -102,6 +105,25 @@ func TestHeadlineCapabilityPassIsNotVetoedByCapImbalance(t *testing.T) {
 	}
 	if claim.CostRatio == nil || claim.CostRatio.Determinate {
 		t.Fatalf("cost ratio should remain separately indeterminate: %#v", claim.CostRatio)
+	}
+}
+
+func TestHeadlineClearFailureIsNotMadeIndeterminateByCapImbalance(t *testing.T) {
+	var observations []observation
+	for family := 0; family < 24; family++ {
+		caseID := "case-" + integerString(family)
+		familyID := "family-" + integerString(family)
+		observations = append(observations,
+			observation{FamilyID: familyID, CaseID: caseID, Arm: "C", CompleteCase: true, CapHit: family == 0, TimeoutOrCap: family == 0, Tokens: 10},
+			observation{FamilyID: familyID, CaseID: caseID, Arm: "B", ITTSuccess: true, CompleteCase: true, Tokens: 20},
+		)
+	}
+	claim := headlineClaim(observations, armReports(observations), false)
+	if claim.LowerBound == nil || *claim.LowerBound > -0.05 {
+		t.Fatalf("test setup did not produce an independent capability failure: %#v", claim.LowerBound)
+	}
+	if claim.Decision != "fail" {
+		t.Fatalf("clear failure became %s under cap imbalance: %s", claim.Decision, claim.Reason)
 	}
 }
 
@@ -204,6 +226,9 @@ func TestDeadEndRecognizesFailedHelpRequestButNotPassingAbsenceReport(t *testing
 	if !asksForHelp("I cannot proceed without the deployment target. Could you provide it?") {
 		t.Fatal("expected explicit request for missing input to be a help request")
 	}
+	if !asksForHelp("Please confirm the exact test name.") {
+		t.Fatal("documented please-confirm request was not classified as help seeking")
+	}
 	failed := assignedTrialResult{Termination: "graded_fail"}
 	if !isDeadEnd(failed, observation{Acts: 1, HelpRequest: true}) {
 		t.Fatal("failed help request should be a dead end")
@@ -224,7 +249,10 @@ func TestReportTemplateRendersAndRefusesOverwrite(t *testing.T) {
 	}
 	report := analysisReport{
 		V: 1, Tranche: "authoring", Status: "analysis_complete", Arms: map[string]armReport{"A": {}},
-		Claims: []claimReport{{ID: "headline_value", Intervention: "C", Comparator: "B", Decision: "fail", Reason: "synthetic test"}},
+		Claims: []claimReport{
+			{ID: "headline_value", Intervention: "C", Comparator: "B", Decision: "fail", Reason: "synthetic test"},
+			{ID: "direct_no_tax", Intervention: "C", Comparator: "A", PWorse: floatPointer(0.25), Decision: "no_harm_signal", Reason: "synthetic test"},
+		},
 	}
 	if err := renderNewReport(root, "template.md.tmpl", "report.md", report); err != nil {
 		t.Fatal(err)
@@ -233,10 +261,15 @@ func TestReportTemplateRendersAndRefusesOverwrite(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(string(contents), "headline_value") || !strings.Contains(string(contents), "Gate 1A") {
+	if !strings.Contains(string(contents), "headline_value") || !strings.Contains(string(contents), "Gate 1A") || !strings.Contains(string(contents), "versus -0.100000") {
 		t.Fatalf("rendered report omitted required sections:\n%s", contents)
+	}
+	if strings.Count(string(contents), "sign-flip harm p-value") != 1 {
+		t.Fatalf("report should label only the sign-flip p-value:\n%s", contents)
 	}
 	if err := renderNewReport(root, "template.md.tmpl", "report.md", report); err == nil {
 		t.Fatal("report renderer overwrote an existing output")
 	}
 }
+
+func floatPointer(value float64) *float64 { return &value }

@@ -117,7 +117,7 @@ func directClaim(observations []observation, arms map[string]armReport, globally
 	claim := baseClaim("direct_no_tax", "C", "A", "direct", "ITT task success", inference, values)
 	if globallyIndeterminate {
 		claim.Decision, claim.Reason = "indeterminate", "tranche-level missing-data or stopping rule"
-	} else if inference.PWorse < 0.05 {
+	} else if harmPBelow(inference, 0.05) {
 		claim.Decision, claim.Reason = "reject_surface", "one-sided test finds C worse than A at p < 0.05"
 	} else {
 		claim.Decision, claim.Reason = "no_harm_signal", "harm test did not reject; this is not a noninferiority claim"
@@ -152,7 +152,7 @@ func headlineClaim(observations []observation, arms map[string]armReport, global
 	efficiency := inference.LowerBound > -0.05 && ratio.Determinate && ratio.UpperBound != nil && *ratio.UpperBound <= 0.80 && deadEndInference.UpperBound < 0.05 && capInference.UpperBound < 0.05
 	if efficiency {
 		claim.Decision, claim.Reason = "efficiency_only", "capability did not pass; all four precommitted efficiency-only conditions hold"
-	} else if capImbalanced {
+	} else if inference.LowerBound > -0.05 && capImbalanced {
 		claim.Decision, claim.Reason = "indeterminate", "cap-hit imbalance makes the required paired-success token ratio indeterminate"
 	} else {
 		claim.Decision, claim.Reason = "fail", "capability lower bound is not above zero and the efficiency-only conjunction does not hold"
@@ -169,7 +169,7 @@ func frontierClaim(observations []observation, arms map[string]armReport, global
 	claim := baseClaim("frontier_value", "C", "D", "cascade, far_discovery, recovery, and temptation", "ITT task success", inference, values)
 	if globallyIndeterminate {
 		claim.Decision, claim.Reason = "indeterminate", "tranche-level missing-data or stopping rule"
-	} else if inference.Point <= 0 || inference.PWorse < 0.05 {
+	} else if inference.Point <= 0 || harmPBelow(inference, 0.05) {
 		claim.Decision, claim.Reason = "remove_frontier", "C-D point estimate is nonpositive or the one-sided harm test rejects"
 	} else {
 		claim.Decision, claim.Reason = "retain_frontier", "C-D point estimate is positive and the one-sided harm test does not reject"
@@ -188,7 +188,7 @@ func teachingClaim(observations []observation, arms map[string]armReport, global
 	claim.DownstreamSuccess = inferencePointer(downstream)
 	if globallyIndeterminate {
 		claim.Decision, claim.Reason = "indeterminate", "tranche-level missing-data or stopping rule"
-	} else if recoveryInference.Point <= 0 || recoveryInference.PWorse < 0.05 || downstream.LowerBound < -0.05 {
+	} else if recoveryInference.Point <= 0 || harmPBelow(recoveryInference, 0.05) || downstream.LowerBound < -0.05 {
 		claim.Decision, claim.Reason = "replace_teaching_refusals", "recovery effect is nonpositive, harm test rejects, or downstream ITT lower bound is below -0.05"
 	} else {
 		claim.Decision, claim.Reason = "retain_teaching_refusals", "recovery effect is positive without a harm signal or downstream guardrail failure"
@@ -198,17 +198,21 @@ func teachingClaim(observations []observation, arms map[string]armReport, global
 }
 
 func baseClaim(id, intervention, comparator, population, endpoint string, result inference, values []pairedValue) claimReport {
-	lower, upper, pWorse := result.LowerBound, result.UpperBound, result.PWorse
+	lower, upper := result.LowerBound, result.UpperBound
 	return claimReport{
 		ID: id, Intervention: intervention, Comparator: comparator, Population: population, Endpoint: endpoint,
 		Families: result.Families, Pairs: result.Pairs, Method: result.Method, PointEstimate: result.Point,
-		LowerBound: &lower, UpperBound: &upper, PWorse: &pWorse, Sensitivity: sensitivity(values),
+		LowerBound: &lower, UpperBound: &upper, PWorse: result.PWorse, Sensitivity: sensitivity(values),
 	}
 }
 
 func inferencePointer(result inference) *inferenceReport {
-	lower, upper, pWorse := result.LowerBound, result.UpperBound, result.PWorse
-	return &inferenceReport{Point: result.Point, LowerBound: &lower, UpperBound: &upper, PWorse: &pWorse}
+	lower, upper := result.LowerBound, result.UpperBound
+	return &inferenceReport{Point: result.Point, LowerBound: &lower, UpperBound: &upper, PWorse: result.PWorse}
+}
+
+func harmPBelow(result inference, threshold float64) bool {
+	return result.PWorse != nil && *result.PWorse < threshold
 }
 
 func successPairs(observations []observation, intervention, comparator string, include func(observation) bool) []pairedValue {

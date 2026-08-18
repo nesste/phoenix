@@ -43,7 +43,9 @@ Manual-required grades, unresolved assignments, timeouts, and cap hits are failu
 - Point estimate: {{decimal .PointEstimate}}
 - One-sided 95% lower bound: {{optional .LowerBound}}
 - One-sided 95% upper bound: {{optional .UpperBound}}
-- One-sided harm p-value: {{optional .PWorse}}
+{{if .PWorse}}- One-sided sign-flip harm p-value: {{optional .PWorse}}
+{{end}}{{if eq .ID "direct_no_tax"}}- Descriptive harm reference: point estimate {{decimal .PointEstimate}} versus -0.100000. This is not a noninferiority claim.
+{{end}}
 - Decision: `{{.Decision}}`
 - Reason: {{.Reason}}
 - Sensitivity: complete case {{optional .Sensitivity.CompleteCase}}; one vote per case {{decimal .Sensitivity.OneVotePerCase}}; one vote per family {{decimal .Sensitivity.OneVotePerFamily}}

@@ -210,7 +210,7 @@ func isDeadEnd(result assignedTrialResult, item observation) bool {
 	return !item.ITTSuccess && (item.Acts == 0 || item.HelpRequest) && !item.Unresolved
 }
 
-var helpRequestPattern = regexp.MustCompile(`(?i)(please (provide|clarify|specify)|(can|could|would) you (provide|clarify|specify|confirm)|(need|require) (more|additional) (information|context)|can(?:not|'t) proceed without)`)
+var helpRequestPattern = regexp.MustCompile(`(?i)(please (provide|clarify|specify|confirm)|(can|could|would) you (provide|clarify|specify|confirm)|(need|require) (more|additional) (information|context)|can(?:not|'t) proceed without)`)
 
 func asksForHelp(message string) bool {
 	return helpRequestPattern.MatchString(message)
