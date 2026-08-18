@@ -6,7 +6,7 @@ It runs as a local environment service called a **world**. An agent starts with 
 
 Phoenix does not call a model or run an agent loop. It provides the environment an external agent acts inside.
 
-> **Project status:** Protocol v4 is independently accepted and frozen. Validation and held-out remain closed and no sealed outcome has been opened. Phase 1 implementation now includes the A–E surface policies, the shared state-event harness, conventional flat-tool adapters for A/B, pinned arm prompts, and an authoring-only arm selector. Randomized scheduling, repetition/retry accounting, analysis/report artifacts, Arm B human review, and all pre-validation digests remain incomplete; Gate 1A is closed.
+> **Project status:** Protocol v4 is independently accepted and frozen. Validation and held-out remain closed and no sealed outcome has been opened. Phase 1 implementation includes the A–E surface policies, shared state-event harness, conventional flat-tool adapters for A/B, pinned arm prompts, and an authoring-only arm selector. The Arm B document is independently accepted and frozen by digest. Randomized scheduling, repetition/retry accounting, analysis/report artifacts, and the remaining pre-validation digests are incomplete; Gate 1A is closed.
 
 ## The problem Phoenix is testing
 

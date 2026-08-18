@@ -12,15 +12,15 @@ Protocol v4 is accepted and frozen. This implementation tranche adds the first p
 - The server and authoring runner accept only A, B, C, D, or E. Exact protocol system prompts are pinned in code; the Phoenix bootstrap-intent sentence is present only for C, D, and E.
 - Flat arms receive no opaque-handle prompt. Their runtime allowlist is derived deterministically from the world definition.
 - The Arm B authoring-only guide lists every starter verb and covers one visible acceptable path per authoring class. Mechanical tests keep the guide aligned with the world and visible labels.
+- An independent human-factors reviewer accepted the Arm B guide at commit `73adf8c608f0edf06597b569b17faa32e1a3b5b9`. `pre-validation-artifacts.json` freezes its accepted digest and keeps both outcome gates false.
 - Non-C authoring probes default to arm-specific output directories, protecting the retained Arm C evidence.
 
 ## Still required before a Phase 1 outcome run
 
-1. Obtain and commit the independent Arm B human-factors review, then freeze the accepted document by digest.
-2. Implement the family-blocked Williams schedule, three repetitions per case-arm pair, and deterministic launch order.
-3. Implement attempt records, eligible infrastructure retry classification, pairing-key budget stops, timeout/cap ITT handling, and complete runtime/token/cost metadata.
-4. Add the precommitted analysis implementation and report template, with tests for ITT, unresolved and cap-imbalance rules, paired inference, and component contrasts.
-5. Freeze every `artifact_freeze.before_validation` item by digest and complete Task 0.6 independent review.
-6. Independently generate and seal new disjoint validation and held-out candidates. Do not inspect or execute their outcomes while completing the items above.
+1. Implement the family-blocked Williams schedule, three repetitions per case-arm pair, and deterministic launch order.
+2. Implement attempt records, eligible infrastructure retry classification, pairing-key budget stops, timeout/cap ITT handling, and complete runtime/token/cost metadata.
+3. Add the precommitted analysis implementation and report template, with tests for ITT, unresolved and cap-imbalance rules, paired inference, and component contrasts.
+4. Freeze the seven remaining `artifact_freeze.before_validation` items by digest.
+5. Independently generate and seal new disjoint validation and held-out candidates. Do not inspect or execute their outcomes while completing the items above.
 
 The current runner remains authoring-only. No authoring execution is required by this implementation tranche, and the retained 7/8 focused-revision run is unchanged.

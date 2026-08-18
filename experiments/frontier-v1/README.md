@@ -149,3 +149,5 @@ go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id>
 ```
 
 Arm C remains the default and writes to `results/authoring/`; non-C defaults write under `results/arm-probes/<arm>/` so they cannot replace retained evidence accidentally. Evidence from the single focused-revision run is retained under `results/authoring/`. The runner has no code path for validation or held_out cases. It is not yet the randomized Phase 1 evaluator: scheduling, three-repetition execution, infrastructure retry classification, pairing-key budget stops, complete attempt/cost metadata, analysis, and report generation remain to be implemented and frozen.
+
+The Arm B static document passed independent human-factors review at candidate commit `73adf8c608f0edf06597b569b17faa32e1a3b5b9`. Its accepted digest and review record are committed in `pre-validation-artifacts.json`. That manifest remains `partial`; its seven listed artifacts must still be frozen before validation can open.
