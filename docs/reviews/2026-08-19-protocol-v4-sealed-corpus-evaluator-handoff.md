@@ -26,6 +26,7 @@ The corpus determinism checks compare committed JSON bytes, and the accepted raw
 
 ```powershell
 git config --worktree core.autocrlf false
+git config --worktree core.eol lf
 git checkout-index --all --force
 git status --short
 ```
