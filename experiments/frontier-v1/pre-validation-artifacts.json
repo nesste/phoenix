@@ -53,13 +53,147 @@
         "experiments/frontier-v1/analysis/types.go": "sha256:26d2d922f84214eee87346ba429cc6b9bd62a911a031087ee870f4dcfad1d200"
       },
       "frozen": true
+    },
+    "runtime_invocation_and_exact_per_arm_system_prompts": {
+      "candidate_commit": "795ce71acd51beb977190811c90cc538f3c6b928",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:19743d85232a2ec83b80bb71fc6b5dc3ee6cc669d319c446218aa248eb8f76b9",
+      "review_record": "docs/reviews/2026-08-19-pre-validation-local-freeze-review-2.md",
+      "review_verdict": "ACCEPT",
+      "frozen": true,
+      "protocol_runtime": {
+        "name": "claude-code",
+        "version": "2.1.229",
+        "model": "claude-sonnet-5",
+        "effort": "low",
+        "service_tier": "standard",
+        "fast_mode": false,
+        "access_mode": "surface_only",
+        "session_persistence": false,
+        "transport": "stdio",
+        "max_turns": 12,
+        "cli_invariants": [
+          "--no-session-persistence",
+          "--output-format stream-json",
+          "--strict-mcp-config",
+          "--tools empty",
+          "only the arm-declared tools are allowed"
+        ]
+      },
+      "trial_limits": {
+        "timeout_seconds": 180,
+        "max_cost_usd_per_trial": 0.15,
+        "maximum_infrastructure_retries": 1
+      },
+      "default_runtime_executable": "claude",
+      "model_invocation_template": [
+        "claude",
+        "-p", "<arm-specific user prompt>",
+        "--model", "claude-sonnet-5",
+        "--effort", "low",
+        "--max-turns", "12",
+        "--max-budget-usd", "0.15",
+        "--no-session-persistence",
+        "--output-format", "stream-json",
+        "--verbose",
+        "--strict-mcp-config",
+        "--mcp-config", "<per-attempt mcp.json>",
+        "--tools", "",
+        "--allowedTools", "<arm-specific comma-separated allowlist>",
+        "--system-prompt", "<exact arm system prompt>",
+        "[Arm B only] --append-system-prompt-file", "experiments/frontier-v1/arms/arm-b.md"
+      ],
+      "phoenix_server_invocation_template": [
+        "<freshly built Phoenix executable>",
+        "serve", "--stdio",
+        "--world", "worlds/dev-repo/world.json",
+        "--world-schema", "spec/world.schema.json",
+        "--episode-db", "<per-attempt episodes.db>",
+        "--root-refs", "<per-attempt roots.json>",
+        "--world-build", "<world-build digest>",
+        "--arm", "<A|B|C|D|E>",
+        "[when declared] --state-events", "<per-attempt state-events.json>"
+      ],
+      "system_prompts": {
+        "A": "Use only the configured tools. Follow the user request exactly.",
+        "B": "Use only the configured tools. Follow the user request exactly.",
+        "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
+        "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
+        "E": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
+      },
+      "files_lf_normalized_utf8_sha256": {
+        "experiments/frontier-v1/protocol.json": "sha256:81c86f1eea00120e597927cb1937854fba6580913ba79d604c4b63c7caaa05e9",
+        "experiments/frontier-v1/runner/main.go": "sha256:e0949c0abf26fa6fe9f3b2ccd8c8c8c937d69098110a8454c08fad8b96c06c35",
+        "experiments/frontier-v1/runner/runtime.go": "sha256:fe7d608fb2b64defb2ae5097235b93191d7e386e75693a9b8cfd6103940aeb56",
+        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:4a86b8d84789fa60c9b1991dcfaf0c9b82e9cee7d37459af79df84d69d0ba1cf"
+      }
+    },
+    "arm_a_schemas": {
+      "candidate_commit": "795ce71acd51beb977190811c90cc538f3c6b928",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:19743d85232a2ec83b80bb71fc6b5dc3ee6cc669d319c446218aa248eb8f76b9",
+      "review_record": "docs/reviews/2026-08-19-pre-validation-local-freeze-review-2.md",
+      "review_verdict": "ACCEPT",
+      "frozen": true,
+      "derivation": "For each root and verb in the world definition, expose root_name + '_' + verb with the verb args_schema and description 'Invoke <handle_type>.<verb> on <root label>.'; sort by tool name.",
+      "files_lf_normalized_utf8_sha256": {
+        "internal/surface/flat.go": "sha256:99ceffc43aa848b4f241a34cc1d70c5e278d5578f376c502e9787f5785b2e8ff",
+        "worlds/dev-repo/world.json": "sha256:41d242e672c812a50a253e33e165d839e2c8d167914605805a311fefaeb92143"
+      },
+      "tools": [
+        { "name": "episodes_recall", "description": "Invoke episodes.recall on session episode history.", "args_schema_pointer": "/handle_types/episodes/verbs/recall/args_schema" },
+        { "name": "git_commit", "description": "Invoke git.commit on repository history.", "args_schema_pointer": "/handle_types/git/verbs/commit/args_schema" },
+        { "name": "git_diff", "description": "Invoke git.diff on repository history.", "args_schema_pointer": "/handle_types/git/verbs/diff/args_schema" },
+        { "name": "git_status", "description": "Invoke git.status on repository history.", "args_schema_pointer": "/handle_types/git/verbs/status/args_schema" },
+        { "name": "repo_build", "description": "Invoke repo.build on current repository.", "args_schema_pointer": "/handle_types/repo/verbs/build/args_schema" },
+        { "name": "repo_edit", "description": "Invoke repo.edit on current repository.", "args_schema_pointer": "/handle_types/repo/verbs/edit/args_schema" },
+        { "name": "repo_find", "description": "Invoke repo.find on current repository.", "args_schema_pointer": "/handle_types/repo/verbs/find/args_schema" },
+        { "name": "repo_read", "description": "Invoke repo.read on current repository.", "args_schema_pointer": "/handle_types/repo/verbs/read/args_schema" },
+        { "name": "repo_status", "description": "Invoke repo.status on current repository.", "args_schema_pointer": "/handle_types/repo/verbs/status/args_schema" },
+        { "name": "tests_focus", "description": "Invoke tests.focus on repository test suite.", "args_schema_pointer": "/handle_types/tests/verbs/focus/args_schema" },
+        { "name": "tests_list", "description": "Invoke tests.list on repository test suite.", "args_schema_pointer": "/handle_types/tests/verbs/list/args_schema" },
+        { "name": "tests_run", "description": "Invoke tests.run on repository test suite.", "args_schema_pointer": "/handle_types/tests/verbs/run/args_schema" }
+      ]
+    },
+    "world_definition_and_world_build_digest": {
+      "candidate_commit": "795ce71acd51beb977190811c90cc538f3c6b928",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:19743d85232a2ec83b80bb71fc6b5dc3ee6cc669d319c446218aa248eb8f76b9",
+      "review_record": "docs/reviews/2026-08-19-pre-validation-local-freeze-review-2.md",
+      "review_verdict": "ACCEPT",
+      "frozen": true,
+      "world_definition": "worlds/dev-repo/world.json",
+      "world_definition_raw_sha256": "sha256:41d242e672c812a50a253e33e165d839e2c8d167914605805a311fefaeb92143",
+      "world_definition_canonical_json_sha256": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+      "authoring_world_equivalent": "experiments/frontier-v1/worlds/authoring.dev_repo.json",
+      "world_build_manifest": "experiments/frontier-v1/artifacts/world-build.linux-amd64.json",
+      "world_build_manifest_raw_sha256": "sha256:da59f795b3670e4bf16ecae5453222374c9f91e50ebd3a7e9ddb6d1610487f0f",
+      "world_build_digest": "sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d",
+      "target": {
+        "goos": "linux",
+        "goarch": "amd64",
+        "cgo_enabled": false,
+        "version": "dev",
+        "trimpath": true,
+        "buildvcs": false,
+        "empty_buildid": true
+      }
+    },
+    "grader_digest": {
+      "candidate_commit": "795ce71acd51beb977190811c90cc538f3c6b928",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:19743d85232a2ec83b80bb71fc6b5dc3ee6cc669d319c446218aa248eb8f76b9",
+      "review_record": "docs/reviews/2026-08-19-pre-validation-local-freeze-review-2.md",
+      "review_verdict": "ACCEPT",
+      "frozen": true,
+      "digest": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
+      "command": "cd experiments/frontier-v1/corpusctl && go run ./cmd/corpusctl grader-digest --repo-root ../../..",
+      "coverage": "LF-normalized non-test corpusctl Go sources, corpusctl go.mod/go.sum, and every frontier-v1 schema",
+      "digest_implementation": "experiments/frontier-v1/corpusctl/internal/corpus/grade.go",
+      "digest_implementation_lf_normalized_utf8_sha256": "sha256:89304bb0ac6b45a8236fd4562b9c2b2212f40ebc80c6bbbaac907f8f233e719d"
     }
   },
   "remaining": [
-    "runtime invocation and exact per-arm system prompts",
-    "arm A schemas",
-    "world definition and world-build digest",
-    "schedule digest",
-    "grader digest"
+    "schedule digest"
   ]
 }

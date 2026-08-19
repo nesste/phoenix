@@ -21,13 +21,12 @@ Protocol v4 is accepted and frozen. This status covers the arm adapters and sche
 - The scheduled runner at `b4df919070bb9a6d2912662b4a59674b0e25a332` received an independent `ACCEPT` with no findings. Its nine reviewed files are frozen as one file-digest set in `pre-validation-artifacts.json`.
 - The Phase 1 analysis implements ITT accounting, whole-pair safety-stop handling, unresolved and cap-imbalance rules, paired hierarchical bootstrap and family sign flips, paired-success token ratios, the three component contrasts, sensitivity views, and a deterministic Markdown report template. It reconstructs frontier linkage from retained runtime evidence.
 - The focused analysis revision at `62946f4a1a03ea89636c5b3243f3b4d53b166682` received an independent `ACCEPT` with no findings. The nine analysis and report artifacts are frozen by digest. The accepted non-blocking limitation is that descriptive measures do not yet carry two-sided 95% intervals; those intervals enter no forced decision.
-- An outcome-free candidate for the other four locally available artifacts is committed under `experiments/frontier-v1/artifacts/`. Mechanical tests bind its runtime contract and exact prompts to protocol and runner bytes, derive its twelve Arm A tool schemas from the world, verify the committed world-build identity, recompute the grader digest, and keep both outcome gates closed. It is a review candidate, not an accepted freeze.
+- The outcome-free candidate for the other four locally available artifacts received an independent focused-revision `ACCEPT` at `795ce71acd51beb977190811c90cc538f3c6b928`. The runtime contract and exact prompts, twelve Arm A tool schemas, world definition/build, and grader are copied into `pre-validation-artifacts.json` with their reviewed identities. Mechanical tests bind every accepted object back to the candidate. Both outcome gates remain closed.
 
 ## Still required before a Phase 1 outcome run
 
 1. Independently generate and seal new disjoint validation and held-out candidates. Do not inspect or execute their outcomes while completing the remaining artifacts.
-2. Obtain independent acceptance of the prepared local-artifact candidate, then record its runtime invocation and exact prompts, Arm A schemas, world definition and world-build digest, and grader digest in the accepted freeze manifest.
-3. Generate the validation schedule only from the accepted replacement validation cases and freeze its digest. The authoring schedule is not a substitute.
-4. Keep the manifest `partial` and both outcome gates false until all five remaining entries are frozen and every external blocker is closed.
+2. Generate the validation schedule only from the accepted replacement validation cases and freeze its digest. The authoring schedule is not a substitute.
+3. Keep the manifest `partial` and both outcome gates false until the schedule digest and every external blocker are closed.
 
 The current runner remains authoring-only. No authoring execution is required by this implementation tranche, and the retained 7/8 focused-revision run is unchanged.

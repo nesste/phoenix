@@ -4,7 +4,6 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
-	"os"
 	"os/exec"
 	"path/filepath"
 	"reflect"
@@ -310,24 +309,18 @@ func verifyGraderCandidate(t *testing.T, repositoryRoot string, candidate localA
 	}
 }
 
-func TestLocalArtifactCandidateDoesNotAlterAcceptedFreeze(t *testing.T) {
-	contents, err := os.ReadFile(filepath.Join("..", "pre-validation-artifacts.json"))
-	if err != nil {
-		t.Fatal(err)
+func TestLocalArtifactAcceptanceKeepsOutcomeGatesClosed(t *testing.T) {
+	var freeze struct {
+		Status string `json:"status"`
+		Gates  struct {
+			MayOpenValidation bool `json:"may_open_validation"`
+			MayOpenHeldOut    bool `json:"may_open_held_out"`
+		} `json:"gates"`
+		Remaining []string `json:"remaining"`
 	}
-	text := string(contents)
-	for _, required := range []string{
-		`"status": "partial"`,
-		`"may_open_validation": false`,
-		`"may_open_held_out": false`,
-		`"runtime invocation and exact per-arm system prompts"`,
-		`"arm A schemas"`,
-		`"world definition and world-build digest"`,
-		`"schedule digest"`,
-		`"grader digest"`,
-	} {
-		if !strings.Contains(text, required) {
-			t.Fatalf("accepted freeze manifest no longer contains %s", required)
-		}
+	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freeze)
+	if freeze.Status != "partial" || freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut ||
+		!reflect.DeepEqual(freeze.Remaining, []string{"schedule digest"}) {
+		t.Fatalf("local artifact acceptance opened a gate or changed the remaining set: %#v", freeze)
 	}
 }

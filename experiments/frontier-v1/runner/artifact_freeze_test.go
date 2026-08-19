@@ -66,6 +66,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 		"b4df919070bb9a6d2912662b4a59674b0e25a332", 9)
 	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Analysis,
 		"62946f4a1a03ea89636c5b3243f3b4d53b166682", 9)
+	verifyAcceptedLocalArtifacts(t, repositoryRoot)
 
 	var protocol struct {
 		ArtifactFreeze struct {
@@ -74,9 +75,66 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	}
 	readJSONForTest(t, filepath.Join("..", "protocol.json"), &protocol)
 	wantRemaining := withoutStrings(protocol.ArtifactFreeze.BeforeValidation,
-		"arm B static document", "runner digest", "analysis implementation and report template")
+		"runtime invocation and exact per-arm system prompts",
+		"arm A schemas",
+		"arm B static document",
+		"world definition and world-build digest",
+		"runner digest",
+		"grader digest",
+		"analysis implementation and report template",
+	)
 	if !reflect.DeepEqual(freeze.Remaining, wantRemaining) {
 		t.Fatalf("remaining freeze set = %#v, want %#v", freeze.Remaining, wantRemaining)
+	}
+}
+
+func verifyAcceptedLocalArtifacts(t *testing.T, repositoryRoot string) {
+	t.Helper()
+	const (
+		candidateCommit = "795ce71acd51beb977190811c90cc538f3c6b928"
+		candidatePath   = "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json"
+		candidateDigest = "sha256:19743d85232a2ec83b80bb71fc6b5dc3ee6cc669d319c446218aa248eb8f76b9"
+		reviewPath      = "docs/reviews/2026-08-19-pre-validation-local-freeze-review-2.md"
+	)
+	actualDigest, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(candidatePath)))
+	if err != nil || actualDigest != candidateDigest {
+		t.Fatalf("accepted local candidate digest = %s, %v", actualDigest, err)
+	}
+	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(reviewPath))); err != nil {
+		t.Fatalf("accepted local review record: %v", err)
+	}
+
+	var freezeDocument map[string]any
+	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freezeDocument)
+	var candidateDocument map[string]any
+	readJSONForTest(t, filepath.Join("..", "artifacts", "pre-validation-local-candidate.json"), &candidateDocument)
+	freezeArtifacts := freezeDocument["artifacts"].(map[string]any)
+	candidateArtifacts := candidateDocument["artifacts"].(map[string]any)
+	for _, key := range []string{
+		"runtime_invocation_and_exact_per_arm_system_prompts",
+		"arm_a_schemas",
+		"world_definition_and_world_build_digest",
+		"grader_digest",
+	} {
+		accepted := freezeArtifacts[key].(map[string]any)
+		if accepted["candidate_commit"] != candidateCommit || accepted["candidate_artifact"] != candidatePath ||
+			accepted["candidate_artifact_lf_normalized_utf8_sha256"] != candidateDigest ||
+			accepted["review_record"] != reviewPath || accepted["review_verdict"] != "ACCEPT" || accepted["frozen"] != true {
+			t.Fatalf("accepted local artifact %s metadata = %#v", key, accepted)
+		}
+		copied := make(map[string]any, len(accepted)-4)
+		for field, value := range accepted {
+			switch field {
+			case "candidate_commit", "candidate_artifact", "candidate_artifact_lf_normalized_utf8_sha256", "review_record", "review_verdict":
+				continue
+			default:
+				copied[field] = value
+			}
+		}
+		copied["frozen"] = false
+		if !reflect.DeepEqual(copied, candidateArtifacts[key]) {
+			t.Fatalf("accepted local artifact %s differs from reviewed candidate", key)
+		}
 	}
 }
 
