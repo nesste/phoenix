@@ -12,13 +12,25 @@ The handoff begins after the focused local-artifact freeze at implementation com
 
 | Artifact | Identity |
 | --- | --- |
-| Protocol v4 | `sha256:81c86f1eea00120e597927cb1937854fba6580913ba79d604c4b63c7caaa05e9` |
+| Protocol v4, LF-normalized UTF-8 | `sha256:81c86f1eea00120e597927cb1937854fba6580913ba79d604c4b63c7caaa05e9` |
 | Production/authoring world, canonical JSON | `sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b` |
 | Production/authoring world, raw bytes | `sha256:41d242e672c812a50a253e33e165d839e2c8d167914605805a311fefaeb92143` |
 | Current grader | `sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc` |
 | Frozen Linux-amd64 world build | `sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d` |
 
 Independently recompute these identities before authoring. Stop if any differs. `pre-validation-artifacts.json` must remain `partial`, with both outcome gates false and only `schedule digest` remaining.
+
+### Windows line-ending setup
+
+The corpus determinism checks compare committed JSON bytes, and the accepted raw world identity assumes LF bytes. Before running any corpus command in a Windows evaluator worktree, require LF materialization:
+
+```powershell
+git config --worktree core.autocrlf false
+git checkout-index --all --force
+git status --short
+```
+
+Run `checkout-index` only in the newly created, clean evaluator worktree. Stop if `git status --short` is nonempty before or after the operation. This avoids the documented CRLF-only false stale-manifest failure without changing any tracked byte.
 
 ## Independence and custody boundary
 
