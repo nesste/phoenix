@@ -1,5 +1,7 @@
 # Protocol-v4 sealed-corpus independent review prompt
 
+Status: superseded by `docs/reviews/2026-08-19-protocol-v4-sealed-corpus-review-prompt-v2.md`. Do not issue this version to a reviewer.
+
 Give this prompt to an evaluation reviewer who did not author the replacement corpus or labels, prepare the candidate package, or implement Phoenix. Use a fresh review session.
 
 ```text
