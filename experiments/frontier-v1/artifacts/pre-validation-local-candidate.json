@@ -60,7 +60,7 @@
         "--world-schema", "spec/world.schema.json",
         "--episode-db", "<per-attempt episodes.db>",
         "--root-refs", "<per-attempt roots.json>",
-        "--world-build", "sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d",
+        "--world-build", "<world-build digest>",
         "--arm", "<A|B|C|D|E>",
         "[when declared] --state-events", "<per-attempt state-events.json>"
       ],

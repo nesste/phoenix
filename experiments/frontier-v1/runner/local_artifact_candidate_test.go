@@ -28,11 +28,14 @@ type localArtifactCandidate struct {
 	} `json:"gates"`
 	Artifacts struct {
 		Runtime struct {
-			ProtocolRuntime map[string]any    `json:"protocol_runtime"`
-			TrialLimits     map[string]any    `json:"trial_limits"`
-			SystemPrompts   map[string]string `json:"system_prompts"`
-			Files           map[string]string `json:"files_lf_normalized_utf8_sha256"`
-			Frozen          bool              `json:"frozen"`
+			ProtocolRuntime          map[string]any    `json:"protocol_runtime"`
+			TrialLimits              map[string]any    `json:"trial_limits"`
+			DefaultRuntimeExecutable string            `json:"default_runtime_executable"`
+			ModelInvocation          []string          `json:"model_invocation_template"`
+			PhoenixInvocation        []string          `json:"phoenix_server_invocation_template"`
+			SystemPrompts            map[string]string `json:"system_prompts"`
+			Files                    map[string]string `json:"files_lf_normalized_utf8_sha256"`
+			Frozen                   bool              `json:"frozen"`
 		} `json:"runtime_invocation_and_exact_per_arm_system_prompts"`
 		ArmA struct {
 			Files  map[string]string `json:"files_lf_normalized_utf8_sha256"`
@@ -83,9 +86,89 @@ func TestLocalArtifactCandidateMatchesImplementation(t *testing.T) {
 	verifyCandidateFiles(t, repositoryRoot, candidate.Artifacts.Runtime.Files)
 	verifyCandidateFiles(t, repositoryRoot, candidate.Artifacts.ArmA.Files)
 	verifyRuntimeCandidate(t, candidate)
+	verifyInvocationTemplates(t, candidate)
 	verifyArmACandidate(t, repositoryRoot, candidate)
 	verifyWorldBuildCandidate(t, repositoryRoot, candidate)
 	verifyGraderCandidate(t, repositoryRoot, candidate)
+}
+
+func verifyInvocationTemplates(t *testing.T, candidate localArtifactCandidate) {
+	t.Helper()
+	temporary := t.TempDir()
+	episodePath := filepath.Join(temporary, "episodes.db")
+	stateEventsPath := filepath.Join(temporary, "state-events.json")
+	request := runtimeRequest{
+		Arm: "C", Goal: "candidate goal", Roots: map[string]string{
+			"repo": "h_repo", "tests": "h_tests", "git": "h_git", "episodes": "h_episodes",
+		},
+		PhoenixPath: "<freshly built Phoenix executable>",
+		WorldPath:   "worlds/dev-repo/world.json", SchemaPath: "spec/world.schema.json",
+		EpisodePath: episodePath, WorldBuild: "<world-build digest>", StateEventsPath: stateEventsPath,
+		BudgetUSD: "0.15",
+	}
+	modelArguments, err := prepareRuntimeInvocation(
+		request, "<exact arm system prompt>", []string{"<arm-specific comma-separated allowlist>"},
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+	modelInvocation := append([]string{candidate.Artifacts.Runtime.DefaultRuntimeExecutable}, modelArguments...)
+	replaceArgument(modelInvocation, runtimePromptForArm(request.Goal, request.Roots, request.Arm), "<arm-specific user prompt>")
+	replaceArgument(modelInvocation, filepath.Join(temporary, "mcp.json"), "<per-attempt mcp.json>")
+	wantModel := candidate.Artifacts.Runtime.ModelInvocation
+	if len(wantModel) < 2 {
+		t.Fatal("candidate model invocation omits the Arm B suffix marker")
+	}
+	baseModel := wantModel[:len(wantModel)-2]
+	if !reflect.DeepEqual(modelInvocation, baseModel) {
+		t.Fatalf("candidate model invocation = %#v, implementation = %#v", baseModel, modelInvocation)
+	}
+
+	armBRequest := request
+	armBRequest.Arm = "B"
+	armBRequest.ArmBDocument = "experiments/frontier-v1/arms/arm-b.md"
+	armBArguments, err := prepareRuntimeInvocation(
+		armBRequest, "<exact arm system prompt>", []string{"<arm-specific comma-separated allowlist>"},
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := armBArguments[len(armBArguments)-2:]; !reflect.DeepEqual(got, []string{
+		"--append-system-prompt-file", armBRequest.ArmBDocument,
+	}) {
+		t.Fatalf("Arm B invocation suffix = %#v", got)
+	}
+	if !reflect.DeepEqual(wantModel[len(wantModel)-2:], []string{
+		"[Arm B only] --append-system-prompt-file", armBRequest.ArmBDocument,
+	}) {
+		t.Fatalf("candidate Arm B invocation suffix = %#v", wantModel[len(wantModel)-2:])
+	}
+
+	var mcpConfig struct {
+		Servers map[string]struct {
+			Command string   `json:"command"`
+			Args    []string `json:"args"`
+		} `json:"mcpServers"`
+	}
+	readJSONForTest(t, filepath.Join(temporary, "mcp.json"), &mcpConfig)
+	server := mcpConfig.Servers["phoenix"]
+	phoenixInvocation := append([]string{server.Command}, server.Args...)
+	replaceArgument(phoenixInvocation, episodePath, "<per-attempt episodes.db>")
+	replaceArgument(phoenixInvocation, filepath.Join(temporary, "roots.json"), "<per-attempt roots.json>")
+	replaceArgument(phoenixInvocation, stateEventsPath, "<per-attempt state-events.json>")
+	replaceArgument(phoenixInvocation, armBRequest.Arm, "<A|B|C|D|E>")
+	phoenixInvocation[len(phoenixInvocation)-2] = "[when declared] --state-events"
+	if !reflect.DeepEqual(phoenixInvocation, candidate.Artifacts.Runtime.PhoenixInvocation) {
+		t.Fatalf("candidate Phoenix invocation = %#v, implementation = %#v", candidate.Artifacts.Runtime.PhoenixInvocation, phoenixInvocation)
+	}
+}
+
+func replaceArgument(arguments []string, old, replacement string) {
+	for index, argument := range arguments {
+		if argument == old {
+			arguments[index] = replacement
+		}
+	}
 }
 
 func readLocalArtifactCandidate(t *testing.T) localArtifactCandidate {
