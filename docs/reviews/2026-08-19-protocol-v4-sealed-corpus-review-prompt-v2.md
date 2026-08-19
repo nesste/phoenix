@@ -27,7 +27,8 @@ Pinned freeze identities
 - Production/authoring world, canonical JSON: sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b
 - Production/authoring world, raw bytes: sha256:41d242e672c812a50a253e33e165d839e2c8d167914605805a311fefaeb92143
 - Current grader: sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc
-- Frozen Linux-amd64 world build: sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d
+- Frozen Linux-amd64 content-addressed world-build digest, recorded at `artifacts.world_definition_and_world_build_digest.world_build_digest` in `pre-validation-artifacts.json`: sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d
+- World-build manifest raw bytes, recorded separately at `artifacts.world_definition_and_world_build_digest.world_build_manifest_raw_sha256`: sha256:da59f795b3670e4bf16ecae5453222374c9f91e50ebd3a7e9ddb6d1610487f0f
 
 Read:
 
@@ -76,17 +77,22 @@ Verify all of the following.
 1. Identity, ancestry, patch equality, and boundary
    - The review checkout is clean, detached at the exact candidate commit, descends from the exact evaluator base, and contains the implementation freeze as an ancestor.
    - Recompute the raw patch SHA-256 and match the handoff.
-   - Independently generate the raw stdout bytes of `git diff --binary c852101e8d7cb52e4569bf3866de54a0ce648b44 c193c786cc5a65ce6ae97efbd336b2a48f492898`. Require those bytes to equal the public patch byte-for-byte, not merely apply to the same tree.
+   - Independently generate the raw stdout bytes of `git --no-pager diff --binary c852101e8d7cb52e4569bf3866de54a0ce648b44 c193c786cc5a65ce6ae97efbd336b2a48f492898`. Capture native stdout with a binary-safe process API or raw stream and hash those bytes directly. Do not pass the diff through a PowerShell pipeline, `>`, `Out-File`, `Set-Content`, or any text decode/re-encode step. Require the raw diff bytes to hash to `sha256:c03aa6797ba472e114d0b61a10a739174b5b0906ef86934242664a8d9b114b65` and equal the public patch byte-for-byte, not merely apply to the same tree.
    - The candidate diff contains only deletion of retired-v3 public tranche files, new protocol-v4 public cases and fixtures at the approved live paths, the two outcome-free label-digest registries, the two sealed manifests, and the public report.
    - Reuse of the live repository paths under `corpus/{validation,held_out}` and `fixtures/{validation,held_out}` is expected replacement behavior. Do not count a reused live path by itself as an identity or derivation collision.
    - No protocol, runtime/prompt, arm schema, Arm B, world, runner, grader, analysis, accepted freeze entry, gate, schedule, implementation source, or full-label byte changed or entered the patch.
    - `pre-validation-artifacts.json` remains `partial`; only `schedule digest` remains; both outcome gates remain false.
 
 2. Pinned contract and reproducibility
-   - Independently recompute all five inlined freeze identities using their defined byte or canonical-JSON algorithms. Stop before private-label review if any value differs.
+   - Independently recompute the protocol's LF-normalized digest, both world identities, the grader digest, the raw world-build-manifest digest, and the manifest's internal content-addressed `world_build_digest`. Use the algorithm attached to each field; do not obtain `sha256:27c2f537...` by hashing the manifest file. Stop before private-label review if any value differs.
    - Before inspecting any private label, run `go run ./cmd/corpusctl grader-digest --repo-root ../../..` and require exact output `sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc`.
    - Run `go test -count=1 ./...` and `go vet ./...` in `experiments/frontier-v1/corpusctl`.
-   - Run both `corpusctl seal` commands without `--write`. Compare the generated validation and held-out manifests byte-for-byte with the committed manifests.
+   - Run these exact dry-seal commands from `experiments/frontier-v1/corpusctl`; do not add `--write`:
+
+       go run ./cmd/corpusctl seal --repo-root ../../.. --tranche validation --world-source experiments/frontier-v1/worlds/authoring.dev_repo.json --label-digests experiments/frontier-v1/manifests/validation-label-digests.json
+       go run ./cmd/corpusctl seal --repo-root ../../.. --tranche held_out --world-source experiments/frontier-v1/worlds/authoring.dev_repo.json --label-digests experiments/frontier-v1/manifests/held_out-label-digests.json
+
+     Compare each generated manifest byte-for-byte with its committed manifest.
    - Keep the review checkout clean after every check.
 
 3. Frozen allocation, independently from the candidate report
@@ -100,10 +106,10 @@ Verify all of the following.
 
 4. Collision procedure and structural independence
    - Perform four separate public comparisons: replacement versus current authoring; replacement versus retired-v3 public validation at the evaluator base; replacement versus retired-v3 public held-out at the evaluator base; and replacement validation versus replacement held_out.
-   - From public Git trees, compare family IDs, case IDs, goals, generating-template fields, fixture contents, file-map digests, service aliases, test catalogs, adversarial patterns, and state-change patterns. Use `git show` or equivalent object reads for v3-at-base; do not switch the review checkout to the base.
+   - From public Git trees, compare family IDs, case IDs, goals, fixture contents, file-map digests, service aliases, test catalogs, adversarial patterns, and state-change patterns. Public case documents have no generating-template field: infer generating-template reuse from observable goal grammar and the combined fixture, alias, catalog, adversarial, and state-change structure. Use `git show` or equivalent object reads for v3-at-base; do not switch the review checkout to the base.
    - Verify the external outcome-free inventory's completeness against the authoring and both retired-v3 public trees for exactly the fields it claims: tracked paths, family IDs, case IDs, goals, fixture digests, and file-map digests.
    - Verify `collision-inventory.json` by raw-file SHA-256, with no normalization or JSON canonicalization, and require `sha256:c12cc875b6630b4ed6327184b96773d643ceb71fbc1dead3ef3f6796a4d2dc9a`.
-   - Do not ask the collision inventory to prove fields it does not contain. Public v3 template, alias, catalog, adversarial, and state-change comparisons come from the evaluator-base Git tree itself.
+   - Do not ask the collision inventory to prove fields it does not contain. Public v3 observable-structure, alias, catalog, adversarial, and state-change comparisons come from the evaluator-base Git tree itself.
    - Compare label-only structures—acceptable paths, rationales, grading logic, and expected-state derivations—only between the visible authoring labels and the new 240 private labels, and between the two new replacement tranches. Compare the new private template notes with public authoring family structures and with the other replacement tranche. Never use the historical v3 private archive for either check.
    - Reject renamed or lightly rewritten prior public families as non-independent. Distinguish expected live-path replacement from reuse of an ID, generating template, fixture content, goal grammar, answer-path structure, service alias, test catalog, adversarial pattern, or state-change pattern.
 
@@ -119,7 +125,7 @@ Verify all of the following.
    - Treat A-E event-index parity as a case-contract check: every arm receives the same declared event plan and executable-action index, and orientations never advance that index. This is not authorization to re-review or execute the runner.
    - Every `stale_frontier` case creates staleness through a declared shared state event, not timing, an external race, or arm-specific behavior.
    - Capability-absence cases have a genuinely absent capability and do not reward unsupported action. No case relies on an unregistered capability or a host path outside its fixture.
-   - For every cascade label, enforce the restored authoring contract from `experiments/frontier-v1/labels/authoring/authoring_1ca5cade.json`: `repo.status` -> `tests.run` -> `tests.list` -> `tests.focus`, with the output check bound to the focused act. Do not weaken it based on authoring-run variance.
+   - Require every replacement cascade to satisfy the Task 0.4 class definition: success needs at least three verbs in an order the agent would not guess upfront. Treat the authoring sequence `repo.status` -> `tests.run` -> `tests.list` -> `tests.focus` as a collision set, not as the replacement template. Reject replacement cases that clone its verb sequence, test-name pattern, or focused-act binding. If a distinct replacement cascade uses the tests diagnostic workflow, it must not omit `tests.list` between `tests.run` and `tests.focus`; do not select the favorable authoring omission. Otherwise judge the case's own cascade and bind its checks to the act that establishes success rather than imposing the authoring verbs.
 
 7. Complete private-label review
    - Inspect all 240 new labels, not a sample. Verify one schema-valid full label per public case and no extra label.
