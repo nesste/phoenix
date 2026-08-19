@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "digest": "sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d",
+  "build": {
+    "goos": "linux",
+    "goarch": "amd64",
+    "cgo_enabled": false,
+    "executable": {
+      "path": "bin/phoenix",
+      "digest": "sha256:9bdb32683a4a2b8f97d9e5d6bb6b13b842d641683383eba0de307c17253f29fe"
+    },
+    "registered_verbs": [
+      {
+        "path": "internal/verb/exec.go",
+        "digest": "sha256:46c262c4a997a1c241d951d82afe97292ced4bfa9f1e045180ec6a1320cb2f18"
+      },
+      {
+        "path": "internal/verb/external.go",
+        "digest": "sha256:948a92461a6baa1b1670730dd435d1fbb01bee0ed3579fa2b54a15404c1b1c11"
+      },
+      {
+        "path": "internal/verb/registry.go",
+        "digest": "sha256:8d546d4eaa610d785f9a9cfd711c0dd6ab959e83c96f968e1a7a1ceffef2748e"
+      },
+      {
+        "path": "verbs/dev-repo/commands.go",
+        "digest": "sha256:de418c16297bf1a6d86ee72cd400b80013688519df12e1c49806f07e8be77c76"
+      },
+      {
+        "path": "verbs/dev-repo/episodes.go",
+        "digest": "sha256:37df30049eff456266c42b9d70f09de5f680a54efa73e72ae729969c4d0ce877"
+      },
+      {
+        "path": "verbs/dev-repo/register.go",
+        "digest": "sha256:75383e3509ea04c6fed5786befbd04e1ea6cae9a941aa1aa1538365d3e896cc2"
+      },
+      {
+        "path": "verbs/dev-repo/repository.go",
+        "digest": "sha256:7db6e942b85f95b335894682ac958a3dac1b380375efae7c6ab2854884b44673"
+      },
+      {
+        "path": "verbs/dev-repo/schemas.go",
+        "digest": "sha256:8314761751dfc555b97805b540942dc057cd5b605fea9abb366ec50362b5ff1f"
+      }
+    ],
+    "schemas": [
+      {
+        "path": "spec/episode.schema.json",
+        "digest": "sha256:ea14081a905bcec6db7268fd3f65c838a4accde02c6b89c20dac87df778a2faa"
+      },
+      {
+        "path": "spec/result.schema.json",
+        "digest": "sha256:5f9abbef94a3ad4b6fcbce044956c65234e9e300cbaddeef913e02a83bd39cdf"
+      },
+      {
+        "path": "spec/world.schema.json",
+        "digest": "sha256:09ddd22c0be45cfb80156e9c50dd3afed8f1be2fc1dcd070e87eb46e8e06a8e3"
+      }
+    ],
+    "world_definition": {
+      "path": "worlds/dev-repo/world.json",
+      "digest": "sha256:41d242e672c812a50a253e33e165d839e2c8d167914605805a311fefaeb92143"
+    },
+    "authored_rules": [
+      {
+        "path": "verbs/dev-repo/activations.go",
+        "digest": "sha256:d6e15de869951d998bf427a0ec4fb5c891b53b2350419b8f170002d14ea42ac4"
+      },
+      {
+        "path": "verbs/dev-repo/refusals.go",
+        "digest": "sha256:766fd1f2106e937a7c6b786db54cf2959aa700833bc93abc3cc195b74e216924"
+      },
+      {
+        "path": "verbs/dev-repo/transitions.go",
+        "digest": "sha256:8bc1311d69280cee352cabb69719d18d7bf33f7ab31fa7e7ca75f45874a877ce"
+      }
+    ],
+    "active_weights": null
+  }
+}

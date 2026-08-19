@@ -19,7 +19,7 @@ GOVULNCHECK_VERSION := v1.7.0
 GOCYCLO_VERSION := v0.6.0
 DUPL_VERSION := v1.1.0
 
-.PHONY: test lint build validate-spec validate-authoring quality format-check dependency-check complexity manifest
+.PHONY: test lint build validate-spec validate-authoring quality format-check dependency-check complexity manifest verify-local-freeze-candidate
 
 test:
 	$(GO) test -count=1 ./...
@@ -73,4 +73,7 @@ manifest: build
 		--goarch $(TARGET_GOARCH) \
 		--cgo-enabled=false
 
-quality: test lint dependency-check complexity validate-spec validate-authoring manifest
+verify-local-freeze-candidate: manifest
+	$(GO) run ./cmd/quality-check compare build/manifest.json experiments/frontier-v1/artifacts/world-build.linux-amd64.json
+
+quality: test lint dependency-check complexity validate-spec validate-authoring verify-local-freeze-candidate

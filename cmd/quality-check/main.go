@@ -22,9 +22,14 @@ func main() {
 
 func run(args []string, stdout, stderr io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: quality-check <format|no-output> [arguments]")
+		return fmt.Errorf("usage: quality-check <compare|format|no-output> [arguments]")
 	}
 	switch args[0] {
+	case "compare":
+		if len(args) != 3 {
+			return fmt.Errorf("compare requires exactly two paths")
+		}
+		return compareFiles(args[1], args[2])
 	case "format":
 		if len(args) == 1 {
 			return fmt.Errorf("format requires at least one path")
@@ -53,6 +58,21 @@ func run(args []string, stdout, stderr io.Writer) error {
 	default:
 		return fmt.Errorf("unknown quality check %q", args[0])
 	}
+}
+
+func compareFiles(first, second string) error {
+	firstContents, err := os.ReadFile(first)
+	if err != nil {
+		return fmt.Errorf("read %s: %w", first, err)
+	}
+	secondContents, err := os.ReadFile(second)
+	if err != nil {
+		return fmt.Errorf("read %s: %w", second, err)
+	}
+	if !bytes.Equal(firstContents, secondContents) {
+		return fmt.Errorf("%s differs from %s", first, second)
+	}
+	return nil
 }
 
 func unformattedFiles(paths []string) ([]string, error) {

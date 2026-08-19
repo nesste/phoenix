@@ -37,3 +37,24 @@ func TestRunRejectsMissingCommand(t *testing.T) {
 		t.Fatal("run(no-output) error = nil, want an error")
 	}
 }
+
+func TestCompareFiles(t *testing.T) {
+	directory := t.TempDir()
+	first := filepath.Join(directory, "first")
+	second := filepath.Join(directory, "second")
+	if err := os.WriteFile(first, []byte("same\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(second, []byte("same\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := compareFiles(first, second); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(second, []byte("different\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := compareFiles(first, second); err == nil {
+		t.Fatal("compareFiles accepted different files")
+	}
+}
