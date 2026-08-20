@@ -22,7 +22,20 @@ This assignment produces outcome-free inputs and private labels. It does not imp
 | Independent review record | `D:\Work\personal\phoenix\docs\reviews\2026-08-19-protocol-v4-sealed-corpus-review.md` |
 | Original evaluator contract | `D:\Work\personal\phoenix\docs\reviews\2026-08-19-protocol-v4-sealed-corpus-evaluator-handoff.md` |
 
-Read the original evaluator contract and the independent review record completely. All original allocation, schema, protocol-v4 semantics, custody, sealing, and no-outcome requirements remain in force unless this revision handoff makes them stricter.
+## Required reading
+
+Read all of the following completely before authoring:
+
+- the original evaluator contract and independent review record listed above;
+- `docs/plans/2026-08-17-phoenix-world-plan.md`, Task 0.4, including every required case-class definition;
+- `experiments/frontier-v1/protocol.json`, especially `tranche_design.family_allocation`;
+- `experiments/frontier-v1/schema/case.schema.json`;
+- `experiments/frontier-v1/schema/label.schema.json`;
+- `experiments/frontier-v1/schema/common.schema.json`;
+- `experiments/frontier-v1/corpusctl/internal/corpus/grade.go` and the `corpusctl` commands used below;
+- `spec/world.schema.json`, `experiments/frontier-v1/worlds/authoring.dev_repo.json`, and `worlds/dev-repo/world.json`.
+
+All original allocation, schema, protocol-v4 semantics, custody, sealing, and no-outcome requirements remain in force unless this revision handoff makes them stricter. The schemas and grader are the labeling contract. Visible authoring material is a collision set only, not a generator, example library, or labeling tutorial.
 
 Before authoring, independently recompute and require:
 
@@ -35,13 +48,16 @@ Before authoring, independently recompute and require:
 | World-build manifest, raw bytes | `sha256:da59f795b3670e4bf16ecae5453222374c9f91e50ebd3a7e9ddb6d1610487f0f` |
 | Content-addressed `world_build_digest` | `sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d` |
 
+Recompute the canonical world identity with `corpusctl digest` on both world files. Recompute the grader with `go run ./cmd/corpusctl grader-digest --repo-root ../../..`. For `world_build_digest`, decode `experiments/frontier-v1/artifacts/world-build.linux-amd64.json`, serialize only its `build` record with Go `json.Marshal`, and SHA-256 those bytes. Do not copy the manifest's embedded digest or hash the whole manifest to obtain `sha256:27c2f537...`; the raw manifest-file identity is the separate `sha256:da59f795...` pin.
+
 Stop on any mismatch. `pre-validation-artifacts.json` must remain `partial`, with only `schedule digest` remaining and both outcome gates false.
 
 ## Windows LF setup
 
-Before any corpus command in the new clean revision checkout:
+Before any corpus command, confirm the revision checkout is the intended clean base:
 
 ```powershell
+git rev-parse HEAD
 git status --short
 git config --worktree core.autocrlf false
 git config --worktree core.eol lf
@@ -49,7 +65,7 @@ git checkout-index --all --force
 git status --short
 ```
 
-Stop if either status is nonempty. Do not run `checkout-index` in the implementation, rejected-candidate, or historical evaluator checkout.
+Require `git rev-parse HEAD` to equal `c852101e8d7cb52e4569bf3866de54a0ce648b44` and both status checks to be empty. Do not author in or switch to the sibling rejected-candidate worktree at `D:\Work\personal\phoenix-evaluator-v4`. Do not run `checkout-index` in the implementation, rejected-candidate, or historical evaluator checkout.
 
 ## Custody and independence boundary
 
@@ -57,7 +73,7 @@ Stop if either status is nonempty. Do not run `checkout-index` in the implementa
 - Do not inspect the historical protocol-v3 private archive or the rejected candidate's private labels, template notes, adjudication records, or generator.
 - The rejected candidate's public commit and public review findings are a collision set, not examples to imitate.
 - Keep every new full label, rationale, family blueprint, template note, disagreement, and adjudication record outside every Phoenix checkout and outside the public patch.
-- Record stable role identifiers for corpus author, first-pass labeler, independent label auditor, and private-label custodian. The later acceptance reviewer must be independent of all authoring roles.
+- Record stable role identifiers for corpus author, blueprint auditor, first-pass labeler, independent label auditor, and private-label custodian. The blueprint auditor must not be the corpus author and must not perform the later acceptance review. The later acceptance reviewer must be independent of every authoring and audit role.
 - Do not use any Phoenix arm output, retained authoring outcome, prospective sealed outcome, runner result, implementation suggestion, or model-generated trial while designing or labeling cases.
 - Treat a tranche as consumed if any prospective outcome is observed. Stop and report the breach; do not regenerate or relabel it.
 
@@ -72,9 +88,11 @@ The new candidates must be structurally disjoint from:
 
 Validation and held_out must also be structurally disjoint from each other.
 
+Authoring cases, fixtures, goals, and labels may be inspected only to detect collision or leakage. Do not derive a new family, action skeleton, acceptable path, check layout, or rationale from them. Learn label structure from `schema/` and grading behavior from `corpusctl`, not from `labels/authoring/`.
+
 Create a new outcome-free collision inventory before authoring. It must cover public paths, family IDs, case IDs, goals, fixture digests, file-map digests, observable fixture shapes, service aliases, test catalogs, adversarial patterns, and state-change patterns from all four collision sets. Use read-only Git-object access for the base and rejected candidate. Never open historical or rejected private labels to extend the inventory.
 
-New family IDs and case IDs must be disjoint from every collision set. Do not recycle `validation_family_001` through `024` or `held_out_family_001` through `024`. A renamed noun, file, service, goal, identifier, or token is not a new generating template.
+New family IDs and case IDs must be disjoint from every collision set. `common.schema.json` requires `validation_family_[0-9]{3}` or `held_out_family_[0-9]{3}`. Use otherwise-free suffixes from `025` through `999` after excluding every collision-set ID; do not recycle `validation_family_001` through `024` or `held_out_family_001` through `024`. A renamed noun, file, service, goal, identifier, or token is not a new generating template.
 
 ## Design the 48 families before emitting cases
 
@@ -89,7 +107,7 @@ Privately define one blueprint per family. Each blueprint records, without using
 
 Do not create one parameterized global template and instantiate it with different nouns. The eight mix families within a tranche must use eight genuinely different mechanisms and fixture structures. Held-out must not pair with validation through renamed domains, mirrored family layouts, goal grammar, fixture topology, alias tables, state-change plans, or label skeletons.
 
-An independent private blueprint audit must pass before labels are finalized. Record disagreements and adjudications privately. The public report may summarize non-outcome variant axes and collision counts but must not reveal expected paths or answers.
+The named blueprint auditor must independently inspect all 48 private blueprints and their pairwise/cross-tranche collision evidence before labels are finalized. The corpus author may not approve their own blueprints. Record the blueprint-audit verdict, disagreements, and adjudications privately. If no independent blueprint auditor is available, stop and report the staffing blocker; do not substitute self-audit or claim that automated similarity screening is independent review. The public report may summarize non-outcome variant axes and collision counts but must not reveal expected paths or answers.
 
 ## Frozen allocation
 
@@ -110,6 +128,15 @@ For the three same-class cases in every direct and recovery family, require a ma
 
 Retain a private five-row variant matrix per family. The public report must give outcome-free evidence for each family's five distinct variants, not merely count unique goal strings.
 
+## Protocol-v4 case semantics
+
+- Every case must validate against the current strict case schema, pin the canonical world digest, reference only available fixtures, and remain solvable through the frozen world and its twelve flat-tool equivalents.
+- Every `state_changes` replacement must be deterministic, use a safe relative path, and occur after a declared executable-act index shared by Arms A-E. Orientations never advance that index.
+- Every `stale_frontier` case must create staleness through a declared shared state event, not timing, an external race, or arm-specific behavior.
+- Every `absence` case must use a capability genuinely absent from the frozen tools. Its label must not reward unsupported action.
+- Adversarial fixture text is untrusted task data. It must not become runner, evaluator, generator, or labeling instruction and must not expose class or grading metadata.
+- Do not modify protocol, runtime or prompts, arm schemas, Arm B, world, runner, grader, analysis, accepted freeze entries, `pre-validation-artifacts.json`, or either gate.
+
 ## Cascade requirements
 
 - A cascade succeeds through at least three executable verbs in an order the agent cannot infer from the public goal alone.
@@ -123,7 +150,7 @@ Retain a private five-row variant matrix per family. The public report must give
 
 Create one new full label per case in the new private archive. Preserve the current schema and grader pin. Each label must distinguish success from a plausible wrong path and must be reasoned against the frozen world, case, fixture, and shared state events without running an arm.
 
-For every listed `acceptable_path`, mechanically verify that all path-bound checks can succeed on that path. In particular, an `act_sequence` `seq` check must not require an index absent from a shorter listed path. Remove invalid shorter paths or redesign the checks; do not list a path the grader cannot score as successful.
+For every listed `acceptable_path`, mechanically evaluate that path independently and verify that every path-bound check can succeed. When an `act_sequence` check matches a path, resolve each `act_status.seq` and `act_output_matches.seq` through that matched path's offsets exactly as `grade.go` does; every referenced position must exist on that path, including each shorter listed path. If no `act_sequence` check exists, verify those `seq` values as absolute trial-act indexes. Remove invalid shorter paths or redesign the checks; do not list a path the grader cannot score as successful.
 
 Use executable-act indexes only. Include an empty acceptable path when no action is expected. Keep deterministic grading where possible; any human judgment requires `arm_hidden: true`, a precommitted concrete rubric, and retained independent adjudication.
 
@@ -175,7 +202,7 @@ Automated similarity checks are screening evidence, not proof of independence. I
 Use two commits so the report can identify the candidate and patch without self-reference:
 
 1. **Payload candidate commit.** Commit only the approved public corpus, fixture, registry, and sealed-manifest replacement. Do not include the public report in this commit.
-2. Generate `git --no-pager diff --binary c852101e8d7cb52e4569bf3866de54a0ce648b44 <payload-candidate-commit>` as raw bytes and record its SHA-256. This is the public replacement patch.
+2. Generate the native stdout bytes of `git --no-pager diff --binary c852101e8d7cb52e4569bf3866de54a0ce648b44 <payload-candidate-commit>`. Capture stdout with a binary-safe process API or raw stream and write those exact bytes to `D:\Work\personal\phoenix-evaluator-private-v4-revision\frontier-v1-v4-sealed-corpus-revision.patch`. Do not pass the diff through a PowerShell pipeline, `>`, `Out-File`, `Set-Content`, or any text decode/re-encode step. SHA-256 the stored raw bytes, independently capture the command's raw stdout again, and require byte equality between the second capture and the stored patch. This is the public replacement patch.
 3. **Report commit.** Add only `docs/reviews/2026-08-20-frontier-v1-v4-sealed-corpus-revision-report.md` as a child of the payload candidate. The report records the evaluator base, payload candidate commit, exact public-patch digest, report commit's parent relationship, private-archive digest, collision-inventory digest, counts, checks, custody declarations, and protected-artifact statement.
 
 The report commit is the evaluator branch tip. The reviewed import payload is the base-to-payload-candidate patch. The report is a separate review artifact and is not included in that patch. Do not create a combined patch whose digest would depend on a report that embeds the digest.
@@ -215,4 +242,4 @@ Hand back:
 - family/variant/cascade/path-compatibility audit summaries;
 - any blocking issue or custody breach.
 
-The project chair must obtain a new independent corpus-and-label review before deciding whether the replacement public patch may be imported. This handoff does not authorize import, a validation schedule, Gate 1A, validation, held-out, or any outcome run.
+The project chair must obtain a new independent corpus-and-label review before deciding whether the replacement public patch may be imported. `docs/reviews/2026-08-19-protocol-v4-sealed-corpus-review-prompt-v2.md` describes the rejected one-commit package and must not be reused. Before the replacement candidate is reviewed, the chair must prepare a matching review assignment for the payload-only patch, separate report commit, new collision set, and ordinal-byte archive index. This handoff does not authorize import, a validation schedule, Gate 1A, validation, held-out, or any outcome run.
