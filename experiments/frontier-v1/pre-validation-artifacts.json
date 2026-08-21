@@ -16,22 +16,23 @@
       "frozen": true
     },
     "scheduled_runner": {
-      "candidate_commit": "74d06da13f62cffa4fd635e048e6331a6e2d95a6",
-      "candidate_artifact": "experiments/frontier-v1/artifacts/validation-execution-boundary-candidate.json",
-      "candidate_artifact_raw_sha256": "sha256:14b0761362709780ded9f6fc47e7ff8d49f688e09062d8dcc6d13724b9109d1d",
-      "candidate_report": "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-candidate.md",
-      "candidate_report_commit": "05ab169acdfabae4ce7b42b4ffb8d6ecb276e935",
-      "candidate_report_raw_sha256": "sha256:c77207aaebb6876805354e720adc7e72301ab759e2affaa3df3bb7c88526c546",
-      "review_record": "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-review.md",
-      "review_record_commit": "6b158ea0de163b43f8c0fdeb1e8cc3fd40609a52",
-      "review_record_raw_sha256": "sha256:e1444fcca48e7d5b13e1b0e4cd385898d387d8aba4799fae0e3d49f27326ddaf",
+      "candidate_commit": "71f9648789decf4cd56ef8a24bc840b0dda7efd9",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/gate-1a-test-transition-candidate.json",
+      "candidate_artifact_raw_sha256": "sha256:ca7eae05c72f970a592e4a82ab88d2167564323f08a788a0081a349f32c49d75",
+      "candidate_report": "docs/reviews/2026-08-21-protocol-v4-gate-1a-test-transition-candidate.md",
+      "candidate_report_commit": "7ffc4a1966b4127d9445ebc840723dc6a7a245d4",
+      "candidate_report_raw_sha256": "sha256:689ad8cee3a6f5af2daed05081e10d1263b469086555d63757a7250a368dbc3f",
+      "review_record": "docs/reviews/2026-08-21-protocol-v4-gate-1a-test-transition-review.md",
+      "review_record_commit": "2feec72b66e262d2f43479d3037b2e3ebc8b0644",
+      "review_record_raw_sha256": "sha256:06789567c2aad2351d719285642e3d4eea258d14fe8b4e8f0f9668101766360e",
       "review_verdict": "ACCEPT",
-      "replaces_candidate_commit": "b4df919070bb9a6d2912662b4a59674b0e25a332",
-      "artifact_set_lf_normalized_utf8_sha256": "sha256:3056e95a696bb7fbe6a8e0aec9df960256de085490ebbd853c57353a5d9383f1",
+      "replaces_candidate_commit": "74d06da13f62cffa4fd635e048e6331a6e2d95a6",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:9f8c48fb60ced7442924e91ca4e52436961efc8c94dc9c1118256a4b8c1de2d9",
       "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
       "accepted_findings": [
         "P2-1: The candidate report overstates the marker and output assertions in its nil-ID regression test; its error assertion and guard ordering remain load-bearing, and the independent populated probe established no custodian contact.",
-        "P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure."
+        "P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure.",
+        "P2-3: Flipping only the synthetic closed-gate boolean reaches the missing-schedule-identity error before the timeout; the committed ordering assertion remains load-bearing, and the independent populated open-gate probe exposed the timeout error."
       ],
       "files": {
         "experiments/frontier-v1/README.md": "sha256:98310ba5366450cf1065906f71765396d4dd1ad128afd0746f51d8bd6bc8fbdd",
@@ -46,7 +47,7 @@
         "experiments/frontier-v1/runner/scheduled_run.go": "sha256:83f8ce8469447652fd8d1ff544e0cba16172bad0206bb048e9a448f7b70d1e7a",
         "experiments/frontier-v1/runner/scheduled_run_test.go": "sha256:080ce37de7acd2c7d741a10cb3b1658bd77a39809b546d606f43c78af960be83",
         "experiments/frontier-v1/runner/types.go": "sha256:02211e9d6dd30660e74ac25f8148bba647f6c59b82709d8459f4e22b7ac164ec",
-        "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:212a0b78ddf29c6e1d7d8d4ab305e55707b86619fd1d96be6ee9ac9509d3a61d",
+        "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:460dc582292473ecd5b91e436ba726e2f409399cd254588ee8f0eded99a02b03",
         "experiments/frontier-v1/runner/validation_gate.go": "sha256:b44d126ab8fb3cd5b3f96af782c239a1ecf52feb31243ad0bf84882ba18cca70",
         "experiments/frontier-v1/runner/validation_grader.go": "sha256:5d4f20c47306af9efc2f7af22a8abb1d3bf51c4b666359651d0271d90d187434",
         "experiments/frontier-v1/validation-execution-boundary.md": "sha256:6de970a6244640ce4b0cc57d4608b445343026a9c78ea08907c6328905e5c48f"

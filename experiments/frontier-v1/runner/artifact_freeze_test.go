@@ -131,24 +131,25 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 	wantFindings := []string{
 		"P2-1: The candidate report overstates the marker and output assertions in its nil-ID regression test; its error assertion and guard ordering remain load-bearing, and the independent populated probe established no custodian contact.",
 		"P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure.",
+		"P2-3: Flipping only the synthetic closed-gate boolean reaches the missing-schedule-identity error before the timeout; the committed ordering assertion remains load-bearing, and the independent populated open-gate probe exposed the timeout error.",
 	}
-	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/validation-execution-boundary-candidate.json" ||
-		artifact.CandidateArtifactDigest != "sha256:14b0761362709780ded9f6fc47e7ff8d49f688e09062d8dcc6d13724b9109d1d" ||
-		artifact.Report != "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-candidate.md" ||
-		artifact.ReportCommit != "05ab169acdfabae4ce7b42b4ffb8d6ecb276e935" ||
-		artifact.ReportDigest != "sha256:c77207aaebb6876805354e720adc7e72301ab759e2affaa3df3bb7c88526c546" ||
-		artifact.Review != "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-review.md" ||
-		artifact.ReviewCommit != "6b158ea0de163b43f8c0fdeb1e8cc3fd40609a52" ||
-		artifact.ReviewDigest != "sha256:e1444fcca48e7d5b13e1b0e4cd385898d387d8aba4799fae0e3d49f27326ddaf" ||
-		artifact.ReplacesCommit != "b4df919070bb9a6d2912662b4a59674b0e25a332" ||
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-test-transition-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:ca7eae05c72f970a592e4a82ab88d2167564323f08a788a0081a349f32c49d75" ||
+		artifact.Report != "docs/reviews/2026-08-21-protocol-v4-gate-1a-test-transition-candidate.md" ||
+		artifact.ReportCommit != "7ffc4a1966b4127d9445ebc840723dc6a7a245d4" ||
+		artifact.ReportDigest != "sha256:689ad8cee3a6f5af2daed05081e10d1263b469086555d63757a7250a368dbc3f" ||
+		artifact.Review != "docs/reviews/2026-08-21-protocol-v4-gate-1a-test-transition-review.md" ||
+		artifact.ReviewCommit != "2feec72b66e262d2f43479d3037b2e3ebc8b0644" ||
+		artifact.ReviewDigest != "sha256:06789567c2aad2351d719285642e3d4eea258d14fe8b4e8f0f9668101766360e" ||
+		artifact.ReplacesCommit != "74d06da13f62cffa4fd635e048e6331a6e2d95a6" ||
 		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) {
 		t.Fatalf("replacement runner provenance = %#v", artifact)
 	}
 	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.CandidateArtifact)), artifact.CandidateArtifactDigest)
 	verifyRawGitFileDigest(t, repositoryRoot, artifact.ReportCommit, artifact.Report, artifact.ReportDigest)
 	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.Review)), artifact.ReviewDigest)
-	verifyFrozenFileSetAtCommit(t, repositoryRoot, artifact,
-		"74d06da13f62cffa4fd635e048e6331a6e2d95a6", 16)
+	verifyFrozenFileSet(t, repositoryRoot, artifact,
+		"71f9648789decf4cd56ef8a24bc840b0dda7efd9", 16)
 }
 
 func verifyRawFileDigest(t *testing.T, path string, want string) {
@@ -170,35 +171,6 @@ func verifyRawGitFileDigest(t *testing.T, repositoryRoot, commit, path, want str
 	}
 	if actual := fmt.Sprintf("sha256:%x", sha256.Sum256(contents)); actual != want {
 		t.Fatalf("%s at %s raw digest = %s, freeze requires %s", path, commit, actual, want)
-	}
-}
-
-func verifyFrozenFileSetAtCommit(t *testing.T, repositoryRoot string, artifact frozenFileSet, commit string, fileCount int) {
-	t.Helper()
-	if !artifact.Frozen || artifact.Commit != commit || artifact.Verdict != "ACCEPT" || len(artifact.Files) != fileCount {
-		t.Fatalf("historical frozen file set metadata = %#v", artifact)
-	}
-	paths := make([]string, 0, len(artifact.Files))
-	for path := range artifact.Files {
-		paths = append(paths, path)
-	}
-	sort.Strings(paths)
-	var identity strings.Builder
-	for _, path := range paths {
-		contents, err := exec.Command("git", "-C", repositoryRoot, "show", commit+":"+path).Output()
-		if err != nil {
-			t.Fatalf("read %s at %s: %v", path, commit, err)
-		}
-		normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
-		actual := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(normalized)))
-		if actual != artifact.Files[path] {
-			t.Fatalf("%s at %s digest = %s, freeze requires %s", path, commit, actual, artifact.Files[path])
-		}
-		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
-	}
-	digest := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(identity.String())))
-	if digest != artifact.SetDigest {
-		t.Fatalf("historical artifact set digest = %s, freeze requires %s", digest, artifact.SetDigest)
 	}
 }
 
