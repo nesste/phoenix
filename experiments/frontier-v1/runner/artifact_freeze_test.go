@@ -147,7 +147,7 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.CandidateArtifact)), artifact.CandidateArtifactDigest)
 	verifyRawGitFileDigest(t, repositoryRoot, artifact.ReportCommit, artifact.Report, artifact.ReportDigest)
 	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.Review)), artifact.ReviewDigest)
-	verifyFrozenFileSet(t, repositoryRoot, artifact,
+	verifyFrozenFileSetAtCommit(t, repositoryRoot, artifact,
 		"74d06da13f62cffa4fd635e048e6331a6e2d95a6", 16)
 }
 
@@ -170,6 +170,35 @@ func verifyRawGitFileDigest(t *testing.T, repositoryRoot, commit, path, want str
 	}
 	if actual := fmt.Sprintf("sha256:%x", sha256.Sum256(contents)); actual != want {
 		t.Fatalf("%s at %s raw digest = %s, freeze requires %s", path, commit, actual, want)
+	}
+}
+
+func verifyFrozenFileSetAtCommit(t *testing.T, repositoryRoot string, artifact frozenFileSet, commit string, fileCount int) {
+	t.Helper()
+	if !artifact.Frozen || artifact.Commit != commit || artifact.Verdict != "ACCEPT" || len(artifact.Files) != fileCount {
+		t.Fatalf("historical frozen file set metadata = %#v", artifact)
+	}
+	paths := make([]string, 0, len(artifact.Files))
+	for path := range artifact.Files {
+		paths = append(paths, path)
+	}
+	sort.Strings(paths)
+	var identity strings.Builder
+	for _, path := range paths {
+		contents, err := exec.Command("git", "-C", repositoryRoot, "show", commit+":"+path).Output()
+		if err != nil {
+			t.Fatalf("read %s at %s: %v", path, commit, err)
+		}
+		normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
+		actual := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(normalized)))
+		if actual != artifact.Files[path] {
+			t.Fatalf("%s at %s digest = %s, freeze requires %s", path, commit, actual, artifact.Files[path])
+		}
+		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
+	}
+	digest := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(identity.String())))
+	if digest != artifact.SetDigest {
+		t.Fatalf("historical artifact set digest = %s, freeze requires %s", digest, artifact.SetDigest)
 	}
 }
 

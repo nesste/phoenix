@@ -42,18 +42,17 @@ func TestFrozenValidationScheduleLoadsOnlyPublicInputs(t *testing.T) {
 	}
 }
 
-func TestRepositoryValidationGateRemainsClosed(t *testing.T) {
-	root := filepath.Join("..", "..", "..")
+func TestClosedValidationGateIsRejected(t *testing.T) {
+	root := closedValidationGateTestRoot(t)
 	if err := requireValidationGate(root); err == nil || !strings.Contains(err.Error(), "gate is closed") {
 		t.Fatalf("gate error = %v", err)
 	}
 }
 
 func TestClosedValidationGatePrecedesOutputMutation(t *testing.T) {
-	root := filepath.Join("..", "..", "..")
-	output := filepath.ToSlash(filepath.Join("experiments", "frontier-v1", "results", "must-not-exist-gate-test"))
+	root := closedValidationGateTestRoot(t)
+	output := filepath.ToSlash(filepath.Join("results", "must-not-exist-gate-test"))
 	resolved := filepath.Join(root, filepath.FromSlash(output))
-	_ = os.Remove(resolved)
 	_, err := prepareScheduledCLI(root, "validation", output, "", "", "", "0.15", "300", 1, nil)
 	if err == nil || !strings.Contains(err.Error(), "gate is closed") {
 		t.Fatalf("gate error = %v", err)
@@ -217,6 +216,19 @@ func openValidationGateTestRoot(t *testing.T, sourceRoot string) string {
 			"source_manifest": "experiments/frontier-v1/manifests/validation.json", "source_manifest_canonical_json_sha256": frozenValidationManifest,
 			"frozen": true,
 		}},
+	}
+	if err := writeJSON(filepath.Join(root, filepath.FromSlash(preValidationArtifactsPath)), gate); err != nil {
+		t.Fatal(err)
+	}
+	return root
+}
+
+func closedValidationGateTestRoot(t *testing.T) string {
+	t.Helper()
+	root := t.TempDir()
+	gate := map[string]any{
+		"status": "complete",
+		"gates":  map[string]any{"may_open_validation": false, "may_open_held_out": false},
 	}
 	if err := writeJSON(filepath.Join(root, filepath.FromSlash(preValidationArtifactsPath)), gate); err != nil {
 		t.Fatal(err)

@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestValidationExecutionBoundaryCandidateMatchesWorkingTree(t *testing.T) {
+func TestGate1ATestTransitionCandidateMatchesWorkingTree(t *testing.T) {
 	var candidate struct {
 		V           int    `json:"v"`
 		Status      string `json:"status"`
@@ -24,9 +24,9 @@ func TestValidationExecutionBoundaryCandidateMatchesWorkingTree(t *testing.T) {
 		Files              map[string]string `json:"files"`
 		ExecutionPerformed bool              `json:"execution_performed"`
 	}
-	readJSONForTest(t, filepath.Join("..", "artifacts", "validation-execution-boundary-candidate.json"), &candidate)
+	readJSONForTest(t, filepath.Join("..", "artifacts", "gate-1a-test-transition-candidate.json"), &candidate)
 	if candidate.V != 1 || candidate.Status != "review_candidate" || candidate.SourceLimit != "public_validation_inputs_only" ||
-		candidate.BaseCommit != "31bdabc0ea2a3395ab50a83c2fcbab5e3938f537" || candidate.Frozen || candidate.Gates.MayOpenValidation ||
+		candidate.BaseCommit != "94761cf43b938f643173b486c7f1fca5149e8a08" || candidate.Frozen || candidate.Gates.MayOpenValidation ||
 		candidate.Gates.MayOpenHeldOut || candidate.ExecutionPerformed {
 		t.Fatalf("validation execution candidate state = %#v", candidate)
 	}
