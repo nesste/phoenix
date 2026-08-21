@@ -309,7 +309,7 @@ func verifyGraderCandidate(t *testing.T, repositoryRoot string, candidate localA
 	}
 }
 
-func TestLocalArtifactAcceptanceKeepsOutcomeGatesClosed(t *testing.T) {
+func TestCompletedArtifactFreezeKeepsOutcomeGatesClosed(t *testing.T) {
 	var freeze struct {
 		Status string `json:"status"`
 		Gates  struct {
@@ -319,8 +319,8 @@ func TestLocalArtifactAcceptanceKeepsOutcomeGatesClosed(t *testing.T) {
 		Remaining []string `json:"remaining"`
 	}
 	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freeze)
-	if freeze.Status != "partial" || freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut ||
-		!reflect.DeepEqual(freeze.Remaining, []string{"schedule digest"}) {
-		t.Fatalf("local artifact acceptance opened a gate or changed the remaining set: %#v", freeze)
+	if freeze.Status != "complete" || freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut ||
+		len(freeze.Remaining) != 0 {
+		t.Fatalf("completed artifact freeze opened a gate or retained an artifact: %#v", freeze)
 	}
 }

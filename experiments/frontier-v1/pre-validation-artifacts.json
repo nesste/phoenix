@@ -1,6 +1,6 @@
 {
   "v": 1,
-  "status": "partial",
+  "status": "complete",
   "source_limit": "authoring_only",
   "gates": {
     "may_open_validation": false,
@@ -191,9 +191,30 @@
       "coverage": "LF-normalized non-test corpusctl Go sources, corpusctl go.mod/go.sum, and every frontier-v1 schema",
       "digest_implementation": "experiments/frontier-v1/corpusctl/internal/corpus/grade.go",
       "digest_implementation_lf_normalized_utf8_sha256": "sha256:89304bb0ac6b45a8236fd4562b9c2b2212f40ebc80c6bbbaac907f8f233e719d"
+    },
+    "validation_schedule": {
+      "path": "experiments/frontier-v1/schedules/validation.json",
+      "canonical_json_sha256": "sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813",
+      "raw_sha256": "sha256:6b264a8daff60d9b507f11d760f1bbf19dec556f2aebd700dc5fbdc8a8c56aec",
+      "raw_bytes": 391950,
+      "candidate_commit": "44fccf51cb1684a1b71da9128cab30ad2b2fb6af",
+      "candidate_report": "docs/reviews/2026-08-21-protocol-v4-validation-schedule-candidate.md",
+      "candidate_report_commit": "bb473e22b1e2a5b21221a0b7b57e2aec4836c52b",
+      "review_record": "docs/reviews/2026-08-21-protocol-v4-validation-schedule-review.md",
+      "review_record_commit": "a301bdc781bd4b93f12418b577b7446d01c1b7e4",
+      "review_record_raw_sha256": "sha256:cd557f3dc79b7a2bbc2acbba0c40969b832178b1c23b4ca4c4442d602c601ca0",
+      "review_verdict": "ACCEPT",
+      "source_manifest": "experiments/frontier-v1/manifests/validation.json",
+      "source_manifest_canonical_json_sha256": "sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490",
+      "seed": 20260817,
+      "repetitions": 3,
+      "arms": ["A", "B", "C", "D", "E"],
+      "cases": 120,
+      "families": 24,
+      "pairing_keys": 360,
+      "launches": 1800,
+      "frozen": true
     }
   },
-  "remaining": [
-    "schedule digest"
-  ]
+  "remaining": []
 }
