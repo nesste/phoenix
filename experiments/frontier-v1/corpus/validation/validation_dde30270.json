@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_dde30270",
-  "goal": "Locate the fab-night alias in the tree and run that named check.",
-  "sandbox_fixture": "sha256:984f014f9253edd0361456c98ed7407d5ce82bf44bc03b051ec0c0885cb47820",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_018"
-}

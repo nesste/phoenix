@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_1a34d96d",
-  "goal": "State the full-suite outcome for this foghorn helper.",
-  "sandbox_fixture": "sha256:25aa610c05ea847110ed682f036514aa0de33c047b7e4173244c332aaca8e9b1",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_002"
-}

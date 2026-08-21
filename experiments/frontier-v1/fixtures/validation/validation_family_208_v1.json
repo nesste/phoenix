@@ -1,0 +1,15 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_208_v1",
+  "family_id": "validation_family_208",
+  "template": "Checklist census distinguishing modified, untracked, clean, unsupported publication, and live test replacement states.",
+  "files": {
+    "checklists/release.md": "- [x] changelog\n- [ ] signatures\n",
+    "checklists/security.md": "- [x] scan\n- [x] review\n",
+    ".gitignore": "checklists/*.scratch\n",
+    "checklists/candidate.md": "- [ ] owner approval\n"
+  },
+  "uncommitted": [
+    "checklists/candidate.md"
+  ]
+}

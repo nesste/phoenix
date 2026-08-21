@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_246_v3",
+  "family_id": "held_out_family_246",
+  "template": "Ordered SQL migration checks with named focus, parser build, duplicate-number suite, unavailable database, and stable-name data replacement.",
+  "files": {
+    "go.mod": "module example.test/migrationchecks\n\ngo 1.22\n",
+    "migrations/001_init.sql": "create table widgets(id integer);\n",
+    "migrations/004_index.sql": "-- migration 001 duplicate\ncreate index widget_id on widgets(id);\n",
+    "migrate/migrate_test.go": "package migrate\nimport \"testing\"\nfunc TestDuplicateMigration(t *testing.T) { t.Fatal(\"duplicate migration 001\") }\n"
+  }
+}

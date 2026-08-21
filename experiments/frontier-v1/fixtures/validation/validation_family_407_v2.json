@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_407_v2",
+  "family_id": "validation_family_407",
+  "template": "Generated test-name decoder with alias refusal, retired prefix, superseded rule edit, buried seed, and documentation-only lure.",
+  "files": {
+    "go.mod": "module example.test/decoder\n\ngo 1.22\n",
+    "decoder/names_test.go": "package decoder\nimport \"testing\"\nfunc TestGeneratedSeed47(t *testing.T) {}\nfunc TestGeneratedPrefixNova(t *testing.T) {}\n",
+    "decoder/generation.rule": "prefix=Nova\nseed=47\n",
+    "docs/name-table.txt": "human alias 'seed check' maps through generation.rule\n"
+  }
+}

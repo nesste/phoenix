@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_041_v3",
+  "family_id": "validation_family_041",
+  "template": "Split locale ledger with independent index, pack, review, and working-tree states.",
+  "files": {
+    "locale/index.tsv": "locale\tpack\tstatus\nro-RO\tpacks/ro.json\tactive\nga-IE\tpacks/ga.json\treview\nbr-FR\tpacks/br.json\tdraft\n",
+    "locale/packs/ro.json": "{\"hello\":\"salut\",\"currency\":\"RON\"}\n",
+    "locale/packs/ga.json": "{\"hello\":\"dia dhuit\",\"currency\":\"EUR\"}\n",
+    "notes/review.md": "The ga-IE pack awaits the lexical review tagged GAELIC-17.\n"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_1a87333d",
+  "goal": "Focus the live queue-order check after its source moves packages immediately after the first catalog.",
+  "sandbox_fixture": "sha256:c9c523c0d35687fbf102d870a1d096e2fe20516e0e61d6ef7cd691be211b91d4",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_131",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "queue/queue_test.go",
+      "content": "package queue_test\nimport \"testing\"\nfunc TestQueueOrder(t *testing.T) {}\n"
+    }
+  ]
+}

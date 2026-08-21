@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_60978c9b",
+  "goal": "Find the fragment containing the widget deprecation and report its repository path.",
+  "sandbox_fixture": "sha256:6de49ff9bcfc32d09461fa32f64e5040e3d7b93c6d7377c911acd189767fed02",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_158"
+}

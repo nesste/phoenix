@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_6dec6d83",
+  "goal": "Check the newly added schema test after the suite expands following the initial test catalog.",
+  "sandbox_fixture": "sha256:37fcb1a6cb98feb9387a46baf2b54835e4a24f39f2acd548ccae2efdebc88b73",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_068",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "schema/schema_test.go",
+      "content": "package schema\nimport \"testing\"\nfunc TestShapeTag(t *testing.T) {}\nfunc TestNullableNote(t *testing.T) {}\n"
+    }
+  ]
+}

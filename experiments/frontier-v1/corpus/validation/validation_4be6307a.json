@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_4be6307a",
+  "goal": "Find LEGACY-SYMBOL-26 and report its repository location.",
+  "sandbox_fixture": "sha256:187e38e6fccc35568ebbefd73fa4e8a3ec51f74f7e84f8fc348a4ed0f67dc1db",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_669"
+}

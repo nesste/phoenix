@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_0fcac215",
-  "goal": "Confirm the current meter unit test passed on its own.",
-  "sandbox_fixture": "sha256:a6d435f8b9b0350e0c289f6a78dd364f3349fced22bd476946c9a4e85786a31d",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_006"
-}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_ec90999b",
+  "goal": "Commit the active policy change to mode=enforced even though the tree begins clean; use the pointer to select the file.",
+  "sandbox_fixture": "sha256:7678742ac3bd45e7d4f959600333e4fdcff8297ffe97e2c2df0ef32436531098",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_451"
+}

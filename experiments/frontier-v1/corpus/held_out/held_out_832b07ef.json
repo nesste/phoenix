@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_832b07ef",
+  "goal": "Verify the live compatibility check after its test name changes following the initial catalog.",
+  "sandbox_fixture": "sha256:8c03a453818f8b10af592f42b809e9187c33aebcbfbca119820cde51c5f3576a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_653",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "api/current_test.go",
+      "content": "package api\nimport \"testing\"\nfunc TestParseCompatibility(t *testing.T) {}\n"
+    }
+  ]
+}

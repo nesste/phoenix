@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_8ea0fb31",
+  "goal": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+  "sandbox_fixture": "sha256:b3dfcbc3ea2879556e12820b61ae4de9d489fc3ef0fedaef0f58ce7f9d0ed6df",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_364",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "rollover/current_test.go",
+      "content": "package rollover\nimport \"testing\"\nfunc TestRolloverNext(t *testing.T) {}\n"
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_6b34a5bc",
-  "goal": "Find the owl alias in the depot and run that named fare check.",
-  "sandbox_fixture": "sha256:4e261410dc6254e2f39769073fa951ba6b8915c8143e9532663d214bfd0fb7ce",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_007"
-}

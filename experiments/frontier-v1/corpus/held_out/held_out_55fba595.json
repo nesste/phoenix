@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_55fba595",
-  "goal": "Compile the kiln soak recorder and report whether the build succeeded.",
-  "sandbox_fixture": "sha256:4bcf98a02297f69ec52d361d0341b6d510a3952fbe3ff34e3c8911d6fd197a3d",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_004"
-}

@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_f5ba8742",
-  "goal": "Confirm the current mite-count unit test passed on its own.",
-  "sandbox_fixture": "sha256:f9b29468c13b4c245cffc25082bec0d6b43a948ae26104e6458bea1409390251",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_016"
-}

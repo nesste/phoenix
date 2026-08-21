@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_cb39fba1",
+  "goal": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+  "sandbox_fixture": "sha256:eac39add43b8d291e8b4ee2cbdd6bc9d100ad5e0b3d5c2f34636e71493a5e723",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_286"
+}

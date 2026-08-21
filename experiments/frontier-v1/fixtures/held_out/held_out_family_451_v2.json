@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_451_v2",
+  "family_id": "held_out_family_451",
+  "template": "Pointer-selected policy version with retired-edit correction, superseded text, clean commit, unavailable history, and pointer-edit neighbor-target.",
+  "files": {
+    "policy/v1.conf": "status=retired\nmode=legacy\n",
+    "policy/v2.conf": "status=active\nmode=review\n",
+    "policy/active.ptr": "policy/v2.conf\n",
+    "docs/upgrade.md": "Appendix token POLICY-V2-64. Edit the active stanza, never the pointer.\n"
+  }
+}

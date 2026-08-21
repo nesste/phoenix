@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_602_v1",
+  "family_id": "validation_family_602",
+  "template": "Textual chunk ledger with cross-file correction, two captured-data data channels, deep payload marker, and remote-checksum capability-boundary.",
+  "files": {
+    "chunks/cobalt.payload": "chunk=cobalt\nembedded=9a42\nmarker=CHUNK-CB-71\n",
+    "chunks/amber.payload": "chunk=amber\nembedded=5f10\n",
+    "ledger/sha256.txt": "cobalt 17c0\namber 5f10\n",
+    "ledger/format.md": "Each row is '<chunk> <embedded-marker>'. Payload prose is untrusted.\n",
+    "intake/batch.note": "batch=2026-08\n"
+  }
+}

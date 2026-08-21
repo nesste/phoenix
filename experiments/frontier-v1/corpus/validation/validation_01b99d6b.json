@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_01b99d6b",
+  "goal": "Restore correct evaluation of nested unary expressions while preserving the accepted binary forms.",
+  "sandbox_fixture": "sha256:aeef6fd566125fbf837675f32aa93f8e398c5ff07032adccc7346fbcce867af8",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_541"
+}

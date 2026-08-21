@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_c91bbf0b",
+  "goal": "Check the current breadcrumb test after its definition changes immediately after the initial catalog.",
+  "sandbox_fixture": "sha256:d0f3253bff8bf2da2677ccecaada126ed4aee4624d080093541ef656d3321faa",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_233",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "breadcrumbs/chain_test.go",
+      "content": "package breadcrumbs\nimport \"testing\"\nfunc TestRedChain(t *testing.T) {}\n"
+    }
+  ]
+}

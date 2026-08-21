@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_14984523",
+  "goal": "Compile the schema encoder and report the build result.",
+  "sandbox_fixture": "sha256:725b80aa7abb2bc10015c992250c70c93a1d3bd38ab11c6e81efa8ab5d94eb3c",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_068"
+}

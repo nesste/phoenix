@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_126_v5",
+  "family_id": "validation_family_126",
+  "template": "Provenance cards exposing clean, tracked-diff, untracked, unsupported-remote, and changing-test states.",
+  "files": {
+    "cards/base.txt": "origin=archive-4\nowner=ledger\n",
+    "cards/current.txt": "origin=archive-4\nowner=ledger\n",
+    "docs/card-format.md": "Provenance cards carry origin and owner fields.\n",
+    "go.mod": "module example.test/cards\n\ngo 1.22\n",
+    "cards/cards_test.go": "package cards\nimport \"testing\"\nfunc TestOriginCard(t *testing.T) {}\n"
+  }
+}

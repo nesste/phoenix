@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_05baad41",
+  "goal": "Assign the final key of each range to exactly one partition while preserving interior keys.",
+  "sandbox_fixture": "sha256:1fcfc03bd5791f2c896682722a68b0b7d13cfb7abf41f506731c6376c1792c9f",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_625"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_926a75a3",
+  "goal": "Change only the cobalt service name to cobalt-v2; recover if the supplied scoped phrase is not present.",
+  "sandbox_fixture": "sha256:b6980013e29b3e98a749e56c1146d5cc473e9d7ec778a1b6d3facac6ee7ce66a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_329"
+}

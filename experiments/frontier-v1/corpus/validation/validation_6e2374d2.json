@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_6e2374d2",
+  "goal": "Identify the graph record that must change, and explain why renumbering the SQL files would not repair dependency semantics.",
+  "sandbox_fixture": "sha256:5df3d96b5c0a875829fef2d0b404b13b75861a1caab09d83f048434681da2cc4",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_704"
+}

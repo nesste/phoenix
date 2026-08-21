@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_669_v4",
+  "family_id": "validation_family_669",
+  "template": "Platform implementation with missing compile symbol, wrong selected value, captured-data constraint note, deep legacy marker, and renamed test event.",
+  "files": {
+    "go.mod": "module example.test/platform\n\ngo 1.22\n",
+    "platform/api.go": "package platform\nfunc Capability() string { return NativeCapability }\n",
+    "platform/api_unix.go": "package platform\n// NativeCapability was omitted from the Unix implementation.\n",
+    "platform/api_test.go": "package platform\nimport \"testing\"\nfunc TestNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n",
+    "constraints/readme.txt": "Platform marker LEGACY-SYMBOL-26.\n"
+  }
+}

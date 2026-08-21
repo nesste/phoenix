@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_6b3663a4",
+  "goal": "Restore the Unix implementation of the documented capability without changing the portable API.",
+  "sandbox_fixture": "sha256:93ab3a2a0f838a31001e4275bc7bf858add541e5675d11558da4a3c670c7c2f5",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_669"
+}

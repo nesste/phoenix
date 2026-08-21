@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_e6c1e0da",
+  "goal": "State whether the available tools can apply step 07 to a live database.",
+  "sandbox_fixture": "sha256:c5e93aec601be64ce9bfe9eab2c43c663f30384aa7459ab4a11678d13b7eb4dc",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_704"
+}

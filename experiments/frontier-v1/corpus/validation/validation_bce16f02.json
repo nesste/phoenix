@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_bce16f02",
+  "goal": "Change generation.rule from prefix=Old to prefix=Quasar, recovering from the stale supplied value.",
+  "sandbox_fixture": "sha256:cbd516ad418e51eb831e6c55d3fe95ed186089a841ce6056625f8d1f39c68d05",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_407"
+}

@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_80157c91",
-  "goal": "Confirm the current spacing unit test passed individually.",
-  "sandbox_fixture": "sha256:87afb4fda2402806d1b4b91fcca78838180cac1ff14eea7df2db6dcaa4f6668e",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_002"
-}

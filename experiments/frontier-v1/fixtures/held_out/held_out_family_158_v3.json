@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_158_v3",
+  "family_id": "held_out_family_158",
+  "template": "Audience-split release fragments with phrase search, untracked-diff boundary, archive read, publication capability-boundary, and lint split event.",
+  "files": {
+    "changes/public/next.md": "Public: widget v1 is deprecated under code RLS-81.\n",
+    "changes/operators/next.md": "Operators must rotate keys by 2026-10-03.\n",
+    "changes/archive/2025.md": "Archive release code RLS-44.\n",
+    "go.mod": "module example.test/releasenotes\n\ngo 1.22\n",
+    "changes/notes_test.go": "package changes\nimport \"testing\"\nfunc TestAllAudiences(t *testing.T) {}\n"
+  }
+}

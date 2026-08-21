@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_12de3c12",
+  "goal": "Find the repository file containing GAELIC-17, then report that path.",
+  "sandbox_fixture": "sha256:f0d283d4da443c3658600070cc1c4da42429aa5191962d5e8db5fc5aca9cbcb9",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_041"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_556e06f3",
+  "goal": "The old path epoch/current.txt is gone. Locate and read the repository's live epoch record.",
+  "sandbox_fixture": "sha256:93f0bd1126d3ea0e43c423765d64c7a495e60dc3bf052c623f46e6a8d45d54aa",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_379"
+}

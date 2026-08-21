@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_2fb6e3cd",
+  "goal": "TestRetiredEOL is obsolete. Discover and focus its live replacement.",
+  "sandbox_fixture": "sha256:403c4cd77647a4d8c03a5926a84584e840a1e961ce7cf510f5235b834c2aa5a1",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_438"
+}

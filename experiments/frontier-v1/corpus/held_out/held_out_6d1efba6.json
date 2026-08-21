@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_6d1efba6",
-  "goal": "Determine whether dwell-time behavior still matches its checks.",
-  "sandbox_fixture": "sha256:f2ba7c7a938b1bd2318c0595bede41c5e4a4bd36f7a5d84294522847c4eddc31",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_009"
-}

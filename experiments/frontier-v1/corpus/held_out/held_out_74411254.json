@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_74411254",
+  "goal": "Change the active v2 mode from the supplied stale value audit to enforced after reading the current stanza.",
+  "sandbox_fixture": "sha256:6eacaa8caf8f188851b46b458694eba138cd5e4ae194f98d933867aa5a425ea0",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_451"
+}

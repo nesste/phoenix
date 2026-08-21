@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_627551ea",
+  "goal": "Support the documented review event from the pending state without changing terminal states.",
+  "sandbox_fixture": "sha256:684458b662a0c0cd50bcd87d2d20dbef963c63152ee2fa8c9df5d7285762ca63",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_556"
+}

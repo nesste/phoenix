@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_4598bf9e",
+  "goal": "Focus the beta-qualified example through the catalog instead of treating a run of every example as package isolation.",
+  "sandbox_fixture": "sha256:ddea1298077c9cc125e2fc405ead70aaabe7033f3f3ea3dc970cdc6b9b3805d1",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_416"
+}

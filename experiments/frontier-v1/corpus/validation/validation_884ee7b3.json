@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_884ee7b3",
-  "goal": "Confirm the current clearance test passed as an individual check.",
-  "sandbox_fixture": "sha256:1a54e45c51f22663583550f828a1c3a466af9f6fe3c7a9699f8ea461ceea35e1",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_018"
-}

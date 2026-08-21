@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_4977103d",
+  "goal": "Commit the requested promotion even though the tree begins clean: update Current epoch from copper to silver, then create the commit.",
+  "sandbox_fixture": "sha256:6b85d20c19ec3bbb31ecdca1433b767f35a3fe6a5b0385177fd9fb6088cdfe64",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_259"
+}

@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_3b4a9111",
-  "goal": "Locate the night-shift alias and run that named grit check.",
-  "sandbox_fixture": "sha256:b607f5a1dfdba8c63dae1911635dc43001fd0a5bfe9bf2629301cd5cb92fbe5c",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_020"
-}

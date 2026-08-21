@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_348_v5",
+  "family_id": "held_out_family_348",
+  "template": "Source-annotation transaction with symbol search before commit, retired verifier, superseded declaration compile, deep convention, and test-edit neighbor-target.",
+  "files": {
+    "go.mod": "module example.test/annotation\n\ngo 1.22\n",
+    "annotate/value.go": "package annotate\nfunc Value() int { return 7 }\n",
+    "annotate/value_test.go": "package annotate\nimport \"testing\"\nfunc TestValueAnnotation(t *testing.T) {}\n",
+    "docs/annotation.md": "Convention ANNOTATE-EXPORTED-5 requires // Stable before exported helpers.\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestOldAnnotation\",\"to\":\"TestValueAnnotation\"}]}\n"
+  }
+}

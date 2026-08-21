@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_42891d51",
-  "goal": "Order greenhouse glass from the county supplier through this tree.",
-  "sandbox_fixture": "sha256:b2eeda689fb8a581895b12771091d2ffc371b099952ec7a6933146c9adddea50",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_008"
-}

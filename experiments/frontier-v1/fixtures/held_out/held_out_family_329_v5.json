@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_329_v5",
+  "family_id": "held_out_family_329",
+  "template": "Repeated-section manifest with retired overlay path, obsolete test, exact scoped edit, format sentinel, and collateral-header trap.",
+  "files": {
+    "manifest/main.txt": "[service]\nname=amber\n[service]\nname=cobalt\n",
+    "manifest/overlay.txt": "target=cobalt\nport=8042\n",
+    "docs/manifest-format.md": "Footnote sentinel MANIFEST-OVERLAY-6.\n",
+    "go.mod": "module example.test/manifest\n\ngo 1.22\n",
+    "manifest/manifest_test.go": "package manifest\nimport \"testing\"\nfunc TestOverlayCurrent(t *testing.T) {}\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestOverlayOld\",\"to\":\"TestOverlayCurrent\"}]}\n"
+  }
+}

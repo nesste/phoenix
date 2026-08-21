@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_1dd2b42e",
-  "goal": "Check the moisture helper against its specified behavior.",
-  "sandbox_fixture": "sha256:d0720b917d726f676abe37e65efcf33fd2f5cf9dcd582ac9ab116f177f3195e9",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_013"
-}

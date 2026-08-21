@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_30eb965c",
+  "goal": "Find ROTATE-SALT-91 and report the source file that carries the rotation salt.",
+  "sandbox_fixture": "sha256:c402ac44a88ed2d7ae20a482030d8e63819b2f1a7ceea9049b161cf2b37c6a5a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_379"
+}

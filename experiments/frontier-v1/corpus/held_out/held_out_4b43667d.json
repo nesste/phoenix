@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_4b43667d",
+  "goal": "Promote the release-82 event into current and inspect the diff so calendar/draft.ics remains unchanged.",
+  "sandbox_fixture": "sha256:6ee8bf480ad0d626ef0df8681561b589f952a7cdffba87ebacdbaafefaecdd6a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_486"
+}

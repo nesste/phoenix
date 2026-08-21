@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_c52c3fde",
+  "goal": "Promote the draft event into the current calendar and commit it, locating the current file by UID and inspecting the diff first.",
+  "sandbox_fixture": "sha256:ffcaafe4a46121ec2f4db1fe97c026700f715d9fab8cc1e4282150457b30356d",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_486"
+}

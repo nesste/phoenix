@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_caa89572",
+  "goal": "Find the repository file containing seed=47 and report its path.",
+  "sandbox_fixture": "sha256:cd80d2f80b52c5fd935bba3694a2b6273573afc14b48225edb33e7e81928981f",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_407"
+}

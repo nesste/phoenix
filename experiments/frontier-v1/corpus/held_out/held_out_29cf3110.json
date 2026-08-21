@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_29cf3110",
+  "goal": "Verify the current readiness check after its test definition changes following the initial catalog.",
+  "sandbox_fixture": "sha256:05a30d65d1a1e3f7be6afef1e71c33079ce1f40bd5aa32e00f3b3f57e0775dbd",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_793",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "deploy/dag_test.go",
+      "content": "package deploy\nimport \"testing\"\nfunc TestSearchReadiness(t *testing.T) {}\n"
+    }
+  ]
+}

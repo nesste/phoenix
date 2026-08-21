@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_217_v5",
+  "family_id": "held_out_family_217",
+  "template": "Tracked/untracked/ignored file census with porcelain classification, clean view, searchable marker, chmod capability-boundary, and stable-name state change.",
+  "files": {
+    "inventory/tracked.lst": "alpha\nbeta\n",
+    "inventory/cache.bin": "CACHE-MARKER-71\n",
+    ".gitignore": "inventory/cache.bin\n",
+    "notes/census.txt": "Ignored cache marker: CACHE-MARKER-71\n",
+    "go.mod": "module example.test/census\n\ngo 1.22\n",
+    "inventory/census_test.go": "package inventory\nimport \"testing\"\nfunc TestIgnoredCensus(t *testing.T) {}\n"
+  }
+}

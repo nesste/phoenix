@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_dd7ec209",
+  "goal": "Change the sentinel history epoch from cobalt to silver; recover if the supplied old epoch is not present.",
+  "sandbox_fixture": "sha256:3239648417f9c8d7693c7994253ad89824a3d62abd9de6c1021df426756f79c8",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_259"
+}

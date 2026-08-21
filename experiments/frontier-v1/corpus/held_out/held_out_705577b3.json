@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_705577b3",
+  "goal": "Read the sample shape and report which field is explicitly nullable.",
+  "sandbox_fixture": "sha256:7ac3286244c1f78f0e39b0db974bb1b2ef70d91f4e3eed6e0f1631c0678a8b51",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_068"
+}

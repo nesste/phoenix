@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_d0a9edc6",
-  "goal": "Locate the night-watch identifier and run that named lamp check by itself.",
-  "sandbox_fixture": "sha256:bec18b5e133a3329afea4d5566c4d3f89e42b9c314d2d405039504e3916c85dc",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_010"
-}

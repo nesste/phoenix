@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_41f5cd34",
-  "goal": "Compile the sap hydrometer and report whether the module build succeeded.",
-  "sandbox_fixture": "sha256:0fb8a02209356b9b31997da7d2f80000d8b1fd909e908ea5593fbe3edf8bfc54",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_010"
-}

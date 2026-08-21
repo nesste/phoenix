@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_411e0ac4",
-  "goal": "Run the callsign tests and report the suite outcome.",
-  "sandbox_fixture": "sha256:10af470c3fd4b0f7a254f3612442c8add6fec175ea074511397315ec4ab414e8",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_015"
-}

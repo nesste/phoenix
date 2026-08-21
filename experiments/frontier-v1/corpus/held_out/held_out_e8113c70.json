@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_e8113c70",
+  "goal": "Commit a correction changing small: 16 to small: 32 even though the tree begins clean.",
+  "sandbox_fixture": "sha256:6dd9fc20113ce8878eed4c5c74c0ee9ded738e38a88a5b2d5f632e9961e64078",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_523"
+}

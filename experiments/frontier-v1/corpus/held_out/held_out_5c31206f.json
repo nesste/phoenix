@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_5c31206f",
+  "goal": "Episode history is unavailable; use repository evidence to identify and verify the live replacement for TestEpoch_202607.",
+  "sandbox_fixture": "sha256:8352a68d8e9edac1e1e1d92e418fa6543d6d6e5eb1e11325601cda20220ee1f2",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_379"
+}

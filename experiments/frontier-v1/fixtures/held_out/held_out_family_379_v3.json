@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_379_v3",
+  "family_id": "held_out_family_379",
+  "template": "Epoch-derived test membership with unavailable recall, state replacement, retired location, buried salt, and guessed-next refusal.",
+  "files": {
+    "go.mod": "module example.test/rotation\n\ngo 1.22\n",
+    "rotate/rotation_test.go": "package rotate\nimport \"testing\"\nfunc TestEpoch_202608(t *testing.T) {}\n",
+    "rotate/epoch.txt": "epoch=202608\nsalt=ROTATE-SALT-91\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestEpoch_202607\",\"to\":\"TestEpoch_202608\"}]}\n"
+  }
+}

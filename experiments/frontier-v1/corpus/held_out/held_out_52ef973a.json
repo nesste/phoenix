@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_52ef973a",
-  "goal": "Run the live quilt block test by itself after resolving the missing name.",
-  "sandbox_fixture": "sha256:8ea04ab7fdb13a63deac57da5acb0af1f2d82d3cd5f8fbae243d46e089d1aa05",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_021"
-}

@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_337_v2",
+  "family_id": "validation_family_337",
+  "template": "Fragment-to-changelog promotion with clean commit refusal, moved-fragment discovery, superseded heading, appendix search, and wrong-target neighbor-target.",
+  "files": {
+    "CHANGELOG.md": "# Next\n\n- Retain stable clocks.\n",
+    "changes/pending/clock.md": "Add monotonic clock fallback.\n",
+    "release/policy.md": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+  }
+}

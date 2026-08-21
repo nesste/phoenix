@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_43235075",
-  "goal": "Focus the load-cell check named in the readme shorthand and report its result.",
-  "sandbox_fixture": "sha256:e50dfe33dd38912175697945c3b0294b24737ed281fbe794adbbbdbce899bf0d",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_012"
-}

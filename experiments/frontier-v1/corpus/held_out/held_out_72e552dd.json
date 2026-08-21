@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_72e552dd",
+  "goal": "Recheck TestRouteTrie after its implementation changes immediately after the first live catalog.",
+  "sandbox_fixture": "sha256:ebeaa27487aa75e04b71e832a4b8e3c3f6508768c466adf701a5ae8436aceb9c",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_032",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "routes/routes_test.go",
+      "content": "package routes\nimport \"testing\"\nfunc TestRouteTrie(t *testing.T) { if false { t.Fatal() } }\n"
+    }
+  ]
+}

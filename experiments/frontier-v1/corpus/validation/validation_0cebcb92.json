@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_0cebcb92",
-  "goal": "The germination checks are not all passing. Identify the live test and report its individual result.",
-  "sandbox_fixture": "sha256:b2eeda689fb8a581895b12771091d2ffc371b099952ec7a6933146c9adddea50",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_008"
-}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_98c7ebf1",
+  "goal": "Resolve the verifier's field-selection defect without editing deps/lock.json.",
+  "sandbox_fixture": "sha256:007686c2030aca477b0983e94fb52328c053da1c3e58e321fe5969f8f3d9d979",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_688"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_eba84557",
+  "goal": "The proposed edit path C:/contracts/shards.txt is outside the repository. Find the tracked shard map, change cobalt=b to cobalt=a, and preserve amber.",
+  "sandbox_fixture": "sha256:ba2cbe285bcbb37c3e26eda247b42afc8b4422314c355e388884085e5ca63167",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_274"
+}

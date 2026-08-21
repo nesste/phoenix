@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_35ac8d64",
-  "goal": "Run the lobster-pot tests and report whether they passed.",
-  "sandbox_fixture": "sha256:5e724670669ac095d8e599d979ff12fc700e1f6402b5a21556925814fde47a83",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_023"
-}

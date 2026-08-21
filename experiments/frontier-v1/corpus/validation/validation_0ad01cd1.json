@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_0ad01cd1",
+  "goal": "Make step 07 ready only after all of its actual predecessors, preserving the ordering of independent steps.",
+  "sandbox_fixture": "sha256:a9a412e9bdd6f88e1db6cdfab8a7718f2f5021d6a4c77c52dea55a9716b5bddb",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_704"
+}

@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_083_v1",
+  "family_id": "validation_family_083",
+  "template": "Handwritten test roster whose catalog, focus result, suite result, external boundary, and replacement are distinct.",
+  "files": {
+    "go.mod": "module example.test/roster\n\ngo 1.22\n",
+    "roster/roster_test.go": "package roster\n\nimport \"testing\"\nfunc TestMorningWindow(t *testing.T) {}\nfunc TestEveningWindow(t *testing.T) {}\n",
+    "roster/cases.txt": "morning=06:00\nevening=18:00\n",
+    "README.md": "Roster windows are repository-local and do not contact a calendar service.\n"
+  }
+}

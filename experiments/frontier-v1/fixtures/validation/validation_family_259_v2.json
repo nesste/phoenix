@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_259_v2",
+  "family_id": "validation_family_259",
+  "template": "Sentinel chronology combining a renamed test, exact-text conflict, empty commit, buried code, and irrelevant-build lure.",
+  "files": {
+    "go.mod": "module example.test/sentinel\n\ngo 1.22\n",
+    "sentinel/sentinel_test.go": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n",
+    "sentinel/history.md": "Current epoch: copper. Previous epoch: amber.\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+  }
+}

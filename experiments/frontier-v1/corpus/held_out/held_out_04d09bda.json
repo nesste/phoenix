@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_04d09bda",
+  "goal": "Allow the auditor role to inherit read-only reports without granting deployment rights.",
+  "sandbox_fixture": "sha256:ba8e33ea97bbc3e7601ba03caf92a2a1012b0c1f2b1d959180fa7fc3fd73d774",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_719"
+}

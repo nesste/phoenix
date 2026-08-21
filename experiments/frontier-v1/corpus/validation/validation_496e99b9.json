@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_496e99b9",
-  "goal": "Focus the shed-order primary test and report its individual result.",
-  "sandbox_fixture": "sha256:683abf5fa9128d02b7eb1fb5624a1e3571c650aeafd9b71ef205c4918e0fe524",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_008"
-}

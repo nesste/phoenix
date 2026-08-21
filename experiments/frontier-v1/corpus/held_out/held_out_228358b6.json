@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_228358b6",
-  "goal": "Focus the firing-note test that is still listed first and report its result.",
-  "sandbox_fixture": "sha256:9b81a8a33e712b3d1c940ab5ded274d166838319583ce62573973dae92ec98f4",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_004"
-}

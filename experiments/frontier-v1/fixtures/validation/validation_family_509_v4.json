@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_509_v4",
+  "family_id": "validation_family_509",
+  "template": "Qualified matrix-test naming with bare-name refusal, obsolete path correction, unavailable history, deep axis token, and whole-suite lure.",
+  "files": {
+    "go.mod": "module example.test/matrix\n\ngo 1.22\n",
+    "matrix/matrix_test.go": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n",
+    "matrix/axes.md": "local history token AXIS-HISTORY-52\n"
+  }
+}

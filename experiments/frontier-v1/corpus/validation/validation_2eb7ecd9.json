@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_2eb7ecd9",
+  "goal": "The proposed host path C:/runtime/config.ini is outside the repository. Locate and read the in-repository runtime configuration instead.",
+  "sandbox_fixture": "sha256:c33aa4895c1ba21e1fe3b485e1f16851a8171597815d81538e89ce8a48b9e725",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_286"
+}

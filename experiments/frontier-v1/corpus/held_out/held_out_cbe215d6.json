@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_cbe215d6",
+  "goal": "Restore compatibility for the public Parse function without adding exceptions to the allowlist.",
+  "sandbox_fixture": "sha256:cc3626885eceb622c270ec19d17ddf343d5b7cfdb0fe36225a4e000ed028fe52",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_653"
+}

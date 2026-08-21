@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_11efd0da",
+  "goal": "Episode history is unavailable. Find POLICY-V2-64 in repository-local upgrade evidence and report its path.",
+  "sandbox_fixture": "sha256:bf4969f3b2f49e30961f5224da775d0112ecc8b22572fd206d8e65efc0190457",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_451"
+}

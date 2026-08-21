@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_233_v1",
+  "family_id": "validation_family_233",
+  "template": "Human breadcrumb chain with distinct start, path search, receipt read, external-vault boundary, and replaced verification state.",
+  "files": {
+    "README.md": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n",
+    "breadcrumbs/start.txt": "blue receipt -> vault/blue/receipt.dat\nred receipt -> vault/red/receipt.dat\n",
+    "vault/blue/receipt.dat": "receipt=B-71\nweight=14\n",
+    "vault/red/receipt.dat": "receipt=R-19\nweight=8\n"
+  }
+}

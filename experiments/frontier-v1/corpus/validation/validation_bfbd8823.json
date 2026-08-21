@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_bfbd8823",
-  "goal": "Run the lamp package tests and report the suite outcome.",
-  "sandbox_fixture": "sha256:3a2f28089fdfe96fbe7c5871642baac4c386045860c018d6194fbf953f5f1c9b",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_010"
-}

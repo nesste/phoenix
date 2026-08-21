@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_8a8dfc05",
-  "goal": "Run every quay slot test and report whether the suite failed.",
-  "sandbox_fixture": "sha256:46f95f3eea0f8af24fea85e2e44a671e0334dedd82014dbb16e0889834cb3b9e",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_008"
-}

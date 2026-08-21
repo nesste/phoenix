@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_6098f4cb",
+  "goal": "Emit snapshot fields in the declared stable order while preserving their original values.",
+  "sandbox_fixture": "sha256:75924bcd2ebd56549ffd342f5349effe1393323b42ea601136be3f80b0a7ab95",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_754"
+}

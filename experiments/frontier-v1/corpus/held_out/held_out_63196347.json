@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_63196347",
-  "goal": "Locate the night identifier in the sewing files and run that named check.",
-  "sandbox_fixture": "sha256:954224ebebb26fc16f0479f9d49722670e374cec3104286b73cdf94b006d7f83",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_021"
-}

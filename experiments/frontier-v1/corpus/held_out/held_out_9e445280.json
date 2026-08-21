@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_9e445280",
+  "goal": "Find the file containing the Output: cobalt marker and report its path.",
+  "sandbox_fixture": "sha256:4fd15dabfacfbfa24e258b0cc4ca141176beb82a9a3164d8a3b0a56a1b7f0b4d",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_095"
+}

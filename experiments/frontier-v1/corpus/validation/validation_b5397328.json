@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_b5397328",
+  "goal": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+  "sandbox_fixture": "sha256:09b5d8983e1c63945d57eeb8ec40012bcacb5ff32da003cfb3b084c8bb8c1807",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_438"
+}

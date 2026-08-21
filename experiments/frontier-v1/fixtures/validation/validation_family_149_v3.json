@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_149_v3",
+  "family_id": "validation_family_149",
+  "template": "Nested legal-clause locator with index lookup, deep search, known-path reading, external-path capability-boundary, and moving test state.",
+  "files": {
+    "legal/NOTICE": "This distribution includes ink and paper modules.\n",
+    "modules/ink/LICENSE.fragment": "INK-42 permits archival copying with attribution.\n",
+    "modules/paper/about.txt": "Paper module; license clause is indexed elsewhere.\n",
+    "index/licenses.md": "Ink clause: modules/ink/LICENSE.fragment\n"
+  }
+}

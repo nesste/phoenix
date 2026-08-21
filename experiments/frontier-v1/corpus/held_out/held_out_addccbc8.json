@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_addccbc8",
-  "goal": "Calibrate a physical compass over USB and return the device serial.",
-  "sandbox_fixture": "sha256:7ef60dc38de478108e82fe9db125b6a0e642b92a4965f28cd658a9c9d5d066eb",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_007"
-}

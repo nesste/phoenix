@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_9ef7928c",
+  "goal": "State whether the frozen tools can query an external policy decision service.",
+  "sandbox_fixture": "sha256:86ac8366f14c669458344cb459e8d14ceb78b58aa12e140c427dabae0f92cdef",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_556"
+}

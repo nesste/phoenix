@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_2af6c42b",
+  "goal": "Identify and focus the moved contract test through the catalog; a successful build alone is not sufficient.",
+  "sandbox_fixture": "sha256:fc7f4a1633242a8162fbacaaf4b4d7c441f49c14aa13606256af947306dc9bdf",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_274"
+}

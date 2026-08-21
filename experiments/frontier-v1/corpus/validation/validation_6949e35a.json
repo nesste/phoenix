@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_6949e35a",
+  "goal": "Identify the source defect behind TestDeclaredOrder without editing testdata/golden.json.",
+  "sandbox_fixture": "sha256:2af31a1a3e2da73242f2c3430462ac2e951ed73e0b80474c8769de98f3b7e56c",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_779"
+}

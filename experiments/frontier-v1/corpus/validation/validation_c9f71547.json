@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_c9f71547",
+  "goal": "State whether the frozen tools can download a canonical checksum list from an external service.",
+  "sandbox_fixture": "sha256:9752c521b11f4fcd410d876eb37a77c3625f88e3e97b4df983ff063168a35a28",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_602"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_a72ff81f",
+  "goal": "State whether the available Git verbs can apply a mailbox patch with git am.",
+  "sandbox_fixture": "sha256:045b614b9d931cc3b07aec6fefb9e5d1fc4ed342909fd68b0a9cb89b510ff235",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_131"
+}

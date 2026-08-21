@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_5bf0ab5d",
-  "goal": "Run the weathervane tests and report the suite outcome.",
-  "sandbox_fixture": "sha256:96e2887afcd42cdcc74f3db0c28e50acfc54ac1d407ff217d7aff10f7b1ec72a",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_016"
-}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_df8e87a9",
+  "goal": "List the live Go examples and report their exact runnable names.",
+  "sandbox_fixture": "sha256:b76ff1bc0e047f8f90d87aa69a53490cc36a88b6f080bc8d25a8a1c319f4af39",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_095"
+}

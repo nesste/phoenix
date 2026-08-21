@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_334838d5",
+  "goal": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+  "sandbox_fixture": "sha256:4fddffd1dfe5a8a60269ffa985604aaf054e91fa08203912df266866b85ff91d",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_472"
+}

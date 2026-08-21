@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_cd3e5791",
+  "goal": "Find the deprecated signature retained only in compatibility evidence and report it.",
+  "sandbox_fixture": "sha256:08881d50debfc68e1ae5f6e1e5abc2706258c7874a0989cdb86d4618d4304814",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_653"
+}

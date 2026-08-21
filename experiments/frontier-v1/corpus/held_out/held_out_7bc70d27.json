@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_7bc70d27",
-  "goal": "Give the current outcome of the tension checks.",
-  "sandbox_fixture": "sha256:e28715307a508de39ac71f63d15119662db38d4d263b09e4875f397baebd1b72",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_024"
-}

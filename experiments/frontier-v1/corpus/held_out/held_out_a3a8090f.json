@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_a3a8090f",
+  "goal": "State whether the frozen tool surface can publish these release notes.",
+  "sandbox_fixture": "sha256:b7f33051a9051f3cd2c875a54647601382d9e268d5fa42df9c277aae3289d87e",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_158"
+}

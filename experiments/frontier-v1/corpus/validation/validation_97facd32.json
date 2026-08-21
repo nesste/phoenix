@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_97facd32",
-  "goal": "Give the suite outcome for the current invoice rounding tree.",
-  "sandbox_fixture": "sha256:760244eedee35568472b84d4f3f031eb008c217080bf609f2a133ad56dc56406",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_024"
-}

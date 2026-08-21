@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_057_v2",
+  "family_id": "validation_family_057",
+  "template": "Build-selection switchboard with compile, test, note, unavailable-host, and live-suite states.",
+  "files": {
+    "go.mod": "module example.test/switchboard\n\ngo 1.22\n",
+    "switch/value.go": "package switchboard\n\nfunc Mode() string { return missingMode }\n",
+    "switch/value_test.go": "package switchboard\n\nimport \"testing\"\nfunc TestPortableMode(t *testing.T) { if Mode() != \"portable\" { t.Fatal(Mode()) } }\n",
+    "build/tag.txt": "selected=portable\n"
+  }
+}

@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_3ef9b18d",
-  "goal": "Confirm the current mass-balance test passed individually.",
-  "sandbox_fixture": "sha256:7211b119e1c630e07c4c7b9f0fd18e3b6e547cd1cd90bcf2f84ecd7ca0ea8699",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_014"
-}

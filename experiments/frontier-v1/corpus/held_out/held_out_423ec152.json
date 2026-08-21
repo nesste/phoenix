@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_423ec152",
+  "goal": "Check the operator-audience lint after the aggregate lint splits following your initial test catalog.",
+  "sandbox_fixture": "sha256:54982d2a9d0f0348ad8c80845a7a8f64e5d5461accb5d4a88db4bf06194c5442",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_158",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "changes/notes_test.go",
+      "content": "package changes\nimport \"testing\"\nfunc TestPublicAudience(t *testing.T) {}\nfunc TestOperatorAudience(t *testing.T) {}\n"
+    }
+  ]
+}

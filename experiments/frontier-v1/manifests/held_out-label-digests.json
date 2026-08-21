@@ -3,724 +3,724 @@
   "tranche": "held_out",
   "labels": [
     {
-      "case_id": "held_out_016ae603",
-      "class": "adversarial_text",
-      "label_digest": "sha256:9ca7a11d8ec77574a728f4396bd755715a9b21753e902638f01c76012a252529",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_035868f5",
+      "case_id": "held_out_01c5f5cf",
       "class": "far_discovery",
-      "label_digest": "sha256:6907adfb0a85f5d8363036c517b83265a0ea44994b86056e9dc7dd1c86b7a254",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:bc93b79fbd83ef89416afe09e8dd91176c53dff7e22393bef0f75eae68496f8d",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_082aae53",
+      "case_id": "held_out_04d09bda",
+      "class": "cascade",
+      "label_digest": "sha256:6b22be03800e103505fb2a24e7168b2ab3e9449fda234ce0fdc3b95252252e38",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_05baad41",
+      "class": "cascade",
+      "label_digest": "sha256:ebe2220fc1729cbe539be8a146fc09142f0d770114770a9460e5a1d10a50f494",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_07fdc3be",
+      "class": "stale_frontier",
+      "label_digest": "sha256:54c817a5838a506228b3c828ebd5470ff71b8741597259757f45ce8b61f0a987",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_08af3a49",
       "class": "adversarial_text",
-      "label_digest": "sha256:fa78a0ca0302563141db68edef498ec89a6562cdd04e340a878cbf1faac199b1",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:f787051034c975829228ad8d9b8a9c12f6e0606660c0ffcdd26d09eda51834c6",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_0ca8c6ec",
-      "class": "stale_frontier",
-      "label_digest": "sha256:48f97e234b2393b00f962fb56c52d0d2327a7ed9021d46c23ad7d907fcbeb5e2",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_0f91b60c",
-      "class": "cascade",
-      "label_digest": "sha256:2bb541e5d0eea9b3194ad45ae7cd7d4d7055a10c660469d450beb239fa2b1950",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_0fffa000",
-      "class": "absence",
-      "label_digest": "sha256:863547022e7d082ef8ba466bc2f78c08e4f91205f3ccce57116a52729f3cc329",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_10e5be10",
-      "class": "recovery",
-      "label_digest": "sha256:c61dbbea952d33aea53c740423b24186346c01be5742b513c40c5dc1ff72817d",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_165f45c2",
+      "case_id": "held_out_0af0cb6b",
       "class": "direct",
-      "label_digest": "sha256:f7228dac1c508b9b0945e9b7f36d291e38cde5ca9b35d6413c61b4f87ff0e498",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:4f155d4f0e5baaee9be7d6e3fdce606d6becb3c9ef1c59f695c70e416a7d258d",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_1c491e91",
+      "case_id": "held_out_0ba61bb3",
       "class": "direct",
-      "label_digest": "sha256:aaab863d60bb61a7866dc413d297b3b36e636a509546d2f58e4d854832e08d77",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:7fd7091a4f1239f3a95d276aa5bc158332aa821d6f8b354b7d5fd01b72fcff0f",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_1fc2c79c",
+      "case_id": "held_out_10088836",
+      "class": "direct",
+      "label_digest": "sha256:e798edfa9f824e29f54545a67c3dea2f4ee812774729a0ca584b822a7db4ebd8",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_1096b7c1",
       "class": "far_discovery",
-      "label_digest": "sha256:23b675b4a8ef4feaf012fdc7f8ab44161aeaa762223e9c85f450a15e1abafcec",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:7f99782330ecb824686472d913c30e8424fe586b262c1ad8b4c905e457b3ba43",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_20aa2ef3",
+      "case_id": "held_out_11efd0da",
+      "class": "far_discovery",
+      "label_digest": "sha256:0d9b899667407a1492393f90dd03acdcb085ebd258738b7de5905917e6100d42",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_14984523",
       "class": "direct",
-      "label_digest": "sha256:f89b94a87d843d16bb36ff0345790f49fd553a59ec04c03ee8de8a270ad337e1",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:03c030a0f559b9bcef6814b79ba3aa1acd91a22a0dad17f75c55b447d6a81886",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_228358b6",
-      "class": "stale_frontier",
-      "label_digest": "sha256:bb266f07b606546224344037ed0718051986b96b3558e990a64bb273826a4d6c",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_259213f1",
-      "class": "cascade",
-      "label_digest": "sha256:a1c60cdb1ce8fb7a96b4ad4072dc9b170d4d5d5723c682581ff5e16b9c56ceae",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_25ed8f05",
+      "case_id": "held_out_1623493c",
       "class": "temptation",
-      "label_digest": "sha256:3bad1967ab620893832e971f6fe307e33a1cd91794c0eafb280832e65a84aa52",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:3c1ca8457af7c33949fef4b104654ce73627049a631772ec57459c1de86b456c",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_27169d40",
-      "class": "direct",
-      "label_digest": "sha256:4d1fdbb2bd6d151f79066ff726b09136caf0601ed28fd7a0a604e8ea07ed24cf",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_181945de",
+      "class": "temptation",
+      "label_digest": "sha256:f6571388eb80528ce8794fc684e6fb8465c2bb0abfda8c83a16097868b928120",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_2c27b239",
-      "class": "recovery",
-      "label_digest": "sha256:af996a1109a0a511d0b8028caeca95b6cc5a5db2cad504a4fee1291da08f0943",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_18cbf054",
+      "class": "cascade",
+      "label_digest": "sha256:858a0f174d2b7aa7d9859156c63875a62b5c2f0cf361417504186e5cdc05a964",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_2c4f15ce",
+      "case_id": "held_out_1a87333d",
       "class": "stale_frontier",
-      "label_digest": "sha256:3196ad9b7a086efa41c9a760b561ff097d7608af3d2d56b1afb3bf7da27ab1f8",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:d5c28b3e529dfccbbc9231a4f79623318f9492f6b6ae5da9d34c2a187aa8549d",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_2f7f7848",
+      "case_id": "held_out_1ae7c112",
+      "class": "recovery",
+      "label_digest": "sha256:11ebad234959ee9d01e0ca06f193caf9c3223a8446b91604af926f3e63c45c94",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_1bac67c5",
+      "class": "temptation",
+      "label_digest": "sha256:e8060692fb9f87c91537b2393c6bfbfd3161122d79be0e9cee7f6a1fee31bfd4",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_1c1a6dbb",
       "class": "adversarial_text",
-      "label_digest": "sha256:0695d858d64eaee031f3f77f934808e7f233c8b49e76090bfd5b85f1de8fba01",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:bfb65d5c9f5833800058d3e8da17c2611b74ebe8279bfbf3ae38847a0a703aa9",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_306d9e7c",
-      "class": "temptation",
-      "label_digest": "sha256:0d747b6048e80f4ff6d8366364f7c0e6804c2e26ed7b5a57c8e0dbe83e57d146",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_1dd0e3d3",
+      "class": "direct",
+      "label_digest": "sha256:69fe4c98f978b11b4ce9a645ed3f1f3dd4773c012a5fa95bee020e82ab0b8d1f",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_3132bfe0",
-      "class": "recovery",
-      "label_digest": "sha256:561966667a31066b7313cfd9a8933d8de166822c7e8633adffc7ca671d67f487",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_20117ea2",
+      "class": "cascade",
+      "label_digest": "sha256:e3626898bd62b84f708dd0af3e98514e1bb0cae2799374f8fcfe7bdedee93737",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_32f524ff",
+      "case_id": "held_out_29cf3110",
       "class": "stale_frontier",
-      "label_digest": "sha256:77f46bc33dd04e72ce884dec095f1ac57a3ee3896180ef8a8f1b5687ebb2df4d",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:cebac6261b652507de4bd79c0ce5740cd783f6af7cd3db0119989bea207928b9",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_35ac8d64",
-      "class": "adversarial_text",
-      "label_digest": "sha256:7dd3722ec308eef07b7cc07942f3e21b7f6767932b662f2c61a90f4c012fc6be",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_379e9789",
-      "class": "direct",
-      "label_digest": "sha256:47cb4c0a30b86d8190c8cf169c9c906e74333a33d05bb967f1fc28eb4d351a66",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_388c0dcb",
-      "class": "direct",
-      "label_digest": "sha256:069a33e5aa4116281d58ce6df3ec7427d7b700dcb75f66554114ae2b0ec4be2b",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_39be4053",
-      "class": "recovery",
-      "label_digest": "sha256:8b4ce048f0d4eda86a179a33c1de1f9ccbc9ff90d489b870a5e484688c429bea",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_3b4a9111",
-      "class": "far_discovery",
-      "label_digest": "sha256:ba7519c4d177a2a1def33d6f7f72dd65d2660d8f4e78749ff8133a4ae9b784d2",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_3d7a1aaa",
-      "class": "far_discovery",
-      "label_digest": "sha256:9d1fdaded3368b9869c464ca3b7f92d243abb76a6cd149dfcc330913a0c4031e",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_3f55953e",
+      "case_id": "held_out_2a4fa427",
       "class": "absence",
-      "label_digest": "sha256:deadb9862d0870bceaf5f22a7d030720d28670c6643c5a1027fb96b7ed9b2994",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:4c7f8595b2d26dbe5c35fb7202cddf8420c23fb15d141b7d6606be3e0d44b565",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_40299698",
-      "class": "absence",
-      "label_digest": "sha256:82cd35ab8ac0b7cb38f6f33d9b89b8555a33065d249f65dac260ce5c7bd8989d",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_2af6c42b",
+      "class": "temptation",
+      "label_digest": "sha256:062fe4ae9308d4257ded200afaacef77146b14ef8f947ed61a26a22a2ef7d907",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_411f712b",
+      "case_id": "held_out_2d345ac8",
+      "class": "far_discovery",
+      "label_digest": "sha256:9d931ec0df5587e6c1377f140e242fc24e79df603feffa642cadaf4bb7b41574",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_30eb965c",
+      "class": "far_discovery",
+      "label_digest": "sha256:939f2b8876c0fff5d879a0d44912e9dc02ec935fe9b05877fe283745acea34a9",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_31ede9f4",
       "class": "stale_frontier",
-      "label_digest": "sha256:7b4180e21e791eb64bf1952a2515dad8339ad67d5e24e8f9363d53399ce17d2a",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:fb1bb63f7dc6b27a67253dde3d97760b8661b31e234b537927fc876bde50fde1",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_41f5cd34",
-      "class": "direct",
-      "label_digest": "sha256:4c8e2281f8b7ef3ea29ff941d62f9a277d5ba1131af4e877857d9f166813a61f",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_42174c2b",
-      "class": "cascade",
-      "label_digest": "sha256:f9dce224b245c72123c1631d554996e7bddec73d16c013dc084ac84c87a52699",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_44f9d250",
-      "class": "recovery",
-      "label_digest": "sha256:c9285349123e0a422d3cb942776345cd3a043d8b076433c86df8bc2ae7c702d5",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_484d6caf",
-      "class": "cascade",
-      "label_digest": "sha256:5415006cfbd5989bd602d763545b6b6ea79f25d97a8b2447eafc7d8f81a30ab3",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_48b3d042",
+      "case_id": "held_out_32bb14c7",
       "class": "adversarial_text",
-      "label_digest": "sha256:e4f440ba62b6c7f90e184f8cb8fd4061f5bb8748a9cc58b822bf25f0812a7d55",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:4138f69976ea308ed752d9698826f0d2a874075b3b53e94f9c2bb4bf8ec58f37",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_4e6599dd",
-      "class": "recovery",
-      "label_digest": "sha256:9474b995e3ef802600e12b7f4618ebcc74c1ff96ab768b8f371617084dc8f8b1",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_506091db",
-      "class": "recovery",
-      "label_digest": "sha256:7a7121a32c9fcdf0dd5d913f0b4b48fc3d89c907360aeb34d2e685104fbfd402",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_50a365e0",
-      "class": "far_discovery",
-      "label_digest": "sha256:b321f68bd0068e62f3f043ca058da329d8e779dc56da58ad9ed616e417acad84",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_52ef973a",
-      "class": "recovery",
-      "label_digest": "sha256:15aaa57459fc89e4e3b89a0c31c5bc0a8a6110ce7a01414c00e0fbc9bcf7f080",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_55fba595",
-      "class": "direct",
-      "label_digest": "sha256:a1d42a4a59bc3a46b83d59bc5762ea217f0090c255cd454cafcae89f55847403",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_564b0a4a",
+      "case_id": "held_out_384e5d66",
       "class": "cascade",
-      "label_digest": "sha256:c68f9646943bad1517a4a1b8eae3c977d6b0499ad7f9e59abdb115f7f7186cbd",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:3f6a43dc099902b51ce4db009f9e254f3d5da33efbbb7647b15b57ba4064e59c",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_58e9ff5b",
-      "class": "absence",
-      "label_digest": "sha256:bd60117258aff10d7a9e154ef4fdbacf9ec2835614c01fc176da49093c74edc0",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_5a04a5d5",
-      "class": "temptation",
-      "label_digest": "sha256:83ebe25514996b9f32ea0dafc594258b01e3961014bd5d482f3c2b963261ef5f",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_5bf0ab5d",
-      "class": "adversarial_text",
-      "label_digest": "sha256:287e87e9dd0f8c1131e4f96b26f95074d636cf37ed92a878d85eb138e5f50c22",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_5c9dc114",
-      "class": "cascade",
-      "label_digest": "sha256:9bacc746b7b1a42c7b358f7f1547d107327ab031949906fe22d872da6d31246f",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_5d169fd4",
-      "class": "absence",
-      "label_digest": "sha256:8d97f9141bb90cfcff8908151a80b07013d2d2c5dfb6cbdeb03aaa49ad2b5207",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_6034340e",
-      "class": "recovery",
-      "label_digest": "sha256:108c46eb09ac6a67a10ba0370c42e67a9e557c3a58cc3a8577f93f3ac3966501",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_63196347",
+      "case_id": "held_out_3d5500c7",
       "class": "far_discovery",
-      "label_digest": "sha256:eeedeb4bda80341f965bfb737839db5ec2f9bb01cb536aedc32c3ccac6397b75",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:c8cce23e83bfed59ec31ac606fc91252983bf0f5e9e55bd10bc3279817d31fd1",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_63c88567",
-      "class": "cascade",
-      "label_digest": "sha256:051fd3d2bef98cc9981a3989249c7db7902f0f996195c6a793552d7b7529d61d",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_64ded334",
-      "class": "absence",
-      "label_digest": "sha256:3e99782f814ee05b25471eb8e310ca5c753a1d6cf907452bfac09c019b458e07",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_6628d063",
+      "case_id": "held_out_3ea405ed",
       "class": "far_discovery",
-      "label_digest": "sha256:ce1231f40836fa9779ac822692b843b04f44a1c0f839485167a2ed2234a64108",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:0ba4a022d425283b1e9dffbe2b1194ba81b731b9999b8e12fc63915692cb55ff",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_68fff476",
-      "class": "absence",
-      "label_digest": "sha256:966918c04163231f72845af755838b368c2642cb27e49034e3922df1320ef00c",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_69a73714",
-      "class": "cascade",
-      "label_digest": "sha256:e280782cb6f49b848bbd0a428c7da479539d0ca888f8f299868949fca3051866",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_6d1efba6",
-      "class": "temptation",
-      "label_digest": "sha256:c1125b1d4ad4e21cfa97b85baac1b73ca15e00fc8d7b1329e8aabe2d2c38918c",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_6e08c686",
-      "class": "recovery",
-      "label_digest": "sha256:34adb01eadcb9809fd596cf9b9ed44570b5732567b479e747bae8355e12d6886",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_75d63658",
+      "case_id": "held_out_3ec8ab3a",
       "class": "far_discovery",
-      "label_digest": "sha256:471379e50de48e4bf913ea877c0d6197380e19f758f4310b1757d13aa1a54f43",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:92418cbbd966f9ac620f4a074b6e3a51b1eea4d0ec9e639c4ee12ff8a48c1534",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_788cbb22",
-      "class": "recovery",
-      "label_digest": "sha256:89f2e5792b614078b0d0f6b006abb6cc1ee9d8a13b56b6b9a8f9e45b25a1ac13",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_788fe673",
-      "class": "recovery",
-      "label_digest": "sha256:023f9928c4b80de95fcfcc121190f48e7a04609d520a52ec46a82e75098d1239",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_7bc70d27",
-      "class": "direct",
-      "label_digest": "sha256:de4251ce95f09168a4cb7da506d98a7887a5e2665feb59933a47080b0363dbdc",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_7e1412a0",
-      "class": "direct",
-      "label_digest": "sha256:7e8d9614ffa64744496f7a51945f3a18bc3d747eb5c238b821dcda4411098dd3",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_80157c91",
-      "class": "recovery",
-      "label_digest": "sha256:14b21826f86b25a02a9a1135294184713ae6d708136169b674da058bdcaa44f0",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_878d576a",
+      "case_id": "held_out_423ec152",
       "class": "stale_frontier",
-      "label_digest": "sha256:5d85fd1d1c561b00fcc3668ea58280f2af88a3a47ea08e9dccbcffabed9b8471",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:635e4c1e6a1bd1f7339c6a196b0dc05f583a0d893e8d2bc3750f75e81750ed3a",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_88468144",
-      "class": "stale_frontier",
-      "label_digest": "sha256:f932ee6bcb62c44525cec59fbd73c24123ddcba27119740fcf384c460ae25322",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_884ea668",
-      "class": "direct",
-      "label_digest": "sha256:4511b591a36871ec1ef711e738da729cde7b7c156416ba3fcca6acc47c76b531",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_88e18565",
-      "class": "adversarial_text",
-      "label_digest": "sha256:1360a19c03fa6b667c34c01b1847b23a15d8100d26402a7a22eed450e8a95b56",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_896bdd6a",
-      "class": "direct",
-      "label_digest": "sha256:e648c6273d1f00521febeb997e4926b28a2f3945fcde1dc32d3ea83bc62ec7a9",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_8a8dfc05",
-      "class": "direct",
-      "label_digest": "sha256:701f07f3f70818638e9b89b3dbabc4ab6bd78b8b8cb4a5c130dfe8c034b30ddc",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_8c5764ee",
-      "class": "recovery",
-      "label_digest": "sha256:146e85fccff4c061aa0cc11d7b66c843eb6d0b5e061ada317fa572b6b7459e8c",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_8f1d16d0",
-      "class": "recovery",
-      "label_digest": "sha256:ea17d3eed85b0bdb7ab06b92b8372c9374324087b12965de8e5d41df635ba71a",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_920b7533",
-      "class": "recovery",
-      "label_digest": "sha256:c75c210ccb583c55e1acfad8bf229e0ebf203643a788fd230cdd7369823b002f",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_94662bc9",
+      "case_id": "held_out_4598bf9e",
       "class": "temptation",
-      "label_digest": "sha256:55757b6dac96019f5607e06ebb05eaf568dbc8191d03c6a0cee37df81a6b7778",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:3750a463ceeaae0428fff92a846a70c4b3c81acc186f5aa8bd83a1d69f0f9049",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_95057879",
+      "case_id": "held_out_49146360",
+      "class": "absence",
+      "label_digest": "sha256:9149f3022c254743ebab96a55c7fc130bd80fbeae908b5cf2b39c720bafc7849",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_4b43667d",
       "class": "temptation",
-      "label_digest": "sha256:ca231339e8e02cce6d82c0c44ad2a5122ebf4920df6a2840f5f21d2ce278c927",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:1d9f70fe45fae65c337c8531b1dc5a5cbc2aa9390d67a192a27382eb6a92195b",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_95189107",
-      "class": "direct",
-      "label_digest": "sha256:c4c8df509b92ab386f5e7549f99b41f43978e21d2f91af613ad53bc3efe96d91",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_9736451c",
+      "case_id": "held_out_4b45ceff",
       "class": "temptation",
-      "label_digest": "sha256:f0dc96e8da3f34852040b3be09eb40047bc2a01f8b2cd052f37620660799e59e",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:29a786fdd099210fda0fb07bcaa1e7dd1a1fcd4992d0e119abb4ecd215f68767",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_98b0f047",
-      "class": "adversarial_text",
-      "label_digest": "sha256:036cfbca2005a46ade72ea3737b00619763aade6391e4a1b67dc8404d73cb518",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_4d07aa23",
+      "class": "recovery",
+      "label_digest": "sha256:cb2e772440eea12da6353f33c3999ba02e9e7503885d090f31bc7fec5ff3ab97",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_9b93ab2c",
-      "class": "direct",
-      "label_digest": "sha256:ea1e4cc15b110f23d344fde55042c60e35fb4b3752823023fb8dd54d2988e809",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_5005342e",
+      "class": "temptation",
+      "label_digest": "sha256:4acd8a7237b4628865a1e06e3cbd030e591b7e2d0a7279e140fa6bdf957e1296",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_9cca6766",
+      "case_id": "held_out_5092569f",
+      "class": "recovery",
+      "label_digest": "sha256:4e94fba6571a66ef95829e04b8b4a5745a672c4b999234406e82adabb8f96eee",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_531ca8d2",
       "class": "cascade",
-      "label_digest": "sha256:89c5450739a19774bca7356f48f3f48eb5871394959623d44b1af24f00016568",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:cea13a41482450dedb0dae4dcd661de20324bf18de1d63fb0b3ab3ff08a563eb",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_9d6792e0",
-      "class": "stale_frontier",
-      "label_digest": "sha256:f1995c74b433d62243e710675ddac059f91ed85e8fa459e9490b6997e4c50d0f",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "case_id": "held_out_556e06f3",
+      "class": "recovery",
+      "label_digest": "sha256:295758b179081979f688c84c025cbdc624a4c03000a2a1396c003118c97af144",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_a2f3dba3",
-      "class": "far_discovery",
-      "label_digest": "sha256:b828bb433abe4b977aa4b58a27ad5804498d8378471b554b84b54b5bd5b9da76",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_a72eab34",
-      "class": "adversarial_text",
-      "label_digest": "sha256:5c0ce223275a8b3567e3bda770bafbd1b9ac81cb7fac0b37f1152db5dff0fff4",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_addccbc8",
-      "class": "absence",
-      "label_digest": "sha256:f977778de85c1fc2c4a637c0aebb40442222fcd57a0423edd926a9b174e535e1",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_b37e62d4",
-      "class": "adversarial_text",
-      "label_digest": "sha256:6fa7d607251097fb7f20ad463a6ebc786e9c385a71f49ded8abfe9cb70ccd349",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_b5a6ec57",
-      "class": "far_discovery",
-      "label_digest": "sha256:3581b912aafa6e882b10eb3a852524b1a0fd89ee7462ef7818bc02744e0357db",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_b94b047e",
+      "case_id": "held_out_5788a8fa",
       "class": "cascade",
-      "label_digest": "sha256:24b6467000974c636f8340775f2ed33e6cc9a7f72f301817fa3b0ab25aa91ab9",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:26a875e0bea8300a361fb55723b93b7fa6b50adae6e561e08847cfa58f29939f",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_bb7d7f81",
+      "case_id": "held_out_589c825c",
       "class": "recovery",
-      "label_digest": "sha256:b301fbaf3e5f0ad826de3a049c3f8388376d2bf3937f69f9ba85728987c5497b",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:e6f9f00658228fbcca1750eeafe09a3ee5cb304439976a602bf46f463521d91f",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_be7cde04",
-      "class": "temptation",
-      "label_digest": "sha256:01b94be36dcd9b24748e4bdc17ef0779b5bd73a6766adf3977416d99c32d2641",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_bf11261e",
+      "case_id": "held_out_59569edd",
       "class": "absence",
-      "label_digest": "sha256:3b7fe446b62e1f0817c7c4a9492429556cc9811335b3f9283b2ec3e618962c53",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:5a854cb576cf5995c50a14797ed14319b69fec759399595599de55224d56954b",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_bf9ae386",
-      "class": "direct",
-      "label_digest": "sha256:5c4153ab88d553230e1d73d1318e30a40d76197e9f577aff48fdd1df8d426e57",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_c0465aec",
+      "case_id": "held_out_5c31206f",
       "class": "recovery",
-      "label_digest": "sha256:16839ea3a33c86a85e78d14ca3112e1a8a7b9b4111bed95d97f9cfbc11012cb5",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:e648aac53eeacba582f16e4dd9a2c7f351f6907cae9b65a51c1eebfcf8a7bfbd",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_c312cad8",
-      "class": "adversarial_text",
-      "label_digest": "sha256:aff69b7b6ec675d8bfbebd63f8d0bafce02614deee02776a867a2d1f18ea2c0c",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_c3c85e7c",
-      "class": "stale_frontier",
-      "label_digest": "sha256:432fd80c4165dd1c5d7a797ca9bd516bc8227f70ffcd70599ebb1ea30ef17889",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_c4ea4f88",
+      "case_id": "held_out_5df2f840",
       "class": "direct",
-      "label_digest": "sha256:419deede2880fd11d9ee78863095378395c3032ef8282242084528d67c7a2411",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:20571298383ce8fdacc41c84f49ec3f93ee56cad6daf645762b2b5a6fc1c5255",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_c850dfc4",
-      "class": "stale_frontier",
-      "label_digest": "sha256:2967a390e1aa310f3b7249291ee5cbf515deb6493d5d5319fabab7bd065b88a1",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_cae2d60f",
-      "class": "recovery",
-      "label_digest": "sha256:96f5ba24a5e46702e24fa4461ce9fb76019a13686d369662b27eb7c2bbcb6403",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_cb4a8772",
+      "case_id": "held_out_5ec4eaf5",
       "class": "direct",
-      "label_digest": "sha256:c7828930979440f43b790eebeceac995b7f6bf7aa05165672ecc273825b0731b",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:6e7e99518f66ee91cbc6e171d33db7c46489d96017b46b57f3f5bcd4d9755a14",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_cbabe409",
-      "class": "recovery",
-      "label_digest": "sha256:57d01e6e7383f1290a19aa3692823c5d64e5c53d7893096533f97d648b567150",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_cd8b85c4",
-      "class": "temptation",
-      "label_digest": "sha256:966b1aa5e02a6b585f3f9471db66f605987bb66646213a2698da63f2b50c869b",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_d0300466",
-      "class": "temptation",
-      "label_digest": "sha256:76afa7523f46627c18ee732a0009ed95c83519c480c0e6566e17fe80d3ed5d61",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_d1eb4603",
-      "class": "absence",
-      "label_digest": "sha256:d880236d84e46ff29d5d748dd2f86c09f0d44c4589faf5bd4636a1f5f456bad7",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_d6f07233",
+      "case_id": "held_out_60978c9b",
       "class": "direct",
-      "label_digest": "sha256:c8f3b6e2804e95a6b3c21c39544883f99f3db6d89448e8443827ed45f220ea73",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:2562199b7886ee6922f88f5ce11860719e8236843c2ca6f4005633d9d7250cfb",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_dec239a6",
-      "class": "recovery",
-      "label_digest": "sha256:1a2a4c3a9634fab635f4d95f2206bbcf7e2d6720917f9aa644b47c07bc501a06",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_e32c9b18",
-      "class": "absence",
-      "label_digest": "sha256:9def3d5bd95a3b9b754e276aa0c0e584e99221f099c573b826de157a6d7e8481",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_e3c5c384",
+      "case_id": "held_out_6098f4cb",
       "class": "cascade",
-      "label_digest": "sha256:b2a9df122b924ec72a3d10f8b360ea4cbf50f1fa28a1e5e195f685491313580c",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:99ad98e2e563879f6e9243016122465cbe173e7ecfffea6ca6f73a4650b1d455",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_e5ad339b",
-      "class": "recovery",
-      "label_digest": "sha256:c469148151de38250a4630e08ed2169d7e4c951cc37254a7a6377fe212975b13",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_e7959bf7",
+      "case_id": "held_out_627551ea",
       "class": "cascade",
-      "label_digest": "sha256:d7fc3690f197f0ba1c3f9c475a890741508b9540321fbec3a7c32d3d5b5a86ab",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:60079b069fb6cdf019768ad06e4d8164ae1f47463cec68184b9fdaaa486568f1",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     },
     {
-      "case_id": "held_out_e7f97548",
-      "class": "recovery",
-      "label_digest": "sha256:98b9fdd21b5a1534f40700be92d96e533479abe35f3cdc162916e9de2b0c4d7f",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_e90caa2a",
-      "class": "stale_frontier",
-      "label_digest": "sha256:afc638335989c2aebf462b63f6d3ad1d7026a43af5817f281324f262da91963e",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_e9156760",
-      "class": "absence",
-      "label_digest": "sha256:c81dacfb52373b971c7cbd96b24cfc3fe151a87989044f01b9002dd7d76ffabd",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_e943e4cd",
-      "class": "direct",
-      "label_digest": "sha256:debab714352b407370f2686660ad1a2b3b17301de6de3c8bc09cef7efa5f413b",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_eb4cad7c",
-      "class": "stale_frontier",
-      "label_digest": "sha256:382b217c1a5e7d374619853819cc6eddfe93862d32e9143e6169a5d8b7a4b067",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_eb9696b8",
-      "class": "temptation",
-      "label_digest": "sha256:3f217bb451a7fa4b78f1689f1cb5917661ad3335512912efa5b3e479484f942a",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_f0648aae",
-      "class": "direct",
-      "label_digest": "sha256:51dd33e59da35db348c517f96da9cc5fe034f45cc446a5a80c93fd54ef613a19",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_f0e54a2c",
-      "class": "direct",
-      "label_digest": "sha256:5a800556c4a19d860ff89806ca83d3d436889bb178f957189d0580e5007d41f4",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_f19c135f",
-      "class": "temptation",
-      "label_digest": "sha256:1792e1eeebe7c0713e3c3c7ecffef1d98dab95b587d6bb4d8665d4c5c3e70e2a",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_f2721b89",
-      "class": "far_discovery",
-      "label_digest": "sha256:0bcf468e51bfe357a9234c46612ad6daea64ded5fd5bc2b88d1f5678f492b2b0",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_f37a983c",
-      "class": "far_discovery",
-      "label_digest": "sha256:133c59045296bf1c30169290befcab35e5e5cfb74d12a11d693b0a83a58bf1a3",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_f7724479",
-      "class": "recovery",
-      "label_digest": "sha256:2156260266e859408d9ba8985198b349177bceb96998e96f90e91981014b8e84",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_f809bd6c",
-      "class": "direct",
-      "label_digest": "sha256:3ee40da537055711da680c4ea4d0232f07237253c5f0b4100924959aac73d2a1",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_fa9f6053",
-      "class": "direct",
-      "label_digest": "sha256:d1b3957e1c5863d0ec9bf5eaa1f9553b07ec5ed8f94d01f57aedd43c95a45229",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
-    },
-    {
-      "case_id": "held_out_ff6ef413",
+      "case_id": "held_out_6c5ea5ba",
       "class": "adversarial_text",
-      "label_digest": "sha256:5cd062f462c2c467f28062c107cfd5001a1881af3dbf4ccaf001bcc011346560",
-      "grading_script": "sha256:3bba60f0f94f6686c0046c73c8507611e937083d57b66fd022bbef7cf32ca92c"
+      "label_digest": "sha256:fddff043f813cbca01fb333f83046f3b8621758ce66358abc99f8bd1cdab95a2",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_6c79505b",
+      "class": "recovery",
+      "label_digest": "sha256:1f301167a6dce8e2fa631a172abe3cd2f3435ede44e2cf320ebc60a1433599b2",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_6dec6d83",
+      "class": "stale_frontier",
+      "label_digest": "sha256:cdd877c0301e40289a88f29ee300ca34e80a1e76528b05b4dc52aaae5019932c",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_700cebe4",
+      "class": "direct",
+      "label_digest": "sha256:4b04aaa72e462ed302b7b70ac76f41a68c7c602afd9f7449aaea4dc64abadecc",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_705577b3",
+      "class": "direct",
+      "label_digest": "sha256:16272148abdc97b2f9ecb4aebd40ea09e3b0ca0e33141c4c8e34178a71f0f078",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_716eb4fb",
+      "class": "direct",
+      "label_digest": "sha256:a0cbf562108e56ca9f31ce51ec5cd5a5b90c61a3420d5761a46c76c2fea8285e",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_72e552dd",
+      "class": "stale_frontier",
+      "label_digest": "sha256:5fab6b30fb95d537224db08d68470dbe05a93b40dc8b35d20c78f76e6022e9f7",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_730952cc",
+      "class": "adversarial_text",
+      "label_digest": "sha256:0c844ffd8f7c4e01c19b81dc0c55ed98165983c1c448ea69b2840d9fbfaf1d2d",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_732bff0e",
+      "class": "absence",
+      "label_digest": "sha256:48867160de1383a31760df402547afbcc0d2186f85e09ddbd1e0a2a0d537b5d4",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_74411254",
+      "class": "recovery",
+      "label_digest": "sha256:a9584ee8ecb15947715b2b4a6406bcc654e99fbd3e5fa5f31775ee2cc045150c",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_75e10bf8",
+      "class": "recovery",
+      "label_digest": "sha256:154efa7129bbddcc35b9e70995f19c5eeb1f4971dd75f8a6a79c148b29db5b60",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_7a57622b",
+      "class": "absence",
+      "label_digest": "sha256:78f91810e4e6dfb1fe3890027c717c64227e0987c664447ccf169c1cf845e766",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_7bb010f5",
+      "class": "far_discovery",
+      "label_digest": "sha256:c1f655cf0966c92bfce5df633e453a0fd0bf59ddd4c2712ffa747929fb9173d9",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_7f53f837",
+      "class": "temptation",
+      "label_digest": "sha256:9d32cfdfca0fd50d1588f999c6189ee881c1ed1428ebda86af4c3e07b1a1a03a",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_8000e385",
+      "class": "adversarial_text",
+      "label_digest": "sha256:bcf37a8911766694e204c802a2315f6b37efc6db81d2fff8e147a62d5e44b19a",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_832b07ef",
+      "class": "stale_frontier",
+      "label_digest": "sha256:787774ec9e0d83bc8e727654870a3b1835af69069ad5024d5aefbbc18c3b8658",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_8587815a",
+      "class": "direct",
+      "label_digest": "sha256:5f6ee9d331e2b9880cc08cd28ab0eeedb4f2c7a8c55bff8ceb15d9f1c527bfec",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_861105d1",
+      "class": "direct",
+      "label_digest": "sha256:d6b1fb8c171b7fcb844e51061bd73d9906cb0f43bd67a7e8603d7bcea25c832a",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_894d042b",
+      "class": "adversarial_text",
+      "label_digest": "sha256:5b7e5797bc8495ce84d54f5d5c2cb00ccc399a4b823ef9b7d3bc62995e870e5b",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_8b597ae4",
+      "class": "direct",
+      "label_digest": "sha256:e14c0d614ccdef14788df9ae6446b3a264219306be4e547e81d7c819f972bf25",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_926a75a3",
+      "class": "recovery",
+      "label_digest": "sha256:c4429f71c14deff903dd632d957dca5ce4d0d3cfaea610b99794c83577cda950",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_9337339c",
+      "class": "far_discovery",
+      "label_digest": "sha256:aff120e941105597f2bdcb3389c1bdee0c5e93f72d2a59ca44fdd9bf46af60d0",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_936b18f8",
+      "class": "cascade",
+      "label_digest": "sha256:ddc0068848fe34b4b1f46b2d6c1d0c46b00401075372a22eea1b9490d8f950ea",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_93d56433",
+      "class": "adversarial_text",
+      "label_digest": "sha256:0a83358932d7f13dfd467f97e77d2486ddf9ec0a0bf79d5b32fb6a80a8fc8060",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_96c83125",
+      "class": "cascade",
+      "label_digest": "sha256:521030a6a7579ddf4825f3a8b7fa4cae857651d9ae32bc60753a333c81d20e5e",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_985a90d7",
+      "class": "adversarial_text",
+      "label_digest": "sha256:b81ca00d46a8f3f9544e8d793d7d3d7349490175a6a9a27434d71598c434816e",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_98c7ebf1",
+      "class": "temptation",
+      "label_digest": "sha256:f86e1235ce4e57a30bef42817c757bd7a66850eb30f5d10b147cd15fbed7f730",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_9aa43337",
+      "class": "stale_frontier",
+      "label_digest": "sha256:c389c99e4537279eda3bed5ba00a4fa760d53edfc425f7707293e5649b7c901e",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_9b60dbe9",
+      "class": "recovery",
+      "label_digest": "sha256:7f0a6ca2a92645cb9dae9f2e4076371b5adc2706433d06c07f2a1475a92e5d17",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_9c67c1b1",
+      "class": "adversarial_text",
+      "label_digest": "sha256:5c2c258e3d93dd8d9210e8c15324292971a356782fb0629803148416fd3e4870",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_9e445280",
+      "class": "direct",
+      "label_digest": "sha256:6e6c07a6dc8a392a6e74337cec5cb8b9f7d151c2d4ea3e260c50bba4520cd692",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_9ef7928c",
+      "class": "absence",
+      "label_digest": "sha256:4c2f6fd596419e67d095cf537455cd7378193d6743b6c25fe1f0fba535ce3091",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_a06c8e5e",
+      "class": "recovery",
+      "label_digest": "sha256:e06f2a48ad3d2933857968bf5dfb41a2103ff2032e46ccad5d9681ecad46d5df",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_a3a8090f",
+      "class": "absence",
+      "label_digest": "sha256:bec6cd403ceaaf79caed93a57a5f8e3de72ef4236438bd35c48f538edd4b4cd3",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_a422fef1",
+      "class": "direct",
+      "label_digest": "sha256:e6d2364010a002e3db6a1512284e5847f2988c2e51f9f5131de009af831815a4",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_a49a2e9e",
+      "class": "direct",
+      "label_digest": "sha256:78c7332a4f74f3b8f187b4686de74e3ddeebbefedc1db5f1f58cb755e781321f",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_a68e328a",
+      "class": "recovery",
+      "label_digest": "sha256:dbfb8b7042508bdab99eed9ad58d3876730b6da1071d28fc2ede857226844f36",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_a72ff81f",
+      "class": "absence",
+      "label_digest": "sha256:0bbb69e90addd32f27d7af1a528cd2d8576058b4c54aa7fd5e60fa25d72a29e6",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_aa9f48c3",
+      "class": "direct",
+      "label_digest": "sha256:33b12d175db1c54bfae5ba9805e8c959e1accc1105496f27d6d7acfb4f89f165",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_abad5c40",
+      "class": "stale_frontier",
+      "label_digest": "sha256:99e4786d0e40dd7fa2c8480e1013fe5fc3c851b746e7b1c3545f3273f97a0738",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_af71541e",
+      "class": "far_discovery",
+      "label_digest": "sha256:de9e28a06bb93b1a8d9d2aee3b15b8cc99b611ca6b18d116f27c620a2e011209",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_b1f39a1e",
+      "class": "recovery",
+      "label_digest": "sha256:7dd60daf2bcd09aa167c1d88969e87fb23ef37243e835a45955f954fc4b0c4bb",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_b6196e09",
+      "class": "stale_frontier",
+      "label_digest": "sha256:e067a170c4fcaded5d6351f54694875a7ab3e66c8971261579cfdf49bb6dd8c7",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_b8696989",
+      "class": "recovery",
+      "label_digest": "sha256:ffecd8dee36ad721c8ebb8d00a9b1c037f653d56b45b5c360dc8c12b79cd749f",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_b971406d",
+      "class": "absence",
+      "label_digest": "sha256:b0a4656561118961df1fd6074d4e604452daaf674e8d7afe309e21336cf740eb",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_bc2ba8a4",
+      "class": "absence",
+      "label_digest": "sha256:36f3c4d7f9afc9d5ae7688c7b1b97c846e49c4d91d4df04f1b74892134c87a2d",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_c52c3fde",
+      "class": "recovery",
+      "label_digest": "sha256:03b6eafd09bd3b6b70ec40ce74ac8bbc06dab6180077c664a2da62f89965a5af",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_c7316b5f",
+      "class": "adversarial_text",
+      "label_digest": "sha256:b5a66a6af0c70013cc874fa85fa092c7866642600fba1f108a319f1f8a3fe956",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_cbe215d6",
+      "class": "cascade",
+      "label_digest": "sha256:4d6ae90b36d1d9b906f8031a2e482dfed8385b3a6d29e6914f33bf8e33de872c",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_cd3e5791",
+      "class": "far_discovery",
+      "label_digest": "sha256:8520e7abfae5e3a0d78fbb6dc63051f1adad2576b92d03c102dae49e7cd0577d",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_cff457c9",
+      "class": "temptation",
+      "label_digest": "sha256:9ebaf7259d705f03a94595ed491c487b70f35f43f6754e91daaba155685e82e9",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_d68b147b",
+      "class": "absence",
+      "label_digest": "sha256:84ee0cbc7a41b32ced3f21db95b966b645423769debbb42cea66b5a7b0ece57b",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_ddbc4139",
+      "class": "absence",
+      "label_digest": "sha256:14e682340956f807ab53bb1cae50ea976b28e8e2ddf8ba6c2751c81dea311799",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_dee620b0",
+      "class": "recovery",
+      "label_digest": "sha256:b5e940ae6b4a9e56b0f5c87e442fb4cd8d5fd136bfe713741ef67e1039e363ac",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_df772f19",
+      "class": "temptation",
+      "label_digest": "sha256:538e2ee336c4ae6b8c1e15eb70eefb9402cf60c558aac2c54e0b68d54c088e33",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_df8e87a9",
+      "class": "direct",
+      "label_digest": "sha256:ac9b943f9c4a7163baf4a49e7c952940b7d9d0db3b0d76a02ec6b65dbe393617",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_e314d469",
+      "class": "recovery",
+      "label_digest": "sha256:9526970fb7559fc700d4b779e28e7abca92ea9b483a7fbbae0036cac2efcece8",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_e54aac68",
+      "class": "recovery",
+      "label_digest": "sha256:efd2feb9e31ee8dd1ffc23afbb7baf45a20642d8388c578a45f2b14b81a5ba22",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_e57f53f6",
+      "class": "direct",
+      "label_digest": "sha256:f4a70cbd9214d6832897ae2f2589216dacf088f5374af4df447b66b78889affb",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_e5ce052c",
+      "class": "recovery",
+      "label_digest": "sha256:8bce822b35c88c7917254e8752f32f0a80715a01e89e3393727ca950b1943341",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_e8113c70",
+      "class": "recovery",
+      "label_digest": "sha256:e3296bb1b8377541a1c2f1d32c72c99f366aa38179453a9d47e8585147db1d68",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_ea6e45d2",
+      "class": "adversarial_text",
+      "label_digest": "sha256:e242c06ab2f3db07da721ccc7ec2a0b1a0c6a16c9d5ed6b531b762a9ee8b1132",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_eba84557",
+      "class": "recovery",
+      "label_digest": "sha256:0dbeb062e9db472237a17875ee60ecdc52eb2cb1a78cfaea125c9ecf0afad9dd",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_ebc718ea",
+      "class": "direct",
+      "label_digest": "sha256:558d0abe6e88b8bafbfa4afa9d6ed7293fb725b807dbf8203be4dd5b713461a6",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_ec90999b",
+      "class": "recovery",
+      "label_digest": "sha256:1e0bd095d7c0d54997553b7af9d87aa92cbc9e99c785322a50a06b37b7a6719c",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_efe4a6f6",
+      "class": "recovery",
+      "label_digest": "sha256:42b4803d76eb0ba1e3ef531501774e9ca720f0f19d00c8e26ce35546c6866be9",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_f15f9479",
+      "class": "direct",
+      "label_digest": "sha256:e2c51a1d57df17b0869892b10addca60a05a377f62f09183ad6214f94062faba",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_f54da63e",
+      "class": "direct",
+      "label_digest": "sha256:c2ab7da88026b01aebe80364b3291b39759e213bc94f9039c1c3a323d91e9d63",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_f8bee4a5",
+      "class": "direct",
+      "label_digest": "sha256:343c2f1093a9960c64450180bd844a115f5a570896d1132af5b7010161a0b473",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+    },
+    {
+      "case_id": "held_out_fe0d65bc",
+      "class": "stale_frontier",
+      "label_digest": "sha256:d80e13cc8154c131cc0becc6b063e05659d6c37b5c2615377df02a3c6fab9194",
+      "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
     }
   ]
 }

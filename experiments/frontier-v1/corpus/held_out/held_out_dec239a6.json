@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_dec239a6",
-  "goal": "Focus the cover check named on the plot ticket and report its individual result.",
-  "sandbox_fixture": "sha256:be4adb742e39f7b2d7eb25594dc828cb19589347f591742efcd48473e7787b4a",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_012"
-}

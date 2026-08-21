@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_095_v1",
+  "family_id": "held_out_family_095",
+  "template": "Go example index with live catalog, source-marker search, focused execution, unsupported rendering, and removal event.",
+  "files": {
+    "go.mod": "module example.test/examples\n\ngo 1.22\n",
+    "examples/example_test.go": "package examples_test\nimport \"fmt\"\nfunc ExampleAmber() { fmt.Println(\"amber\")\n// Output: amber\n}\nfunc ExampleCobalt() { fmt.Println(\"cobalt\")\n// Output: cobalt\n}\n",
+    "examples/index.txt": "Amber -> ExampleAmber\nCobalt -> ExampleCobalt\n"
+  }
+}

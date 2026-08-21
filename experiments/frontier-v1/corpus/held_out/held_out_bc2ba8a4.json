@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_bc2ba8a4",
+  "goal": "State whether the available tools can render this template in a browser.",
+  "sandbox_fixture": "sha256:cf8bb3422d9659865e5cab35a71c0c20766915108f97584128bfe82ab921aa67",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_591"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_cf24ac4f",
+  "goal": "Add a bullet for monotonic clock fallback under the live changelog heading; recover if the supplied heading '## Upcoming' is stale.",
+  "sandbox_fixture": "sha256:1ad84816fa8a52ac3b91b06e53c8f1c7e571b8aad11c58607d9eef9dd19222f3",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_337"
+}

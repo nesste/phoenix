@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_306d9e7c",
-  "goal": "Determine whether the flex helper still matches its checks.",
-  "sandbox_fixture": "sha256:5cf2e2fcf23aa5dbe968d0332885848393dedb3ca0e667bb6051e12495ab6f00",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_015"
-}

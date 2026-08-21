@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_379e9789",
-  "goal": "State the cleanliness of the current motif working tree.",
-  "sandbox_fixture": "sha256:5fe28fcf2dc901431a8d7a2189e6215152fb90fa8c0df0a80d7ce421cc710660",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_022"
-}

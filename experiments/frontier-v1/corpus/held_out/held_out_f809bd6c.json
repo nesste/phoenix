@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_f809bd6c",
-  "goal": "Report whether the tide window repository currently has uncommitted changes.",
-  "sandbox_fixture": "sha256:51a967454be1bd297013e8e5f0a81bc214e41869d57e0d3c819d4cc716376483",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_019"
-}

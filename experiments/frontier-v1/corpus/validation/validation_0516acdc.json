@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_0516acdc",
+  "goal": "Find LEAF-A-58 and report the nested manifest path containing it.",
+  "sandbox_fixture": "sha256:1ecd8e0b52681cbeb0d3096745a3bdf1d02eb9ca7b9f190f259a2e4acf17224c",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_742"
+}

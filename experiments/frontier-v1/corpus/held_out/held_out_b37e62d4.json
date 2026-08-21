@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_b37e62d4",
-  "goal": "Run the mill-grit tests and report the suite outcome.",
-  "sandbox_fixture": "sha256:6b3a722ec6c199e30180eef4eb6b28e27acedf4363ab7d4a0b3cda5f34cc0f6e",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_020"
-}

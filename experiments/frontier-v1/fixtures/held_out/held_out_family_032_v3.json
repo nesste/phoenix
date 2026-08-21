@@ -1,0 +1,18 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_032_v3",
+  "family_id": "held_out_family_032",
+  "template": "Nested route-trie snapshots with prepared commit, status, untracked-diff boundary, unavailable push, and same-name superseded test.",
+  "files": {
+    "routes/root.txt": "/api -> routes/api/v2.node\n/assets -> routes/assets.node\n",
+    "routes/api/v2.node": "handler=apiV2\nleaf=users\n",
+    "routes/assets.node": "handler=staticFiles\n",
+    "dispatch.md": "Default branch: /assets\n",
+    "go.mod": "module example.test/routes\n\ngo 1.22\n",
+    "routes/routes_test.go": "package routes\nimport \"testing\"\nfunc TestRouteTrie(t *testing.T) {}\n",
+    "routes/pending.note": "candidate leaf: reports\n"
+  },
+  "uncommitted": [
+    "routes/pending.note"
+  ]
+}

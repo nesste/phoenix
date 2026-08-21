@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_9337339c",
+  "goal": "Find ANNOTATE-EXPORTED-5 and report the convention file.",
+  "sandbox_fixture": "sha256:1a6d54ea7cecd11a19701d4396c381465b07359128d182af7843d4aa90ed8658",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_348"
+}

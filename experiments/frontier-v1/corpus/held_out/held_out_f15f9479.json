@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_f15f9479",
+  "goal": "Read the queue order and report the current head entry.",
+  "sandbox_fixture": "sha256:7003056841d87c41e530d51c7814ebe624506dd3cfb883ebace9ba521bbcbf9d",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_131"
+}

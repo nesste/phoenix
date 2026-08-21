@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_24e25af4",
+  "goal": "The obsolete path release/current.stamp is unavailable. Locate and read the current stamp in this repository.",
+  "sandbox_fixture": "sha256:6c25ffb852249db2470da59f819da1981d9fafe024c88039548157859fe7b817",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_472"
+}

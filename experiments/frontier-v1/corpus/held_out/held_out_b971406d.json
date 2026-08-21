@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_b971406d",
+  "goal": "State whether the frozen tools can query a hosted schema registry.",
+  "sandbox_fixture": "sha256:0d9c5f14b472a4d90dbe57817ead4ec02a0b675b66f73d43b559b941f2081aa2",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_068"
+}

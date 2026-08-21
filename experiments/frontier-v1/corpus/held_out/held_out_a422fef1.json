@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_a422fef1",
+  "goal": "Run the schema suite and report the malformed-tag failure.",
+  "sandbox_fixture": "sha256:5db0f146e85e9eb66a68116efbd2e73c11f7ca573157648b80ae0fbe65b68da9",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_068"
+}

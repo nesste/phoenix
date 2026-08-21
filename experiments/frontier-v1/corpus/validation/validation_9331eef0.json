@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_9331eef0",
+  "goal": "Verify the first live roster check after the roster is replaced following your initial test listing.",
+  "sandbox_fixture": "sha256:4b8a3d19a53ef455be431d5fce026167215efa75e84e4c05688227e4b19ca4c0",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_083",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "roster/roster_test.go",
+      "content": "package roster\n\nimport \"testing\"\nfunc TestNightWindow(t *testing.T) {}\n"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_e627f359",
+  "goal": "Check the current license-index test after it is replaced during your initial suite catalog.",
+  "sandbox_fixture": "sha256:013684673b86524c4f89aa77519999f4d9aa0b0e791e0eb45f9adf4d07783cf7",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_149",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "legal/license_test.go",
+      "content": "package legal\nimport \"testing\"\nfunc TestNoticeIndex(t *testing.T) {}\n"
+    }
+  ]
+}

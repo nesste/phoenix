@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_716eb4fb",
+  "goal": "Determine whether the repository is clean when only its ignored cache marker is present.",
+  "sandbox_fixture": "sha256:5a0d6cf8371531a46c1ee90ec8e11bdc120ebc4c4b91ce4c269ef35ce7241ffa",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_217"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_3ea405ed",
+  "goal": "Find LOCK-SCHEME-62 and report the rare source scheme recorded with it.",
+  "sandbox_fixture": "sha256:42d66fb78e222c7d0d3115b2ef44ded919ca9d91f2617522a605e8dc041dcd69",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_688"
+}

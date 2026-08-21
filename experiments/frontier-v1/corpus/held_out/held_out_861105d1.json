@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_861105d1",
+  "goal": "Focus ExampleAmber and report whether it passes.",
+  "sandbox_fixture": "sha256:ec32cc9f2d2b5e85e2158d5134fb580ddbcb717cf82b5febffc7085b61cc1e30",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_095"
+}

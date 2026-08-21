@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_9a329c7f",
+  "goal": "Make encoded records follow the declared field order while preserving their values.",
+  "sandbox_fixture": "sha256:8d4fdb958f57ac5314fdad74377be7aed24324d468ef77f9a202d1a726950010",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_779"
+}

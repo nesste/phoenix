@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_8ced9703",
-  "goal": "Check whether the mite census still matches its specified behavior.",
-  "sandbox_fixture": "sha256:482039f593efa77cf624f75ccdef8a2bd2aff7904baefa1059c0beac683656ea",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_016"
-}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_af71541e",
+  "goal": "Find CAL-ZULU-18 and report the timezone requirement it identifies.",
+  "sandbox_fixture": "sha256:96f2e6c389541fc30dd2291df3a97b4619d62a573c90185443d4b9f8bea96e7a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_486"
+}

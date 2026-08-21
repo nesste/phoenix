@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_068_v4",
+  "family_id": "held_out_family_068",
+  "template": "Typed schema bundle separating compiler, failing suite, sample-document, hosted-registry capability-boundary, and suite-expansion states.",
+  "files": {
+    "go.mod": "module example.test/schemabundle\n\ngo 1.22\n",
+    "schema/types.go": "package schema\ntype Shape struct { Name string `json:\"name\"`; Note *string `json:\"note\"` }\n",
+    "schema/encode.go": "package schema\nimport \"encoding/json\"\nfunc Encode(s Shape) ([]byte,error) { return json.Marshal(s) }\n",
+    "schema/schema_test.go": "package schema\nimport \"testing\"\nfunc TestShapeTag(t *testing.T) {}\n",
+    "samples/shape.json": "{\"name\":\"kite\",\"note\":null}\n"
+  }
+}

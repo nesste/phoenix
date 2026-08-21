@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_7bb010f5",
+  "goal": "Find CONTRACT-B-73 and report the repository path containing it.",
+  "sandbox_fixture": "sha256:1c0ed2c6a1ecdea2af8e0ed5f3494854366c17d354f68f7433017d0e92ee090e",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_274"
+}

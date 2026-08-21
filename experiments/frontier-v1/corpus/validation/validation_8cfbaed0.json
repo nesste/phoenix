@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_8cfbaed0",
-  "goal": "See whether the gate model still matches its specified behavior.",
-  "sandbox_fixture": "sha256:c92cd4d13b9b9a0fb5f494d505964532655d45130575d68630a7f074a5a9f404",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_020"
-}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_2a4fa427",
+  "goal": "State whether the available tools can download workspace modules from a checksum database.",
+  "sandbox_fixture": "sha256:02bc429968a66ca247aca70791232d504275c8464d9da5379b22d33b51ced058",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_191"
+}

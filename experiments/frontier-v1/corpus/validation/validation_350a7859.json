@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_350a7859",
+  "goal": "Verify the current tree validator after its test definition changes following the initial catalog.",
+  "sandbox_fixture": "sha256:5602f9f1ef8cc6d4617a8d50fdd0e2d44cc024d86c03fa0003ac0dbafb1f726d",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_742",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "manifest/tree_test.go",
+      "content": "package manifest\nimport \"testing\"\nfunc TestLeafOwnership(t *testing.T) {}\n"
+    }
+  ]
+}

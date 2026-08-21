@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_4d07aa23",
+  "goal": "Change the active policy mode to enforced. Recover from an initial attempt against retired v1 by following repository evidence, and inspect the resulting diff.",
+  "sandbox_fixture": "sha256:6e1a63adcd785e28a38120e21b3cd02433af94a7e9cec7413fb32ffc5b9a134f",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_451"
+}

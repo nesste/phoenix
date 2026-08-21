@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_f8d7dce7",
+  "goal": "Confirm whether the provenance-card repository is clean and report the branch state.",
+  "sandbox_fixture": "sha256:d82c2f9fef6e0036b0dfa841cdd07dd0f87d3da59887f650aa15c88c9bbb57c8",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_126"
+}

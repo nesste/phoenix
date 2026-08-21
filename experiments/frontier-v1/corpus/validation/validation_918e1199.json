@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_918e1199",
-  "goal": "See whether the surcharge helper still matches its specified checks.",
-  "sandbox_fixture": "sha256:3382d02c45d646e3995394d8f54c8debd203a978bdacafbb3d616990af502573",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_011"
-}

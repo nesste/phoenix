@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_3d5500c7",
+  "goal": "Find FIELD-QUARTZ-48 and report the specification record containing it.",
+  "sandbox_fixture": "sha256:226ffa74fd9ec281f760c8fa96289123018a4f29170dfbc9cb361dabe7c5c4ab",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_754"
+}

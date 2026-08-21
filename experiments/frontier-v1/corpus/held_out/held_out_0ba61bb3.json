@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_0ba61bb3",
+  "goal": "Commit the prepared API leaf update with a concise message and report whether a commit was created.",
+  "sandbox_fixture": "sha256:d8c1860d5a313361efd7a8490cd5d34470202bf4022be158e42142b0790abbef",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_032"
+}

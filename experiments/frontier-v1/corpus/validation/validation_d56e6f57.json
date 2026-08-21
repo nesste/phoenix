@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_d56e6f57",
-  "goal": "Run the live timetable overlap test by itself after resolving the guide's name.",
-  "sandbox_fixture": "sha256:fcd1c17fb71775c5877417c0b6893c8e3ec7173d8eb3f5dd4b46df5c3c9e16f7",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_023"
-}

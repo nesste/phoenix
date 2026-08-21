@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_a68e328a",
+  "goal": "The shorthand Shared is ambiguous. List the live examples and focus the alpha-qualified one.",
+  "sandbox_fixture": "sha256:b2a82dd2938050cc58e77da35d2ed80222f5d33a9b7f0bbdb823e2024d45a210",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_416"
+}

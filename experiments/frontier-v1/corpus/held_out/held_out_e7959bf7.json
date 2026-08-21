@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_e7959bf7",
-  "goal": "Status the tree, then diagnose which live wick test fails.",
-  "sandbox_fixture": "sha256:9a5a53addf9a4720e294903d49f9622fa9ff883ee647cb7377312fea38b61f25",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_018"
-}

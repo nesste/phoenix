@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_10e870bc",
+  "goal": "Verify the newly added overflow diagnostic test after the suite expands following the initial catalog.",
+  "sandbox_fixture": "sha256:d9d6ef066b49d4694cbde70b800c71dccb3b9b915d9244231cad11e31285dcb4",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_568",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "diag/catalog_test.go",
+      "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\nfunc TestOverflowDiagnostic(t *testing.T) {}\n"
+    }
+  ]
+}

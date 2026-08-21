@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_f37a983c",
-  "goal": "Locate the midnight identifier under the dome and run that named check.",
-  "sandbox_fixture": "sha256:228001cfd384d5f78dd105993ecaeb3ddfdcc19baed583359b918b68ff0eb70f",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_006"
-}

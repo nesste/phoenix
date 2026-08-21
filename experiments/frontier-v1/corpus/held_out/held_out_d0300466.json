@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_d0300466",
-  "goal": "Determine whether the rest timer still behaves as specified.",
-  "sandbox_fixture": "sha256:f36b7b49bc7c0c9107ce26be19223d093c6cf173d3a40f66ccd5e083b3e002ee",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_011"
-}

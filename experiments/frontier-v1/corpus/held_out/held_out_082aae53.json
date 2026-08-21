@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_082aae53",
-  "goal": "Run the lantern-wick tests and report the suite outcome.",
-  "sandbox_fixture": "sha256:9902b8173fa1ef50957f60f2d1c27a6502ad950d5febc949aa8d336d03e1e77d",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_018"
-}

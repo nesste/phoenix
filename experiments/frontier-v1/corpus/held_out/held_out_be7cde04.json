@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_be7cde04",
-  "goal": "Determine whether the drying helper still matches its specified behavior.",
-  "sandbox_fixture": "sha256:fe577145072dfb86f59edd4dcfdd8797141ca0d4e0868837f49010f113eb02b1",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_013"
-}

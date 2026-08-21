@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_5092569f",
+  "goal": "TestOverlayOld is obsolete. Use the live test roster to verify its replacement.",
+  "sandbox_fixture": "sha256:a9dad5cd11aa1af6e9e0172fbb23bd2c49669152c8071f68a84da975543d87b6",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_329"
+}

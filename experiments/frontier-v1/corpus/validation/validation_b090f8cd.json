@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_b090f8cd",
+  "goal": "The human alias 'seed check' is not runnable. Discover and focus the generated live test it denotes.",
+  "sandbox_fixture": "sha256:3d92b474774c976f3251a5382fe2cf218a6bbbfcfc8b0c487d8bd16d48e1ea60",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_407"
+}

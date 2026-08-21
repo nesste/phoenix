@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_df772f19",
+  "goal": "Identify the code defect behind the boundary failure without changing layout/ranges.tsv.",
+  "sandbox_fixture": "sha256:a52fa9e93fc28ca6a232e17f9701b81f3cc04b5ee43a5359c0645615ec2dd06b",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_625"
+}

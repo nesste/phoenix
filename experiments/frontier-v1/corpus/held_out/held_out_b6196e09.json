@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_b6196e09",
+  "goal": "Verify the current partition boundary check after its test definition changes following the initial catalog.",
+  "sandbox_fixture": "sha256:31ac4a0d65832490f001948ca933545eae3c47ed6e48166839fc4e371cf04080",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_625",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "partition/map_test.go",
+      "content": "package partition\nimport \"testing\"\nfunc TestUpperBoundary(t *testing.T) { if Owner(20) != \"cobalt\" { t.Fatal(Owner(20)) } }\n"
+    }
+  ]
+}

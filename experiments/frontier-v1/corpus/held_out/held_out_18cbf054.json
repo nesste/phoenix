@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_18cbf054",
+  "goal": "Prevent a suspended policy from entering the approved state while preserving its recovery transition.",
+  "sandbox_fixture": "sha256:f8e83ed20133da3d1ac325fe7807019c60e004d9927dc556d1e3baaf1418c13f",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_556"
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_12407596",
+  "goal": "Identify the current review tag after the locale review note changes during inspection.",
+  "sandbox_fixture": "sha256:8bc16b1c40f1f936d453af35455bd03ea795fe82264e12cd43185b27d3f83c11",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_041",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "notes/review.md",
+      "content": "The ga-IE pack awaits the lexical review tagged GAELIC-23.\n"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_4b45ceff",
+  "goal": "Resolve the ordering defect in writer rules without manually sorting testdata/snapshot.txt.",
+  "sandbox_fixture": "sha256:93a6116027a937b67aaaf40889cf72c28c702c7a46ddc5dbd05fe05c44a6c4ce",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_754"
+}

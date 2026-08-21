@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_dd90e57b",
+  "goal": "Find CHUNK-CB-71 and report which payload owns that code.",
+  "sandbox_fixture": "sha256:3a57672859fa31eb74cc9bc7ffe204ec67d02c8d10a6c3508d0f2ee77b3b3a33",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_602"
+}

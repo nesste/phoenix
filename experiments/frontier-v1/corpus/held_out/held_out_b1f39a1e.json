@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_b1f39a1e",
+  "goal": "Commit a change to the beta example output after locating it from a clean tree.",
+  "sandbox_fixture": "sha256:0777d4f742acb45fad9f0ca54a0b6254804ec6c7913d998bf3042619bfbc53b7",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_416"
+}

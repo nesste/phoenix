@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_74ccf100",
+  "goal": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+  "sandbox_fixture": "sha256:2eab222b5bcc5af135efc75a1f370a9f3d33f951c0eb06925f5db52a21efe0ea",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_337"
+}

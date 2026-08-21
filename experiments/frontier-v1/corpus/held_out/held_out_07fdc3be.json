@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_07fdc3be",
+  "goal": "Verify the current permission check after its test definition changes following the initial catalog.",
+  "sandbox_fixture": "sha256:7c409de662937cd737eb2f9d5413261ce92f5eb18518d0271f141e8539264063",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_719",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "acl/lattice_test.go",
+      "content": "package acl\nimport \"testing\"\nfunc TestAuditorInheritance(t *testing.T) {}\n"
+    }
+  ]
+}

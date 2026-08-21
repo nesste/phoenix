@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_dee620b0",
+  "goal": "TestContractOld moved between shards. Use the live roster and verify its current replacement.",
+  "sandbox_fixture": "sha256:7448cd56d4844229ca0144934acc6c17f10c46b2331de7e5d016a4a5fea9baab",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_274"
+}

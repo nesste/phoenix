@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_d68b147b",
+  "goal": "State whether the available tools can update an external identity provider.",
+  "sandbox_fixture": "sha256:1768f34aeff19d5f61d188630fed77efefab28e1f0a4f1ff192fdacdd8c69e47",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_719"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_1623493c",
+  "goal": "Use the live test catalog to focus the large benchmark check; compilation alone cannot isolate it.",
+  "sandbox_fixture": "sha256:c1b78673e3e1da02b27bb88b746e02fbf295b0602b847833a25436d08c1756e5",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_523"
+}

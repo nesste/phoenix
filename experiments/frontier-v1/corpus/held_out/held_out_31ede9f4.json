@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_31ede9f4",
+  "goal": "Recheck TestIgnoredCensus after its expected ignored set changes following the initial catalog.",
+  "sandbox_fixture": "sha256:e0fc15f5737a204058c61a357e794d9f8153b9cab5b4c28144a62d852d957a68",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_217",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "inventory/census_test.go",
+      "content": "package inventory\nimport \"testing\"\nfunc TestIgnoredCensus(t *testing.T) { if false { t.Fatal() } }\n"
+    }
+  ]
+}

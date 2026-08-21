@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_ceb90ab6",
+  "goal": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+  "sandbox_fixture": "sha256:5f35ba652bac8fbc9b7c3304b75c15802987c7ec6e679ba672b0b359b05cb447",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_337"
+}

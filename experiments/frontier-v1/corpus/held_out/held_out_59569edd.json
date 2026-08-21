@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_59569edd",
+  "goal": "State whether the available tools can connect to a database and apply these migrations.",
+  "sandbox_fixture": "sha256:07fccd49d8877939d0dfef3e7dc1cec9520c68cec5add98e69c50b9ee5e79e0a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_246"
+}

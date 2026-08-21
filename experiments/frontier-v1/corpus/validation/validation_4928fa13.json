@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_4928fa13",
-  "goal": "Run the foghorn unit tests and report whether they all passed.",
-  "sandbox_fixture": "sha256:89ef4178fd2bad26b78ad3c1bed3d087836ba62e55bca378fe0fc08a3f58d23f",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_002"
-}

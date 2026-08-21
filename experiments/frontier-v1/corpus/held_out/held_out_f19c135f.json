@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_f19c135f",
-  "goal": "See whether the spacing helper still holds.",
-  "sandbox_fixture": "sha256:7203b454cb9ba4174ea998ef8fff6e7fa45fce71e04ae6843b22b42e83eaf1b4",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_002"
-}

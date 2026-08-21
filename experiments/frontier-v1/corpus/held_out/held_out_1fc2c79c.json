@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_1fc2c79c",
-  "goal": "Find the dawn alias in the kennel and run that named check.",
-  "sandbox_fixture": "sha256:64c598d0dc55917eff03ff331d5b8c5ef0b425f518b608221e0fcf0ac8d4e32d",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_011"
-}

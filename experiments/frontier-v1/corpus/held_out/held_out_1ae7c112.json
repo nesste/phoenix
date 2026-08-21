@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_1ae7c112",
+  "goal": "Verify the live epoch check after its epoch rotates immediately after the initial catalog.",
+  "sandbox_fixture": "sha256:39ce566ba8b4bf20eda1b7ce1600c2dc577490b535deaacd32fd1bcb935f19e7",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_379",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "rotate/rotation_test.go",
+      "content": "package rotate\nimport \"testing\"\nfunc TestEpoch_202609(t *testing.T) {}\n"
+    }
+  ]
+}

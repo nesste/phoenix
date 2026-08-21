@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_99b8a7c3",
-  "goal": "Focus the reef-order primary test and report that result.",
-  "sandbox_fixture": "sha256:6ae9f233490c9fb4a88457145ce2b37311658099f6568cda94debdf91b0b9138",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_004"
-}

@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_abad5c40",
+  "goal": "Determine the live example set after the only cataloged example is removed following your first list operation.",
+  "sandbox_fixture": "sha256:8339e453fe4d774accdbb3c8c8e0addc0922b689e3841d1b2469ee15bc4688da",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_095",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "examples/example_test.go",
+      "content": "package examples_test\n// examples intentionally retired\n"
+    }
+  ]
+}

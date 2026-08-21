@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_131_v5",
+  "family_id": "held_out_family_131",
+  "template": "Stacked patch-note queue with untracked census, prepared commit, head read, unavailable mailbox application, and same-name package move.",
+  "files": {
+    "queue/001.patchnote": "subject=normalize headers\n",
+    "queue/002.patchnote": "subject=retain trailers\n",
+    "queue/order.txt": "001\n002\n",
+    "go.mod": "module example.test/queue\n\ngo 1.22\n",
+    "queue/queue_test.go": "package queue\nimport \"testing\"\nfunc TestQueueOrder(t *testing.T) {}\n"
+  }
+}

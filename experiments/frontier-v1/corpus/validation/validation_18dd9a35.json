@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_18dd9a35",
+  "goal": "List the runnable roster checks and report their exact live names.",
+  "sandbox_fixture": "sha256:ffe7c58261113aeff43879c6b3f0ec39153d896c63dbe555807be71a076366ce",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_083"
+}

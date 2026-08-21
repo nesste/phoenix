@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_f26e70b2",
-  "goal": "Focus the first catalog entry still written in the docs and report its individual result.",
-  "sandbox_fixture": "sha256:91b680b6f0ad72c75c2f140116db93ad2332d62283e57ae589319366db5fad7e",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_021"
-}

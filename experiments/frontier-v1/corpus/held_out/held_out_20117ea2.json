@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_20117ea2",
+  "goal": "Remove the readiness cycle while keeping the cache warm-up dependency intact.",
+  "sandbox_fixture": "sha256:a0d64a5745ce7df760f764d7593ad2edd8c15725df2a6a1a7bb9a38a137d86b0",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_793"
+}

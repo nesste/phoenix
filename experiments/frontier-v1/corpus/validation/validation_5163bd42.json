@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_5163bd42",
+  "goal": "State whether the available tools can query a hosted error-telemetry index.",
+  "sandbox_fixture": "sha256:5d210d87ab21739ae2285750a367125fe09ebc83df7462bec34eb7dfce76d0fd",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_568"
+}

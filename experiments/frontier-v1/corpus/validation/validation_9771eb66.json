@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_9771eb66",
-  "goal": "Search the tree for the watchword, then confirm the module still builds and the suite result.",
-  "sandbox_fixture": "sha256:265aef3aca42c6b21ef819ea25779bc293bbf870514bb5f388651c9b95587045",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_017"
-}

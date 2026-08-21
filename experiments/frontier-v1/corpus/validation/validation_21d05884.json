@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_21d05884",
+  "goal": "Determine whether the checklist repository starts clean.",
+  "sandbox_fixture": "sha256:c69e171d2962b4f88a3a4c322cff660556ba3b657989aaaea8eb89e9a7f9c136",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_208"
+}

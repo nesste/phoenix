@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_1dd0e3d3",
+  "goal": "Find the tracked note that mentions CACHE-MARKER-71 and report its path.",
+  "sandbox_fixture": "sha256:ecf0b290edbc2cd36447cecbd238616750ef53c3a8a263fec58dcf1a156eaac0",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_217"
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_9aa43337",
+  "goal": "Recheck TestMigrationOrdering after its migration input changes immediately after the first test catalog.",
+  "sandbox_fixture": "sha256:4368a8bc14ec7924e66b8b098406b4a8aa332dd9d754cdb53d157d359469484a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_246",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "migrations/004_index.sql",
+      "content": "-- replacement migration\ncreate unique index widget_id on widgets(id);\n"
+    }
+  ]
+}

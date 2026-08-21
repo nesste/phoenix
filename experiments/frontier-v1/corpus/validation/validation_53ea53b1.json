@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_53ea53b1",
+  "goal": "Read the red receipt and report its recorded weight.",
+  "sandbox_fixture": "sha256:3ff4488b82f97a606a5eb2026d7b9de866f551dcb98de87fe0ac9b9122e06163",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_233"
+}

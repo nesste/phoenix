@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_e5ce052c",
+  "goal": "Episode history is unavailable. Find BENCH-YAML-35 in repository-local evidence and report its path.",
+  "sandbox_fixture": "sha256:d1dd2655055973a5fd8e8522f0c4347997a80909860c583610d42ef7eaa546c6",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_523"
+}

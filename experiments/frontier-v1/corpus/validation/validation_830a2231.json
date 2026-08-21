@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_830a2231",
+  "goal": "Verify the live replacement for TestOldSentinel; compiling alone does not answer the request.",
+  "sandbox_fixture": "sha256:82ee8fd1b1aacdafa00e4a9f9a97ebec48c340bd566d8e42dd4de0f7ec6f00b4",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_259"
+}

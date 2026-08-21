@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_e57f53f6",
+  "goal": "Use Git status to identify the sole pending route note.",
+  "sandbox_fixture": "sha256:e5f2ba2967fe158ab28406177f7d48f7f398a622e0cd76502ab16cd7a36829a9",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_032"
+}

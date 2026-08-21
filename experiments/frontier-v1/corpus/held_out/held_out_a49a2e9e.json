@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_a49a2e9e",
+  "goal": "Confirm that the prepared untracked route note does not appear in the tracked diff, and report that boundary accurately.",
+  "sandbox_fixture": "sha256:0bc59725d64fe8a3ec9ce7d378aa793aef68d8a04bac15fe22c242e0fc9f7dce",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_032"
+}

@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_5ace77f1",
-  "goal": "Attempt a module build of the fold checker and describe the result.",
-  "sandbox_fixture": "sha256:2da171a59fe334d7d0b3713daba4759c792642d02b221dc1af5f120a114894d2",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_001"
-}

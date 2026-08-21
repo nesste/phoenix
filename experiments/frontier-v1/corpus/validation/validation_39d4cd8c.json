@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_39d4cd8c",
+  "goal": "Read go.mod and report the local directory replacing example.test/core.",
+  "sandbox_fixture": "sha256:df868c764d441d66950358e25f5c5de615ceb4cd1374b8531fef689efbcd68c4",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_172"
+}

@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_4d4a0c01",
+  "goal": "Verify the current platform capability check after its test name changes following the initial catalog.",
+  "sandbox_fixture": "sha256:770ec66662c5a85e82215f81b83c07f4b44b71210aa46de0f6507ae651578305",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_669",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "platform/api_test.go",
+      "content": "package platform\nimport \"testing\"\nfunc TestUnixNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+    }
+  ]
+}

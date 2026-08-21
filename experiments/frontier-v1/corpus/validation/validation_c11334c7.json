@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_c11334c7",
+  "goal": "Compile the repository and report the concrete compiler failure in the selected switch implementation.",
+  "sandbox_fixture": "sha256:e5f03d27e61b23c5cb879600391ef775527dec9235f8ed2bb908bee23ac945e8",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_057"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_1096b7c1",
+  "goal": "Find the large benchmark case in the repository and report its configured size.",
+  "sandbox_fixture": "sha256:b164c16e652148ae1c5b80c703ec9bfe53b6e2c5d2131346c8ea0fbd54b0e8f5",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_523"
+}

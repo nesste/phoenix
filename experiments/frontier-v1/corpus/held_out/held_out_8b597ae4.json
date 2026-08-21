@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_8b597ae4",
+  "goal": "Commit the prepared queue-order update and report whether it committed.",
+  "sandbox_fixture": "sha256:c208c7da0d4c2e081e6b38fdc08a7af3b04ba49ea002bb272e8cf754efcadc61",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_131"
+}

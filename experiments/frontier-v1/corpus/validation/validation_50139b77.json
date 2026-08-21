@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_50139b77",
+  "goal": "Find EOL-MIX-22 and report which repository file carries the exception.",
+  "sandbox_fixture": "sha256:5697df1fa700ea05ca4e7acca0f6d1abfd2413d86f26b7c423588fcac4e1ac80",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_438"
+}

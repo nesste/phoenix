@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_c44e879e",
+  "goal": "Find the repository file containing RVR-204 and report its path.",
+  "sandbox_fixture": "sha256:98444cf2ef37b89e68259f207006f21474f00a2222704ad1abb84591eac7ab15",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_364"
+}

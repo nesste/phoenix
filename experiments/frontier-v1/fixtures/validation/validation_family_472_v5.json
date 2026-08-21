@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_472_v5",
+  "family_id": "validation_family_472",
+  "template": "Two-file release-stamp transaction with clean commit refusal, superseded value, moved path, hidden epoch, and next-file neighbor-target.",
+  "files": {
+    "stamp/current.txt": "stamp=2026.08\n",
+    "stamp/next.txt": "stamp=2026.09\n",
+    "docs/stamp.md": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+  }
+}

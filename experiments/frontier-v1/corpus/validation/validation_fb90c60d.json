@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_fb90c60d",
+  "goal": "Restore discoverability of the documented truncated-input v2 diagnostic while preserving the existing catalog entries.",
+  "sandbox_fixture": "sha256:265ed5eb9352b590962ce049d867ab5b890f163bce1ddd8aece6631a71b03087",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_568"
+}

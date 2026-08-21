@@ -1,0 +1,15 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_438_v3",
+  "family_id": "validation_family_438",
+  "template": "Line-ending policy correction through compiler marker, normalized-path search, retired-test catalog, hidden exception, and wrong-file diff trap.",
+  "files": {
+    "go.mod": "module example.test/eolpolicy\n\ngo 1.22\n",
+    "policy/eol.go": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n",
+    "policy/eol.cfg": "mode=lf\nmarker=LINE-DIRECTIVE-9\n",
+    "policy/eol_test.go": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n",
+    "samples/mixed.txt": "sample exception EOL-MIX-22\n",
+    "docs/eol.md": "Tracked paths use forward slashes.\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+  }
+}

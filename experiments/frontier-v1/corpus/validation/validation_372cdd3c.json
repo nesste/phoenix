@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_372cdd3c",
+  "goal": "Read the Romanian locale pack and report its currency code.",
+  "sandbox_fixture": "sha256:ef0c0d4bb0a00fc5ef1093324e1e72e486ecf1d0f15510e361f738fac5ab35a6",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_041"
+}

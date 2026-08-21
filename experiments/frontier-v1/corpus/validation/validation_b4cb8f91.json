@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_b4cb8f91",
-  "goal": "Format every Go file in this beacon log in place using the house style daemon.",
-  "sandbox_fixture": "sha256:46ebe3790f821d0492965e520212878ba06ffc987d67699ee1042af8dab0fb4d",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_022"
-}

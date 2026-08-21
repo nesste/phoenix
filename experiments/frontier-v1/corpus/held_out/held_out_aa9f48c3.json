@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_aa9f48c3",
+  "goal": "Read the archived release note and report its release code.",
+  "sandbox_fixture": "sha256:ec4f2bf38e02369eeb53f06a251485309eca31d21287c9ba96619ccf0ae11a54",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_158"
+}

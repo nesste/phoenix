@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_4037da36",
-  "goal": "Execute the package suite and say whether it failed.",
-  "sandbox_fixture": "sha256:3e7112862178c21bee626ac859f7f8ec78a36abbdd4cb3dc9ab07a28c1662bed",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_011"
-}

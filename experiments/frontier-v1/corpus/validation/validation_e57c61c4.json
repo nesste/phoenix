@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_e57c61c4",
-  "goal": "Focus the first check named in the fold order note and report that individual result.",
-  "sandbox_fixture": "sha256:2da171a59fe334d7d0b3713daba4759c792642d02b221dc1af5f120a114894d2",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_001"
-}

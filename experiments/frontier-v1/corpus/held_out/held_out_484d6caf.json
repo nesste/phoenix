@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_484d6caf",
-  "goal": "An offset check is failing. Identify the live test and report its individual result.",
-  "sandbox_fixture": "sha256:4133134b5c645da854215aea9efc553057d9143c926fb9a99027fc53098d6c62",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_016"
-}

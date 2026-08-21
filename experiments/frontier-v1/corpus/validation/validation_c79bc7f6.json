@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_c79bc7f6",
+  "goal": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+  "sandbox_fixture": "sha256:a13060fc6bb830ece43bdfae6ab119363003b8f3cfbf87fd891a11d956310955",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_126",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "cards/cards_test.go",
+      "content": "package cards\nimport \"testing\"\nfunc TestOwnerCard(t *testing.T) {}\n"
+    }
+  ]
+}

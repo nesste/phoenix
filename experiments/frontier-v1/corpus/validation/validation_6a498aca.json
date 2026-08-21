@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_6a498aca",
+  "goal": "Find the repository path containing INK-42 and report it.",
+  "sandbox_fixture": "sha256:4c3ce1bf888485128799e9055c5209669a2050d7e081aeed8347a8ca07e1f558",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_149"
+}

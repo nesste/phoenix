@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_9b60dbe9",
+  "goal": "Add the Stable annotation even though the supplied declaration says Value returns string; read the exact source, edit it, and confirm it compiles.",
+  "sandbox_fixture": "sha256:bf53f31fc6bfbf57d0b6c6f6ef92e79152e1773228d1fc61135a4950348c4a6d",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_348"
+}

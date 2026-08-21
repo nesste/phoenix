@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_7febe9e1",
+  "goal": "Compile the repository and report whether the portable switchboard is buildable.",
+  "sandbox_fixture": "sha256:67cfbfb877ace61950ab5ec7f595dc54f256b4b44839c08a419f199e82490f53",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_057"
+}

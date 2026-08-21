@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_66db5919",
-  "goal": "Locate the dawn alias under the bog directory and run that named check.",
-  "sandbox_fixture": "sha256:2383e52004393a5f5a60fdf3a4e2283eb7bba74b4910b06d3f83ebdf1b49b50a",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_013"
-}

@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_5df2f840",
+  "goal": "Compile the migration parser repository and report whether it builds.",
+  "sandbox_fixture": "sha256:b1cbdd9550d01f37c397e6a4ef5f442ef04b5e788f429d95e86ca2a92b60f5ae",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_246"
+}

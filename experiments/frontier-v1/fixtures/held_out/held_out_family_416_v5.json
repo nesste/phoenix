@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_416_v5",
+  "family_id": "held_out_family_416",
+  "template": "Package-qualified example suite with ambiguous shorthand, obsolete path edit, clean commit search, deep marker, and whole-suite neighbor-target.",
+  "files": {
+    "go.mod": "module example.test/qualifiedexamples\n\ngo 1.22\n",
+    "pkg/alpha/example_test.go": "package alpha_test\nimport \"fmt\"\nfunc ExampleAlpha_Shared() { fmt.Println(\"alpha\")\n// Output: alpha\n}\n",
+    "pkg/beta/example_test.go": "package beta_test\nimport \"fmt\"\nfunc ExampleBeta_Shared() { fmt.Println(\"beta\")\n// Output: beta\n}\n",
+    "docs/examples.md": "Marker EXAMPLE-BETA-27 belongs to the beta package.\n"
+  }
+}

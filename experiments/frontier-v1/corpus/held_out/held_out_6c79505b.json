@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_6c79505b",
+  "goal": "The obsolete path contracts/shard-map.txt no longer exists. Locate and read the live shard map.",
+  "sandbox_fixture": "sha256:18d52239ccaa9caf835e6b234df465dd57150b9bc9c32456989adda6b215cd3e",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_274"
+}

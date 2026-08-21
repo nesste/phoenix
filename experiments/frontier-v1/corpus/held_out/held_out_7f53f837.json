@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_7f53f837",
+  "goal": "Update only cobalt to cobalt-v2 and inspect the diff so the amber section remains unchanged.",
+  "sandbox_fixture": "sha256:117ef816902ab057d9a746d5df9ed0f72f88e67eb93b2664317379900d2b421a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_329"
+}

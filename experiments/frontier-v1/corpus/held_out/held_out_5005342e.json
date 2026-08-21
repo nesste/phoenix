@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_5005342e",
+  "goal": "Do not guess TestEpoch_202609; use the live catalog to identify and focus the actual epoch check.",
+  "sandbox_fixture": "sha256:2fbb645cb4b798c1bf61bf71a6c39d4ce5727afb0f427a8ede1db0cfc167b77c",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_379"
+}

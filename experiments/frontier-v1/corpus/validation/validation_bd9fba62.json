@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_bd9fba62",
+  "goal": "Use the live test catalog, not only the human name table, to focus the generated seed check.",
+  "sandbox_fixture": "sha256:5ec38f12ffe97058fa28524d0799f8ced562b7bf281e1752e51604c6336f24dc",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_407"
+}

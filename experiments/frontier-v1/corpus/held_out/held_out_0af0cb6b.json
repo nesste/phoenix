@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_0af0cb6b",
+  "goal": "Confirm whether an untracked operator draft changes the tracked release-note diff.",
+  "sandbox_fixture": "sha256:af8bb557fc203609d144364c792220b1b6e979562a661700503bd632a5e16da7",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_158"
+}

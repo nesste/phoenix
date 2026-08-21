@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_364_v2",
+  "family_id": "validation_family_364",
+  "template": "Test-membership rollover with removed name, qualified replacement, state-bound rename, nested token, and full-suite lure.",
+  "files": {
+    "go.mod": "module example.test/rollover\n\ngo 1.22\n",
+    "rollover/current_test.go": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n",
+    "rollover/window.txt": "window=RVR-204\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+  }
+}

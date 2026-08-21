@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_addd4659",
+  "goal": "Verify the live checklist check after the suite file is replaced following your first test listing.",
+  "sandbox_fixture": "sha256:7df37e43479f7f7dc6fb5d45ef1f12f58c9e7043fdf086b2d1f25da80eede4ad",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_208",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "checklists/check_test.go",
+      "content": "package checklists\nimport \"testing\"\nfunc TestSecurityChecklist(t *testing.T) {}\n"
+    }
+  ]
+}

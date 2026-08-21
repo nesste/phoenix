@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_8a583f1d",
-  "goal": "Run the tram-fare tests and report the suite outcome.",
-  "sandbox_fixture": "sha256:f604b832dec5d919855b0cf2e95511b508c79e9a923610db13b5f65bf9d685ba",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_007"
-}

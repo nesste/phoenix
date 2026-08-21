@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_a06c8e5e",
+  "goal": "Create and commit the required Stable annotation on the exported Value helper, locating its source from the clean repository.",
+  "sandbox_fixture": "sha256:4b80fb1377be12ba2486864e11de72e66027f6e4c141da3fd3500c590bdc9e1e",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_348"
+}

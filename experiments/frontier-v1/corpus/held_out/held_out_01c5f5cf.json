@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_01c5f5cf",
+  "goal": "Find STATE-SUSP-83 and report the state associated with that audit code.",
+  "sandbox_fixture": "sha256:a8d9bd2eef771dbb931eef1e1de4a90cdf30248274ca847b9d1d0a9c1d91994b",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_556"
+}

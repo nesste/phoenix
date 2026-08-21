@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_a2f3dba3",
-  "goal": "Find the owl alias in ops and run that named test.",
-  "sandbox_fixture": "sha256:4f5db9f12b5132bd47e5632ff8b795c038d7c0194ac786f2224a6ff6134f7925",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_009"
-}

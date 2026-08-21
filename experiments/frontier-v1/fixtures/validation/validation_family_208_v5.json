@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_208_v5",
+  "family_id": "validation_family_208",
+  "template": "Checklist census distinguishing modified, untracked, clean, unsupported publication, and live test replacement states.",
+  "files": {
+    "checklists/release.md": "- [x] changelog\n- [ ] signatures\n",
+    "checklists/security.md": "- [x] scan\n- [x] review\n",
+    ".gitignore": "checklists/*.scratch\n",
+    "go.mod": "module example.test/checklists\n\ngo 1.22\n",
+    "checklists/check_test.go": "package checklists\nimport \"testing\"\nfunc TestReleaseChecklist(t *testing.T) {}\n"
+  }
+}

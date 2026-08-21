@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_c7abfef6",
+  "goal": "Determine from the locale index which pack is still under review.",
+  "sandbox_fixture": "sha256:fc63dbb7d9ca23c0090e0b66332e91b7e0eaed941d84d704d831e661e3d2cb1a",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_041"
+}

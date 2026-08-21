@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_5ec4eaf5",
+  "goal": "Use Git status to identify the untracked patch note.",
+  "sandbox_fixture": "sha256:0042dcd0c14c3b5baf0a4c30333495630fbf3e0a6d189f0be4372cab6df36bdc",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_131"
+}

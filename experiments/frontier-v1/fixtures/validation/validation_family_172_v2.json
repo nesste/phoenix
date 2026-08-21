@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_172_v2",
+  "family_id": "validation_family_172",
+  "template": "Local module-replacement graph with readable mapping, build success, broken target, remote-resolution capability-boundary, and changing test membership.",
+  "files": {
+    "go.mod": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core => ./deps/core\n",
+    "deps/core/go.mod": "module example.test/core\n\ngo 1.22\n",
+    "deps/core/core.go": "package core\nfunc Name() string { return \"local-core\" }\n",
+    "app/app.go": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n",
+    "docs/dependency.md": "The core dependency is provided by the local deps/core module.\n"
+  }
+}

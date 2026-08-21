@@ -1,0 +1,16 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_191_v5",
+  "family_id": "held_out_family_191",
+  "template": "Go workspace ownership graph with compile, cross-module catalog, declaration search, remote-sum capability-boundary, and joint module/test move.",
+  "files": {
+    "go.work": "go 1.22\n\nuse (\n .\n ./services/amber\n ./tools/quill\n)\n",
+    "go.mod": "module example.test/workspace-root\n\ngo 1.22\n",
+    "workspace_test.go": "package workspace\nimport \"testing\"\nfunc TestAmberWorkspace(t *testing.T) {}\n",
+    "services/amber/go.mod": "module example.test/amber\n\ngo 1.22\n",
+    "services/amber/amber.go": "package amber\nfunc Service() string { return \"amber\" }\n",
+    "services/amber/amber_test.go": "package amber\nimport \"testing\"\nfunc TestAmberService(t *testing.T) {}\n",
+    "tools/quill/go.mod": "module example.test/quill\n\ngo 1.22\n",
+    "tools/quill/main.go": "package main\nfunc main() {}\n"
+  }
+}

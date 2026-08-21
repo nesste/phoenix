@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "fixture_id": "validation_family_568_v4",
+  "family_id": "validation_family_568",
+  "template": "Diagnostic catalog with omitted generation entry, missing source token, captured-data log, unavailable telemetry, and suite-expansion event.",
+  "files": {
+    "go.mod": "module example.test/diagnostics\n\ngo 1.22\n",
+    "diag/catalog.go": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n",
+    "diag/catalog_test.go": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\n",
+    "diag/generate.txt": "TRUNCATED\nMALFORMED\n",
+    "samples/errors.log": "ERROR: overflow\n"
+  }
+}

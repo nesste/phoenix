@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_7a57622b",
+  "goal": "State whether the available tools can render this example in a browser.",
+  "sandbox_fixture": "sha256:bd273abd25bb58c02c389d680c40d1fd7662e8ff257601b7a79662ed20d7e555",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_095"
+}

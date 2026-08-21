@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_9fca5d6f",
-  "goal": "Run the bleach-index tests and report the suite outcome.",
-  "sandbox_fixture": "sha256:ab64260ff86a48b35a92a14c1737fdde28513084c57f97b846919c8ce9e5fb8b",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_004"
-}

@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "fixture_id": "held_out_family_523_v3",
+  "family_id": "held_out_family_523",
+  "template": "Hierarchical benchmark checks with qualified leaf, unavailable history, clean commit correction, deep YAML label, and build lure.",
+  "files": {
+    "go.mod": "module example.test/benchchecks\n\ngo 1.22\n",
+    "bench/check_test.go": "package bench\nimport \"testing\"\nfunc TestBench_Map_Small(t *testing.T) {}\nfunc TestBench_Map_Large(t *testing.T) {}\n",
+    "bench/cases.yaml": "small: 16\nlarge: 4096\nhistory: BENCH-YAML-35\n",
+    "tests/renames.json": "{\"renames\":[{\"from\":\"TestBenchSmall\",\"to\":\"TestBench_Map_Small\"}]}\n"
+  }
+}

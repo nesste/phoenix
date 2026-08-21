@@ -1,0 +1,14 @@
+{
+  "case_id": "validation_c1f7bb45",
+  "goal": "Verify the current dependency test after the module test file changes following the first catalog.",
+  "sandbox_fixture": "sha256:00c12f211a28f86a2370a82a0b0abbdd3f90107deaa8fff1a6cf74f00d84f386",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_172",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "app/app_test.go",
+      "content": "package app\nimport \"testing\"\nfunc TestReplacementGraph(t *testing.T) {}\n"
+    }
+  ]
+}

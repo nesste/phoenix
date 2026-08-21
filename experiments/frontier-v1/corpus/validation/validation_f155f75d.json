@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_f155f75d",
+  "goal": "Read the embedded ink license fragment and state its permitted use.",
+  "sandbox_fixture": "sha256:bc018797f62d1616c2d58f60635555a5d1fee3334f52feb31c852d9905370094",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_149"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_427e90c3",
+  "goal": "State whether the available tools can look up the archive-4 record in an external provenance service.",
+  "sandbox_fixture": "sha256:035cdcbb8503a212adc7d76fcd240a14b5efcbacde8958a29733681c81911136",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_126"
+}

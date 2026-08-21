@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_3ec8ab3a",
+  "goal": "Find MANIFEST-OVERLAY-6 and report its repository path.",
+  "sandbox_fixture": "sha256:a16dfc1de95b569a188d3688a727fa867bbd9a7b4fcd38d18b467a0e85632ee0",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_329"
+}

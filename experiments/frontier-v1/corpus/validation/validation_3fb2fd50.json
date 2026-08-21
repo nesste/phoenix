@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_3fb2fd50",
+  "goal": "State whether these tools can publish the checklist to a remote release system.",
+  "sandbox_fixture": "sha256:186a09f25ee08f047d20a1430e43e79fc71e6cd1f5c0c5fa31953da2f1d39c20",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_208"
+}

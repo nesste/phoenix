@@ -1,0 +1,14 @@
+{
+  "case_id": "held_out_fe0d65bc",
+  "goal": "Re-list and verify the moved workspace test after its definition changes following the initial catalog.",
+  "sandbox_fixture": "sha256:830d1fd68267fd5b4f051121eebf2cb1daaf4cf98c7ef0ec7a2ad8f8e912f87f",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_191",
+  "state_changes": [
+    {
+      "after_act": 0,
+      "path": "workspace_test.go",
+      "content": "package workspace\nimport \"testing\"\nfunc TestMovedAmberWorkspace(t *testing.T) {}\n"
+    }
+  ]
+}

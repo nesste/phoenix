@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_6c12df62",
-  "goal": "Determine whether the pick-density helper behaves as the comments specify.",
-  "sandbox_fixture": "sha256:164a5923cddcd4f9c561c754336cc26fbd3407334245509da4541c82ceae87d6",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_009"
-}

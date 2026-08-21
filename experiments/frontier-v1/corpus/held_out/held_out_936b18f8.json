@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_936b18f8",
+  "goal": "Make the verifier rule expose quartz.digest while leaving the dependency lock data unchanged.",
+  "sandbox_fixture": "sha256:73ae38d882b6dac6d1c25de2a945f4484e8b109f8656c4cce656355248a6d592",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_688"
+}

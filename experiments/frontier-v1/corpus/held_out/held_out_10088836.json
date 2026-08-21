@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_10088836",
+  "goal": "Focus TestMigrationOrdering and report its result.",
+  "sandbox_fixture": "sha256:5f966c7ac6347aba81d801df34594a29fa96b0e43e1c0552fb73f9012a866abc",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_246"
+}

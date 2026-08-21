@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_95057879",
-  "goal": "Determine whether the gear-ratio helper behaves as specified.",
-  "sandbox_fixture": "sha256:0f2376209da73a442eaba18064dc7d714f36586a60637526caed14ee96ab544d",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_006"
-}

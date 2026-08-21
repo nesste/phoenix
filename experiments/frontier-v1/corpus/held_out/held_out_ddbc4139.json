@@ -1,0 +1,7 @@
+{
+  "case_id": "held_out_ddbc4139",
+  "goal": "State whether the available Git tools can push this route patch to a remote.",
+  "sandbox_fixture": "sha256:2cc04004a363ea83e0bbcdd84f05a549c5917bb53597954bd2be37443373f4eb",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "held_out_family_032"
+}

@@ -1,0 +1,7 @@
+{
+  "case_id": "validation_7be1ac42",
+  "goal": "Read the license index and report the path recorded for the ink clause.",
+  "sandbox_fixture": "sha256:f9c0b944eafd1453146795820e4da7cf9b4bbb21b29a9b4d6e0ba503685478aa",
+  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "family_id": "validation_family_149"
+}

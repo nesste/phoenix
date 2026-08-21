@@ -1,7 +1,0 @@
-{
-  "case_id": "held_out_f0e54a2c",
-  "goal": "Confirm a successful compile of the current hydrometer tree.",
-  "sandbox_fixture": "sha256:0d37f704d56e87ecf1f3006b36e3524d31426dbec02b21e226e270d3e1848925",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "held_out_family_010"
-}

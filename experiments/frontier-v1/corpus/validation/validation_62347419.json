@@ -1,7 +1,0 @@
-{
-  "case_id": "validation_62347419",
-  "goal": "A fare check is failing. Name the live test and report its individual outcome.",
-  "sandbox_fixture": "sha256:22554a6a10b9cc9d713939ba173017286967db3e9962c9c24050b6052d3ef347",
-  "world_ref": "sha256:afa4896d40a68177e86c51574e940ff16633076434acd57a16e00c22e787f1b0",
-  "family_id": "validation_family_007"
-}
