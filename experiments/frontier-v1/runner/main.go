@@ -1,4 +1,4 @@
-// Command runner executes the frontier-v1 authoring tranche against a fresh
+// Command runner executes an approved frontier-v1 tranche against a fresh
 // sandbox, Phoenix process, and pinned runtime session for every case.
 package main
 
@@ -34,15 +34,17 @@ func run(args []string) int {
 	flags := flag.NewFlagSet("frontier-v1-runner", flag.ContinueOnError)
 	flags.SetOutput(os.Stderr)
 	repositoryRoot := flags.String("repo-root", ".", "Phoenix repository root")
-	caseID := flags.String("case", "all", "authoring case id or all")
+	tranche := flags.String("tranche", "authoring", "experiment tranche: authoring or validation")
+	caseID := flags.String("case", "all", "case id or all")
 	outputDir := flags.String("output-dir", "", "repository-relative result directory; defaults to retained C evidence or an arm-specific probe directory")
 	arm := flags.String("arm", "C", "experiment arm: A, B, C, D, or E")
 	armBDocument := flags.String("arm-b-document", "", "frozen Arm B static document; required for Arm B")
 	writeSchedulePath := flags.String("write-schedule", "", "write a deterministic authoring A-E schedule and exit")
-	schedulePath := flags.String("schedule", "", "execute a previously written authoring A-E schedule")
+	schedulePath := flags.String("schedule", "", "execute a previously written A-E schedule")
+	validationGrader := flags.String("validation-grader", "", "absolute path to the external validation custodian grader")
 	runtimePath := flags.String("runtime", "claude", "pinned runtime executable")
 	budget := flags.String("max-budget-usd", "0.15", "maximum model cost per case")
-	runBudget := flags.String("run-budget-usd", "75", "hard authoring run budget in USD; checked at pairing-key boundaries")
+	runBudget := flags.String("run-budget-usd", "75", "hard scheduled-run budget in USD; checked at pairing-key boundaries")
 	timeout := flags.Duration("timeout", 180*time.Second, "per-case timeout")
 	if err := flags.Parse(args); err != nil || flags.NArg() != 0 {
 		return 2
@@ -52,12 +54,21 @@ func run(args []string) int {
 		fmt.Fprintln(os.Stderr, err)
 		return 2
 	}
-	ids, err := selectedCaseIDs(root, *caseID)
+	selectedTranche, err := normalizeTranche(*tranche)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 2
+	}
+	ids, err := selectedCaseIDsForTranche(root, selectedTranche, *caseID)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
 	}
 	if *writeSchedulePath != "" {
+		if selectedTranche != "authoring" {
+			fmt.Fprintln(os.Stderr, "validation schedule generation is frozen and disabled")
+			return 2
+		}
 		if *schedulePath != "" {
 			fmt.Fprintln(os.Stderr, "--write-schedule and --schedule are mutually exclusive")
 			return 2
@@ -65,7 +76,11 @@ func run(args []string) int {
 		return writeScheduleCLI(root, *writeSchedulePath, ids)
 	}
 	if *schedulePath != "" {
-		return runScheduleCLI(root, *outputDir, *schedulePath, *armBDocument, *runtimePath, *budget, *runBudget, *timeout, ids)
+		return runScheduleCLI(root, selectedTranche, *outputDir, *schedulePath, *armBDocument, *validationGrader, *runtimePath, *budget, *runBudget, *timeout, ids)
+	}
+	if selectedTranche != "authoring" {
+		fmt.Fprintln(os.Stderr, "validation permits scheduled execution only")
+		return 2
 	}
 	return runProbeCLI(root, *outputDir, *arm, *armBDocument, *runtimePath, *budget, *timeout, ids)
 }
@@ -99,11 +114,11 @@ func runProbeCLI(root, output, arm, armBDocument, runtimePath, budget string, ti
 }
 
 func runScheduleCLI(
-	root, output, schedulePath, armBDocument, runtimePath, budget, runBudget string,
+	root, tranche, output, schedulePath, armBDocument, validationGrader, runtimePath, budget, runBudget string,
 	timeout time.Duration,
 	ids []string,
 ) int {
-	prepared, err := prepareScheduledCLI(root, output, schedulePath, armBDocument, budget, runBudget, timeout, ids)
+	prepared, err := prepareScheduledCLI(root, tranche, output, schedulePath, armBDocument, validationGrader, budget, runBudget, timeout, ids)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
@@ -116,7 +131,7 @@ func runScheduleCLI(
 	}
 	summary, err := runScheduledCases(
 		prepared.config, prepared.schedule, prepared.scheduleDigest, prepared.runBudgetUSD,
-		driver, corpusGrader{goExecutable: "go"},
+		driver, prepared.grader,
 	)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -126,7 +141,7 @@ func runScheduleCLI(
 		fmt.Fprintln(os.Stderr, err)
 		return 1
 	}
-	fmt.Printf("scheduled authoring: %d pass, %d fail, %d unresolved, %d budget-stopped\n", summary.Passes, summary.Failures, summary.Unresolved, summary.BudgetStopped)
+	fmt.Printf("scheduled %s: %d pass, %d fail, %d unresolved, %d budget-stopped\n", tranche, summary.Passes, summary.Failures, summary.Unresolved, summary.BudgetStopped)
 	if summary.Status == "indeterminate" {
 		return 1
 	}
@@ -138,16 +153,47 @@ type preparedScheduledCLI struct {
 	schedule       launchSchedule
 	scheduleDigest string
 	runBudgetUSD   float64
+	grader         gradeDriver
 	cleanup        func()
 }
 
+type preparedScheduledInputs struct {
+	cases             []runnableCase
+	schedule          launchSchedule
+	scheduleDigest    string
+	runBudgetUSD      float64
+	grader            gradeDriver
+	graderDigest      string
+	graderBoundary    *validationGraderDescription
+	graderAdapterHash string
+}
+
 func prepareScheduledCLI(
-	root, output, schedulePath, armBDocument, budget, runBudget string,
+	root, tranche, output, schedulePath, armBDocument, validationGrader, budget, runBudget string,
 	timeout time.Duration,
 	ids []string,
 ) (preparedScheduledCLI, error) {
+	if tranche == "validation" {
+		if err := requireValidationGate(root); err != nil {
+			return preparedScheduledCLI{}, err
+		}
+		if err := requireFrozenValidationTrialLimits(budget, timeout); err != nil {
+			return preparedScheduledCLI{}, err
+		}
+	}
 	if output == "" {
-		output = "experiments/frontier-v1/results/scheduled-authoring"
+		output = filepath.ToSlash(filepath.Join("experiments", "frontier-v1", "results", "scheduled-"+tranche))
+	}
+	inputs, err := prepareScheduledInputs(root, tranche, schedulePath, validationGrader, runBudget, ids)
+	if err != nil {
+		return preparedScheduledCLI{}, err
+	}
+	preflightConfig := runConfig{
+		repositoryRoot: root,
+		worldPath:      filepath.Join(root, "worlds", "dev-repo", "world.json"),
+	}
+	if err := preflightSelectedCasesForTranche(preflightConfig, tranche, inputs.cases); err != nil {
+		return preparedScheduledCLI{}, err
 	}
 	if err := requireEmptyScheduledOutput(root, output); err != nil {
 		return preparedScheduledCLI{}, err
@@ -156,44 +202,66 @@ func prepareScheduledCLI(
 	if err != nil {
 		return preparedScheduledCLI{}, err
 	}
-	fail := func(err error) (preparedScheduledCLI, error) {
-		cleanup()
-		return preparedScheduledCLI{}, err
-	}
-	cases, err := loadSelectedCases(root, ids)
+	config.tranche = tranche
+	config.graderDigest = inputs.graderDigest
+	config.graderBoundary = inputs.graderBoundary
+	config.graderAdapterHash = inputs.graderAdapterHash
+	return preparedScheduledCLI{
+		config: config, schedule: inputs.schedule, scheduleDigest: inputs.scheduleDigest,
+		runBudgetUSD: inputs.runBudgetUSD, grader: inputs.grader, cleanup: cleanup,
+	}, nil
+}
+
+func prepareScheduledInputs(root, tranche, schedulePath, validationGrader, runBudget string, ids []string) (preparedScheduledInputs, error) {
+	cases, err := loadSelectedCasesForTranche(root, tranche, ids)
 	if err != nil {
-		return fail(err)
+		return preparedScheduledInputs{}, err
 	}
 	resolvedSchedule := resolveRepositoryPath(root, schedulePath)
 	if err := ensureInside(root, resolvedSchedule); err != nil {
-		return fail(err)
+		return preparedScheduledInputs{}, err
 	}
 	var schedule launchSchedule
 	if err := decodeStrict(resolvedSchedule, &schedule); err != nil {
-		return fail(err)
+		return preparedScheduledInputs{}, err
 	}
-	if err := validateSchedule(schedule, cases); err != nil {
-		return fail(err)
-	}
-	if err := preflightSelectedCases(config, cases); err != nil {
-		return fail(err)
-	}
-	config.graderDigest, err = verifiedGraderDigest(root, ids)
-	if err != nil {
-		return fail(err)
+	if err := validateScheduleForTranche(schedule, cases, tranche); err != nil {
+		return preparedScheduledInputs{}, err
 	}
 	digest, err := digestJSONFile(resolvedSchedule)
 	if err != nil {
-		return fail(err)
+		return preparedScheduledInputs{}, err
 	}
 	totalBudget, err := strconv.ParseFloat(runBudget, 64)
 	if err != nil || totalBudget <= 0 {
-		return fail(fmt.Errorf("--run-budget-usd must be a positive decimal value"))
+		return preparedScheduledInputs{}, fmt.Errorf("--run-budget-usd must be a positive decimal value")
 	}
-	return preparedScheduledCLI{
-		config: config, schedule: schedule, scheduleDigest: digest,
-		runBudgetUSD: totalBudget, cleanup: cleanup,
-	}, nil
+	inputs := preparedScheduledInputs{
+		cases: cases, schedule: schedule, scheduleDigest: digest, runBudgetUSD: totalBudget,
+		grader: corpusGrader{goExecutable: "go"},
+	}
+	if tranche == "validation" {
+		if digest != frozenValidationScheduleDigest {
+			return preparedScheduledInputs{}, fmt.Errorf("validation schedule digest %s does not match frozen custody contract", digest)
+		}
+		if totalBudget != 300 {
+			return preparedScheduledInputs{}, fmt.Errorf("validation requires the frozen 300 USD run budget")
+		}
+		external, err := prepareExternalValidationGrader(root, validationGrader)
+		if err != nil {
+			return preparedScheduledInputs{}, err
+		}
+		inputs.grader = external
+		inputs.graderDigest = frozenGraderDigest
+		inputs.graderBoundary = &external.description
+		inputs.graderAdapterHash = external.adapterHash
+		return inputs, nil
+	}
+	inputs.graderDigest, err = verifiedGraderDigest(root, ids)
+	if err != nil {
+		return preparedScheduledInputs{}, err
+	}
+	return inputs, nil
 }
 
 func writeScheduleCLI(root, path string, ids []string) int {
@@ -232,20 +300,27 @@ func writeScheduleCLI(root, path string, ids []string) int {
 	return 0
 }
 
-func selectedCaseIDs(root, selection string) ([]string, error) {
+func selectedCaseIDsForTranche(root, tranche, selection string) ([]string, error) {
 	if selection == "all" {
-		return authoringCaseIDs(root)
+		return caseIDsForTranche(root, tranche)
 	}
-	if _, err := loadCase(root, selection); err != nil {
+	if tranche == "validation" {
+		return nil, fmt.Errorf("validation execution requires --case all")
+	}
+	if _, err := loadCaseForTranche(root, tranche, selection); err != nil {
 		return nil, err
 	}
 	return []string{selection}, nil
 }
 
 func loadSelectedCases(root string, ids []string) ([]runnableCase, error) {
+	return loadSelectedCasesForTranche(root, "authoring", ids)
+}
+
+func loadSelectedCasesForTranche(root, tranche string, ids []string) ([]runnableCase, error) {
 	cases := make([]runnableCase, 0, len(ids))
 	for _, id := range ids {
-		item, err := loadCase(root, id)
+		item, err := loadCaseForTranche(root, tranche, id)
 		if err != nil {
 			return nil, err
 		}
@@ -254,7 +329,7 @@ func loadSelectedCases(root string, ids []string) ([]runnableCase, error) {
 	return cases, nil
 }
 
-func preflightSelectedCases(config runConfig, cases []runnableCase) error {
+func preflightSelectedCasesForTranche(config runConfig, tranche string, cases []runnableCase) error {
 	worldRef, err := digestJSONFile(config.worldPath)
 	if err != nil {
 		return err
@@ -263,7 +338,7 @@ func preflightSelectedCases(config runConfig, cases []runnableCase) error {
 		if item.WorldRef != worldRef {
 			return fmt.Errorf("case %s world_ref %s does not match production world %s", item.CaseID, item.WorldRef, worldRef)
 		}
-		if _, err := loadFixture(config.repositoryRoot, item); err != nil {
+		if _, err := loadFixtureForTranche(config.repositoryRoot, tranche, item); err != nil {
 			return fmt.Errorf("case %s fixture: %w", item.CaseID, err)
 		}
 	}
@@ -538,7 +613,8 @@ func (attempt caseAttempt) cleanup() {
 }
 
 func executeCaseAttempt(config runConfig, caseID string, runtime runtimeDriver) (caseAttempt, runtimeResult, error) {
-	item, err := loadCase(config.repositoryRoot, caseID)
+	tranche := effectiveTranche(config)
+	item, err := loadCaseForTranche(config.repositoryRoot, tranche, caseID)
 	if err != nil {
 		return caseAttempt{}, runtimeResult{}, err
 	}
@@ -549,7 +625,7 @@ func executeCaseAttempt(config runConfig, caseID string, runtime runtimeDriver) 
 	if item.WorldRef != worldRef {
 		return caseAttempt{}, runtimeResult{}, fmt.Errorf("case world_ref %s does not match production world %s", item.WorldRef, worldRef)
 	}
-	fixture, err := loadFixture(config.repositoryRoot, item)
+	fixture, err := loadFixtureForTranche(config.repositoryRoot, tranche, item)
 	if err != nil {
 		return caseAttempt{}, runtimeResult{}, err
 	}
@@ -629,8 +705,7 @@ func finishCase(
 	if err != nil {
 		return caseResult{}, err
 	}
-	labelRelative := filepath.ToSlash(filepath.Join("experiments", "frontier-v1", "labels", "authoring", caseID+".json"))
-	grade, err := grader.Grade(config.repositoryRoot, labelRelative, filepath.ToSlash(trialRelative))
+	grade, err := grader.Grade(config.repositoryRoot, effectiveTranche(config), caseID, filepath.ToSlash(trialRelative))
 	if err != nil {
 		return caseResult{}, err
 	}

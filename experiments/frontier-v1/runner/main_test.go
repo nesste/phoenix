@@ -19,7 +19,7 @@ const testBuild = "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 func TestRunnerRejectsSealedCaseBeforeFilesystemAccess(t *testing.T) {
 	_, err := loadCase(t.TempDir(), "validation_secret")
-	if err == nil || !strings.Contains(err.Error(), "authoring cases only") {
+	if err == nil || !strings.Contains(err.Error(), `tranche "authoring"`) {
 		t.Fatalf("sealed case error = %v", err)
 	}
 }
@@ -257,7 +257,7 @@ func (runtime *fakeRuntime) Run(request runtimeRequest) (runtimeResult, error) {
 
 type fakeGrader struct{}
 
-func (fakeGrader) Grade(string, string, string) ([]byte, error) {
+func (fakeGrader) Grade(string, string, string, string) ([]byte, error) {
 	return []byte("{\"status\":\"pass\"}\n"), nil
 }
 

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -87,7 +88,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	if actual != armB.Digest {
 		t.Fatalf("Arm B digest = %s, freeze requires %s", actual, armB.Digest)
 	}
-	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Runner,
+	verifyFrozenFileSetAtCommit(t, repositoryRoot, freeze.Artifacts.Runner,
 		"b4df919070bb9a6d2912662b4a59674b0e25a332", 9)
 	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Analysis,
 		"62946f4a1a03ea89636c5b3243f3b4d53b166682", 9)
@@ -112,6 +113,39 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	)
 	if !reflect.DeepEqual(freeze.Remaining, wantRemaining) {
 		t.Fatalf("remaining freeze set = %#v, want %#v", freeze.Remaining, wantRemaining)
+	}
+}
+
+func verifyFrozenFileSetAtCommit(t *testing.T, repositoryRoot string, artifact frozenFileSet, commit string, fileCount int) {
+	t.Helper()
+	if !artifact.Frozen || artifact.Commit != commit || artifact.Verdict != "ACCEPT" || len(artifact.Files) != fileCount {
+		t.Fatalf("frozen file set metadata = %#v", artifact)
+	}
+	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(artifact.Review))); err != nil {
+		t.Fatalf("review record: %v", err)
+	}
+	paths := make([]string, 0, len(artifact.Files))
+	for path := range artifact.Files {
+		paths = append(paths, path)
+	}
+	sort.Strings(paths)
+	var identity strings.Builder
+	for _, path := range paths {
+		command := exec.Command("git", "-C", repositoryRoot, "show", commit+":"+path)
+		contents, err := command.Output()
+		if err != nil {
+			t.Fatalf("read %s at %s: %v", path, commit, err)
+		}
+		normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
+		actual := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(normalized)))
+		if actual != artifact.Files[path] {
+			t.Fatalf("%s at %s digest = %s, freeze requires %s", path, commit, actual, artifact.Files[path])
+		}
+		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
+	}
+	digest := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(identity.String())))
+	if digest != artifact.SetDigest {
+		t.Fatalf("historical artifact set digest = %s, freeze requires %s", digest, artifact.SetDigest)
 	}
 }
 

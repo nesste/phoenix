@@ -25,7 +25,7 @@ func runScheduledCases(
 		return scheduledSummary{}, fmt.Errorf("scheduled run budgets must be positive decimal USD values")
 	}
 	summary := scheduledSummary{
-		V: 1, Tranche: "authoring", ScheduleDigest: scheduleDigest, WorldBuild: config.worldBuild,
+		V: 1, Tranche: schedule.Tranche, ScheduleDigest: scheduleDigest, WorldBuild: config.worldBuild,
 		Configuration: scheduledRunConfiguration(config, schedule, perTrialCap),
 		Status:        "complete", RunBudgetUSD: runBudgetUSD, Assigned: len(schedule.Entries), Results: []assignedTrialResult{},
 	}
@@ -78,6 +78,7 @@ func scheduledRunConfiguration(config runConfig, schedule launchSchedule, perTri
 		ScheduleSeed:               schedule.Seed, Repetitions: schedule.Repetitions,
 		SystemPrompts: prompts, AllowedTools: allowedTools, ArmBDocument: armBDocument,
 		ArmBDocumentDigest: config.armBDocumentDigest, GraderDigest: config.graderDigest,
+		GraderBoundary: config.graderBoundary, GraderAdapterSHA256: config.graderAdapterHash,
 		TokenAccounting: "Claude result usage: input, cache-creation input, cache-read input, and output tokens; total is their sum",
 	}
 }

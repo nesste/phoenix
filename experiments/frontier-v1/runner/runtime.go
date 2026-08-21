@@ -443,7 +443,11 @@ type corpusGrader struct {
 	goExecutable string
 }
 
-func (grader corpusGrader) Grade(repositoryRoot, labelPath, trialPath string) ([]byte, error) {
+func (grader corpusGrader) Grade(repositoryRoot, tranche, caseID, trialPath string) ([]byte, error) {
+	if tranche != "authoring" || !strings.HasPrefix(caseID, "authoring_") {
+		return nil, fmt.Errorf("local corpus grader accepts authoring cases only")
+	}
+	labelPath := filepath.ToSlash(filepath.Join("experiments", "frontier-v1", "labels", "authoring", caseID+".json"))
 	workdir := filepath.Join(repositoryRoot, "experiments", "frontier-v1", "corpusctl")
 	command := exec.Command(grader.goExecutable, "run", "./cmd/corpusctl", "grade",
 		"--repo-root", "../../..", "--label", labelPath, "--trial", trialPath,

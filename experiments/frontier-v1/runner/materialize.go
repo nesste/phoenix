@@ -18,22 +18,34 @@ import (
 )
 
 func loadCase(repositoryRoot, caseID string) (runnableCase, error) {
-	if !strings.HasPrefix(caseID, "authoring_") {
-		return runnableCase{}, fmt.Errorf("runner accepts authoring cases only")
+	return loadCaseForTranche(repositoryRoot, "authoring", caseID)
+}
+
+func loadCaseForTranche(repositoryRoot, tranche, caseID string) (runnableCase, error) {
+	prefix := tranche + "_"
+	if tranche != "authoring" && tranche != "validation" || !strings.HasPrefix(caseID, prefix) {
+		return runnableCase{}, fmt.Errorf("runner rejects case %q for tranche %q", caseID, tranche)
 	}
-	path := filepath.Join(repositoryRoot, "experiments", "frontier-v1", "corpus", "authoring", caseID+".json")
+	path := filepath.Join(repositoryRoot, "experiments", "frontier-v1", "corpus", tranche, caseID+".json")
 	var item runnableCase
 	if err := decodeStrict(path, &item); err != nil {
 		return runnableCase{}, err
 	}
 	if item.CaseID != caseID {
-		return runnableCase{}, fmt.Errorf("runner accepts authoring cases only")
+		return runnableCase{}, fmt.Errorf("case file identity %q does not match %q", item.CaseID, caseID)
 	}
 	return item, nil
 }
 
 func authoringCaseIDs(repositoryRoot string) ([]string, error) {
-	pattern := filepath.Join(repositoryRoot, "experiments", "frontier-v1", "corpus", "authoring", "authoring_*.json")
+	return caseIDsForTranche(repositoryRoot, "authoring")
+}
+
+func caseIDsForTranche(repositoryRoot, tranche string) ([]string, error) {
+	if tranche != "authoring" && tranche != "validation" {
+		return nil, fmt.Errorf("unsupported tranche %q", tranche)
+	}
+	pattern := filepath.Join(repositoryRoot, "experiments", "frontier-v1", "corpus", tranche, tranche+"_*.json")
 	paths, err := filepath.Glob(pattern)
 	if err != nil {
 		return nil, err
@@ -46,8 +58,11 @@ func authoringCaseIDs(repositoryRoot string) ([]string, error) {
 	return ids, nil
 }
 
-func loadFixture(repositoryRoot string, item runnableCase) (fixture, error) {
-	pattern := filepath.Join(repositoryRoot, "experiments", "frontier-v1", "fixtures", "authoring", "*.json")
+func loadFixtureForTranche(repositoryRoot, tranche string, item runnableCase) (fixture, error) {
+	if tranche != "authoring" && tranche != "validation" {
+		return fixture{}, fmt.Errorf("unsupported tranche %q", tranche)
+	}
+	pattern := filepath.Join(repositoryRoot, "experiments", "frontier-v1", "fixtures", tranche, "*.json")
 	paths, err := filepath.Glob(pattern)
 	if err != nil {
 		return fixture{}, err
@@ -69,7 +84,7 @@ func loadFixture(repositoryRoot string, item runnableCase) (fixture, error) {
 		}
 		return found, nil
 	}
-	return fixture{}, fmt.Errorf("authoring fixture %s was not found", item.SandboxFixture)
+	return fixture{}, fmt.Errorf("%s fixture %s was not found", tranche, item.SandboxFixture)
 }
 
 func materializeFixture(target string, item fixture) error {

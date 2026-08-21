@@ -148,7 +148,7 @@ go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id>
 go run ./experiments/frontier-v1/runner --repo-root . --case <authoring-case-id> --arm B --arm-b-document experiments/frontier-v1/arms/arm-b.md
 ```
 
-Arm C remains the default for a single-arm probe and writes to `results/authoring/`; non-C probes default to `results/arm-probes/<arm>/` so they cannot replace retained evidence accidentally. Evidence from the single focused-revision run stays under `results/authoring/`. The runner has no code path for validation or held_out cases.
+Arm C remains the default for a single-arm probe and writes to `results/authoring/`; non-C probes default to `results/arm-probes/<arm>/` so they cannot replace retained evidence accidentally. Evidence from the single focused-revision run stays under `results/authoring/`. Single-arm probes remain authoring-only. The replacement candidate described below has no `held_out` code path.
 
 ## Scheduled authoring runner
 
@@ -185,7 +185,21 @@ go run ./experiments/frontier-v1/scheduletool --repo-root . --verify experiments
 
 The candidate contains 1,800 launches and 360 contiguous five-arm pairing keys. Its canonical JSON digest is `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813`, derived from validation manifest `sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490`.
 
-This is a review candidate, not an accepted freeze. `pre-validation-artifacts.json` remains `partial`, and both outcome gates remain false. The accepted scheduled runner remains authoring-only and cannot execute this validation schedule; a separate reviewed execution boundary and project-chair Gate 1A decision are still required.
+The schedule is accepted and frozen in `pre-validation-artifacts.json`. Both outcome gates remain false. The accepted runner on `main` remains authoring-only; the isolated replacement candidate below requires independent review and refreeze before a separate project-chair Gate 1A decision.
+
+## Validation execution-boundary candidate
+
+The replacement candidate extends scheduled execution to the public validation cases without importing or resolving a private label. It accepts only `--tranche validation --case all`, reconstructs and verifies the frozen 1,800-launch schedule, verifies the public manifest and label-digest registry identities, and requires exactly the frozen 300 USD run budget, an untrimmed per-trial cap that parses to 0.15 USD, and a 180-second timeout. A different or whitespace-padded cap, malformed cap, or different timeout is refused before output mutation or custodian contact. The runner also refuses before creating output or building Phoenix while `may_open_validation` is false. `may_open_held_out` must remain false.
+
+Private grading is a separate executable supplied by the label custodian from outside the implementation repository. Before any model run, its `describe` response must pin the accepted grader, schedule, manifest, public validation-registry, private-archive, tranche, and case-count identities. The runner records that description plus the executable's raw SHA-256 in `scheduled-summary.json`, rechecks the executable identity before every grade, and passes only the public case ID and the completed trial-evidence path. It never passes or constructs a private-label path. Grade output is strict, bounded JSON and is retained with the other outcome evidence.
+
+After independent acceptance, refreeze, and an explicit project-chair Gate 1A opening decision, the intended invocation is:
+
+```powershell
+go run ./experiments/frontier-v1/runner --repo-root . --tranche validation --case all --schedule experiments/frontier-v1/schedules/validation.json --arm-b-document experiments/frontier-v1/arms/arm-b.md --validation-grader D:\custodian\frontier-v1-grader.exe --run-budget-usd 300
+```
+
+That command currently stops with `validation gate is closed`. No validation run, model call, private grade, or outcome was produced while implementing or testing this boundary. The exact contract and review requirements are in [validation-execution-boundary.md](validation-execution-boundary.md).
 
 ## Analysis and report
 
@@ -197,4 +211,4 @@ go run ./experiments/frontier-v1/analysis --repo-root . --summary <scheduled-sum
 
 The [analysis contract](analysis/README.md) records the exact operational definitions, family-count-dependent inference, sensitivity views, ratio rules, and output boundary. The command refuses to overwrite evidence. No authoring or sealed-tranche analysis was run while implementing it.
 
-The Arm B static document, the nine reviewed scheduled-runner files from `b4df919070bb9a6d2912662b4a59674b0e25a332`, the nine analysis/report artifacts from `62946f4a1a03ea89636c5b3243f3b4d53b166682`, and the focused-revision local-artifact candidate at `795ce71acd51beb977190811c90cc538f3c6b928` passed independent review and are frozen in `pre-validation-artifacts.json`. The accepted manifest remains `partial`, both outcome gates are false, and only the validation schedule remains open locally.
+The Arm B static document, the nine-file authoring-only scheduled runner from `b4df919070bb9a6d2912662b4a59674b0e25a332`, the nine analysis/report artifacts from `62946f4a1a03ea89636c5b3243f3b4d53b166682`, the focused-revision local artifacts at `795ce71acd51beb977190811c90cc538f3c6b928`, and the validation schedule are accepted and frozen in `pre-validation-artifacts.json`. The manifest is complete and both outcome gates are false. The validation execution boundary is an unaccepted replacement candidate and cannot open either gate.

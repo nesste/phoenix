@@ -82,7 +82,7 @@ func TestLocalArtifactCandidateMatchesImplementation(t *testing.T) {
 		t.Fatal("review candidate marked a local artifact frozen before independent acceptance")
 	}
 
-	verifyCandidateFiles(t, repositoryRoot, candidate.Artifacts.Runtime.Files)
+	verifyCandidateFilesAtCommit(t, repositoryRoot, "795ce71acd51beb977190811c90cc538f3c6b928", candidate.Artifacts.Runtime.Files)
 	verifyCandidateFiles(t, repositoryRoot, candidate.Artifacts.ArmA.Files)
 	verifyRuntimeCandidate(t, candidate)
 	verifyInvocationTemplates(t, candidate)
@@ -186,6 +186,22 @@ func verifyCandidateFiles(t *testing.T, repositoryRoot string, files map[string]
 		}
 		if actual != expected {
 			t.Fatalf("candidate file %s digest = %s, want %s", path, actual, expected)
+		}
+	}
+}
+
+func verifyCandidateFilesAtCommit(t *testing.T, repositoryRoot, commit string, files map[string]string) {
+	t.Helper()
+	for path, expected := range files {
+		command := exec.Command("git", "-C", repositoryRoot, "show", commit+":"+path)
+		contents, err := command.Output()
+		if err != nil {
+			t.Fatalf("read candidate file %s at %s: %v", path, commit, err)
+		}
+		normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
+		actual := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(normalized)))
+		if actual != expected {
+			t.Fatalf("candidate file %s at %s digest = %s, want %s", path, commit, actual, expected)
 		}
 	}
 }

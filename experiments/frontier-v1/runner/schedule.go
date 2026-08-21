@@ -42,6 +42,10 @@ func generatePhase1Schedule(cases []runnableCase) (launchSchedule, error) {
 }
 
 func generateSchedule(cases []runnableCase, seed uint64, repetitions int, arms []string) (launchSchedule, error) {
+	return generateScheduleForTranche("authoring", cases, seed, repetitions, arms)
+}
+
+func generateScheduleForTranche(tranche string, cases []runnableCase, seed uint64, repetitions int, arms []string) (launchSchedule, error) {
 	if len(cases) == 0 || repetitions <= 0 || len(arms) < 2 {
 		return launchSchedule{}, fmt.Errorf("schedule requires cases, repetitions, and at least two arms")
 	}
@@ -56,7 +60,7 @@ func generateSchedule(cases []runnableCase, seed uint64, repetitions int, arms [
 	random := splitMix64{state: seed}
 	shuffleStrings(familyIDs, &random)
 	schedule := launchSchedule{
-		V: 1, Tranche: "authoring", Seed: seed, Repetitions: repetitions,
+		V: 1, Tranche: tranche, Seed: seed, Repetitions: repetitions,
 		Arms: append([]string(nil), arms...), Entries: []scheduleEntry{},
 	}
 	pairingIndex := 0
@@ -80,13 +84,17 @@ func generateSchedule(cases []runnableCase, seed uint64, repetitions int, arms [
 }
 
 func validateSchedule(schedule launchSchedule, cases []runnableCase) error {
-	if schedule.V != 1 || schedule.Tranche != "authoring" {
-		return fmt.Errorf("schedule must be version 1 for the authoring tranche")
+	return validateScheduleForTranche(schedule, cases, "authoring")
+}
+
+func validateScheduleForTranche(schedule launchSchedule, cases []runnableCase, tranche string) error {
+	if schedule.V != 1 || schedule.Tranche != tranche {
+		return fmt.Errorf("schedule must be version 1 for tranche %s", tranche)
 	}
 	if schedule.Seed != phase1ScheduleSeed || schedule.Repetitions != phase1Repetitions || !reflect.DeepEqual(schedule.Arms, phase1Arms) {
 		return fmt.Errorf("schedule must use the frozen Phase 1 seed, repetitions, and A-E arms")
 	}
-	expected, err := generateSchedule(cases, schedule.Seed, schedule.Repetitions, schedule.Arms)
+	expected, err := generateScheduleForTranche(tranche, cases, schedule.Seed, schedule.Repetitions, schedule.Arms)
 	if err != nil {
 		return err
 	}

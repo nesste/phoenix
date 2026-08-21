@@ -117,10 +117,11 @@ type runtimeDriver interface {
 }
 
 type gradeDriver interface {
-	Grade(repositoryRoot, labelPath, trialPath string) ([]byte, error)
+	Grade(repositoryRoot, tranche, caseID, trialPath string) ([]byte, error)
 }
 
 type runConfig struct {
+	tranche            string
 	arm                string
 	armBDocument       string
 	armBDocumentDigest string
@@ -134,6 +135,8 @@ type runConfig struct {
 	worldBuild         string
 	timeout            time.Duration
 	budgetUSD          string
+	graderBoundary     *validationGraderDescription
+	graderAdapterHash  string
 }
 
 type caseResult struct {
@@ -205,28 +208,30 @@ type scheduledSummary struct {
 }
 
 type scheduledConfiguration struct {
-	Runtime                    string              `json:"runtime"`
-	RuntimeVersion             string              `json:"runtime_version"`
-	Model                      string              `json:"model"`
-	Effort                     string              `json:"effort"`
-	ServiceTier                string              `json:"service_tier"`
-	AccessMode                 string              `json:"access_mode"`
-	Transport                  string              `json:"transport"`
-	OutputFormat               string              `json:"output_format"`
-	BuiltinTools               string              `json:"builtin_tools"`
-	StrictMCPConfig            bool                `json:"strict_mcp_config"`
-	SessionPersistence         bool                `json:"session_persistence"`
-	ModelSeedSupport           bool                `json:"model_seed_support"`
-	MaxTurns                   int                 `json:"max_turns"`
-	TimeoutSeconds             int                 `json:"timeout_seconds"`
-	MaxCostUSDPerTrial         float64             `json:"max_cost_usd_per_trial"`
-	MaximumInfrastructureRetry int                 `json:"maximum_infrastructure_retries"`
-	ScheduleSeed               uint64              `json:"schedule_seed"`
-	Repetitions                int                 `json:"repetitions"`
-	SystemPrompts              map[string]string   `json:"system_prompts"`
-	AllowedTools               map[string][]string `json:"allowed_tools"`
-	ArmBDocument               string              `json:"arm_b_document"`
-	ArmBDocumentDigest         string              `json:"arm_b_document_digest"`
-	GraderDigest               string              `json:"grader_digest"`
-	TokenAccounting            string              `json:"token_accounting"`
+	Runtime                    string                       `json:"runtime"`
+	RuntimeVersion             string                       `json:"runtime_version"`
+	Model                      string                       `json:"model"`
+	Effort                     string                       `json:"effort"`
+	ServiceTier                string                       `json:"service_tier"`
+	AccessMode                 string                       `json:"access_mode"`
+	Transport                  string                       `json:"transport"`
+	OutputFormat               string                       `json:"output_format"`
+	BuiltinTools               string                       `json:"builtin_tools"`
+	StrictMCPConfig            bool                         `json:"strict_mcp_config"`
+	SessionPersistence         bool                         `json:"session_persistence"`
+	ModelSeedSupport           bool                         `json:"model_seed_support"`
+	MaxTurns                   int                          `json:"max_turns"`
+	TimeoutSeconds             int                          `json:"timeout_seconds"`
+	MaxCostUSDPerTrial         float64                      `json:"max_cost_usd_per_trial"`
+	MaximumInfrastructureRetry int                          `json:"maximum_infrastructure_retries"`
+	ScheduleSeed               uint64                       `json:"schedule_seed"`
+	Repetitions                int                          `json:"repetitions"`
+	SystemPrompts              map[string]string            `json:"system_prompts"`
+	AllowedTools               map[string][]string          `json:"allowed_tools"`
+	ArmBDocument               string                       `json:"arm_b_document"`
+	ArmBDocumentDigest         string                       `json:"arm_b_document_digest"`
+	GraderDigest               string                       `json:"grader_digest"`
+	GraderBoundary             *validationGraderDescription `json:"validation_grader_boundary,omitempty"`
+	GraderAdapterSHA256        string                       `json:"validation_grader_adapter_sha256,omitempty"`
+	TokenAccounting            string                       `json:"token_accounting"`
 }
