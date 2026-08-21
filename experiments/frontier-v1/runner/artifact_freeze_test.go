@@ -14,12 +14,21 @@ import (
 )
 
 type frozenFileSet struct {
-	Commit    string            `json:"candidate_commit"`
-	Review    string            `json:"review_record"`
-	Verdict   string            `json:"review_verdict"`
-	SetDigest string            `json:"artifact_set_lf_normalized_utf8_sha256"`
-	Files     map[string]string `json:"files"`
-	Frozen    bool              `json:"frozen"`
+	Commit                  string            `json:"candidate_commit"`
+	CandidateArtifact       string            `json:"candidate_artifact"`
+	CandidateArtifactDigest string            `json:"candidate_artifact_raw_sha256"`
+	Report                  string            `json:"candidate_report"`
+	ReportCommit            string            `json:"candidate_report_commit"`
+	ReportDigest            string            `json:"candidate_report_raw_sha256"`
+	Review                  string            `json:"review_record"`
+	ReviewCommit            string            `json:"review_record_commit"`
+	ReviewDigest            string            `json:"review_record_raw_sha256"`
+	Verdict                 string            `json:"review_verdict"`
+	ReplacesCommit          string            `json:"replaces_candidate_commit"`
+	SetDigest               string            `json:"artifact_set_lf_normalized_utf8_sha256"`
+	AcceptedFindings        []string          `json:"accepted_findings"`
+	Files                   map[string]string `json:"files"`
+	Frozen                  bool              `json:"frozen"`
 }
 
 type frozenValidationSchedule struct {
@@ -49,8 +58,9 @@ type frozenValidationSchedule struct {
 func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	repositoryRoot := filepath.Join("..", "..", "..")
 	var freeze struct {
-		Status string `json:"status"`
-		Gates  struct {
+		Status      string `json:"status"`
+		SourceLimit string `json:"source_limit"`
+		Gates       struct {
 			MayOpenValidation bool `json:"may_open_validation"`
 			MayOpenHeldOut    bool `json:"may_open_held_out"`
 		} `json:"gates"`
@@ -71,7 +81,8 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	}
 	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freeze)
 
-	if freeze.Status != "complete" || freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut {
+	if freeze.Status != "complete" || freeze.SourceLimit != "public_validation_inputs_only" ||
+		freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut {
 		t.Fatalf("pre-validation freeze has open or incomplete gate state: %#v", freeze)
 	}
 	armB := freeze.Artifacts.ArmB
@@ -88,8 +99,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	if actual != armB.Digest {
 		t.Fatalf("Arm B digest = %s, freeze requires %s", actual, armB.Digest)
 	}
-	verifyFrozenFileSetAtCommit(t, repositoryRoot, freeze.Artifacts.Runner,
-		"b4df919070bb9a6d2912662b4a59674b0e25a332", 9)
+	verifyReplacementRunnerFreeze(t, repositoryRoot, freeze.Artifacts.Runner)
 	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Analysis,
 		"62946f4a1a03ea89636c5b3243f3b4d53b166682", 9)
 	verifyAcceptedLocalArtifacts(t, repositoryRoot)
@@ -116,36 +126,50 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	}
 }
 
-func verifyFrozenFileSetAtCommit(t *testing.T, repositoryRoot string, artifact frozenFileSet, commit string, fileCount int) {
+func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact frozenFileSet) {
 	t.Helper()
-	if !artifact.Frozen || artifact.Commit != commit || artifact.Verdict != "ACCEPT" || len(artifact.Files) != fileCount {
-		t.Fatalf("frozen file set metadata = %#v", artifact)
+	wantFindings := []string{
+		"P2-1: The candidate report overstates the marker and output assertions in its nil-ID regression test; its error assertion and guard ordering remain load-bearing, and the independent populated probe established no custodian contact.",
+		"P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure.",
 	}
-	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(artifact.Review))); err != nil {
-		t.Fatalf("review record: %v", err)
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/validation-execution-boundary-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:14b0761362709780ded9f6fc47e7ff8d49f688e09062d8dcc6d13724b9109d1d" ||
+		artifact.Report != "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-candidate.md" ||
+		artifact.ReportCommit != "05ab169acdfabae4ce7b42b4ffb8d6ecb276e935" ||
+		artifact.ReportDigest != "sha256:c77207aaebb6876805354e720adc7e72301ab759e2affaa3df3bb7c88526c546" ||
+		artifact.Review != "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-review.md" ||
+		artifact.ReviewCommit != "6b158ea0de163b43f8c0fdeb1e8cc3fd40609a52" ||
+		artifact.ReviewDigest != "sha256:e1444fcca48e7d5b13e1b0e4cd385898d387d8aba4799fae0e3d49f27326ddaf" ||
+		artifact.ReplacesCommit != "b4df919070bb9a6d2912662b4a59674b0e25a332" ||
+		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) {
+		t.Fatalf("replacement runner provenance = %#v", artifact)
 	}
-	paths := make([]string, 0, len(artifact.Files))
-	for path := range artifact.Files {
-		paths = append(paths, path)
+	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.CandidateArtifact)), artifact.CandidateArtifactDigest)
+	verifyRawGitFileDigest(t, repositoryRoot, artifact.ReportCommit, artifact.Report, artifact.ReportDigest)
+	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.Review)), artifact.ReviewDigest)
+	verifyFrozenFileSet(t, repositoryRoot, artifact,
+		"74d06da13f62cffa4fd635e048e6331a6e2d95a6", 16)
+}
+
+func verifyRawFileDigest(t *testing.T, path string, want string) {
+	t.Helper()
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
 	}
-	sort.Strings(paths)
-	var identity strings.Builder
-	for _, path := range paths {
-		command := exec.Command("git", "-C", repositoryRoot, "show", commit+":"+path)
-		contents, err := command.Output()
-		if err != nil {
-			t.Fatalf("read %s at %s: %v", path, commit, err)
-		}
-		normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
-		actual := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(normalized)))
-		if actual != artifact.Files[path] {
-			t.Fatalf("%s at %s digest = %s, freeze requires %s", path, commit, actual, artifact.Files[path])
-		}
-		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
+	if actual := fmt.Sprintf("sha256:%x", sha256.Sum256(contents)); actual != want {
+		t.Fatalf("%s raw digest = %s, freeze requires %s", path, actual, want)
 	}
-	digest := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(identity.String())))
-	if digest != artifact.SetDigest {
-		t.Fatalf("historical artifact set digest = %s, freeze requires %s", digest, artifact.SetDigest)
+}
+
+func verifyRawGitFileDigest(t *testing.T, repositoryRoot, commit, path, want string) {
+	t.Helper()
+	contents, err := exec.Command("git", "-C", repositoryRoot, "show", commit+":"+path).Output()
+	if err != nil {
+		t.Fatalf("read %s at %s: %v", path, commit, err)
+	}
+	if actual := fmt.Sprintf("sha256:%x", sha256.Sum256(contents)); actual != want {
+		t.Fatalf("%s at %s raw digest = %s, freeze requires %s", path, commit, actual, want)
 	}
 }
 

@@ -1,7 +1,7 @@
 {
   "v": 1,
   "status": "complete",
-  "source_limit": "authoring_only",
+  "source_limit": "public_validation_inputs_only",
   "gates": {
     "may_open_validation": false,
     "may_open_held_out": false
@@ -16,21 +16,40 @@
       "frozen": true
     },
     "scheduled_runner": {
-      "candidate_commit": "b4df919070bb9a6d2912662b4a59674b0e25a332",
-      "review_record": "docs/reviews/2026-08-18-phase1-scheduled-runner-review.md",
+      "candidate_commit": "74d06da13f62cffa4fd635e048e6331a6e2d95a6",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/validation-execution-boundary-candidate.json",
+      "candidate_artifact_raw_sha256": "sha256:14b0761362709780ded9f6fc47e7ff8d49f688e09062d8dcc6d13724b9109d1d",
+      "candidate_report": "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-candidate.md",
+      "candidate_report_commit": "05ab169acdfabae4ce7b42b4ffb8d6ecb276e935",
+      "candidate_report_raw_sha256": "sha256:c77207aaebb6876805354e720adc7e72301ab759e2affaa3df3bb7c88526c546",
+      "review_record": "docs/reviews/2026-08-21-protocol-v4-validation-execution-boundary-second-revision-review.md",
+      "review_record_commit": "6b158ea0de163b43f8c0fdeb1e8cc3fd40609a52",
+      "review_record_raw_sha256": "sha256:e1444fcca48e7d5b13e1b0e4cd385898d387d8aba4799fae0e3d49f27326ddaf",
       "review_verdict": "ACCEPT",
-      "artifact_set_lf_normalized_utf8_sha256": "sha256:9947438305fe3e8be351e82ad2cdbfe072c72e9ac67b3e8a2767567b111cbadd",
+      "replaces_candidate_commit": "b4df919070bb9a6d2912662b4a59674b0e25a332",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:3056e95a696bb7fbe6a8e0aec9df960256de085490ebbd853c57353a5d9383f1",
       "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
+      "accepted_findings": [
+        "P2-1: The candidate report overstates the marker and output assertions in its nil-ID regression test; its error assertion and guard ordering remain load-bearing, and the independent populated probe established no custodian contact.",
+        "P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure."
+      ],
       "files": {
-        "experiments/frontier-v1/runner/main.go": "sha256:e0949c0abf26fa6fe9f3b2ccd8c8c8c937d69098110a8454c08fad8b96c06c35",
-        "experiments/frontier-v1/runner/main_test.go": "sha256:a8ad317b9e10f541d5ace06ea0ac9422ccf8b04077bb573b9e6bcfa4e8cf9847",
-        "experiments/frontier-v1/runner/runtime.go": "sha256:fe7d608fb2b64defb2ae5097235b93191d7e386e75693a9b8cfd6103940aeb56",
+        "experiments/frontier-v1/README.md": "sha256:98310ba5366450cf1065906f71765396d4dd1ad128afd0746f51d8bd6bc8fbdd",
+        "experiments/frontier-v1/runner/arm_b_test.go": "sha256:022080bf9a51a59706d3f57f6404bb5ebe04c486b6485c95102073da7fe42d2d",
+        "experiments/frontier-v1/runner/main.go": "sha256:599b1e34eb897d3be47046c14c434e1a532753d81eca542870bfb071975ebeeb",
+        "experiments/frontier-v1/runner/main_test.go": "sha256:b123ef00c5a80301ff5afdd3133806fa013f5efd5d74ec9af3a03f479233a979",
+        "experiments/frontier-v1/runner/materialize.go": "sha256:a853c24adfb1e9fa72bcd28d39ace41b01c6ba8f7058070df6336b82eaabd1d2",
+        "experiments/frontier-v1/runner/runtime.go": "sha256:625ab20eca58eabef2ccddc53ce9d1b4028a8cdd9d1bea2d1561b05b04899dc9",
         "experiments/frontier-v1/runner/runtime_test.go": "sha256:899f1ac588082420f652b1d6fdd7eb0ca20065dc2b11eabd50839eeac93183b2",
-        "experiments/frontier-v1/runner/schedule.go": "sha256:d04884d84036d3d8dd8cdd6f1fccdc4f889f3289831bb9ecec0e84292e894c95",
+        "experiments/frontier-v1/runner/schedule.go": "sha256:8deb8f4b9344d700c6cf63730b661d4923574f2c57c053ec168687c1e5bc5960",
         "experiments/frontier-v1/runner/schedule_test.go": "sha256:73c9bb9238ab26b1c64cd49e5989ee2e16d92f44b3203a465bced09f962729ec",
-        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:4a86b8d84789fa60c9b1991dcfaf0c9b82e9cee7d37459af79df84d69d0ba1cf",
+        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:83f8ce8469447652fd8d1ff544e0cba16172bad0206bb048e9a448f7b70d1e7a",
         "experiments/frontier-v1/runner/scheduled_run_test.go": "sha256:080ce37de7acd2c7d741a10cb3b1658bd77a39809b546d606f43c78af960be83",
-        "experiments/frontier-v1/runner/types.go": "sha256:54da663664141753fab65d89ed8db98101bb01613237c8a5dd75df78f908fc94"
+        "experiments/frontier-v1/runner/types.go": "sha256:02211e9d6dd30660e74ac25f8148bba647f6c59b82709d8459f4e22b7ac164ec",
+        "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:212a0b78ddf29c6e1d7d8d4ab305e55707b86619fd1d96be6ee9ac9509d3a61d",
+        "experiments/frontier-v1/runner/validation_gate.go": "sha256:b44d126ab8fb3cd5b3f96af782c239a1ecf52feb31243ad0bf84882ba18cca70",
+        "experiments/frontier-v1/runner/validation_grader.go": "sha256:5d4f20c47306af9efc2f7af22a8abb1d3bf51c4b666359651d0271d90d187434",
+        "experiments/frontier-v1/validation-execution-boundary.md": "sha256:6de970a6244640ce4b0cc57d4608b445343026a9c78ea08907c6328905e5c48f"
       },
       "frozen": true
     },
