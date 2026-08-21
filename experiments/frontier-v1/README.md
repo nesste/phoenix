@@ -174,6 +174,19 @@ The scheduled output directory must be empty at launch. It receives one assignme
 
 No scheduled authoring run was performed while implementing this machinery. An authoring schedule cannot satisfy the pre-validation schedule freeze: the validation schedule must be generated from the accepted replacement validation cases and committed by digest before that tranche can open.
 
+## Validation schedule candidate
+
+The outcome-free schedule tool reads only the public sealed validation manifest and its 120 public case files. It verifies their canonical digests and 24-by-5 family allocation, then applies the frozen Phase 1 seed, three repetitions, A–E arms, SplitMix64 shuffle, family blocks, and ten-row Williams design without opening a label or running a model:
+
+```powershell
+go run ./experiments/frontier-v1/scheduletool --repo-root . --write experiments/frontier-v1/schedules/validation.json
+go run ./experiments/frontier-v1/scheduletool --repo-root . --verify experiments/frontier-v1/schedules/validation.json
+```
+
+The candidate contains 1,800 launches and 360 contiguous five-arm pairing keys. Its canonical JSON digest is `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813`, derived from validation manifest `sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490`.
+
+This is a review candidate, not an accepted freeze. `pre-validation-artifacts.json` remains `partial`, and both outcome gates remain false. The accepted scheduled runner remains authoring-only and cannot execute this validation schedule; a separate reviewed execution boundary and project-chair Gate 1A decision are still required.
+
 ## Analysis and report
 
 The Phase 1 analysis command consumes a scheduled summary, its retained trial and runtime evidence, and the matching outcome-free tranche manifest. It validates complete A–E pairing keys, applies ITT and indeterminate rules before inference, reconstructs frontier linkage from the retained runtime stream, and emits a deterministic JSON analysis plus an optional report rendered from the committed template.
