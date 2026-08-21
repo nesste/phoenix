@@ -3,8 +3,11 @@
   "status": "complete",
   "source_limit": "public_validation_inputs_only",
   "gates": {
-    "may_open_validation": false,
-    "may_open_held_out": false
+    "may_open_validation": true,
+    "may_open_held_out": false,
+    "validation_opened_on": "2026-08-21",
+    "validation_opening_decision": "docs/decisions/0012-protocol-v4-gate-1a-validation-opening.md",
+    "validation_scope": "frozen_validation_schedule_only"
   },
   "artifacts": {
     "arm_b_static_document": {

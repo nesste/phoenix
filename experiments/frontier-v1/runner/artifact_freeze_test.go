@@ -55,16 +55,21 @@ type frozenValidationSchedule struct {
 	Frozen               bool     `json:"frozen"`
 }
 
+type frozenGateState struct {
+	MayOpenValidation       bool   `json:"may_open_validation"`
+	MayOpenHeldOut          bool   `json:"may_open_held_out"`
+	ValidationOpenedOn      string `json:"validation_opened_on"`
+	ValidationOpeningRecord string `json:"validation_opening_decision"`
+	ValidationScope         string `json:"validation_scope"`
+}
+
 func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	repositoryRoot := filepath.Join("..", "..", "..")
 	var freeze struct {
-		Status      string `json:"status"`
-		SourceLimit string `json:"source_limit"`
-		Gates       struct {
-			MayOpenValidation bool `json:"may_open_validation"`
-			MayOpenHeldOut    bool `json:"may_open_held_out"`
-		} `json:"gates"`
-		Artifacts struct {
+		Status      string          `json:"status"`
+		SourceLimit string          `json:"source_limit"`
+		Gates       frozenGateState `json:"gates"`
+		Artifacts   struct {
 			ArmB struct {
 				Path    string `json:"path"`
 				Digest  string `json:"lf_normalized_utf8_sha256"`
@@ -81,10 +86,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	}
 	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freeze)
 
-	if freeze.Status != "complete" || freeze.SourceLimit != "public_validation_inputs_only" ||
-		freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut {
-		t.Fatalf("pre-validation freeze has open or incomplete gate state: %#v", freeze)
-	}
+	verifyOpenValidationGateState(t, repositoryRoot, freeze.Status, freeze.SourceLimit, freeze.Gates)
 	armB := freeze.Artifacts.ArmB
 	if !armB.Frozen || armB.Commit != "73adf8c608f0edf06597b569b17faa32e1a3b5b9" || armB.Verdict != "ACCEPT" {
 		t.Fatalf("Arm B freeze metadata = %#v", armB)
@@ -123,6 +125,19 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	)
 	if !reflect.DeepEqual(freeze.Remaining, wantRemaining) {
 		t.Fatalf("remaining freeze set = %#v, want %#v", freeze.Remaining, wantRemaining)
+	}
+}
+
+func verifyOpenValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit string, gates frozenGateState) {
+	t.Helper()
+	if status != "complete" || sourceLimit != "public_validation_inputs_only" ||
+		!gates.MayOpenValidation || gates.MayOpenHeldOut || gates.ValidationOpenedOn != "2026-08-21" ||
+		gates.ValidationOpeningRecord != "docs/decisions/0012-protocol-v4-gate-1a-validation-opening.md" ||
+		gates.ValidationScope != "frozen_validation_schedule_only" {
+		t.Fatalf("pre-validation freeze gate state = %#v", gates)
+	}
+	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(gates.ValidationOpeningRecord))); err != nil {
+		t.Fatalf("validation opening decision: %v", err)
 	}
 }
 
