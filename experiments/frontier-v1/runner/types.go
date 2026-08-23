@@ -235,3 +235,13 @@ type scheduledConfiguration struct {
 	GraderAdapterSHA256        string                       `json:"validation_grader_adapter_sha256,omitempty"`
 	TokenAccounting            string                       `json:"token_accounting"`
 }
+
+type scheduledCheckpoint struct {
+	V                    int     `json:"v"`
+	ScheduleDigest       string  `json:"schedule_digest"`
+	WorldBuild           string  `json:"world_build"`
+	RunBudgetUSD         float64 `json:"run_budget_usd"`
+	SpentUSD             float64 `json:"spent_usd"`
+	NextLaunchIndex      int     `json:"next_launch_index"`
+	CompletedPairingKeys int     `json:"completed_pairing_keys"`
+}

@@ -195,7 +195,7 @@ func prepareScheduledCLI(
 	if err := preflightSelectedCasesForTranche(preflightConfig, tranche, inputs.cases); err != nil {
 		return preparedScheduledCLI{}, err
 	}
-	if err := requireEmptyScheduledOutput(root, output); err != nil {
+	if err := requireScheduledOutputReady(root, output, inputs.schedule, inputs.scheduleDigest); err != nil {
 		return preparedScheduledCLI{}, err
 	}
 	config, cleanup, err := prepareRunConfig(root, output, "B", armBDocument, timeout, budget)
@@ -206,6 +206,12 @@ func prepareScheduledCLI(
 	config.graderDigest = inputs.graderDigest
 	config.graderBoundary = inputs.graderBoundary
 	config.graderAdapterHash = inputs.graderAdapterHash
+	if tranche == "validation" {
+		if err := requireFrozenWorldBuild(root, config.worldBuild); err != nil {
+			cleanup()
+			return preparedScheduledCLI{}, err
+		}
+	}
 	return preparedScheduledCLI{
 		config: config, schedule: inputs.schedule, scheduleDigest: inputs.scheduleDigest,
 		runBudgetUSD: inputs.runBudgetUSD, grader: inputs.grader, cleanup: cleanup,

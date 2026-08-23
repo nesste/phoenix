@@ -149,6 +149,85 @@ func TestOrientationCannotReactivateIntentAfterExecutableAct(t *testing.T) {
 	}
 }
 
+func TestOrientationUnmatchedIntentBeforeFirstActUsesAuthoredFallback(t *testing.T) {
+	admission := testAdmissionWithActivations(t, []world.ActivationRule{inspectFallbackRule()})
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	oriented := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Intent: "Make leaf a belong to the root declared by the manifest",
+	})
+	if len(oriented.Frontier) != 1 || oriented.Frontier[0].Call.Verb != "inspect" || oriented.Result.(map[string]any)["matched"] != true {
+		t.Fatalf("orientation = %#v, want inspect fallback call", oriented)
+	}
+}
+
+func TestOrientationAuthoredMissTellsModelNotToRetry(t *testing.T) {
+	admission := testAdmissionWithActivations(t, []world.ActivationRule{
+		{
+			ID: "absent_deploy_or_release", Pattern: `(?i)\b(deploy|deployment)\b|\brelease identifier\b`,
+			Suggestions: []world.Suggestion{},
+		},
+		inspectFallbackRule(),
+	})
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	oriented := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Intent: "Deploy the Parcel build to production and report the release identifier",
+	})
+	if len(oriented.Frontier) != 0 || oriented.Result.(map[string]any)["matched"] != false {
+		t.Fatalf("orientation = %#v, want authored miss", oriented)
+	}
+	if !strings.Contains(oriented.Text, "do not repeat this intent") {
+		t.Fatalf("orientation text = %q, want stop instruction", oriented.Text)
+	}
+}
+
+func TestOrientationDoesNotApplyFallbackAfterFirstAct(t *testing.T) {
+	admission := testAdmissionWithActivations(t, []world.ActivationRule{inspectFallbackRule()})
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	first := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "brief"},
+	})
+	if first.Status != StatusOK {
+		t.Fatalf("first result = %#v, want ok inspect", first)
+	}
+	oriented := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Intent: "Make leaf a belong to the root declared by the manifest",
+	})
+	if len(oriented.Frontier) != 1 {
+		t.Fatalf("orientation = %#v, want pending inspect transition", oriented)
+	}
+	_ = admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "missing", Args: map[string]any{},
+	})
+	oriented = admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Intent: "Make leaf a belong to the root declared by the manifest",
+	})
+	if len(oriented.Frontier) != 0 || oriented.Result.(map[string]any)["matched"] != false {
+		t.Fatalf("post-act orientation used inspect fallback: %#v", oriented)
+	}
+}
+
+func inspectFallbackRule() world.ActivationRule {
+	return world.ActivationRule{
+		ID: "inspect_reachable_repository", Pattern: `^$a`,
+		Suggestions: []world.Suggestion{{
+			Call: world.CallTemplate{
+				Handle: world.HandleSelector{Source: "root", Name: "repo"}, Verb: "inspect",
+				Args: map[string]world.Binding{"detail": literalBinding(`"brief"`)},
+			},
+			Why: "inspect reachable repository state", Score: 0,
+		}},
+	}
+}
+
 func TestSuppressedFrontierCannotBecomePendingThroughReorientation(t *testing.T) {
 	admission := testAdmissionWithPolicy(t, true, false)
 	session, roots, err := admission.StartSession()
@@ -499,16 +578,21 @@ func testAdmission(t *testing.T, maxArgs int) *Admission {
 	return testAdmissionWithEpisodes(t, maxArgs, nil, nil)
 }
 
+func testAdmissionWithActivations(t *testing.T, extra []world.ActivationRule) *Admission {
+	t.Helper()
+	return testAdmissionConfigured(t, 1024, nil, nil, false, false, extra)
+}
+
 func testAdmissionWithPolicy(t *testing.T, suppressFrontier, suppressTeaching bool) *Admission {
 	t.Helper()
-	return testAdmissionConfigured(t, 1024, nil, nil, suppressFrontier, suppressTeaching)
+	return testAdmissionConfigured(t, 1024, nil, nil, suppressFrontier, suppressTeaching, nil)
 }
 
 func testAdmissionWithEpisodes(t *testing.T, maxArgs int, episodes EpisodeLog, warning *bytes.Buffer) *Admission {
-	return testAdmissionConfigured(t, maxArgs, episodes, warning, false, false)
+	return testAdmissionConfigured(t, maxArgs, episodes, warning, false, false, nil)
 }
 
-func testAdmissionConfigured(t *testing.T, maxArgs int, episodes EpisodeLog, warning *bytes.Buffer, suppressFrontier, suppressTeaching bool) *Admission {
+func testAdmissionConfigured(t *testing.T, maxArgs int, episodes EpisodeLog, warning *bytes.Buffer, suppressFrontier, suppressTeaching bool, extra []world.ActivationRule) *Admission {
 	t.Helper()
 	definition := &world.Definition{
 		V:  1,
@@ -569,6 +653,7 @@ func testAdmissionConfigured(t *testing.T, maxArgs int, episodes EpisodeLog, war
 			}},
 		}},
 	}
+	definition.Activations = append(definition.Activations, extra...)
 	registry := verb.NewRegistry()
 	err := registry.Register(verb.Definition{
 		HandleType: "repo", Name: "inspect", ArgsSchema: inspectArgs, ResultSchema: inspectResult,

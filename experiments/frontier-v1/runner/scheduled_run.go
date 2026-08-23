@@ -33,16 +33,59 @@ func runScheduledCases(
 	if groupSize == 0 || len(schedule.Entries)%groupSize != 0 {
 		return scheduledSummary{}, fmt.Errorf("schedule entries must contain complete pairing-key arm groups")
 	}
-	for start := 0; start < len(schedule.Entries); start += groupSize {
-		group := schedule.Entries[start : start+groupSize]
-		pairingCapacity := perTrialCap * float64(groupSize) * infrastructureCapacityFactor
-		if summary.SpentUSD+pairingCapacity > runBudgetUSD+1e-9 {
-			if err := recordBudgetStop(config, schedule.Entries[start:], &summary); err != nil {
+	resume, err := loadScheduledResume(config.outputDir, config.worldBuild, schedule, scheduleDigest, runBudgetUSD)
+	if err != nil {
+		return scheduledSummary{}, err
+	}
+	for _, result := range resume.results {
+		replayAssignedResult(&summary, result)
+	}
+	if resume.stopKind == "budget_stopped" {
+		if err := recordBudgetStop(config, schedule.Entries[resume.nextIndex:], &summary); err != nil {
+			return scheduledSummary{}, err
+		}
+		return summary, nil
+	}
+	if resume.stopKind == "safety_stopped" {
+		remaining := schedule.Entries[resume.nextIndex:]
+		if len(remaining) > 0 {
+			if err := recordSafetyStop(config, remaining, &summary, fmt.Errorf("resumed incomplete safety stop")); err != nil {
 				return scheduledSummary{}, err
 			}
-			break
+		} else {
+			summary.Status = "indeterminate"
+			if summary.StopReason == "" {
+				summary.StopReason = "safety_stop: resumed incomplete safety stop"
+			}
+		}
+		return summary, nil
+	}
+	if resume.nextIndex >= len(schedule.Entries) {
+		return summary, nil
+	}
+	if resume.nextIndex == 0 {
+		if err := writeScheduledCheckpoint(config, scheduleDigest, summary, 0, 0); err != nil {
+			return scheduledSummary{}, err
+		}
+	}
+	for start := 0; start < len(schedule.Entries); start += groupSize {
+		if start+groupSize <= resume.nextIndex {
+			continue
+		}
+		group := schedule.Entries[start : start+groupSize]
+		if start >= resume.nextIndex {
+			pairingCapacity := perTrialCap * float64(groupSize) * infrastructureCapacityFactor
+			if summary.SpentUSD+pairingCapacity > runBudgetUSD+1e-9 {
+				if err := recordBudgetStop(config, schedule.Entries[start:], &summary); err != nil {
+					return scheduledSummary{}, err
+				}
+				break
+			}
 		}
 		for offset, entry := range group {
+			if start+offset < resume.nextIndex {
+				continue
+			}
 			result, runErr := runAssignedTrial(config, entry, runtime, grader)
 			if runErr != nil {
 				if err := recordSafetyStop(config, schedule.Entries[start+offset:], &summary, runErr); err != nil {
@@ -51,6 +94,9 @@ func runScheduledCases(
 				return summary, nil
 			}
 			addAssignedResult(&summary, result)
+		}
+		if err := writeScheduledCheckpoint(config, scheduleDigest, summary, start+groupSize, (start+groupSize)/groupSize); err != nil {
+			return scheduledSummary{}, err
 		}
 	}
 	return summary, nil
@@ -224,6 +270,29 @@ func recordSafetyStop(config runConfig, entries []scheduleEntry, summary *schedu
 		summary.Unresolved++
 	}
 	return nil
+}
+
+func replayAssignedResult(summary *scheduledSummary, result assignedTrialResult) {
+	switch result.Status {
+	case "budget_stopped":
+		summary.Results = append(summary.Results, result)
+		summary.BudgetStopped++
+		summary.Unresolved++
+		summary.Status = "indeterminate"
+		if summary.StopReason == "" {
+			summary.StopReason = "run_budget"
+		}
+	case "safety_stopped":
+		summary.Results = append(summary.Results, result)
+		summary.SafetyStopped++
+		summary.Unresolved++
+		summary.Status = "indeterminate"
+		if summary.StopReason == "" {
+			summary.StopReason = "safety_stop: resumed incomplete safety stop"
+		}
+	default:
+		addAssignedResult(summary, result)
+	}
 }
 
 func addAssignedResult(summary *scheduledSummary, result assignedTrialResult) {

@@ -18,10 +18,16 @@ func AuthoredActivations() []world.ActivationRule {
 			suggest(rootCall("tests", "list"), "bind the requested test from the live suite", 0)),
 		activation("build_repository", `(?i)\b(compile|compiles|builds)\b`,
 			suggest(rootCall("repo", "build"), "check whether the reachable repository builds", 1)),
+		activation("absent_deploy_or_release", `(?i)\b(deploy|deployment)\b|\brelease identifier\b`),
+		activation("inspect_reachable_repository", `^$a`,
+			suggest(rootCall("repo", "status"), "inspect reachable repository state", 0)),
 	}
 }
 
 func activation(id, pattern string, suggestions ...world.Suggestion) world.ActivationRule {
+	if suggestions == nil {
+		suggestions = []world.Suggestion{}
+	}
 	return world.ActivationRule{ID: id, Pattern: pattern, Suggestions: suggestions}
 }
 

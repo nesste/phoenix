@@ -370,7 +370,7 @@ func (admission *Admission) orient(ctx context.Context, session *Session, input 
 	}
 	base.Status = StatusOK
 	base.Result = map[string]any{"matched": false}
-	base.Text = "ok orient: requested capability is unavailable in the reachable world"
+	base.Text = "ok orient: requested capability is unavailable in the reachable world; do not repeat this intent; finish without an executable act if no other ready call exists"
 	base.Frontier = session.pendingSuggestions()
 	if len(base.Frontier) == 0 && !session.hasExecutedAct() {
 		base.Frontier = admission.activation.Compute(session.graph, input.Handle, input.Intent)

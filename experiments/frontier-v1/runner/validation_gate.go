@@ -31,6 +31,11 @@ type validationGateDocument struct {
 			SourceManifestDigest string `json:"source_manifest_canonical_json_sha256"`
 			Frozen               bool   `json:"frozen"`
 		} `json:"validation_schedule"`
+		WorldDefinitionAndWorldBuildDigest struct {
+			Frozen             bool   `json:"frozen"`
+			WorldBuildManifest string `json:"world_build_manifest"`
+			WorldBuildDigest   string `json:"world_build_digest"`
+		} `json:"world_definition_and_world_build_digest"`
 	} `json:"artifacts"`
 }
 
@@ -68,6 +73,24 @@ func requireValidationGate(repositoryRoot string) error {
 		return fmt.Errorf("validation gate does not name the frozen validation schedule")
 	}
 	return verifyValidationPublicIdentities(repositoryRoot, document)
+}
+
+func requireFrozenWorldBuild(repositoryRoot, liveDigest string) error {
+	document, err := readValidationGateDocument(repositoryRoot)
+	if err != nil {
+		return err
+	}
+	frozen := document.Artifacts.WorldDefinitionAndWorldBuildDigest
+	if !frozen.Frozen || frozen.WorldBuildDigest == "" {
+		return fmt.Errorf("validation requires a frozen world-build digest")
+	}
+	if strings.TrimSpace(liveDigest) == "" {
+		return fmt.Errorf("validation requires a live world-build digest")
+	}
+	if liveDigest != frozen.WorldBuildDigest {
+		return fmt.Errorf("live world-build %s does not match frozen world-build %s", liveDigest, frozen.WorldBuildDigest)
+	}
+	return nil
 }
 
 func requireFrozenValidationTrialLimits(budget string, timeout time.Duration) error {

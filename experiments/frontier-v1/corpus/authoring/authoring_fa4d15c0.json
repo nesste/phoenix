@@ -2,6 +2,6 @@
   "case_id": "authoring_fa4d15c0",
   "goal": "Find the internal health test for the public relay service and report whether that test passes.",
   "sandbox_fixture": "sha256:99d9e18b448242462bca600eb0e369de4d11c1c13edd6175a428669f70b06b79",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "authoring_family_002"
 }

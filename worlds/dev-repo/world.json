@@ -498,6 +498,22 @@
           "score": 1
         }
       ]
+    },
+    {
+      "id": "absent_deploy_or_release",
+      "pattern": "(?i)\\b(deploy|deployment)\\b|\\brelease identifier\\b",
+      "suggestions": []
+    },
+    {
+      "id": "inspect_reachable_repository",
+      "pattern": "^$a",
+      "suggestions": [
+        {
+          "call": { "handle": { "source": "root", "name": "repo" }, "verb": "status", "args": {} },
+          "why": "inspect reachable repository state",
+          "score": 0
+        }
+      ]
     }
   ],
 
