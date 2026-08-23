@@ -1,0 +1,60 @@
+{
+  "v": 1,
+  "status": "review_candidate",
+  "source_limit": "public_validation_inputs_only",
+  "base_commit": "0ffb8f9b44edca25582ec35541d25257d6a36dd0",
+  "frozen": false,
+  "gates": {
+    "may_open_validation": false,
+    "may_open_held_out": false
+  },
+  "replaces": {
+    "artifact": "scheduled_runner",
+    "accepted_candidate_commit": "71f9648789decf4cd56ef8a24bc840b0dda7efd9",
+    "accepted_refreeze_commit": "0c7453cae6eda6e4bdbd614b8c4bcdd3c5a44610",
+    "reason": "Decision 0013 authorized authoring repairs that change frozen runner, world, and world-build bytes. The replacement expands the runner freeze set to include durable pairing-key resume and the validation world-build pin."
+  },
+  "contract": {
+    "change": "Unmatched orientation inspect/status fallback; validation world-build pin after Phoenix build and before trials; pairing-key checkpoint/resume. Expand the frozen runner set from 16 to 19 files.",
+    "production_behavior_changed": true,
+    "gate_required": "may_open_validation remains false throughout candidate authoring, review, and refreeze",
+    "held_out_required": "may_open_held_out=false",
+    "schedule_canonical_json_sha256": "sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813",
+    "validation_manifest_canonical_json_sha256": "sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490",
+    "run_budget_usd": 300,
+    "max_cost_usd_per_trial": 0.15,
+    "timeout_seconds": 180,
+    "cases": 120,
+    "launches": 1800
+  },
+  "candidate_notes": [
+    "experiments/frontier-v1/artifacts/orientation-unmatched-handoff-candidate.md",
+    "experiments/frontier-v1/artifacts/world-build-pin-candidate.md",
+    "experiments/frontier-v1/artifacts/pairing-key-checkpoint-resume-candidate.md"
+  ],
+  "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
+  "artifact_set_lf_normalized_utf8_sha256": "sha256:25cce910f76aaac88cfde6d35c4e44080134547013b19dc4386b6e1a0bc603af",
+  "files": {
+    "experiments/frontier-v1/README.md": "sha256:98310ba5366450cf1065906f71765396d4dd1ad128afd0746f51d8bd6bc8fbdd",
+    "experiments/frontier-v1/runner/arm_b_test.go": "sha256:022080bf9a51a59706d3f57f6404bb5ebe04c486b6485c95102073da7fe42d2d",
+    "experiments/frontier-v1/runner/main.go": "sha256:d3e0a6717bbbdad0c1f8c64927160bdd4fc8d62ccd2899a70616615f9c4170c5",
+    "experiments/frontier-v1/runner/main_test.go": "sha256:b123ef00c5a80301ff5afdd3133806fa013f5efd5d74ec9af3a03f479233a979",
+    "experiments/frontier-v1/runner/materialize.go": "sha256:a853c24adfb1e9fa72bcd28d39ace41b01c6ba8f7058070df6336b82eaabd1d2",
+    "experiments/frontier-v1/runner/runtime.go": "sha256:625ab20eca58eabef2ccddc53ce9d1b4028a8cdd9d1bea2d1561b05b04899dc9",
+    "experiments/frontier-v1/runner/runtime_test.go": "sha256:899f1ac588082420f652b1d6fdd7eb0ca20065dc2b11eabd50839eeac93183b2",
+    "experiments/frontier-v1/runner/schedule.go": "sha256:8deb8f4b9344d700c6cf63730b661d4923574f2c57c053ec168687c1e5bc5960",
+    "experiments/frontier-v1/runner/schedule_test.go": "sha256:73c9bb9238ab26b1c64cd49e5989ee2e16d92f44b3203a465bced09f962729ec",
+    "experiments/frontier-v1/runner/scheduled_resume.go": "sha256:4ade1a9ce4ea6c7468d699c57e5ec1d6c59251438d0685093456312271078526",
+    "experiments/frontier-v1/runner/scheduled_resume_test.go": "sha256:99fc090df041bc0ce445cf80be8192d4205600724c3db921cd3ed8fade8e6716",
+    "experiments/frontier-v1/runner/scheduled_run.go": "sha256:1f4bcd7aa5bf2bb495f70980a16cc4bb5428fb11d18f3fefa541e736e5593b8e",
+    "experiments/frontier-v1/runner/scheduled_run_test.go": "sha256:080ce37de7acd2c7d741a10cb3b1658bd77a39809b546d606f43c78af960be83",
+    "experiments/frontier-v1/runner/types.go": "sha256:aadb408213dc997cd65e2d46dd43dff234f4ca64da3bdb3380ed26d583114b46",
+    "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:460dc582292473ecd5b91e436ba726e2f409399cd254588ee8f0eded99a02b03",
+    "experiments/frontier-v1/runner/validation_gate.go": "sha256:b014fa7a2564d4c2c6ddd9399fb7b43cd918c74b83314ccce678ea6d322580dd",
+    "experiments/frontier-v1/runner/validation_grader.go": "sha256:5d4f20c47306af9efc2f7af22a8abb1d3bf51c4b666359651d0271d90d187434",
+    "experiments/frontier-v1/runner/world_build_pin_test.go": "sha256:870d610a72154fc84df29ed2114ecfd118a8b5d4f1b66e72bf640a16ecab27e6",
+    "experiments/frontier-v1/validation-execution-boundary.md": "sha256:6de970a6244640ce4b0cc57d4608b445343026a9c78ea08907c6328905e5c48f"
+  },
+  "review_required": "independent replacement review and refreeze before any later chair decision can authorize a new disjoint validation execution",
+  "execution_performed": false
+}

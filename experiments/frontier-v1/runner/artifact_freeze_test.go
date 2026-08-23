@@ -27,6 +27,7 @@ type frozenFileSet struct {
 	ReplacesCommit          string            `json:"replaces_candidate_commit"`
 	SetDigest               string            `json:"artifact_set_lf_normalized_utf8_sha256"`
 	AcceptedFindings        []string          `json:"accepted_findings"`
+	CandidateNotes          []string          `json:"candidate_notes"`
 	Files                   map[string]string `json:"files"`
 	Frozen                  bool              `json:"frozen"`
 }
@@ -162,24 +163,33 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 		"P2-1: The candidate report overstates the marker and output assertions in its nil-ID regression test; its error assertion and guard ordering remain load-bearing, and the independent populated probe established no custodian contact.",
 		"P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure.",
 		"P2-3: Flipping only the synthetic closed-gate boolean reaches the missing-schedule-identity error before the timeout; the committed ordering assertion remains load-bearing, and the independent populated open-gate probe exposed the timeout error.",
+		"Residual: validation buildPhoenix still uses host GOOS/GOARCH and -X main.version=authoring; a later validation opening must use the freeze recipe (linux/amd64, version=dev) or the world-build pin will refuse.",
 	}
-	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-test-transition-candidate.json" ||
-		artifact.CandidateArtifactDigest != "sha256:ca7eae05c72f970a592e4a82ab88d2167564323f08a788a0081a349f32c49d75" ||
-		artifact.Report != "docs/reviews/2026-08-21-protocol-v4-gate-1a-test-transition-candidate.md" ||
-		artifact.ReportCommit != "7ffc4a1966b4127d9445ebc840723dc6a7a245d4" ||
-		artifact.ReportDigest != "sha256:689ad8cee3a6f5af2daed05081e10d1263b469086555d63757a7250a368dbc3f" ||
-		artifact.Review != "docs/reviews/2026-08-21-protocol-v4-gate-1a-test-transition-review.md" ||
-		artifact.ReviewCommit != "2feec72b66e262d2f43479d3037b2e3ebc8b0644" ||
-		artifact.ReviewDigest != "sha256:06789567c2aad2351d719285642e3d4eea258d14fe8b4e8f0f9668101766360e" ||
-		artifact.ReplacesCommit != "74d06da13f62cffa4fd635e048e6331a6e2d95a6" ||
-		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) {
+	wantNotes := []string{
+		"experiments/frontier-v1/artifacts/orientation-unmatched-handoff-candidate.md",
+		"experiments/frontier-v1/artifacts/world-build-pin-candidate.md",
+		"experiments/frontier-v1/artifacts/pairing-key-checkpoint-resume-candidate.md",
+	}
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-authoring-repair-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:d9a85ffce0a06389046b5926001cbde7e3c8f5a8f2d99c075aea8baa8ad0747a" ||
+		artifact.Review != "docs/reviews/2026-08-23-protocol-v4-gate-1a-authoring-repair-review.md" ||
+		artifact.ReviewCommit != "1204153d6228a0a06fbb15f70eae7d600da5f93a" ||
+		artifact.ReviewDigest != "sha256:c770a58bf809cca0039a19054972d8a493bd4fa206255d3a754e52644be9e110" ||
+		artifact.ReplacesCommit != "71f9648789decf4cd56ef8a24bc840b0dda7efd9" ||
+		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) ||
+		!reflect.DeepEqual(artifact.CandidateNotes, wantNotes) {
 		t.Fatalf("replacement runner provenance = %#v", artifact)
 	}
 	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.CandidateArtifact)), artifact.CandidateArtifactDigest)
-	verifyRawGitFileDigest(t, repositoryRoot, artifact.ReportCommit, artifact.Report, artifact.ReportDigest)
+	verifyRawGitFileDigest(t, repositoryRoot, artifact.ReviewCommit, artifact.Review, artifact.ReviewDigest)
 	verifyRawFileDigest(t, filepath.Join(repositoryRoot, filepath.FromSlash(artifact.Review)), artifact.ReviewDigest)
+	for _, note := range artifact.CandidateNotes {
+		if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(note))); err != nil {
+			t.Fatalf("candidate note %s: %v", note, err)
+		}
+	}
 	verifyFrozenFileSet(t, repositoryRoot, artifact,
-		"71f9648789decf4cd56ef8a24bc840b0dda7efd9", 16)
+		"610fa588488579cf5551a627795d4dc7f771f053", 19)
 }
 
 func verifyRawFileDigest(t *testing.T, path string, want string) {
@@ -268,10 +278,10 @@ func verifyValidationScheduleFiles(t *testing.T, repositoryRoot string, artifact
 func verifyAcceptedLocalArtifacts(t *testing.T, repositoryRoot string) {
 	t.Helper()
 	const (
-		candidateCommit = "795ce71acd51beb977190811c90cc538f3c6b928"
+		candidateCommit = "610fa588488579cf5551a627795d4dc7f771f053"
 		candidatePath   = "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json"
-		candidateDigest = "sha256:19743d85232a2ec83b80bb71fc6b5dc3ee6cc669d319c446218aa248eb8f76b9"
-		reviewPath      = "docs/reviews/2026-08-19-pre-validation-local-freeze-review-2.md"
+		candidateDigest = "sha256:5e31cc25fab25e43ac5cdd6da8cce081d8446c09c22832be85a1c9357b037acb"
+		reviewPath      = "docs/reviews/2026-08-23-protocol-v4-gate-1a-authoring-repair-review.md"
 	)
 	actualDigest, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(candidatePath)))
 	if err != nil || actualDigest != candidateDigest {

@@ -1,13 +1,13 @@
 {
   "v": 1,
-  "digest": "sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d",
+  "digest": "sha256:bf976cadb46b39169c130a2effee1016a5faa9990f63b39c33391f7a97be8a4e",
   "build": {
     "goos": "linux",
     "goarch": "amd64",
     "cgo_enabled": false,
     "executable": {
       "path": "bin/phoenix",
-      "digest": "sha256:9bdb32683a4a2b8f97d9e5d6bb6b13b842d641683383eba0de307c17253f29fe"
+      "digest": "sha256:6f4d04c201ab93075281d8993814465a5b9c319c61114619b94914c13938b65d"
     },
     "registered_verbs": [
       {
@@ -59,12 +59,12 @@
     ],
     "world_definition": {
       "path": "worlds/dev-repo/world.json",
-      "digest": "sha256:41d242e672c812a50a253e33e165d839e2c8d167914605805a311fefaeb92143"
+      "digest": "sha256:efed86542a6586e4e347e67e7ea1c9fe12038170aaab877981137e22a3fbae96"
     },
     "authored_rules": [
       {
         "path": "verbs/dev-repo/activations.go",
-        "digest": "sha256:d6e15de869951d998bf427a0ec4fb5c891b53b2350419b8f170002d14ea42ac4"
+        "digest": "sha256:69cfd575b783fc398a3bc4b950e2be2e28663e8c25d653c2eaf65596ca5c92a2"
       },
       {
         "path": "verbs/dev-repo/refusals.go",
