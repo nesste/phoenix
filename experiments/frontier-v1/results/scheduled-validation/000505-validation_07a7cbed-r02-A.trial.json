@@ -1,0 +1,72 @@
+{
+  "v": 1,
+  "case_id": "validation_07a7cbed",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "STAMP-EPOCH-31"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_41W5rFA46qffuaIEYQnQJw6q\",\"act_id\":\"a_MHRYBGMBHLCASCPQOHEEIWUXKM\",\"handle\":\"h_sGSnCYLSFXsqffSGc5wP3PEe\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"docs/stamp.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "docs/stamp.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_41W5rFA46qffuaIEYQnQJw6q\",\"act_id\":\"a_OBWTILXVEEDHKZ5Z6LDUCJO2BY\",\"handle\":\"h_sGSnCYLSFXsqffSGc5wP3PEe\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Signing epoch STAMP-EPOCH-31. Promote next into current.\\n\",\"digest\":\"sha256:9a997d44e68383f70439d42d86654600fc0d360c33871421f5fcf80ae927e350\",\"path\":\"docs/stamp.md\"},\"error\":null,\"text\":\"ok repo.read: content=Signing epoch STAMP-EPOCH-31. Promote next into current. , digest=sha256:9a997d44e68383f70439d42d86654600fc0d360c33871421f5fcf80ae927e350, path=docs/stamp.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "signing epoch token"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_41W5rFA46qffuaIEYQnQJw6q\",\"act_id\":\"a_F4YZGR2Z5L5YAB6XDOPQHIMW7N\",\"handle\":\"h_sGSnCYLSFXsqffSGc5wP3PEe\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "epoch token current next"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_41W5rFA46qffuaIEYQnQJw6q\",\"act_id\":\"a_J2BZIEAW2466OYKSN3CSBEXGNW\",\"handle\":\"h_sGSnCYLSFXsqffSGc5wP3PEe\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The docs/stamp.md file only states:\n\n\"Signing epoch STAMP-EPOCH-31. Promote next into current.\"\n\nNo separate/distinct token value is documented beyond the identifier **STAMP-EPOCH-31** itself — that string is the documented signing epoch token for this entry. There's no additional \"next\" or \"current\" token value recorded elsewhere in the repo.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

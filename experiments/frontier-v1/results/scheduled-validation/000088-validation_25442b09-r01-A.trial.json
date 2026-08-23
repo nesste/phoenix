@@ -1,0 +1,114 @@
+{
+  "v": 1,
+  "case_id": "validation_25442b09",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_hCkKdwgHAB8mVYo429w7NjxP\",\"act_id\":\"a_6JXO37VZF3SB2DADEXEKAOFU64\",\"handle\":\"h_EhSVXT86cuHWKJtkQS4OeMg0\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"stderr\":\"# example.test/eolpolicy/policy [example.test/eolpolicy/policy.test]\\npolicy/eol.go:2:19: undefined: missingDirective\\n\",\"stdout\":\"FAIL\\texample.test/eolpolicy/policy [build failed]\\nFAIL\\n\"},\"error\":null,\"text\":\"ok repo.build: exit_code=1, stderr=# example.test/eolpolicy/policy [example.test/eolpolicy/policy.test] policy/eol.go:2:19: undefined: missingDirective , stdout=FAIL\\texample.test/eolpolicy/policy [build failed] FAIL \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "policy/eol.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_hCkKdwgHAB8mVYo429w7NjxP\",\"act_id\":\"a_QXFR5GZFA7HYJDPKODWUOYMZLU\",\"handle\":\"h_EhSVXT86cuHWKJtkQS4OeMg0\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package policy\\nconst Directive = missingDirective\\n\",\"digest\":\"sha256:15f0c1379c3950ad7a5bb5fea2b9dc6929df51d3307c2a6acd0cee6a5b7ad560\",\"path\":\"policy/eol.go\"},\"error\":null,\"text\":\"ok repo.read: content=package policy const Directive = missingDirective , digest=sha256:15f0c1379c3950ad7a5bb5fea2b9dc6929df51d3307c2a6acd0cee6a5b7ad560, path=policy/eol.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "Directive"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_hCkKdwgHAB8mVYo429w7NjxP\",\"act_id\":\"a_CVFBXWUGQIA3LHBUD5MA2D5JKM\",\"handle\":\"h_EhSVXT86cuHWKJtkQS4OeMg0\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"policy/eol.cfg\",\"policy/eol.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "policy/eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_hCkKdwgHAB8mVYo429w7NjxP\",\"act_id\":\"a_6N27T24TGYWCMW6XOQOP4SBXLX\",\"handle\":\"h_EhSVXT86cuHWKJtkQS4OeMg0\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"mode=lf\\nmarker=LINE-DIRECTIVE-9\\n\",\"digest\":\"sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350\",\"path\":\"policy/eol.cfg\"},\"error\":null,\"text\":\"ok repo.read: content=mode=lf marker=LINE-DIRECTIVE-9 , digest=sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350, path=policy/eol.cfg\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "const Directive = \"LINE-DIRECTIVE-9\"",
+        "old": "const Directive = missingDirective",
+        "path": "policy/eol.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_hCkKdwgHAB8mVYo429w7NjxP\",\"act_id\":\"a_BTJK7V35AMC4ILCGMQTWUBTJH3\",\"handle\":\"h_EhSVXT86cuHWKJtkQS4OeMg0\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:75c717d6109bbe0d9aa3068d412abc0a87b17363ab204f2c76609797377b5657\",\"path\":\"policy/eol.go\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:75c717d6109bbe0d9aa3068d412abc0a87b17363ab204f2c76609797377b5657, path=policy/eol.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_hCkKdwgHAB8mVYo429w7NjxP\",\"act_id\":\"a_KTVJVUMYVY76RT2WS7ET5NNFNQ\",\"handle\":\"h_EhSVXT86cuHWKJtkQS4OeMg0\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"ok  \\texample.test/eolpolicy/policy\\t0.002s [no tests to run]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=ok  \\texample.test/eolpolicy/policy\\t0.002s [no tests to run] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Fixed: `policy/eol.go` referenced an undefined identifier `missingDirective`. Using the marker value from `policy/eol.cfg` (`LINE-DIRECTIVE-9`), I replaced it with `const Directive = \"LINE-DIRECTIVE-9\"`. The repository now builds successfully.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

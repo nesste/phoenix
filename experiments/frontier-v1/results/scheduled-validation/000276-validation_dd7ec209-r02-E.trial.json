@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_dd7ec209",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Change the sentinel history epoch from cobalt to silver; recover gracefully if the supplied old epoch (cobalt) is not present.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Change the sentinel history epoch from cobalt to silver; recover gracefully if the supplied old epoch (cobalt) is not present.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Change the sentinel history epoch from cobalt to silver; recover gracefully if the supplied old epoch (cobalt) is not present.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Change the sentinel history epoch from cobalt to silver; recover gracefully if the supplied old epoch (cobalt) is not present.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four supplied handles (repo, tests, git, episodes) expose any capability related to a \"sentinel history epoch.\" I attempted to orient toward this goal on all four live handles, and each returned `matched: false` with \"requested capability is unavailable in the reachable world\" — meaning no reachable action in this world can change a sentinel history epoch value.\n\nI'm unable to complete this task with the tools/handles provided — there's no such capability reachable from any of these handles. If you have a different handle that manages sentinel/epoch configuration, please share it and I can proceed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

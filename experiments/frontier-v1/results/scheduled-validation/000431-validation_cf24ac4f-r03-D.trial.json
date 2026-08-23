@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_cf24ac4f",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading; recover if the supplied heading '## Upcoming' is stale.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading; recover if the supplied heading '## Upcoming' is stale.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading; recover if the supplied heading '## Upcoming' is stale.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading; recover if the supplied heading '## Upcoming' is stale.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading; recover if the supplied heading '## Upcoming' is stale.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles (repo, tests, git, episodes) report that the requested capability — locating/editing the changelog under the \"## Upcoming\" heading, with fallback recovery for a stale heading — is unavailable in the reachable world (orient returned \"matched\": false with no frontier options on every handle).\n\nThis means the task cannot be completed with the current set of live handles: there is no reachable call that lets me read or write the changelog file, so I can't add the monotonic clock fallback bullet or verify/recover the \"## Upcoming\" heading. I'm stopping here rather than guessing at unsupported actions — could you supply a handle with file/changelog editing capability, or confirm the correct reachable handle for this repo?",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

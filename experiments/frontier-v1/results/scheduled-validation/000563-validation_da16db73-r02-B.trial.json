@@ -1,0 +1,79 @@
+{
+  "v": 1,
+  "case_id": "validation_da16db73",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_EBFI6ZrNWutH7LVDs9LP-B9f\",\"act_id\":\"a_NOHGUVX567QTWINEH3ZHJTC4ZV\",\"handle\":\"h_LG-tA0xHKXWGfFTq2CvC-Tah\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestHealthRoute\",\"TestUnknownRoute\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestHealthRoute"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_EBFI6ZrNWutH7LVDs9LP-B9f\",\"act_id\":\"a_O2BIZ6DUMF46G543COQI6HYTRT\",\"handle\":\"h_LG-tA0xHKXWGfFTq2CvC-Tah\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_EBFI6ZrNWutH7LVDs9LP-B9f\",\"act_id\":\"a_MAWYUHLKQA5EI7R7BTYJCXJAZ7\",\"handle\":\"h_LG-tA0xHKXWGfFTq2CvC-Tah\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestDedicatedHealthHandler\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestDedicatedHealthHandler"
+      },
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_EBFI6ZrNWutH7LVDs9LP-B9f\",\"act_id\":\"a_3PFU24M2MOWFPHTSV7GO36AW4H\",\"handle\":\"h_LG-tA0xHKXWGfFTq2CvC-Tah\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T20:08:15.740128035+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/router/router\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.742637105+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.742690177+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Output\\\":\\\"=== RUN   TestDedicatedHealthHandler\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.742706481+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Output\\\":\\\"    routes_test.go:3: shadowed\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.742711204+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Output\\\":\\\"--- FAIL: TestDedicatedHealthHandler (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.742713901+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.74271731+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.743093667+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/router/router\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:08:15.743118825+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestDedicatedHealthHandler\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The current health-route test is now **TestDedicatedHealthHandler** (the suite membership changed twice: `TestHealthRoute`/`TestUnknownRoute` → then to just `TestDedicatedHealthHandler`).\n\nResult: **FAIL** ❌\n- `routes_test.go:3: shadowed`\n- `--- FAIL: TestDedicatedHealthHandler (0.00s)`",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/router\n\ngo 1.22\n"
+      },
+      {
+        "path": "notes/threat.txt",
+        "present": true,
+        "content": "ROUTE-OWNER-44=health\n"
+      },
+      {
+        "path": "router/routes.go",
+        "present": true,
+        "content": "package router\nfunc HealthHandler() string { return \"wildcard\" }\n"
+      },
+      {
+        "path": "router/routes_test.go",
+        "present": true,
+        "content": "package router\nimport \"testing\"\nfunc TestDedicatedHealthHandler(t *testing.T) { if HealthHandler() != \"health\" { t.Fatal(\"shadowed\") } }\n"
+      },
+      {
+        "path": "routes/public.map",
+        "present": true,
+        "content": "/health health\n/* wildcard\n"
+      }
+    ]
+  }
+}

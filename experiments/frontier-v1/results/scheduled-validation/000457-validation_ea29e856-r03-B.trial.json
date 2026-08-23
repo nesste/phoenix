@@ -1,0 +1,147 @@
+{
+  "v": 1,
+  "case_id": "validation_ea29e856",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_PJC4WFBT5SLIGAPXGODEZNZBOA\",\"handle\":\"h_59zjDKD2IdbZHc0JZZAVA-ek\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true,\"output\":\"## master\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=true, output=## master \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "release stamp"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_A2QGENAPMF4QZFH6JM3TOCLQAZ\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "next"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_JTIRXVSRN2NHS4Y5W2S26XB7VB\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"docs/stamp.md\",\"stamp/next.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_HPGZL2ZUBMLADY3ZLIAC6JSJGD\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/next.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_QN6X44GUFWEZC4SDROYZWFPFA3\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.09\\n\",\"digest\":\"sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0\",\"path\":\"stamp/next.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.09 , digest=sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0, path=stamp/next.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "docs/stamp.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_OHIAI52NWF3RL2CSXLCKQMSEFV\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Signing epoch STAMP-EPOCH-31. Promote next into current.\\n\",\"digest\":\"sha256:9a997d44e68383f70439d42d86654600fc0d360c33871421f5fcf80ae927e350\",\"path\":\"docs/stamp.md\"},\"error\":null,\"text\":\"ok repo.read: content=Signing epoch STAMP-EPOCH-31. Promote next into current. , digest=sha256:9a997d44e68383f70439d42d86654600fc0d360c33871421f5fcf80ae927e350, path=docs/stamp.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "current stamp"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_AMO2IZKAW4EM5K724G2AG4KDKK\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp/current"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_CSOW6CZN2LRJIRZ537GBZNWEJX\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"stamp/current.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_V7XOXJRFWGYK3AWZ27A3OTNXKH\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.08\\n\",\"digest\":\"sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.08 , digest=sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 9,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "stamp=2026.09",
+        "old": "stamp=2026.08",
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_6RSFSPHUZU3D7NIPGJUDGLRI47\",\"handle\":\"h_t-f7VbH601EhCQBv-RUXR9yF\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 10,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "commit",
+      "args": {
+        "message": "Promote stamp 2026.09 into current"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9HfTWL8lHiH7W3J9FYszyxDL\",\"act_id\":\"a_MOJX7LHLCZNKCZQFTSKC4NGZHV\",\"handle\":\"h_59zjDKD2IdbZHc0JZZAVA-ek\",\"verb\":\"commit\",\"status\":\"ok\",\"result\":{\"committed\":true,\"stderr\":\"\",\"stdout\":\"[master 33c904b] Promote stamp 2026.09 into current\\n 1 file changed, 1 insertion(+), 1 deletion(-)\\n\"},\"error\":null,\"text\":\"ok git.commit: committed=true, stderr=, stdout=[master 33c904b] Promote stamp 2026.09 into current  1 file changed, 1 insertion(+), 1 deletion(-) \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done. I promoted the next release stamp (2026.09) into `stamp/current.txt` (previously 2026.08, per `docs/stamp.md`'s instruction to \"promote next into current\"), then committed successfully:\n\n- Initial attempt would have hit a clean tree since no changes existed yet.\n- After editing `stamp/current.txt` to `stamp=2026.09`, the commit succeeded: `33c904b Promote stamp 2026.09 into current`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

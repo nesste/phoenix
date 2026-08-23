@@ -1,0 +1,75 @@
+{
+  "v": 1,
+  "case_id": "validation_48df5ccd",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the named \"rollover\" check through the live test catalog (not just by inferring it from a full-suite run) - find the specific test identified as a rollover check and confirm its identity/status directly from the catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the live test catalog to find tests related to \"rollover\"",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles (repo, tests, git, episodes) were probed with the exact intent of verifying a named \"rollover\" check against the live catalog. In every case the environment responded identically:\n\n```\n\"status\":\"ok\",\"result\":{\"matched\":false},\n\"text\":\"ok orient: requested capability is unavailable in the reachable world\",\n\"frontier\":[]\n```\n\nNone of the handles exposed a reachable capability for enumerating/searching the test catalog, and no frontier (follow-up) calls were offered to drill into a catalog listing. This means I cannot currently confirm the identity of a specific \"rollover\" check against the live catalog through any of these handles — the capability needed to do that lookup simply isn't reachable in this world state.\n\nGiven that, I'm not able to independently verify the named rollover check right now. I'd caution against treating any full-suite test run as proof that a \"rollover\" check is the one you're relying on, since:\n\n- No catalog lookup succeeded to confirm a test literally named/tagged \"rollover\" exists, what module it belongs to, or its current pass/fail status in isolation.\n- A full-suite pass only tells you the aggregate outcome — it doesn't confirm that a specific rollover-related check ran, ran correctly, or wasn't skipped/mocked out.\n\nIf you can tell me the exact test name/ID you have in mind (or which suite file it should live in), I can try a more targeted call, or if you have another way to expose the catalog (e.g., a specific verb or endpoint I should use instead of \"orient\"), let me know and I'll retry with that.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

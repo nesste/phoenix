@@ -1,0 +1,69 @@
+{
+  "v": 1,
+  "case_id": "validation_2fb6e3cd",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3m3AZ0x1wHTEIi5UZ-hug4kc\",\"act_id\":\"a_YA5ETWIIEIBCMXB2JIWRDFQKFJ\",\"handle\":\"h_hiq0y7S88Opma2s1WVjzVsvJ\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}],\"tests\":[\"TestCurrentEOL\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestCurrentEOL"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3m3AZ0x1wHTEIi5UZ-hug4kc\",\"act_id\":\"a_OKLTHHVWWOP5WH43RPS5YPXKQ7\",\"handle\":\"h_hiq0y7S88Opma2s1WVjzVsvJ\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T17:49:03.441052783+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:03.443788934+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:03.443816994+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\",\\\"Output\\\":\\\"=== RUN   TestCurrentEOL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:03.443841766+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\",\\\"Output\\\":\\\"--- PASS: TestCurrentEOL (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:03.44384538+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:03.443848781+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:03.444343937+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/eolpolicy/policy\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:03.445188256+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestCurrentEOL\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Result: **TestCurrentEOL PASSED** (0.00s) — the live replacement for the obsolete `TestRetiredEOL`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "v": 1,
+  "case_id": "validation_e627f359",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_QDo_BdfR4XFx3idRroVOMo9V\",\"act_id\":\"a_2F7GHXVFRRCYFU7EXIZHYXKCJK\",\"handle\":\"h_erDPDMcGgBtxjcSBzVRNYbXo\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestInkIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the current license-index test after it is replaced during the initial suite catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Show catalog/history of test suite including renames to find what license-index test was replaced by",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on the test suite's current state, there is no \"license-index\" test present. The catalog now contains only a single test: **TestInkIndex**, with no rename records logged in the suite listing (renames: []).\n\nIt appears \"TestInkIndex\" is the test that now occupies the role you're referring to as \"license-index\" (likely renamed from something like `TestLicenseIndex` in the initial catalog), but the rename history itself is empty, and I don't have access to a deeper catalog/history view to confirm the prior name — the \"list\" verb is the only reachable capability on this handle right now, and it returned no rename entries.\n\n**Summary:**\n- Current tests in suite: `TestInkIndex`\n- Renames tracked: none\n- No test literally named \"license-index\" exists currently.\n\nIf you have a different handle or verb in mind that exposes the suite's replacement/rename history in more detail, let me know and I can try again.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/licenses\n\ngo 1.22\n"
+      },
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "legal/license_test.go",
+        "present": true,
+        "content": "package legal\nimport \"testing\"\nfunc TestNoticeIndex(t *testing.T) {}\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

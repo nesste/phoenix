@@ -1,0 +1,56 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt (i.e., if a commit was attempted with no staged changes, find the pending note, add it to CHANGELOG.md, stage, and commit properly).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Check git status of repo to see the initial clean-tree commit attempt and find pending clock note.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repo files to find the pending clock note to promote into CHANGELOG.md.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"requested capability is unavailable in the reachable world\" when queried for orientation/intent-based calls — none of the reachable handles expose the capabilities needed to inspect git status, list repo files, or perform commits for this task. There is no frontier of executable actions returned for any handle.\n\nI'm unable to proceed with promoting the clock note into CHANGELOG.md or recovering the commit, since the environment reports no reachable capability path for this intent on any of the provided handles (repo, tests, git, episodes). This may require different/additional handles or a capability grant that isn't currently available in this session.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

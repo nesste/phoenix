@@ -1,0 +1,89 @@
+{
+  "v": 1,
+  "case_id": "validation_8ea0fb31",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "list git commit history / log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "list all tests in the suite",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "explore available actions",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "explore available actions",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I'm unable to proceed further. Every attempt to interact with the provided handles (repo, tests, git, episodes) — using the exact goal as intent, as well as narrower related intents — returns `matched: false` with an empty frontier and no grants/revokes. This indicates that the requested capability (\"verify the rollover check current after suite changes following the initial catalog\") is not reachable from any of these handles in the current world state, and the tool is not surfacing any alternative reachable actions to pivot to.\n\nGiven the budget constraints and repeated \"capability unavailable\" responses with no discoverable frontier, I cannot locate or verify the rollover check. Could you confirm:\n\n1. Whether these handles should expose additional capabilities that aren't currently reachable (possibly a setup/initialization step is missing), or\n2. Provide more specific terminology used by the system (e.g., exact test/check name) so I can retry with a more targeted intent?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

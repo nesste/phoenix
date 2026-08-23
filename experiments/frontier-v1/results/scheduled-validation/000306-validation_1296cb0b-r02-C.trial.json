@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff), and verify it shows up as untracked (git status) rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff), and verify it shows up as untracked (git status) rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff), and verify it shows up as untracked (git status) rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff), and verify it shows up as untracked (git status) rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff), and verify it shows up as untracked (git status) rather than modified.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"requested capability is unavailable in the reachable world\" with no frontier of executable calls offered — meaning the tools needed to run `git diff` and `git status` (or equivalent capabilities) aren't reachable from any of the provided handles (repo, tests, git, episodes) in this session.\n\nGiven this, I cannot directly execute the verification. Based on the tool responses:\n\n**Result: Unable to confirm via live execution.** None of the supplied handles (repo, tests, git, episodes) exposed a reachable capability to run `git diff` or `git status` — every attempt returned `orient: requested capability is unavailable in the reachable world` with an empty frontier of next actions.\n\nIf you can supply a handle with git/status/diff capability actually reachable (or refresh the session), I can then:\n1. Run `git diff` and confirm the pending release checklist file does not appear in the tracked diff output.\n2. Run `git status` and confirm it lists the checklist file under \"Untracked files\" rather than \"Changes not staged for commit.\"\n\nLet me know how you'd like to proceed — e.g., a different handle, or granting access to the git capability.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

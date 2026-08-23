@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_6b57e0c0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Report Git status to find the untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Run git status to find untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "I want to see git status output showing untracked files, specifically a checklist file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Run git status to find untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Run git status to find untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I'm unable to retrieve the Git status — all attempts to query the git handle (and other handles) return \"requested capability is unavailable in the reachable world\" with an empty frontier of follow-up calls. There's no reachable action from these handles that exposes `git status` output in this session, so I cannot report the untracked checklist path.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/candidate.md",
+        "present": true,
+        "content": "- [ ] owner approval\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

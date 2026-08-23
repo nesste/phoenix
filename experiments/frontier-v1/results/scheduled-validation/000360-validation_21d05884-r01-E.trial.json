@@ -1,0 +1,52 @@
+{
+  "v": 1,
+  "case_id": "validation_21d05884",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_jMbdhUOVP3G6qULuSTPtodBe\",\"act_id\":\"a_HCSD6VEMQOEBPXXIG3TKWXA7EY\",\"handle\":\"h_VYaL9zW2s4ZnQqysiNdk1rgJ\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true,\"output\":\"## master\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=true, output=## master \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Determine whether the checklist repository starts clean (check git status).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Determine whether the checklist repository starts clean (check git status).",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Yes — the checklist repository starts clean. Running `git status` on the `master` branch shows `clean: true` with no pending changes (output: `## master`, no modified/untracked files).",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [],
+  "final_message": "No — none of the available tools (repo_read, repo_edit, repo_build, repo_find, repo_status, tests_run, tests_list, tests_focus, git_status, git_diff, git_commit, episodes_recall) can publish anything to a remote release system. They only operate locally: reading/editing files, running builds/tests, and committing to local Git history. There is no tool for pushing, deploying, or otherwise communicating with an external/remote system.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

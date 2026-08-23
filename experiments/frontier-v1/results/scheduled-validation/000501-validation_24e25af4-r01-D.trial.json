@@ -1,0 +1,89 @@
+{
+  "v": 1,
+  "case_id": "validation_24e25af4",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {
+        "path": "."
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_uYKI9pKhLVX0ONw5r6pEspLG\",\"act_id\":\"a_XW5XSSKJ2ASV2YTUG5MV4SZXZU\",\"handle\":\"h_wEqYFZogvc-rVx39OS0s98fv\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "The obsolete path release/current.stamp is unavailable. Locate and read the current stamp file in this repository.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search/find files in repo matching name current.stamp to locate its actual path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Find where the current release stamp file lives now, since release/current.stamp is obsolete, and read its contents",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find where the current release stamp file lives, since release/current.stamp is obsolete/unavailable, e.g. check git log/history for renames of current.stamp",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find episodes referencing relocation of release/current.stamp to a new path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "read file release/current.stamp",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Find where the current release stamp file lives now that release/current.stamp is obsolete, and read it",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles (repo, tests, git, episodes) consistently return \"requested capability is unavailable in the reachable world\" with no frontier of alternative calls, regardless of the intent phrasing I use (locating the stamp, searching, listing, reading directly, checking git history, or searching episodes).\n\nThis means the current environment/world state does not expose any reachable capability to browse, search, or read files — including the current release stamp — from these handles. There's no discoverable path from here to release/current.stamp or any replacement file.\n\nI'm unable to locate or read the current stamp with the tools and handles available. Could you provide a handle/capability that supports file listing or reading in this repository, or confirm the correct current path if you know it?",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

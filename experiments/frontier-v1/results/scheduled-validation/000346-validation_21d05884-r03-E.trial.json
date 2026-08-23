@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_21d05884",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Determine whether the checklist repository starts clean (check git status/working tree cleanliness)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Check if the checklist repository working tree is clean at start",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Check if the checklist repository working tree/git status is clean at the start (no uncommitted changes)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Determine whether the checklist repository starts clean (no uncommitted git changes) before running tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Determine whether the checklist repository starts clean (no uncommitted git changes)",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return the same result: an \"orient\" probe replying that the requested capability is unavailable in the reachable world, with an empty frontier (no further reachable calls suggested).\n\n**Conclusion:** I cannot confirm that the checklist repository starts clean. None of the provided handles (repo, tests, git, episodes) currently expose a reachable capability (e.g., a git-status or diff verb) to inspect the working-tree state — the environment reports this capability as unavailable and offers no alternative calls to pursue. So the cleanliness of the repository cannot be determined with the tools/handles currently reachable.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

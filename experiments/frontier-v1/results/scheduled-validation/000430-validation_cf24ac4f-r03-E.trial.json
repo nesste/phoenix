@@ -1,0 +1,75 @@
+{
+  "v": 1,
+  "case_id": "validation_cf24ac4f",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "Upcoming"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_V7SWSgRoX4YqgSgJYEiwRP2l\",\"act_id\":\"a_IA735TIXW5KF3B7YYD4XCHG6GH\",\"handle\":\"h_wO3hshWsEkTttpYQ6wFiMY8i\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; recover if that heading is stale (e.g. renamed/moved) by locating the current changelog heading.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; recover if that heading is stale by locating the current changelog heading.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; recover if that heading is stale by locating the current changelog heading.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; recover if that heading is stale by locating the current changelog heading.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; recover if that heading is stale by locating the current changelog heading.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four supplied handles expose a reachable capability for this task in the current world state — every orient call returns \"requested capability is unavailable in the reachable world\" with an empty frontier, meaning there's no live verb path (read/edit changelog, grep, etc.) actually reachable from these handles right now.\n\nGiven the task's own framing (\"recover if the supplied heading is stale\"), this appears to be exactly that failure mode, but at the handle/capability level rather than just the heading level: I can't even locate or open the changelog file to check for `## Upcoming` or find an alternate current heading, because none of repo, tests, git, or episodes handles offer a reachable orient/read/edit path in this world snapshot.\n\nI'm stopping here rather than guessing at verbs (which returned `invalid act arguments` / `act is not reachable` errors) to avoid taking unverified actions. Could you confirm or refresh the handles (they may be stale/expired), or point me to the specific verb the repo handle supports for reading/editing files? Once I have a working reachable call, I'll:\n\n1. Open the changelog file and check for `## Upcoming`.\n2. If stale, locate the current active changelog heading (e.g., latest unreleased/version heading).\n3. Insert the new bullet: `- Fallback to monotonic clock source when primary clock is unavailable.`\n4. Save/commit the change.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

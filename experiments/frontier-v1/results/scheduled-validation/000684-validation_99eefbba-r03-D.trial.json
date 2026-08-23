@@ -1,0 +1,103 @@
+{
+  "v": 1,
+  "case_id": "validation_99eefbba",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "exponent"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_bk3Y23De0LXGCls98n59nfGw\",\"act_id\":\"a_NLPUP67JXIX5XJ5TBMSA7K7XNT\",\"handle\":\"h_m1q0_0y8prbd2jSSO-cMVSHo\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "exponent"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_bk3Y23De0LXGCls98n59nfGw\",\"act_id\":\"a_XOXJT4NHGVR2LK3O6B5QGLNXFI\",\"handle\":\"h_m1q0_0y8prbd2jSSO-cMVSHo\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find files documenting grammar precedence and exponent expression form, e.g. search repo for 'exponent' or 'precedence' or grammar spec files.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "show available files and structure of the repository",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to act on all four provided handles (repo, tests, git, episodes) to locate and fix the exponent-form documentation so it matches the grammar's stated precedence, but every attempt returned the same result:\n\n`orient: requested capability is unavailable in the reachable world` (matched: false, empty frontier)\n\nI also tried alternate verbs (`search`, `grep`, `help`) to explore the repository structure, but these were reported as `absent: act is not reachable` or rejected as invalid arguments — meaning the live handles do not currently expose any reachable action that lets me browse, read, or edit files.\n\nIn short: none of the supplied handles currently grant a reachable capability to inspect or modify the grammar documentation. I'm unable to locate the file describing the exponent expression form or the precedence table, and therefore cannot make the edit.\n\nTo proceed, I'd need either:\n- A handle/verb that actually resolves to a reachable capability (e.g., a working \"read file\" or \"list directory\" action), or\n- The relevant file path/contents supplied directly so I can produce the corrected grammar text.\n\nGiven the remaining budget is very limited, I'll pause here rather than continue trial-and-error against unreachable capabilities. Let me know how you'd like to proceed (e.g., paste the grammar file's exponent rule and precedence table, and I can propose the corrected form directly).",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nexample = exponent-binds-before-unary\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 5 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

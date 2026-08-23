@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_7be1ac42",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "license index ink clause"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_OiJQZgA0uq-UswPH-whDp8x5\",\"act_id\":\"a_OEGLHTZ3VM7CTH5RO2KG5WFNIW\",\"handle\":\"h_hEOA06e_C1LOvAJQICPDQgvs\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "license index"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_OiJQZgA0uq-UswPH-whDp8x5\",\"act_id\":\"a_IVXYC5V43DN3AS4GT6OXVU33JG\",\"handle\":\"h_hEOA06e_C1LOvAJQICPDQgvs\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "ink clause"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_OiJQZgA0uq-UswPH-whDp8x5\",\"act_id\":\"a_AAFNXRC4CSHWVLBCWJ3LNKWZ4Y\",\"handle\":\"h_hEOA06e_C1LOvAJQICPDQgvs\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"index/licenses.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "index/licenses.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_OiJQZgA0uq-UswPH-whDp8x5\",\"act_id\":\"a_LK4Y7IWCZZXMM73SSWWZBX6Y73\",\"handle\":\"h_hEOA06e_C1LOvAJQICPDQgvs\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Ink clause: modules/ink/LICENSE.fragment\\n\",\"digest\":\"sha256:51e81fd4967ba14e8b856dcb3d9a1cd62326f4cef646a4935180c430e60dd624\",\"path\":\"index/licenses.md\"},\"error\":null,\"text\":\"ok repo.read: content=Ink clause: modules/ink/LICENSE.fragment , digest=sha256:51e81fd4967ba14e8b856dcb3d9a1cd62326f4cef646a4935180c430e60dd624, path=index/licenses.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The license index (`index/licenses.md`) records the ink clause path as:\n\n**`modules/ink/LICENSE.fragment`**",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

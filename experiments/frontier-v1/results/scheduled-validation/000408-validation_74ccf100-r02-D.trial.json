@@ -1,0 +1,96 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "git_status",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_KgUdvDVohG1ts7dnmXUDqJmH\",\"act_id\":\"a_6RWSWDZBDK65H56NBAQVUIZ3BE\",\"handle\":\"h_h8cqiJsvBJPAnX394ylk8jZT\",\"verb\":\"git_status\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "list_episodes",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_KgUdvDVohG1ts7dnmXUDqJmH\",\"act_id\":\"a_VOZ6GGSSR62EP2TDOJDWSVE37H\",\"handle\":\"h_UJOfQGADMF6y9bsnZPC4aq8b\",\"verb\":\"list_episodes\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt (the first commit attempt likely failed because the tree was clean/nothing staged - need to find the pending note, add it to CHANGELOG.md, stage, then commit).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Check git status to see current state of the repo and pending changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Find the pending clock note that needs to be promoted into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "List episodes to find the pending clock note",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Show git log and status to find failed commit attempt",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Show git status to see what changes are pending and whether the changelog commit needs recovery",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "These handles are not exposing any reachable capabilities for the requested task — every probe (via intent-based orientation and direct verb calls) returns \"requested capability is unavailable\" / \"act is not reachable,\" with an empty frontier and no grants offered. This means the live handles provided (repo, tests, git, episodes) do not currently expose any actionable git/changelog/episode operations in this session's reachable world.\n\nI'm unable to proceed with promoting the pending clock note into CHANGELOG.md, committing it, or recovering the failed commit, because the tools report no reachable actions on any of the four handles. Given the remaining budget ($0.082), I don't want to keep guessing verb names blindly, as each failed attempt consumes budget without progress.\n\nCould you confirm whether these handles should have additional capabilities granted, or provide an updated/different handle that actually exposes git operations (e.g., a handle explicitly scoped for repository writes)? Right now the environment isn't giving me any executable path forward.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

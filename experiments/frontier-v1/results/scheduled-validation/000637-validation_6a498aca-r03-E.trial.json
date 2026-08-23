@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_6a498aca",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "INK-42"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_8XCnNzdG6IENG6_u6d5YRFvz\",\"act_id\":\"a_RYWD5JFXX6QOOFIMC66ZVUEEXC\",\"handle\":\"h_uCxmzPeVR_3n6wKgZ42T4AYb\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the repository path containing INK-42 and report it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find the repository path containing INK-42 and report it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find the repository path containing INK-42 and report it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Find the repository path containing INK-42 and report it.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles (repo, tests, git, episodes) return \"requested capability is unavailable in the reachable world\" — none of them expose a working search/orient path in this session, and no frontier calls were offered. I'm unable to locate the repository path containing INK-42 with the current live handles; there is no reachable capability to search for it.",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

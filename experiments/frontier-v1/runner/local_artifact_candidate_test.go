@@ -325,18 +325,19 @@ func verifyGraderCandidate(t *testing.T, repositoryRoot string, candidate localA
 	}
 }
 
-func TestCompletedArtifactFreezeOpensValidationOnly(t *testing.T) {
+func TestCompletedArtifactFreezeRecordsSpentValidationExecution(t *testing.T) {
 	var freeze struct {
 		Status string `json:"status"`
 		Gates  struct {
-			MayOpenValidation bool `json:"may_open_validation"`
-			MayOpenHeldOut    bool `json:"may_open_held_out"`
+			MayOpenValidation         bool   `json:"may_open_validation"`
+			MayOpenHeldOut            bool   `json:"may_open_held_out"`
+			ValidationExecutionStatus string `json:"validation_execution_status"`
 		} `json:"gates"`
 		Remaining []string `json:"remaining"`
 	}
 	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freeze)
-	if freeze.Status != "complete" || !freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut ||
-		len(freeze.Remaining) != 0 {
+	if freeze.Status != "complete" || freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut ||
+		freeze.Gates.ValidationExecutionStatus != "indeterminate" || len(freeze.Remaining) != 0 {
 		t.Fatalf("completed artifact freeze gate state = %#v", freeze)
 	}
 }

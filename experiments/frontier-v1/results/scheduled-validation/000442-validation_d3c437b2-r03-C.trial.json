@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_d3c437b2",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "list files in repository, especially changelog fragments directory and CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "show git status and diff to see pending changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "read CHANGELOG.md file contents",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "show current git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"requested capability is unavailable in the reachable world\" with an empty frontier and no grant/revoke handles, regardless of the intent phrasing used. This means none of the provided handles currently expose any reachable action toward this goal — there's no discoverable path (no file-read, git-status, or commit capability surfaced) from any of the four handles.\n\nI'm unable to proceed: the tool reports the task's required capabilities are not reachable from any of the given handles (repo, tests, git, episodes). Could you confirm these handles are correctly scoped/live, or provide a handle that exposes repository file and git operations? Without a matched frontier action, I cannot safely read the fragment, edit CHANGELOG.md, or perform the commit.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

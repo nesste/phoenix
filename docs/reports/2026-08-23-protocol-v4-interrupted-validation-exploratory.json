@@ -1,0 +1,51 @@
+{
+  "v": 1,
+  "status": "indeterminate",
+  "scope": "exploratory_interrupted_validation_only",
+  "evidence": {
+    "path": "experiments/frontier-v1/results/scheduled-validation",
+    "files": 2788,
+    "aggregate_index_sha256": "sha256:4ff9b0d3996a14606c90f1612ab1823296aafe1278ecf18da0ae2dbf7572c114",
+    "assignments": 720,
+    "graded_trials": 674,
+    "runtime_terminal_trials": 46,
+    "schedule_prefix": [0, 719],
+    "spent_usd": 28.4686273
+  },
+  "validity_failures": [
+    "The execution stopped after 720 of 1800 assignments and produced no scheduled summary.",
+    "All retained trials use world build sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b; Gate 1A froze sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d.",
+    "Validation outcomes have now been inspected, so this tranche cannot be reused as an unopened confirmatory tranche."
+  ],
+  "coverage": {
+    "pairing_keys": 144,
+    "arms": 5,
+    "assignments_per_arm": 144,
+    "cases": 49,
+    "families": 10,
+    "complete_families": 9,
+    "complete_family_assignments": 675
+  },
+  "arm_results_720": [
+    {"arm": "A", "successes": 46, "assigned": 144, "success_rate": 0.3194444444, "cap_hits": 1, "zero_act_trials": 8, "total_tokens": 1650922, "total_cost_usd": 2.8020345},
+    {"arm": "B", "successes": 59, "assigned": 144, "success_rate": 0.4097222222, "cap_hits": 0, "zero_act_trials": 6, "total_tokens": 1984059, "total_cost_usd": 2.3548890},
+    {"arm": "C", "successes": 21, "assigned": 144, "success_rate": 0.1458333333, "cap_hits": 7, "zero_act_trials": 96, "total_tokens": 2584373, "total_cost_usd": 7.2458938},
+    {"arm": "D", "successes": 13, "assigned": 144, "success_rate": 0.0902777778, "cap_hits": 16, "zero_act_trials": 104, "total_tokens": 2822498, "total_cost_usd": 7.6259814},
+    {"arm": "E", "successes": 1, "assigned": 144, "success_rate": 0.0069444444, "cap_hits": 22, "zero_act_trials": 105, "total_tokens": 3330133, "total_cost_usd": 8.4398286}
+  ],
+  "headline_c_minus_b": {
+    "prefix_720": {"families": 10, "pairs": 144, "point_estimate": -0.2708333333, "one_sided_95_lower_bound": -0.4616666667, "one_sided_95_upper_bound": -0.0800000000, "sign_flip_p": 0.0078125},
+    "complete_nine_families": {"families": 9, "pairs": 135, "point_estimate": -0.2592592593, "one_sided_95_lower_bound": -0.4444444444, "one_sided_95_upper_bound": -0.0740740741, "sign_flip_p": 0.015625}
+  },
+  "component_results_720": {
+    "direct_c_minus_a": {"families": 2, "pairs": 18, "point_estimate": -0.8888888889},
+    "frontier_c_minus_d": {"families": 8, "pairs": 94, "point_estimate": -0.0166666667},
+    "teaching_recovery_d_minus_e": {"families": 5, "pairs": 45, "point_estimate": 0.2}
+  },
+  "orientation_diagnostic": {
+    "C": {"matched_trials": 24, "matched_successes": 19, "matched_success_rate": 0.7916666667, "unmatched_trials": 120, "unmatched_successes": 2, "unmatched_success_rate": 0.0166666667},
+    "D": {"matched_trials": 22, "matched_successes": 11, "matched_success_rate": 0.5, "unmatched_trials": 122, "unmatched_successes": 2, "unmatched_success_rate": 0.0163934426},
+    "E": {"matched_trials": 17, "matched_successes": 0, "matched_success_rate": 0.0, "unmatched_trials": 127, "unmatched_successes": 1, "unmatched_success_rate": 0.0078740157}
+  },
+  "recommendation": "Do not resume or use this tranche for a gate decision. Repair the build-identity guard and Phoenix orientation path, then generate a new disjoint sealed validation tranche and rerun Gate 1A from the beginning."
+}

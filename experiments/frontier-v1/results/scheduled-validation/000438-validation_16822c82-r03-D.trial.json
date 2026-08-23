@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_16822c82",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for the token CLOCK-PROMOTE-12",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "list files in repository",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "grep for CLOCK-PROMOTE-12 in tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "show available capabilities",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to search across all four provided handles (repo, tests, git, episodes) using multiple intents (direct search for \"CLOCK-PROMOTE-12\", generic file listing, grep requests, and capability discovery). In every case, the Phoenix environment returned:\n\n`orient: requested capability is unavailable in the reachable world` with an empty frontier — meaning no actionable next steps are exposed for any of these handles in their current state.\n\n**Result:** I was unable to locate CLOCK-PROMOTE-12 or identify the file containing it. The live handles do not currently expose any reachable capability (search, grep, list, read, etc.) that would let me inspect file contents — the tool consistently reports no matching capability in the reachable world for every intent tried, across all four handles (repo, tests, git, episodes).\n\nIf you have a different/more specific handle or a capability name that should be reachable (e.g., a specific \"read_file\" or \"search\" verb), let me know and I can retry with that exact verb.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "v": 1,
+  "case_id": "validation_f155f75d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find and read the embedded ink license fragment in the repo, to state its permitted use.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "search repository for text 'ink license' or 'license' fragment file",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to search the repository handle for an \"ink license fragment,\" but the requested capability is unavailable in the reachable world — the orient calls returned no match and no frontier of actions to pursue this further. I don't have access to a working search/read verb on this handle to locate or read such a fragment.\n\nI cannot state the permitted use of the \"embedded ink license fragment\" because I was unable to locate or read it with the tools currently available. Could you clarify where this fragment is located (e.g., a specific file path, or which handle/episode it appears in), or confirm which tool/verb should be used to access it?",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

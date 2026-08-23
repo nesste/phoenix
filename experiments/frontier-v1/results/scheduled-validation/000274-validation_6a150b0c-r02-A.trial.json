@@ -1,0 +1,75 @@
+{
+  "v": 1,
+  "case_id": "validation_6a150b0c",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "sentinel code amber"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ltQDskRjUBp-nGgZaDVtEHuz\",\"act_id\":\"a_EJOJZ4PBSEBRIBMYGROMSYQG7W\",\"handle\":\"h_kXuV8TjWTcYvk3jlfZ0aOKhX\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "amber"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ltQDskRjUBp-nGgZaDVtEHuz\",\"act_id\":\"a_LU4MO76I4T7GSZQF2YE4L6DOMB\",\"handle\":\"h_kXuV8TjWTcYvk3jlfZ0aOKhX\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"sentinel/history.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ltQDskRjUBp-nGgZaDVtEHuz\",\"act_id\":\"a_N77IKGGWX2MJQKU7ZCKM4O7SK4\",\"handle\":\"h_kXuV8TjWTcYvk3jlfZ0aOKhX\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "sentinel/history.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ltQDskRjUBp-nGgZaDVtEHuz\",\"act_id\":\"a_R5MPZHFAOO6EZNCZO6OLTQIAXF\",\"handle\":\"h_kXuV8TjWTcYvk3jlfZ0aOKhX\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Current epoch: copper. Previous epoch: amber.\\n\",\"digest\":\"sha256:66bdc9511babeb853f9fc896ad82a04511232d1d292d04bad1a0ecc5976099e2\",\"path\":\"sentinel/history.md\"},\"error\":null,\"text\":\"ok repo.read: content=Current epoch: copper. Previous epoch: amber. , digest=sha256:66bdc9511babeb853f9fc896ad82a04511232d1d292d04bad1a0ecc5976099e2, path=sentinel/history.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Found it: the record is at **sentinel/history.md**, which contains the sentinel code \"amber\" (listed as the previous epoch, with \"copper\" being the current one).",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

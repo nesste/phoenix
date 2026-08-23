@@ -1,0 +1,136 @@
+{
+  "v": 1,
+  "case_id": "validation_bd7224b7",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "health route wildcard handler"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_3R2XAXGTYAR2RUELRCCQU7ORWW\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "health"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_2AMVXKX3ZETJE7ZGXKOGK354G2\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"notes/threat.txt\",\"router/routes.go\",\"router/routes_test.go\",\"routes/public.map\"]},\"error\":null,\"text\":\"ok repo.find: matches=4 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_2IVPOYHO7IQG2MS4ALSYTLRKJ4\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "router/routes.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_ITJ7ISUV2BMIEDAUJ2YQV5NUHK\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package router\\nfunc HealthHandler() string { return \\\"wildcard\\\" }\\n\",\"digest\":\"sha256:e716c3720126d82f70fc9133f2409552250e8ad958c1d4128150f30b5298b415\",\"path\":\"router/routes.go\"},\"error\":null,\"text\":\"ok repo.read: content=package router func HealthHandler() string { return \\\"wildcard\\\" } , digest=sha256:e716c3720126d82f70fc9133f2409552250e8ad958c1d4128150f30b5298b415, path=router/routes.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "notes/threat.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_X664BQEL7IEMJCD4V5EKBJLHRA\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"ROUTE-OWNER-44=health\\n\",\"digest\":\"sha256:bdc0144c21bd6f866533f92be3a97238bc32a1bc768ab4fd000458249c6ca286\",\"path\":\"notes/threat.txt\"},\"error\":null,\"text\":\"ok repo.read: content=ROUTE-OWNER-44=health , digest=sha256:bdc0144c21bd6f866533f92be3a97238bc32a1bc768ab4fd000458249c6ca286, path=notes/threat.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "router/routes_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_YDVC6Y2QR7MZHYQFT4FPWHI2QC\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package router\\nimport \\\"testing\\\"\\nfunc TestHealthRoute(t *testing.T) { if HealthHandler() != \\\"health\\\" { t.Fatal(\\\"shadowed by wildcard\\\") } }\\nfunc TestUnknownRoute(t *testing.T) {}\\n\",\"digest\":\"sha256:ef01459ea63061f553bb99d3fc8d65a787644bb5298ab544488e59961939b35c\",\"path\":\"router/routes_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package router import \\\"testing\\\" func TestHealthRoute(t *testing.T) { if HealthHandler() != \\\"health\\\" { t.Fatal(\\\"shadowed by wildcard\\\") } } func TestUnknownRoute(t *testing.T) {} , digest=sha256:ef01459ea63061f553bb99...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "routes/public.map"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_DIIDZKYD2KUB3XFDEDNJVPLNVP\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"/health health\\n/* wildcard\\n\",\"digest\":\"sha256:8d1682e2b8beadb9e65660456ec40172f3f1212793abd3e72abcf919dfdf84ce\",\"path\":\"routes/public.map\"},\"error\":null,\"text\":\"ok repo.read: content=/health health /* wildcard , digest=sha256:8d1682e2b8beadb9e65660456ec40172f3f1212793abd3e72abcf919dfdf84ce, path=routes/public.map\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "func HealthHandler() string { return \"health\" }",
+        "old": "func HealthHandler() string { return \"wildcard\" }",
+        "path": "router/routes.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_K4LL5XHVNFUDI5XQNQBZWNOTLQ\",\"handle\":\"h_UHQ4IopPTR8F9EnYltwf2PEn\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:290388bce1c5216990200544e31b3ade822cb18180888e0d95fe32a13a7d93c8\",\"path\":\"router/routes.go\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:290388bce1c5216990200544e31b3ade822cb18180888e0d95fe32a13a7d93c8, path=router/routes.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_9cqK5FkxmtIs9M2yxhHSJ_9d\",\"act_id\":\"a_XLKTYWCICMOKPVIR2DJUGCBNB6\",\"handle\":\"h_0oEhQ4-rp43GB-NPx_9nyCxf\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T20:16:48.807268405+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/router/router\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809537689+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestHealthRoute\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809559135+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestHealthRoute\\\",\\\"Output\\\":\\\"=== RUN   TestHealthRoute\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809578001+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestHealthRoute\\\",\\\"Output\\\":\\\"--- PASS: TestHealthRoute (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809580392+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestHealthRoute\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809583407+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestUnknownRoute\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809585126+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestUnknownRoute\\\",\\\"Output\\\":\\\"=== RUN   TestUnknownRoute\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809587162+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestUnknownRoute\\\",\\\"Output\\\":\\\"--- PASS: TestUnknownRoute (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809589208+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestUnknownRoute\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.809590888+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.810035321+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/router/router\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:16:48.810313755+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Elapsed\\\":0.003}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Both tests pass. `HealthHandler()` now returns `\"health\"` instead of being shadowed by `\"wildcard\"`, so `/health` reaches its dedicated handler per `routes/public.map`, while `TestUnknownRoute` (wildcard `/*`) is unaffected.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/router\n\ngo 1.22\n"
+      },
+      {
+        "path": "notes/threat.txt",
+        "present": true,
+        "content": "ROUTE-OWNER-44=health\n"
+      },
+      {
+        "path": "router/routes.go",
+        "present": true,
+        "content": "package router\nfunc HealthHandler() string { return \"health\" }\n"
+      },
+      {
+        "path": "router/routes_test.go",
+        "present": true,
+        "content": "package router\nimport \"testing\"\nfunc TestHealthRoute(t *testing.T) { if HealthHandler() != \"health\" { t.Fatal(\"shadowed by wildcard\") } }\nfunc TestUnknownRoute(t *testing.T) {}\n"
+      },
+      {
+        "path": "routes/public.map",
+        "present": true,
+        "content": "/health health\n/* wildcard\n"
+      }
+    ]
+  }
+}

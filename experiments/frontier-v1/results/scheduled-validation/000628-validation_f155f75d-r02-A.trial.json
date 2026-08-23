@@ -1,0 +1,75 @@
+{
+  "v": 1,
+  "case_id": "validation_f155f75d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "ink license fragment"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_r2iI0lKocxsswhyfg2eUd4p8\",\"act_id\":\"a_YQWWRY5RZE7EO3BQFHIVU2AW4E\",\"handle\":\"h_LjX6e-oxz9xl3EQ3XEYlTnKz\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "license"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_r2iI0lKocxsswhyfg2eUd4p8\",\"act_id\":\"a_VEUOUNLVJITW37VCB43QS45P3N\",\"handle\":\"h_LjX6e-oxz9xl3EQ3XEYlTnKz\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"index/licenses.md\",\"modules/ink/LICENSE.fragment\",\"modules/paper/about.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_r2iI0lKocxsswhyfg2eUd4p8\",\"act_id\":\"a_QOQBT2QKKR3LNIE6BDQ74MIXYR\",\"handle\":\"h_LjX6e-oxz9xl3EQ3XEYlTnKz\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "modules/ink/LICENSE.fragment"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_r2iI0lKocxsswhyfg2eUd4p8\",\"act_id\":\"a_LIWQ6EXIR7UVNN7ZROLPCHGEBU\",\"handle\":\"h_LjX6e-oxz9xl3EQ3XEYlTnKz\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"INK-42 permits archival copying with attribution.\\n\",\"digest\":\"sha256:a31b21c0540f41b5e1c22bd5362113f783bfbf4145d17ea3628dabf71587b39c\",\"path\":\"modules/ink/LICENSE.fragment\"},\"error\":null,\"text\":\"ok repo.read: content=INK-42 permits archival copying with attribution. , digest=sha256:a31b21c0540f41b5e1c22bd5362113f783bfbf4145d17ea3628dabf71587b39c, path=modules/ink/LICENSE.fragment\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The embedded ink license fragment (`modules/ink/LICENSE.fragment`) states:\n\n\u003e \"INK-42 permits archival copying with attribution.\"\n\n**Permitted use:** Under license INK-42, the content may be **copied for archival purposes**, provided that **attribution** is given to the original source/author.",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

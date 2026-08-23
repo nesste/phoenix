@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_ea29e856",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return the same \"requested capability is unavailable in the reachable world\" response with an empty frontier when I submit the intent — there are no reachable calls offered for this goal on any of the provided handles (repo, tests, git, episodes).\n\nThis means the environment isn't exposing any executable actions for \"promoting a release stamp into current and committing it\" from the current state of these handles — the capability graph doesn't currently connect to that goal, so I can't proceed with concrete tool calls (e.g., listing stamps, checking git status, staging, or committing) because none are being surfaced as reachable.\n\nI don't want to keep guessing verbs and burning budget on failed calls. Could you confirm:\n1. Whether there's a different/additional handle I should be using (e.g., a \"stamps\" or \"release\" handle) that wasn't listed?\n2. Or whether these handles need to be in a different state first (e.g., initialized) before this capability becomes reachable?\n\nWith the four handles given, the system is telling me this task isn't currently executable from where they stand.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

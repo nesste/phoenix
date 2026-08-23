@@ -1,0 +1,42 @@
+{
+  "v": 1,
+  "case_id": "validation_ba9f9d12",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote 2026.09 into the current stamp, then inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Promote 2026.09 into the current stamp, then inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No frontier calls or capabilities are reachable in this world for the requested workflow — both the git and repo handles returned \"requested capability is unavailable in the reachable world\" with an empty frontier (no candidate calls offered). This means the promote-stamp / diff-inspection action isn't accessible from the current state with these handles, so I can't proceed with promoting 2026.09 into the current stamp or inspecting the diff.\n\nCould you confirm whether there's a different handle or an initial setup step (e.g., checking out a branch, or an \"episodes\" step) that should establish reachability first? I don't want to spend further budget probing blindly without more guidance.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_ea29e856",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four live handles (repo, tests, git, episodes) expose a capability matching this intent — each \"orient\" call returned \"requested capability is unavailable in the reachable world,\" meaning there's no reachable action in this world state to promote a release stamp into current and commit it (or to recover from a prior clean-tree commit attempt).\n\nI've checked all four handles and none can reach that capability from the current state. I don't have a path forward here — could you confirm whether there's a different handle I should be using, or whether the world state needs to be advanced first (e.g., via a prior setup step) before this action becomes reachable?",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

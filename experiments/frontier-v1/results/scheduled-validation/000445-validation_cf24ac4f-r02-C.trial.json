@@ -1,0 +1,56 @@
+{
+  "v": 1,
+  "case_id": "validation_cf24ac4f",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/not found, recover by locating the current live changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/not found, recover by locating the current live changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/not found, recover by locating the current live changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/not found, recover by locating the current live changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four supplied handles (repo, tests, git, episodes) returned \"requested capability is unavailable in the reachable world\" for this intent — none of them expose a reachable path to add/edit a changelog entry, and none returned candidate calls to pursue. This means the task as scoped isn't achievable with the current handles/session: there's no live tool surface for locating \"## Upcoming\" (or a recovery heading) and inserting a changelog bullet.\n\nI'm stopping here rather than guessing further, since continuing to probe would just burn budget without a viable path forward. To proceed, I'd need either a handle that actually exposes changelog/file-edit capabilities, or confirmation of which tool surface should host this change.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

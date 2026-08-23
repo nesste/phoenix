@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_334838d5",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Read the current live stamp value on the repo.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I checked all four supplied handles (repo, tests, git, episodes) by submitting the goal as intent. In every case, the Phoenix orient step returned:\n\n**\"requested capability is unavailable in the reachable world\"** — with an empty frontier and no grant/revoke handles offered.\n\nThis means none of the currently reachable handles expose a \"stamp\" read/write capability that would let me look up the live stamp value or change it from 2026.07 to 2026.09. There's no reachable call path to accomplish this task with the handles provided.\n\nI'm unable to complete this request as no live capability for reading or modifying a \"stamp\" is reachable from the given handles. If you have an updated or different handle that exposes this capability, please share it and I can proceed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

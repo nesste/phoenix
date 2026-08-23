@@ -1,0 +1,89 @@
+{
+  "v": 1,
+  "case_id": "validation_4977103d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Update \"Current epoch\" from copper to silver in the repo, then commit the change.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Update \"Current epoch\" from copper to silver in the repo, then create the commit.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repository files for the text \"Current epoch\" to find where copper/silver value is stored.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Show git status and diff to understand current repo state before committing epoch change.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "List available actions/capabilities on this repo handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "List available actions/capabilities on this git handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "Update \"Current epoch\" from copper to silver in the repo, then create the commit.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "Update \"Current epoch\" from copper to silver in the repo, then create the commit.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles consistently return \"requested capability is unavailable in the reachable world\" with an empty frontier, regardless of intent phrasing. This indicates none of the provided handles currently expose any reachable actions — the environment isn't offering a path to read files, edit content, or run git commands from these handles as given.\n\nI'm unable to proceed with the requested epoch promotion because none of the live handles (repo, tests, git, episodes) currently expose any invocable capability — every attempt returns \"requested capability is unavailable in the reachable world\" with an empty frontier list. This suggests the handles may need to be re-issued/refreshed, or there's a missing initial handle that would expose the file-editing and git-commit actions. Could you confirm the handles are correctly scoped/live, or provide an updated set of handles?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

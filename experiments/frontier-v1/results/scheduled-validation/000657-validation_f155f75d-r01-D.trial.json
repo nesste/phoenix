@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_f155f75d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Read the embedded ink license fragment and state its permitted use.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for license file or fragment mentioning ink license",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Read the embedded ink license fragment and state its permitted use.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Read the embedded ink license fragment and state its permitted use.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Read the embedded ink license fragment and state its permitted use.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the available handles expose a capability for this task — every attempt returned \"requested capability is unavailable in the reachable world\" with no frontier options offered. I don't have access to read any \"embedded ink license fragment\" in this environment, so I can't retrieve or state its permitted use. Could you point me to the specific file/path or provide the fragment text, or clarify which handle/tool should expose it?",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

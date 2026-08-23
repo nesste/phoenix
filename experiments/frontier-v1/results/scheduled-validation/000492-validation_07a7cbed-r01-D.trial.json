@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_07a7cbed",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Search episodes for STAMP-EPOCH-31",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles (repo, tests, git, episodes) return \"requested capability is unavailable in the reachable world\" with no frontier/next-step calls offered, meaning none of them expose a reachable path to search for or view content like \"STAMP-EPOCH-31\" in this environment session.\n\nI'm unable to find STAMP-EPOCH-31 or its documented signing epoch token — the live handles given don't provide any reachable operations (no grep/read/search verbs, no frontier calls) to locate it. There may be a different handle or tool needed that wasn't provided to me. Could you supply a handle that has reachable capabilities (e.g., a search/grep/read verb), or clarify where STAMP-EPOCH-31 is documented (repo file, git commit, test file, or episode log)?",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

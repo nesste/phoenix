@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_ea29e856",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "List reachable calls to promote next release stamp into current and commit",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four supplied handles (repo, tests, git, episodes) currently expose any reachable capability matching this task — every attempt (with varied intent phrasing across all handles) returned `matched: false` with an empty frontier, meaning the requested capability (\"promote next release stamp into current and commit, recovering from the clean-tree commit failure\") is unavailable in the reachable world state for this session.\n\nI wasn't able to find a live call path to accomplish the task with the given handles. Could you confirm:\n- Whether there's a different/updated handle I should use, or\n- Whether a prior step (e.g., initializing the repo state or generating the release stamp) needs to happen first to unlock this capability?\n\nI've stopped here rather than continue guessing at verbs, to conserve budget (currently $0.039 of $0.15 used).",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

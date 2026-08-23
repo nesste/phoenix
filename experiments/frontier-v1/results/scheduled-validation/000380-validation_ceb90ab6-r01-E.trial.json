@@ -1,0 +1,147 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {
+        "follow": true,
+        "path": "changes/clock.md"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_XaMgAxweP_5eyjpWlhIZE8qv\",\"act_id\":\"a_Z52Z733WNTJYJJOBDYCTKYJ5OE\",\"handle\":\"h_lvYc8Nt_yjeAz_5daUfyw41z\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "clock"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_XaMgAxweP_5eyjpWlhIZE8qv\",\"act_id\":\"a_QD7KUAE7VLGOGO7FJMM5KXESJL\",\"handle\":\"h_P1ZFBxlqZS8nhbSNfDmfWRRV\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "help",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_XaMgAxweP_5eyjpWlhIZE8qv\",\"act_id\":\"a_4HSCVUYHDKXS7M55QISN2JYLFT\",\"handle\":\"h_lvYc8Nt_yjeAz_5daUfyw41z\",\"verb\":\"help\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "help",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_XaMgAxweP_5eyjpWlhIZE8qv\",\"act_id\":\"a_XWCIEKNEYT5W7EAGNZFNE2YQJX\",\"handle\":\"h_P1ZFBxlqZS8nhbSNfDmfWRRV\",\"verb\":\"help\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment - former path was changes/clock.md, which is now obsolete. Need to find where this file/content moved to in the repo history and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find git log history for changes/clock.md to see where it was renamed/moved to",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repo for files related to clock, e.g. any file named clock.md in changes or other directories",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find git log history for changes/clock.md to see where it was renamed/moved to, including rename detection across commits",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "List repo files/tree to find where clock-related content currently lives",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Locate the moved clock fragment - former path was changes/clock.md, which is now obsolete. Need to find where this file/content moved to in the repo history and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Locate the moved clock fragment - former path was changes/clock.md, which is now obsolete. Need to find where this file/content moved to in the repo history and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "git log --follow -- changes/clock.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "intent": "find . -iname \"*clock*\"",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "git",
+      "intent": "view commit history of the repository",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 10,
+      "handle": "repo",
+      "intent": "browse repository files",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I'm unable to reach any capability on these handles — every intent-based orient call returns \"matched false: requested capability is unavailable in the reachable world,\" and every explicit verb call returns \"absent: act is not reachable.\" I've tried the repo, git, tests, and episodes handles with multiple phrasings (git log --follow, find/grep for clock, browsing files, viewing history) and none produce a usable frontier of callable actions.\n\nGiven the remaining budget is nearly exhausted ($0.038 left) and I cannot get any tool call to actually reach the environment, I cannot locate the moved clock fragment or retrieve its content. \n\nSummary of what I attempted:\n- Tried locating `changes/clock.md` history via the git handle (log/follow) — unreachable.\n- Tried grepping/finding \"clock\" across the repo handle — unreachable.\n- Tried generic orientation intents on all four handles — all returned \"capability unavailable in the reachable world.\"\n\nI was not able to complete this task due to the tool/environment returning \"not reachable\" for every action attempted, despite handles appearing live. I'd recommend retrying with fresh handles or verifying the Phoenix environment connectivity, as no combination of intents or verbs succeeded in producing an executable call.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

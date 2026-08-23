@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_334838d5",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Read the current live stamp value",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four supplied handles expose a capability matching this task — every attempt returns \"requested capability is unavailable in the reachable world,\" with no frontier calls offered to read or change a stamp value. I'm unable to locate any stamp-related resource (2026.07 or otherwise) among the repo, tests, git, or episodes handles, so I cannot complete the requested change.\n\nCould you confirm which handle/resource actually holds the \"stamp\" value? It's possible the correct handle wasn't included in this set, or the capability needs to be granted first.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

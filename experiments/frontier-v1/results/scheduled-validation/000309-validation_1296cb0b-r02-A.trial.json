@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_wkpYDZTVMrdG06PJ_6IMT2G5\",\"act_id\":\"a_SL2H5JS7Y4W6MTS7K2WA6F7JXQ\",\"handle\":\"h_6PvLHrUijTkhC6aRouBJ-D64\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_wkpYDZTVMrdG06PJ_6IMT2G5\",\"act_id\":\"a_UNPHHUZXXC6XVFTCVF4XCAPVZ7\",\"handle\":\"h_6PvLHrUijTkhC6aRouBJ-D64\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? checklists/release.md\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? checklists/release.md \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Confirmed: `git diff` returns empty, so the release checklist does not appear in the tracked diff.\n\n`git status` shows:\n```\n?? checklists/release.md\n```\nThe `??` marker means the file is **untracked** (new/unversioned), not modified. Since it's not yet tracked by git, it can't show up in a diff of tracked changes — that's expected behavior, not an error. If you want it included in version control, it would need to be `git add`ed first.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

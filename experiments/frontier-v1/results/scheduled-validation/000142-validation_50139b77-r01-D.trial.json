@@ -1,0 +1,97 @@
+{
+  "v": 1,
+  "case_id": "validation_50139b77",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for text 'EOL-MIX-22'",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Search episodes for 'EOL-MIX-22'",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "list available verbs/capabilities on this repo handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "list available verbs/capabilities on this episodes handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles return \"requested capability is unavailable in the reachable world\" for this intent, with an empty frontier — meaning none of them expose a reachable action that can search for or resolve \"EOL-MIX-22.\" I'm unable to locate the file carrying that exception with the current handles/tools; there's no accessible search/grep/read capability surfaced for repo, tests, git, or episodes handles to fulfill this request.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

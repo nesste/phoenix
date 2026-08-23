@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_07a7cbed",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for STAMP-EPOCH-31 to find its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Search episodes for STAMP-EPOCH-31 to find its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "grep repository files for text STAMP-EPOCH-31",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "list episodes to find one mentioning STAMP-EPOCH-31",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Find STAMP-EPOCH-31 and report its documented signing epoch token.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"orient: requested capability is unavailable in the reachable world\" with no matches and an empty frontier, regardless of the specific intent given. This indicates none of the provided handles expose a reachable path to search for or retrieve information about \"STAMP-EPOCH-31\" — the capability needed isn't available in this environment/world state.\n\nI'm unable to find STAMP-EPOCH-31 or its documented signing epoch token with the tools and handles currently accessible. There is no further reachable action (frontier is empty) from any of the four handles to pursue this request.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "v": 1,
+  "case_id": "validation_6b57e0c0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_US4VHRss46kQNPhyrQTtLyBO\",\"act_id\":\"a_2AN5XLZ3EHPF3XQX73VMUAHQQD\",\"handle\":\"h_kj-EtHLS30H7LpOCW2HnaLF9\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? checklists/candidate.md\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? checklists/candidate.md \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The untracked checklist file is:\n\n**`checklists/candidate.md`**\n\nGit status shows it with `??`, meaning it's a new, untracked file not yet added to the repository.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/candidate.md",
+        "present": true,
+        "content": "- [ ] owner approval\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

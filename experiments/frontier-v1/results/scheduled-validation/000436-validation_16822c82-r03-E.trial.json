@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_16822c82",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for the token CLOCK-PROMOTE-12",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles (repo, tests, git, episodes) return \"requested capability is unavailable in the reachable world\" when queried for the CLOCK-PROMOTE-12 token — none of them expose a matching orient/search capability in this environment, so I cannot retrieve or confirm the file containing that release-policy token from the reachable state.\n\n**Result: unable to determine** — the token CLOCK-PROMOTE-12 could not be located because none of the live handles (repo, tests, git, episodes) support a reachable search/orient action that matches this query. If you can grant a handle with search/grep capability over the repository contents, I can retry the lookup.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

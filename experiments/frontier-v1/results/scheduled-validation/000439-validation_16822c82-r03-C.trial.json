@@ -1,0 +1,134 @@
+{
+  "v": 1,
+  "case_id": "validation_16822c82",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "CLOCK-PROMOTE-12"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_pXhs8xRTnLwPjbTXHAB1ONIU\",\"act_id\":\"a_ULUTLKQEDDODTWMINK2NM3O34X\",\"handle\":\"h_bAxBi8ZENxxIaXDcYNU7aLoR\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "CLOCK-PROMOTE-12"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_pXhs8xRTnLwPjbTXHAB1ONIU\",\"act_id\":\"a_KABQ72SVFCPVANZ5YL6NLNZD64\",\"handle\":\"h_bAxBi8ZENxxIaXDcYNU7aLoR\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "ls",
+      "args": {
+        "path": "."
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_pXhs8xRTnLwPjbTXHAB1ONIU\",\"act_id\":\"a_CXQ5WY7JBN5DQG7O4E6TBEXMPZ\",\"handle\":\"h_bAxBi8ZENxxIaXDcYNU7aLoR\",\"verb\":\"ls\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list_files",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_pXhs8xRTnLwPjbTXHAB1ONIU\",\"act_id\":\"a_HYZH4WLMG3MA3BWZOYK3NNCLRE\",\"handle\":\"h_bAxBi8ZENxxIaXDcYNU7aLoR\",\"verb\":\"list_files\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for the token CLOCK-PROMOTE-12",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "List repository files and search contents for text",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "show git log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "list episodes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "intent": "run tests",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to search across all four provided handles (repo, tests, git, episodes) using both intent-based discovery and explicit verbs (grep, search, ls, list_files, etc.), but every attempt returned \"requested capability is unavailable in the reachable world\" with an empty frontier and no grants. This means none of the handles currently expose any reachable action (not even basic listing/reading) from their current state — the token `CLOCK-PROMOTE-12` cannot be located because no tool call succeeds in reaching content on any of these handles.\n\nI was unable to find `CLOCK-PROMOTE-12` or the file containing it — the live handles supplied do not expose any reachable capability (search, grep, list, read, etc.) in their current state, so no file contents could be inspected. If additional/different handles or a way to unlock these handles' capabilities can be provided, I can retry the search.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

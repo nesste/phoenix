@@ -1,0 +1,119 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {
+        "follow": true,
+        "path": "changes/clock.md"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_itaaz7P_PbIBTbZqB2WFJrlE\",\"act_id\":\"a_J7V56LYAXM23WFV3MLBIN6AAOK\",\"handle\":\"h_LliaYtWuo721YJTZuEgG8-TD\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "clock"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_itaaz7P_PbIBTbZqB2WFJrlE\",\"act_id\":\"a_XFEA5FNQZUK6C7PW2U5A27M7RI\",\"handle\":\"h_5meZeFpLRAYM-yGzTf5Ie9o2\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "search",
+      "args": {
+        "query": "clock.md"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_itaaz7P_PbIBTbZqB2WFJrlE\",\"act_id\":\"a_4TB55MY37KIQAPD3ABRACB2SJM\",\"handle\":\"h_LliaYtWuo721YJTZuEgG8-TD\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment: the file previously at changes/clock.md is obsolete/renamed. Find where it moved to in the repo history (git log --follow or similar) and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment: the file previously at changes/clock.md is obsolete/renamed. Find where it moved to in the repo history (git log --follow or similar) and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Locate the moved clock fragment: the file previously at changes/clock.md is obsolete/renamed. Find where it moved to in the current repo and report its content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "List all files in the repository tree",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find episodes related to moving or renaming changes/clock.md file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles (repo, tests, git, episodes) return \"requested capability is unavailable in the reachable world\" for every intent/verb I attempt — including orientation, search, log, and direct file listing. This indicates the underlying tool environment for this task is not actually reachable/provisioned in this session (a backend/configuration issue), not something resolvable by rephrasing the request.\n\nI'm unable to locate the moved `changes/clock.md` fragment or retrieve its content because none of the provided handles currently expose any usable capability — every call fails with `absent: act is not reachable` or `matched: false`. There is no error on my end I can work around; this needs the environment/session to actually expose a working verb (e.g., file read, git log, or search) on one of these handles.\n\n**Please advise or re-provision**: could you confirm the handles are correctly initialized, or provide a specific verb name that's known to work in this environment? Without a reachable capability, I cannot proceed further.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

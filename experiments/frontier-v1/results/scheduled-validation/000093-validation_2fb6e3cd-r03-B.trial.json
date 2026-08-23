@@ -1,0 +1,82 @@
+{
+  "v": 1,
+  "case_id": "validation_2fb6e3cd",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "TestRetiredEOL"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_I24jGxQx1p0_28Oe08vcWn28\",\"act_id\":\"a_XNX4UISZ4FYNB4FM4UM4SWQU2H\",\"handle\":\"h_-9G6piJtvivs8kYFmiEAiu1I\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"tests/renames.json\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "tests/renames.json"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_I24jGxQx1p0_28Oe08vcWn28\",\"act_id\":\"a_SNFEP5Z7R2R7VYZCHMLV5UPX4F\",\"handle\":\"h_-9G6piJtvivs8kYFmiEAiu1I\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"{\\\"renames\\\":[{\\\"from\\\":\\\"TestRetiredEOL\\\",\\\"to\\\":\\\"TestCurrentEOL\\\"}]}\\n\",\"digest\":\"sha256:4a175cc710830fadf9a3c7d4031b932281e3c917ddfac9b4a2f6cd69913d2357\",\"path\":\"tests/renames.json\"},\"error\":null,\"text\":\"ok repo.read: content={\\\"renames\\\":[{\\\"from\\\":\\\"TestRetiredEOL\\\",\\\"to\\\":\\\"TestCurrentEOL\\\"}]} , digest=sha256:4a175cc710830fadf9a3c7d4031b932281e3c917ddfac9b4a2f6cd69913d2357, path=tests/renames.json\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestCurrentEOL"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_I24jGxQx1p0_28Oe08vcWn28\",\"act_id\":\"a_VUY3AHLDENX4OFB244MIJWSZAV\",\"handle\":\"h_9ZI6o6cuj5r4BNHPRhRqKYwL\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T17:49:24.319271985+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:24.32194795+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:24.321973696+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\",\\\"Output\\\":\\\"=== RUN   TestCurrentEOL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:24.322006641+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\",\\\"Output\\\":\\\"--- PASS: TestCurrentEOL (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:24.322010151+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Test\\\":\\\"TestCurrentEOL\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:24.322013672+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:24.322433599+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/eolpolicy/policy\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T17:49:24.323158544+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/eolpolicy/policy\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestCurrentEOL\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The live replacement for `TestRetiredEOL` is `TestCurrentEOL`, found via `tests/renames.json`. I focused it and it **PASSED**.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

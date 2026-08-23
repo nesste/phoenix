@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_b5397328",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles were tested with the requested intent (\"Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched\"), and each returned the same result: **capability unavailable in the reachable world** (no matched actions, empty frontier, no grants/revokes offered).\n\nThis means none of the provided handles (repo, tests, git, episodes) currently expose a reachable action path that corresponds to changing a \"policy mode\" to \"strict-lf\" — the tool has no route to perform this task from the current state.\n\nI'm unable to proceed with this request as none of the live handles offer a matching capability. Could you confirm:\n1. Whether there's a different handle that should expose policy/config editing capabilities, or\n2. Whether the world/session needs to be advanced/initialized first (e.g., via a setup action) before this capability becomes reachable?",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

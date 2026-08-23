@@ -1,0 +1,83 @@
+{
+  "v": 1,
+  "case_id": "validation_b5397328",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List available files or actions to find policy configuration for line-ending mode (strict-lf).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles report that this capability is unreachable in the current world — every attempt (repo, tests, git, episodes) returns `\"matched\": false` with an empty frontier and no grants/revokes offered. There's no available action path to change a \"policy mode to strict-lf\" or inspect a diff in this environment; the tool doesn't expose that capability from any of the provided handles.\n\nI'm unable to complete this task — none of the given handles expose an action for setting a policy mode or line-ending strictness. Could you confirm the correct handle/tool that exposes this capability, or provide additional handles?",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

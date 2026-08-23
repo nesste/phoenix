@@ -1,0 +1,56 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt (i.e., if committing found nothing to commit because the changelog wasn't actually updated/staged, fix that by writing the note into CHANGELOG.md, staging it, and committing).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find the pending clock note that needs to be promoted into CHANGELOG.md.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return the same result: \"orient: requested capability is unavailable in the reachable world\" with an empty frontier and no grants. This means none of the provided handles currently expose any executable verbs for this task — there's no reachable action path from any of them (repo, tests, git, episodes) to inspect the pending clock note, edit CHANGELOG.md, or run git commands.\n\nI'm unable to proceed with promoting the clock note or performing the git recovery, because the environment isn't offering any live capability to act on. This isn't something I can work around from my side — the reachable world simply doesn't currently grant any operations on these handles.\n\nCould you confirm whether these handles are expected to expose specific verbs (e.g., `read_file`, `write_file`, `commit`, `status`), or whether new/refreshed handles need to be issued? Once a handle returns actual reachable calls in its frontier, I can proceed with:\n\n1. Reading the pending clock note (likely in an episodes/notes store).\n2. Writing/appending it to CHANGELOG.md in the repo.\n3. Staging and committing that change via git.\n4. If the initial commit attempt failed due to a clean tree (i.e., changes weren't actually staged), re-adding the file and retrying the commit.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_ba9f9d12",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote 2026.09 into the current stamp and inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "promote stamp/next.txt value 2026.09 into current stamp file, then diff to confirm next.txt unchanged",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "promote stamp/next.txt value 2026.09 into current stamp file, then diff to confirm next.txt unchanged",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Promote 2026.09 into the current stamp and inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Promote 2026.09 into the current stamp and inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles report the requested capability as unreachable in this world — none of them expose a matching \"promote stamp / diff\" action, so I cannot perform the promotion or inspect the diff. This task cannot be completed with the given handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

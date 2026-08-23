@@ -1,0 +1,127 @@
+{
+  "v": 1,
+  "case_id": "validation_50139b77",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "EOL-MIX-22"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_EY8-muNxxOrnbYn1D7fSSSXZ\",\"act_id\":\"a_7XV6EVRJGHEAY2SXE6WP7AKPIY\",\"handle\":\"h_iZwxQ2Iuuv-__qIxhDR1oILk\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "EOL-MIX-22"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_EY8-muNxxOrnbYn1D7fSSSXZ\",\"act_id\":\"a_YIFLZLIKAMMBRVUC3Z2MXKIDYE\",\"handle\":\"h_iZwxQ2Iuuv-__qIxhDR1oILk\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for occurrences of EOL-MIX-22",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Search episodes for EOL-MIX-22",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "list available actions/verbs on this handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "list available actions/verbs on this handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles report \"requested capability is unavailable in the reachable world\" with no frontier of actionable calls. This means none of the provided handles currently expose a reachable action (search/grep/read/etc.) for this task in the live environment.\n\nI'm unable to locate EOL-MIX-22 or determine which repository file carries the exception, because none of the supplied handles (repo, tests, git, episodes) currently expose any usable capability (search, grep, read, etc.) — every attempt returns \"capability is unavailable in the reachable world\" with an empty frontier of next actions.\n\nTo proceed, I'd need either different/refreshed handles with reachable verbs, or guidance on the correct verb/args this environment expects for browsing repository contents. Could you confirm the handles are still live or provide an updated handle for the repository search interface?",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

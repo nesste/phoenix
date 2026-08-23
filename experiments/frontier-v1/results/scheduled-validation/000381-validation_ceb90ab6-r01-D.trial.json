@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find git history/log for path changes/clock.md to see where it was renamed/moved to.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Locate the moved clock fragment (formerly at changes/clock.md) in the repo and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles fail to orient toward this task — each returns \"requested capability is unavailable in the reachable world\" with an empty frontier, meaning none of them expose a reachable path to search git history, browse the repo tree, or inspect files for the moved `changes/clock.md` fragment.\n\nI'm unable to locate the moved clock fragment or retrieve its content with the tools currently accessible in this session.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

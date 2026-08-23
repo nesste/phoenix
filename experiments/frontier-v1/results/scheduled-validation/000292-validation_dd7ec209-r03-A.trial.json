@@ -1,0 +1,75 @@
+{
+  "v": 1,
+  "case_id": "validation_dd7ec209",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "cobalt sentinel history epoch"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_vDkZf8H--EzZVuLlvm0maQN5\",\"act_id\":\"a_XWDACCBESAIZZG3WJH7FGZ4U3I\",\"handle\":\"h_eNbQAmpnWp66gCdKeKqBRxta\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "epoch"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_vDkZf8H--EzZVuLlvm0maQN5\",\"act_id\":\"a_OBO7CMS3HXGI5CUZCHYQNJYC4H\",\"handle\":\"h_eNbQAmpnWp66gCdKeKqBRxta\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"sentinel/history.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_vDkZf8H--EzZVuLlvm0maQN5\",\"act_id\":\"a_ONEJTJKDM5ZAAMYY73WB5UZIR4\",\"handle\":\"h_eNbQAmpnWp66gCdKeKqBRxta\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "sentinel/history.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_vDkZf8H--EzZVuLlvm0maQN5\",\"act_id\":\"a_YY6TDP5G32R2FDDC5DHJEKORJ6\",\"handle\":\"h_eNbQAmpnWp66gCdKeKqBRxta\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Current epoch: copper. Previous epoch: amber.\\n\",\"digest\":\"sha256:66bdc9511babeb853f9fc896ad82a04511232d1d292d04bad1a0ecc5976099e2\",\"path\":\"sentinel/history.md\"},\"error\":null,\"text\":\"ok repo.read: content=Current epoch: copper. Previous epoch: amber. , digest=sha256:66bdc9511babeb853f9fc896ad82a04511232d1d292d04bad1a0ecc5976099e2, path=sentinel/history.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The current epoch is \"copper\", not \"cobalt\" as specified. Since the supplied old epoch (\"cobalt\") is not present in the file, I'm recovering by not applying the change, per your instructions.\n\nCurrent state remains: **Current epoch: copper. Previous epoch: amber.**\n\nNo edit was made. If you intended \"copper\" instead of \"cobalt\", let me know and I'll update it to \"silver\".",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "v": 1,
+  "case_id": "validation_d3c437b2",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "List files to find changelog fragments directory and clock fragment",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Check git status to see pending changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "list repository files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "explore",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "explore",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "explore",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "intent": "explore",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles consistently return \"requested capability is unavailable in the reachable world\" with no frontier, regardless of intent phrasing or verb used. This indicates the handles are not actually live/reachable in this session — every probe (via intent, via explicit verbs like `status`/`list`, and generic exploratory intents) fails identically with an empty frontier, meaning no capability graph is exposed for me to act on.\n\nGiven this, I cannot promote the clock fragment into CHANGELOG.md or make any commit, because the tooling isn't providing any actionable operations on these handles — there's nothing in the reachable world for repo browsing, git status/diff, or file edits to attach to.\n\n**Status: Blocked.** I attempted to reach the repo, git, tests, and episodes handles using multiple intents (\"promote fragment / commit changelog\", \"git status\", \"list files\", \"explore\") and explicit verbs, and every single call returned `matched:false` / \"requested capability is unavailable in the reachable world\" with an empty frontier. This suggests either:\n- the handles need to be freshly (re)issued/live-bound before use, or\n- there's a required initial handshake/verb I don't have visibility into that isn't being surfaced by orient.\n\nCould you re-issue live handles or confirm the correct starting verb/intent phrasing for this environment? Without any reachable capability, I can't inspect the changelog fragments directory, edit CHANGELOG.md, or run git commands to complete the task.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

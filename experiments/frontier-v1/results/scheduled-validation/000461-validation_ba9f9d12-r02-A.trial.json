@@ -1,0 +1,125 @@
+{
+  "v": 1,
+  "case_id": "validation_ba9f9d12",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp/next.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_EARS5PICBFVTPIKR33PQMZJLOY\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"stamp/next.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_BWDIRJX4NECJQHCGPBYYYU7LBF\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/next.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_FFYHR2D7DCUM5FN4PUF25QWEGF\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.09\\n\",\"digest\":\"sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0\",\"path\":\"stamp/next.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.09 , digest=sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0, path=stamp/next.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp current"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_QIAPI43TBTR3OVX7HR4DGVCYT2\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_DXWROUHIVN3TJB7G4OZMA3F22R\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"docs/stamp.md\",\"stamp/current.txt\",\"stamp/next.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_PSANF3OAADZJV5GTX72VDFITFL\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.08\\n\",\"digest\":\"sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.08 , digest=sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "docs/stamp.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_5G4SWWWHUUPYTMUEWEXUWPDXO6\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Signing epoch STAMP-EPOCH-31. Promote next into current.\\n\",\"digest\":\"sha256:9a997d44e68383f70439d42d86654600fc0d360c33871421f5fcf80ae927e350\",\"path\":\"docs/stamp.md\"},\"error\":null,\"text\":\"ok repo.read: content=Signing epoch STAMP-EPOCH-31. Promote next into current. , digest=sha256:9a997d44e68383f70439d42d86654600fc0d360c33871421f5fcf80ae927e350, path=docs/stamp.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "stamp=2026.09\n",
+        "old": "stamp=2026.08\n",
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_AENHVZHFFPRFQ6JQZNUSKGWVZP\",\"handle\":\"h_7nz3cymKDe2vVp2-pX_OrNv1\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 8,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_b8JJneXh9gV3isKgVvfnRKEP\",\"act_id\":\"a_J2R64J37QR5TXWFW3M2LQLS4WW\",\"handle\":\"h_X4vH2sjeJYpRvFTMz9eWcHN4\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/stamp/current.txt b/stamp/current.txt\\nindex 2fd6bb4..e3637a4 100644\\n--- a/stamp/current.txt\\n+++ b/stamp/current.txt\\n@@ -1 +1 @@\\n-stamp=2026.08\\n+stamp=2026.09\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/stamp/current.txt b/stamp/current.txt index 2fd6bb4..e3637a4 100644 --- a/stamp/current.txt +++ b/stamp/current.txt @@ -1 +1 @@ -stamp=2026.08 +stamp=2026.09 \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Confirmed: the diff shows only `stamp/current.txt` changed (2026.08 → 2026.09). `stamp/next.txt` is unchanged, still at `2026.09`, as required.\n\nSummary:\n- Promoted `2026.09` into `stamp/current.txt` (was `2026.08`).\n- Verified via `git diff` that `stamp/next.txt` was not modified.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

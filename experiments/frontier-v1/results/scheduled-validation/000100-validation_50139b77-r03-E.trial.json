@@ -1,0 +1,90 @@
+{
+  "v": 1,
+  "case_id": "validation_50139b77",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search the repository for the string EOL-MIX-22 to find which file carries this exception marker.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Search episodes for EOL-MIX-22 to find context about which file carries this exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "List available verbs/capabilities on this repo handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Search tests for EOL-MIX-22 to find which file carries this exception",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Search git history/grep for EOL-MIX-22 to find which file carries this exception",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"requested capability is unavailable in the reachable world\" with no frontier calls offered, regardless of intent phrasing. This means none of the provided handles currently expose a reachable capability for locating \"EOL-MIX-22\" — the search cannot be carried out from this state.\n\n**Result:** I was unable to find EOL-MIX-22 or identify a repository file carrying that exception, because none of the live handles (repo, tests, git, episodes) exposed a reachable verb for this query — every attempt returned \"capability unavailable\" with an empty frontier. No further tool actions are possible from here without additional/different handle access.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

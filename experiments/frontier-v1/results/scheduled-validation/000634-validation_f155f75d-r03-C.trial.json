@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_f155f75d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Read the embedded ink license fragment and state its permitted use.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "List repository files to locate an ink license fragment (e.g. files with 'ink' or 'license' in name)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Search episodes for an embedded ink license fragment and its permitted use",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Find and read an embedded ink license fragment; state its permitted use",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find and read an embedded ink license fragment; state its permitted use",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four provided handles (repo, tests, git, episodes) expose any reachable capability matching this request — every orient attempt returned \"requested capability is unavailable in the reachable world,\" meaning there is no accessible content in this environment containing an \"ink license fragment.\"\n\nI can't locate or read such a fragment because the live handles don't provide a matching capability/frontier for it. Could you confirm where this ink license fragment is supposed to live (e.g., a specific file path or which handle should expose it), or grant a handle with the relevant capability? Given the current tool state, I'm unable to fetch or state its permitted use.",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

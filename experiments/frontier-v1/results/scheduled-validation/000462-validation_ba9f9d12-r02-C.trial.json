@@ -1,0 +1,49 @@
+{
+  "v": 1,
+  "case_id": "validation_ba9f9d12",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote 2026.09 into the current stamp, then inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Promote 2026.09 into the current stamp (stamp promotion action), then show diff to verify stamp/next.txt unchanged.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Promote 2026.09 into the current stamp, then inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All available handles were checked (repo, git) and each responded that this capability — promoting \"2026.09\" into the current stamp — is unavailable in the reachable world. There's no reachable action matching this intent on any of the provided handles, so I can't perform the promotion or the diff inspection.\n\nCould you clarify or provide a handle/tool that actually exposes a \"stamp promotion\" verb? Right now `orient` is the only reachable verb on these handles, and it reports no match for this task.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

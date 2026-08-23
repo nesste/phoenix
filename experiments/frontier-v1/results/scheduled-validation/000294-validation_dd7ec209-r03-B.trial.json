@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_dd7ec209",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "cobalt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xLpKfjeR9E_MQdia9opVbD5A\",\"act_id\":\"a_HD73DQDADQ3ZT33C2PZROKAHTG\",\"handle\":\"h_utbhvyQioN2G0tQvvZstRrnX\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "cobalt"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xLpKfjeR9E_MQdia9opVbD5A\",\"act_id\":\"a_Y3MWTVNFJ56TAK5P4KWLRGNWQ3\",\"handle\":\"h_5dzhpbzPnG9DUoMtkVEz2UUS\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xLpKfjeR9E_MQdia9opVbD5A\",\"act_id\":\"a_FQQFIZCN7R2IXGEK5ULCMVHVN3\",\"handle\":\"h_5dzhpbzPnG9DUoMtkVEz2UUS\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}],\"tests\":[\"TestCurrentSentinel\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestCurrentSentinel"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xLpKfjeR9E_MQdia9opVbD5A\",\"act_id\":\"a_MSR2TKFSRBXP5JQWQDO2HRCI5F\",\"handle\":\"h_5dzhpbzPnG9DUoMtkVEz2UUS\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T18:51:30.438975537+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:51:30.441553498+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:51:30.441575183+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"=== RUN   TestCurrentSentinel\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:51:30.441595459+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"--- PASS: TestCurrentSentinel (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:51:30.441597986+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T18:51:30.441600966+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:51:30.441990264+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/sentinel/sentinel\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:51:30.443019041+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestCurrentSentinel\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "I wasn't able to find a \"cobalt\" epoch value anywhere in the repository content (no matches via search, and no such test name exists). This isn't an editable text occurrence I can locate, so I can't perform a literal \"cobalt → silver\" replacement.\n\nFollowing the recovery path for an outdated/unknown name: the test suite reports a rename `TestOldSentinel → TestCurrentSentinel`. I ran the current test `TestCurrentSentinel`, and it **passed**.\n\nIf you meant an actual \"cobalt\"/\"silver\" text value to edit in a specific file, please point me to that file/path and I'll make the change with `repo_edit`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "v": 1,
+  "case_id": "validation_addd4659",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cZk68GmeVW5iHJCZnn-s1DK6\",\"act_id\":\"a_IXSIHUAH7RGPTZZLSH5LZ3CNPU\",\"handle\":\"h_th52qfTYkMROX9RYXIjWkiSc\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReleaseChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the live checklist check after the suite file is replaced following the first test listing.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Replace the suite file that contains TestReleaseChecklist, following the first test listing, so the live checklist check can be verified afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Replace the suite file containing TestReleaseChecklist so the live checklist check can be verified afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Verify the live checklist check after the suite file is replaced following the first test listing.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Replace the suite file, then verify the live checklist check TestReleaseChecklist.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on the available live handles, the requested capability isn't reachable in this world. Here's what I found:\n\n- **repo**, **git**, and **episodes** handles: orienting toward \"replace the suite file\" and related file-replacement actions returned **unavailable in the reachable world** — there's no reachable call to replace/modify the suite file from any of the given handles.\n- **tests** handle: `list` succeeded and shows the current suite contains exactly one test, `TestReleaseChecklist`, with no further ready calls (empty frontier) — meaning no \"verify/run\" action is reachable from this state either.\n\nSo the chain \"replace suite file → verify checklist check\" cannot be completed with the current live handles: the file-replace step has no reachable capability, and consequently there's no subsequent verification call exposed. If you can grant a handle/capability for editing files in the repo (e.g., a write/replace verb on the git or repo handle), I can proceed to replace the suite file and then verify `TestReleaseChecklist`.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/check_test.go",
+        "present": true,
+        "content": "package checklists\nimport \"testing\"\nfunc TestSecurityChecklist(t *testing.T) {}\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/checklists\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

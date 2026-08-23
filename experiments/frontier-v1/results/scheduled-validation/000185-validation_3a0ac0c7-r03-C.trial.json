@@ -1,0 +1,110 @@
+{
+  "v": 1,
+  "case_id": "validation_3a0ac0c7",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Discover and focus the exact live test name matching shorthand \"RolloverQualified\" which is not runnable currently.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List all available/discoverable tests to find the exact name matching shorthand \"RolloverQualified\"",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repository for test names matching \"RolloverQualified\" to find the exact live test name",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Search episodes for prior mentions of \"RolloverQualified\" test to find its exact live name",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "The shorthand RolloverQualified is not runnable. Discover and focus the exact live test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "The shorthand RolloverQualified is not runnable. Discover and focus the exact live test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "discover tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "list all tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "intent": "help",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "tests",
+      "intent": "Run test RolloverQualified",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 10,
+      "handle": "repo",
+      "intent": "grep source files for RolloverQualified",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Given the remaining budget, I need to report status honestly.\n\nI attempted multiple approaches across all four provided handles (repo, tests, git, episodes), sending the full goal as intent as well as various rephrasings (list tests, search, grep, run test, help), but every call consistently returned the same result:\n\n```\nverb: orient, status: ok, result: {matched:false}, \ntext: \"requested capability is unavailable in the reachable world\"\nhandles: {grant:[], revoke:[]}, frontier: []\n```\n\nThis indicates none of the four handles currently expose a reachable capability (discover/list/search/run) from this state — the `orient` verb resolves for every intent phrasing, but the world reports the capability as unavailable, and no grant/revoke options or frontier calls are offered to unlock further capabilities.\n\n**I'm unable to discover or focus the exact live test name for \"RolloverQualified\" with the current handles/state** — the environment isn't exposing any actionable frontier from any of the four handles. I've nearly exhausted the budget ($0.098/$0.15 used) without a single successful non-orient action, so I'll stop here rather than continue burning budget on repeated identical failures.\n\nIf you can provide a handle/state that has an active frontier (e.g., one already past an initial \"discover\" grant), or confirm the correct capability name to request, I can retry immediately.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

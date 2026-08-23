@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_48df5ccd",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the test catalog to find the named rollover check",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Find the named rollover check in the repo/catalog to verify its identity",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles reject this request outright: each returns `orient: requested capability is unavailable in the reachable world` with an empty frontier and no grants. There is no reachable path in this world to enumerate a test catalog, browse repo files, inspect episodes, or query git history — meaning none of the tools currently expose a way to look up a \"named rollover check\" definition independent of running the test suite.\n\n**Conclusion:** I cannot verify the named rollover check against a live catalog — no such catalog/lookup capability is reachable from any of the four provided handles (tests, repo, git, episodes). Every attempt returns \"capability is unavailable in the reachable world\" with no frontier of follow-up actions offered. Given the task explicitly says not to treat a full-suite run as proof of identity, and no independent catalog verification path exists here, I don't have a way to complete this verification with the tools/handles available. If you can provide a handle or capability that exposes the test catalog (e.g., a \"list_tests\" or \"catalog\" verb), I can proceed from there.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

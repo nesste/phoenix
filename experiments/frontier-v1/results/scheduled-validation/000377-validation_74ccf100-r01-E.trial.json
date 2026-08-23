@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "find pending clock note",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "list episodes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "show repo status and find pending clock note file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four reachable handles return \"orient: requested capability is unavailable in the reachable world\" with an empty frontier, no matter how the intent is phrased. This means none of the provided handles currently expose any actionable verbs/capabilities toward this goal — the tool is reporting that the task (promoting the pending clock note into CHANGELOG.md, committing it, and recovering from the initial clean-tree commit attempt) cannot be reached from any of the given handles in the current world state.\n\nI don't have a way to proceed further: there's no frontier of candidate calls being returned, so I have nothing executable to invoke. This looks like an environment/configuration issue rather than something resolvable by rephrasing intent.\n\nCould you confirm:\n1. That these handles (`h_Jpj0OzTqz1RR41V3LQN1MD5S`, `h_y0N_t2Z9RWPnB2_mEvP4yKBP`, `h_Gic2ouP7EhBMLauo1Kok0apf`, `h_vt6mwzUzkU7dWM3jKhCnpvk3`) are still valid/live, or\n2. Provide updated/refreshed handles for the repo and git tools,\n\nso I can retry the changelog promotion and commit-recovery steps?",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

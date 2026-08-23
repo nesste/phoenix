@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_01b99d6b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Restore correct evaluation of nested unary expressions while preserving the accepted binary forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Restore correct evaluation of nested unary expressions while preserving the accepted binary forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Restore correct evaluation of nested unary expressions while preserving the accepted binary forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Restore correct evaluation of nested unary expressions while preserving the accepted binary forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Restore correct evaluation of nested unary expressions while preserving the accepted binary forms.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles report that this capability is unreachable in the current world — none of them return any frontier calls or grants for the requested task (\"Restore correct evaluation of nested unary expressions while preserving the accepted binary forms\").\n\nGiven the budget remaining ($0.124) and that every handle uniformly returns `matched:false` with an empty frontier and no grants/revokes, there's no viable path forward: there are no reachable verbs/calls exposed to inspect the repo, run tests, check git, or view episodes for this goal. This suggests the task/capability isn't available in this session's reachable world.\n\nI'm unable to proceed further since no tool calls are reachable for this intent on any of the provided handles. Could you confirm the handles are correctly scoped/live, or provide an alternative entry point (e.g., a different handle or explicit verb/args) so I can access the repo and tests to fix the unary expression evaluation bug?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nmarker = BIND-POWER-73 ; // level 60\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 3 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

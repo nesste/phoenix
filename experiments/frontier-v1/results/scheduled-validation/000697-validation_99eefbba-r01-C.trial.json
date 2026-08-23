@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_99eefbba",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find grammar documentation and expression parsing code to fix exponent precedence inconsistency",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Find grammar documentation and expression parsing code to fix exponent precedence inconsistency",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "list files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "show git status and log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"requested capability is unavailable in the reachable world\" with no frontier calls offered, for every intent I tried (including the exact goal text, and generic exploratory intents like listing files or git status/log). This indicates none of the provided handles currently expose a reachable action toward this goal — the world state seems to have no available verbs from these handles at all.\n\nI'm unable to proceed further: every handle (repo, tests, git, episodes) rejects orientation with an empty frontier, so there is no reachable call for me to execute toward fixing the exponent precedence documentation. Could you confirm the handles are correctly scoped/live, or provide a handle that exposes read/edit capabilities on the repository?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nexample = exponent-binds-before-unary\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 5 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

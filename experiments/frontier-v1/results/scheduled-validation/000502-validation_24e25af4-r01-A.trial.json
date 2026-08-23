@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "case_id": "validation_24e25af4",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_i3TDvbHMv_u0usLv6D34iiH2\",\"act_id\":\"a_JIFHIBDW7KFZT7TWOV2KRMKMYT\",\"handle\":\"h_w6kOasAacBoVi1tq8NOk69bm\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"docs/stamp.md\",\"stamp/current.txt\",\"stamp/next.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_i3TDvbHMv_u0usLv6D34iiH2\",\"act_id\":\"a_6W6LPYBGIHZOKDVHYXYLQQH6QE\",\"handle\":\"h_w6kOasAacBoVi1tq8NOk69bm\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.08\\n\",\"digest\":\"sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.08 , digest=sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The old path `release/current.stamp` no longer exists. The current stamp is located at **stamp/current.txt**, and its content is:\n\n```\nstamp=2026.08\n```",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

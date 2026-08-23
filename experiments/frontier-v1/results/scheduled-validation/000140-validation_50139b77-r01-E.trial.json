@@ -1,0 +1,131 @@
+{
+  "v": 1,
+  "case_id": "validation_50139b77",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "EOL-MIX-22"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_JQvrMf3iXqvmMzJ_h14vzYxA\",\"act_id\":\"a_DXANFP6D3JWQIFP7AB6HBZCVU6\",\"handle\":\"h_0FbwO-mQJICzunsMDpkNKJ99\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "search",
+      "args": {
+        "query": "EOL-MIX-22"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_JQvrMf3iXqvmMzJ_h14vzYxA\",\"act_id\":\"a_Q64TIRIR5JYT6AXXGNOJIXBL25\",\"handle\":\"h_XRkEMBw5PgDnD_TOjf1r2CZm\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "EOL-MIX-22"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_JQvrMf3iXqvmMzJ_h14vzYxA\",\"act_id\":\"a_XW6D6IAICJBNGLVC2TDSAFYAHB\",\"handle\":\"h_0FbwO-mQJICzunsMDpkNKJ99\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for EOL-MIX-22 identifier",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find EOL-MIX-22 and report which repository file carries the exception.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "list files in the repository",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "search codebase for text EOL-MIX-22 exception",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I've attempted multiple search strategies across all four provided handles (repo, tests, git, episodes), including capability orientation with the full task intent, direct grep/search verbs, and generic listing calls. In every case the Phoenix system responded with `\"matched\": false` and `\"orient: requested capability is unavailable in the reachable world\"`, with no frontier of reachable calls offered — meaning none of these handles currently expose a capability that can locate or read the string \"EOL-MIX-22\" in this session's reachable world.\n\n**Result:** I was unable to find \"EOL-MIX-22\" or determine which repository file carries the exception — the tool environment reports this capability is not reachable from any of the supplied handles (repo, tests, git, episodes). No search, grep, or list verb was accepted, and no alternative reachable calls were surfaced.\n\nIf you have a different handle that exposes file-content search (e.g., a code-search or grep-specific handle), or if you can confirm the correct verb/args this environment expects, I can retry. Otherwise, this may require checking the repository directly outside this tool.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

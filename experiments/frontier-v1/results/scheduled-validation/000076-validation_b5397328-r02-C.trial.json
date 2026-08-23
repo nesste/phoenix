@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_b5397328",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Change the policy mode to strict-lf and inspect the diff, leaving the mixed sample untouched.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I checked all four provided handles (repo, tests, git, episodes) by submitting the goal as an intent. In every case, the orient response came back identical:\n\n- status: \"ok\" but result matched: false\n- text: \"ok orient: requested capability is unavailable in the reachable world\"\n- frontier: empty, no grants/revokes offered\n\nThis means none of the currently reachable handles expose a capability path for \"change policy mode to strict-lf / inspect diff / leave mixed sample untouched\" — there's no actionable next step surfaced by the system for this task in the current world state.\n\nI'm unable to proceed further since no tool call is reachable to perform this change. Possible reasons: the task requires a different handle not provided, a prerequisite action needs to happen first (e.g., loading/selecting a specific policy file or sample within the repo), or the capability genuinely isn't present in this session's reachable world.\n\nCould you confirm:\n1. Is there a specific file/module where the \"policy mode\" and \"mixed sample\" live that I should target directly (e.g., via a repo path)?\n2. Should I have been given an additional handle for a \"policy\" or \"config\" resource?\n\nGiven the $0.15 budget constraint and no reachable path, I've stopped here rather than continue blind probing.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

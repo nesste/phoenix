@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_99eefbba",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles report the requested capability as unavailable in the reachable world (each `orient` call returned `matched: false` with no frontier or grantable handles). There's no reachable path to inspect the repo, tests, git history, or episodes to locate and fix the exponent-form documentation issue.\n\nI can't proceed with this task — the tools aren't exposing any actionable calls for this goal. Could you confirm the handles are correctly provisioned, or provide an alternate entry point (e.g., a specific verb/file path) so I can retry?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nexample = exponent-binds-before-unary\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 5 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

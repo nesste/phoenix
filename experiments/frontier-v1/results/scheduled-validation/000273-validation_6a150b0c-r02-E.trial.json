@@ -1,0 +1,151 @@
+{
+  "v": 1,
+  "case_id": "validation_6a150b0c",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "amber"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_ISNXG4QFCLNCEKINIJ4RQ2R3DL\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "amber"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_JFDBX7T7HMPPGPBMOGMCUD7MBR\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_QAA5L3Z3ORVAHBCX2RKPOJPUE6\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_2VZZ5VKXNDL7BJPMPWYAZI444A\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"read\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed read: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "."
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_KBJGRTHRRVRVH32WU2LQ5M4CI4\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"read\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"file_unavailable\",\"message\":\"requested file is not a regular repository file\"},\"text\":\"failed read: requested file is not a regular repository file\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "ls",
+      "args": {
+        "path": "."
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_327372JML4MVOULGRU7QT33C35\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"ls\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list_files",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_KJKXY7XUUGYIT52PTCO6BYNLLM\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"list_files\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "amber"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_CgngUwvXiIabxUXCKdnGQRlD\",\"act_id\":\"a_VATBS5RN2U5K4KF4ZWCAZI6ROT\",\"handle\":\"h_ldQKKYYSxDtiTzGQv6K28dLP\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"sentinel/history.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for the opaque sentinel code \"amber\" and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Search episodes for the opaque sentinel code \"amber\" and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Found it. The repository record containing the opaque sentinel code \"amber\" is located at:\n\n**`sentinel/history.md`**",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

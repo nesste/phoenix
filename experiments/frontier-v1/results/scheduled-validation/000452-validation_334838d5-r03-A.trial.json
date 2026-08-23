@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_334838d5",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_wI6rJj7Hkc5wAPNC-ZcO1iEI\",\"act_id\":\"a_5GW4USAE2OEKN4OWGXATMQ6YAA\",\"handle\":\"h_91yUFClHrq13uzMmnVs2pVf-\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"docs/stamp.md\",\"stamp/current.txt\",\"stamp/next.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_wI6rJj7Hkc5wAPNC-ZcO1iEI\",\"act_id\":\"a_55AUG5ZMOWHNFOTTUC623CWNNT\",\"handle\":\"h_91yUFClHrq13uzMmnVs2pVf-\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.08\\n\",\"digest\":\"sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.08 , digest=sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "stamp=2026.09",
+        "old": "stamp=2026.08",
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_wI6rJj7Hkc5wAPNC-ZcO1iEI\",\"act_id\":\"a_52ZI6SAA5RIVNUHPPCTXQM7OWW\",\"handle\":\"h_91yUFClHrq13uzMmnVs2pVf-\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done. Note: the live value was actually **2026.08**, not the 2026.07 you supplied (which was stale). I updated `stamp/current.txt` from 2026.08 → 2026.09.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

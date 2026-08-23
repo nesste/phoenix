@@ -1,0 +1,38 @@
+{
+  "v": 1,
+  "launch_index": 19,
+  "family_block": 0,
+  "pairing_index": 3,
+  "family_id": "validation_family_742",
+  "case_id": "validation_fc963a2e",
+  "repetition": 1,
+  "arm": "B",
+  "status": "fail",
+  "itt_success": false,
+  "termination": "graded_fail",
+  "cap_hit": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "completed",
+      "first_model_token": true,
+      "runtime_path": "experiments/frontier-v1/results/scheduled-validation/000019-validation_fc963a2e-r02-B.attempt-01.runtime.jsonl",
+      "metrics": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 1138,
+        "cache_read_input_tokens": 14098,
+        "output_tokens": 462,
+        "total_tokens": 15708,
+        "cost_usd": 0.0186354,
+        "turns": 6,
+        "wall_time_ms": 10723,
+        "api_time_ms": 10480
+      }
+    }
+  ],
+  "total_cost_usd": 0.0186354,
+  "total_tokens": 15708,
+  "trial_path": "experiments/frontier-v1/results/scheduled-validation/000019-validation_fc963a2e-r02-B.trial.json",
+  "grade_path": "experiments/frontier-v1/results/scheduled-validation/000019-validation_fc963a2e-r02-B.grade.json",
+  "assignment_path": "experiments/frontier-v1/results/scheduled-validation/000019-validation_fc963a2e-r02-B.assignment.json"
+}

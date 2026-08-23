@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the pending clock note to promote into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "status of git repo",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "list files in repo",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "find pending clock note",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles return \"requested capability is unavailable in the reachable world\" with an empty frontier for this intent, regardless of phrasing. This indicates the environment does not expose a reachable capability path for this task from the current handles — there's no discoverable action (no file-read, git-status, git-add/commit, or note-lookup verb) that the orient step will surface.\n\nI'm unable to proceed: none of the provided handles (repo, tests, git, episodes) expose any executable capability toward promoting the clock note into CHANGELOG.md, committing it, or recovering from a prior clean-tree commit attempt — every intent I send resolves to `matched: false` with an empty frontier, meaning the tool itself isn't offering any next step to take. This isn't something I can work around from my side; it likely requires the handles to be (re)granted with actual capabilities (e.g., file read/write, git diff/add/commit) before this task is reachable.\n\nCould you confirm whether these handles are supposed to expose specific verbs (e.g., `read_file`, `git_status`, `git_commit`), or provide updated/corrected handles? I don't want to consume further budget retrying blind intents that the environment is consistently rejecting.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

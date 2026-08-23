@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_16822c82",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for the token CLOCK-PROMOTE-12",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Search repository files/commits for the token CLOCK-PROMOTE-12",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles returned \"requested capability is unavailable in the reachable world\" with no frontier of follow-up calls offered, so there is no reachable path from these handles to search for or locate the token \"CLOCK-PROMOTE-12\". I'm unable to find or report the file containing that release-policy token given the current live handles — the environment indicates this capability/data is not reachable.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

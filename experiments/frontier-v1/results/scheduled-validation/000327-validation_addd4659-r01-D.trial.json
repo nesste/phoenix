@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_addd4659",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ttt2nsKvzKADD_LgwOOYjn74\",\"act_id\":\"a_TPOR3NO47QIXYYTTKROBYD44HJ\",\"handle\":\"h_YVainJxJA1_Xs9CXwxaeqeUf\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReleaseChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the live checklist check after the suite file is replaced following your first test listing.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Replace the suite file following the first test listing (TestReleaseChecklist), then verify the live checklist check.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Replace the suite file following the first test listing (TestReleaseChecklist), then verify the live checklist check.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Replace the suite file following the first test listing (TestReleaseChecklist), then verify the live checklist check.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on the exploration across all four live handles, the requested capability is not reachable in this world. Here's what happened:\n\n1. **Tests handle** — I ran the initial listing, which returned exactly one test: `TestReleaseChecklist`. After that, the frontier had no further ready calls (no \"replace suite file\" or \"verify checklist\" action was offered).\n2. **Repo, git, and episodes handles** — I tried orienting each with the intent to replace the suite file and verify the live checklist check, but all three returned `matched: false` — \"requested capability is unavailable in the reachable world.\"\n\n**Conclusion:** There is no reachable action in this environment to replace the suite file or to verify a live checklist check after such a replacement. The only concrete, verifiable fact obtained is that the current test suite listing contains a single test, `TestReleaseChecklist`, with no further steps (file replacement or checklist verification) exposed as executable capabilities from any of the four handles provided.\n\nIf you have a specific handle or verb name you expected to be available for the suite-file replacement or checklist verification, let me know and I can target it directly — but as configured, none of the four live handles expose that path.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/check_test.go",
+        "present": true,
+        "content": "package checklists\nimport \"testing\"\nfunc TestSecurityChecklist(t *testing.T) {}\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/checklists\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

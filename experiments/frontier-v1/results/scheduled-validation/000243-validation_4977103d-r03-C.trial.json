@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_4977103d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Update \"Current epoch\" from copper to silver in the repository, then commit this change with git.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the file containing \"Current epoch\" text set to copper, and update it to silver.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files to find where \"Current epoch\" is defined.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Show git status of the repository.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Both handles return \"requested capability is unavailable in the reachable world\" — the underlying task's file/tools for this promotion aren't reachable in this environment, so I can't actually locate or edit \"Current epoch\" or run git commands here.\n\nCould you confirm the correct handle/tool set for this task, or provide more context (e.g., the repo path/file where \"Current epoch\" is stored)? Right now none of the four handles expose an action that lets me read/edit files or run git operations — every intent I send comes back as unmatched/unavailable.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

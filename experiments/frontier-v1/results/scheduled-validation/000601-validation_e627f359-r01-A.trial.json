@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_e627f359",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_HpQ_W5fgyl5g8GlqsvkGP7b2\",\"act_id\":\"a_EQAYHZJW45CS5OAYTKDSGKA5D5\",\"handle\":\"h_K5YU92DL1nXHqLrxI-vaVt4y\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestInkIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "license-index"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_HpQ_W5fgyl5g8GlqsvkGP7b2\",\"act_id\":\"a_C3I4THQXIM3WI7KFPLULN5WJZR\",\"handle\":\"h_K5YU92DL1nXHqLrxI-vaVt4y\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "I checked the current test catalog, and there is no test called \"license-index\" in the live suite. The suite currently only contains **TestInkIndex**, and there were no rename records indicating \"license-index\" was ever replaced/renamed into another test name.\n\nAttempting to focus on \"license-index\" directly confirms this:\n\n```json\n{\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"status\":\"fail\"}\n```\n\nSo there's nothing to check — that test doesn't exist in this repo's suite. If you meant a differently-named test (perhaps **TestInkIndex** is its replacement), let me know and I can run it for you.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/licenses\n\ngo 1.22\n"
+      },
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "legal/license_test.go",
+        "present": true,
+        "content": "package legal\nimport \"testing\"\nfunc TestNoticeIndex(t *testing.T) {}\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

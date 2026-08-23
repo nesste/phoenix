@@ -1,0 +1,130 @@
+{
+  "v": 1,
+  "case_id": "validation_830a2231",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestOldSentinel"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_KLrvyl3_ua60S9dqGV5qvi4R\",\"act_id\":\"a_4HOJSZAJLTSOTIRRHJ6TAZ6EYU\",\"handle\":\"h_fpgnG4kOKwQGaKHdaOouLx5d\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_KLrvyl3_ua60S9dqGV5qvi4R\",\"act_id\":\"a_EKKNUA7N6XHIZYJZ57NILUORLE\",\"handle\":\"h_-hctpkECmrwqd7h0bckyAw3T\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"ok  \\texample.test/sentinel/sentinel\\t0.002s [no tests to run]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=ok  \\texample.test/sentinel/sentinel\\t0.002s [no tests to run] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_KLrvyl3_ua60S9dqGV5qvi4R\",\"act_id\":\"a_SPPPIRKI4DBWNUDX4BG5PLP3UG\",\"handle\":\"h_fpgnG4kOKwQGaKHdaOouLx5d\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T18:36:30.064844176+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:36:30.067444509+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:36:30.067464536+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"=== RUN   TestCurrentSentinel\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:36:30.067484018+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"--- PASS: TestCurrentSentinel (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:36:30.067487365+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T18:36:30.067490644+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:36:30.068060873+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/sentinel/sentinel\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:36:30.068886851+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_KLrvyl3_ua60S9dqGV5qvi4R\",\"act_id\":\"a_JGRHB7JIFDODGMMBNLEJDI3YF5\",\"handle\":\"h_fpgnG4kOKwQGaKHdaOouLx5d\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}],\"tests\":[\"TestCurrentSentinel\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the live replacement for TestOldSentinel; compiling alone does not answer the request. Need to find what replaced TestOldSentinel and actually run/verify it (not just compile).",
+      "matched": true,
+      "calls": 2
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find what replaced TestOldSentinel in git history/log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Search git log for commit that removed/renamed TestOldSentinel to find its replacement",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "List all tests in the live suite to find replacement for TestOldSentinel",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Show git log history to find commit renaming or replacing TestOldSentinel",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "Search repo source for TestOldSentinel and its replacement test/function",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "Find episode history about TestOldSentinel replacement",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "Run the full test suite to see which tests actually execute, verifying live replacement for TestOldSentinel actually runs and passes",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I verified this by actually running the live test suite, not just compiling.\n\n**Finding: `TestOldSentinel` was renamed to `TestCurrentSentinel`, and it passes when actually executed.**\n\nDetails:\n- `tests.list` confirms the rename mapping: `TestOldSentinel → TestCurrentSentinel`.\n- Merely running `repo.build` was misleading: it reported success but with `[no tests to run]` — the build step alone does **not** execute any tests, so it can't confirm the replacement works.\n- Running the actual test suite (`tests.run`) executed `TestCurrentSentinel` and it **passed**:\n  ```\n  === RUN   TestCurrentSentinel\n  --- PASS: TestCurrentSentinel (0.00s)\n  ok  example.test/sentinel/sentinel  0.003s\n  ```\n  Result: `exit_code=0, passed=1, failed=0`.\n\n**Conclusion:** `TestCurrentSentinel` is the confirmed live replacement for `TestOldSentinel`, and it is genuinely verified — compiled *and* executed successfully, not just compiled.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

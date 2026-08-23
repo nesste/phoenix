@@ -1,0 +1,171 @@
+{
+  "v": 1,
+  "case_id": "validation_df2e05e7",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverOld"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_Cuo78ZVIvksW_81tD0_cMHmE\",\"act_id\":\"a_QWNSUUAVAGEHVOFCHYM2PWKFM5\",\"handle\":\"h_39-rBdZIvNlQjBWWcQAy5cS2\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "TestRolloverOld is no longer live. Use the current catalog and verify its replacement.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the current test catalog to find the replacement for TestRolloverOld",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Show the catalog of all live tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find history of TestRolloverOld to identify what test replaced it",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find episodes mentioning TestRolloverOld and its replacement",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "Search repo for TestRolloverOld references and find its replacement test/function",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Search test suite for rollover-related tests to find replacement of TestRolloverOld",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "TestRolloverOld is no longer live. Verify its replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "intent": "TestRolloverOld is no longer live. Verify its replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "repo",
+      "intent": "list repository files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 10,
+      "handle": "git",
+      "intent": "show git log for rollover test file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 11,
+      "handle": "episodes",
+      "intent": "search episodes for rollover",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 12,
+      "handle": "tests",
+      "intent": "list all tests in the suite",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 13,
+      "handle": "tests",
+      "intent": "focus on rollover test",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 14,
+      "handle": "repo",
+      "intent": "TestRolloverOld is no longer live. Use the current catalog and verify its replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 15,
+      "handle": "git",
+      "intent": "TestRolloverOld is no longer live. Use the current catalog and verify its replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 16,
+      "handle": "episodes",
+      "intent": "TestRolloverOld is no longer live. Use the current catalog and verify its replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 17,
+      "handle": "tests",
+      "intent": "TestRolloverOld is no longer live. Use the current catalog and verify its replacement.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to verify the replacement for `TestRolloverOld`, but ran into a dead end I should report transparently rather than keep burning budget guessing:\n\n1. The **tests** handle initially oriented successfully on the goal and returned one reachable call: `focus(test=\"TestRolloverOld\")`.\n2. Running that call failed with `unknown_test` — confirming `TestRolloverOld` is indeed no longer in the live suite, as stated.\n3. However, that focus attempt consumed the actionable frontier. Subsequent attempts to re-orient on the tests handle (to list the catalog or search for a rollover-related replacement test) all returned `matched:false / requested capability is unavailable in the reachable world` — meaning there's no longer a reachable action from this state to browse the catalog or search by name.\n4. The **repo**, **git**, and **episodes** handles never matched any capability for this intent at all (browsing files, git log, or episode search), so I couldn't cross-reference them to find what test replaced `TestRolloverOld` (e.g., via a rename in commit history or test file contents).\n\nI'm stopping here rather than continuing to probe blindly, since I'm nearly out of budget ($0.035 remaining of $0.15) and further guesses at intents are unlikely to succeed given the frontier is exhausted.\n\n**Bottom line:** I confirmed `TestRolloverOld` is not in the live suite, but I was not able to identify or verify its replacement test with the tools/handles available in this session state. To proceed, a fresh session/handle with catalog-listing or search capability enabled would be needed, or you could tell me the likely replacement test name so I can `focus` on it directly.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

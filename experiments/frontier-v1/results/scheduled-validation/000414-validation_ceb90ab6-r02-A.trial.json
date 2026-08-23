@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "clock.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_a-4qQx043Y2PebTBmMDBrS-O\",\"act_id\":\"a_A2UZUY4C4UITZKXNZJPVAZCINU\",\"handle\":\"h_TEKHifKdorXDkJ8IzII9EhHo\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"changes/pending/clock.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "changes/pending/clock.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_a-4qQx043Y2PebTBmMDBrS-O\",\"act_id\":\"a_FQZYQWKD7JJATJNJKAUOBPOQOL\",\"handle\":\"h_TEKHifKdorXDkJ8IzII9EhHo\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Add monotonic clock fallback.\\n\",\"digest\":\"sha256:740d9f618f1b76bebc37f0ac67e030dad8eae9be1c189786a9c390d931be0365\",\"path\":\"changes/pending/clock.md\"},\"error\":null,\"text\":\"ok repo.read: content=Add monotonic clock fallback. , digest=sha256:740d9f618f1b76bebc37f0ac67e030dad8eae9be1c189786a9c390d931be0365, path=changes/pending/clock.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The clock fragment has moved to **changes/pending/clock.md**, and its current content is:\n\n```\nAdd monotonic clock fallback.\n```",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

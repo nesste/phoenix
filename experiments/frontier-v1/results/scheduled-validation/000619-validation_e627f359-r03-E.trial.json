@@ -1,0 +1,74 @@
+{
+  "v": 1,
+  "case_id": "validation_e627f359",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_082AfouXW06o4MJ05YAxru1b\",\"act_id\":\"a_4NDB3TEZERWBGITDYR754MTNSW\",\"handle\":\"h_kybX-49Om97qWIh6mgd3gVDb\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestInkIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the current license-index test after it is replaced during initial suite catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Get details of the current license-index test (TestInkIndex) that replaced the previous license-index test during initial suite catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Get/inspect the TestInkIndex test details",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The tests suite currently contains only one test: **TestInkIndex** — this is the current license-index test after the replacement that occurred during the initial suite catalog build (no renames are recorded, and the `list` call shows `tests: [\"TestInkIndex\"]` with an empty renames list). No further detail/get capability is exposed on this handle beyond the list result.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/licenses\n\ngo 1.22\n"
+      },
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "legal/license_test.go",
+        "present": true,
+        "content": "package legal\nimport \"testing\"\nfunc TestNoticeIndex(t *testing.T) {}\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

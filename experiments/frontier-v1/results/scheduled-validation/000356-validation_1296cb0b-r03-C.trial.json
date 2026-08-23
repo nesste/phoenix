@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified. Need to check git status and diff.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "list available verbs/capabilities on this git handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified. Need to inspect git status and diff for the repo.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles (repo, tests, git, episodes) return no reachable capability for this request — the orient probe on each yields an empty frontier (\"requested capability is unavailable in the reachable world\"). This means there is no accessible tool action in the current environment that can inspect the git diff or status to verify the release checklist file's tracking state.\n\n**I cannot confirm this from the environment as currently reachable.** No handle exposes a verb (e.g., `diff`, `status`, `log`) that I'm able to invoke — every attempt to determine available capabilities came back empty. \n\nI'm unable to verify whether the pending release checklist is absent from the tracked diff or confirm its untracked status, since none of the provided handles currently expose an actionable git/file-inspection capability. If you can point me to the correct verb name or grant access to a diff/status capability on the `git` handle, I can complete this check immediately.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_urFOlyBDlGVftmFVn0LHcwT0\",\"act_id\":\"a_MIHJHMGNNB6A5X6AP6AW5G76IC\",\"handle\":\"h_lBPS8I2IpfrNV2Kf8Knpj0a8\",\"verb\":\"status\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"stale_state\",\"message\":\"live resource state changed\"},\"text\":\"failed status: live resource state changed\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_urFOlyBDlGVftmFVn0LHcwT0\",\"act_id\":\"a_IN4UQ7OMVGE46Z37HQCLUFRTC7\",\"handle\":\"h_lBPS8I2IpfrNV2Kf8Knpj0a8\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? checklists/release.md\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? checklists/release.md \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_urFOlyBDlGVftmFVn0LHcwT0\",\"act_id\":\"a_RRMZUX2SXKGVRAY6EOWED5FNAY\",\"handle\":\"h_lBPS8I2IpfrNV2Kf8Knpj0a8\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified. Check git status and diff.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified. Check git status and diff.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Confirmed: `git diff` (tracked changes) is empty — the file `checklists/release.md` does not appear there at all.\n\n`git status` shows:\n```\n## master\n?? checklists/release.md\n```\n\nThe `??` marker means the file is **untracked** (new, never added to git), not modified. Since it isn't tracked, it correctly cannot show up in the tracked diff — its absence from `git diff` is expected behavior, not an error or omission.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

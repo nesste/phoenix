@@ -1,0 +1,82 @@
+{
+  "v": 1,
+  "case_id": "validation_8ea0fb31",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog. Need to find episodes/commits related to \"initial catalog\" and subsequent \"suite changes\", then identify the current rollover check and verify it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog. Need to find commits related to \"initial catalog\" and subsequent \"suite changes\", then identify the current rollover check and verify it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog. Need to find test suite changes after initial catalog commit, then identify and verify the current rollover check.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog. Need to find commits/files related to \"initial catalog\" and subsequent \"suite changes\", then identify the current rollover check and verify it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Show git log / commit history",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "List all test checks including rollover check",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "List repository files including catalog file",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"orient: requested capability is unavailable in the reachable world\" with no frontier options offered, regardless of intent phrasing. This means none of the provided handles currently expose a reachable capability matching this task — there's no live path from these handles to perform the \"verify rollover check\" action (e.g., no git log/diff verb, no test-run/verify verb, no episode-lookup verb is reachable from the current state).\n\nI'm unable to proceed: the tool is not returning any usable frontier calls for these handles, so I cannot identify the \"initial catalog\" commit, the subsequent \"suite changes,\" or the \"rollover check\" to verify. Could you confirm:\n\n1. Whether these handles are the correct/expected ones for this task (they may need to be re-issued or refreshed), and\n2. Any additional context on what \"rollover check\" refers to (e.g., a specific test name, CI check, or file) so I can retry with a more targeted intent once a working handle is available.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_8ea0fb31",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "List episodes to find the initial catalog episode and subsequent suite changes and rollover checks",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "List tests to find rollover check tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles refuse this intent — the \"requested capability is unavailable in the reachable world\" response on the repo, tests, git, and episodes handles indicates that none of them currently expose an action matching \"verify the rollover check after the suite changes following the initial catalog.\" There's no reachable frontier call offered either, so I can't identify what \"the initial catalog,\" \"the suite changes,\" or \"the rollover check\" refer to within this session.\n\nCould you clarify or provide more context, such as:\n- Which repository/branch or commit corresponds to \"the initial catalog\"?\n- What \"suite changes\" means (e.g., a specific test suite update or PR)?\n- The name or location of the \"rollover check\" you want verified?\n\nWith that detail, I can retry against the correct handle/verb.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

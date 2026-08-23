@@ -1,0 +1,43 @@
+{
+  "v": 1,
+  "launch_index": 31,
+  "family_block": 0,
+  "pairing_index": 6,
+  "family_id": "validation_family_742",
+  "case_id": "validation_fc963a2e",
+  "repetition": 0,
+  "arm": "D",
+  "status": "fail",
+  "itt_success": false,
+  "termination": "turn_limit",
+  "cap_hit": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "terminal_failure",
+      "first_model_token": true,
+      "runtime_path": "experiments/frontier-v1/results/scheduled-validation/000031-validation_fc963a2e-r01-D.attempt-01.runtime.jsonl",
+      "metrics": {
+        "input_tokens": 24,
+        "cache_creation_input_tokens": 11175,
+        "cache_read_input_tokens": 52412,
+        "output_tokens": 4142,
+        "total_tokens": 67753,
+        "cost_usd": 0.14571260000000003,
+        "turns": 13,
+        "wall_time_ms": 48509,
+        "api_time_ms": 48256
+      },
+      "failure": {
+        "code": "turn_limit",
+        "message": "exit status 1",
+        "before_first_model_token": false,
+        "retry_eligible": false,
+        "cap_hit": true
+      }
+    }
+  ],
+  "total_cost_usd": 0.14571260000000003,
+  "total_tokens": 67753,
+  "assignment_path": "experiments/frontier-v1/results/scheduled-validation/000031-validation_fc963a2e-r01-D.assignment.json"
+}

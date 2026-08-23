@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_df2e05e7",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverOld"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xGalRlotjpD5jcz1UGhEpibo\",\"act_id\":\"a_AGUDIOPBYPILUZ4CQYTKQTVOKM\",\"handle\":\"h_gioZ9suAsXTHhWGxEmkXkIcR\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined the test name: the requested test is not in the live suite\\ninstead: h_gioZ9suAsXTHhWGxEmkXkIcR.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined the test name\",\"why\":\"the requested test is not in the live suite\",\"instead\":{\"handle\":\"h_gioZ9suAsXTHhWGxEmkXkIcR\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xGalRlotjpD5jcz1UGhEpibo\",\"act_id\":\"a_NRSYD2G74D43S4PESSBCRRS23Y\",\"handle\":\"h_gioZ9suAsXTHhWGxEmkXkIcR\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}],\"tests\":[\"TestRolloverCurrent\",\"TestRolloverQualified\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverCurrent"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xGalRlotjpD5jcz1UGhEpibo\",\"act_id\":\"a_FTCN7VHX7TD6PQHLEGBDGXAGOX\",\"handle\":\"h_gioZ9suAsXTHhWGxEmkXkIcR\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T18:26:48.633286508+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:26:48.636105556+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:26:48.636150479+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Output\\\":\\\"=== RUN   TestRolloverCurrent\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:26:48.636162804+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Output\\\":\\\"--- PASS: TestRolloverCurrent (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:26:48.636165406+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T18:26:48.636168922+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:26:48.636626332+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/rollover/rollover\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:26:48.637685748+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestRolloverCurrent\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "TestRolloverOld is no longer live. Use the current catalog and verify its replacement.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "Confirmed: `TestRolloverOld` was renamed to **`TestRolloverCurrent`** in the current test catalog. I ran it, and it **passes** (exit code 0, `PASS` in 0.00s).",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

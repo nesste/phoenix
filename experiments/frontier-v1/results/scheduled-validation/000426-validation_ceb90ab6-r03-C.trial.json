@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment: former path was changes/clock.md, which is now obsolete/deleted. Find where this file was moved/renamed to in the git history, then report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "List available verbs/capabilities on this git handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Show git log with rename detection (--follow) for path changes/clock.md to find where it was moved to",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles (repo, tests, git, episodes) fail identically: every intent call resolves to a default \"orient\" verb reporting \"requested capability is unavailable in the reachable world.\" This happens regardless of intent content or which handle is targeted, which indicates the Phoenix environment/world for this session does not expose any actionable capability (no search/log/read verbs are reachable) — none of the handles yield executable calls (frontier is empty each time).\n\nI'm unable to locate the moved `changes/clock.md` fragment or retrieve its content because the tooling backend isn't providing any reachable operations in this session (empty frontier, no grants/revokes, \"matched\": false on every attempt across all four handles). This appears to be an environment/configuration issue rather than something resolvable by varying my request phrasing.\n\n**What I'd need to proceed:** a working capability (e.g., a git-log/search/read verb) exposed on one of these handles. If you can confirm the tool session is properly initialized or provide an alternative way to query the repository, I can retry immediately.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

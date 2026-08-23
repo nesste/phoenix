@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_16822c82",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for token CLOCK-PROMOTE-12",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find CLOCK-PROMOTE-12 and report the file containing that release-policy token.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "list available verbs/capabilities on this repo handle",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The requested capability appears unavailable in the reachable world for all four handles (repo, tests, git, episodes) — every attempt returns \"orient: requested capability is unavailable.\" I was unable to locate CLOCK-PROMOTE-12 or determine the file containing that release-policy token with the tools/handles currently accessible. I don't have enough information to answer this reliably, and further attempts would consume budget without new capability being granted.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

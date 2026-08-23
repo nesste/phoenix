@@ -1,0 +1,115 @@
+{
+  "v": 1,
+  "case_id": "validation_99eefbba",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "exponent precedence grammar"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cyMWtzsujDm_mS13-d2EmzCU\",\"act_id\":\"a_V5RJNZESGMA7RID46YEVITQEEU\",\"handle\":\"h_tSqg-tvGQey8dg3Co03VBKlA\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "precedence"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cyMWtzsujDm_mS13-d2EmzCU\",\"act_id\":\"a_GRWAKKZV6IN2THLWBDZ4N4HI6G\",\"handle\":\"h_tSqg-tvGQey8dg3Co03VBKlA\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"go.mod\",\"grammar/precedence.ebnf\",\"parser/expr_test.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cyMWtzsujDm_mS13-d2EmzCU\",\"act_id\":\"a_KUKIV2BPU46S6YR7FTBVFUSPPH\",\"handle\":\"h_tSqg-tvGQey8dg3Co03VBKlA\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "grammar/precedence.ebnf"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cyMWtzsujDm_mS13-d2EmzCU\",\"act_id\":\"a_5LOWU53AQLNUWNVAH3IOY3MDGE\",\"handle\":\"h_tSqg-tvGQey8dg3Co03VBKlA\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"unary = '-' atom ; // level 70\\nexponent = atom '^' atom ; // level 60\\nexample = exponent-binds-before-unary\\n\",\"digest\":\"sha256:b84d2efdd4d4d3b7ae2ef588cc6a09b09f14c3142d9905ade95cf86ce2ff5c97\",\"path\":\"grammar/precedence.ebnf\"},\"error\":null,\"text\":\"ok repo.read: content=unary = '-' atom ; // level 70 exponent = atom '^' atom ; // level 60 example = exponent-binds-before-unary , digest=sha256:b84d2efdd4d4d3b7ae2ef588cc6a09b09f14c3142d9905ade95cf86ce2ff5c97, path=grammar/precedence.ebnf\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "exponent-binds-before-unary"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cyMWtzsujDm_mS13-d2EmzCU\",\"act_id\":\"a_EGTIAWBIW4HU7XDDVKOYI63ACR\",\"handle\":\"h_tSqg-tvGQey8dg3Co03VBKlA\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"grammar/precedence.ebnf\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "unary exponent example"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cyMWtzsujDm_mS13-d2EmzCU\",\"act_id\":\"a_PDD3PQDBAXKVHJUY3CMBXSFMIJ\",\"handle\":\"h_tSqg-tvGQey8dg3Co03VBKlA\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "example = unary-binds-before-exponent",
+        "old": "example = exponent-binds-before-unary",
+        "path": "grammar/precedence.ebnf"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cyMWtzsujDm_mS13-d2EmzCU\",\"act_id\":\"a_75YME3DITLKFW7OHVULUOW2XVF\",\"handle\":\"h_tSqg-tvGQey8dg3Co03VBKlA\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:433e5bead71923d0254656ea72830e12f3153f59a9beac1079f7bbc50909fe11\",\"path\":\"grammar/precedence.ebnf\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:433e5bead71923d0254656ea72830e12f3153f59a9beac1079f7bbc50909fe11, path=grammar/precedence.ebnf\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Fixed the inconsistency in `grammar/precedence.ebnf`: since `unary` is level 70 and `exponent` is level 60, unary binds tighter than exponent — so the documented example now reads `unary-binds-before-exponent` (previously it incorrectly stated the opposite). The `unary` and `exponent` production rules themselves were left unchanged.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nexample = unary-binds-before-exponent\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 5 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

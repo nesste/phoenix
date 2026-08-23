@@ -1,0 +1,35 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine whether any of the available tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No — none of these tools (repo, tests, git, episodes) can publish the checklist to a remote release system. That capability is unavailable in the reachable toolset; they only support local operations like inspecting/building the repo, running tests, git operations, and episode history — no remote publishing capability exists among them.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

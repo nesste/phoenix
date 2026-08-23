@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_334838d5",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Read the current live stamp value on the repo before making any changes.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Read the current live stamp value from git metadata before making any changes.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Read the current live stamp value before changing it from 2026.07 to 2026.09.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Read the current live stamp value before changing it from 2026.07 to 2026.09.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles report the same result: the requested capability (reading/changing a \"stamp\" value) is unavailable in the reachable world for every handle provided (repo, tests, git, episodes). No frontier calls were returned to proceed further.\n\nI'm unable to complete this task — none of the supplied handles expose a capability to read or modify a \"stamp\" value in this environment. Given the budget is nearly exhausted and no further reachable actions exist, I'll stop here rather than continue probing blindly.\n\nSummary: Could not verify or change the stamp from 2026.07 to 2026.09 — the capability is not reachable via any of the given handles (repo, tests, git, episodes).",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "case_id": "validation_830a2231",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "recall",
+      "args": {
+        "query": "TestOldSentinel replacement"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_Jnx3ADftKR6-L3sVKTEqUiFJ\",\"act_id\":\"a_QXWDNJ3ZXAQEGHBPWBM6757AGX\",\"handle\":\"h_G7XeMLfdrV502ReRNpAjLoiO\",\"verb\":\"recall\",\"status\":\"ok\",\"result\":{\"episodes\":[]},\"error\":null,\"text\":\"ok episodes.recall: episodes=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "TestOldSentinel"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_Jnx3ADftKR6-L3sVKTEqUiFJ\",\"act_id\":\"a_CGNTZZSNOZJLEADLUZB74ONEVB\",\"handle\":\"h_z19zgsQqNnoLekYYuy6Nx-dY\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"tests/renames.json\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "tests/renames.json"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_Jnx3ADftKR6-L3sVKTEqUiFJ\",\"act_id\":\"a_B4N6U755GHZVTOEAGOC455RDUV\",\"handle\":\"h_z19zgsQqNnoLekYYuy6Nx-dY\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"{\\\"renames\\\":[{\\\"from\\\":\\\"TestOldSentinel\\\",\\\"to\\\":\\\"TestCurrentSentinel\\\"}]}\\n\",\"digest\":\"sha256:08ef3f8a92646fc414e6fe2dfa54cfbd01233b9afd61dbe8ea5cad7cf3a4c195\",\"path\":\"tests/renames.json\"},\"error\":null,\"text\":\"ok repo.read: content={\\\"renames\\\":[{\\\"from\\\":\\\"TestOldSentinel\\\",\\\"to\\\":\\\"TestCurrentSentinel\\\"}]} , digest=sha256:08ef3f8a92646fc414e6fe2dfa54cfbd01233b9afd61dbe8ea5cad7cf3a4c195, path=tests/renames.json\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_Jnx3ADftKR6-L3sVKTEqUiFJ\",\"act_id\":\"a_ZPXNHWA3OA4HISSBC4QT2LKWWU\",\"handle\":\"h_a45LiZyt5-aHITbcOvpWrYB2\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}],\"tests\":[\"TestCurrentSentinel\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestCurrentSentinel"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_Jnx3ADftKR6-L3sVKTEqUiFJ\",\"act_id\":\"a_MNXTSXZXZQNIUNDDZQENNH5IDX\",\"handle\":\"h_a45LiZyt5-aHITbcOvpWrYB2\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T18:34:49.686299865+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:34:49.688942791+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:34:49.688969482+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"=== RUN   TestCurrentSentinel\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:34:49.689000231+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"--- PASS: TestCurrentSentinel (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:34:49.689002893+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T18:34:49.689006583+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:34:49.689479582+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/sentinel/sentinel\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:34:49.690370853+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestCurrentSentinel\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Verified with a live run, not just a compile check.\n\n- `tests/renames.json` confirms `TestOldSentinel` was renamed to **`TestCurrentSentinel`**, and `tests.list` shows that's the only test currently present (the old name no longer exists).\n- I ran it directly with `tests.focus`: `--- PASS: TestCurrentSentinel (0.00s)`, package result `ok example.test/sentinel/sentinel 0.003s`, exit code 0.\n\nSo the replacement test is confirmed passing at runtime, not merely compiling successfully.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

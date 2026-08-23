@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_ea29e856",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles were probed with the full task intent, but each returned \"requested capability is unavailable in the reachable world\" with an empty frontier — meaning none of the provided handles currently expose a reachable verb/call path to perform this task (promoting a release stamp into current and committing it). There's no actionable next step available from these handles as they stand.\n\nI'm unable to complete this task: the environment reports that the capability needed (promoting the release stamp and committing) is not reachable from any of the given handles (repo, tests, git, episodes), and no frontier calls were offered to proceed. This may require a different/additional handle or a prior setup step that isn't currently live.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_6a150b0c",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "amber"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_2MhCXTKArcWs921My8o42fCe\",\"act_id\":\"a_JT3NSESKKLKRUVYKL3WOXL6HQ6\",\"handle\":\"h_IMF2ML2GG3Ek5ykobfTypImS\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its file path.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles (repo, tests, git, episodes) were probed with the intent to locate the sentinel code \"amber,\" but none of them expose a reachable capability for this task — every attempt returned \"orient: requested capability is unavailable in the reachable world\" (matched: false), and a direct grep attempt returned \"act is not reachable.\"\n\nI could not find a repository record containing the sentinel code \"amber\" — this capability/data is not accessible from any of the provided handles in the current environment state.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_6b57e0c0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Report git status to find untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Run git status to find untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "list reachable calls to check git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Run git status to report untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to run Git status via the available handles (git, repo), but the tool consistently responds that this capability is unavailable in the reachable world — the \"orient\" verb resolves with no matching capability, and no reachable calls are being surfaced for a git status/diff operation.\n\nI'm unable to retrieve the untracked checklist path with the current live handles/session — the git status capability isn't reachable from this environment. Could you confirm the handle intended for git operations, or whether additional setup/grants are needed to expose the status capability?",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/candidate.md",
+        "present": true,
+        "content": "- [ ] owner approval\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

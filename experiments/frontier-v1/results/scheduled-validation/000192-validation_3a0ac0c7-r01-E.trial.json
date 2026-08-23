@@ -1,0 +1,82 @@
+{
+  "v": 1,
+  "case_id": "validation_3a0ac0c7",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Discover and focus the exact live test name matching shorthand \"RolloverQualified\", which is not runnable as-is.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List available tests to find the exact live test name matching shorthand \"RolloverQualified\".",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repository for test names matching shorthand \"RolloverQualified\" to find the exact live test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "List all test names in the test suite.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "list tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Discover and focus the exact live test name matching shorthand \"RolloverQualified\", which is not runnable as-is, then run/focus it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "Discover and focus the exact live test name matching shorthand \"RolloverQualified\", which is not runnable as-is.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return the same result: \"orient\" with `matched:false` and an empty frontier — meaning none of these handles currently expose any reachable capability in this world (no grants, no callable verbs surfaced).\n\nI'm unable to discover or focus the test named by the shorthand \"RolloverQualified\" because none of the provided handles (repo, tests, git, episodes) currently grant any actionable capability — each returns `\"requested capability is unavailable in the reachable world\"` with an empty frontier regardless of intent wording. There's no live verb (list, search, focus, run, etc.) reachable from any of these handles as given.\n\nThis suggests the handles may need to be initialized/unlocked via a preceding step not included here, or the correct entry-point handle wasn't provided. Could you confirm whether there's an additional handle (e.g., a root/session handle) that should be used first, or re-check that these four handles are the current live ones?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

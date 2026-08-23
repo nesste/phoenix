@@ -1,0 +1,18 @@
+{
+  "v": 1,
+  "status": "indeterminate",
+  "use": "diagnostic_archive_only",
+  "path": "experiments/frontier-v1/results/scheduled-validation",
+  "file_count": 2788,
+  "assignment_count": 720,
+  "trial_count": 674,
+  "grade_count": 674,
+  "runtime_count": 720,
+  "launch_index_min": 0,
+  "launch_index_max": 719,
+  "aggregate_index_sha256": "sha256:4ff9b0d3996a14606c90f1612ab1823296aafe1278ecf18da0ae2dbf7572c114",
+  "scheduled_summary_present": false,
+  "stderr_bytes": 0,
+  "observed_world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "frozen_world_build": "sha256:27c2f53775ac783b9085698068fa4660bead917352e11e1305a41dcfcce0188d"
+}

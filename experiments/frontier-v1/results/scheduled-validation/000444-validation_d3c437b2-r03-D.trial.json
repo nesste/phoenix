@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_d3c437b2",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "list files in the repository, especially changelog fragments directory",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "show git status to see pending changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Show reachable calls for exploring repository files and changelog fragments",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Show reachable calls for git status and committing changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return the same \"orient\" result with an empty frontier and \"requested capability is unavailable in the reachable world\" — none of them expose any reachable actions for this task in the current session state. This means the tool isn't giving me any executable verbs to work with (no file-read, git-diff, git-add, git-commit calls are being surfaced), so I'm unable to actually inspect the repo, find the clock changelog fragment, edit CHANGELOG.md, or run git commands.\n\nI can't proceed with the promotion/commit because the Phoenix environment isn't exposing any actionable capabilities on any of the four provided handles (repo, tests, git, episodes) — every attempt returns `\"matched\": false` with an empty frontier. This could mean:\n\n1. The handles need to be used in a different order or with a specific first verb I don't have visibility into.\n2. There's a session/world state mismatch preventing capability discovery.\n\nCould you confirm whether there's a specific starting verb or additional handle I should use, or whether the environment needs to be reset? Without a reachable action surface, I cannot safely inspect the changelog fragments directory, edit CHANGELOG.md, or run the scoped git commit.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

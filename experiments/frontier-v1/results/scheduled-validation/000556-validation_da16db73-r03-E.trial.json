@@ -1,0 +1,111 @@
+{
+  "v": 1,
+  "case_id": "validation_da16db73",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_QZjmuYn7yvg8WGuRxdXAjRu-\",\"act_id\":\"a_UGO7JE2LIEM7BOMCRIZ3S4SR7F\",\"handle\":\"h_3ABEypA6UJ5bb8_lwkNTiAD8\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestHealthRoute\",\"TestUnknownRoute\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the current health-route test after suite membership changes following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Verify the current health-route test (TestHealthRoute) after suite membership changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Verify the current health-route test after suite membership changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Verify the current health-route test after suite membership changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Review episode history of suite membership changes for the test catalog",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "Inspect repository health route implementation and suite membership",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "explore repo",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "explore git history",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "episodes",
+      "intent": "explore episodes",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "These other three handles (repo, git, episodes) are not reachable for any capability in this world — every orient attempt on them returns \"requested capability is unavailable in the reachable world\" regardless of intent. Only the `tests` handle is actually live/reachable.\n\nWithin the `tests` handle, I completed the verification path:\n\n1. **orient** confirmed a reachable call: `tests.list`.\n2. **tests.list** returned the current catalog:\n   - `TestHealthRoute`\n   - `TestUnknownRoute`\n   - `renames: []` (no renames recorded)\n\n**Result:** The health-route test currently present in the suite is **`TestHealthRoute`**, and it remains a valid, unrenamed member of the test suite after whatever membership changes occurred following the initial catalog (no rename or removal entries exist for it — it's still listed alongside `TestUnknownRoute`). There is no further verification action available from this handle (frontier is now empty), and the repo/git/episodes handles provided are not reachable in this session to cross-check commit-level details, so this catalog-level confirmation is as far as I can verify with the accessible tools.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/router\n\ngo 1.22\n"
+      },
+      {
+        "path": "notes/threat.txt",
+        "present": true,
+        "content": "ROUTE-OWNER-44=health\n"
+      },
+      {
+        "path": "router/routes.go",
+        "present": true,
+        "content": "package router\nfunc HealthHandler() string { return \"wildcard\" }\n"
+      },
+      {
+        "path": "router/routes_test.go",
+        "present": true,
+        "content": "package router\nimport \"testing\"\nfunc TestDedicatedHealthHandler(t *testing.T) { if HealthHandler() != \"health\" { t.Fatal(\"shadowed\") } }\n"
+      },
+      {
+        "path": "routes/public.map",
+        "present": true,
+        "content": "/health health\n/* wildcard\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_8ea0fb31",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "list episodes to find initial catalog and suite changes events",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "list tests to find rollover check",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"requested capability is unavailable in the reachable world\" with no frontier options — the environment isn't exposing any reachable calls for this intent, so I can't proceed to locate the initial catalog, subsequent suite changes, or the rollover check from here.\n\nCould you confirm these handles are correctly scoped/live for this task, or provide an initial action/verb to start from? Currently none of the repo, tests, git, or episodes handles expose any matched capability for \"verify rollover check\" — there's no frontier of next steps returned by the system.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

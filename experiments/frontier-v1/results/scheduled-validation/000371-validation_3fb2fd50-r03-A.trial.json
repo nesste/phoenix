@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [],
+  "final_message": "No — none of the available tools support publishing anything to a remote release system.\n\nThe available tools only let me:\n- **Inspect repo state**: `repo_status`, `repo_find`, `repo_read`\n- **Modify code locally**: `repo_edit`\n- **Build/test locally**: `repo_build`, `tests_list`, `tests_focus`, `tests_run`\n- **Local git operations**: `git_status`, `git_diff`, `git_commit` (commits are local only — no push/remote functionality exists)\n- **Recall session history**: `episodes_recall`\n\nThere is no tool for pushing to a remote, calling a release/CI API, uploading artifacts, or otherwise publishing a checklist externally. Any \"publishing\" would have to happen outside this toolset (e.g., a manual `git push` or a separate release pipeline).",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

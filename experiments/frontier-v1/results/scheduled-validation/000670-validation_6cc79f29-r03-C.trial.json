@@ -1,0 +1,40 @@
+{
+  "v": 1,
+  "case_id": "validation_6cc79f29",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Check whether this repository reader tool can open an arbitrary host filesystem path such as C:/licenses/ink.txt, and what its capability boundary is",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No — the repository reader cannot open that path.\n\n**Capability boundary:** The reader is scoped to files within the tracked repository/workspace it's attached to; it has no capability to reach arbitrary host filesystem paths outside that boundary. `C:/licenses/ink.txt` is an absolute host path outside the repo's reachable file set, so the request doesn't match any available capability (\"requested capability is unavailable in the reachable world\"). To access that file, it would need to be part of the repository content itself (or explicitly granted via a different tool/handle with host filesystem access).",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

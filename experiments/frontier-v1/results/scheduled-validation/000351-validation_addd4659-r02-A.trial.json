@@ -1,0 +1,86 @@
+{
+  "v": 1,
+  "case_id": "validation_addd4659",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s__H8EtgM-sYZJsrD1u9dYkiMf\",\"act_id\":\"a_MSVCVTNAIROLVFCJJTFC5OQMPP\",\"handle\":\"h_CI3EzBW3Eg6cR__NQPJ-DfOj\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReleaseChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s__H8EtgM-sYZJsrD1u9dYkiMf\",\"act_id\":\"a_4RQ7VWJXCIKNWMSIRHTIM7ZLH6\",\"handle\":\"h_O61yySrHdAejuoFMDK9IpW5u\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s__H8EtgM-sYZJsrD1u9dYkiMf\",\"act_id\":\"a_NJGXNLPT3BOTF4J6A6XV5Y7M55\",\"handle\":\"h_OE54T1q5HZDqCWW7xvi5gr4H\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/checklists/check_test.go b/checklists/check_test.go\\nindex ff6f8bf..57e47f2 100644\\n--- a/checklists/check_test.go\\n+++ b/checklists/check_test.go\\n@@ -1,3 +1,3 @@\\n package checklists\\n import \\\"testing\\\"\\n-func TestReleaseChecklist(t *testing.T) {}\\n+func TestSecurityChecklist(t *testing.T) {}\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/checklists/check_test.go b/checklists/check_test.go index ff6f8bf..57e47f2 100644 --- a/checklists/check_test.go +++ b/checklists/check_test.go @@ -1,3 +1,3 @@  package checklists  import \\\"testing\\\" -func Te...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s__H8EtgM-sYZJsrD1u9dYkiMf\",\"act_id\":\"a_XFBHAQJK35L6EDQ73BPN2XMMZY\",\"handle\":\"h_CI3EzBW3Eg6cR__NQPJ-DfOj\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestSecurityChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestSecurityChecklist"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s__H8EtgM-sYZJsrD1u9dYkiMf\",\"act_id\":\"a_NS7DUGU4O74LTDEAER4W7OJ7HY\",\"handle\":\"h_CI3EzBW3Eg6cR__NQPJ-DfOj\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T19:04:32.576788296+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T19:04:32.579525046+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T19:04:32.579565466+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\",\\\"Output\\\":\\\"=== RUN   TestSecurityChecklist\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T19:04:32.579585194+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\",\\\"Output\\\":\\\"--- PASS: TestSecurityChecklist (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T19:04:32.579588325+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T19:04:32.579591699+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T19:04:32.579980868+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/checklists/checklists\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T19:04:32.580926558+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestSecurityChecklist\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Verification complete:\n\n1. **First test listing**: `TestReleaseChecklist` (in `checklists/check_test.go`)\n2. **Suite file replaced**: Confirmed via `git diff` — the file was rewritten, renaming the check from `TestReleaseChecklist` to `TestSecurityChecklist`.\n3. **Second listing** (`tests.list`) correctly reflects the update: only `TestSecurityChecklist` now.\n4. **Live check** via `tests.focus` on `TestSecurityChecklist`: **PASSED** ✅ (0.00s, exit code 0).\n\nThe live checklist check is verified and passing after the suite file replacement.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/check_test.go",
+        "present": true,
+        "content": "package checklists\nimport \"testing\"\nfunc TestSecurityChecklist(t *testing.T) {}\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/checklists\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

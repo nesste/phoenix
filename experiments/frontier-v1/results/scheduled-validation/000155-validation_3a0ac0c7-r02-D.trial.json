@@ -1,0 +1,101 @@
+{
+  "v": 1,
+  "case_id": "validation_3a0ac0c7",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "Rollover"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_lZ26_UaR7oui2NAwziPATDaD\",\"act_id\":\"a_SZILW3RKJ3HYG7RVNNTX5GSAP4\",\"handle\":\"h_iI-1VwlMs1roQRKGwWn_aOi0\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Discover and focus the exact live test name matching shorthand \"RolloverQualified\", which is not runnable as-is.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List all available/discoverable test names so I can find the one matching shorthand \"RolloverQualified\".",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search the repository for test names/functions containing \"Rollover\" to find the exact live test name matching shorthand \"RolloverQualified\".",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Search episodes/history for prior references to a test named similarly to \"RolloverQualified\" to find its exact live test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "The shorthand RolloverQualified is not runnable. Discover and focus the exact live test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "The shorthand RolloverQualified is not runnable. Discover and focus the exact live test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "The shorthand RolloverQualified is not runnable. Discover and focus the exact live test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "The shorthand RolloverQualified is not runnable. Discover and focus the exact live test name.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"requested capability is unavailable in the reachable world\" for this intent, with no frontier of actionable calls offered. This means the discovery/search capability needed to resolve the \"RolloverQualified\" shorthand into an exact live test name is not reachable from any of the provided handles in this world state.\n\nI'm unable to complete this task — none of the given handles (repo, tests, git, episodes) expose a reachable capability (e.g., search/grep/list) to discover or focus the test. There's no returned frontier of executable calls to proceed with, so I can't guess a test name without risking an invalid action.\n\nCould you provide a handle with search/listing capability enabled, or confirm the exact test name/module path so I can focus it directly?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

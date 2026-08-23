@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_21d05884",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Determine whether the checklist repository starts clean (check git status)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Check git status of checklist repository to see if it starts clean",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Determine whether the checklist repository starts clean (check git status for uncommitted changes)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Determine whether the checklist repository starts clean (check git status for uncommitted changes)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Determine whether the checklist repository starts clean (check git status for uncommitted changes)",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles (repo, tests, git, episodes) return \"orient: requested capability is unavailable in the reachable world\" with an empty frontier when queried — meaning none of these handles currently expose any reachable action (including a git-status style check) in this environment/world state.\n\n**Conclusion:** I cannot determine whether the checklist repository starts clean, because none of the supplied handles grant a reachable capability to inspect it (e.g., run `git status`). The tool reports the capability as unavailable in the current world for every handle tried, so there's no accessible evidence either confirming or denying a clean starting state.\n\nIf you have a different handle or need me to try a more specific verb (e.g., one discovered via documentation you have), let me know and I can attempt that.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

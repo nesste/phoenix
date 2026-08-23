@@ -1,0 +1,56 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "List git status and diff to check whether release checklist file appears as untracked or modified",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked git diff, and report that it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "This capability isn't reachable in the current world — all four handles (repo, tests, git, episodes) return \"requested capability is unavailable in the reachable world\" with an empty frontier, meaning there are no executable calls available to inspect git status or diff output right now.\n\nGiven that constraint, I can't directly run `git status`/`git diff` to verify the checklist file's state. However, based on what's being asked and standard git semantics: a file that is **absent from `git diff`** (which only shows changes to tracked files) but **present in `git status`** under an \"Untracked files\" section is, by definition, **untracked rather than modified**. `git diff` never reports untracked files because it only compares the index/working tree for files git already knows about — so its absence there is expected and consistent with it being untracked, not a sign of a missing or reverted change.\n\nSince I have no live tool access to actually run the check in this session, I can't produce the literal command output — but I can confirm the reasoning: if the pending release checklist doesn't appear in `git diff`, that's exactly what you'd expect for an untracked file, and it should show up instead under `git status`'s untracked section rather than as a modified entry. If you'd like, let me know once the git tool becomes reachable and I'll re-run the actual check to give you the real output.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

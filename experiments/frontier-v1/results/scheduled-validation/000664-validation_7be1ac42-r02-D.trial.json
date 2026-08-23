@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_7be1ac42",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Read the license index and report the path recorded for the ink clause.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "find license index file listing clauses and their paths, specifically the ink clause",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Read the license index and report the path recorded for the ink clause.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Read the license index and report the path recorded for the ink clause.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Read the license index and report the path recorded for the ink clause.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four provided handles expose any reachable capability related to a \"license index\" or \"ink clause\" — each returned \"requested capability is unavailable in the reachable world\" with an empty frontier and no grants. I don't have access to a tool/path that can retrieve this information, so I can't report the path for the ink clause.",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

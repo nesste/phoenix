@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_LB0ZgSJ1RIioiNB5rncZfvPx\",\"act_id\":\"a_OXQEP4HMEUVUJXIBV7VKPVBCHQ\",\"handle\":\"h_vGPwHhq0uGYPWq8LWSrAQsyA\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? checklists/release.md\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? checklists/release.md \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_LB0ZgSJ1RIioiNB5rncZfvPx\",\"act_id\":\"a_ESCT6TLV7UDM3DQPISH3DTFCNZ\",\"handle\":\"h_vGPwHhq0uGYPWq8LWSrAQsyA\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Confirmed: `git diff` returns empty, so the pending release checklist (`checklists/release.md`) does not appear in the tracked diff. Checking `git status` explains why — the file is listed with `??`, meaning it is **untracked** (new/unstaged and not yet added to Git), not a modification of an existing tracked file. That's why it doesn't show up in the diff output.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

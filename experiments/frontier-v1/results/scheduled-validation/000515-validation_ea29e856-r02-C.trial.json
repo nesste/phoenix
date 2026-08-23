@@ -1,0 +1,56 @@
+{
+  "v": 1,
+  "case_id": "validation_ea29e856",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to orient/act on all four provided handles (repo, tests, git, episodes) using the stated goal, but each call returned `\"matched\": false` with the message \"requested capability is unavailable in the reachable world\" and an empty frontier (no candidate next calls were offered). This means the environment isn't currently exposing any reachable action that corresponds to \"promote next release stamp into current,\" \"commit,\" or \"recover from a clean-tree commit attempt\" — there's no discoverable path forward from any of the four handles as given.\n\nSince the tool provides no frontier/candidate calls to follow and repeated guesses at verb names (e.g., `status`) are rejected as invalid, I don't have a legitimate way to proceed further without more information, such as:\n- The actual verb names/capabilities this git handle supports (e.g., `commit`, `stamp`, `promote`), and\n- Confirmation of what world/session state these handles are bound to.\n\nCould you confirm the correct verb(s) to use on the git handle, or re-share handles bound to a session where these capabilities are reachable? Once I have a valid frontier call to invoke, I can complete the promote-stamp-and-commit workflow, including the recovery step from the failed clean-tree commit attempt.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

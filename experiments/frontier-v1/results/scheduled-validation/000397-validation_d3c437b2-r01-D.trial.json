@@ -1,0 +1,91 @@
+{
+  "v": 1,
+  "case_id": "validation_d3c437b2",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "List files related to changelog fragments (e.g. changelog.d or similar) to find the clock fragment",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Show git status and diff to see pending changelog fragment changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "list repository files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "show git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "This task cannot be completed: all four provided handles (repo, tests, git, episodes) consistently return \"requested capability is unavailable in the reachable world\" with an empty frontier and no grants, regardless of intent phrasing. There is no reachable capability from these handles to inspect the changelog fragments, edit CHANGELOG.md, or perform a git commit. I'm unable to promote the clock fragment or make the commit given the current handle states — the environment is not exposing any actionable verbs for this goal.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "v": 1,
+  "case_id": "validation_d3c437b2",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Promote the clock changelog fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "List files in repository to find changelog fragments directory",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Show git status to see pending changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "list files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles return the same result: `matched:false`, \"requested capability is unavailable in the reachable world\", with an empty frontier and no grant/revoke handles offered. This means there is currently no reachable action path in this Phoenix environment to inspect the repository, view git status, or perform the promotion/commit you requested — the world state simply doesn't expose any capability matching this intent (or any other tested intent) from these handles.\n\nI'm unable to complete the task (\"promote the clock changelog fragment into CHANGELOG.md and commit only that promotion\") because the tool is not surfacing any executable actions for these handles — not even basic file-listing or git-status operations. I don't want to guess at verb names/parameters blindly since that risks wasted spend without progress, and every intent I've tried (on the repo, git, tests, and episodes handles) has returned the identical \"unavailable\" response.\n\nCould you confirm:\n1. Are these handles expected to already have reachable capabilities, or do they need to be initialized/activated first (e.g., via a setup step I'm missing)?\n2. Is there a specific verb name I should be using instead of relying on auto-derived \"orient\"?\n\nOnce you clarify, I can proceed immediately with locating the clock fragment, editing CHANGELOG.md, and committing only that change.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

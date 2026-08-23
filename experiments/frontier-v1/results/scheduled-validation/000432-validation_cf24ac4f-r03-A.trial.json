@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_cf24ac4f",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "changelog"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_degZ3PU_xCc3XAmZ00TOb44w\",\"act_id\":\"a_RYAAXEC6ZLZTE2O32W6QQI63N2\",\"handle\":\"h_cGciQlbWBkRDzH2Y_R2gqBy6\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"CHANGELOG.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "CHANGELOG.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_degZ3PU_xCc3XAmZ00TOb44w\",\"act_id\":\"a_TAGTZHCJH2GQ2W2UBMQ2MK5NRT\",\"handle\":\"h_cGciQlbWBkRDzH2Y_R2gqBy6\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"# Next\\n\\n- Retain stable clocks.\\n\",\"digest\":\"sha256:ca90e554adf81f322fbfd45af2b6072047b9e858ff8325edff36daced7d94cf7\",\"path\":\"CHANGELOG.md\"},\"error\":null,\"text\":\"ok repo.read: content=# Next  - Retain stable clocks. , digest=sha256:ca90e554adf81f322fbfd45af2b6072047b9e858ff8325edff36daced7d94cf7, path=CHANGELOG.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "# Next\n\n- Retain stable clocks.\n- Add monotonic clock fallback.\n",
+        "old": "# Next\n\n- Retain stable clocks.\n",
+        "path": "CHANGELOG.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_degZ3PU_xCc3XAmZ00TOb44w\",\"act_id\":\"a_SB7CV2RGZ3RK3EGNNTTJX7EESD\",\"handle\":\"h_cGciQlbWBkRDzH2Y_R2gqBy6\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:005db48c5ab84595acd0dceff5f57b6d2271014959b0bed691a01ec00d8151ce\",\"path\":\"CHANGELOG.md\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:005db48c5ab84595acd0dceff5f57b6d2271014959b0bed691a01ec00d8151ce, path=CHANGELOG.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done. Note: the heading \"## Upcoming\" you supplied doesn't exist in CHANGELOG.md — the actual live section is \"# Next\". I added the bullet there instead:\n\n```\n# Next\n\n- Retain stable clocks.\n- Add monotonic clock fallback.\n```",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n- Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_4977103d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Update the \"Current epoch\" field from \"copper\" to \"silver\" in the repo, then create a commit for this change, even though the tree begins clean.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Update the \"Current epoch\" field from \"copper\" to \"silver\" in the repo, then create a commit for this change, even though the tree begins clean.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Update the \"Current epoch\" field from \"copper\" to \"silver\" in the repo, then create a commit for this change, even though the tree begins clean.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Update the \"Current epoch\" field from \"copper\" to \"silver\" in the repo, then create a commit for this change, even though the tree begins clean.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four available handles (repo, tests, git, episodes) were queried with the full intent, and each responded that the requested capability is unavailable in the reachable world (no matching frontier calls were returned). This means the promotion action — editing \"Current epoch\" from copper to silver and committing — cannot be performed with the current toolset/handles; there is no reachable path to that capability from any of the given handles.\n\nI'm unable to complete this task because the environment reports the capability as unreachable from every provided handle. No commit was made. If you have additional/different handles or a way to grant this capability, please provide them and I'll proceed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

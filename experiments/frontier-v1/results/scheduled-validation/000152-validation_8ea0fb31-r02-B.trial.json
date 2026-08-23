@@ -1,0 +1,62 @@
+{
+  "v": 1,
+  "case_id": "validation_8ea0fb31",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_BAFWryK5pm4K9CBxQbzvPC-O\",\"act_id\":\"a_ZWVGVG45GZ4ZUXN2NBK3VNX76P\",\"handle\":\"h_coL-r4rpl67_TdGs1yKbSU_N\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}],\"tests\":[\"TestRolloverCurrent\",\"TestRolloverQualified\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverCurrent"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_BAFWryK5pm4K9CBxQbzvPC-O\",\"act_id\":\"a_4P5MDACYDZM32JWW44XU7DC3Z4\",\"handle\":\"h_coL-r4rpl67_TdGs1yKbSU_N\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_BAFWryK5pm4K9CBxQbzvPC-O\",\"act_id\":\"a_GECST6TJVQA4NLMFQZBRNADYVD\",\"handle\":\"h_coL-r4rpl67_TdGs1yKbSU_N\",\"verb\":\"list\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"test_renames_invalid\",\"message\":\"test rename evidence does not identify a distinct live replacement\",\"details\":{\"index\":0}},\"text\":\"failed list: test rename evidence does not identify a distinct live replacement\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The rollover check catalog is unstable: after the initial listing showed a rename (`TestRolloverOld` → `TestRolloverCurrent`), focusing `TestRolloverCurrent` failed because it wasn't actually in the live suite, and re-listing tests then failed with an invalid rename error (the rename evidence doesn't identify a distinct live replacement).\n\nI can't verify a \"current\" rollover test right now — the test catalog itself is returning inconsistent/invalid data, so there's no reliable live test name to focus on. This looks like a suite-side issue rather than something resolvable by retrying the same calls.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverNext(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

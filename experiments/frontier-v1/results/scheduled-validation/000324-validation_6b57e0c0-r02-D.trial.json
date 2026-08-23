@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "case_id": "validation_6b57e0c0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_rwZDI187FbNkN1A674PxQHdW\",\"act_id\":\"a_2DYD2423MDG652GF3S7DMQHRGP\",\"handle\":\"h_DFVE-7lVc5bq1w_ss44g6cIw\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? checklists/candidate.md\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? checklists/candidate.md \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Report the untracked checklist path via Git status",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Git status shows one untracked file: **`checklists/candidate.md`** (branch `master`, working tree not clean).",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/candidate.md",
+        "present": true,
+        "content": "- [ ] owner approval\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

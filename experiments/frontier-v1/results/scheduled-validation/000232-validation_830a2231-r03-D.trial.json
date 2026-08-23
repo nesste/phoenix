@@ -1,0 +1,94 @@
+{
+  "v": 1,
+  "case_id": "validation_830a2231",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_qsY8p69PTyKVoxZYKNGf1O3Z\",\"act_id\":\"a_HGHU4VTD5PNEZB5NSSXMQ4JO3E\",\"handle\":\"h_9xcN7qhLhvtnmNYJH2QI3q53\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"ok  \\texample.test/sentinel/sentinel\\t0.003s [no tests to run]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=ok  \\texample.test/sentinel/sentinel\\t0.003s [no tests to run] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestOldSentinel"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_qsY8p69PTyKVoxZYKNGf1O3Z\",\"act_id\":\"a_AGFQBMXPV7HHT7VGVVFKV4UVQQ\",\"handle\":\"h_LBbbzP60MemxRG9bDldZLG53\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined the test name: the requested test is not in the live suite\\ninstead: h_LBbbzP60MemxRG9bDldZLG53.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined the test name\",\"why\":\"the requested test is not in the live suite\",\"instead\":{\"handle\":\"h_LBbbzP60MemxRG9bDldZLG53\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_qsY8p69PTyKVoxZYKNGf1O3Z\",\"act_id\":\"a_I73O2HOMACLX4Z6SNGYOX2626T\",\"handle\":\"h_LBbbzP60MemxRG9bDldZLG53\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}],\"tests\":[\"TestCurrentSentinel\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {
+        "query": "TestOldSentinel"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_qsY8p69PTyKVoxZYKNGf1O3Z\",\"act_id\":\"a_CGCOCZMBLPYZ5OJ576SZQRUHWD\",\"handle\":\"h_aTxiDu3-iaZ6fiU5R8HenuXn\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestCurrentSentinel"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_qsY8p69PTyKVoxZYKNGf1O3Z\",\"act_id\":\"a_5T7FJ4HYIMIFPBEJ6SGGKIV7XP\",\"handle\":\"h_LBbbzP60MemxRG9bDldZLG53\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T18:35:06.325561064+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:35:06.328129811+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:35:06.328180182+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"=== RUN   TestCurrentSentinel\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:35:06.328190454+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Output\\\":\\\"--- PASS: TestCurrentSentinel (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:35:06.328192916+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Test\\\":\\\"TestCurrentSentinel\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T18:35:06.328196366+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:35:06.328601968+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/sentinel/sentinel\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:35:06.329877191+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/sentinel/sentinel\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestCurrentSentinel\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Verify the live replacement for TestOldSentinel; compiling alone does not answer the request. I need to find what replaced TestOldSentinel and actually run/verify it works (execute tests), not just check that code compiles.",
+      "matched": true,
+      "calls": 2
+    }
+  ],
+  "final_message": "Verified successfully:\n\n- **Repo builds** cleanly (exit code 0), though the build alone reported \"no tests to run\" since `TestOldSentinel` no longer exists.\n- The test suite's rename log confirms **`TestOldSentinel` was renamed to `TestCurrentSentinel`** — this is the live replacement.\n- I actually **executed** `TestCurrentSentinel` (not just compiled it): it ran and **PASSED** (`--- PASS: TestCurrentSentinel (0.00s)`, overall `ok ... 0.002s`, exit_code 0).\n\nSo the live replacement for TestOldSentinel is TestCurrentSentinel, and it is confirmed passing at runtime, not merely compiling.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

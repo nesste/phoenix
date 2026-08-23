@@ -1,0 +1,110 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "grep",
+      "args": {
+        "query": "clock"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_jv78bfkDj_R4WTGUMc_RG5jf\",\"act_id\":\"a_27NLOEE3DZB5KYH6SDXHTZZYYH\",\"handle\":\"h_iauCB226ajLUxg_HWaDnY7Pb\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the file that changes/clock.md was moved/renamed to, and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Locate the file that changes/clock.md was moved/renamed to, and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Locate the file that changes/clock.md was moved/renamed to, and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "list available verbs/capabilities on this git handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find where changes/clock.md was moved to, and report the current content of the clock fragment file, using episode history of file moves/renames.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Locate the moved clock fragment previously at changes/clock.md and report its current content",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "git",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "episodes",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles consistently return `\"matched\": false` / `\"requested capability is unavailable in the reachable world\"` for this intent, with an empty frontier of reachable calls in every case — including the repo, tests, git, and episodes handles. This means the task as specified cannot be executed with the tools currently available to me: none of the handles expose a capability that lets me search the repository/git history for a moved file or read file content.\n\nI'm unable to locate the moved `changes/clock.md` fragment or report its content because the environment reports no reachable action matches this goal on any of the provided handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

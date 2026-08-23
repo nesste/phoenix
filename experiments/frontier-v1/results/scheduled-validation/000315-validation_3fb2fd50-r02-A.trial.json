@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [],
+  "final_message": "These tools cannot publish a checklist to a remote release system. They're limited to local repository/test operations:\n\n- **repo.find / repo.read / repo.status / repo.edit / repo.build** — inspect and modify files in the local repo\n- **tests.list / tests.focus / tests.run** — run tests locally\n- **git.status / git.diff / git.commit** — local git operations only (no push, PR creation, or remote interaction)\n- **episodes.recall** — recalls session history, not a publishing mechanism\n\nNone of them include network/API calls to a release management, deployment, or CI/CD system, so there's no way to publish or push a checklist externally with this toolset.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

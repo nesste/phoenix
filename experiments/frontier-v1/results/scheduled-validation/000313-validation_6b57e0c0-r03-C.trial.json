@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_6b57e0c0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Report the untracked checklist path via Git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Run git status to find untracked checklist file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Report the untracked checklist path using Git status",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Given the budget remaining, I'm unable to establish a valid capability path for the \"git\" handle to run `status` — every intent I send returns `orient: requested capability is unavailable in the reachable world`, with no suggested frontier calls returned. This suggests the git status capability isn't reachable from these handles in the current session state, and I don't have enough remaining budget to keep probing blindly.\n\nCould you confirm whether there's a different handle or an initial \"list capabilities\" step I should use to discover the correct verb/args for checking git status on this repo?",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/candidate.md",
+        "present": true,
+        "content": "- [ ] owner approval\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

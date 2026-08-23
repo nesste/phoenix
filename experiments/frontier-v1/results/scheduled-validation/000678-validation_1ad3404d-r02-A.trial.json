@@ -1,0 +1,94 @@
+{
+  "v": 1,
+  "case_id": "validation_1ad3404d",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNestedUnary"
+      },
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_LlZ24kPeXAD4kGri46lexVpN\",\"act_id\":\"a_H346OKTUOBNASO3R3RE5QDBAVB\",\"handle\":\"h_UDwyXxVXSh7hJGuQ-FRZy5aK\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T20:35:48.884387914+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.886981692+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.887004865+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"=== RUN   TestNestedUnary\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.887033793+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"    expr_test.go:3: nested precedence\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.887039012+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"--- FAIL: TestNestedUnary (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.88704125+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.887044013+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.887411856+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/precedence/parser\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T20:35:48.887433247+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestNestedUnary\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "expr_test.go"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_LlZ24kPeXAD4kGri46lexVpN\",\"act_id\":\"a_J3WTEMLQEFIPWD7DI3O7S2ICJZ\",\"handle\":\"h_O7XD6BLjdjART1QV28elKIcQ\",\"verb\":\"read\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"file_unavailable\",\"message\":\"requested file is not a regular repository file\"},\"text\":\"failed read: requested file is not a regular repository file\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "parser"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_LlZ24kPeXAD4kGri46lexVpN\",\"act_id\":\"a_XQ3EY6C34XZKRXTG2PUSKILDFV\",\"handle\":\"h_O7XD6BLjdjART1QV28elKIcQ\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"parser/expr.go\",\"parser/expr_test.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "parser/expr_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_LlZ24kPeXAD4kGri46lexVpN\",\"act_id\":\"a_7B44IYS76O6QJDACOCBA3JKXBR\",\"handle\":\"h_O7XD6BLjdjART1QV28elKIcQ\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package parser\\nimport \\\"testing\\\"\\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\\\"nested precedence\\\") } }\\nfunc TestBinaryForm(t *testing.T) {}\\n\",\"digest\":\"sha256:9f91138b3de64797229cb267b68a470da4503d8e5350f01a9f53b1b1a95ed354\",\"path\":\"parser/expr_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package parser import \\\"testing\\\" func TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\\\"nested precedence\\\") } } func TestBinaryForm(t *testing.T) {} , digest=sha256:9f91138b3de64797229cb267b68a470da450...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "parser/expr.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_LlZ24kPeXAD4kGri46lexVpN\",\"act_id\":\"a_EOQXOZFBXVUIGZL3NNFQB2UWY3\",\"handle\":\"h_O7XD6BLjdjART1QV28elKIcQ\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package parser\\nfunc NestedUnary() int { return 3 }\\n\",\"digest\":\"sha256:42398bdc3d7f540565623eae9ff29cfba2d78af5b48edebaea9e5aaf49e42c8e\",\"path\":\"parser/expr.go\"},\"error\":null,\"text\":\"ok repo.read: content=package parser func NestedUnary() int { return 3 } , digest=sha256:42398bdc3d7f540565623eae9ff29cfba2d78af5b48edebaea9e5aaf49e42c8e, path=parser/expr.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "## Root cause\n\n`TestNestedUnary` calls `NestedUnary()` (in `parser/expr.go`), expecting it to return `5` for the nested-unary sample expression, but the function is hardcoded to `return 3`. Since `3 != 5`, the test fails with `t.Fatal(\"nested precedence\")`. This is a bug in the implementation logic of `NestedUnary()`, not in the test's expression/sample data (which per your instructions should not be changed).\n\n## Evidence-producing target\n\n`parser/expr_test.go::TestNestedUnary` — running it via `tests.focus` on `TestNestedUnary` is what produces the failure evidence (`expr_test.go:3: nested precedence`, exit code 1).",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nmarker = BIND-POWER-73 ; // level 60\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 3 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

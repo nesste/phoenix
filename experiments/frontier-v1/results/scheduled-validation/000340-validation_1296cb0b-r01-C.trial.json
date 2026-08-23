@@ -1,0 +1,49 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff), and check git status to determine if it's untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Show git status to see untracked files, and git diff to confirm the pending release checklist file is not part of the tracked diff.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Show git status to see untracked files, and git diff to confirm the pending release checklist file is not part of the tracked diff.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Both the repo and git handles report that this capability is unavailable in the reachable world — there is no frontier action available for inspecting `git status`/`git diff` here, so I cannot directly run those commands against the live handles.\n\nThat said, based on the intent responses (which returned `matched: false` / \"requested capability is unavailable\"), I cannot produce a verified confirmation from the tool. To be accurate rather than speculative:\n\n- I could not execute `git diff` or `git status` through the available handles in this session — the environment reports the capability as unreachable.\n- Therefore I cannot confirm from live tool output that the pending release checklist is absent from the tracked diff or that it's untracked vs. modified.\n\nCould you clarify the exact filename/path of the \"pending release checklist,\" or point me to which handle/verb exposes git operations? That will let me retry with a valid call to actually confirm its status.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

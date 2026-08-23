@@ -1,0 +1,126 @@
+{
+  "v": 1,
+  "case_id": "validation_ec6866b0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "ls_files",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cvgmP8zV9V2qIMibYIl8PDi_\",\"act_id\":\"a_PLXW546CASECXTBWOFZHLX3K2F\",\"handle\":\"h_Wvsc9QqXhGsNrV7zKPlJYPe2\",\"verb\":\"ls_files\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cvgmP8zV9V2qIMibYIl8PDi_\",\"act_id\":\"a_5QU4PX3WUZHGKUJD746TFAQJSC\",\"handle\":\"h_FIeSn8wMLnyS5PRbLA7FzdDS\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"policy/eol.cfg\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_FIeSn8wMLnyS5PRbLA7FzdDS\",\"verb\":\"read\",\"args\":{\"path\":\"policy/eol.cfg\"}},\"why\":\"inspect the first matching repository file\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "eol.cfg"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cvgmP8zV9V2qIMibYIl8PDi_\",\"act_id\":\"a_UEI5PBTCDHDT7OP3MMP5VUOF77\",\"handle\":\"h_FIeSn8wMLnyS5PRbLA7FzdDS\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "policy/eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_cvgmP8zV9V2qIMibYIl8PDi_\",\"act_id\":\"a_QFZJ7UVM6VIJJGJOZTZF5MUYOB\",\"handle\":\"h_FIeSn8wMLnyS5PRbLA7FzdDS\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"mode=lf\\nmarker=LINE-DIRECTIVE-9\\n\",\"digest\":\"sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350\",\"path\":\"policy/eol.cfg\"},\"error\":null,\"text\":\"ok repo.read: content=mode=lf marker=LINE-DIRECTIVE-9 , digest=sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350, path=policy/eol.cfg\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Find and read the normalized tracked path corresponding to host-style path \"policy\\eol.cfg\" which is not a valid repository path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "List tracked files in repository to find normalized path matching policy/eol.cfg",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Find and read the normalized tracked path corresponding to host-style path \"policy\\eol.cfg\" which is not a valid repository path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "list files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "list tracked files",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The host-style path `policy\\eol.cfg` normalizes to the tracked repository path **`policy/eol.cfg`**.\n\nContents of that file:\n```\nmode=lf\nmarker=LINE-DIRECTIVE-9\n```\n\n(digest: sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350)",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_qsfeSNd39aTjHdLjj7dyh7L6\",\"act_id\":\"a_RYAUUL2OLJ6WANWWOK6RPMIJR5\",\"handle\":\"h_G0jD-PkpvJyQqe8HpfcxSiRo\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_qsfeSNd39aTjHdLjj7dyh7L6\",\"act_id\":\"a_4QVT3FFPCWFVHM5LZKJQJFGVW4\",\"handle\":\"h_G0jD-PkpvJyQqe8HpfcxSiRo\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? checklists/release.md\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? checklists/release.md \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Confirmed: `git diff` returns empty, so the pending release checklist does not appear in the tracked diff.\n\nPer `git status`, `checklists/release.md` is listed with `??`, meaning it is **untracked** — not a modified tracked file. That's why it doesn't show up in the diff output.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

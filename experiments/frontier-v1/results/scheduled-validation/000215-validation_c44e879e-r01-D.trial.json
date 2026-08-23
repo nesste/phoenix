@@ -1,0 +1,75 @@
+{
+  "v": 1,
+  "case_id": "validation_c44e879e",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the repository file containing the string RVR-204 and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for the string RVR-204 to find which file contains it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "list available actions to search repository content",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find the repository file containing the string RVR-204 and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find the repository file containing the string RVR-204 and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Find the repository file containing the string RVR-204 and report its path.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles return \"requested capability is unavailable in the reachable world\" with an empty frontier, meaning none of them currently expose an action (like search/grep/read) that can locate a string within repository files. I'm unable to find the file containing \"RVR-204\" with the tools and handles currently accessible — there is no reachable search/read capability from any of the given handles (repo, tests, git, episodes).\n\nTo proceed, I'd need a handle/capability that supports content search (e.g., a grep or file-read verb) actually reachable in this session — could you confirm whether additional handles or a different tool interface should be available?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

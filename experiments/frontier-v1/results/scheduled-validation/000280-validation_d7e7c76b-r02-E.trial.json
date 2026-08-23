@@ -1,0 +1,122 @@
+{
+  "v": 1,
+  "case_id": "validation_d7e7c76b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestOldSentinel"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_E97h0HkeY38HlH0w30Ic5BUN\",\"act_id\":\"a_D4YBDFDU2VJIHUN2FRZXDZ6GD4\",\"handle\":\"h_89_PptjldNL_QVZGZjAN1vdx\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "TestOldSentinel was retired. Recover using the live test evidence and verify its current replacement.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find historical evidence of TestOldSentinel being retired and identify its current replacement test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find historical evidence of TestOldSentinel being retired and identify its current replacement test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Search git log/history for TestOldSentinel removal and find replacement test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Search repo for TestOldSentinel and find its current replacement test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "List history/log of tests to find what replaced TestOldSentinel after it was retired.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Show all available tests in the live suite",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "Show git log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "episodes",
+      "intent": "TestOldSentinel was retired. Recover using the live test evidence and verify its current replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "git",
+      "intent": "TestOldSentinel was retired. Recover using the live test evidence and verify its current replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 10,
+      "handle": "repo",
+      "intent": "TestOldSentinel was retired. Recover using the live test evidence and verify its current replacement.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "These other handles (repo, git, episodes) are not reachable for this task from the current session state — only the tests handle matched the intent, and its only reachable action was `focus` on \"TestOldSentinel\", which failed because that test no longer exists in the live suite (confirming it was indeed retired).\n\nGiven the tool constraints, I cannot traverse further to find historical git/episode evidence — those capabilities are unavailable in the reachable world from this session's starting point. I don't have a way to actually name the replacement test without fabricating one.\n\n**Summary of findings:**\n- `TestOldSentinel` is confirmed retired: the tests handle returned `unknown_test` — it is not in the live suite.\n- I attempted to pull historical evidence from the `episodes` and `git` handles and to search the `repo` handle for the retirement/replacement trail, but all three handles reported the requested capability as **unavailable in the reachable world** for this intent — meaning the current live session doesn't expose a path to that historical/replacement data from here.\n\nI'm unable to identify or verify the specific replacement test with the tools currently reachable in this session — doing so would require guessing, which I won't do. If you can grant additional reach (e.g., a specific verb/capability on the git or episodes handles, such as `log`, `blame`, or `history`), I can proceed to find the commit that retired `TestOldSentinel` and confirm its successor test.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_21d05884",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_rgOxvkK5hMP54-JyFJp4ScFp\",\"act_id\":\"a_QCERCWACG6S2ZHRKAGOIVW433O\",\"handle\":\"h_RUWeSNvt5NlzSpqTeim70JA-\",\"verb\":\"status\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"stale_state\",\"message\":\"live resource state changed\"},\"text\":\"failed status: live resource state changed\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_rgOxvkK5hMP54-JyFJp4ScFp\",\"act_id\":\"a_WPAOKLUKZZWDRA2H7K7W26GFVW\",\"handle\":\"h_RUWeSNvt5NlzSpqTeim70JA-\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true,\"output\":\"## master\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=true, output=## master \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Determine whether the checklist repository starts clean (git status check)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Determine whether the checklist repository starts clean (git status check)",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The checklist repository does start clean. Running `git status` on the `master` branch shows no pending changes — output is simply `## master` with `clean: true`, confirming a clean working tree with no untracked or modified files.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

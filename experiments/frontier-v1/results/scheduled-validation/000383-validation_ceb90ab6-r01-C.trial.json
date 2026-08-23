@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment (former path changes/clock.md is obsolete) and report its current content. Find where it moved to in git history/repo.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find git log history for the file changes/clock.md to see where it was renamed/moved to",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repo for a file containing clock-related content, since changes/clock.md path is obsolete/moved",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "show git log --follow for path changes/clock.md to find rename destination",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Locate the moved clock fragment (former path changes/clock.md is obsolete) and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Locate the moved clock fragment (former path changes/clock.md is obsolete) and report its current content.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles return \"orient: requested capability is unavailable in the reachable world\" with an empty frontier, regardless of intent. This means none of the provided handles currently expose any reachable verbs/calls I can execute — the environment isn't offering any actionable path (e.g., git log, file search, read) from these handles in their current state.\n\nI'm unable to locate the moved clock fragment because the tool environment isn't returning any executable calls (frontier is empty) for any of the given handles — repo, tests, git, or episodes. This suggests the handles may need to be initialized/refreshed, or the capability to browse/search this repository isn't currently reachable from them.\n\nCould you confirm whether these handles should already expose actions like \"read file,\" \"git log,\" or \"search,\" or provide an updated/live handle? Without a reachable call surfaced by the tool, I can't inspect the repository to find where `changes/clock.md` was moved.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

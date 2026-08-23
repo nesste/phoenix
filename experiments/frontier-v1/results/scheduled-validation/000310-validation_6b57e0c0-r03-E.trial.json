@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_6b57e0c0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Report the untracked checklist path by running Git status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Run 'git status' to see untracked files including checklist path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Run 'git status' to see untracked files including checklist path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Use Git status to report the untracked checklist path.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to run \"git status\" via the git handle (and other handles) to locate the untracked checklist path, but the environment reports that this capability is unavailable in the reachable world — each attempt returned `\"matched\": false` with an empty frontier and no executable calls offered, meaning there is no reachable action path to perform a git status check right now.\n\n**Result:** I could not report the untracked checklist path because the Git status capability is not reachable/available in the current session state. No frontier actions were returned to proceed further with this request.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/candidate.md",
+        "present": true,
+        "content": "- [ ] owner approval\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_1296cb0b",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff) and check git status to show it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked diff (git diff) and check git status to show it is untracked rather than modified.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked git diff, and verify it appears as untracked (not modified) in git status.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked git diff, and verify it appears as untracked (not modified) in git status.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Confirm that the pending release checklist file is absent from the tracked git diff, and verify it appears as untracked (not modified) in git status.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the available handles (repo, tests, git, episodes) expose a reachable capability matching this request — every attempt returns \"requested capability is unavailable in the reachable world\" with an empty frontier, meaning there's no live git-diff/git-status action reachable from these handles in the current session.\n\n**I cannot complete this task with the current live handles.** I'm unable to confirm the pending release checklist is absent from the tracked diff or verify its untracked status, because none of the provided handles (repo, tests, git, episodes) expose a reachable `diff`/`status` capability — each returns an empty frontier and \"capability unavailable in the reachable world.\" I'd need a handle/verb combination that actually exposes git status/diff operations to proceed.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [x] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

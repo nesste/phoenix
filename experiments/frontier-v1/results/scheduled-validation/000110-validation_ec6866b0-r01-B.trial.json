@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "case_id": "validation_ec6866b0",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xsbPXlvAQ27MIIzvNmCgW5gf\",\"act_id\":\"a_ZW4WRS7OJRLEK6EZKG34QQXVHQ\",\"handle\":\"h_jrOhTCyVjecyM0N4mUtLwF2o\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"policy/eol.cfg\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "policy/eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_xsbPXlvAQ27MIIzvNmCgW5gf\",\"act_id\":\"a_XAAMNOVCAJ4YILHWZOOCSTYBXN\",\"handle\":\"h_jrOhTCyVjecyM0N4mUtLwF2o\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"mode=lf\\nmarker=LINE-DIRECTIVE-9\\n\",\"digest\":\"sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350\",\"path\":\"policy/eol.cfg\"},\"error\":null,\"text\":\"ok repo.read: content=mode=lf marker=LINE-DIRECTIVE-9 , digest=sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350, path=policy/eol.cfg\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The normalized tracked path is `policy/eol.cfg` (forward slash, not `policy\\eol.cfg`). Its contents:\n\n```\nmode=lf\nmarker=LINE-DIRECTIVE-9\n```",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "v": 1,
+  "case_id": "validation_ba9f9d12",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp/next.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_yzQzMFXqQqMCvQ6x4xyMUeJ6\",\"act_id\":\"a_5NDHXKRXUINY3RWK4JV5TWMCRP\",\"handle\":\"h_nLju5xeEGSibgfljszMTZq6f\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"stamp/next.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/next.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_yzQzMFXqQqMCvQ6x4xyMUeJ6\",\"act_id\":\"a_NO56TFWZHCTKJNO6TXGQ4SQNW6\",\"handle\":\"h_nLju5xeEGSibgfljszMTZq6f\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.09\\n\",\"digest\":\"sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0\",\"path\":\"stamp/next.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.09 , digest=sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0, path=stamp/next.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_yzQzMFXqQqMCvQ6x4xyMUeJ6\",\"act_id\":\"a_RXWZIVLF47GLNELZEUTY5QHP5M\",\"handle\":\"h_nLju5xeEGSibgfljszMTZq6f\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "stamp current"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_yzQzMFXqQqMCvQ6x4xyMUeJ6\",\"act_id\":\"a_E3T4AA2P7JMREMY6AFDS3AUFHH\",\"handle\":\"h_nLju5xeEGSibgfljszMTZq6f\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_yzQzMFXqQqMCvQ6x4xyMUeJ6\",\"act_id\":\"a_534C5T22RLHARBJWWYSZPCRV35\",\"handle\":\"h_nLju5xeEGSibgfljszMTZq6f\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"stamp=2026.08\\n\",\"digest\":\"sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.read: content=stamp=2026.08 , digest=sha256:8a2a14176be2f0269bffdc705b242348a1fbfb94a17d0226c1fc2df1e8e3157e, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "stamp=2026.09",
+        "old": "stamp=2026.08",
+        "path": "stamp/current.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_yzQzMFXqQqMCvQ6x4xyMUeJ6\",\"act_id\":\"a_H44G67M2ECDLPR3WXYT4I54QW6\",\"handle\":\"h_nLju5xeEGSibgfljszMTZq6f\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0\",\"path\":\"stamp/current.txt\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:5ddcebf3a7080f95c5f1515d93b8ebcc8e5a123484ad91524d9cd10560552cb0, path=stamp/current.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_yzQzMFXqQqMCvQ6x4xyMUeJ6\",\"act_id\":\"a_ODZCYRZ6RTU54S27IG2XYALNN7\",\"handle\":\"h_63kDj5IvTT2DHz0To5ztiELa\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/stamp/current.txt b/stamp/current.txt\\nindex 2fd6bb4..e3637a4 100644\\n--- a/stamp/current.txt\\n+++ b/stamp/current.txt\\n@@ -1 +1 @@\\n-stamp=2026.08\\n+stamp=2026.09\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/stamp/current.txt b/stamp/current.txt index 2fd6bb4..e3637a4 100644 --- a/stamp/current.txt +++ b/stamp/current.txt @@ -1 +1 @@ -stamp=2026.08 +stamp=2026.09 \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done. `stamp/current.txt` was promoted from `2026.08` to `2026.09`, and the diff confirms only that file changed — `stamp/next.txt` (still `stamp=2026.09`) is unaffected.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

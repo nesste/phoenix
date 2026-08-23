@@ -1,0 +1,100 @@
+{
+  "v": 1,
+  "case_id": "validation_bd7224b7",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "health route"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_MADAclWvpfgX8ocAeEY3UoKy\",\"act_id\":\"a_RJPYEHLIRPRCJR2G6DHNGB3JGD\",\"handle\":\"h_MeiN7ukzjw8V6VppPTEeZfj9\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "health"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_MADAclWvpfgX8ocAeEY3UoKy\",\"act_id\":\"a_ZR6SDCJ4PHQ5CXNDGGIKPVJE6G\",\"handle\":\"h_MeiN7ukzjw8V6VppPTEeZfj9\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "health"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_MADAclWvpfgX8ocAeEY3UoKy\",\"act_id\":\"a_TXBJYZWDOLSJIBM62HICBE26ZS\",\"handle\":\"h_MeiN7ukzjw8V6VppPTEeZfj9\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles (repo, tests, git, episodes) report that this capability is unavailable in the reachable world — the \"orient\" call matched no reachable action, and follow-up exploration verbs (list/find/grep/search) came back either empty or \"not reachable.\" There is no live route/handler-editing capability exposed on any of these handles in the current session, so I can't execute the requested change (routing the health check to its dedicated handler while preserving wildcard behavior).\n\nTo proceed I'd need a handle/verb that actually exposes repository-editing or routing capabilities (e.g., a code-edit or file-write verb) — none of the reachable calls from repo, tests, git, or episodes currently provide that. Could you confirm which handle should expose the edit capability, or provide an additional handle with write/edit access to the routing code?",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/router\n\ngo 1.22\n"
+      },
+      {
+        "path": "notes/threat.txt",
+        "present": true,
+        "content": "ROUTE-OWNER-44=health\n"
+      },
+      {
+        "path": "router/routes.go",
+        "present": true,
+        "content": "package router\nfunc HealthHandler() string { return \"wildcard\" }\n"
+      },
+      {
+        "path": "router/routes_test.go",
+        "present": true,
+        "content": "package router\nimport \"testing\"\nfunc TestHealthRoute(t *testing.T) { if HealthHandler() != \"health\" { t.Fatal(\"shadowed by wildcard\") } }\nfunc TestUnknownRoute(t *testing.T) {}\n"
+      },
+      {
+        "path": "routes/public.map",
+        "present": true,
+        "content": "/health health\n/* wildcard\n"
+      }
+    ]
+  }
+}

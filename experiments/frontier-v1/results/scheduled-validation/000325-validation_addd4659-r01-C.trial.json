@@ -1,0 +1,94 @@
+{
+  "v": 1,
+  "case_id": "validation_addd4659",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ReMUuCgJN8DDNiJxeunIbWRt\",\"act_id\":\"a_G47AG3HI72ZYDO2KEUGNADJCHQ\",\"handle\":\"h_yj33weYAdH-4gKbjSZTaj7mT\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReleaseChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_yj33weYAdH-4gKbjSZTaj7mT\",\"verb\":\"focus\",\"args\":{\"test\":\"TestReleaseChecklist\"},\"state\":\"sha256:3284963cfbf10fe0b70a34507a74c4b355d13ec385f3f470588052be84821bd6\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestReleaseChecklist"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ReMUuCgJN8DDNiJxeunIbWRt\",\"act_id\":\"a_5TSVT2QNTUTBQPLNCNWDENCHN3\",\"handle\":\"h_yj33weYAdH-4gKbjSZTaj7mT\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined stale suite state: the test suite changed after the call was suggested\\ninstead: h_yj33weYAdH-4gKbjSZTaj7mT.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined stale suite state\",\"why\":\"the test suite changed after the call was suggested\",\"instead\":{\"handle\":\"h_yj33weYAdH-4gKbjSZTaj7mT\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ReMUuCgJN8DDNiJxeunIbWRt\",\"act_id\":\"a_DOHXS55Z2ZCUMFIY7ZRKESCMZ4\",\"handle\":\"h_yj33weYAdH-4gKbjSZTaj7mT\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestSecurityChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_yj33weYAdH-4gKbjSZTaj7mT\",\"verb\":\"focus\",\"args\":{\"test\":\"TestSecurityChecklist\"},\"state\":\"sha256:31f22ab12bee17265b1028b8f09d2f92666d49679775cb2ca299b79f59fa6d80\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestSecurityChecklist"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_ReMUuCgJN8DDNiJxeunIbWRt\",\"act_id\":\"a_DBKZV4YSUODQ2Y3FL2FHWSILOB\",\"handle\":\"h_yj33weYAdH-4gKbjSZTaj7mT\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-21T18:58:25.787575848+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:58:25.790338734+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:58:25.790387074+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\",\\\"Output\\\":\\\"=== RUN   TestSecurityChecklist\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:58:25.790397016+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\",\\\"Output\\\":\\\"--- PASS: TestSecurityChecklist (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:58:25.790400211+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Test\\\":\\\"TestSecurityChecklist\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-21T18:58:25.790403782+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:58:25.79077425+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/checklists/checklists\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-21T18:58:25.793007487+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/checklists/checklists\\\",\\\"Elapsed\\\":0.005}\\n\",\"test\":\"TestSecurityChecklist\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the live checklist check after the suite file is replaced following your first test listing.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Replace the suite file for TestReleaseChecklist, following the first test listing, before verifying the checklist check live.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "Verification complete.\n\n**Summary:**\n- Your first listing showed the suite contained `TestReleaseChecklist`.\n- Before I could focus on it, the suite file was replaced — the runner refused the stale-state focus call and directed me to re-list.\n- Re-listing confirmed the swap: the live suite now contains `TestSecurityChecklist` instead.\n- I focused on the current live test, `TestSecurityChecklist`, and it **PASSED** (exit_code=0, `--- PASS: TestSecurityChecklist (0.00s)`).\n\nThe live checklist check, after the suite file replacement, is verified and passing.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/check_test.go",
+        "present": true,
+        "content": "package checklists\nimport \"testing\"\nfunc TestSecurityChecklist(t *testing.T) {}\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/checklists\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

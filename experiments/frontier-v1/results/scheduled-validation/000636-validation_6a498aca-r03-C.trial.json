@@ -1,0 +1,98 @@
+{
+  "v": 1,
+  "case_id": "validation_6a498aca",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "INK-42"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_MIMvxXstjHCuug-d2oOlf_S4\",\"act_id\":\"a_DN6LNSBDH5MND43GKOU23MDAVI\",\"handle\":\"h_kKYjf3FbCKUelAyiq2fhQ900\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "search",
+      "args": {
+        "query": "INK-42"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_MIMvxXstjHCuug-d2oOlf_S4\",\"act_id\":\"a_OZU2K2DIKOJM5FLCYGLNJE5KTR\",\"handle\":\"h_qV8REinvSAaC2MyrFIvxKrw8\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the repository path containing INK-42 (search for ticket reference INK-42 in repo)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the repository path containing INK-42 (search for ticket reference INK-42 in repo)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Find the repository path (folder/repo) that contains work item INK-42, e.g. by searching git commits or repo listings for INK-42",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find the repository path (folder/repo) that contains work item INK-42, e.g. by searching git commits or repo listings for INK-42",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find the repository path (folder/repo) that contains work item INK-42, e.g. by searching git commits or repo listings for INK-42",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Find the repository path (folder/repo) that contains work item INK-42, e.g. by searching git commits or repo listings for INK-42",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four provided handles (repo, tests, git, episodes) return \"requested capability is unavailable in the reachable world\" for every query attempted — none of them expose a reachable search/orient capability that can locate \"INK-42\" from this session. I was unable to find a repository path containing INK-42 because none of the given handles currently allow that operation in the reachable world (no frontier of executable calls was returned in any response).\n\nGiven the budget and lack of any usable next step from these handles, I can't determine the repository path containing INK-42 with the tools currently reachable.",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

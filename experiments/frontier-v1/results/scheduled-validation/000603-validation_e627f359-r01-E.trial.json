@@ -1,0 +1,102 @@
+{
+  "v": 1,
+  "case_id": "validation_e627f359",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_1Wdd2kGsqUtW9Xc79GkPIEBy\",\"act_id\":\"a_VXAUC6R25IUAK4EORR7CUJEYJJ\",\"handle\":\"h_swRNrMMX2D-VqeeD2v9oG1L2\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestInkIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the current license-index test after it is replaced during the initial suite catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Show details of the current license-index test (TestInkIndex) after it was replaced during the initial suite catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Get the initial suite catalog of tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Check the current license-index test after it is replaced during the initial suite catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Check the current license-index test after it is replaced during the initial suite catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Check the current license-index test after it is replaced during the initial suite catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Get full details/content of TestInkIndex test",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on the available capabilities, the tests catalog (h_swRNrMMX2D-VqeeD2v9oG1L2) currently lists exactly one test: **`TestInkIndex`** (with no rename records shown), and no other action is reachable in this world to drill further into it.\n\nSo, the current license-index test — after being replaced during the initial suite catalog build — is **`TestInkIndex`**, and it is the sole test present in the suite. No further detail (source, status, history) is retrievable, as no additional verbs for inspecting individual test content are reachable from the tests, repo, git, or episodes handles at this point.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/licenses\n\ngo 1.22\n"
+      },
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "legal/license_test.go",
+        "present": true,
+        "content": "package legal\nimport \"testing\"\nfunc TestNoticeIndex(t *testing.T) {}\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

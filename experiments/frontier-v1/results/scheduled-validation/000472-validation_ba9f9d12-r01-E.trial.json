@@ -1,0 +1,61 @@
+{
+  "v": 1,
+  "case_id": "validation_ba9f9d12",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "promote",
+      "args": {
+        "version": "2026.09"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_8w9P50BtTImIX0BcwUEu03By\",\"act_id\":\"a_PDX6RMPRQMBJP4U7O7DCNDP5HN\",\"handle\":\"h_JZNQqUuiCI7iwz4jxXOElc0F\",\"verb\":\"promote\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote 2026.09 into the current stamp and inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Promote 2026.09 into the current stamp",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Promote 2026.09 into the current stamp and inspect the diff to ensure stamp/next.txt is unchanged.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "This capability does not appear to be reachable in the current world for any of the provided handles. I attempted the goal via the git handle (orient/promote) and the repo handle, but each returned \"requested capability is unavailable in the reachable world\" or \"act is not reachable\" — there is no viable path to promote 2026.09 into the current stamp or inspect the diff of stamp/next.txt with these live handles.\n\nGiven remaining budget ($0.1235), I don't want to keep guessing verbs blindly. Could you confirm whether there's a specific verb name (e.g., \"promote_stamp\", \"release\", \"bump_version\") or additional handle I should use? Without that, I cannot complete this task with the given handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

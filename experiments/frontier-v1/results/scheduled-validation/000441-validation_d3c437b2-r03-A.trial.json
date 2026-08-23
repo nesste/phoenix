@@ -1,0 +1,125 @@
+{
+  "v": 1,
+  "case_id": "validation_d3c437b2",
+  "world_build": "sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_UHBJ6BJT5T22IWPE3LVIU5SY5E\",\"handle\":\"h_CtmBbHLHK7IjNKJlD9MDMSOT\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "clock fragment changelog"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_EMUYWEWCUKUBGLX6SNETXMFN4S\",\"handle\":\"h_CtmBbHLHK7IjNKJlD9MDMSOT\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "clock"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_4K4W27LYFL5WXW6SHCETWQ7SSY\",\"handle\":\"h_CtmBbHLHK7IjNKJlD9MDMSOT\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"CHANGELOG.md\",\"changes/pending/clock.md\",\"release/policy.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "CHANGELOG.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_YQVWNTWHIEA77PMSB6UWZOERF6\",\"handle\":\"h_CtmBbHLHK7IjNKJlD9MDMSOT\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"# Next\\n\\n- Retain stable clocks.\\n\",\"digest\":\"sha256:ca90e554adf81f322fbfd45af2b6072047b9e858ff8325edff36daced7d94cf7\",\"path\":\"CHANGELOG.md\"},\"error\":null,\"text\":\"ok repo.read: content=# Next  - Retain stable clocks. , digest=sha256:ca90e554adf81f322fbfd45af2b6072047b9e858ff8325edff36daced7d94cf7, path=CHANGELOG.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "changes/pending/clock.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_P7LZVI2EFJE4B3SDFZ3CAPKYQL\",\"handle\":\"h_CtmBbHLHK7IjNKJlD9MDMSOT\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Add monotonic clock fallback.\\n\",\"digest\":\"sha256:740d9f618f1b76bebc37f0ac67e030dad8eae9be1c189786a9c390d931be0365\",\"path\":\"changes/pending/clock.md\"},\"error\":null,\"text\":\"ok repo.read: content=Add monotonic clock fallback. , digest=sha256:740d9f618f1b76bebc37f0ac67e030dad8eae9be1c189786a9c390d931be0365, path=changes/pending/clock.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "release/policy.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_PDGL3N2YO4MDRGENMPLTMM3VWN\",\"handle\":\"h_CtmBbHLHK7IjNKJlD9MDMSOT\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\\n\",\"digest\":\"sha256:e3343b454413aaba7ab4e2587f7f57c5af12d5d3095d9ef45f687c8606aefd42\",\"path\":\"release/policy.md\"},\"error\":null,\"text\":\"ok repo.read: content=Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next. , digest=sha256:e3343b454413aaba7ab4e2587f7f57c5af12d5d3095d9ef45f687c8606aefd42, path=release/policy.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "# Next\n\n- Retain stable clocks.\n- Add monotonic clock fallback.\n",
+        "old": "# Next\n\n- Retain stable clocks.\n",
+        "path": "CHANGELOG.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_PZS7SKB7EQT6AV3NS5E3SNG2HB\",\"handle\":\"h_CtmBbHLHK7IjNKJlD9MDMSOT\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:005db48c5ab84595acd0dceff5f57b6d2271014959b0bed691a01ec00d8151ce\",\"path\":\"CHANGELOG.md\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:005db48c5ab84595acd0dceff5f57b6d2271014959b0bed691a01ec00d8151ce, path=CHANGELOG.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_U4FNLQWDHBCRGWGUQT4AOHJ3RZ\",\"handle\":\"h_rfRTPYyMCj-ZR4IYCAWx36iX\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n M CHANGELOG.md\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master  M CHANGELOG.md \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 8,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "commit",
+      "args": {
+        "message": "Promote clock fragment into changelog"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:bbcf6e836fa6c845e2883d1cdd9a0c2e5142b2b95070540cd0784c5ba3ce919b\",\"session_id\":\"s_3PpuAH0rpec5_HPjlaivynx0\",\"act_id\":\"a_EYMUQW7ZPY3QKUTP7H5MTMKCC6\",\"handle\":\"h_rfRTPYyMCj-ZR4IYCAWx36iX\",\"verb\":\"commit\",\"status\":\"ok\",\"result\":{\"committed\":true,\"stderr\":\"\",\"stdout\":\"[master bfc7472] Promote clock fragment into changelog\\n 1 file changed, 1 insertion(+)\\n\"},\"error\":null,\"text\":\"ok git.commit: committed=true, stderr=, stdout=[master bfc7472] Promote clock fragment into changelog  1 file changed, 1 insertion(+) \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done. I promoted the clock fragment (\"Add monotonic clock fallback.\") into `CHANGELOG.md` under the `# Next` section, and committed only that change (`CHANGELOG.md`, 1 file changed). The `changes/pending/clock.md` fragment file itself was left untouched/uncommitted, as requested.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n- Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}
