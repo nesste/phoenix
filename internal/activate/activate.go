@@ -59,19 +59,8 @@ func New(definition *world.Definition) (*Engine, error) {
 		}
 	}
 	for _, rule := range definition.Activations {
-		if len(rule.Suggestions) > maxEntries {
-			return nil, fmt.Errorf("activation %q contains more than %d suggestions", rule.ID, maxEntries)
-		}
-		if rule.ID == inspectFallbackID && len(rule.Suggestions) == 0 {
-			return nil, fmt.Errorf("activation %q must include at least one suggestion", inspectFallbackID)
-		}
-		for index, suggestion := range rule.Suggestions {
-			if utf8.RuneCountInString(suggestion.Why) == 0 || utf8.RuneCountInString(suggestion.Why) > 80 {
-				return nil, fmt.Errorf("activation %q suggestion %d has an invalid why line", rule.ID, index)
-			}
-			if suggestion.Score < 0 || suggestion.Score > 1 {
-				return nil, fmt.Errorf("activation %q suggestion %d score is outside 0..1", rule.ID, index)
-			}
+		if err := validateActivationRule(rule); err != nil {
+			return nil, err
 		}
 		pattern, err := regexp.Compile(rule.Pattern)
 		if err != nil {
@@ -80,6 +69,24 @@ func New(definition *world.Definition) (*Engine, error) {
 		engine.rules = append(engine.rules, compiledRule{definition: rule, pattern: pattern})
 	}
 	return engine, nil
+}
+
+func validateActivationRule(rule world.ActivationRule) error {
+	if len(rule.Suggestions) > maxEntries {
+		return fmt.Errorf("activation %q contains more than %d suggestions", rule.ID, maxEntries)
+	}
+	if rule.ID == inspectFallbackID && len(rule.Suggestions) == 0 {
+		return fmt.Errorf("activation %q must include at least one suggestion", inspectFallbackID)
+	}
+	for index, suggestion := range rule.Suggestions {
+		if utf8.RuneCountInString(suggestion.Why) == 0 || utf8.RuneCountInString(suggestion.Why) > 80 {
+			return fmt.Errorf("activation %q suggestion %d has an invalid why line", rule.ID, index)
+		}
+		if suggestion.Score < 0 || suggestion.Score > 1 {
+			return fmt.Errorf("activation %q suggestion %d score is outside 0..1", rule.ID, index)
+		}
+	}
+	return nil
 }
 
 func (engine *Engine) Compute(topology Topology, anchor, intent string) []frontier.Entry {

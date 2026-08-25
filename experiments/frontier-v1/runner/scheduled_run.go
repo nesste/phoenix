@@ -37,30 +37,11 @@ func runScheduledCases(
 	if err != nil {
 		return scheduledSummary{}, err
 	}
-	for _, result := range resume.results {
-		replayAssignedResult(&summary, result)
+	done, err := applyScheduledResume(config, schedule, resume, &summary)
+	if err != nil {
+		return scheduledSummary{}, err
 	}
-	if resume.stopKind == "budget_stopped" {
-		if err := recordBudgetStop(config, schedule.Entries[resume.nextIndex:], &summary); err != nil {
-			return scheduledSummary{}, err
-		}
-		return summary, nil
-	}
-	if resume.stopKind == "safety_stopped" {
-		remaining := schedule.Entries[resume.nextIndex:]
-		if len(remaining) > 0 {
-			if err := recordSafetyStop(config, remaining, &summary, fmt.Errorf("resumed incomplete safety stop")); err != nil {
-				return scheduledSummary{}, err
-			}
-		} else {
-			summary.Status = "indeterminate"
-			if summary.StopReason == "" {
-				summary.StopReason = "safety_stop: resumed incomplete safety stop"
-			}
-		}
-		return summary, nil
-	}
-	if resume.nextIndex >= len(schedule.Entries) {
+	if done {
 		return summary, nil
 	}
 	if resume.nextIndex == 0 {
@@ -68,38 +49,76 @@ func runScheduledCases(
 			return scheduledSummary{}, err
 		}
 	}
+	if err := runRemainingSchedule(config, schedule, scheduleDigest, resume.nextIndex, perTrialCap, runBudgetUSD, runtime, grader, &summary); err != nil {
+		return scheduledSummary{}, err
+	}
+	return summary, nil
+}
+
+// applyScheduledResume replays retained assignment records into the summary
+// and reports whether the run is already terminal: a replayed budget or
+// safety stop, or a schedule with no remaining launches.
+func applyScheduledResume(config runConfig, schedule launchSchedule, resume scheduledResume, summary *scheduledSummary) (bool, error) {
+	for _, result := range resume.results {
+		replayAssignedResult(summary, result)
+	}
+	if resume.stopKind == "budget_stopped" {
+		return true, recordBudgetStop(config, schedule.Entries[resume.nextIndex:], summary)
+	}
+	if resume.stopKind == "safety_stopped" {
+		remaining := schedule.Entries[resume.nextIndex:]
+		if len(remaining) > 0 {
+			return true, recordSafetyStop(config, remaining, summary, fmt.Errorf("resumed incomplete safety stop"))
+		}
+		summary.Status = "indeterminate"
+		if summary.StopReason == "" {
+			summary.StopReason = "safety_stop: resumed incomplete safety stop"
+		}
+		return true, nil
+	}
+	return resume.nextIndex >= len(schedule.Entries), nil
+}
+
+// runRemainingSchedule executes the pairing-key groups at and after
+// nextIndex. A budget or safety stop records the untouched remainder and
+// ends the run; the returned error covers evidence-write failures only.
+func runRemainingSchedule(
+	config runConfig,
+	schedule launchSchedule,
+	scheduleDigest string,
+	nextIndex int,
+	perTrialCap, runBudgetUSD float64,
+	runtime runtimeDriver,
+	grader gradeDriver,
+	summary *scheduledSummary,
+) error {
+	groupSize := len(schedule.Arms)
 	for start := 0; start < len(schedule.Entries); start += groupSize {
-		if start+groupSize <= resume.nextIndex {
+		if start+groupSize <= nextIndex {
 			continue
 		}
 		group := schedule.Entries[start : start+groupSize]
-		if start >= resume.nextIndex {
+		if start >= nextIndex {
 			pairingCapacity := perTrialCap * float64(groupSize) * infrastructureCapacityFactor
 			if summary.SpentUSD+pairingCapacity > runBudgetUSD+1e-9 {
-				if err := recordBudgetStop(config, schedule.Entries[start:], &summary); err != nil {
-					return scheduledSummary{}, err
-				}
-				break
+				return recordBudgetStop(config, schedule.Entries[start:], summary)
 			}
 		}
 		for offset, entry := range group {
-			if start+offset < resume.nextIndex {
+			if start+offset < nextIndex {
 				continue
 			}
 			result, runErr := runAssignedTrial(config, entry, runtime, grader)
 			if runErr != nil {
-				if err := recordSafetyStop(config, schedule.Entries[start+offset:], &summary, runErr); err != nil {
-					return scheduledSummary{}, err
-				}
-				return summary, nil
+				return recordSafetyStop(config, schedule.Entries[start+offset:], summary, runErr)
 			}
-			addAssignedResult(&summary, result)
+			addAssignedResult(summary, result)
 		}
-		if err := writeScheduledCheckpoint(config, scheduleDigest, summary, start+groupSize, (start+groupSize)/groupSize); err != nil {
-			return scheduledSummary{}, err
+		if err := writeScheduledCheckpoint(config, scheduleDigest, *summary, start+groupSize, (start+groupSize)/groupSize); err != nil {
+			return err
 		}
 	}
-	return summary, nil
+	return nil
 }
 
 func scheduledRunConfiguration(config runConfig, schedule launchSchedule, perTrialCap float64) scheduledConfiguration {

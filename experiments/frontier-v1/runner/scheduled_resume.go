@@ -48,54 +48,18 @@ func loadScheduledResume(
 		return scheduledResume{}, fmt.Errorf("schedule entries must contain complete pairing-key arm groups")
 	}
 
-	assignments := map[int]assignedTrialResult{}
-	assignmentStems := map[string]struct{}{}
-	var evidence []string
-	hasCheckpoint := false
-	for _, entry := range entries {
-		if entry.IsDir() {
-			return scheduledResume{}, fmt.Errorf("scheduled output directory contains unrecognized files")
-		}
-		name := entry.Name()
-		switch {
-		case name == scheduledSummaryName:
-			return scheduledResume{}, fmt.Errorf("scheduled output directory already contains a finished summary")
-		case name == scheduledCheckpointName:
-			hasCheckpoint = true
-		case strings.HasSuffix(name, ".assignment.json"):
-			result, err := loadAssignmentFile(filepath.Join(outputDir, name), name, schedule)
-			if err != nil {
-				return scheduledResume{}, err
-			}
-			if _, exists := assignments[result.LaunchIndex]; exists {
-				return scheduledResume{}, fmt.Errorf("scheduled resume has duplicate assignment records")
-			}
-			assignments[result.LaunchIndex] = result
-			assignmentStems[strings.TrimSuffix(name, ".assignment.json")] = struct{}{}
-		case isScheduledEvidenceName(name):
-			evidence = append(evidence, name)
-		default:
-			return scheduledResume{}, fmt.Errorf("scheduled output directory contains unrecognized files")
-		}
+	inventory, err := classifyScheduledOutputEntries(outputDir, entries, schedule)
+	if err != nil {
+		return scheduledResume{}, err
 	}
-	for _, name := range evidence {
-		stem := scheduledEvidenceStem(name)
-		if _, ok := assignmentStems[stem]; !ok || stem == "" {
-			return scheduledResume{}, fmt.Errorf("scheduled resume has evidence without a matching assignment")
-		}
-	}
-	if (len(assignments) > 0 || len(evidence) > 0) && !hasCheckpoint {
-		return scheduledResume{}, fmt.Errorf("scheduled resume is missing a checkpoint")
-	}
-
-	resume, err := reconstructScheduledResume(schedule, assignments)
+	resume, err := reconstructScheduledResume(schedule, inventory.assignments)
 	if err != nil {
 		return scheduledResume{}, err
 	}
 	if err := verifyResumeWorldBuild(outputDir, worldBuild, schedule, resume); err != nil {
 		return scheduledResume{}, err
 	}
-	if hasCheckpoint {
+	if inventory.hasCheckpoint {
 		if err := verifyScheduledCheckpoint(
 			filepath.Join(outputDir, scheduledCheckpointName),
 			worldBuild, scheduleDigest, runBudgetUSD, groupSize, resume,
@@ -104,6 +68,56 @@ func loadScheduledResume(
 		}
 	}
 	return resume, nil
+}
+
+type scheduledOutputInventory struct {
+	assignments   map[int]assignedTrialResult
+	hasCheckpoint bool
+}
+
+// classifyScheduledOutputEntries sorts a non-empty scheduled output directory
+// into assignment records, matching evidence, and the checkpoint. Anything
+// unrecognized, duplicated, orphaned, or missing its checkpoint is refused.
+func classifyScheduledOutputEntries(outputDir string, entries []os.DirEntry, schedule launchSchedule) (scheduledOutputInventory, error) {
+	inventory := scheduledOutputInventory{assignments: map[int]assignedTrialResult{}}
+	assignmentStems := map[string]struct{}{}
+	var evidence []string
+	for _, entry := range entries {
+		if entry.IsDir() {
+			return scheduledOutputInventory{}, fmt.Errorf("scheduled output directory contains unrecognized files")
+		}
+		name := entry.Name()
+		switch {
+		case name == scheduledSummaryName:
+			return scheduledOutputInventory{}, fmt.Errorf("scheduled output directory already contains a finished summary")
+		case name == scheduledCheckpointName:
+			inventory.hasCheckpoint = true
+		case strings.HasSuffix(name, ".assignment.json"):
+			result, err := loadAssignmentFile(filepath.Join(outputDir, name), name, schedule)
+			if err != nil {
+				return scheduledOutputInventory{}, err
+			}
+			if _, exists := inventory.assignments[result.LaunchIndex]; exists {
+				return scheduledOutputInventory{}, fmt.Errorf("scheduled resume has duplicate assignment records")
+			}
+			inventory.assignments[result.LaunchIndex] = result
+			assignmentStems[strings.TrimSuffix(name, ".assignment.json")] = struct{}{}
+		case isScheduledEvidenceName(name):
+			evidence = append(evidence, name)
+		default:
+			return scheduledOutputInventory{}, fmt.Errorf("scheduled output directory contains unrecognized files")
+		}
+	}
+	for _, name := range evidence {
+		stem := scheduledEvidenceStem(name)
+		if _, ok := assignmentStems[stem]; !ok || stem == "" {
+			return scheduledOutputInventory{}, fmt.Errorf("scheduled resume has evidence without a matching assignment")
+		}
+	}
+	if (len(inventory.assignments) > 0 || len(evidence) > 0) && !inventory.hasCheckpoint {
+		return scheduledOutputInventory{}, fmt.Errorf("scheduled resume is missing a checkpoint")
+	}
+	return inventory, nil
 }
 
 func loadAssignmentFile(path, name string, schedule launchSchedule) (assignedTrialResult, error) {
