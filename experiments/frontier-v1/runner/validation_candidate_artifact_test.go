@@ -38,7 +38,7 @@ func TestGate1ATestTransitionCandidateMatchesHistoricalPayload(t *testing.T) {
 	verifyCandidateSetAtCommit(t, root, "71f9648789decf4cd56ef8a24bc840b0dda7efd9", candidate.Files, candidate.SetDigest)
 }
 
-func TestGate1AAuthoringRepairCandidateMatchesWorkingTree(t *testing.T) {
+func TestGate1AAuthoringRepairCandidateMatchesHistoricalPayload(t *testing.T) {
 	var candidate struct {
 		V           int    `json:"v"`
 		Status      string `json:"status"`
@@ -63,26 +63,7 @@ func TestGate1AAuthoringRepairCandidateMatchesWorkingTree(t *testing.T) {
 		t.Fatalf("authoring repair candidate file count = %d", len(candidate.Files))
 	}
 	root := filepath.Join("..", "..", "..")
-	paths := make([]string, 0, len(candidate.Files))
-	for path := range candidate.Files {
-		paths = append(paths, path)
-	}
-	sort.Strings(paths)
-	var identity strings.Builder
-	for _, path := range paths {
-		actual, err := digestLFNormalizedFile(filepath.Join(root, filepath.FromSlash(path)))
-		if err != nil {
-			t.Fatal(err)
-		}
-		if actual != candidate.Files[path] {
-			t.Fatalf("candidate file %s digest = %s, want %s", path, actual, candidate.Files[path])
-		}
-		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
-	}
-	digest := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(identity.String())))
-	if digest != candidate.SetDigest {
-		t.Fatalf("authoring repair candidate set digest = %s, want %s", digest, candidate.SetDigest)
-	}
+	verifyCandidateSetAtCommit(t, root, "610fa588488579cf5551a627795d4dc7f771f053", candidate.Files, candidate.SetDigest)
 }
 
 func verifyCandidateSetAtCommit(t *testing.T, repositoryRoot, commit string, files map[string]string, wantSetDigest string) {

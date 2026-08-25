@@ -160,22 +160,19 @@ func verifySpentValidationExecutionGateState(t *testing.T, repositoryRoot, statu
 func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact frozenFileSet) {
 	t.Helper()
 	wantFindings := []string{
-		"P2-1: The candidate report overstates the marker and output assertions in its nil-ID regression test; its error assertion and guard ordering remain load-bearing, and the independent populated probe established no custodian contact.",
-		"P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure.",
-		"P2-3: Flipping only the synthetic closed-gate boolean reaches the missing-schedule-identity error before the timeout; the committed ordering assertion remains load-bearing, and the independent populated open-gate probe exposed the timeout error.",
-		"Residual: validation buildPhoenix still uses host GOOS/GOARCH and -X main.version=authoring; a later validation opening must use the freeze recipe (linux/amd64, version=dev) or the world-build pin will refuse.",
+		"P2-1: Validation builds write and then remove bin/phoenix, overwriting any untracked user binary parked there; bin/ is gitignored and the location is dictated by the frozen manifest, which hashes the repo-relative executable path.",
+		"P2-2: The target-pin test asserts the build command and environment by substring containment; the live reproduction test closes the gap because any effective recipe deviation changes the world-build digest.",
+		"Residual: a validation run still requires a linux/amd64 execution host to run the built binary; this repair fixes build identity only.",
 	}
 	wantNotes := []string{
-		"experiments/frontier-v1/artifacts/orientation-unmatched-handoff-candidate.md",
-		"experiments/frontier-v1/artifacts/world-build-pin-candidate.md",
-		"experiments/frontier-v1/artifacts/pairing-key-checkpoint-resume-candidate.md",
+		"experiments/frontier-v1/artifacts/validation-build-recipe-candidate.md",
 	}
-	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-authoring-repair-candidate.json" ||
-		artifact.CandidateArtifactDigest != "sha256:d9a85ffce0a06389046b5926001cbde7e3c8f5a8f2d99c075aea8baa8ad0747a" ||
-		artifact.Review != "docs/reviews/2026-08-23-protocol-v4-gate-1a-authoring-repair-review.md" ||
-		artifact.ReviewCommit != "1204153d6228a0a06fbb15f70eae7d600da5f93a" ||
-		artifact.ReviewDigest != "sha256:c770a58bf809cca0039a19054972d8a493bd4fa206255d3a754e52644be9e110" ||
-		artifact.ReplacesCommit != "71f9648789decf4cd56ef8a24bc840b0dda7efd9" ||
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-validation-build-recipe-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:069b3c202d92845194265c720574fe46cb798637b9edb12965ef77401b24bb3b" ||
+		artifact.Review != "docs/reviews/2026-08-25-protocol-v4-gate-1a-validation-build-recipe-review.md" ||
+		artifact.ReviewCommit != "8dd34b5eb013dcbe46243ce7768ff5a60b93ed66" ||
+		artifact.ReviewDigest != "sha256:8a66ba51266c5289535b7472610ff81a47058a19a3706ac72d0ab4968040eedb" ||
+		artifact.ReplacesCommit != "610fa588488579cf5551a627795d4dc7f771f053" ||
 		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) ||
 		!reflect.DeepEqual(artifact.CandidateNotes, wantNotes) {
 		t.Fatalf("replacement runner provenance = %#v", artifact)
@@ -189,7 +186,7 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 		}
 	}
 	verifyFrozenFileSet(t, repositoryRoot, artifact,
-		"610fa588488579cf5551a627795d4dc7f771f053", 19)
+		"ed3860708c931ddc848b1bc90e4d6435585ff0d6", 20)
 }
 
 func verifyRawFileDigest(t *testing.T, path string, want string) {

@@ -24,31 +24,28 @@
       "frozen": true
     },
     "scheduled_runner": {
-      "candidate_commit": "610fa588488579cf5551a627795d4dc7f771f053",
-      "candidate_artifact": "experiments/frontier-v1/artifacts/gate-1a-authoring-repair-candidate.json",
-      "candidate_artifact_raw_sha256": "sha256:d9a85ffce0a06389046b5926001cbde7e3c8f5a8f2d99c075aea8baa8ad0747a",
+      "candidate_commit": "ed3860708c931ddc848b1bc90e4d6435585ff0d6",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/gate-1a-validation-build-recipe-candidate.json",
+      "candidate_artifact_raw_sha256": "sha256:069b3c202d92845194265c720574fe46cb798637b9edb12965ef77401b24bb3b",
       "candidate_notes": [
-        "experiments/frontier-v1/artifacts/orientation-unmatched-handoff-candidate.md",
-        "experiments/frontier-v1/artifacts/world-build-pin-candidate.md",
-        "experiments/frontier-v1/artifacts/pairing-key-checkpoint-resume-candidate.md"
+        "experiments/frontier-v1/artifacts/validation-build-recipe-candidate.md"
       ],
-      "review_record": "docs/reviews/2026-08-23-protocol-v4-gate-1a-authoring-repair-review.md",
-      "review_record_commit": "1204153d6228a0a06fbb15f70eae7d600da5f93a",
-      "review_record_raw_sha256": "sha256:c770a58bf809cca0039a19054972d8a493bd4fa206255d3a754e52644be9e110",
+      "review_record": "docs/reviews/2026-08-25-protocol-v4-gate-1a-validation-build-recipe-review.md",
+      "review_record_commit": "8dd34b5eb013dcbe46243ce7768ff5a60b93ed66",
+      "review_record_raw_sha256": "sha256:8a66ba51266c5289535b7472610ff81a47058a19a3706ac72d0ab4968040eedb",
       "review_verdict": "ACCEPT",
-      "replaces_candidate_commit": "71f9648789decf4cd56ef8a24bc840b0dda7efd9",
-      "artifact_set_lf_normalized_utf8_sha256": "sha256:25cce910f76aaac88cfde6d35c4e44080134547013b19dc4386b6e1a0bc603af",
+      "replaces_candidate_commit": "610fa588488579cf5551a627795d4dc7f771f053",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:c9e2f4ff1b6c37ea64b8d35b0124d432c1741be01788e51744cdfbd9b56f447f",
       "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
       "accepted_findings": [
-        "P2-1: The candidate report overstates the marker and output assertions in its nil-ID regression test; its error assertion and guard ordering remain load-bearing, and the independent populated probe established no custodian contact.",
-        "P2-2: Numeric-equivalent cap spellings are forwarded verbatim to the external runtime parser; the frozen operator spelling 0.15 is unaffected, and parser rejection remains a loud, auditable failure.",
-        "P2-3: Flipping only the synthetic closed-gate boolean reaches the missing-schedule-identity error before the timeout; the committed ordering assertion remains load-bearing, and the independent populated open-gate probe exposed the timeout error.",
-        "Residual: validation buildPhoenix still uses host GOOS/GOARCH and -X main.version=authoring; a later validation opening must use the freeze recipe (linux/amd64, version=dev) or the world-build pin will refuse."
+        "P2-1: Validation builds write and then remove bin/phoenix, overwriting any untracked user binary parked there; bin/ is gitignored and the location is dictated by the frozen manifest, which hashes the repo-relative executable path.",
+        "P2-2: The target-pin test asserts the build command and environment by substring containment; the live reproduction test closes the gap because any effective recipe deviation changes the world-build digest.",
+        "Residual: a validation run still requires a linux/amd64 execution host to run the built binary; this repair fixes build identity only."
       ],
       "files": {
-        "experiments/frontier-v1/README.md": "sha256:98310ba5366450cf1065906f71765396d4dd1ad128afd0746f51d8bd6bc8fbdd",
+        "experiments/frontier-v1/README.md": "sha256:a7650cafd654c6123c81d61a307473912730399f51a4848b31d7e0894c891a4e",
         "experiments/frontier-v1/runner/arm_b_test.go": "sha256:022080bf9a51a59706d3f57f6404bb5ebe04c486b6485c95102073da7fe42d2d",
-        "experiments/frontier-v1/runner/main.go": "sha256:d3e0a6717bbbdad0c1f8c64927160bdd4fc8d62ccd2899a70616615f9c4170c5",
+        "experiments/frontier-v1/runner/main.go": "sha256:34be7b7c88be049954787cfc68e93e19926de36c97135fb762957c02ff88b485",
         "experiments/frontier-v1/runner/main_test.go": "sha256:b123ef00c5a80301ff5afdd3133806fa013f5efd5d74ec9af3a03f479233a979",
         "experiments/frontier-v1/runner/materialize.go": "sha256:a853c24adfb1e9fa72bcd28d39ace41b01c6ba8f7058070df6336b82eaabd1d2",
         "experiments/frontier-v1/runner/runtime.go": "sha256:625ab20eca58eabef2ccddc53ce9d1b4028a8cdd9d1bea2d1561b05b04899dc9",
@@ -60,11 +57,12 @@
         "experiments/frontier-v1/runner/scheduled_run.go": "sha256:1f4bcd7aa5bf2bb495f70980a16cc4bb5428fb11d18f3fefa541e736e5593b8e",
         "experiments/frontier-v1/runner/scheduled_run_test.go": "sha256:080ce37de7acd2c7d741a10cb3b1658bd77a39809b546d606f43c78af960be83",
         "experiments/frontier-v1/runner/types.go": "sha256:aadb408213dc997cd65e2d46dd43dff234f4ca64da3bdb3380ed26d583114b46",
+        "experiments/frontier-v1/runner/validation_build_recipe_test.go": "sha256:259c0380a69427e4b10d29f82f77ea2c71bd3d4c94d378f2c6463a063d27cd94",
         "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:460dc582292473ecd5b91e436ba726e2f409399cd254588ee8f0eded99a02b03",
         "experiments/frontier-v1/runner/validation_gate.go": "sha256:b014fa7a2564d4c2c6ddd9399fb7b43cd918c74b83314ccce678ea6d322580dd",
         "experiments/frontier-v1/runner/validation_grader.go": "sha256:5d4f20c47306af9efc2f7af22a8abb1d3bf51c4b666359651d0271d90d187434",
         "experiments/frontier-v1/runner/world_build_pin_test.go": "sha256:870d610a72154fc84df29ed2114ecfd118a8b5d4f1b66e72bf640a16ecab27e6",
-        "experiments/frontier-v1/validation-execution-boundary.md": "sha256:6de970a6244640ce4b0cc57d4608b445343026a9c78ea08907c6328905e5c48f"
+        "experiments/frontier-v1/validation-execution-boundary.md": "sha256:eab4160af034d38357584594c4c82af1eaa09d5a635635d7420a57b547aeda1d"
       },
       "frozen": true
     },
