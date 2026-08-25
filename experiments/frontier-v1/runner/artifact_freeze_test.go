@@ -57,16 +57,17 @@ type frozenValidationSchedule struct {
 }
 
 type frozenGateState struct {
-	MayOpenValidation           bool   `json:"may_open_validation"`
-	MayOpenHeldOut              bool   `json:"may_open_held_out"`
-	ValidationOpenedOn          string `json:"validation_opened_on"`
-	ValidationOpeningRecord     string `json:"validation_opening_decision"`
-	ValidationScope             string `json:"validation_scope"`
-	ValidationExecutionStatus   string `json:"validation_execution_status"`
-	ValidationExecutionClosedOn string `json:"validation_execution_closed_on"`
-	ValidationExecutionDecision string `json:"validation_execution_decision"`
-	ValidationExecutionEvidence string `json:"validation_execution_evidence"`
-	ValidationExecutionCustody  string `json:"validation_execution_custody"`
+	MayOpenValidation            bool   `json:"may_open_validation"`
+	MayOpenHeldOut               bool   `json:"may_open_held_out"`
+	ValidationOpenedOn           string `json:"validation_opened_on"`
+	ValidationOpeningRecord      string `json:"validation_opening_decision"`
+	PriorValidationOpeningRecord string `json:"prior_validation_opening_decision"`
+	ValidationScope              string `json:"validation_scope"`
+	ValidationExecutionStatus    string `json:"validation_execution_status"`
+	ValidationExecutionClosedOn  string `json:"validation_execution_closed_on"`
+	ValidationExecutionDecision  string `json:"validation_execution_decision"`
+	ValidationExecutionEvidence  string `json:"validation_execution_evidence"`
+	ValidationExecutionCustody   string `json:"validation_execution_custody"`
 }
 
 func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
@@ -92,7 +93,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	}
 	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freeze)
 
-	verifySpentValidationExecutionGateState(t, repositoryRoot, freeze.Status, freeze.SourceLimit, freeze.Gates)
+	verifyReopenedValidationGateState(t, repositoryRoot, freeze.Status, freeze.SourceLimit, freeze.Gates)
 	armB := freeze.Artifacts.ArmB
 	if !armB.Frozen || armB.Commit != "73adf8c608f0edf06597b569b17faa32e1a3b5b9" || armB.Verdict != "ACCEPT" {
 		t.Fatalf("Arm B freeze metadata = %#v", armB)
@@ -134,11 +135,12 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	}
 }
 
-func verifySpentValidationExecutionGateState(t *testing.T, repositoryRoot, status, sourceLimit string, gates frozenGateState) {
+func verifyReopenedValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit string, gates frozenGateState) {
 	t.Helper()
 	if status != "complete" || sourceLimit != "public_validation_inputs_only" ||
-		gates.MayOpenValidation || gates.MayOpenHeldOut || gates.ValidationOpenedOn != "2026-08-21" ||
-		gates.ValidationOpeningRecord != "docs/decisions/0012-protocol-v4-gate-1a-validation-opening.md" ||
+		!gates.MayOpenValidation || gates.MayOpenHeldOut || gates.ValidationOpenedOn != "2026-08-25" ||
+		gates.ValidationOpeningRecord != "docs/decisions/0016-protocol-v4-gate-1a-validation-reopening.md" ||
+		gates.PriorValidationOpeningRecord != "docs/decisions/0012-protocol-v4-gate-1a-validation-opening.md" ||
 		gates.ValidationScope != "frozen_validation_schedule_only" ||
 		gates.ValidationExecutionStatus != "indeterminate" || gates.ValidationExecutionClosedOn != "2026-08-23" ||
 		gates.ValidationExecutionDecision != "docs/decisions/0013-protocol-v4-gate-1a-interrupted-execution.md" ||
