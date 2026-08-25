@@ -86,7 +86,7 @@ func run(args []string) int {
 }
 
 func runProbeCLI(root, output, arm, armBDocument, runtimePath, budget string, timeout time.Duration, ids []string) int {
-	config, cleanup, err := prepareRunConfig(root, output, arm, armBDocument, timeout, budget)
+	config, cleanup, err := prepareRunConfig(root, output, arm, armBDocument, "authoring", timeout, budget)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
@@ -198,11 +198,10 @@ func prepareScheduledCLI(
 	if err := requireScheduledOutputReady(root, output, inputs.schedule, inputs.scheduleDigest); err != nil {
 		return preparedScheduledCLI{}, err
 	}
-	config, cleanup, err := prepareRunConfig(root, output, "B", armBDocument, timeout, budget)
+	config, cleanup, err := prepareRunConfig(root, output, "B", armBDocument, tranche, timeout, budget)
 	if err != nil {
 		return preparedScheduledCLI{}, err
 	}
-	config.tranche = tranche
 	config.graderDigest = inputs.graderDigest
 	config.graderBoundary = inputs.graderBoundary
 	config.graderAdapterHash = inputs.graderAdapterHash
@@ -419,7 +418,7 @@ func requireEmptyScheduledOutput(root, output string) error {
 	return nil
 }
 
-func prepareRunConfig(root, output, arm, armBDocument string, timeout time.Duration, budget string) (runConfig, func(), error) {
+func prepareRunConfig(root, output, arm, armBDocument, tranche string, timeout time.Duration, budget string) (runConfig, func(), error) {
 	if timeout <= 0 || strings.TrimSpace(budget) == "" {
 		return runConfig{}, func() {}, fmt.Errorf("positive timeout and budget are required")
 	}
@@ -445,7 +444,7 @@ func prepareRunConfig(root, output, arm, armBDocument string, timeout time.Durat
 	if err := os.MkdirAll(outputPath, 0o755); err != nil {
 		return runConfig{}, func() {}, err
 	}
-	phoenixPath, build, cleanup, err := buildPhoenix(root)
+	phoenixPath, build, cleanup, err := buildPhoenix(root, phoenixBuildRecipeForTranche(tranche))
 	if err != nil {
 		return runConfig{}, func() {}, err
 	}
@@ -458,6 +457,7 @@ func prepareRunConfig(root, output, arm, armBDocument string, timeout time.Durat
 	}
 	return runConfig{
 		arm: arm, armBDocument: armBDocument, armBDocumentDigest: armBDocumentDigest, flatToolNames: flatToolNames,
+		tranche:        tranche,
 		repositoryRoot: root, outputDir: outputPath,
 		worldPath:   worldPath,
 		schemaPath:  schemaPath,
@@ -528,24 +528,54 @@ func normalizeArm(arm string) (string, error) {
 	}
 }
 
-func buildPhoenix(root string) (string, string, func(), error) {
+// phoenixBuildRecipe fixes the Phoenix build identity for one tranche. The
+// validation recipe must reproduce the frozen world-build target in
+// pre-validation-artifacts.json; authoring keeps a host-runnable binary.
+type phoenixBuildRecipe struct {
+	goos    string
+	goarch  string
+	version string
+	// output is the repository-relative executable path recorded in the
+	// world-build manifest; empty selects a fresh temporary directory.
+	output string
+}
+
+func phoenixBuildRecipeForTranche(tranche string) phoenixBuildRecipe {
+	if tranche == "validation" {
+		return phoenixBuildRecipe{goos: "linux", goarch: "amd64", version: "dev", output: "bin/phoenix"}
+	}
+	return phoenixBuildRecipe{goos: runtime.GOOS, goarch: runtime.GOARCH, version: "authoring"}
+}
+
+func phoenixExecutablePath(root string, recipe phoenixBuildRecipe) (string, func(), error) {
+	if recipe.output != "" {
+		executable := filepath.Join(root, filepath.FromSlash(recipe.output))
+		if err := os.MkdirAll(filepath.Dir(executable), 0o755); err != nil {
+			return "", nil, err
+		}
+		return executable, func() { _ = os.Remove(executable) }, nil
+	}
 	tempRoot := filepath.Join(root, "build")
 	if err := os.MkdirAll(tempRoot, 0o755); err != nil {
-		return "", "", func() {}, err
+		return "", nil, err
 	}
 	dir, err := os.MkdirTemp(tempRoot, "authoring-runner-")
 	if err != nil {
-		return "", "", func() {}, err
+		return "", nil, err
 	}
-	cleanup := func() { _ = os.RemoveAll(dir) }
 	name := "phoenix"
-	if runtime.GOOS == "windows" {
+	if recipe.goos == "windows" {
 		name += ".exe"
 	}
-	executable := filepath.Join(dir, name)
-	command := exec.Command("go", "build", "-trimpath", "-buildvcs=false", "-ldflags=-s -w -buildid= -X main.version=authoring", "-o", executable, "./cmd/phoenix")
-	command.Dir = root
-	command.Env = append(os.Environ(), "CGO_ENABLED=0", "GOTOOLCHAIN=go1.26.6")
+	return filepath.Join(dir, name), func() { _ = os.RemoveAll(dir) }, nil
+}
+
+func buildPhoenix(root string, recipe phoenixBuildRecipe) (string, string, func(), error) {
+	executable, cleanup, err := phoenixExecutablePath(root, recipe)
+	if err != nil {
+		return "", "", func() {}, err
+	}
+	command := phoenixBuildCommand(root, executable, recipe)
 	if output, err := command.CombinedOutput(); err != nil {
 		cleanup()
 		return "", "", func() {}, fmt.Errorf("build Phoenix runner executable: %w: %s", err, strings.TrimSpace(string(output)))
@@ -565,13 +595,21 @@ func buildPhoenix(root string) (string, string, func(), error) {
 		Schemas:         []string{"spec/result.schema.json", "spec/episode.schema.json", "spec/world.schema.json"},
 		WorldDefinition: "worlds/dev-repo/world.json",
 		AuthoredRules:   []string{"verbs/dev-repo/activations.go", "verbs/dev-repo/refusals.go", "verbs/dev-repo/transitions.go"},
-		GOOS:            runtime.GOOS, GOARCH: runtime.GOARCH, CGOEnabled: false,
+		GOOS:            recipe.goos, GOARCH: recipe.goarch, CGOEnabled: false,
 	})
 	if err != nil {
 		cleanup()
 		return "", "", func() {}, err
 	}
 	return executable, manifest.Digest, cleanup, nil
+}
+
+func phoenixBuildCommand(root, executable string, recipe phoenixBuildRecipe) *exec.Cmd {
+	command := exec.Command("go", "build", "-trimpath", "-buildvcs=false",
+		"-ldflags=-s -w -buildid= -X main.version="+recipe.version, "-o", executable, "./cmd/phoenix")
+	command.Dir = root
+	command.Env = append(os.Environ(), "CGO_ENABLED=0", "GOTOOLCHAIN=go1.26.6", "GOOS="+recipe.goos, "GOARCH="+recipe.goarch)
+	return command
 }
 
 func runCases(config runConfig, ids []string, runtime runtimeDriver, grader gradeDriver) (authoringSummary, error) {
