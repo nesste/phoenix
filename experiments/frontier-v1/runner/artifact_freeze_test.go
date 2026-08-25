@@ -174,19 +174,20 @@ func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit
 func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact frozenFileSet) {
 	t.Helper()
 	wantFindings := []string{
-		"P2-1: Validation builds write and then remove bin/phoenix, overwriting any untracked user binary parked there; bin/ is gitignored and the location is dictated by the frozen manifest, which hashes the repo-relative executable path.",
-		"P2-2: The target-pin test asserts the build command and environment by substring containment; the live reproduction test closes the gap because any effective recipe deviation changes the world-build digest.",
-		"Residual: a validation run still requires a linux/amd64 execution host to run the built binary; this repair fixes build identity only.",
+		"P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom; a future conditional in directory classification re-trips the quality gate on a frozen-boundary file.",
+		"P2-2: The candidate note's phrasing implies three expected interim failures; exactly two tests fail, and the note's own status line states the correct pair.",
+		"P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths, so the done flag is meaningful only when the error is nil; the sole caller checks the error first.",
+		"Residual: a validation run still requires a linux/amd64 execution host; the build recipe is unchanged, and the world-build identity moved to sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4 because internal/activate is compiled into cmd/phoenix.",
 	}
 	wantNotes := []string{
-		"experiments/frontier-v1/artifacts/validation-build-recipe-candidate.md",
+		"experiments/frontier-v1/artifacts/complexity-refactor-candidate.md",
 	}
-	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-validation-build-recipe-candidate.json" ||
-		artifact.CandidateArtifactDigest != "sha256:069b3c202d92845194265c720574fe46cb798637b9edb12965ef77401b24bb3b" ||
-		artifact.Review != "docs/reviews/2026-08-25-protocol-v4-gate-1a-validation-build-recipe-review.md" ||
-		artifact.ReviewCommit != "8dd34b5eb013dcbe46243ce7768ff5a60b93ed66" ||
-		artifact.ReviewDigest != "sha256:8a66ba51266c5289535b7472610ff81a47058a19a3706ac72d0ab4968040eedb" ||
-		artifact.ReplacesCommit != "610fa588488579cf5551a627795d4dc7f771f053" ||
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-complexity-refactor-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:67ce91a3a1fb991c2fc2565f2d6ca35f0bd7a352daa40dce3ab629f9bea8ac34" ||
+		artifact.Review != "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md" ||
+		artifact.ReviewCommit != "8889539448dbb6eab88c0c5997f4f81ea17080e0" ||
+		artifact.ReviewDigest != "sha256:e3055d077da82e856a4968e17a81013173ee0d6fb5854b75d7aad357a7c1a60d" ||
+		artifact.ReplacesCommit != "ed3860708c931ddc848b1bc90e4d6435585ff0d6" ||
 		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) ||
 		!reflect.DeepEqual(artifact.CandidateNotes, wantNotes) {
 		t.Fatalf("replacement runner provenance = %#v", artifact)
@@ -200,7 +201,7 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 		}
 	}
 	verifyFrozenFileSet(t, repositoryRoot, artifact,
-		"ed3860708c931ddc848b1bc90e4d6435585ff0d6", 20)
+		"8ed9202c80d8f591c5d0db8a7e8a349022f952f8", 20)
 }
 
 func verifyRawFileDigest(t *testing.T, path string, want string) {
@@ -289,10 +290,10 @@ func verifyValidationScheduleFiles(t *testing.T, repositoryRoot string, artifact
 func verifyAcceptedLocalArtifacts(t *testing.T, repositoryRoot string) {
 	t.Helper()
 	const (
-		candidateCommit = "610fa588488579cf5551a627795d4dc7f771f053"
+		candidateCommit = "8ed9202c80d8f591c5d0db8a7e8a349022f952f8"
 		candidatePath   = "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json"
-		candidateDigest = "sha256:5e31cc25fab25e43ac5cdd6da8cce081d8446c09c22832be85a1c9357b037acb"
-		reviewPath      = "docs/reviews/2026-08-23-protocol-v4-gate-1a-authoring-repair-review.md"
+		candidateDigest = "sha256:c0dd52ff140c6335cc2e6eb26c0a98d8b3710ee2896c9a9c86dc4d78b8b1c9bf"
+		reviewPath      = "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md"
 	)
 	actualDigest, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(candidatePath)))
 	if err != nil || actualDigest != candidateDigest {

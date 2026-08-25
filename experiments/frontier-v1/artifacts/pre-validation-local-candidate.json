@@ -107,8 +107,8 @@
       "world_definition_canonical_json_sha256": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
       "authoring_world_equivalent": "experiments/frontier-v1/worlds/authoring.dev_repo.json",
       "world_build_manifest": "experiments/frontier-v1/artifacts/world-build.linux-amd64.json",
-      "world_build_manifest_raw_sha256": "sha256:3afb4838c35aed8d77eaf515542eabf32b2f633db0307dc4b986650347acf17d",
-      "world_build_digest": "sha256:bf976cadb46b39169c130a2effee1016a5faa9990f63b39c33391f7a97be8a4e",
+      "world_build_manifest_raw_sha256": "sha256:9210f42822f918b4fe1f7f73e7fafc760504f81cd012be09eb5eb2c472370cba",
+      "world_build_digest": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
       "target": {
         "goos": "linux",
         "goarch": "amd64",

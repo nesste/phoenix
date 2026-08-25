@@ -1,13 +1,13 @@
 {
   "v": 1,
-  "digest": "sha256:bf976cadb46b39169c130a2effee1016a5faa9990f63b39c33391f7a97be8a4e",
+  "digest": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
   "build": {
     "goos": "linux",
     "goarch": "amd64",
     "cgo_enabled": false,
     "executable": {
       "path": "bin/phoenix",
-      "digest": "sha256:6f4d04c201ab93075281d8993814465a5b9c319c61114619b94914c13938b65d"
+      "digest": "sha256:79fe7e0a5f8896633216bb758d5a3bcc58a36de195e8272bdb66fb496da5d237"
     },
     "registered_verbs": [
       {
