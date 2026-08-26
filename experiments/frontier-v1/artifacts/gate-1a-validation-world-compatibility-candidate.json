@@ -3,7 +3,7 @@
   "status": "review_candidate",
   "source_limit": "public_validation_inputs_only",
   "base_commit": "acc9730dfa553e56dc20af992176717a9c4f6044",
-  "payload_commit": "7c096f1ce2614f2364d309c58684813f83524394",
+  "payload_commit": "215b30ae89933c532468b452be6238a6028a740e",
   "frozen": false,
   "gates": {
     "may_open_validation": false,
@@ -48,7 +48,7 @@
     "windows_amd64_sha256": "sha256:0b8b228bd1e92518ff29bdab3411b3385a5706a2aa2c8dadf538b6ba286a0598"
   },
   "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
-  "artifact_set_lf_normalized_utf8_sha256": "sha256:bad99e72530572ef47871c56d8007ea5dd027d9041ec87dd205e4bf0f545ca96",
+  "artifact_set_lf_normalized_utf8_sha256": "sha256:57e071790f2e49e7a5ab5c45a2685578ccaf0f9bd4fbfea8712f7d172c9e6424",
   "files": {
     "experiments/frontier-v1/README.md": "sha256:4827d4c9c2161c24e1b7afe1828d5839f1807eb0f1b5a26c1a610fc82f158a64",
     "experiments/frontier-v1/runner/arm_b_test.go": "sha256:022080bf9a51a59706d3f57f6404bb5ebe04c486b6485c95102073da7fe42d2d",
@@ -68,7 +68,7 @@
     "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:460dc582292473ecd5b91e436ba726e2f409399cd254588ee8f0eded99a02b03",
     "experiments/frontier-v1/runner/validation_gate.go": "sha256:b014fa7a2564d4c2c6ddd9399fb7b43cd918c74b83314ccce678ea6d322580dd",
     "experiments/frontier-v1/runner/validation_grader.go": "sha256:d42ae1bfb428853db4933d89a944ff8967bac655044ad72f01d45e19627d7f0d",
-    "experiments/frontier-v1/runner/validation_world_compatibility_test.go": "sha256:ee24c6919bf498a5de778a37be33419165be4feddefa4114913b991684da5d38",
+    "experiments/frontier-v1/runner/validation_world_compatibility_test.go": "sha256:c5ede1709e8c0c52138a7651b3b3ec506cb7bb3a01f9889293037d935a8a3bf6",
     "experiments/frontier-v1/runner/world_build_pin_test.go": "sha256:870d610a72154fc84df29ed2114ecfd118a8b5d4f1b66e72bf640a16ecab27e6",
     "experiments/frontier-v1/validation-execution-boundary.md": "sha256:801819e80d138ae82010bd31a0e27179418104b38ee6cf52f83693a47c754b35"
   },

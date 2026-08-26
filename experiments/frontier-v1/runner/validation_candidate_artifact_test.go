@@ -65,7 +65,7 @@ func TestGate1AValidationWorldCompatibilityCandidateMatchesPayload(t *testing.T)
 	candidate := loadReviewCandidate(t, "gate-1a-validation-world-compatibility-candidate.json",
 		"acc9730dfa553e56dc20af992176717a9c4f6044", 21)
 	root := filepath.Join("..", "..", "..")
-	verifyCandidateSetAtCommit(t, root, "7c096f1ce2614f2364d309c58684813f83524394", candidate.Files, candidate.SetDigest)
+	verifyCandidateSetAtCommit(t, root, "215b30ae89933c532468b452be6238a6028a740e", candidate.Files, candidate.SetDigest)
 }
 
 func verifyCandidateSetInWorkingTree(t *testing.T, repositoryRoot string, files map[string]string, wantSetDigest string) {
