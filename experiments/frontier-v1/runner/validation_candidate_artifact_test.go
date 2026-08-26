@@ -68,22 +68,6 @@ func TestGate1AValidationWorldCompatibilityCandidateMatchesPayload(t *testing.T)
 	verifyCandidateSetAtCommit(t, root, "215b30ae89933c532468b452be6238a6028a740e", candidate.Files, candidate.SetDigest)
 }
 
-func verifyCandidateSetInWorkingTree(t *testing.T, repositoryRoot string, files map[string]string, wantSetDigest string) {
-	t.Helper()
-	var identity strings.Builder
-	for _, path := range sortedCandidatePaths(files) {
-		actual, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(path)))
-		if err != nil {
-			t.Fatal(err)
-		}
-		if actual != files[path] {
-			t.Fatalf("candidate file %s digest = %s, want %s", path, actual, files[path])
-		}
-		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
-	}
-	verifyCandidateSetDigest(t, identity.String(), wantSetDigest)
-}
-
 func verifyCandidateSetAtCommit(t *testing.T, repositoryRoot, commit string, files map[string]string, wantSetDigest string) {
 	t.Helper()
 	var identity strings.Builder
