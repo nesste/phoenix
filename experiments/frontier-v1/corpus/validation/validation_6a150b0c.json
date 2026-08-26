@@ -2,6 +2,6 @@
   "case_id": "validation_6a150b0c",
   "goal": "Find the repository record containing the opaque sentinel code amber and report its path.",
   "sandbox_fixture": "sha256:d9709c0620439fe631c05d62dc40418928653270c781e403c0dda33c5bf113a6",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_259"
 }

@@ -2,6 +2,6 @@
   "case_id": "validation_99eefbba",
   "goal": "Make the documented exponent form consistent with the grammar's stated precedence while preserving the other expression forms.",
   "sandbox_fixture": "sha256:51e0295d78bc6bbab498a3f963a438c5593552e51e9d918271ec31fb5becf7b2",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_541"
 }

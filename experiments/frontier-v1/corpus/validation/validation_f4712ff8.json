@@ -2,6 +2,6 @@
   "case_id": "validation_f4712ff8",
   "goal": "Make the diagnostic generation rule include the documented overflow case without removing existing cases.",
   "sandbox_fixture": "sha256:05e801b6d8b3643f7535431f16907bfd32ab6c1e0e1c5c4a973b2b0f822cb42a",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_568"
 }

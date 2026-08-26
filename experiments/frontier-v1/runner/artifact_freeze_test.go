@@ -241,7 +241,7 @@ func verifyFrozenValidationSchedule(t *testing.T, repositoryRoot string, artifac
 		ReviewDigest:         "sha256:cd557f3dc79b7a2bbc2acbba0c40969b832178b1c23b4ca4c4442d602c601ca0",
 		Verdict:              "ACCEPT",
 		SourceManifest:       "experiments/frontier-v1/manifests/validation.json",
-		SourceManifestDigest: "sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490",
+		SourceManifestDigest: "sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6",
 		Seed:                 20260817,
 		Repetitions:          3,
 		Arms:                 []string{"A", "B", "C", "D", "E"},

@@ -2,6 +2,6 @@
   "case_id": "validation_207beb1e",
   "goal": "AxisNorth is only a shorthand. Discover and focus the exact runnable matrix test name.",
   "sandbox_fixture": "sha256:728a8d67f1ac6109976cecb4876c6b669bb1dd646628c43f88b49429bbb7c42c",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_509"
 }

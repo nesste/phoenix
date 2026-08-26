@@ -183,7 +183,7 @@ go run ./experiments/frontier-v1/scheduletool --repo-root . --write experiments/
 go run ./experiments/frontier-v1/scheduletool --repo-root . --verify experiments/frontier-v1/schedules/validation.json
 ```
 
-The candidate contains 1,800 launches and 360 contiguous five-arm pairing keys. Its canonical JSON digest is `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813`, derived from validation manifest `sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490`.
+The candidate contains 1,800 launches and 360 contiguous five-arm pairing keys. Its canonical JSON digest is `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813`, derived from validation manifest `sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6`.
 
 The schedule is accepted and frozen in `pre-validation-artifacts.json`. Both outcome gates remain false. The accepted runner on `main` remains authoring-only; the isolated replacement candidate below requires independent review and refreeze before a separate project-chair Gate 1A decision.
 

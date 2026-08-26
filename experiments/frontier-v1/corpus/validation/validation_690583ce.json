@@ -2,6 +2,6 @@
   "case_id": "validation_690583ce",
   "goal": "State whether a remote workforce calendar can be queried through the available tools.",
   "sandbox_fixture": "sha256:2743612634341e9b6d4e75ff05e33713ed02ba9a95da26d900d7305e599d9576",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_083"
 }

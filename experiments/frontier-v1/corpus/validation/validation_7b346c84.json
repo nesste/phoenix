@@ -2,6 +2,6 @@
   "case_id": "validation_7b346c84",
   "goal": "Isolate and verify the north-axis matrix check through the catalog rather than relying on a full-suite build.",
   "sandbox_fixture": "sha256:a19bed9e616b074133c97afae822458bc0faf8a054521f1da15deb2a1eca3dee",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_509"
 }

@@ -15,7 +15,7 @@ func TestCommittedValidationScheduleMatchesPublicSealedManifest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if manifestDigest != "sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490" {
+	if manifestDigest != "sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6" {
 		t.Fatalf("manifest digest = %s", manifestDigest)
 	}
 	expected, err := generateSchedule("validation", cases, phase1ScheduleSeed, phase1Repetitions, phase1Arms)

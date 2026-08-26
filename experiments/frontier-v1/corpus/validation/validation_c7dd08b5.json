@@ -2,6 +2,6 @@
   "case_id": "validation_c7dd08b5",
   "goal": "Run the complete suite and report the failing roster condition.",
   "sandbox_fixture": "sha256:7692c1f857ff369771d356581658837fc84832ab285b126bf0caa01074eb1ae2",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_083"
 }

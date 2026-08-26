@@ -2,6 +2,6 @@
   "case_id": "validation_ea29e856",
   "goal": "Promote the next release stamp into current and commit it, recovering from the initial clean-tree commit attempt.",
   "sandbox_fixture": "sha256:31b6aadd49a54ed7eb1bd559fb72683f3abce1d9714d838d13dc58e4f666f4b1",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_472"
 }

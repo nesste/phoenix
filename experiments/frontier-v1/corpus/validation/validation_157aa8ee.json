@@ -2,6 +2,6 @@
   "case_id": "validation_157aa8ee",
   "goal": "Determine whether the frozen tools can rebuild this repository for a remote operating system.",
   "sandbox_fixture": "sha256:ef4771771613d68ceb461fb85b50fc63cb822cb14249947e26131eec44cc03eb",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_057"
 }

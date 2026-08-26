@@ -2,6 +2,6 @@
   "case_id": "validation_97111079",
   "goal": "Build the workspace and report whether its local replacement resolves.",
   "sandbox_fixture": "sha256:3c9e7fb812bb71938060580d88a6073ba0034fc9fcca2a61e2c84a59201f0188",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_172"
 }

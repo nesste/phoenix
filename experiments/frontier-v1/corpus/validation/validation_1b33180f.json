@@ -2,7 +2,7 @@
   "case_id": "validation_1b33180f",
   "goal": "Check the live switchboard test after its selected mode changes during the first catalog operation.",
   "sandbox_fixture": "sha256:d52e813bffd712417603bac2b45a9e0255aa037b4cb258aec6749f155c58e009",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_057",
   "state_changes": [
     {

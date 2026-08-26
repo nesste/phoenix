@@ -2,6 +2,6 @@
   "case_id": "validation_3a0ac0c7",
   "goal": "The shorthand RolloverQualified is not runnable. Discover and focus the exact live test name.",
   "sandbox_fixture": "sha256:a557a0ab8e2b7703b4ec4b93eaac8704b640838608e8ebeac900f19858242246",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_364"
 }

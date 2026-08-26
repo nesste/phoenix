@@ -2,6 +2,6 @@
   "case_id": "validation_df2e05e7",
   "goal": "TestRolloverOld is no longer live. Use the current catalog and verify its replacement.",
   "sandbox_fixture": "sha256:c2f3ea256406a80059f2e25a3cebd475fd2f6303df15bd0a69690407d7792ca6",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_364"
 }

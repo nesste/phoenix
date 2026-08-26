@@ -2,6 +2,6 @@
   "case_id": "validation_1296cb0b",
   "goal": "Confirm that the pending release checklist is absent from the tracked diff, and report that it is untracked rather than modified.",
   "sandbox_fixture": "sha256:601ecafdc46ca26861a23bbda51af0ea6fef99b4992d0b5c95d08e3167028409",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_208"
 }

@@ -2,6 +2,6 @@
   "case_id": "validation_ec6866b0",
   "goal": "The host-style path policy\\eol.cfg is not a valid repository path. Find and read the normalized tracked path.",
   "sandbox_fixture": "sha256:a85c0b08f5e419b818fc5c5cb7b594a2a6e033d3b19ff1c5d69b3449b4a8948e",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_438"
 }

@@ -2,6 +2,6 @@
   "case_id": "validation_8fd2d7f0",
   "goal": "Create a commit that changes only the primary timeout to 35, even though the repository begins clean.",
   "sandbox_fixture": "sha256:2bfa83d390947a99d476c91573a200d50c1d7ec05375eaff40cd50c3fc4910de",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_286"
 }

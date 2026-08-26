@@ -2,6 +2,6 @@
   "case_id": "validation_026d30af",
   "goal": "State whether this tool surface can query a live translation service; do not substitute repository data.",
   "sandbox_fixture": "sha256:f842934e49155d2be3df9c2ac7968432476ed76e7966491c5443432343dc90ca",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_041"
 }

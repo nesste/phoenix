@@ -2,6 +2,6 @@
   "case_id": "validation_ba9f9d12",
   "goal": "Promote 2026.09 into the current stamp and inspect the diff to ensure stamp/next.txt is unchanged.",
   "sandbox_fixture": "sha256:674245c0db1364369fef6f66a025ed046ed3eb93a6fd637b3d0ca68f0f15aa6c",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_472"
 }

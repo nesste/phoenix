@@ -2,6 +2,6 @@
   "case_id": "validation_912fb7b6",
   "goal": "Bring the ledger entry for the cobalt chunk into agreement with the chunk's embedded marker, leaving the amber row untouched.",
   "sandbox_fixture": "sha256:2e8254c7f199a053a37307e804269d45bf4f112149ddcb5527062a1c0e43b28c",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_602"
 }

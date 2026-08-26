@@ -2,7 +2,7 @@
   "case_id": "validation_12407596",
   "goal": "Identify the current review tag after the locale review note changes during inspection.",
   "sandbox_fixture": "sha256:8bc16b1c40f1f936d453af35455bd03ea795fe82264e12cd43185b27d3f83c11",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_041",
   "state_changes": [
     {

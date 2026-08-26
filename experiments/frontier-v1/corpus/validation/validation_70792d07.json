@@ -2,6 +2,6 @@
   "case_id": "validation_70792d07",
   "goal": "Find which repository file mentions vault/red/receipt.dat and report that file.",
   "sandbox_fixture": "sha256:ad3cbac5bebfd90197beeca8d6c2771c604c90f58f9b1450b6ee184fd8f76996",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_233"
 }

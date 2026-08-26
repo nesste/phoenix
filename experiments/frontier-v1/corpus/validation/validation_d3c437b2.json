@@ -2,6 +2,6 @@
   "case_id": "validation_d3c437b2",
   "goal": "Promote the clock fragment into CHANGELOG.md and commit only that intended promotion, not the pending fragment itself.",
   "sandbox_fixture": "sha256:153180caaddb5dff46f03108613d60ab5d9b06e1d90c09c12814e08b9b7fdb97",
-  "world_ref": "sha256:f5f6b2f4ea695705e333b237296f0197fd8f22af77d66e9ecb08ef769fd1615b",
+  "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
   "family_id": "validation_family_337"
 }
