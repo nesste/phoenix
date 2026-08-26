@@ -62,8 +62,6 @@ type frozenGateState struct {
 	ValidationOpenedOn           string `json:"validation_opened_on"`
 	ValidationOpeningRecord      string `json:"validation_opening_decision"`
 	PriorValidationOpeningRecord string `json:"prior_validation_opening_decision"`
-	ValidationReclosedOn         string `json:"validation_reclosed_on"`
-	ValidationReclosingRecord    string `json:"validation_reclosing_decision"`
 	ValidationScope              string `json:"validation_scope"`
 	ValidationExecutionStatus    string `json:"validation_execution_status"`
 	ValidationExecutionClosedOn  string `json:"validation_execution_closed_on"`
@@ -140,15 +138,13 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit string, gates frozenGateState) {
 	t.Helper()
 	if status != "complete" || sourceLimit != "public_validation_inputs_only" ||
-		gates.MayOpenValidation || gates.MayOpenHeldOut {
+		!gates.MayOpenValidation || gates.MayOpenHeldOut {
 		t.Fatalf("pre-validation freeze gate state = %#v", gates)
 	}
 	expected := [][2]string{
-		{gates.ValidationOpenedOn, "2026-08-25"},
-		{gates.ValidationOpeningRecord, "docs/decisions/0019-protocol-v4-gate-1a-validation-reopening-after-refactor.md"},
-		{gates.PriorValidationOpeningRecord, "docs/decisions/0016-protocol-v4-gate-1a-validation-reopening.md"},
-		{gates.ValidationReclosedOn, "2026-08-26"},
-		{gates.ValidationReclosingRecord, "docs/decisions/0020-protocol-v4-gate-1a-validation-input-compatibility-closure.md"},
+		{gates.ValidationOpenedOn, "2026-08-26"},
+		{gates.ValidationOpeningRecord, "docs/decisions/0022-protocol-v4-gate-1a-validation-reopening-after-world-compatibility-repair.md"},
+		{gates.PriorValidationOpeningRecord, "docs/decisions/0019-protocol-v4-gate-1a-validation-reopening-after-refactor.md"},
 		{gates.ValidationScope, "frozen_validation_schedule_only"},
 		{gates.ValidationExecutionStatus, "indeterminate"},
 		{gates.ValidationExecutionClosedOn, "2026-08-23"},
@@ -162,7 +158,7 @@ func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit
 		}
 	}
 	for _, record := range []string{
-		gates.ValidationOpeningRecord, gates.PriorValidationOpeningRecord, gates.ValidationReclosingRecord,
+		gates.ValidationOpeningRecord, gates.PriorValidationOpeningRecord,
 		gates.ValidationExecutionDecision, gates.ValidationExecutionCustody,
 	} {
 		if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(record))); err != nil {
