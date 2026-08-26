@@ -336,7 +336,7 @@ func TestCompletedArtifactFreezeGateState(t *testing.T) {
 		Remaining []string `json:"remaining"`
 	}
 	readJSONForTest(t, filepath.Join("..", "pre-validation-artifacts.json"), &freeze)
-	if freeze.Status != "complete" || !freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut ||
+	if freeze.Status != "complete" || freeze.Gates.MayOpenValidation || freeze.Gates.MayOpenHeldOut ||
 		freeze.Gates.ValidationExecutionStatus != "indeterminate" || len(freeze.Remaining) != 0 {
 		t.Fatalf("completed artifact freeze gate state = %#v", freeze)
 	}
