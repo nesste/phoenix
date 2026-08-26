@@ -174,20 +174,21 @@ func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit
 func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact frozenFileSet) {
 	t.Helper()
 	wantFindings := []string{
-		"P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom; a future conditional in directory classification re-trips the quality gate on a frozen-boundary file.",
-		"P2-2: The candidate note's phrasing implies three expected interim failures; exactly two tests fail, and the note's own status line states the correct pair.",
-		"P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths, so the done flag is meaningful only when the error is nil; the sole caller checks the error first.",
-		"Residual: a validation run still requires a linux/amd64 execution host; the build recipe is unchanged, and the world-build identity moved to sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4 because internal/activate is compiled into cmd/phoenix.",
+		"P2: the external custodian directory is not version-controlled; prior-source provenance relies on recorded hashes, exact one-constant reconstruction, preserved binaries, and behavioral probes.",
+		"Carried P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom.",
+		"Carried P2-2: the complexity-refactor candidate note describes the interim freeze failures imprecisely; its recorded status remains correct.",
+		"Carried P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths; callers must check the error first.",
+		"Residual: validation execution requires a linux/amd64 host and the frozen world-build identity sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4.",
 	}
 	wantNotes := []string{
-		"experiments/frontier-v1/artifacts/complexity-refactor-candidate.md",
+		"experiments/frontier-v1/artifacts/validation-world-reference-compatibility-candidate.md",
 	}
-	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-complexity-refactor-candidate.json" ||
-		artifact.CandidateArtifactDigest != "sha256:67ce91a3a1fb991c2fc2565f2d6ca35f0bd7a352daa40dce3ab629f9bea8ac34" ||
-		artifact.Review != "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md" ||
-		artifact.ReviewCommit != "8889539448dbb6eab88c0c5997f4f81ea17080e0" ||
-		artifact.ReviewDigest != "sha256:e3055d077da82e856a4968e17a81013173ee0d6fb5854b75d7aad357a7c1a60d" ||
-		artifact.ReplacesCommit != "ed3860708c931ddc848b1bc90e4d6435585ff0d6" ||
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-validation-world-compatibility-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:5ecdbbcfca5b75a16ee7c6e017292171c3910137e881effb90de357d7a854118" ||
+		artifact.Review != "docs/reviews/2026-08-26-protocol-v4-validation-world-compatibility-review.md" ||
+		artifact.ReviewCommit != "a71e59b457cdfdb2014b434033946d319036c060" ||
+		artifact.ReviewDigest != "sha256:e00fb5e35320798415716e17ab4f08bfc9b24bfe7b68b7011877081a3d369831" ||
+		artifact.ReplacesCommit != "8ed9202c80d8f591c5d0db8a7e8a349022f952f8" ||
 		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) ||
 		!reflect.DeepEqual(artifact.CandidateNotes, wantNotes) {
 		t.Fatalf("replacement runner provenance = %#v", artifact)
@@ -201,7 +202,7 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 		}
 	}
 	verifyFrozenFileSet(t, repositoryRoot, artifact,
-		"8ed9202c80d8f591c5d0db8a7e8a349022f952f8", 20)
+		"215b30ae89933c532468b452be6238a6028a740e", 21)
 }
 
 func verifyRawFileDigest(t *testing.T, path string, want string) {

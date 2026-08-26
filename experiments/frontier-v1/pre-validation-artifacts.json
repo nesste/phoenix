@@ -27,27 +27,28 @@
       "frozen": true
     },
     "scheduled_runner": {
-      "candidate_commit": "8ed9202c80d8f591c5d0db8a7e8a349022f952f8",
-      "candidate_artifact": "experiments/frontier-v1/artifacts/gate-1a-complexity-refactor-candidate.json",
-      "candidate_artifact_raw_sha256": "sha256:67ce91a3a1fb991c2fc2565f2d6ca35f0bd7a352daa40dce3ab629f9bea8ac34",
+      "candidate_commit": "215b30ae89933c532468b452be6238a6028a740e",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/gate-1a-validation-world-compatibility-candidate.json",
+      "candidate_artifact_raw_sha256": "sha256:5ecdbbcfca5b75a16ee7c6e017292171c3910137e881effb90de357d7a854118",
       "candidate_notes": [
-        "experiments/frontier-v1/artifacts/complexity-refactor-candidate.md"
+        "experiments/frontier-v1/artifacts/validation-world-reference-compatibility-candidate.md"
       ],
-      "review_record": "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md",
-      "review_record_commit": "8889539448dbb6eab88c0c5997f4f81ea17080e0",
-      "review_record_raw_sha256": "sha256:e3055d077da82e856a4968e17a81013173ee0d6fb5854b75d7aad357a7c1a60d",
+      "review_record": "docs/reviews/2026-08-26-protocol-v4-validation-world-compatibility-review.md",
+      "review_record_commit": "a71e59b457cdfdb2014b434033946d319036c060",
+      "review_record_raw_sha256": "sha256:e00fb5e35320798415716e17ab4f08bfc9b24bfe7b68b7011877081a3d369831",
       "review_verdict": "ACCEPT",
-      "replaces_candidate_commit": "ed3860708c931ddc848b1bc90e4d6435585ff0d6",
-      "artifact_set_lf_normalized_utf8_sha256": "sha256:2d20be1ac41cc9072ae472b9b5a73e2607e9d35093fda49c422fa487117ecb4b",
+      "replaces_candidate_commit": "8ed9202c80d8f591c5d0db8a7e8a349022f952f8",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:57e071790f2e49e7a5ab5c45a2685578ccaf0f9bd4fbfea8712f7d172c9e6424",
       "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
       "accepted_findings": [
-        "P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom; a future conditional in directory classification re-trips the quality gate on a frozen-boundary file.",
-        "P2-2: The candidate note's phrasing implies three expected interim failures; exactly two tests fail, and the note's own status line states the correct pair.",
-        "P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths, so the done flag is meaningful only when the error is nil; the sole caller checks the error first.",
-        "Residual: a validation run still requires a linux/amd64 execution host; the build recipe is unchanged, and the world-build identity moved to sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4 because internal/activate is compiled into cmd/phoenix."
+        "P2: the external custodian directory is not version-controlled; prior-source provenance relies on recorded hashes, exact one-constant reconstruction, preserved binaries, and behavioral probes.",
+        "Carried P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom.",
+        "Carried P2-2: the complexity-refactor candidate note describes the interim freeze failures imprecisely; its recorded status remains correct.",
+        "Carried P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths; callers must check the error first.",
+        "Residual: validation execution requires a linux/amd64 host and the frozen world-build identity sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4."
       ],
       "files": {
-        "experiments/frontier-v1/README.md": "sha256:af321a8eeff7b4bc2fc1e5a120429b2602afd9609bce271821b991de25ebbe47",
+        "experiments/frontier-v1/README.md": "sha256:4827d4c9c2161c24e1b7afe1828d5839f1807eb0f1b5a26c1a610fc82f158a64",
         "experiments/frontier-v1/runner/arm_b_test.go": "sha256:022080bf9a51a59706d3f57f6404bb5ebe04c486b6485c95102073da7fe42d2d",
         "experiments/frontier-v1/runner/main.go": "sha256:34be7b7c88be049954787cfc68e93e19926de36c97135fb762957c02ff88b485",
         "experiments/frontier-v1/runner/main_test.go": "sha256:b123ef00c5a80301ff5afdd3133806fa013f5efd5d74ec9af3a03f479233a979",
@@ -64,9 +65,10 @@
         "experiments/frontier-v1/runner/validation_build_recipe_test.go": "sha256:87d4410203ccdfaafa921e44234ffc71cf641eda60d6f872a5e2f4af9d920202",
         "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:460dc582292473ecd5b91e436ba726e2f409399cd254588ee8f0eded99a02b03",
         "experiments/frontier-v1/runner/validation_gate.go": "sha256:b014fa7a2564d4c2c6ddd9399fb7b43cd918c74b83314ccce678ea6d322580dd",
-        "experiments/frontier-v1/runner/validation_grader.go": "sha256:5d4f20c47306af9efc2f7af22a8abb1d3bf51c4b666359651d0271d90d187434",
+        "experiments/frontier-v1/runner/validation_grader.go": "sha256:d42ae1bfb428853db4933d89a944ff8967bac655044ad72f01d45e19627d7f0d",
+        "experiments/frontier-v1/runner/validation_world_compatibility_test.go": "sha256:c5ede1709e8c0c52138a7651b3b3ec506cb7bb3a01f9889293037d935a8a3bf6",
         "experiments/frontier-v1/runner/world_build_pin_test.go": "sha256:870d610a72154fc84df29ed2114ecfd118a8b5d4f1b66e72bf640a16ecab27e6",
-        "experiments/frontier-v1/validation-execution-boundary.md": "sha256:0dfebb801363f7b216042aae6a34c7fd6fdc219b1f494abe7caf139ac1435bff"
+        "experiments/frontier-v1/validation-execution-boundary.md": "sha256:801819e80d138ae82010bd31a0e27179418104b38ee6cf52f83693a47c754b35"
       },
       "frozen": true
     },
@@ -308,7 +310,7 @@
       "review_record_raw_sha256": "sha256:cd557f3dc79b7a2bbc2acbba0c40969b832178b1c23b4ca4c4442d602c601ca0",
       "review_verdict": "ACCEPT",
       "source_manifest": "experiments/frontier-v1/manifests/validation.json",
-      "source_manifest_canonical_json_sha256": "sha256:57ccc0c754f7c2beb74063dacc4bad26ab8b598ac2da9b6a8d637afd391fd490",
+      "source_manifest_canonical_json_sha256": "sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6",
       "seed": 20260817,
       "repetitions": 3,
       "arms": [
