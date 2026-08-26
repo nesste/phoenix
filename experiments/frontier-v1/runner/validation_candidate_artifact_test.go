@@ -54,11 +54,18 @@ func TestGate1AAuthoringRepairCandidateMatchesHistoricalPayload(t *testing.T) {
 	verifyCandidateSetAtCommit(t, root, "610fa588488579cf5551a627795d4dc7f771f053", candidate.Files, candidate.SetDigest)
 }
 
-func TestGate1AComplexityRefactorCandidateMatchesWorkingTree(t *testing.T) {
+func TestGate1AComplexityRefactorCandidateMatchesHistoricalPayload(t *testing.T) {
 	candidate := loadReviewCandidate(t, "gate-1a-complexity-refactor-candidate.json",
 		"8881d5f552aedfd9e6283ee1cc33e468fe036856", 20)
 	root := filepath.Join("..", "..", "..")
-	verifyCandidateSetInWorkingTree(t, root, candidate.Files, candidate.SetDigest)
+	verifyCandidateSetAtCommit(t, root, "8ed9202c80d8f591c5d0db8a7e8a349022f952f8", candidate.Files, candidate.SetDigest)
+}
+
+func TestGate1AValidationWorldCompatibilityCandidateMatchesPayload(t *testing.T) {
+	candidate := loadReviewCandidate(t, "gate-1a-validation-world-compatibility-candidate.json",
+		"acc9730dfa553e56dc20af992176717a9c4f6044", 21)
+	root := filepath.Join("..", "..", "..")
+	verifyCandidateSetAtCommit(t, root, "7c096f1ce2614f2364d309c58684813f83524394", candidate.Files, candidate.SetDigest)
 }
 
 func verifyCandidateSetInWorkingTree(t *testing.T, repositoryRoot string, files map[string]string, wantSetDigest string) {
