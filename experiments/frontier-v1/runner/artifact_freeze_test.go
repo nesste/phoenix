@@ -58,6 +58,38 @@ type frozenValidationSchedule struct {
 	Frozen               bool     `json:"frozen"`
 }
 
+type frozenClassifiedSet struct {
+	Path                   string `json:"path"`
+	Digest                 string `json:"lf_normalized_utf8_sha256"`
+	Commit                 string `json:"candidate_commit"`
+	Review                 string `json:"review_record"`
+	Verdict                string `json:"review_verdict"`
+	LabeledBy              string `json:"labeled_by"`
+	CountersignatureRecord string `json:"countersignature_record"`
+	ArchivedMessages       int    `json:"archived_messages"`
+	Frozen                 bool   `json:"frozen"`
+}
+
+// verifyClassifiedSetFreeze enforces the section 5 binding: the chair-labeled,
+// evaluator-countersigned classified message set is digest-pinned with both
+// attributions recorded.
+func verifyClassifiedSetFreeze(t *testing.T, repositoryRoot string, classified frozenClassifiedSet) {
+	t.Helper()
+	if !classified.Frozen || classified.Commit != "54e256e9f4347d34844a3ef9b2156600360dcd13" ||
+		classified.Verdict != "ACCEPT" || classified.LabeledBy != "Raoul Bivolaru (project chair)" ||
+		!strings.Contains(classified.CountersignatureRecord, "docs/reviews/2026-08-27-absence-acceptance-payload-review.md") ||
+		classified.ArchivedMessages != 50 {
+		t.Fatalf("classified-set freeze metadata = %#v", classified)
+	}
+	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(classified.Review))); err != nil {
+		t.Fatalf("classified-set review record: %v", err)
+	}
+	classifiedDigest, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(classified.Path)))
+	if err != nil || classifiedDigest != classified.Digest {
+		t.Fatalf("classified-set digest = %s, freeze requires %s (%v)", classifiedDigest, classified.Digest, err)
+	}
+}
+
 type frozenGateState struct {
 	MayOpenValidation            bool   `json:"may_open_validation"`
 	MayOpenHeldOut               bool   `json:"may_open_held_out"`
@@ -87,9 +119,10 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 				Verdict string `json:"review_verdict"`
 				Frozen  bool   `json:"frozen"`
 			} `json:"arm_b_static_document"`
-			Runner   frozenFileSet            `json:"scheduled_runner"`
-			Analysis frozenFileSet            `json:"analysis_implementation_and_report_template"`
-			Schedule frozenValidationSchedule `json:"validation_schedule"`
+			Runner        frozenFileSet            `json:"scheduled_runner"`
+			Analysis      frozenFileSet            `json:"analysis_implementation_and_report_template"`
+			Schedule      frozenValidationSchedule `json:"validation_schedule"`
+			ClassifiedSet frozenClassifiedSet      `json:"absence_acceptance_classified_set"`
 		} `json:"artifacts"`
 		Remaining []string `json:"remaining"`
 	}
@@ -115,6 +148,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 		"0f8d9c72c59bea5da5abf792f493f1d75299b1f8", 9)
 	verifyAcceptedLocalArtifacts(t, repositoryRoot)
 	verifyFrozenValidationSchedule(t, repositoryRoot, freeze.Artifacts.Schedule)
+	verifyClassifiedSetFreeze(t, repositoryRoot, freeze.Artifacts.ClassifiedSet)
 
 	var protocol struct {
 		ArtifactFreeze struct {
@@ -174,20 +208,21 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 	wantFindings := []string{
 		"Carried P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom.",
 		"Carried P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths; callers must check the error first.",
-		"P3-1 (pre-existing): validateExternalGrade lets a gating manual_required dominate a gating fail, the reverse of the grader's overallStatus precedence; unreachable under v5 because no check kind produces manual_required.",
+		"Carried P3 (pre-existing): validateExternalGrade lets a gating manual_required dominate a gating fail, the reverse of the grader's overallStatus precedence; unreachable under v5 because no check kind produces manual_required.",
+		"Section 5 review P3-1: an interrogative capability verb is treated as an assertion by the false-capability branch; exact on the committed classified set, an arm-blind false-fail channel on fresh interrogative refusals, inside the accepted fresh-tranche limitation; any correction goes through the full frozen-byte cycle with the classified set as arbiter.",
+		"Section 5 review P3-2: conditional hallucinations (an if-clause, whether conditioning on consent or on a fact) evade the false-capability branch through the conditional-offer exclusion; a message exploiting this must still assert incapability to pass, the classified set contains no such member, and the set remains the arbiter.",
 		"Residual: validation execution requires a linux/amd64 host and the frozen world-build identity sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4.",
 		"Residual: the retired v4 sealed schedule, manifest, registry, and archive identities remain pinned in validation_grader.go as custody evidence until the v5 seal replaces them; the A-D construction refuses the retired five-arm schedule.",
-		"Refreeze note: the README.md and validation-execution-boundary.md world-build literals were updated to the refrozen digest in the refreeze commit per review P3-2, so those two set members' digests differ from the payload commit's bytes; every other set member matches the payload commit.",
 	}
 	wantNotes := []string{
-		"experiments/frontier-v1/artifacts/protocol-v5-amendment-candidate.md",
+		"experiments/frontier-v1/artifacts/absence-acceptance-candidate.md",
 	}
-	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-protocol-v5-amendment-candidate.json" ||
-		artifact.CandidateArtifactDigest != "sha256:9242fe152bd4b95f037d9cd8e2025aed9ce70541459f998e0b2f00d8bec4f840" ||
-		artifact.Review != "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md" ||
-		artifact.ReviewCommit != "bd096c6d89f6a9a4cd70fb49fa4f16cdc574c227" ||
-		artifact.ReviewDigest != "sha256:0979accc651be0a14e96eae1d5fab0d45d74f1fb1f60b42da11bd785c426da5f" ||
-		artifact.ReplacesCommit != "215b30ae89933c532468b452be6238a6028a740e" ||
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-absence-acceptance-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:3dd434bf29dd16bf206fb7d38ebf599ceacba6f74feb7a3a6a1dbeb923548d22" ||
+		artifact.Review != "docs/reviews/2026-08-27-absence-acceptance-payload-review.md" ||
+		artifact.ReviewCommit != "7ef1faf7b9b8e41207e201a0ebc36fdc457cd7e0" ||
+		artifact.ReviewDigest != "sha256:58a9b4af736610e3faa26e76cd03d98b67f7660fc52abd84ca314d0c43f0dcfc" ||
+		artifact.ReplacesCommit != "0f8d9c72c59bea5da5abf792f493f1d75299b1f8" ||
 		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) ||
 		!reflect.DeepEqual(artifact.CandidateNotes, wantNotes) {
 		t.Fatalf("replacement runner provenance = %#v", artifact)
@@ -201,7 +236,7 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 		}
 	}
 	verifyFrozenFileSet(t, repositoryRoot, artifact,
-		"0f8d9c72c59bea5da5abf792f493f1d75299b1f8", 21)
+		"54e256e9f4347d34844a3ef9b2156600360dcd13", 21)
 }
 
 func verifyRawFileDigest(t *testing.T, path string, want string) {
@@ -292,10 +327,10 @@ func verifyValidationScheduleFiles(t *testing.T, repositoryRoot string, artifact
 func verifyAcceptedLocalArtifacts(t *testing.T, repositoryRoot string) {
 	t.Helper()
 	const (
-		candidateCommit = "0f8d9c72c59bea5da5abf792f493f1d75299b1f8"
+		candidateCommit = "54e256e9f4347d34844a3ef9b2156600360dcd13"
 		candidatePath   = "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json"
-		candidateDigest = "sha256:55b212d95f90c4bb39461277ed16db993d09868804dc13d60d8e5384ce3cb37b"
-		reviewPath      = "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md"
+		candidateDigest = "sha256:a70ce35b7cfbb686cf7922c99394f6c3ef344235b03f8cf3f88bccb8ce892967"
+		reviewPath      = "docs/reviews/2026-08-27-absence-acceptance-payload-review.md"
 	)
 	actualDigest, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(candidatePath)))
 	if err != nil || actualDigest != candidateDigest {

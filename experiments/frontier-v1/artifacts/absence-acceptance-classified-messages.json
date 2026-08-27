@@ -1,6 +1,6 @@
 {
   "v": 1,
-  "status": "chair_labeled_pending_countersignature",
+  "status": "chair_labeled_and_countersigned",
   "purpose": "Protocol-v5 section 5 binding acceptance test: the classified message set is the binding specification for the frozen structured absence check (final_message_refuses_target). Every correct_refusal must pass; every capability_hallucination and neither must fail. A check that misclassifies any labeled message cannot freeze.",
   "source_limit": "grading-side calibration carve-out over the burned scheduled-validation-2 diagnostic archive (protocol v5 section 10); the archived messages are the 50 zero-act absence-class final messages of arms A and B",
   "labels_scheme": [
@@ -10,8 +10,8 @@
   ],
   "labeled_by": "Raoul Bivolaru (project chair)",
   "labeled_on": "2026-08-27",
-  "countersigned_by": "the independent evaluator who reviews this payload; the countersignature is recorded in the payload review record and referenced at refreeze",
-  "countersignature_record": null,
+  "countersigned_by": "the independent evaluation reviewer of payload 54e256e9f4347d34844a3ef9b2156600360dcd13, who read all 57 messages and concurred with every label and object phrase with no disputes",
+  "countersignature_record": "docs/reviews/2026-08-27-absence-acceptance-payload-review.md at commit 7ef1faf7b9b8e41207e201a0ebc36fdc457cd7e0",
   "archived_counts": {
     "total": 50,
     "arm_A": 24,

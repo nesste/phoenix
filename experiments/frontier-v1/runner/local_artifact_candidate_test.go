@@ -82,7 +82,7 @@ func TestLocalArtifactCandidateMatchesImplementation(t *testing.T) {
 		t.Fatal("review candidate marked a local artifact frozen before independent acceptance")
 	}
 
-	verifyCandidateFilesAtCommit(t, repositoryRoot, "0f8d9c72c59bea5da5abf792f493f1d75299b1f8", candidate.Artifacts.Runtime.Files)
+	verifyCandidateFilesAtCommit(t, repositoryRoot, "54e256e9f4347d34844a3ef9b2156600360dcd13", candidate.Artifacts.Runtime.Files)
 	verifyCandidateFiles(t, repositoryRoot, candidate.Artifacts.ArmA.Files)
 	verifyRuntimeCandidate(t, candidate)
 	verifyInvocationTemplates(t, candidate)
