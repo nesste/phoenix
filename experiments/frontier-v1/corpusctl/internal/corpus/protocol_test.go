@@ -19,13 +19,14 @@ func TestProtocolV5IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 		Status    string `json:"status"`
 		Frozen    bool   `json:"frozen"`
 		Amendment struct {
-			Activation   string `json:"activation"`
-			Discovery    string `json:"discovery"`
-			Envelope     string `json:"envelope"`
-			Grading      string `json:"grading"`
-			StateChanges string `json:"state_changes"`
-			Retirement   string `json:"retirement"`
-			SupersededV4 struct {
+			Activation     string `json:"activation"`
+			Discovery      string `json:"discovery"`
+			Envelope       string `json:"envelope"`
+			Grading        string `json:"grading"`
+			AbsenceGrading string `json:"absence_grading"`
+			StateChanges   string `json:"state_changes"`
+			Retirement     string `json:"retirement"`
+			SupersededV4   struct {
 				AppliesTo string `json:"applies_to"`
 			} `json:"superseded_v4_amendment"`
 		} `json:"amendment"`
@@ -181,6 +182,20 @@ func TestProtocolV5IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	}
 	if !strings.Contains(protocol.Amendment.Grading, "selector-addressed, never sequence-index-addressed") || !strings.Contains(protocol.Amendment.Grading, "recency_rationale") || !strings.Contains(protocol.Amendment.Grading, "final_message_states is barred") {
 		t.Fatalf("v5 grading-altitude contract is incomplete: %q", protocol.Amendment.Grading)
+	}
+	for _, required := range []string{
+		"zero executable acts",
+		"final_message_refuses_target",
+		"binding specification",
+		"correct_refusal (must pass)",
+		"capability_hallucination (must fail)",
+		"countersigned by the payload's independent reviewer",
+		"misclassifies any labeled message cannot freeze",
+		"message-literal patterns are prohibited",
+	} {
+		if !strings.Contains(protocol.Amendment.AbsenceGrading, required) {
+			t.Fatalf("v5 absence-grading contract is missing %q: %q", required, protocol.Amendment.AbsenceGrading)
+		}
 	}
 	if !strings.Contains(protocol.Amendment.StateChanges, "shared trial-harness rule for every arm") || !strings.Contains(protocol.Amendment.StateChanges, "flat-tool Arms A and B") || !strings.Contains(protocol.Amendment.StateChanges, "Orientations do not advance") {
 		t.Fatalf("cross-arm state-event contract regressed: %q", protocol.Amendment.StateChanges)

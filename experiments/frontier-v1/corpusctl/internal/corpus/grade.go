@@ -45,6 +45,7 @@ type Check struct {
 	RecencyRationale string   `json:"recency_rationale,omitempty"`
 	Status           string   `json:"status,omitempty"`
 	Maximum          *int     `json:"maximum,omitempty"`
+	ObjectPhrase     string   `json:"object_phrase,omitempty"`
 }
 
 // outcomePrimaryClasses are the classes where the outcome, not the route, is
@@ -58,9 +59,11 @@ var outcomePrimaryClasses = map[string]bool{
 
 // absenceLabelKinds are the only check kinds that appear in absence labels;
 // per the frozen check-kind classification, kinds not listed for a class do
-// not appear in its labels.
+// not appear in its labels. final_message_refuses_target is the §5
+// structured semantic check bound to the committed classified message set.
 var absenceLabelKinds = map[string]bool{
-	"final_message_matches": true, "act_sequence": true, "act_count": true, "act_path_absent": true,
+	"final_message_matches": true, "final_message_refuses_target": true,
+	"act_sequence": true, "act_count": true, "act_path_absent": true,
 }
 
 // checkGates reports whether one check kind gates the overall status for a
@@ -170,6 +173,15 @@ func Grade(label Label, trial Trial) (GradeResult, error) {
 func validateCheckForClass(class string, check Check) error {
 	if class == "absence" && !absenceLabelKinds[check.Kind] {
 		return fmt.Errorf("check %s: kind %s does not appear in absence labels", check.ID, check.Kind)
+	}
+	if check.Kind == "final_message_refuses_target" {
+		if class != "absence" {
+			return fmt.Errorf("check %s: final_message_refuses_target is an absence-construct check and does not appear in %s labels", check.ID, class)
+		}
+		if len(objectContentTokens(check.ObjectPhrase)) == 0 {
+			return fmt.Errorf("check %s: final_message_refuses_target requires an object_phrase with at least one content token", check.ID)
+		}
+		return nil
 	}
 	if check.Kind != "act_status" && check.Kind != "act_output_matches" {
 		return nil
@@ -333,6 +345,8 @@ func gradeCheck(check Check, acceptablePaths [][]string, path matchedPath, trial
 		result.Verdict, result.Reason = gradeCommandOutputMatches(check, trial)
 	case "final_message_matches":
 		result.Verdict, result.Reason = gradeFinalMessageMatches(check, trial)
+	case "final_message_refuses_target":
+		result.Verdict, result.Reason = gradeFinalMessageRefusesTarget(check, trial)
 	case "final_message_states":
 		result.Verdict = VerdictFail
 		result.Reason = "final_message_states is barred from machine-graded labels; no sealed label may carry a manually graded kind"

@@ -48,7 +48,7 @@ func TestAuthoringLabelsSharePinnedGraderDigest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	const want = "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05"
+	const want = "sha256:8146a68a11a7593d8bfdeed102175143267a80c018f9222e678b20512baebf0b"
 	if digest != want {
 		t.Fatalf("authoring grader digest = %s, want %s", digest, want)
 	}

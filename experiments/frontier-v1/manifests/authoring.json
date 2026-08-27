@@ -65,7 +65,7 @@
       "act_path_absent": 1,
       "act_sequence": 7,
       "act_status": 2,
-      "final_message_matches": 1
+      "final_message_refuses_target": 1
     }
   },
   "fixtures": [
@@ -98,7 +98,7 @@
       "input_digest": "sha256:27d9760d82f7c8a084e0c34a0d01d55b9f364c1d48403acb8d68cddfe7721cb6",
       "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:de7128183939a6d69a48dbe278960ae89c0720771c427ad81436869415633d1a"
+      "label_digest": "sha256:5b1dcf8746775edad015939eef7e2213ed71c1d28e47f507610fe44c331c00c9"
     },
     {
       "case_id": "authoring_1ca5cade",
@@ -107,7 +107,7 @@
       "input_digest": "sha256:0c06858b07b8a39f601ead7bb2b40f81dc22d63cc86261661a52e32661bc30c9",
       "sandbox_fixture": "sha256:90121ca6f1fe7e4851ec9e97a224201e905e8b9d360a8bda0cbe3633a499209c",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:801a540a1ee7d3d63c3aace774936b87d3cb5b5f8e26ee1913c7be1efe129a29"
+      "label_digest": "sha256:93cc46838865292c13406b5ea7f73a54d8e9d6cddec75f8ad99423e5639e1bfa"
     },
     {
       "case_id": "authoring_57a1e001",
@@ -116,7 +116,7 @@
       "input_digest": "sha256:b22083a3e1581ea3f99bf0739949a2eed586e1dedc0c1d6760e2f2fc1da56f7c",
       "sandbox_fixture": "sha256:f9ed60a000ebb37bf1ba89e8e0f264d784ed4137b70444c43e65fa3bb3cc93a9",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:f95b117addfe0968ad59c11ca6845a741d6d0692da5735fa95c3303d99f4a822"
+      "label_digest": "sha256:dc667bfe328fc5c2c8cc5cd4343a1326b6265fe08d544bff0b2f692cac74fe61"
     },
     {
       "case_id": "authoring_5ec0be12",
@@ -125,7 +125,7 @@
       "input_digest": "sha256:27f29b45e852f2a49c38751749d7ef1cd1597da9c2807ebde99e04c71e5dcf34",
       "sandbox_fixture": "sha256:99d9e18b448242462bca600eb0e369de4d11c1c13edd6175a428669f70b06b79",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:45d4f245fa0c999a6d25e19999cd0d9ba9c2e6bb40dbd6ae6da70fceff16044d"
+      "label_digest": "sha256:dd1c578c1642ff9e630d237cd86ddefa735e675255f29d68875ed42c0730a20f"
     },
     {
       "case_id": "authoring_7e4d7a10",
@@ -134,7 +134,7 @@
       "input_digest": "sha256:8c71aad8a1ed68c53f4632ee7f89ecee0c4e8006e14139cd77836df9234617e5",
       "sandbox_fixture": "sha256:762375eb760ae8817ca6b9a14156274898ab2820b659476fa5102ef6d0a9ef37",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:e51e21491ebb6c3025fe704632889f5c38bfe9a406fafd4c0cec2afd5bd7a995"
+      "label_digest": "sha256:9f4d7ec2f142c6e5218300d68816b1d97cf567175095d9bbe4926e0994f4a9f4"
     },
     {
       "case_id": "authoring_ab5e0ce0",
@@ -143,7 +143,7 @@
       "input_digest": "sha256:24c01f337fb29dbf693beb89eec23a3abe8f1e7252768e7ac2765d0d76ab9c3f",
       "sandbox_fixture": "sha256:762375eb760ae8817ca6b9a14156274898ab2820b659476fa5102ef6d0a9ef37",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:fad65793133ffedf94a2437105055cdac17cc20ab216e2d3e7e5ea1be44cc74f"
+      "label_digest": "sha256:832f78939248cf95df885a2cfd09f55460466282c69be8f70148574120e91545"
     },
     {
       "case_id": "authoring_ad0e25a1",
@@ -152,7 +152,7 @@
       "input_digest": "sha256:09d00271cd39fd85c04a13606734ee3543def2e93149bf8e8095f150cd2428a3",
       "sandbox_fixture": "sha256:f9ed60a000ebb37bf1ba89e8e0f264d784ed4137b70444c43e65fa3bb3cc93a9",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:18b69af37efda5979dc60d865f2a6b2b48ff60f3f471cd2323481639a9a31142"
+      "label_digest": "sha256:8dea12f29921a956da25eead2569bc89abf515e972f08e61e066f64e6110ae11"
     },
     {
       "case_id": "authoring_fa4d15c0",
@@ -161,7 +161,7 @@
       "input_digest": "sha256:f680620fa278e5b718b4281dba9c5add6a758507956f5a45df94920606a9b1fd",
       "sandbox_fixture": "sha256:99d9e18b448242462bca600eb0e369de4d11c1c13edd6175a428669f70b06b79",
       "world_ref": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
-      "label_digest": "sha256:d21008a8234de9d6e737d4e985b9d253ff56a670aed827985e65da6f0415881f"
+      "label_digest": "sha256:e4a971fffb95f4aef356fb1617e8d59fc586037c4255e8a9bce1a7cadaeee140"
     }
   ]
 }

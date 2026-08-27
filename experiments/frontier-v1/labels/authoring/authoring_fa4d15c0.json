@@ -17,7 +17,7 @@
       }
     ]
   },
-  "grading_script": "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05",
+  "grading_script": "sha256:8146a68a11a7593d8bfdeed102175143267a80c018f9222e678b20512baebf0b",
   "acceptable_paths": [["repo.find", "tests.focus"]],
   "label_rationale": "The public service name does not expose the internal test name, so a deliberate find action must bridge the vocabulary gap before focusing."
 }

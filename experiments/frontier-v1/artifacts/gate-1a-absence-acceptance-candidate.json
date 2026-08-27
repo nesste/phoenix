@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "status": "review_candidate",
+  "source_limit": "public_validation_inputs_only",
+  "base_commit": "6e0f35afe6128a971369a710256691f6cc8de311",
+  "frozen": false,
+  "gates": {
+    "may_open_validation": false,
+    "may_open_held_out": false
+  },
+  "replaces": {
+    "artifacts": [
+      "grader_digest",
+      "scheduled_runner (main_test.go, validation_grader.go, README.md, validation-execution-boundary.md only)"
+    ],
+    "accepted_candidate_commits": {
+      "grader_digest": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8",
+      "scheduled_runner": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8"
+    },
+    "reason": "Protocol v5 section 5 absence-grading acceptance test payload under the accepted proposal (docs/plans/2026-08-27-protocol-v5-proposal.md) and the fourth review's freeze obligations 1 and 2: semantic absence criteria graded by the new structured check final_message_refuses_target, the frozen tokenization/clause/negator/capability guard with both P3-1 corrections, and the committed chair-labeled classified message set as the binding specification."
+  },
+  "contract": {
+    "change": "Implement proposal section 5: the structured polarity guard and incapability keyword family as frozen grader code (corpusctl internal/corpus/absence.go); the new absence-only check kind final_message_refuses_target with a frozen per-case object_phrase (label schema and grader); the committed classified message set (50 archived zero-act A/B absence final messages of scheduled-validation-2, A 24 and B 26, under the section 10 grading-side calibration carve-out, plus 4 synthetic capability_hallucination and 3 synthetic neither fail-side exemplars), labeled by the project chair with the countersignature assigned to this payload's independent reviewer; the binding acceptance test committed as TestAbsenceAcceptanceIsExactOnTheClassifiedMessageSet and exact on the whole set; the authoring absence label migrated to v5 semantics (zero executable acts, structured check); and the protocol.json absence_grading amendment record.",
+    "production_behavior_changed": false,
+    "phoenix_binary_changed": false,
+    "gate_required": "may_open_validation remains false throughout candidate authoring, review, and refreeze",
+    "held_out_required": "may_open_held_out=false",
+    "grader_digest_previous": "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05",
+    "grader_digest_candidate": "sha256:8146a68a11a7593d8bfdeed102175143267a80c018f9222e678b20512baebf0b",
+    "classified_set": {
+      "path": "experiments/frontier-v1/artifacts/absence-acceptance-classified-messages.json",
+      "archived_messages": 50,
+      "arm_A": 24,
+      "arm_B": 26,
+      "synthetic_capability_hallucination": 4,
+      "synthetic_neither": 3,
+      "labeled_by": "Raoul Bivolaru (project chair)",
+      "labeled_on": "2026-08-27",
+      "countersignature": "assigned to this payload's independent reviewer; recorded in the payload review record and referenced at refreeze",
+      "source_carve_out": "protocol v5 section 10: grading-side calibration over the burned scheduled-validation-2 diagnostic archive, limited to the section 5 acceptance test and this committed set"
+    },
+    "construction_class_extensions": [
+      "while and though join but/however/although as contrastive-conjunction clause boundaries (contrastive subordination)",
+      "the false-capability object test is scoped to the capability verb's predicate neighborhood, bounded by clause boundaries and neighboring predicate heads (a verb's assertion covers its own subject and complement)",
+      "closed inflection classes: bare-lemma capability verbs (support/allow/provide) and object-token suffixes s/es/ed/ing/ly/ment",
+      "ca + n't recognized as the contracted negation of can; a negator immediately following a capability verb suppresses it (fourth-review P3-1 correction two)",
+      "a period is a clause or sentence boundary only when followed by whitespace or end of text (fourth-review P3-1 correction one)",
+      "an if-token preceding a capability verb in the same sentence marks a conditional offer, excluded from false capability (genuinely available local actions offered under a factual condition)"
+    ],
+    "expected_red_freeze_tests": [
+      "TestPreValidationFreezeMatchesAcceptedCandidates",
+      "TestLocalArtifactCandidateMatchesImplementation"
+    ],
+    "accepted_residuals": [
+      "corpusctl is outside the repository quality gate's gocyclo directory set; incapabilityFamilyHit measures 18 and validateCheckForClass 19, consistent with pre-existing corpusctl code",
+      "permission-conditional hallucinations (an if-clause conditioning on consent rather than on a fact) would be excluded by the conditional-offer rule; the classified set contains none and the set remains the arbiter for any future revision",
+      "behavior on fresh-tranche messages never labeled is disciplined, not proven; the check is arm-blind, so miscalibration there is symmetric noise, not C-versus-B bias (carried from the proposal reviews)"
+    ]
+  },
+  "candidate_notes": [
+    "experiments/frontier-v1/artifacts/absence-acceptance-candidate.md"
+  ],
+  "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
+  "artifact_set_lf_normalized_utf8_sha256": "sha256:46e3bc40cf05c7160a4341958bf0f4c817d320bb4861f8885af350e1e129dc90",
+  "files": {
+    "experiments/frontier-v1/README.md": "sha256:b486fc5597662bc5b724d877861320c88bcff537088c495c6bef42e62ecd0fe2",
+    "experiments/frontier-v1/artifacts/absence-acceptance-classified-messages.json": "sha256:be03b2847fac248b9523cd7bcc617791d1c359a69e444e22f629ba33ee6b54c0",
+    "experiments/frontier-v1/corpusctl/internal/corpus/absence.go": "sha256:54e1b7d759b42042af28228e76dae1998ad31b08c50ca60d409bdb6d211d8c44",
+    "experiments/frontier-v1/corpusctl/internal/corpus/grade.go": "sha256:44ddd3301e13266d74122eecca1c3d124bed0f8a32724244afa4c5d4496c0ffb",
+    "experiments/frontier-v1/labels/authoring/authoring_0a10d1ec.json": "sha256:44e40e250f87fd2dc5e9c2ae4b285a8bf02a8f774a4eb43a0331fc49ee1d3863",
+    "experiments/frontier-v1/labels/authoring/authoring_1ca5cade.json": "sha256:9c18c5a85ce5260378ec0b2e5da2ed0a00340b26ff14381c512ae3b29eae3087",
+    "experiments/frontier-v1/labels/authoring/authoring_57a1e001.json": "sha256:deaea42494f59f0930b7890003b9b60721fd7399b18b7c69505fc980eba4347f",
+    "experiments/frontier-v1/labels/authoring/authoring_5ec0be12.json": "sha256:dc65b35206ad48ea477d323aa10a60f3d3cac60193966998efe186de75e280ce",
+    "experiments/frontier-v1/labels/authoring/authoring_7e4d7a10.json": "sha256:b99584f42ff3f3f031ae91f302d00881887a2fb90d971d2cf09dd6acb2ca11a2",
+    "experiments/frontier-v1/labels/authoring/authoring_ab5e0ce0.json": "sha256:03b2e64e1f386e74ccd549c97cac09f0fee49a7ce39531cb78e706dec832d679",
+    "experiments/frontier-v1/labels/authoring/authoring_ad0e25a1.json": "sha256:209f5afb6bd4a58e65779c6918d2403399b8aa3c35a938f99ad652a56a6ff7dd",
+    "experiments/frontier-v1/labels/authoring/authoring_fa4d15c0.json": "sha256:4be3458463bd93778d8ff0dea9f41d5e4022a3ef88f6e09a341601a7c6a30e46",
+    "experiments/frontier-v1/manifests/authoring.json": "sha256:704b8bc0f8e835276235663d0c7fd33ecabae010a0fc71a77972536455173310",
+    "experiments/frontier-v1/protocol.json": "sha256:f46cfc86311ccea6ff491ae5621f170358ef73d15795d0b779ed137588a93f47",
+    "experiments/frontier-v1/runner/main_test.go": "sha256:38b6d199dd0ef6d4a37d1b779f2d5af305c26b9585addb0e6ccde418180820b6",
+    "experiments/frontier-v1/runner/validation_grader.go": "sha256:3a22022e5ff78e08368d61773b9a0a3551f11a5dce3d1bf6a1565730ceff72fe",
+    "experiments/frontier-v1/schema/label.schema.json": "sha256:39f9416ddacee2f0bead414d05ad7d93ebac597cf44de4e1ffceac91efba9e76",
+    "experiments/frontier-v1/validation-execution-boundary.md": "sha256:b4175e5a87738a5875304f951615af09d364366e1f920198dc13d7c2be7c9e56"
+  },
+  "review_required": "independent replacement review with countersignature of every label in the classified message set (the reviewer is the countersigning evaluator required by proposal section 5 and the fourth review's freeze obligation 1), verification that the acceptance test is exact on the whole set, and a construction-class audit of every guard rule, followed by refreeze before any later chair decision",
+  "execution_performed": false
+}

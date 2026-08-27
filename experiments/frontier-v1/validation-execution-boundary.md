@@ -14,7 +14,7 @@ The validation path accepts the public `corpus/validation` cases and their conte
 | Validation manifest, canonical JSON | `sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6` | retired v4; replacement pending v5 seal |
 | Validation label-digest registry, raw bytes | `sha256:847c510ca4449856db075fa85a75801dd6e62629fca028f54039e1f962c1c816` | retired v4; replacement pending v5 seal |
 | Private label archive index | `sha256:5a320a8742185e0471c6add885d1861950bbde8c7c312afbe907ae99762922e4` | retired v4; replacement pending v5 seal |
-| Deterministic grader | `sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05` | v5 amendment candidate |
+| Deterministic grader | `sha256:8146a68a11a7593d8bfdeed102175143267a80c018f9222e678b20512baebf0b` | v5 §5 absence-acceptance candidate |
 
 The A–D runtime, conditional C/D prompts, surfaces, trial limits, retry policy, Arm B document, world, and evidence schema are those of the v5 amendment payload. Validation requires exactly a 300 USD run-budget boundary, a 0.15 USD per-trial cap, and a 180-second per-trial timeout.
 
