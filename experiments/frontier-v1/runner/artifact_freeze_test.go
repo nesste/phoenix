@@ -146,10 +146,13 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	if actual != armB.Digest {
 		t.Fatalf("Arm B digest = %s, freeze requires %s", actual, armB.Digest)
 	}
+	// The local-artifact check runs before the runner-freeze check so that a
+	// payload commit, whose deliberate red is the runner set, still exercises
+	// it rather than short-circuiting at the first t.Fatalf.
+	verifyAcceptedLocalArtifacts(t, repositoryRoot)
 	verifyReplacementRunnerFreeze(t, repositoryRoot, freeze.Artifacts.Runner)
 	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Analysis,
 		"0f8d9c72c59bea5da5abf792f493f1d75299b1f8", 9)
-	verifyAcceptedLocalArtifacts(t, repositoryRoot)
 	verifyFrozenValidationSchedule(t, repositoryRoot, freeze.Artifacts.Schedule)
 	verifyClassifiedSetFreeze(t, repositoryRoot, freeze.Artifacts.ClassifiedSet)
 

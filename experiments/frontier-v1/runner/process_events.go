@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"os/user"
 	"path/filepath"
+	"sync"
 	"syscall"
 	"time"
 )
@@ -146,8 +147,21 @@ func hostProcessPrincipal() processPrincipal {
 }
 
 // watchProcessTermination records a termination event when the custodian
-// process is signalled. The returned stop function releases the handler.
+// process is signalled and then stops the process. The returned stop function
+// releases the handler.
+//
+// Recording must not suppress the termination. A scheduled run that swallowed
+// its supervisor's stop signal would contradict the section 9 host
+// requirement for a supervised custodian process, and would leave the log
+// asserting a termination that never happened while the run kept launching
+// trials. The handler therefore records the entry durably and exits.
 func watchProcessTermination(log *processEventLog, progress func() processEventProgress) func() {
+	return watchProcessTerminationWith(log, progress, os.Exit)
+}
+
+// watchProcessTerminationWith is watchProcessTermination with an injectable
+// exit, so the stop behaviour itself is testable.
+func watchProcessTerminationWith(log *processEventLog, progress func() processEventProgress, exit func(int)) func() {
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
 	done := make(chan struct{})
@@ -155,6 +169,8 @@ func watchProcessTermination(log *processEventLog, progress func() processEventP
 		select {
 		case received := <-signals:
 			_ = log.recordTermination(progress(), received.String())
+			signal.Stop(signals)
+			exit(terminationExitCode(received))
 		case <-done:
 		}
 	}()
@@ -162,6 +178,34 @@ func watchProcessTermination(log *processEventLog, progress func() processEventP
 		signal.Stop(signals)
 		close(done)
 	}
+}
+
+// terminationExitCode follows the shell convention of 128 plus the signal
+// number, so a supervisor can tell an interrupted run from a failed one.
+func terminationExitCode(received os.Signal) int {
+	if received == syscall.SIGTERM {
+		return 143
+	}
+	return 130
+}
+
+// liveProgress carries the current outcome-free progress to the termination
+// handler, which runs on the signal goroutine while the run loop advances.
+type liveProgress struct {
+	mu    sync.Mutex
+	value processEventProgress
+}
+
+func (live *liveProgress) set(value processEventProgress) {
+	live.mu.Lock()
+	live.value = value
+	live.mu.Unlock()
+}
+
+func (live *liveProgress) get() processEventProgress {
+	live.mu.Lock()
+	defer live.mu.Unlock()
+	return live.value
 }
 
 // digestProcessEventLog returns the raw SHA-256 of the process-event log,

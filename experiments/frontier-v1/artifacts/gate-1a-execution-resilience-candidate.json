@@ -2,7 +2,7 @@
  "v": 1,
  "status": "review_candidate",
  "source_limit": "public_validation_inputs_only",
- "base_commit": "2cf99331688f4705ed7d6cd3efed98941f59defc",
+ "base_commit": "46030d4fa668b0e1b00d80ea91ee29717dfaf67e",
  "frozen": false,
  "gates": {
   "may_open_validation": false,
@@ -53,6 +53,29 @@
   "expected_red_freeze_tests": [
    "TestPreValidationFreezeMatchesAcceptedCandidates"
   ],
+  "revision": {
+   "supersedes_payload_commit": "7a1ea42513acd3d55e276eabc2459da4a037acc0",
+   "first_review_record": "docs/reviews/2026-08-27-execution-resilience-payload-review.md",
+   "first_review_verdict": "REVISE",
+   "fixed": [
+    "P1-1: the termination handler now stops the process (exit 128+signal) after recording, so a signalled run cannot keep launching while the log asserts a termination; watchProcessTerminationWith takes an injectable exit so the stop behaviour itself is tested.",
+    "P1-2: the single-resume counter is corroborated against the append-only process-event log, which carries one start entry per custodian process; a checkpoint edited downward, or a deleted or unreadable log, refuses the resume.",
+    "P2-1: the outcome-free field-set guard descends into artifact_digests with its own admitted key set and requires arm_assignment_counts keys to be Phase 1 arms.",
+    "P2-2: TestScheduledResumePersistsTheResumeCounter exercises the counter round trip end to end and pins the refusal of a checkpoint claiming two resumes.",
+    "P2-3: the resume window is anchored to the last process-event timestamp and to the runner clock, so back-dating an interruption or presenting a stale authorization is refused.",
+    "P2-4: the closure record must be a non-empty regular markdown file under docs/reviews that states an ACCEPT verdict, not merely an existing path.",
+    "P2-5: verifyResumeAttestationFields is split into identity and condition halves, restoring complexity headroom.",
+    "P2-6: the production termination event carries live progress through a mutex-guarded liveProgress handle instead of a hardcoded zero.",
+    "P3-3: the stop event records a fixed stop-kind token instead of the raw failure text, which could quote a per-trial status.",
+    "P3-4: the added gate fields are indented consistently with the block before the refreeze pins them.",
+    "P3-7: a missing live schedule or world-build digest now refuses rather than skipping the comparison.",
+    "P3-8: verifyAcceptedLocalArtifacts is hoisted above the runner-freeze check so payload commits keep exercising it.",
+    "P3-9: an evidence-write failure records a terminal stop event, so the log is never ambiguous between an error exit and an abrupt kill."
+   ],
+   "carried": [
+    "P2-5 successor: verifyResumeAttestationFields now measures below the reporting threshold; no non-test function in the payload sits within one of the gocyclo gate."
+   ]
+  },
   "accepted_residuals": [
    "Neither supported host exposes the sending principal of a signal to a Go handler, so a termination event records exposed=false with the reason; establishing that no project participant initiated a kill remains the custodian written attestation, as section 9 requires.",
    "The runner verifies that the attestation claims digest identity and that its recorded schedule and world-build digests equal the live ones; byte-level re-verification of the whole frozen set at resume is the custodian step recorded in the attestation.",
@@ -66,25 +89,25 @@
   "experiments/frontier-v1/artifacts/execution-resilience-candidate.md"
  ],
  "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
- "artifact_set_lf_normalized_utf8_sha256": "sha256:1f0b6f872f58d17ddb987c0106c0c0df3dbd6385d060ac7991c97fafcde7c609",
+ "artifact_set_lf_normalized_utf8_sha256": "sha256:95f33f2af58442464557b77287647f93393cdb313397721cd0bac8525511808e",
  "files": {
   "experiments/frontier-v1/README.md": "sha256:f8d657c565234f9fc231775a34988a9e46316ee12f898de03890d01b17439d64",
   "experiments/frontier-v1/corpusctl/internal/corpus/protocol_test.go": "sha256:4495d032c7d86fbfa03952ad676f3e769de4ca1f0d071dc694afa376742cc952",
-  "experiments/frontier-v1/pre-validation-artifacts.json": "sha256:47f4bd4af3635510eb932dc8528372747eb665acd47b2beda653192a1a61bed3",
+  "experiments/frontier-v1/pre-validation-artifacts.json": "sha256:ce14d55cdbb36c9102e71830101eb45f0bd29df91af35a51134c57b72b3f4cc2",
   "experiments/frontier-v1/protocol.json": "sha256:726b68112108542ba3491fde538342399cbb446a04755a7e0208e076cbdb0d32",
-  "experiments/frontier-v1/runner/artifact_freeze_test.go": "sha256:bb1be612af28b0a526b38efbcf8a383107cfedb9808f4e02a05e1ea9d3bd2356",
-  "experiments/frontier-v1/runner/execution_resilience.go": "sha256:4f6cf8015f66d6814711d27409bdbc9ac070405ee9cab10c042660a66b5a3696",
-  "experiments/frontier-v1/runner/execution_resilience_test.go": "sha256:d75448bd57df4edc56c7d63ea01fb60fdb17ab178701015823594eccd05225cd",
-  "experiments/frontier-v1/runner/main.go": "sha256:62c6f8cbe6c609fc6f831d7a4b1f3d1d6fa96dffa4825237dd9174fb904a4af8",
-  "experiments/frontier-v1/runner/process_events.go": "sha256:0dabcd7855ab2a457bb5cea8394fdbba1558add0136b560fddb723c080aa9e17",
+  "experiments/frontier-v1/runner/artifact_freeze_test.go": "sha256:3f62b2e97e52f08296b1383c7f159b73da8e38b646219874662e9805b234ff95",
+  "experiments/frontier-v1/runner/execution_resilience.go": "sha256:28d9c174fb5c457271b382281329b8b12f6cd48cfb42989427fc1cf4c34e14d8",
+  "experiments/frontier-v1/runner/execution_resilience_test.go": "sha256:f39d36ed26e8c707e10aae9de1fbb94bab8e59f1bce9a4a7d519edadd8964546",
+  "experiments/frontier-v1/runner/main.go": "sha256:192d275ef16be74f9a3f47747cf3d14d8df52d18d16127734db786866c5bdff3",
+  "experiments/frontier-v1/runner/process_events.go": "sha256:cdfa5f84e8dd92dfc41d1904b289ce704e1000a1a8fe36504b5b85fa9c7792d4",
   "experiments/frontier-v1/runner/scheduled_resume.go": "sha256:aa050eb443a6676a1ab540788c182a3ef1ec4e63ae2c7bfd4fdb4b23fac9fc2e",
   "experiments/frontier-v1/runner/scheduled_resume_test.go": "sha256:a090f71facb3d21ba3e7d1df32988cb7a64d277b5bdba97a46637bf435c2b893",
-  "experiments/frontier-v1/runner/scheduled_run.go": "sha256:f8eadddc40bd960339b608e2b6aa6b36361ed4e1df78e3a656a58257776ffd2e",
+  "experiments/frontier-v1/runner/scheduled_run.go": "sha256:e58360c3e83656c8cc996a577c6eed89380956c8c912e3ba380a70b664e427ad",
   "experiments/frontier-v1/runner/types.go": "sha256:fce5d7b956df609fe56bf77e9e400eed0f79f23374778915050948035ba92191",
   "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:9ef5e4c7e927082d44830bba29016b446b43bfa3c7a37974e18a850dc012d20e",
-  "experiments/frontier-v1/runner/validation_gate.go": "sha256:0266f012a542442e3010b294e3330df0c0f4b6eaea41e213102862fd7b034b4c",
+  "experiments/frontier-v1/runner/validation_gate.go": "sha256:df56726da5dc61753f1b761c09079e61174fe6c4368d7ce47a4bf1a687d68bb7",
   "experiments/frontier-v1/validation-execution-boundary.md": "sha256:247e5f8cc4ee355ea23e8414c3ca4389070231e5cc0570deb1853d008f2b081e"
  },
- "review_required": "independent replacement review verifying that every section 9 condition is enforced as written and cannot be satisfied by an unattested or late resume, that the partial summary is outcome-free in both directions, that the process-event log records what section 9 names and honestly reports what the host does not expose, that the post-closure gate is encoded in the frozen gate rules and applies to the decision-0023 closure, and that the protocol, boundary, and README records match the implementation; followed by refreeze before any later chair decision",
+ "review_required": "second independent review after the first returned REVISE, verifying that each P1 and P2 finding is genuinely fixed rather than papered over, and re-verifying that every section 9 condition is enforced as written and cannot be satisfied by an unattested or late resume, that the partial summary is outcome-free in both directions, that the process-event log records what section 9 names and honestly reports what the host does not expose, that the post-closure gate is encoded in the frozen gate rules and applies to the decision-0023 closure, and that the protocol, boundary, and README records match the implementation; followed by refreeze before any later chair decision",
  "execution_performed": false
 }

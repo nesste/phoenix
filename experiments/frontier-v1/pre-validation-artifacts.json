@@ -14,9 +14,9 @@
     "validation_execution_decision": "docs/decisions/0023-protocol-v4-gate-1a-second-interrupted-execution.md",
     "validation_execution_evidence": "experiments/frontier-v1/results/scheduled-validation-2",
     "validation_execution_custody": "experiments/frontier-v1/results/scheduled-validation-2-custody.json",
-  "validation_execution_closure_gate": "Protocol v5 section 9 post-closure gate: after any validation execution that ends without a completed schedule - interruption, budget stop, or lapse - no subsequent validation execution may be authorized until the closure record (cause classification, custodian logs, attestations, and the lapse explanation if any) has been independently reviewed and committed. The runner enforces this in requireValidationGate: an open validation gate whose last execution status is not complete is refused until this review record is named and its verdict is ACCEPT.",
-  "validation_execution_closure_review": "",
-  "validation_execution_closure_review_verdict": ""
+    "validation_execution_closure_gate": "Protocol v5 section 9 post-closure gate: after any validation execution that ends without a completed schedule - interruption, budget stop, or lapse - no subsequent validation execution may be authorized until the closure record (cause classification, custodian logs, attestations, and the lapse explanation if any) has been independently reviewed and committed. The runner enforces this in requireValidationGate: an open validation gate whose last execution status is not complete is refused until this review record is named and its verdict is ACCEPT.",
+    "validation_execution_closure_review": "",
+    "validation_execution_closure_review_verdict": ""
   },
   "artifacts": {
     "arm_b_static_document": {

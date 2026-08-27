@@ -97,8 +97,31 @@ func requirePostClosureAudit(repositoryRoot string, document validationGateDocum
 	if review == "" || document.Gates.ClosureVerdict != "ACCEPT" {
 		return fmt.Errorf("validation execution closed %s: another execution requires an independently reviewed closure record", status)
 	}
-	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(review))); err != nil {
+	return verifyClosureReviewRecord(repositoryRoot, review)
+}
+
+// verifyClosureReviewRecord requires the named closure record to be a real,
+// non-empty review document under docs/reviews that states the verdict the
+// gate document claims for it. Existence alone would let any path in the
+// repository satisfy the post-closure gate.
+func verifyClosureReviewRecord(repositoryRoot, review string) error {
+	if !strings.HasPrefix(review, "docs/reviews/") || !strings.HasSuffix(review, ".md") {
+		return fmt.Errorf("validation closure review record must be a markdown review under docs/reviews")
+	}
+	path := filepath.Join(repositoryRoot, filepath.FromSlash(review))
+	info, err := os.Stat(path)
+	if err != nil {
 		return fmt.Errorf("validation closure review record: %w", err)
+	}
+	if !info.Mode().IsRegular() || info.Size() == 0 {
+		return fmt.Errorf("validation closure review record is not a non-empty regular file")
+	}
+	contents, err := os.ReadFile(path)
+	if err != nil {
+		return fmt.Errorf("validation closure review record: %w", err)
+	}
+	if !strings.Contains(string(contents), "ACCEPT") {
+		return fmt.Errorf("validation closure review record does not state an ACCEPT verdict")
 	}
 	return nil
 }

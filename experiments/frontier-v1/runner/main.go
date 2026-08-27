@@ -136,11 +136,6 @@ func runScheduleCLI(
 		fmt.Fprintln(os.Stderr, err)
 		return 1
 	}
-	stopWatch := watchProcessTermination(
-		newProcessEventLog(prepared.config.outputDir, tranche, prepared.scheduleDigest, prepared.config.worldBuild),
-		func() processEventProgress { return processEventProgress{} },
-	)
-	defer stopWatch()
 	summary, err := runScheduledCases(
 		prepared.config, prepared.schedule, prepared.scheduleDigest, prepared.runBudgetUSD,
 		driver, prepared.grader,

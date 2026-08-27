@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -14,6 +15,12 @@ import (
 // per-arm assignment counts, artifact digests, timestamps, and cumulative
 // spend, and nothing else; the identity fields naming the tranche and the
 // schedule carry no outcome either.
+// outcomeFreeDigestFields is the admitted key set of the nested
+// artifact_digests object. Every entry is an identity, never a measurement.
+var outcomeFreeDigestFields = map[string]bool{
+	"world_build": true, "process_event_log_sha256": true,
+}
+
 var outcomeFreePartialFields = map[string]bool{
 	"v": true, "tranche": true, "status": true, "schedule_digest": true,
 	"artifact_digests": true, "started_at": true, "updated_at": true,
@@ -207,6 +214,133 @@ func TestValidationResumeRefusesBrokenConditionsAndTiming(t *testing.T) {
 	}
 }
 
+// TestProcessTerminationStopsTheRun pins the section 9 host requirement that a
+// supervised custodian process actually stops when signalled: recording the
+// termination must not swallow it, or the log would assert a termination that
+// did not happen while the run kept launching trials.
+func TestProcessTerminationStopsTheRun(t *testing.T) {
+	output := t.TempDir()
+	log := newProcessEventLog(output, "validation", "sha256:schedule", testBuild)
+	exited := make(chan int, 1)
+	stop := watchProcessTerminationWith(log, func() processEventProgress {
+		return processEventProgress{nextLaunchIndex: 12, completedPairingKeys: 3, spentUSD: 0.4, resumes: 1}
+	}, func(code int) { exited <- code })
+	defer stop()
+
+	process, err := os.FindProcess(os.Getpid())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := process.Signal(os.Interrupt); err != nil {
+		t.Skipf("host does not support self-signalling: %v", err)
+	}
+	select {
+	case code := <-exited:
+		if code != 130 {
+			t.Fatalf("interrupt exit code = %d, want 130", code)
+		}
+	case <-time.After(10 * time.Second):
+		t.Fatal("termination handler did not stop the process")
+	}
+	events := readProcessEvents(t, output)
+	if len(events) != 1 || events[0].Event != processEventTermination ||
+		events[0].NextLaunchIndex != 12 || events[0].CompletedPairingKeys != 3 || events[0].Resumes != 1 {
+		t.Fatalf("termination event = %#v", events)
+	}
+}
+
+// TestValidationResumeCorroboratesTheCounterAgainstTheProcessEventLog covers
+// the downward attack on the single-resume bound: the checkpoint's counter is
+// one integer, so it is checked against the append-only log's start entries.
+func TestValidationResumeCorroboratesTheCounterAgainstTheProcessEventLog(t *testing.T) {
+	control, resume := interruptedValidationResume(t, maximumScheduledResumes)
+	resume.checkpoint.Resumes = 0
+	err := requireResumeAuthorization(control, resume)
+	if err == nil || !strings.Contains(err.Error(), "the process-event log attests") {
+		t.Fatalf("laundered counter error = %v", err)
+	}
+
+	control, resume = interruptedValidationResume(t, 0)
+	if err := os.Remove(filepath.Join(control.outputDir, scheduledProcessEventLogName)); err != nil {
+		t.Fatal(err)
+	}
+	if err := requireResumeAuthorization(control, resume); err == nil ||
+		!strings.Contains(err.Error(), "read process-event log") {
+		t.Fatalf("deleted log error = %v", err)
+	}
+}
+
+// TestScheduledResumePersistsTheResumeCounter exercises the round trip end to
+// end: a resumed run writes resumes=1 to the durable checkpoint, and a further
+// resume is refused.
+func TestScheduledResumePersistsTheResumeCounter(t *testing.T) {
+	schedule, output, config := interruptedAuthoringRun(t)
+	driver := &scriptedRuntime{results: repeatedRuntimeResults(len(schedule.Entries))}
+	if _, err := runScheduledCases(config, schedule, "sha256:schedule", 10, driver, fakeGrader{}); err != nil {
+		t.Fatal(err)
+	}
+	var checkpoint scheduledCheckpoint
+	if err := decodeStrict(filepath.Join(output, scheduledCheckpointName), &checkpoint); err != nil {
+		t.Fatal(err)
+	}
+	if checkpoint.Resumes != 1 {
+		t.Fatalf("checkpoint resumes = %d, want 1", checkpoint.Resumes)
+	}
+	summary, err := readScheduledPartialSummary(output)
+	if err != nil || summary.Resumes != 1 {
+		t.Fatalf("partial summary resumes = %#v, %v", summary, err)
+	}
+	checkpoint.Resumes = maximumScheduledResumes
+	if err := verifyCheckpointProgress(scheduledCheckpoint{Resumes: 2}, len(phase1Arms), scheduledResume{}); err == nil {
+		t.Fatal("a checkpoint claiming two resumes must be refused")
+	}
+}
+
+func TestValidationResumeAnchorsItsWindowToTheProcessEventLogAndTheClock(t *testing.T) {
+	tests := []struct {
+		name    string
+		mutate  func(map[string]any)
+		now     time.Time
+		message string
+	}{
+		{"interruption back-dated before the last process event", func(a map[string]any) {
+			a["interrupted_at"] = "2026-08-19T00:00:00Z"
+			a["cause_classified_at"] = "2026-08-19T00:05:00Z"
+			a["conditions_verified_at"] = "2026-08-19T00:10:00Z"
+			a["resume_authorized_at"] = "2026-08-19T00:12:00Z"
+		}, resumeFixtureBase.Add(12 * time.Minute), "precedes the last process event"},
+		{"authorization stamped in the future", func(map[string]any) {},
+			resumeFixtureBase.Add(-time.Hour), "stamped in the future"},
+		{"authorization stale at the moment of resume", func(map[string]any) {},
+			resumeFixtureBase.Add(48 * time.Hour), "stale"},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			control, resume := interruptedValidationResume(t, 0)
+			control.now = func() time.Time { return test.now }
+			writeTestAttestation(t, control, test.mutate)
+			err := requireResumeAuthorization(control, resume)
+			if err == nil || !strings.Contains(err.Error(), test.message) {
+				t.Fatalf("%s error = %v", test.name, err)
+			}
+		})
+	}
+}
+
+func TestScheduledStopKindNeverCarriesTheRawFailureText(t *testing.T) {
+	cases := map[string]string{
+		"":           "",
+		"run_budget": "run_budget",
+		`safety_stop: custody-safe grade status "fail" is inconsistent with its checks`: "safety_stop",
+		"something else": "other",
+	}
+	for reason, want := range cases {
+		if actual := scheduledStopKind(reason); actual != want {
+			t.Fatalf("stop kind for %q = %q, want %q", reason, actual, want)
+		}
+	}
+}
+
 func TestPostClosureGateRefusesValidationAfterANonCompletedExecution(t *testing.T) {
 	root := openValidationGateTestRoot(t, filepath.Join("..", "..", ".."))
 	gate := closureGateFixture(t, root)
@@ -225,12 +359,34 @@ func TestPostClosureGateRefusesValidationAfterANonCompletedExecution(t *testing.
 		!strings.Contains(err.Error(), "closure review record") {
 		t.Fatalf("missing closure review file = %v", err)
 	}
-	writeTestClosureReview(t, root)
-	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err != nil {
-		t.Fatalf("reviewed closure record = %v", err)
-	}
 	if err := gate("complete", "", ""); err != nil {
 		t.Fatalf("completed execution = %v", err)
+	}
+}
+
+// TestPostClosureGateRequiresARealReviewRecord covers the record side of the
+// gate: existence alone must not satisfy it, or any path in the repository
+// would stand in for an independent closure audit.
+func TestPostClosureGateRequiresARealReviewRecord(t *testing.T) {
+	root := openValidationGateTestRoot(t, filepath.Join("..", "..", ".."))
+	gate := closureGateFixture(t, root)
+	if err := gate("indeterminate", "README.md", "ACCEPT"); err == nil ||
+		!strings.Contains(err.Error(), "markdown review under docs/reviews") {
+		t.Fatalf("closure record outside docs/reviews = %v", err)
+	}
+	writeTestClosureReview(t, root, "")
+	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
+		!strings.Contains(err.Error(), "non-empty regular file") {
+		t.Fatalf("empty closure record = %v", err)
+	}
+	writeTestClosureReview(t, root, "verdict: REVISE\n")
+	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
+		!strings.Contains(err.Error(), "does not state an ACCEPT verdict") {
+		t.Fatalf("closure record contradicting the gate = %v", err)
+	}
+	writeTestClosureReview(t, root, "verdict: ACCEPT\n")
+	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err != nil {
+		t.Fatalf("reviewed closure record = %v", err)
 	}
 }
 
@@ -253,32 +409,92 @@ func closureGateFixture(t *testing.T, root string) func(status, review, verdict 
 	}
 }
 
-func writeTestClosureReview(t *testing.T, root string) {
+func writeTestClosureReview(t *testing.T, root, contents string) {
 	t.Helper()
 	if err := os.MkdirAll(filepath.Join(root, "docs", "reviews"), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(root, "docs", "reviews", "closure.md"), []byte("closure\n"), 0o600); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "docs", "reviews", "closure.md"), []byte(contents), 0o600); err != nil {
 		t.Fatal(err)
 	}
 }
 
+// resumeFixtureBase is the instant the fixture's interrupted custodian process
+// last wrote to its process-event log. The attested timestamps and the
+// authorization clock are anchored to it.
+var resumeFixtureBase = time.Date(2026, 8, 20, 0, 0, 0, 0, time.UTC)
+
 // assertPartialSummaryFieldsAreOutcomeFree checks the written JSON object
-// against the admitted section 9 field set in both directions.
+// against the admitted section 9 field set in both directions, and descends
+// into every nested object so a later field added inside artifact_digests
+// cannot ship an outcome past a top-level-only guard.
 func assertPartialSummaryFieldsAreOutcomeFree(t *testing.T, path string) {
 	t.Helper()
 	var raw map[string]json.RawMessage
 	readJSONForTest(t, path, &raw)
-	for field := range raw {
-		if !outcomeFreePartialFields[field] {
-			t.Fatalf("partial summary carries the non-admitted field %q", field)
+	assertExactFieldSet(t, "partial summary", raw, outcomeFreePartialFields)
+
+	var digests map[string]json.RawMessage
+	if err := json.Unmarshal(raw["artifact_digests"], &digests); err != nil {
+		t.Fatal(err)
+	}
+	assertExactFieldSet(t, "artifact_digests", digests, outcomeFreeDigestFields)
+
+	var counts map[string]int
+	if err := json.Unmarshal(raw["arm_assignment_counts"], &counts); err != nil {
+		t.Fatal(err)
+	}
+	for arm := range counts {
+		if !slices.Contains(phase1Arms, arm) {
+			t.Fatalf("arm_assignment_counts carries the non-arm key %q", arm)
 		}
 	}
-	for field := range outcomeFreePartialFields {
-		if _, present := raw[field]; !present {
-			t.Fatalf("partial summary is missing the required field %q", field)
+}
+
+func assertExactFieldSet(t *testing.T, label string, actual map[string]json.RawMessage, admitted map[string]bool) {
+	t.Helper()
+	for field := range actual {
+		if !admitted[field] {
+			t.Fatalf("%s carries the non-admitted field %q", label, field)
 		}
 	}
+	for field := range admitted {
+		if _, present := actual[field]; !present {
+			t.Fatalf("%s is missing the required field %q", label, field)
+		}
+	}
+}
+
+// interruptedAuthoringRun leaves a two-pairing-key schedule after its first
+// completed pairing key, with the checkpoint, partial summary, and
+// process-event log an interrupted custodian process would have written.
+func interruptedAuthoringRun(t *testing.T) (launchSchedule, string, runConfig) {
+	t.Helper()
+	schedule := distinctPairingSchedule(2)
+	repository := t.TempDir()
+	createRunnerFixture(t, repository)
+	output := filepath.Join(repository, "results")
+	if err := os.MkdirAll(output, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	config := runConfig{
+		repositoryRoot: repository, outputDir: output, worldBuild: testBuild,
+		worldPath: filepath.Join(repository, "world.json"), schemaPath: filepath.Join(repository, "schema.json"),
+		timeout: time.Second, budgetUSD: "0.15",
+	}
+	first := schedule.Entries[:len(phase1Arms)]
+	spent := 0.0
+	for _, entry := range first {
+		writeTestAssignment(t, config, entry, "pass", 0.01)
+		writeTestTrial(t, output, entry, testBuild)
+		spent = roundUSD(spent + 0.01)
+	}
+	writeTestCheckpoint(t, config, "sha256:schedule", testBuild, 10, spent, len(first), 1)
+	log := newProcessEventLog(output, "authoring", "sha256:schedule", testBuild)
+	if err := log.record(processEventStart, processEventProgress{}, "fresh scheduled execution"); err != nil {
+		t.Fatal(err)
+	}
+	return schedule, output, config
 }
 
 // runResilienceSchedule executes a complete two-pairing-key authoring schedule
@@ -351,13 +567,17 @@ func interruptedValidationResume(t *testing.T, resumes int) (resumeAuthorization
 		t.Fatal(err)
 	}
 	log := newProcessEventLog(output, "validation", "sha256:schedule", testBuild)
-	if err := log.record(processEventStart, processEventProgress{}, "fresh scheduled execution"); err != nil {
-		t.Fatal(err)
+	log.clock = func() time.Time { return resumeFixtureBase }
+	for start := 0; start <= resumes; start++ {
+		if err := log.record(processEventStart, processEventProgress{resumes: start}, "scheduled execution"); err != nil {
+			t.Fatal(err)
+		}
 	}
 	control := resumeAuthorization{
 		tranche: "validation", outputRelative: "results", outputDir: output,
 		attestationPath: filepath.Join(repository, "resume-attestation.json"),
 		scheduleDigest:  "sha256:schedule", worldBuild: testBuild,
+		now: func() time.Time { return resumeFixtureBase.Add(12 * time.Minute) },
 	}
 	writeTestAttestation(t, control, func(map[string]any) {})
 	resume := scheduledResume{hasCheckpoint: true, checkpoint: scheduledCheckpoint{V: 1, Resumes: resumes}}

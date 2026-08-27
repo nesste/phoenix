@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -140,18 +142,28 @@ type resumeAuthorization struct {
 	attestationPath string
 	scheduleDigest  string
 	worldBuild      string
+	now             func() time.Time
 }
 
 // requireResumeAuthorization enforces the section 9 mandatory-resume rule for
 // a validation tranche whose output directory already carries a checkpoint
 // written by an earlier custodian process. Authoring resumes are development
 // loops and are exempt; validation resumes are not.
+// resumeClockTolerance bounds how stale a resume authorization stamp may be
+// when the runner sees it, and resumeClockSkew allows for a slightly fast
+// custodian clock. Together with the process-event anchor they convert the
+// section 9 window from arithmetic on self-reported values into a check.
+const (
+	resumeClockTolerance = time.Hour
+	resumeClockSkew      = 5 * time.Minute
+)
+
 func requireResumeAuthorization(control resumeAuthorization, resume scheduledResume) error {
 	if !resume.hasCheckpoint || control.tranche != "validation" {
 		return nil
 	}
-	if resume.checkpoint.Resumes >= maximumScheduledResumes {
-		return fmt.Errorf("validation tranche already used its single resume; a second interruption closes it indeterminate")
+	if err := verifyResumeCount(control.outputDir, resume.checkpoint.Resumes); err != nil {
+		return err
 	}
 	if control.attestationPath == "" {
 		return fmt.Errorf("resuming an interrupted validation tranche requires --resume-attestation")
@@ -163,10 +175,87 @@ func requireResumeAuthorization(control resumeAuthorization, resume scheduledRes
 	if err := verifyResumeAttestationFields(control, attestation, resume.checkpoint.Resumes+1); err != nil {
 		return err
 	}
-	return verifyResumeAttestationTiming(attestation)
+	return verifyResumeAttestationTiming(control, attestation)
+}
+
+// verifyResumeCount enforces the single-resume bound. The checkpoint's counter
+// is one integer that an edit could lower, so it is corroborated against the
+// append-only process-event log, which carries exactly one start entry per
+// custodian process that has opened this directory. A missing or unreadable
+// log refuses the resume rather than defaulting to zero.
+func verifyResumeCount(outputDir string, recorded int) error {
+	starts, err := countProcessEventStarts(outputDir)
+	if err != nil {
+		return err
+	}
+	attested := starts - 1
+	if attested > recorded {
+		return fmt.Errorf(
+			"checkpoint records %d resumes but the process-event log attests %d; the tranche already used its single resume",
+			recorded, attested)
+	}
+	if recorded >= maximumScheduledResumes || attested >= maximumScheduledResumes {
+		return fmt.Errorf("validation tranche already used its single resume; a second interruption closes it indeterminate")
+	}
+	return nil
+}
+
+// countProcessEventStarts counts the custodian processes that have opened this
+// output directory, and returns the timestamp of the last event of any kind,
+// which anchors the section 9 resume window to something the interrupted
+// process itself wrote.
+func countProcessEventStarts(outputDir string) (int, error) {
+	starts, _, err := readProcessEventLog(outputDir)
+	return starts, err
+}
+
+func readProcessEventLog(outputDir string) (int, time.Time, error) {
+	contents, err := os.ReadFile(filepath.Join(outputDir, scheduledProcessEventLogName))
+	if err != nil {
+		return 0, time.Time{}, fmt.Errorf("read process-event log: %w", err)
+	}
+	starts := 0
+	var last time.Time
+	for _, line := range strings.Split(string(contents), "\n") {
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" {
+			continue
+		}
+		var event processEvent
+		if err := json.Unmarshal([]byte(trimmed), &event); err != nil {
+			return 0, time.Time{}, fmt.Errorf("decode process-event log: %w", err)
+		}
+		if event.Event == processEventStart {
+			starts++
+		}
+		recorded, err := time.Parse(time.RFC3339Nano, event.RecordedAt)
+		if err != nil {
+			return 0, time.Time{}, fmt.Errorf("decode process-event timestamp: %w", err)
+		}
+		if recorded.After(last) {
+			last = recorded
+		}
+	}
+	if starts == 0 {
+		return 0, time.Time{}, fmt.Errorf("process-event log records no custodian process start")
+	}
+	return starts, last, nil
 }
 
 func verifyResumeAttestationFields(control resumeAuthorization, attestation resumeAttestation, wantIndex int) error {
+	if err := verifyResumeAttestationIdentity(control, attestation, wantIndex); err != nil {
+		return err
+	}
+	if err := verifyResumeAttestationConditions(attestation); err != nil {
+		return err
+	}
+	if err := verifyResumeFrozenDigests(control, attestation); err != nil {
+		return err
+	}
+	return verifyAttestedProcessEventLog(control.outputDir, attestation)
+}
+
+func verifyResumeAttestationIdentity(control resumeAuthorization, attestation resumeAttestation, wantIndex int) error {
 	if attestation.V != 1 || attestation.Tranche != "validation" || attestation.OutputDir != control.outputRelative {
 		return fmt.Errorf("resume attestation does not describe this validation output directory")
 	}
@@ -176,6 +265,10 @@ func verifyResumeAttestationFields(control resumeAuthorization, attestation resu
 	if attestation.ResumeIndex != wantIndex {
 		return fmt.Errorf("resume attestation records resume %d, this is resume %d", attestation.ResumeIndex, wantIndex)
 	}
+	return nil
+}
+
+func verifyResumeAttestationConditions(attestation resumeAttestation) error {
 	if !frozenResumeCauses[attestation.Cause] {
 		return fmt.Errorf("interruption cause %q is not on the frozen outcome-uncorrelated cause list", attestation.Cause)
 	}
@@ -185,10 +278,7 @@ func verifyResumeAttestationFields(control resumeAuthorization, attestation resu
 	if attestation.Cause == "process_kill" && !attestation.KillPrincipal {
 		return fmt.Errorf("a process kill resumes only when the process-event log establishes a non-participant principal")
 	}
-	if err := verifyResumeFrozenDigests(control, attestation); err != nil {
-		return err
-	}
-	return verifyAttestedProcessEventLog(control.outputDir, attestation)
+	return nil
 }
 
 func verifyResumeFrozenDigests(control resumeAuthorization, attestation resumeAttestation) error {
@@ -197,7 +287,7 @@ func verifyResumeFrozenDigests(control resumeAuthorization, attestation resumeAt
 		"world_build":     control.worldBuild,
 	} {
 		if want == "" {
-			continue
+			return fmt.Errorf("resume authorization requires a live %s to compare", field)
 		}
 		if attestation.FrozenDigestsVerified[field] != want {
 			return fmt.Errorf("resume attestation records %s %q, live %q", field, attestation.FrozenDigestsVerified[field], want)
@@ -220,7 +310,7 @@ func verifyAttestedProcessEventLog(outputDir string, attestation resumeAttestati
 	return nil
 }
 
-func verifyResumeAttestationTiming(attestation resumeAttestation) error {
+func verifyResumeAttestationTiming(control resumeAuthorization, attestation resumeAttestation) error {
 	stamps := map[string]time.Time{}
 	for field, value := range map[string]string{
 		"interrupted_at":         attestation.InterruptedAt,
@@ -246,6 +336,33 @@ func verifyResumeAttestationTiming(attestation resumeAttestation) error {
 	}
 	if stamps["resume_authorized_at"].After(stamps["conditions_verified_at"]) && attestation.LapseExplanation == "" {
 		return fmt.Errorf("a resume later than the moment its conditions verified requires a written lapse explanation")
+	}
+	return verifyResumeTimingAnchors(control, stamps)
+}
+
+// verifyResumeTimingAnchors ties the attested timestamps to evidence the
+// custodian did not author: the last entry the interrupted process itself
+// wrote to the process-event log, and the runner's own clock. Without these
+// the 72-hour condition is arithmetic on invented inputs, satisfiable by
+// back-dating the interruption.
+func verifyResumeTimingAnchors(control resumeAuthorization, stamps map[string]time.Time) error {
+	_, lastEvent, err := readProcessEventLog(control.outputDir)
+	if err != nil {
+		return err
+	}
+	if stamps["interrupted_at"].Before(lastEvent) {
+		return fmt.Errorf("attested interruption precedes the last process event at %s", lastEvent.Format(time.RFC3339))
+	}
+	authorized := stamps["resume_authorized_at"]
+	if since := authorized.Sub(lastEvent); since > resumeWindow {
+		return fmt.Errorf("resume authorized %s after the last process event, past the 72-hour backstop", since)
+	}
+	now := control.now()
+	if authorized.After(now.Add(resumeClockSkew)) {
+		return fmt.Errorf("resume authorization is stamped in the future")
+	}
+	if now.Sub(authorized) > resumeClockTolerance {
+		return fmt.Errorf("resume authorization is %s stale; re-attest at the moment of resume", now.Sub(authorized))
 	}
 	return nil
 }
@@ -279,6 +396,7 @@ type scheduledProgress struct {
 	log       *processEventLog
 	resumes   int
 	groupSize int
+	live      *liveProgress
 }
 
 // recordStop appends the terminal process event for this custodian process.
@@ -290,10 +408,27 @@ func (progress scheduledProgress) recordStop(nextLaunchIndex int, summary schedu
 		completed = nextLaunchIndex / progress.groupSize
 	}
 	detail := summary.Status
-	if summary.StopReason != "" {
-		detail += ": " + summary.StopReason
+	if kind := scheduledStopKind(summary.StopReason); kind != "" {
+		detail += ": " + kind
 	}
 	return progress.log.record(processEventStop, progress.events(nextLaunchIndex, completed, summary.SpentUSD), detail)
+}
+
+// scheduledStopKind reduces a stop reason to a fixed token. The raw reason of
+// a safety stop concatenates an arbitrary error string, which for a
+// grade-shape failure can quote a per-trial status; the process-event log
+// carries outcome-free lifecycle events, so only the kind is recorded.
+func scheduledStopKind(stopReason string) string {
+	switch {
+	case stopReason == "":
+		return ""
+	case strings.HasPrefix(stopReason, "safety_stop"):
+		return "safety_stop"
+	case stopReason == "run_budget":
+		return "run_budget"
+	default:
+		return "other"
+	}
 }
 
 // scheduledResumeControl describes this execution to the section 9 resume
@@ -311,6 +446,7 @@ func scheduledResumeControl(config runConfig, scheduleDigest string) (resumeAuth
 		attestationPath: config.resumeAttestation,
 		scheduleDigest:  scheduleDigest,
 		worldBuild:      config.worldBuild,
+		now:             func() time.Time { return time.Now().UTC() },
 	}, nil
 }
 
@@ -331,8 +467,9 @@ func (progress scheduledProgress) recordCheckpoint(
 	if err := writeScheduledCheckpoint(config, scheduleDigest, summary, nextLaunchIndex, completedPairingKeys, progress.resumes); err != nil {
 		return err
 	}
-	if err := progress.log.record(processEventCheckpoint,
-		progress.events(nextLaunchIndex, completedPairingKeys, summary.SpentUSD), ""); err != nil {
+	reached := progress.events(nextLaunchIndex, completedPairingKeys, summary.SpentUSD)
+	progress.live.set(reached)
+	if err := progress.log.record(processEventCheckpoint, reached, ""); err != nil {
 		return err
 	}
 	return writeScheduledPartialSummary(config, schedule, scheduleDigest, summary.SpentUSD, nextLaunchIndex, progress.resumes)

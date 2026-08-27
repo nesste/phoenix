@@ -41,6 +41,8 @@ func runScheduledCases(
 	if err != nil {
 		return scheduledSummary{}, err
 	}
+	stopWatch := watchProcessTermination(progress.log, progress.live.get)
+	defer stopWatch()
 	done, err := applyScheduledResume(config, schedule, resume, &summary)
 	if err != nil {
 		return scheduledSummary{}, err
@@ -55,6 +57,7 @@ func runScheduledCases(
 	}
 	runErr := runRemainingSchedule(config, schedule, scheduleDigest, resume.nextIndex, perTrialCap, runBudgetUSD, runtime, grader, progress, &summary)
 	if runErr != nil {
+		_ = progress.recordStop(summary.Launched, scheduledSummary{Status: "error"})
 		return scheduledSummary{}, runErr
 	}
 	if err := progress.recordStop(len(schedule.Entries), summary); err != nil {
@@ -84,6 +87,7 @@ func openScheduledProgress(
 		log:       newProcessEventLog(config.outputDir, effectiveTranche(config), scheduleDigest, config.worldBuild),
 		resumes:   resume.checkpoint.Resumes,
 		groupSize: len(schedule.Arms),
+		live:      &liveProgress{},
 	}
 	detail := "fresh scheduled execution"
 	if resume.hasCheckpoint {
@@ -95,7 +99,9 @@ func openScheduledProgress(
 		completed = resume.nextIndex / progress.groupSize
 	}
 	spent := spentBefore(resume.results, resume.nextIndex)
-	return progress, progress.log.record(processEventStart, progress.events(resume.nextIndex, completed, spent), detail)
+	opening := progress.events(resume.nextIndex, completed, spent)
+	progress.live.set(opening)
+	return progress, progress.log.record(processEventStart, opening, detail)
 }
 
 // applyScheduledResume replays retained assignment records into the summary
