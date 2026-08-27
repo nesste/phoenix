@@ -1,0 +1,96 @@
+{
+  "v": 1,
+  "case_id": "validation_3a0ac0c7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3MCAIheha_vwqxYtleZB-edk\",\"act_id\":\"a_XCI3DDPEXKMBD7EYVNHRLFNMQA\",\"handle\":\"h_cXZqN7UZiAFj9JTzxrljzIgz\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3MCAIheha_vwqxYtleZB-edk\",\"act_id\":\"a_7RDDBRRUHKOZ2SRACA3ZARPFC2\",\"handle\":\"h_P8zP7vnzRXuBBgGLGXVSgJCt\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}],\"tests\":[\"TestRolloverCurrent\",\"TestRolloverQualified\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "search",
+      "args": {
+        "query": "RolloverQualified"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3MCAIheha_vwqxYtleZB-edk\",\"act_id\":\"a_COHLL7QGOZXHCETDEOBJ674OAC\",\"handle\":\"h_P8zP7vnzRXuBBgGLGXVSgJCt\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverQualified"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3MCAIheha_vwqxYtleZB-edk\",\"act_id\":\"a_6ICSKD433MUOYZ7GXEHQEOJADJ\",\"handle\":\"h_P8zP7vnzRXuBBgGLGXVSgJCt\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T11:12:45.312586708+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:45.316576773+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:45.316621233+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Output\\\":\\\"=== RUN   TestRolloverQualified\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:45.316632254+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Output\\\":\\\"--- PASS: TestRolloverQualified (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:45.316634853+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:45.316638141+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:45.31710588+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/rollover/rollover\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:45.317781455+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Elapsed\\\":0.005}\\n\",\"test\":\"TestRolloverQualified\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Discover and focus the exact live test name matching shorthand RolloverQualified, which is not runnable as-is.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List/search all test names to find the one matching shorthand \"RolloverQualified\"",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Discover and focus the exact live test name matching shorthand RolloverQualified, which is not runnable",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Found it. The live test list contains `TestRolloverCurrent` (renamed from `TestRolloverOld`) and `TestRolloverQualified`. The shorthand \"RolloverQualified\" maps exactly to **`TestRolloverQualified`**, which I focused and ran successfully — PASS (exit_code=0).",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

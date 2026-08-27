@@ -1,0 +1,65 @@
+{
+  "v": 1,
+  "case_id": "validation_c21b964e",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_OJRcxWGzMUPeTEZHi-FjEnO5\",\"act_id\":\"a_WUM6JK2ZNKPDUXS4NBVSIJKZWW\",\"handle\":\"h_4dOaahhmux1BFYv2vyyHrs9W\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_xSUD4pF6uBOl4nCrrj2Aow3r\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_OJRcxWGzMUPeTEZHi-FjEnO5\",\"act_id\":\"a_DCASWU4UWQPSBURHSQEDVM7FVQ\",\"handle\":\"h_xSUD4pF6uBOl4nCrrj2Aow3r\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"ImportPath\\\":\\\"example.test/core\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"# example.test/mapapp/app\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"example.test/core\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"app/app.go:2:8: example.test/core@v0.0.0: replacement directory ./deps/missing does not exist\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"example.test/core\\\",\\\"Action\\\":\\\"build-fail\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:51:46.148724264+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:51:46.14876438+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/mapapp/app [setup failed]\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:51:46.148787139+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Elapsed\\\":0,\\\"FailedBuild\\\":\\\"example.test/core\\\"}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_xSUD4pF6uBOl4nCrrj2Aow3r\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Build this snapshot and report the replacement-path diagnostic. Live handles: repo: h_4dOaahhmux1BFYv2vyyHrs9W, tests: h_xSUD4pF6uBOl4nCrrj2Aow3r, git: h_FbODBCpjUaP9D7cJ0tHFpxLI, episodes: h_rt8Hpb76xwaY736eCy8Ymm_x",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The build fails with a **replacement-path diagnostic** in `go.mod`:\n\n```\napp/app.go:2:8: example.test/core@v0.0.0: replacement directory ./deps/missing does not exist\n```\n\n**Details:**\n- Package: `example.test/core`\n- Result: `build-fail` → `example.test/mapapp/app` test setup failed (exit code 1, 1 failed, 0 passed)\n- Root cause: the module `example.test/core` has a `replace` directive pointing to `./deps/missing`, but that local replacement directory does not exist in the repo/filesystem, so the build cannot resolve the dependency and the `app` package fails at setup before any tests run.\n\n**Fix direction:** correct or remove the `replace ... =\u003e ./deps/missing` line in `go.mod` (point it to the actual vendored/local path of `example.test/core`, or remove the replace if the module should be fetched normally).",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/missing\n"
+      }
+    ]
+  }
+}

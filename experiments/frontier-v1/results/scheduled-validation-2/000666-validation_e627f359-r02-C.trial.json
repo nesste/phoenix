@@ -1,0 +1,92 @@
+{
+  "v": 1,
+  "case_id": "validation_e627f359",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_P26KuALwIG7stcb7OH8m51jy\",\"act_id\":\"a_HJZTDLESZ6H5RPBMXSYAYFQCDB\",\"handle\":\"h_4lKlI45nc8_HUzY58KjP_Kt2\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestInkIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_4lKlI45nc8_HUzY58KjP_Kt2\",\"verb\":\"focus\",\"args\":{\"test\":\"TestInkIndex\"},\"state\":\"sha256:b5272aa667315834a46126150e387d7e12b86aa7ad2e2b0350f8909b47470350\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestInkIndex"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_P26KuALwIG7stcb7OH8m51jy\",\"act_id\":\"a_73J4FMAATKA3LLQGOQVZF5KIBK\",\"handle\":\"h_4lKlI45nc8_HUzY58KjP_Kt2\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined stale suite state: the test suite changed after the call was suggested\\ninstead: h_4lKlI45nc8_HUzY58KjP_Kt2.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined stale suite state\",\"why\":\"the test suite changed after the call was suggested\",\"instead\":{\"handle\":\"h_4lKlI45nc8_HUzY58KjP_Kt2\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_P26KuALwIG7stcb7OH8m51jy\",\"act_id\":\"a_FVMWLQHJHGWHJ5GFRSAFCEH6JO\",\"handle\":\"h_4lKlI45nc8_HUzY58KjP_Kt2\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNoticeIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_4lKlI45nc8_HUzY58KjP_Kt2\",\"verb\":\"focus\",\"args\":{\"test\":\"TestNoticeIndex\"},\"state\":\"sha256:43d6734748baa6645a22c4093f09512b161959b3c7d5c7221d160c6bc1b1c05a\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNoticeIndex"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_P26KuALwIG7stcb7OH8m51jy\",\"act_id\":\"a_7PDANEJ4UMBBCOMX5CGZXU225Q\",\"handle\":\"h_4lKlI45nc8_HUzY58KjP_Kt2\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T13:49:30.142174722+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:49:30.1443221+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:49:30.144349514+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\",\\\"Output\\\":\\\"=== RUN   TestNoticeIndex\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:49:30.14437444+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\",\\\"Output\\\":\\\"--- PASS: TestNoticeIndex (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:49:30.144377122+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T13:49:30.144380373+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:49:30.144752138+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/licenses/legal\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:49:30.145722983+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestNoticeIndex\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the current license-index test after it is replaced during my initial suite catalog.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The suite catalog kept shifting live: it first showed `TestInkIndex`, but by the time I focused, the license-index test had been renamed to `TestNoticeIndex` (in package `example.test/licenses/legal`).\n\nResult of running the current license-index test after replacement:\n- **Test:** TestNoticeIndex\n- **Status:** PASS (exit_code=0, 0.00s, no stderr)",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/licenses\n\ngo 1.22\n"
+      },
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "legal/license_test.go",
+        "present": true,
+        "content": "package legal\nimport \"testing\"\nfunc TestNoticeIndex(t *testing.T) {}\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

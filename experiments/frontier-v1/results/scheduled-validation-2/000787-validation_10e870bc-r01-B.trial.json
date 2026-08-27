@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_10e870bc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3d3nYRv8aC244eRPDPr56fFf\",\"act_id\":\"a_GHYBX3MOY7GORUAU5T7ETN55ZW\",\"handle\":\"h_i_B74e2r5BLNEQARabKsdheW\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestTruncatedDiagnostic\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestTruncatedDiagnostic"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3d3nYRv8aC244eRPDPr56fFf\",\"act_id\":\"a_RRFRWWIFZXZ2VO3WYJ6F3I6XU4\",\"handle\":\"h_i_B74e2r5BLNEQARabKsdheW\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T14:36:59.143447774+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:59.146093004+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:59.146114247+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Output\\\":\\\"=== RUN   TestTruncatedDiagnostic\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:59.146131935+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Output\\\":\\\"--- PASS: TestTruncatedDiagnostic (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:59.146135388+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:59.146138456+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:59.146523437+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/diagnostics/diag\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:59.147170853+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestTruncatedDiagnostic\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3d3nYRv8aC244eRPDPr56fFf\",\"act_id\":\"a_TA6LXVHBBPSRDHQV3BEFXHWJMO\",\"handle\":\"h_i_B74e2r5BLNEQARabKsdheW\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestTruncatedDiagnostic\",\"TestOverflowDiagnostic\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestOverflowDiagnostic"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3d3nYRv8aC244eRPDPr56fFf\",\"act_id\":\"a_JHLHB3EQJBO6VCKRU2VA4X3KKN\",\"handle\":\"h_i_B74e2r5BLNEQARabKsdheW\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T14:37:05.775684517+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:05.777841484+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:05.777890711+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"=== RUN   TestOverflowDiagnostic\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:05.777900859+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"--- PASS: TestOverflowDiagnostic (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:05.777903991+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:05.777907334+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:05.778268206+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/diagnostics/diag\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:05.77891498+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestOverflowDiagnostic\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "`TestOverflowDiagnostic` — **PASSED** (0.00s), confirmed after the test catalog expanded to include it.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\nfunc TestOverflowDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "v": 1,
+  "case_id": "validation_39d4cd8c",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "go.mod"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_EP4DQzk8627UTD5wIHeYU8y7\",\"act_id\":\"a_DJTNAOXEQM35FZ5G2MTWJOHQLC\",\"handle\":\"h_txMKa7bVLJIbi58ibhWzM9e2\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"module example.test/mapapp\\n\\ngo 1.22\\n\\nrequire example.test/core v0.0.0\\nreplace example.test/core =\\u003e ./deps/core\\n\",\"digest\":\"sha256:cb309c0f8fb050f969bc85f377d68b89271c59843bacc83cf5634824f060131f\",\"path\":\"go.mod\"},\"error\":null,\"text\":\"ok repo.read: content=module example.test/mapapp  go 1.22  require example.test/core v0.0.0 replace example.test/core =\\u003e ./deps/core , digest=sha256:cb309c0f8fb050f969bc85f377d68b89271c59843bacc83cf5634824f060131f, path=go.mod\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The local directory replacing `example.test/core` is `./deps/core`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

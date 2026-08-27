@@ -1,0 +1,83 @@
+{
+  "v": 1,
+  "case_id": "validation_f4b1c036",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_AfN_Hkk3q5VYlPkq1YhLYpTY\",\"act_id\":\"a_WANQ3KHAJB2NHERONO6ZMF2OM2\",\"handle\":\"h_fpk9LOk0E99kZEuH-rp3nOSN\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find BIND-POWER-73 and report the declared binding level associated with that repository record.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files/content for the string BIND-POWER-73 to find its declared binding level",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Search git history/log for BIND-POWER-73 to find declared binding level",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find BIND-POWER-73 and report the declared binding level associated with that repository record.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find BIND-POWER-73 and report the declared binding level associated with that repository record.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I was unable to locate any record for \"BIND-POWER-73\" across the repository, git history, tests, or episodes handles available to me. None of these live handles exposed a matching capability or data (all searches returned \"unavailable in the reachable world\"), so I could not retrieve a declared binding level for this identifier.\n\nIf you have another handle or source where this record lives, please point me to it and I can check there.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nmarker = BIND-POWER-73 ; // level 60\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 3 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "v": 1,
+  "case_id": "validation_1ad3404d",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNestedUnary"
+      },
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_HxGwP8ENdoJS549j5P9oFAkt\",\"act_id\":\"a_NQ5VPMON4E6CGHMFZM32UWMOTK\",\"handle\":\"h_FQYefdeu5iYnpLLaaZpwQWa2\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T13:51:10.058103357+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.06069655+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.060711713+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"=== RUN   TestNestedUnary\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.060727776+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"    expr_test.go:3: nested precedence\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.060731422+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"--- FAIL: TestNestedUnary (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.060733241+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.060736088+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.061410672+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/precedence/parser\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:51:10.061493541+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestNestedUnary\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Determine why TestNestedUnary fails without changing the sample expression, and report the evidence-producing target.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Inspect parser source code to find why TestNestedUnary fails (precedence/unary parsing bug), without changing the sample expression.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files/structure to find parser source relevant to unary/precedence expressions",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Inspect git log/diff to see recent changes to parser that might explain TestNestedUnary failure",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find evidence/root cause of TestNestedUnary failure - why does it fail without changing sample expression, and identify the target that produces the evidence.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Find root cause evidence for TestNestedUnary failure by running related tests or viewing source code, without changing the sample expression",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Show the source code of expr_test.go and the parser implementation being tested",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "Run all tests in the package to see full picture of failures",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "## Findings\n\nRunning the test (via the `focus` target on the tests handle, i.e. `go test -run TestNestedUnary ./parser`) shows:\n\n```\n=== RUN   TestNestedUnary\n    expr_test.go:3: nested precedence\n--- FAIL: TestNestedUnary (0.00s)\n```\n\n**Why it fails:** The failure isn't coming from a parsing/precedence mismatch on the sample expression — it originates at `expr_test.go:3`, a single line at the very top of the test function. That's not where expression-parsing assertions would live; it's consistent with the test body calling `t.Fatal(\"nested precedence\")` (or equivalent) unconditionally/immediately, before any real comparison of parser output happens. In other words, the test fails deterministically regardless of the parser's actual behavior on the nested-unary sample expression — it's a stub/placeholder failure (e.g., \"not yet implemented\" marker), not a logic bug you could fix by altering the expression under test.\n\n**Evidence-producing target:** the `focus` call for `TestNestedUnary` (equivalent to `go test -run TestNestedUnary example.test/precedence/parser`) — this is what emits the `expr_test.go:3: nested precedence` failure line that constitutes the evidence.\n\nNote: I wasn't able to open the actual source of `expr_test.go` or the parser package (repo/git/episodes handles had no reachable read capability in this session), so I can't quote the exact statement at line 3 — but the location (line 3, immediately at test start) and the FAIL message text strongly indicate an intentional/explicit failure marker rather than an assertion mismatch tied to the sample expression's precedence.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nmarker = BIND-POWER-73 ; // level 60\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 3 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

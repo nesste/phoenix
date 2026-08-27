@@ -1,0 +1,90 @@
+{
+  "v": 1,
+  "case_id": "validation_7be1ac42",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_vHXHDdY5Z31_X8xi1GKf7Vlc\",\"act_id\":\"a_3LAW2MYFJ5E673G5USVZMNRLHN\",\"handle\":\"h_9z4IyZ3SWp8FAB8pjLjfyB4q\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_fVUZ1Xswcze1nwD_CpMc85bk\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "license index"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_vHXHDdY5Z31_X8xi1GKf7Vlc\",\"act_id\":\"a_FXF3ID5FJNUBCZ2HK6QC5VLKPR\",\"handle\":\"h_9z4IyZ3SWp8FAB8pjLjfyB4q\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "ink"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_vHXHDdY5Z31_X8xi1GKf7Vlc\",\"act_id\":\"a_A3ON6ANUIFPBAX7X6LMTJG6KYK\",\"handle\":\"h_9z4IyZ3SWp8FAB8pjLjfyB4q\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"index/licenses.md\",\"legal/NOTICE\",\"modules/ink/LICENSE.fragment\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_9z4IyZ3SWp8FAB8pjLjfyB4q\",\"verb\":\"read\",\"args\":{\"path\":\"index/licenses.md\"}},\"why\":\"inspect the first matching repository file\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "index/licenses.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_vHXHDdY5Z31_X8xi1GKf7Vlc\",\"act_id\":\"a_RNJUJKV7AVOWGXHD4L23SZ7GDK\",\"handle\":\"h_9z4IyZ3SWp8FAB8pjLjfyB4q\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Ink clause: modules/ink/LICENSE.fragment\\n\",\"digest\":\"sha256:51e81fd4967ba14e8b856dcb3d9a1cd62326f4cef646a4935180c430e60dd624\",\"path\":\"index/licenses.md\"},\"error\":null,\"text\":\"ok repo.read: content=Ink clause: modules/ink/LICENSE.fragment , digest=sha256:51e81fd4967ba14e8b856dcb3d9a1cd62326f4cef646a4935180c430e60dd624, path=index/licenses.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Read the license index and report the path recorded for the ink clause.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for a license index file that records clause paths, specifically the ink clause path.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The license index (`index/licenses.md`) records the ink clause path as:\n\n**modules/ink/LICENSE.fragment**",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

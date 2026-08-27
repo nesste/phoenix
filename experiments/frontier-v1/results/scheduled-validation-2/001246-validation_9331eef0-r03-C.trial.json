@@ -1,0 +1,81 @@
+{
+  "v": 1,
+  "case_id": "validation_9331eef0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jQIU4o3t6fhhQH6zpZ8W8yQ1\",\"act_id\":\"a_EE3AGUXNSN6GISOVAUWYNCOJIZ\",\"handle\":\"h_Tro3FHU_fIJLdsGpYWzFTdYb\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_-FdS_mbXyZX7T21UiDnUcrms\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jQIU4o3t6fhhQH6zpZ8W8yQ1\",\"act_id\":\"a_ACWOHINLD4RBWAEQKHBVXV2VSU\",\"handle\":\"h_-FdS_mbXyZX7T21UiDnUcrms\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:59:11.568152161+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:11.570544856+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:11.570573979+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Output\\\":\\\"=== RUN   TestNightWindow\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:11.570604663+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Output\\\":\\\"--- PASS: TestNightWindow (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:11.570607051+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:11.570610596+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:11.570969401+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/roster/roster\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:11.571968506+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the first live roster check after the roster is replaced following your initial test listing.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find action to replace the roster, then verify the first live roster check after replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find action to replace the roster, then verify the first live roster check after replacement.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Replace the roster in the repo, then verify the first live roster check after replacement.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable capability exists in this world to replace the roster or perform a subsequent \"live roster check.\" \n\nSummary of what was verified:\n- Repo status: branch `master`, clean.\n- Initial test run (the \"initial test listing\"): `TestNightWindow` in package `example.test/roster/roster` — 1 passed, 0 failed, exit code 0.\n\nAfter that, I probed all four handles (tests, episodes, git, repo) for any action to replace the roster or perform a subsequent roster check, and none is reachable from the current state — orient returned \"capability unavailable\" for each. So there is no \"first live roster check after the roster is replaced\" available to verify in this environment; the only live roster-related check that exists is the one already run above (`TestNightWindow`, passing).",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestNightWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

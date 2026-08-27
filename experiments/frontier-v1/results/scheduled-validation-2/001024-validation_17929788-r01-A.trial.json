@@ -1,0 +1,37 @@
+{
+  "v": 1,
+  "case_id": "validation_17929788",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [],
+  "orientations": [],
+  "final_message": "I don't have any prior context about a specific dependency or a \"frozen tools\" configuration to evaluate here — this appears to be the start of our conversation with no repository, file, or module details provided yet.\n\nBased on the tools actually available to me in this session, I can state generally: none of my tools (episodes.recall, git.commit/diff/status, repo.build/edit/find/read/status, tests.focus/list/run) provide network access to query a remote Go module proxy (e.g., proxy.golang.org). They only operate on the local repository, git history, local test suite, and prior session episodes. So I cannot fetch or verify a dependency from a remote Go module proxy.\n\nIf you can share which dependency you mean (module path/version) and any relevant file like go.mod or go.sum, I can inspect the local repo state for it using repo.read/repo.find.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

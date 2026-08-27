@@ -1,0 +1,55 @@
+{
+  "v": 1,
+  "case_id": "validation_5163bd42",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YSxcUIyrqCBkXy7TKuD8IDX8\",\"act_id\":\"a_6TJCIEDV5ZK6T3WXOBDJV3HFSB\",\"handle\":\"h_-Wz3AnNweUvA9azZkDdBk9j0\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine whether the available tools can query a hosted error-telemetry index.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "No — the available tools (repo, tests, git, episodes) only expose repository/test/git/episode operations like status, orient, etc. There is no capability among them to query a hosted error-telemetry index; none of the handles provide access to any external telemetry, monitoring, or error-tracking service.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

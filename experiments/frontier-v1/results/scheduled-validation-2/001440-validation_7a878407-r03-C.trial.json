@@ -1,0 +1,148 @@
+{
+  "v": 1,
+  "case_id": "validation_7a878407",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m3G-TDwF1UWs3IHlRLonzm1r\",\"act_id\":\"a_5GRES5XJZUETD32B3OKKOP5UJX\",\"handle\":\"h_7dFWQOk3933pey_Z8hVlELOB\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_NKIDZdec_fGZYJUPMqM_mVu2\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m3G-TDwF1UWs3IHlRLonzm1r\",\"act_id\":\"a_RV3EG4ECWQM4YOH76TZQ5SYR47\",\"handle\":\"h_NKIDZdec_fGZYJUPMqM_mVu2\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:39:52.193194351+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195409664+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195454501+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisNorth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195471813+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisNorth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195474265+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195477112+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195478729+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisSouth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195480786+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisSouth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195482586+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195484175+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.195847894+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/matrix/matrix\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:39:52.196803529+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m3G-TDwF1UWs3IHlRLonzm1r\",\"act_id\":\"a_ZYC4W2G2S4FGAOF2T6R6KGGZKL\",\"handle\":\"h_qvXEaKVnheTW8HDu8-ChL559\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "AXIS-HISTORY-52"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m3G-TDwF1UWs3IHlRLonzm1r\",\"act_id\":\"a_446TUZP662TEUFBLJ4IZHLXTUG\",\"handle\":\"h_7dFWQOk3933pey_Z8hVlELOB\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "name": "*history*"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m3G-TDwF1UWs3IHlRLonzm1r\",\"act_id\":\"a_BSVOIE4ZM6C33NWLBJXIVEVOQB\",\"handle\":\"h_7dFWQOk3933pey_Z8hVlELOB\",\"verb\":\"find\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed find: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m3G-TDwF1UWs3IHlRLonzm1r\",\"act_id\":\"a_POVP2LWA67ABYTVACSGWFPXWIB\",\"handle\":\"h_7dFWQOk3933pey_Z8hVlELOB\",\"verb\":\"find\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed find: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "AXIS-HISTORY-52"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m3G-TDwF1UWs3IHlRLonzm1r\",\"act_id\":\"a_MJURRGA75HP75BDIQ7CYPZVWTH\",\"handle\":\"h_7dFWQOk3933pey_Z8hVlELOB\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"matrix/axes.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_7dFWQOk3933pey_Z8hVlELOB\",\"verb\":\"read\",\"args\":{\"path\":\"matrix/axes.md\"}},\"why\":\"inspect the first matching repository file\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find AXIS-HISTORY-52 and report its file path within the repository.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository text/content for the string AXIS-HISTORY-52 to locate which file contains it.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Search git history/log/grep for the string AXIS-HISTORY-52 to locate relevant commit or file.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Search episodes for AXIS-HISTORY-52 to find its file path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Search git log for commit messages or content mentioning AXIS-HISTORY-52",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "List repository files or search file contents for the string AXIS-HISTORY-52 to determine which file path contains it",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "List test files or details to find any reference to AXIS-HISTORY-52 identifier and its source file path",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Found it via repository search: **AXIS-HISTORY-52** is located at `matrix/axes.md`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

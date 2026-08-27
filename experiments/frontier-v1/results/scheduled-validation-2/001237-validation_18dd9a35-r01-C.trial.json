@@ -1,0 +1,60 @@
+{
+  "v": 1,
+  "case_id": "validation_18dd9a35",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cPdakTEF8Kz1K-49vQluM4XM\",\"act_id\":\"a_HR3E2MWHYLOLAW6DVGF7DASHH4\",\"handle\":\"h_cyJaPFQm6xU4ZNE2bHAYygi9\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_5Igec8Qv-dq2-MH4w6ImhQ0Q\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cPdakTEF8Kz1K-49vQluM4XM\",\"act_id\":\"a_V33B7ENK75RGRIV5TKCBZL36HR\",\"handle\":\"h_5Igec8Qv-dq2-MH4w6ImhQ0Q\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:57:53.379100926+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381794916+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMorningWindow\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381827703+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMorningWindow\\\",\\\"Output\\\":\\\"=== RUN   TestMorningWindow\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381862382+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMorningWindow\\\",\\\"Output\\\":\\\"--- PASS: TestMorningWindow (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381868499+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMorningWindow\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381872127+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestEveningWindow\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381874165+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestEveningWindow\\\",\\\"Output\\\":\\\"=== RUN   TestEveningWindow\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381876866+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestEveningWindow\\\",\\\"Output\\\":\\\"--- PASS: TestEveningWindow (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381878868+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestEveningWindow\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.381881008+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.382299868+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/roster/roster\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:57:53.3834441+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "List the runnable roster checks and report their exact live names.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The runnable roster checks in `example.test/roster/roster` are:\n\n1. **TestMorningWindow** — PASS\n2. **TestEveningWindow** — PASS\n\nBoth ran successfully (exit code 0, 2 passed, 0 failed).",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestMorningWindow(t *testing.T) {}\nfunc TestEveningWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

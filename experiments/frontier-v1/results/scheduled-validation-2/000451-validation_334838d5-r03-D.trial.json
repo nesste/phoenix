@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_334838d5",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_r9ThgIW0H3D8wB8CTx-OHcX3\",\"act_id\":\"a_SDJSQ52FC3V2PVIUIUQTIPKX7R\",\"handle\":\"h_DUXWMMld50n2guyCL6Jya8L9\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Read the live current stamp value before updating it to 2026.09",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Read the live current stamp value, then change it from the stale value 2026.07 to 2026.09",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Read the live current stamp value, then change it from the stale value 2026.07 to 2026.09",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Read the live current stamp value, then change it from the stale value 2026.07 to 2026.09",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four handles (repo, tests, git, episodes) expose a \"stamp\" capability — the intent to read or change a stamp value doesn't match any reachable action in this world. The repo status check succeeded (branch master, clean), but there's no accessible verb related to a \"stamp\" field on any handle, so I cannot read the live value or perform the change as requested.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

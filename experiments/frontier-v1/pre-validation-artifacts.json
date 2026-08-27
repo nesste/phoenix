@@ -3,17 +3,17 @@
   "status": "complete",
   "source_limit": "public_validation_inputs_only",
   "gates": {
-    "may_open_validation": true,
+    "may_open_validation": false,
     "may_open_held_out": false,
     "validation_opened_on": "2026-08-26",
     "validation_opening_decision": "docs/decisions/0022-protocol-v4-gate-1a-validation-reopening-after-world-compatibility-repair.md",
     "prior_validation_opening_decision": "docs/decisions/0019-protocol-v4-gate-1a-validation-reopening-after-refactor.md",
     "validation_scope": "frozen_validation_schedule_only",
     "validation_execution_status": "indeterminate",
-    "validation_execution_closed_on": "2026-08-23",
-    "validation_execution_decision": "docs/decisions/0013-protocol-v4-gate-1a-interrupted-execution.md",
-    "validation_execution_evidence": "experiments/frontier-v1/results/scheduled-validation",
-    "validation_execution_custody": "experiments/frontier-v1/results/scheduled-validation-custody.json"
+    "validation_execution_closed_on": "2026-08-27",
+    "validation_execution_decision": "docs/decisions/0023-protocol-v4-gate-1a-second-interrupted-execution.md",
+    "validation_execution_evidence": "experiments/frontier-v1/results/scheduled-validation-2",
+    "validation_execution_custody": "experiments/frontier-v1/results/scheduled-validation-2-custody.json"
   },
   "artifacts": {
     "arm_b_static_document": {

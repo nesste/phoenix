@@ -1,0 +1,134 @@
+{
+  "v": 1,
+  "case_id": "validation_c91bbf0b",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_uN2teaEhDSG5I6V9ERKGWwly\",\"act_id\":\"a_43P7SUNIGAWYORHPN63OVD222J\",\"handle\":\"h_kuwgrRuVNEjLM7PtsBPtzVb_\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestBlueChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_uN2teaEhDSG5I6V9ERKGWwly\",\"act_id\":\"a_4IK3M6FPGXZLPLUYXGJQOZ7Q67\",\"handle\":\"h_6fUTy6clAn8x0idb134EptMz\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_uN2teaEhDSG5I6V9ERKGWwly\",\"act_id\":\"a_OW2BJS4BADPB4R53NAKZZRCSTQ\",\"handle\":\"h_WY7WpyB7KaP7a_LCe6BvEYkM\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the current breadcrumb test after its definition changes immediately after the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find commit history relevant to breadcrumb test, especially the commit immediately after the initial catalog commit where the breadcrumb test's definition changed.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "List git log/history to find commits about breadcrumb test and initial catalog",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Show git commit log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Find breadcrumb test file and its definition change after the initial catalog commit",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Check the current breadcrumb test after its definition changes immediately after the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "list repository files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "list commits",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "intent": "Show the definition and change history of TestBlueChain, specifically what happens after the initial catalog",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to trace the breadcrumb test's history across all provided handles, but the current reachable world only exposes one capability: `tests.list`, which returns a single test — **TestBlueChain** — with no rename history and no further frontier calls available.\n\nNone of the other handles (repo, git, episodes) expose a reachable capability for viewing commit history, diffs, or file definitions from this state — every attempt (log, list, orient with various intents) returned \"act is not reachable\" or \"capability unavailable in the reachable world.\" There's also no test literally named \"breadcrumb\" in the current catalog.\n\nGiven the tools currently reachable, I cannot retrieve the breadcrumb test's post-initial-catalog definition or diff — that capability isn't exposed in this session's live handles. The only concrete fact obtainable is:\n\n- **Tests catalog:** `[\"TestBlueChain\"]`, 0 renames recorded.\n\nIf \"breadcrumb test\" refers to something tracked under a different handle/verb not yet granted (e.g., a specific git commit or episode ID), I'd need that handle/verb explicitly granted to proceed — the current frontier is empty and no further calls are offered by the system.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/chain_test.go",
+        "present": true,
+        "content": "package breadcrumbs\nimport \"testing\"\nfunc TestRedChain(t *testing.T) {}\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/breadcrumbs\n\ngo 1.22\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

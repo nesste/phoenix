@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "case_id": "validation_f8d7dce7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bYiDc9SnYVddgf_DdZb224Tl\",\"act_id\":\"a_BMCWGZAUDR7HWSCULGWCKNS4QW\",\"handle\":\"h_qFlw_Q9QtcRk0Pto7XJqJ2ep\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true,\"output\":\"## master\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=true, output=## master \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bYiDc9SnYVddgf_DdZb224Tl\",\"act_id\":\"a_Q5ULXACXD5I3WMWF3F6OP6OS3G\",\"handle\":\"h_OCk1laddLEps2qCvQ81kkq_e\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The repository is clean — no uncommitted changes.\n\n- **Branch:** `master`\n- **Status:** Clean (working tree matches HEAD, nothing to commit)\n\nNo further action needed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

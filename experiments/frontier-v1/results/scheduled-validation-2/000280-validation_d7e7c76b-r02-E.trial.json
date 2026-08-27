@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_d7e7c76b",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestOldSentinel"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YvsX8BdHbF-XPsbYhor6UD-y\",\"act_id\":\"a_WFJV5G74ZK6Z47GKYYHW5EFLMQ\",\"handle\":\"h_FbgbGJu1olhkGq4WdrI2FXJF\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Recover TestOldSentinel which was retired, using live test evidence, and verify its current replacement.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find history of TestOldSentinel being retired/removed and what replaced it",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Find episode evidence about TestOldSentinel retirement and its replacement test",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Find TestOldSentinel in repo and its replacement test, since it was retired",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "List all live tests to find the replacement for retired TestOldSentinel",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable calls exist in this world. I attempted to recover TestOldSentinel via the tests handle, but focusing on it returned \"unknown_test — requested test is not in the live suite,\" confirming it has been retired and is no longer present. I then tried to trace its retirement/replacement through the git history, episode evidence, and the repo handle, but each of those probes returned \"capability unavailable in the reachable world\" with no further ready calls — meaning there's no live path currently exposed to identify or verify a specific replacement test.\n\nSummary:\n- **TestOldSentinel**: confirmed retired (not in the live test suite).\n- **Replacement test**: could not be identified/verified — no reachable evidence (git log, episodes, or repo search) is currently exposed via these handles to trace what superseded it.\n\nIf you can provide a handle/verb that exposes git log search or a test-listing capability, I can continue the trace to find and verify the replacement.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

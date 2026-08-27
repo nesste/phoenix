@@ -1,0 +1,37 @@
+{
+  "v": 1,
+  "case_id": "validation_5163bd42",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [],
+  "orientations": [],
+  "final_message": "No — the available tools (episodes recall, git commit/diff/status, repo build/edit/find/read/status, and tests focus/list/run) do not include any way to query a hosted error-telemetry index.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

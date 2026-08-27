@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_addd4659",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Dc4Ois1RCRBKs0vFgenDzTbE\",\"act_id\":\"a_7YGGZ6WISINMDJ6NFDTZPMPR2G\",\"handle\":\"h_x0TsOrwjPPe9QQSH7zjDVNvV\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReleaseChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the live checklist check after the suite file is replaced following your first test listing.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Replace the suite file following the first test listing, then verify the live checklist check afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Replace the suite file, then verify the live checklist check (TestReleaseChecklist) afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Replace the suite file, then verify the live checklist check (TestReleaseChecklist) afterward.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further executable calls are reachable. The test listing returned only \"TestReleaseChecklist\" with an empty frontier (no follow-up action offered), and none of the other handles (repo, git, episodes) expose a capability to replace the suite file or subsequently verify the checklist test in this reachable world. So I cannot complete \"verify the live checklist check after the suite file is replaced\" — the replace-suite-file step isn't available from any of the provided handles, and re-attempting the same intents is disallowed since they were already declared unmatched.\n\nSummary:\n- tests.list confirmed the single test `TestReleaseChecklist`, but returned no further reachable calls (empty frontier).\n- Attempts to reach a \"replace suite file\" capability via repo, git, and episodes handles were all rejected as unavailable in this world.\n\nNo action was taken beyond listing, since no path to fulfill the request exists with the current live handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/check_test.go",
+        "present": true,
+        "content": "package checklists\nimport \"testing\"\nfunc TestSecurityChecklist(t *testing.T) {}\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/checklists\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

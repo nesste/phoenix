@@ -1,0 +1,106 @@
+{
+  "v": 1,
+  "case_id": "validation_cf24ac4f",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fKiZFMUZXYUa9egTNbuYI1Ea\",\"act_id\":\"a_5LYL24SWFUZ7XBANDIJZSX3HOX\",\"handle\":\"h_QCGkjPnU5GAlRrsszfI7CFIQ\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_VX-OII5Xc-cfCIA-ziDM2YRw\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fKiZFMUZXYUa9egTNbuYI1Ea\",\"act_id\":\"a_YFHH2EHIQBU6HAYEALLU22KFGL\",\"handle\":\"h_VX-OII5Xc-cfCIA-ziDM2YRw\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"# ./...\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"pattern ./...: directory prefix . does not contain main module or its selected dependencies\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-fail\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T12:35:46.897233061+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"./...\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T12:35:46.89730826+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"./...\\\",\\\"Output\\\":\\\"FAIL\\\\t./... [setup failed]\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T12:35:46.897313844+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"./...\\\",\\\"Elapsed\\\":0,\\\"FailedBuild\\\":\\\"./...\\\"}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_VX-OII5Xc-cfCIA-ziDM2YRw\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "CHANGELOG.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fKiZFMUZXYUa9egTNbuYI1Ea\",\"act_id\":\"a_OCUIPAB6BDH5OKFQ5MT2D2SICW\",\"handle\":\"h_QCGkjPnU5GAlRrsszfI7CFIQ\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"# Next\\n\\n- Retain stable clocks.\\n\",\"digest\":\"sha256:ca90e554adf81f322fbfd45af2b6072047b9e858ff8325edff36daced7d94cf7\",\"path\":\"CHANGELOG.md\"},\"error\":null,\"text\":\"ok repo.read: content=# Next  - Retain stable clocks. , digest=sha256:ca90e554adf81f322fbfd45af2b6072047b9e858ff8325edff36daced7d94cf7, path=CHANGELOG.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "write",
+      "args": {
+        "content": "# Next\n\n- Retain stable clocks.\n- Add monotonic clock fallback.\n",
+        "path": "CHANGELOG.md"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fKiZFMUZXYUa9egTNbuYI1Ea\",\"act_id\":\"a_UEK4UWONLDO2MM4GXESF2LWLP5\",\"handle\":\"h_QCGkjPnU5GAlRrsszfI7CFIQ\",\"verb\":\"write\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading; recover if the supplied heading '## Upcoming' is stale.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find changelog file and its current live heading (may not be '## Upcoming')",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Read CHANGELOG.md to inspect current live heading before editing",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Append a bullet 'Add monotonic clock fallback.' under the live changelog heading '# Next' in CHANGELOG.md (the supplied heading '## Upcoming' was stale)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Add a bullet 'Add monotonic clock fallback.' under the live changelog heading '# Next' in CHANGELOG.md (the supplied heading '## Upcoming' was stale) and commit",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No write/edit capability is reachable from any of the supplied handles (repo, git) — I confirmed the repository is read-only in this session (only `status`/`read` are reachable; `write` returned `absent`, and no edit/commit capability was reachable from the git handle either).\n\nWhat I did establish:\n- The changelog file is `CHANGELOG.md`, and the live heading is actually `# Next` (single `#`), not `## Upcoming` as supplied — so the recovery condition triggered as expected.\n- Current content: \n  ```\n  # Next\n\n  - Retain stable clocks.\n  ```\n- Intended bullet to add: `- Add monotonic clock fallback.`\n\nSince no reachable act in this world grants write/edit/commit access, I cannot execute the change — finishing without an executable act, per the orient guidance (\"finish without an executable act if no other ready call exists\"). If a write-capable handle becomes available, the edit should produce:\n\n```\n# Next\n\n- Retain stable clocks.\n- Add monotonic clock fallback.\n```",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

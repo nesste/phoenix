@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_MyKJrbFBFkWKZBJ6DMnYje7_\",\"act_id\":\"a_7XNSKI73DCIQHQACUXIRLKHIYR\",\"handle\":\"h_dc8z28yoBSnJJlWX6pTP2Soq\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find the pending clock note to promote into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Check git log/status to see the initial clean-tree commit attempt that needs recovery",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "List episodes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Commit changes to CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "Find the pending clock note that needs to be promoted into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable capability exists in this world for any of the four handles — every intent I tried (finding/reading the pending clock note, listing episodes, editing CHANGELOG.md, committing) returned \"unavailable in the reachable world,\" and the only concrete state I could confirm is:\n\n- Repo (`h_dc8z28yoBSnJJlWX6pTP2Soq`) status: branch `master`, working tree **clean**.\n\nThis clean status is itself the \"initial clean-tree commit attempt\" outcome — there is nothing staged or modified for git to commit, and no reachable tool call exposes the pending clock note content, a file-write verb, or a commit verb beyond the `status` check already performed. Since no further executable act is reachable from any of the four provided handles, I cannot actually promote the note into `CHANGELOG.md` or issue a commit in this session.\n\nSummary of what was done/found:\n1. Oriented on the git handle with the full goal — only reachable call was `repo.status`.\n2. Ran `repo.status` → clean tree on `master` (confirms the \"clean-tree\" condition mentioned in the task — a commit here would fail with \"nothing to commit\").\n3. Attempted to reach the pending clock note via episodes, repo, tests, and git handles with targeted intents — all returned \"capability unavailable in the reachable world,\" with instructions not to retry.\n\nSince the tool surface offers no path to read the clock note or write/commit changes from any of the four handles at this point, I'm stopping here rather than repeating unavailable calls. If additional handles/verbs (e.g., a file-edit or note-read capability) can be granted, I can proceed to append the note to CHANGELOG.md and commit it.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "v": 1,
+  "case_id": "validation_1b33180f",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Wyhz6JngYlkLEAA3Jw-Se9cc\",\"act_id\":\"a_2HMH4GQSHLBSFIYPLRJBSXOXBC\",\"handle\":\"h_Dk_zizc9Cwc77tq9iCHpNV5R\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the live switchboard test after its selected mode changes during the first catalog operation.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Perform the first catalog operation to trigger a mode change in the live switchboard, then check the switchboard test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Check the live switchboard test after its selected mode changes during the first catalog operation.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Check the live switchboard test after its selected mode changes during the first catalog operation.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further action is possible: only the tests handle accepted this intent, and its resulting call only led to inspecting repo status (branch=master, clean=true). There is no reachable \"catalog operation\" or \"switchboard mode change\" capability in the current world — the repo, episodes, and git handles all report this capability as unavailable, and the frontier is now empty. \n\nSummary of what was reachable: `repo.status()` → branch=master, clean=true. No switchboard/catalog/mode-change operations exist in the accessible state graph, so the requested check cannot be completed further.",
+  "end_state": {
+    "files": [
+      {
+        "path": "build/tag.txt",
+        "present": true,
+        "content": "selected=portable\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/switchboard\n\ngo 1.22\n"
+      },
+      {
+        "path": "switch/value.go",
+        "present": true,
+        "content": "package switchboard\n\nfunc Mode() string { return \"portable\" }\n"
+      },
+      {
+        "path": "switch/value_test.go",
+        "present": true,
+        "content": "package switchboard\n\nimport \"testing\"\nfunc TestChangedMode(t *testing.T) { if Mode() != \"portable\" { t.Fatal(Mode()) } }\n"
+      }
+    ]
+  }
+}

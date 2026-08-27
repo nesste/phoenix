@@ -1,0 +1,78 @@
+{
+  "v": 1,
+  "case_id": "validation_48df5ccd",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_66E_YexlD2jccno1PJo4p5_4\",\"act_id\":\"a_UMDEFDJCCEOYA3A5AX265ML5GI\",\"handle\":\"h_-43hO-82dPZfna6YkmmTc8ru\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_cbsNgQ1qF0_4V5rDUau1eBsa\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_66E_YexlD2jccno1PJo4p5_4\",\"act_id\":\"a_E22CWXW2VBMZ3ZQP4BHFPF2OC2\",\"handle\":\"h_cbsNgQ1qF0_4V5rDUau1eBsa\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}],\"tests\":[\"TestRolloverCurrent\",\"TestRolloverQualified\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_cbsNgQ1qF0_4V5rDUau1eBsa\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRolloverCurrent\"},\"state\":\"sha256:6839ca529810ed0b3b3fb7b0b377588f772057be39ca4635bade8b1b9df74828\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverCurrent"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_66E_YexlD2jccno1PJo4p5_4\",\"act_id\":\"a_JMQX5OWZ3L2UOL2XTNFWTWCBZH\",\"handle\":\"h_cbsNgQ1qF0_4V5rDUau1eBsa\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T11:05:03.965279896+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:05:03.968745885+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:05:03.968789426+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Output\\\":\\\"=== RUN   TestRolloverCurrent\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:05:03.968799355+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Output\\\":\\\"--- PASS: TestRolloverCurrent (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:05:03.968801715+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T11:05:03.968804691+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:05:03.969274991+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/rollover/rollover\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:05:03.970619373+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Elapsed\\\":0.005}\\n\",\"test\":\"TestRolloverCurrent\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the identity of the named \"rollover\" check through the live test catalog (not by running the full suite) - i.e., look up the catalog listing of tests to confirm which specific test corresponds to the rollover check, its exact name/id/location, rather than inferring it from a full-suite run's pass/fail output.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List/show the test catalog (all test names/ids) so I can find the exact entry corresponding to the \"rollover\" check, without running the full suite.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "## Verification result\n\n**Confirmed via the live test catalog (`tests.list`), not via a full-suite run:**\n\n- The catalog shows a rename record: `TestRolloverOld → TestRolloverCurrent`.\n- Two rollover-named tests currently exist: `TestRolloverCurrent` and `TestRolloverQualified`.\n- The named rollover check's true, current identity is **`TestRolloverCurrent`** — it is the direct successor of the historical `TestRolloverOld`, distinct from the separate `TestRolloverQualified` test.\n- Focused execution of `TestRolloverCurrent` alone (package `example.test/rollover/rollover`) confirms: **exit_code=0, passed=true**.\n\n**Why a full-suite run isn't sufficient proof of identity:** a suite-wide pass/fail summary would show both `TestRolloverCurrent` and `TestRolloverQualified` passing/failing together, giving no way to distinguish which one is truly \"the\" rollover check referenced by that name — especially given the rename history where an old identity (`TestRolloverOld`) could be confused with the unrelated `TestRolloverQualified`. Only cross-referencing the catalog's rename metadata pinpoints `TestRolloverCurrent` as the correct, current rollover check, which I then verified in isolation via `tests.focus`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "v": 1,
+  "case_id": "validation_08e56388",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_psfrinKuRjyPhXpeT8alDLVE\",\"act_id\":\"a_P422B7BH4SFCWGHNCCG44IKH22\",\"handle\":\"h_fzrDDxeGQZJQ5-sKcWGMONQE\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_bPbv3bbSVO9OO-GuvGi5VLpt\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "AxisSouth"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_psfrinKuRjyPhXpeT8alDLVE\",\"act_id\":\"a_LKAMSK5X67AAL75KW5556LIU7S\",\"handle\":\"h_fzrDDxeGQZJQ5-sKcWGMONQE\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find AxisSouth in the repository and report the source path defining it.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository source code for the string \"AxisSouth\" to find where it's defined",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Locate the definition of AxisSouth by searching source files, get its file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Find AxisSouth in the repository and report the source path defining it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find AxisSouth in the repository and report the source path defining it.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I wasn't able to find a reachable search/grep capability across the repo, tests, git, or episodes handles to locate \"AxisSouth\". The only reachable call available was running the test suite, which doesn't directly answer this. Given the current tool surface, there's no way for me to inspect file contents to find where `AxisSouth` is defined.\n\nI cannot determine the source path defining `AxisSouth` with the currently reachable tools — no grep/search/read capability is exposed on any of the given handles (repo, tests, git, episodes). The only actionable call available is running the test suite, which won't reveal source locations. Please provide a handle/verb that allows searching or reading file contents.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

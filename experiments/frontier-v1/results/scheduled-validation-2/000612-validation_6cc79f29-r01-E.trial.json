@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "case_id": "validation_6cc79f29",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Es1E6QYLjm6TzsU5URU7MYJG\",\"act_id\":\"a_TWAJL7IPPPXEFMTKJFRML3XVZR\",\"handle\":\"h_T1Ng2zSjeJ6KKDP0sa5rz8uS\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Can the available repository reader open the host path C:/licenses/ink.txt? State the capability boundary.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "No — it cannot.\n\n**Capability boundary:** The repo handle only exposes repository-scoped operations (e.g., `status`, and other git/repo-tree actions) against the checked-out repository itself. It has no verb for arbitrary host filesystem access, and the frontier of reachable calls never offers anything like \"read file at absolute path.\" There is no way to point it at `C:/licenses/ink.txt` — that path is outside the repository's working tree and outside this tool's scope entirely.\n\nIn short: this reader can only see files that are part of the repo's tracked/working content, not arbitrary paths on the host machine.",
+  "end_state": {
+    "files": [
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

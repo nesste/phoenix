@@ -1,0 +1,133 @@
+{
+  "v": 1,
+  "case_id": "validation_a9d05996",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qZ_XDRrWTG6m17gczSAIKI-D\",\"act_id\":\"a_X5FAYRUOGXH5XFLJBNIZEVJBYR\",\"handle\":\"h_r7FYszjuxUcoJ_xvOp48svtV\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_htBgT_7DrQpjVexMn5uP4Xyz\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qZ_XDRrWTG6m17gczSAIKI-D\",\"act_id\":\"a_GIP3HGJ2YJMJRZNPIEZAVROAC6\",\"handle\":\"h_htBgT_7DrQpjVexMn5uP4Xyz\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"# ./...\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"pattern ./...: directory prefix . does not contain main module or its selected dependencies\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-fail\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:50:28.11050816+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"./...\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:50:28.110559811+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"./...\\\",\\\"Output\\\":\\\"FAIL\\\\t./... [setup failed]\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:50:28.110564605+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"./...\\\",\\\"Elapsed\\\":0,\\\"FailedBuild\\\":\\\"./...\\\"}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_htBgT_7DrQpjVexMn5uP4Xyz\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qZ_XDRrWTG6m17gczSAIKI-D\",\"act_id\":\"a_2H5WUQ2ZPFAH7KSVQ5YSB3X3Q6\",\"handle\":\"h_cuC_CY7NL6PZksyMdupEfZ4X\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qZ_XDRrWTG6m17gczSAIKI-D\",\"act_id\":\"a_B6E6ZPW3JLZ72MOSEK4KBNKRX3\",\"handle\":\"h_r7FYszjuxUcoJ_xvOp48svtV\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qZ_XDRrWTG6m17gczSAIKI-D\",\"act_id\":\"a_RDIIPG2GJDVSZGHPGJVAJLVOLF\",\"handle\":\"h_htBgT_7DrQpjVexMn5uP4Xyz\",\"verb\":\"list\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"test_list_failed\",\"message\":\"test listing failed\",\"details\":{\"exit_code\":1}},\"text\":\"failed list: test listing failed\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qZ_XDRrWTG6m17gczSAIKI-D\",\"act_id\":\"a_XDSYYGXZQTGY5LW3RM3DJKKXQX\",\"handle\":\"h_rFITwZtVQGIZ6nLjrLSvFaHn\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "orient",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qZ_XDRrWTG6m17gczSAIKI-D\",\"act_id\":\"a_AHOPQNLQX3SOMCVIROJJ5RJ3SQ\",\"handle\":\"h_r7FYszjuxUcoJ_xvOp48svtV\",\"verb\":\"orient\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find the repository breadcrumb pointing toward the blue vault and its receipt code.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find the repository breadcrumb pointing toward the blue vault and its receipt code.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to follow the repository breadcrumb through the available tools (repo, tests, git, episodes handles), but the path led to a dead end: the test suite failed to build/list (module setup error), and no further reachable calls (frontier) were available afterward. Re-querying each handle explicitly for the blue-vault breadcrumb returned \"capability unavailable in the reachable world.\"\n\nI could not retrieve the receipt code stored in the blue vault — the task's reachable state does not contain a path to it from the current handles/session.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

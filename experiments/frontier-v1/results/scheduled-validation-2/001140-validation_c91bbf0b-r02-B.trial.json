@@ -1,0 +1,84 @@
+{
+  "v": 1,
+  "case_id": "validation_c91bbf0b",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ulR0El7VYDV9QTQTrO1hHFGZ\",\"act_id\":\"a_NANZUJVVGQ6BJNYSRZSJ3VJXJK\",\"handle\":\"h_yFkNUOIm-FCAEEAbx_YTCWQf\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestBlueChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestBlueChain"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ulR0El7VYDV9QTQTrO1hHFGZ\",\"act_id\":\"a_UKH3ABSILCRYCP5PVOEOVCUHGT\",\"handle\":\"h_yFkNUOIm-FCAEEAbx_YTCWQf\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ulR0El7VYDV9QTQTrO1hHFGZ\",\"act_id\":\"a_UDV5UN3THPUWHUMHRWKZQ6SZVD\",\"handle\":\"h_yFkNUOIm-FCAEEAbx_YTCWQf\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestRedChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRedChain"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ulR0El7VYDV9QTQTrO1hHFGZ\",\"act_id\":\"a_3EBKKX4FMTEOM557RQ5NZZR7K7\",\"handle\":\"h_yFkNUOIm-FCAEEAbx_YTCWQf\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:34:33.020200214+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:33.022658034+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:33.022697352+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"=== RUN   TestRedChain\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:33.022706958+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"--- PASS: TestRedChain (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:33.022709521+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:33.022713148+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:33.023095924+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/breadcrumbs/breadcrumbs\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:33.024372215+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestRedChain\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The catalog changed right after the initial listing: `TestBlueChain` was no longer valid, and a fresh `tests_list` showed the current test is `TestRedChain`. I focused it accordingly:\n\n**TestRedChain — PASS** (0.00s), package `example.test/breadcrumbs/breadcrumbs`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/chain_test.go",
+        "present": true,
+        "content": "package breadcrumbs\nimport \"testing\"\nfunc TestRedChain(t *testing.T) {}\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/breadcrumbs\n\ngo 1.22\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

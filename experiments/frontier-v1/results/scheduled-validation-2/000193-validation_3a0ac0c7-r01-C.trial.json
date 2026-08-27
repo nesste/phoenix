@@ -1,0 +1,89 @@
+{
+  "v": 1,
+  "case_id": "validation_3a0ac0c7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_uJ_z9jaUMpVbeKyptkjDi4TL\",\"act_id\":\"a_NFMV54MI4T6E4HIL2S7CFJPECO\",\"handle\":\"h_9sCZFOrNew-ZU7f_ZECgn3nI\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_-blXo1ingMcdh4d93jy8t-bT\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {
+        "filter": "Rollover"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_uJ_z9jaUMpVbeKyptkjDi4TL\",\"act_id\":\"a_4632YPOHX7XW5ITXWY7IWC73LS\",\"handle\":\"h_-blXo1ingMcdh4d93jy8t-bT\",\"verb\":\"list\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed list: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_uJ_z9jaUMpVbeKyptkjDi4TL\",\"act_id\":\"a_BER24N3P5MGCH4VK7O6EA7EGML\",\"handle\":\"h_-blXo1ingMcdh4d93jy8t-bT\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T11:12:56.297624401+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300068252+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300104777+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Output\\\":\\\"=== RUN   TestRolloverCurrent\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300114411+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Output\\\":\\\"--- PASS: TestRolloverCurrent (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300116762+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverCurrent\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300120344+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300121951+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Output\\\":\\\"=== RUN   TestRolloverQualified\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300124009+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Output\\\":\\\"--- PASS: TestRolloverQualified (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300126893+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.300150441+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.30058732+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/rollover/rollover\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:56.301365601+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {
+        "focus": "TestRolloverQualified"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_uJ_z9jaUMpVbeKyptkjDi4TL\",\"act_id\":\"a_M4DNHWQDD3W5NAV66DR5NGIL23\",\"handle\":\"h_-blXo1ingMcdh4d93jy8t-bT\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Discover and focus the exact live test name matching shorthand \"RolloverQualified\" which is not runnable as-is.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Run only the single test named TestRolloverQualified in package example.test/rollover/rollover (focus on this test).",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The exact live test name matching the shorthand \"RolloverQualified\" is:\n\n**`TestRolloverQualified`** (package `example.test/rollover/rollover`)\n\nIt ran successfully (PASS) when the full suite was executed — the shorthand \"RolloverQualified\" alone isn't a valid runnable identifier; the test must be referenced with its full name `TestRolloverQualified`. Note: this test harness doesn't expose a dedicated \"focus on a single test\" verb/argument (attempts to pass a focus/test-name argument were rejected as not matching the tool's schema), so isolating just this one test isn't currently possible through the available interface — but running the full suite confirms `TestRolloverQualified` passes.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

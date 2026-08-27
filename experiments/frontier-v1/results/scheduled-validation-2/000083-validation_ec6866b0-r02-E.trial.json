@@ -1,0 +1,149 @@
+{
+  "v": 1,
+  "case_id": "validation_ec6866b0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_aQm_OFrWkn5fQlIkrZy2m85m\",\"act_id\":\"a_JQKNN3HOBBXLYCCXSVY6VH77LB\",\"handle\":\"h_ne7cgxA-8nCtSPcKteLRd4BO\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Normalize host-style path \"policy\\eol.cfg\" to a valid repository path and find the tracked file, then read it.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search tracked files for path matching normalized \"policy/eol.cfg\" (converting backslash to slash) and read its contents.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List all tracked files in the repository to find the file corresponding to policy/eol.cfg",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find and read the tracked repository file corresponding to the host-style path policy\\eol.cfg (normalize backslashes to forward slashes) and display its contents.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "List repository git status/files to find path matching policy/eol.cfg",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "Read file at path policy/eol.cfg from the repository",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "Read a tracked file from the repository by path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "intent": "Explore repository capabilities",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "intent": "Find and read the tracked repository path corresponding to normalized host path policy\\eol.cfg (i.e. policy/eol.cfg)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "episodes",
+      "intent": "Find and read the tracked repository path corresponding to normalized host path policy\\eol.cfg (i.e. policy/eol.cfg)",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 10,
+      "handle": "tests",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 11,
+      "handle": "episodes",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 12,
+      "handle": "git",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Given the reachable world for these handles, the only executable capability was `repo.status` (branch=master, clean=true), and no capability exists to normalize a host-style path or read/list files — every other intent (path normalization, file listing, file reading, exploring capabilities) came back `matched:false` (\"requested capability is unavailable in the reachable world\") across all four handles (repo, tests, git, episodes).\n\nSo I'm unable to find or read a tracked path corresponding to `policy\\eol.cfg` — there is no reachable action in this session that supports path normalization or file content retrieval. The task cannot be completed with the tools/handles currently available.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

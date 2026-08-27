@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "case_id": "validation_d7e7c76b",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestOldSentinel"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cKl20bVeVQY45HI8lQczB5A8\",\"act_id\":\"a_37KW5QT2RLBLNPTXPFYKV3MZ2J\",\"handle\":\"h__jTwYUMOY1trH8_0iDubII37\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Recover TestOldSentinel, which was retired, using the live test evidence, and verify its current replacement.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find episode/history about TestOldSentinel being retired, to recover its replacement test name.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find git history for TestOldSentinel retirement and its replacement test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "list episodes / history",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "search repo for TestOldSentinel and its replacement",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "list all tests currently in the live suite to find the replacement for TestOldSentinel",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to recover **TestOldSentinel** and verify its replacement, but this task cannot be completed with the given live handles:\n\n1. **tests handle** (`h__jTwYUMOY1trH8_0iDubII37`): `focus` on `TestOldSentinel` returned `unknown_test` — \"requested test is not in the live suite.\" There is no live evidence of this test, and no further reachable calls exist to list the suite or find a replacement test.\n2. **episodes handle** (`h_lltnOoTX5KVPo6QLStIAMD4x`): No reachable capability for retrieving history about the test's retirement.\n3. **git handle** (`h_FxKoKzGl2aCkQNwwWnRIEYAZ`): No reachable capability for querying commit history/retirement info.\n4. **repo handle** (`h_9qlbTawcyeTfMPODiXGu2NNX`): No reachable capability for searching the codebase for `TestOldSentinel` or its replacement.\n\nAll four handles were exhausted of reachable/executable calls — each returned `matched:false` (\"requested capability is unavailable in the reachable world\"), meaning there is no live evidence path connecting `TestOldSentinel` to a current replacement test in this environment.\n\n**Conclusion:** I cannot recover or verify `TestOldSentinel`'s replacement — the live test suite has no record of it, and none of the repo/git/episode handles expose the historical or replacement information needed. No further action is possible with the current live handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

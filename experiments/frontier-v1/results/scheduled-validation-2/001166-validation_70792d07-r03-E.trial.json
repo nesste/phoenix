@@ -1,0 +1,117 @@
+{
+  "v": 1,
+  "case_id": "validation_70792d07",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pn09hC7ug8pLXjqW9oTQMZjR\",\"act_id\":\"a_TU7NVIXD5RGGDHVKAP2Z4JZJEA\",\"handle\":\"h_8FSZjZxPgNfuFaPQPMUXx1r-\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "vault/red/receipt.dat"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pn09hC7ug8pLXjqW9oTQMZjR\",\"act_id\":\"a_EKF7PLY7WQNYJJC2HY7H5H4JQB\",\"handle\":\"h_8FSZjZxPgNfuFaPQPMUXx1r-\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find which repository file mentions the string vault/red/receipt.dat",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search all repository files for the text \"vault/red/receipt.dat\" and return matching file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Search all files for the text \"vault/red/receipt.dat\" and return matching file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Search all files for the text \"vault/red/receipt.dat\" and return matching file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find which repository file mentions vault/red/receipt.dat",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "List all files in the repository",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "episodes",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "These handles don't expose any orient-reachable capability for that intent. Given budget constraints, I cannot reach a working search verb — repo.status only offered a \"status\" call with empty frontier, and no grep/list/search capability is reachable from any of the four handles (repo, tests, git, episodes) for this query.\n\nI'm unable to find which file mentions `vault/red/receipt.dat` — none of the provided handles expose a reachable search/grep/list capability, and the repo handle's only reachable verb (status) returned an empty frontier with no further leads.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

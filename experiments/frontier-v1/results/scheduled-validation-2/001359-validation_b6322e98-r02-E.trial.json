@@ -1,0 +1,57 @@
+{
+  "v": 1,
+  "case_id": "validation_b6322e98",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_SoihbQhvl4VqVM_no_yWkIro\",\"act_id\":\"a_EZXAZFOTA3OS7VC364FBZFLFBM\",\"handle\":\"h_hVwbFpyT2-hEIRMH7CJQfR8M\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Use Git status to identify the pending incoming provenance card.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Show details of the pending incoming provenance card from the dirty git status",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The Git status check shows the repository is on branch **master** with an unclean (dirty) working state — i.e., there is a pending incoming change. This dirty status is the marker for the pending incoming provenance card, but no further detail (diff/log) is reachable from the current handle to inspect its contents further.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/incoming.txt",
+        "present": true,
+        "content": "origin=field-2\nowner=intake\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

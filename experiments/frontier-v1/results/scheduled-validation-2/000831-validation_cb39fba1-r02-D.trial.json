@@ -1,0 +1,120 @@
+{
+  "v": 1,
+  "case_id": "validation_cb39fba1",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YMFRZWzVuXT4VmrLBge5NfD8\",\"act_id\":\"a_2RSY26F3FBCLWWRH365PBXH3EX\",\"handle\":\"h_kzC4mitXYahABieAL0K5R1Ho\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "diff",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YMFRZWzVuXT4VmrLBge5NfD8\",\"act_id\":\"a_CICCFWZFYXWFME5UNUXWBDKSUU\",\"handle\":\"h_kzC4mitXYahABieAL0K5R1Ho\",\"verb\":\"diff\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "description": "set primary timeout to 35, keep shadow at 20"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YMFRZWzVuXT4VmrLBge5NfD8\",\"act_id\":\"a_AEWBBJF3JCTQKHQQM3VZKPGMVQ\",\"handle\":\"h_kzC4mitXYahABieAL0K5R1Ho\",\"verb\":\"edit\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed edit: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "find": "primary_timeout = 20",
+        "path": "config.py",
+        "replace": "primary_timeout = 35"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YMFRZWzVuXT4VmrLBge5NfD8\",\"act_id\":\"a_SL36CU42MEB5BB3CDPNNDGGWRJ\",\"handle\":\"h_kzC4mitXYahABieAL0K5R1Ho\",\"verb\":\"edit\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed edit: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Correct only the primary timeout value to 35 (keeping the shadow value at 20), then inspect the diff to confirm the change.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find and open the config file containing the primary timeout and shadow timeout values so I can edit the primary timeout to 35.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files or search for occurrences of \"timeout\" to locate the config with primary and shadow timeout values.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Find tests referencing primary timeout and shadow timeout to understand expected values.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Correct only the primary timeout value to 35 (keeping the shadow value at 20), then inspect the diff to confirm the change.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Correct only the primary timeout value to 35 (keeping the shadow value at 20), then inspect the diff to confirm the change.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "Edit config file to set primary timeout to 35, keeping shadow timeout at 20",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Given the budget constraints and the tool's opacity about its required schema, I'm unable to reliably guess the correct arguments for the `edit` verb, and no further reachable actions are being exposed via `orient`/intent calls beyond `repo.status`. \n\nSummary of what I found and attempted:\n- `repo.status` shows branch `master`, clean working tree.\n- The repo does expose an `edit` verb, but repeated attempts with plausible argument shapes (`description`; `path`/`find`/`replace`) were rejected as not matching its schema, and no frontier/orient call revealed the exact expected parameters.\n- `diff` verb exists but is currently unreachable (likely because no edit has succeeded yet — diffs against a clean tree would be empty anyway).\n- Intent-based orientation on repo, tests, git, and episodes handles all returned \"capability unavailable in the reachable world,\" meaning the system isn't offering a guided path to the file containing the primary/shadow timeout values.\n\nI was unable to complete the requested edit (setting the primary timeout to 35 while leaving shadow at 20) or produce a diff, because the exact schema for the `edit` verb could not be determined from the available signals, and no other reachable call surfaced the target file or its current contents. To proceed, I'd need either the correct `edit` verb schema (e.g., via a schema/help verb) or direct file-read access to locate the primary/shadow timeout definitions.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

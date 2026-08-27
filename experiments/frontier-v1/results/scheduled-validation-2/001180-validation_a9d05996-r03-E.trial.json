@@ -1,0 +1,130 @@
+{
+  "v": 1,
+  "case_id": "validation_a9d05996",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bTnab9Ls8ju2lZ8warvq1j2y\",\"act_id\":\"a_J43LBA7SEWYMNU7BT2RFQCXARP\",\"handle\":\"h_JNYW2K2C1jrfICy_mfrO2H2i\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bTnab9Ls8ju2lZ8warvq1j2y\",\"act_id\":\"a_FUFT5VUPNE3NLLOQLBJ5KKI5UV\",\"handle\":\"h_2DUPgTWHGk-_hay9sD4gpvM_\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true,\"output\":\"## master\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=true, output=## master \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "status",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bTnab9Ls8ju2lZ8warvq1j2y\",\"act_id\":\"a_IADC6WSYOSSOE3M3CQAINOREGD\",\"handle\":\"h_lW4y-qFiBkWVIZ5pa2NS10NX\",\"verb\":\"status\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bTnab9Ls8ju2lZ8warvq1j2y\",\"act_id\":\"a_YUWBPW4WZIXFH6PIZ2VHYNFXCA\",\"handle\":\"h_2DUPgTWHGk-_hay9sD4gpvM_\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bTnab9Ls8ju2lZ8warvq1j2y\",\"act_id\":\"a_3N6HAI4W67IBIU3RL2TK3ENKE2\",\"handle\":\"h_JNYW2K2C1jrfICy_mfrO2H2i\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "status",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bTnab9Ls8ju2lZ8warvq1j2y\",\"act_id\":\"a_HPO5T62U63NINBX2TZ655IGDRD\",\"handle\":\"h_hlIWshr1H2rjqiLclK5Xt26G\",\"verb\":\"status\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find breadcrumb file or note in repo pointing to next location for the receipt code",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Show git log to find breadcrumb commit messages pointing to the receipt code location",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to explore all four provided handles (repo, tests, git, episodes) using orientation and status/listing calls, but none of them exposed any reachable path toward a \"breadcrumb,\" a \"blue vault,\" or a receipt code. Specifically:\n\n- `repo` (h_JNYW2K2C1jrfICy_mfrO2H2i): status shows a clean master branch with no further reachable actions (list/orient for breadcrumb search returned \"capability unavailable\").\n- `git` (h_2DUPgTWHGk-_hay9sD4gpvM_): status shows clean master branch, but `log` and the breadcrumb-search orient are unreachable.\n- `tests` (h_hlIWshr1H2rjqiLclK5Xt26G) and `episodes` (h_lW4y-qFiBkWVIZ5pa2NS10NX): both are entirely unreachable for this intent (orient/status returned \"absent\"/\"unavailable\").\n\nThere is no ready call in the current reachable world that leads to a \"blue vault\" or a receipt code — the capability simply isn't present in this environment/state. I can't fabricate a code, so I'm unable to retrieve the receipt code as requested. If you have additional handles or a more specific starting point (e.g., a particular file or episode ID) that contains the breadcrumb, please share it and I can continue from there.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

@@ -138,7 +138,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit string, gates frozenGateState) {
 	t.Helper()
 	if status != "complete" || sourceLimit != "public_validation_inputs_only" ||
-		!gates.MayOpenValidation || gates.MayOpenHeldOut {
+		gates.MayOpenValidation || gates.MayOpenHeldOut {
 		t.Fatalf("pre-validation freeze gate state = %#v", gates)
 	}
 	expected := [][2]string{
@@ -147,10 +147,10 @@ func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit
 		{gates.PriorValidationOpeningRecord, "docs/decisions/0019-protocol-v4-gate-1a-validation-reopening-after-refactor.md"},
 		{gates.ValidationScope, "frozen_validation_schedule_only"},
 		{gates.ValidationExecutionStatus, "indeterminate"},
-		{gates.ValidationExecutionClosedOn, "2026-08-23"},
-		{gates.ValidationExecutionDecision, "docs/decisions/0013-protocol-v4-gate-1a-interrupted-execution.md"},
-		{gates.ValidationExecutionEvidence, "experiments/frontier-v1/results/scheduled-validation"},
-		{gates.ValidationExecutionCustody, "experiments/frontier-v1/results/scheduled-validation-custody.json"},
+		{gates.ValidationExecutionClosedOn, "2026-08-27"},
+		{gates.ValidationExecutionDecision, "docs/decisions/0023-protocol-v4-gate-1a-second-interrupted-execution.md"},
+		{gates.ValidationExecutionEvidence, "experiments/frontier-v1/results/scheduled-validation-2"},
+		{gates.ValidationExecutionCustody, "experiments/frontier-v1/results/scheduled-validation-2-custody.json"},
 	}
 	for _, pair := range expected {
 		if pair[0] != pair[1] {

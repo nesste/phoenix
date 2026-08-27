@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_cf24ac4f",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_S7I3E7GOOmz4rQoIbNt6pLwM\",\"act_id\":\"a_4PWF4NYK7XFHZKAUHGDARIJN53\",\"handle\":\"h_6m_yVAz0fWGBBOYgzBPQ3KHc\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/missing, recover by finding the correct current changelog heading and add the bullet there instead.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find and open the changelog file to locate the current changelog heading (e.g. CHANGELOG.md), since the supplied heading '## Upcoming' may be stale.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files to find the changelog file.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/missing, recover by finding the correct current changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/missing, recover by finding the correct current changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Add a bullet for monotonic clock fallback under the live changelog heading '## Upcoming'; if that heading is stale/missing, recover by finding the correct current changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the reachable handles expose a capability to edit the changelog, browse repo files, or otherwise recover from the stale '## Upcoming' heading — all follow-up intents (find/list files, edit changelog, use git/tests/episodes handles) return \"capability unavailable\" with no further frontier. The only executable action available was `repo.status`, which just confirms the repo is clean on branch `master`; it offers no path to locating or editing a changelog.\n\nI can't complete this task: there's no reachable tool call in this session that lets me read the changelog, discover its real current heading, or insert the \"monotonic clock fallback\" bullet. Please provide a handle/verb that exposes file read/write or changelog-editing capability, or confirm the correct changelog path/heading so I can retry once that capability is reachable.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

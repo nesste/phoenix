@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_9331eef0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_s2F0UTQs07Tuh_OZ5EMolnS6\",\"act_id\":\"a_OLOSJAHILB7BC6LL2ZLTRWK53G\",\"handle\":\"h_ucuSIqzdcLmIkAIQ_vVYr_Q7\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestMorningWindow\",\"TestEveningWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_s2F0UTQs07Tuh_OZ5EMolnS6\",\"act_id\":\"a_74FVTY6AJFGW76X7QJEXHZYB6D\",\"handle\":\"h_ucuSIqzdcLmIkAIQ_vVYr_Q7\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNightWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNightWindow"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_s2F0UTQs07Tuh_OZ5EMolnS6\",\"act_id\":\"a_7DPBYW4BENVNAZVOMNFCBD5GCR\",\"handle\":\"h_ucuSIqzdcLmIkAIQ_vVYr_Q7\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:59:49.319530944+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:49.322115119+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:49.322195792+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Output\\\":\\\"=== RUN   TestNightWindow\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:49.322209513+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Output\\\":\\\"--- PASS: TestNightWindow (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:49.322214702+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:49.322219808+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:49.322619024+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/roster/roster\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:59:49.324091929+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Elapsed\\\":0.005}\\n\",\"test\":\"TestNightWindow\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The initial roster listing showed `TestMorningWindow` and `TestEveningWindow`. A follow-up listing showed the roster had been replaced with `TestNightWindow`. I focused on that first live test from the new roster, `TestNightWindow`, and it **passed**.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestNightWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

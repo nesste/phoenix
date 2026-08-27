@@ -1,0 +1,117 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_yWTuf8SE0lY05X7LGcdl9ju9\",\"act_id\":\"a_LSRYG3CZ7KZ76UGPOH4XHPW3ZL\",\"handle\":\"h_lXMOxTK54krB5Z-yyzhOEHsj\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {
+        "follow": true,
+        "path": "changes/clock.md"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_yWTuf8SE0lY05X7LGcdl9ju9\",\"act_id\":\"a_NBHBJ2UKRIBPGLRMUDFA6E5NRT\",\"handle\":\"h_YTPgJNF5NV7mqjh6aiVxh44u\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "clock"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_yWTuf8SE0lY05X7LGcdl9ju9\",\"act_id\":\"a_U6ORLHCLCNYXROOIZ3UR523NER\",\"handle\":\"h_lXMOxTK54krB5Z-yyzhOEHsj\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment; the old path changes/clock.md is obsolete, find where it was renamed/moved to using git history, then report its current content.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find git log history for changes/clock.md to see where it was moved/renamed to",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Show git log with --follow for changes/clock.md to trace rename history",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Locate the moved clock fragment; old path changes/clock.md is obsolete, find where content now lives and show its content",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "search",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "The former path changes/clock.md is obsolete. Locate the moved clock fragment and report its current content.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on my exploration, no reachable path in this environment leads to the capability needed to trace the moved `changes/clock.md` file or read its content. The only reachable action across all four handles (repo, tests, git, episodes) was `repo.status` (clean, branch master, no further frontier calls). Attempts to invoke log/grep/search/history capabilities on any handle returned \"capability unavailable\" or \"not reachable.\"\n\nI'm unable to locate the moved clock fragment or report its content given the currently reachable tool capabilities — there is no accessible verb (log, grep, diff, follow-rename, etc.) exposed by any of the provided handles to trace the file move or read file contents.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

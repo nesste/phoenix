@@ -1,0 +1,91 @@
+{
+  "v": 1,
+  "case_id": "validation_9764d225",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qP7pRSijX33PEJbSQK5Dc5gK\",\"act_id\":\"a_IUUGIO6VXOK7RQTZR64IIQRNC5\",\"handle\":\"h_Y20wgRh4bT37X7Qt3sF16DZX\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "CONFIG-SCOPE-8"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qP7pRSijX33PEJbSQK5Dc5gK\",\"act_id\":\"a_OZSJNK5N3USIW3CDQXUTMGV7L4\",\"handle\":\"h_Y20wgRh4bT37X7Qt3sF16DZX\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for the string CONFIG-SCOPE-8",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "List files in the repository to locate configuration documentation",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable calls exist from the given handles to locate or read \"CONFIG-SCOPE-8\" — all search/list/grep-style intents returned \"unavailable in the reachable world,\" and the only reachable call (repo status) has already been used, yielding no relevant content or frontier.\n\nI'm unable to find CONFIG-SCOPE-8 within the currently reachable world state of these handles. The tools do not expose a way to browse file contents, search text, or list files from this session — only `repo.status` was reachable, and it revealed no matches or further frontier calls. I cannot report the authoritative configuration section it identifies without additional reachable capabilities (e.g., a file-read/search verb) that aren't available in this session.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

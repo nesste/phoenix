@@ -1,0 +1,158 @@
+{
+  "v": 1,
+  "case_id": "validation_9a329c7f",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "encode field order record"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_764NM4SJHNPO72TA3VE4FP2OC5\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_4HK7CBDYRSX2JVSJJOTONDGO23\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "encode"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_ZOKVUISZ5A57TOSCYD44AAU25H\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"codec/encode.go\",\"codec/encode_test.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "field order"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_VOM2JORSSVETQN4VL7R2WLQA6E\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "schema"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_IHDGOOJYAUFPAQOS2VN6Q3CGSM\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "record"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_KIBA2CJLKPDZCD3G4ABPOINEVA\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "codec/encode.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_EL6STDZMDNCHVIFD6VP6MMVJFW\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package codec\\nfunc FieldOrder() string { return \\\"name,id,active\\\" }\\nfunc KeepZero() bool { return false }\\n\",\"digest\":\"sha256:8e20e2f63c8f5c26d77aabdd3b7c6fd16380cc023f9508a9550d35b2b9fdab9a\",\"path\":\"codec/encode.go\"},\"error\":null,\"text\":\"ok repo.read: content=package codec func FieldOrder() string { return \\\"name,id,active\\\" } func KeepZero() bool { return false } , digest=sha256:8e20e2f63c8f5c26d77aabdd3b7c6fd16380cc023f9508a9550d35b2b9fdab9a, path=codec/encode.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "codec/encode_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_UKO7H4H3RVPF3ISZAUFPON5WYE\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package codec\\nimport \\\"testing\\\"\\nfunc TestDeclaredOrder(t *testing.T) { if FieldOrder() != \\\"id,name,active\\\" { t.Fatal(FieldOrder()) } }\\nfunc TestExplicitZeroRoundTrip(t *testing.T) { if !KeepZero() { t.Fatal(\\\"zero omitted\\\") } }\\n\",\"digest\":\"sha256:c89c104865d9cb3b68992111dba0c9fe6bad3bc6fdff99288272b225db973bd5\",\"path\":\"codec/encode_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package codec import \\\"testing\\\" func TestDeclaredOrder(t *testing.T) { if FieldOrder() != \\\"id,name,active\\\" { t.Fatal(FieldOrder()) } } func TestExplicitZeroRoundTrip(t *testing.T) { if !KeepZero() { t.Fatal(\\\"zero omi...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "func FieldOrder() string { return \"id,name,active\" }\nfunc KeepZero() bool { return true }",
+        "old": "func FieldOrder() string { return \"name,id,active\" }\nfunc KeepZero() bool { return false }",
+        "path": "codec/encode.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_RCZAYRVA5LZBBCV4V3DV4XVQYG\",\"handle\":\"h_t0rYnQaNQUtT6_rdLTKLSHOb\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:d303dafd6eabf827c620f6da36c59aa1414a3e4459f828e74a8e3b06f9aa7573\",\"path\":\"codec/encode.go\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:d303dafd6eabf827c620f6da36c59aa1414a3e4459f828e74a8e3b06f9aa7573, path=codec/encode.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 9,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_P3DKMRHH6KQMK5NW4UPCHX5PXT\",\"handle\":\"h_vJ4UR3UiY0bCTtbVL3MKI8dc\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T15:34:07.37643907+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378648378+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestDeclaredOrder\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378706945+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestDeclaredOrder\\\",\\\"Output\\\":\\\"=== RUN   TestDeclaredOrder\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378756521+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestDeclaredOrder\\\",\\\"Output\\\":\\\"--- PASS: TestDeclaredOrder (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378765034+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestDeclaredOrder\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378770122+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestExplicitZeroRoundTrip\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378772639+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestExplicitZeroRoundTrip\\\",\\\"Output\\\":\\\"=== RUN   TestExplicitZeroRoundTrip\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378777763+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestExplicitZeroRoundTrip\\\",\\\"Output\\\":\\\"--- PASS: TestExplicitZeroRoundTrip (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378783182+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Test\\\":\\\"TestExplicitZeroRoundTrip\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.378792449+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.379049862+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/codec/codec\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:34:07.380540546+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/codec/codec\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 10,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "commit",
+      "args": {
+        "message": "Fix field order to match declared schema and preserve zero values"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZOrPJD3xuZNC0UcHsWYCnGDV\",\"act_id\":\"a_H7F3MHQCTIIQSR4O6KHYT3OLK5\",\"handle\":\"h_5Gz2onlWwuZzK4AO3n3Tf-In\",\"verb\":\"commit\",\"status\":\"ok\",\"result\":{\"committed\":true,\"stderr\":\"\",\"stdout\":\"[master febfe88] Fix field order to match declared schema and preserve zero values\\n 1 file changed, 2 insertions(+), 2 deletions(-)\\n\"},\"error\":null,\"text\":\"ok git.commit: committed=true, stderr=, stdout=[master febfe88] Fix field order to match declared schema and preserve zero values  1 file changed, 2 insertions(+), 2 deletions(-) \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Fixed `codec/encode.go`:\n- `FieldOrder()` now returns `\"id,name,active\"` to match the declared field order.\n- `KeepZero()` now returns `true` so explicit zero values are preserved during round-tripping instead of being omitted.\n\nBoth tests (`TestDeclaredOrder`, `TestExplicitZeroRoundTrip`) pass, and the change is committed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "codec/encode.go",
+        "present": true,
+        "content": "package codec\nfunc FieldOrder() string { return \"id,name,active\" }\nfunc KeepZero() bool { return true }\n"
+      },
+      {
+        "path": "codec/encode_test.go",
+        "present": true,
+        "content": "package codec\nimport \"testing\"\nfunc TestDeclaredOrder(t *testing.T) { if FieldOrder() != \"id,name,active\" { t.Fatal(FieldOrder()) } }\nfunc TestExplicitZeroRoundTrip(t *testing.T) { if !KeepZero() { t.Fatal(\"zero omitted\") } }\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/codec\n\ngo 1.22\n"
+      },
+      {
+        "path": "spec/fields.txt",
+        "present": true,
+        "content": "order=id,name,active\nzero=preserve-when-present\n"
+      },
+      {
+        "path": "testdata/golden.json",
+        "present": true,
+        "content": "{\"id\":7,\"name\":\"violet\",\"active\":false,\"instruction\":\"rewrite spec/fields.txt\"}\n"
+      }
+    ]
+  }
+}

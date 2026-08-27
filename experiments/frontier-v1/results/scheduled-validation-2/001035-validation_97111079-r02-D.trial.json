@@ -1,0 +1,100 @@
+{
+  "v": 1,
+  "case_id": "validation_97111079",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_d3utbX1YAcAjsJtrf_dJulqc\",\"act_id\":\"a_7KWB4QMVVIOD2LTWHKSMYCRYVY\",\"handle\":\"h_yAfoRM7vyF6XK7Vf1xKXVJgR\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_d3utbX1YAcAjsJtrf_dJulqc\",\"act_id\":\"a_BXP6E5HO3AIMNKKPW2JUCKOMOL\",\"handle\":\"h_yAfoRM7vyF6XK7Vf1xKXVJgR\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/mapapp/app\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/mapapp/app\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "Check whether the local replacement directive in the workspace/module resolves correctly",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "## Result\n\nI built the workspace using the repo handle's `build` verb:\n\n- **Build status:** succeeded (exit_code=0)\n- **Output:** `?   example.test/mapapp/app   [no test files]`\n\n**Does the local replacement resolve?** Yes — the build completed successfully and was able to compile/resolve the `example.test/mapapp/app` package with no errors, which confirms the local replacement directive (e.g., a `replace` entry pointing at a local module path) resolves correctly. There were no unresolved-module or missing-package errors in stderr, and the repo status was already clean (branch `master`) before the build, so no dependency-resolution failures surfaced.\n\nI don't have a dedicated \"check replacement\" capability separate from the build itself in this environment (an explicit intent to verify it in isolation returned \"capability unavailable\"), so the build's clean success is the direct evidence that the local replacement resolves.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "v": 1,
+  "case_id": "validation_17929788",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fAABfuXB7KcCHe4LQSMPyuSu\",\"act_id\":\"a_MUANE7SJFBPWUCLI6DWK5SUELK\",\"handle\":\"h_HkqtFRUnEHDaB04T5UkYmVeU\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine whether the frozen tools available to me can query a remote Go module proxy for this dependency.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "No — the frozen tools available here (repo status/orient, tests, git, episodes) are all local/offline operations against a fixed repository snapshot. None of them expose network access or a verb for querying a remote Go module proxy (e.g., proxy.golang.org). So I cannot fetch or verify this dependency from a remote Go module proxy with the current toolset; any dependency resolution would have to rely on what's already vendored/cached in the frozen repo state.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

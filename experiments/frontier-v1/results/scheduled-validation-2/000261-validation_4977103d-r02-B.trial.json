@@ -1,0 +1,79 @@
+{
+  "v": 1,
+  "case_id": "validation_4977103d",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "Current epoch"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_F6-gLHJ549Pemd59AfEwnRXe\",\"act_id\":\"a_OXQK7KLAO3AGL4LIQ5TLBUWKGS\",\"handle\":\"h_Tvra6WknHap-x4ptYFrmAAF6\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"sentinel/history.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "sentinel/history.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_F6-gLHJ549Pemd59AfEwnRXe\",\"act_id\":\"a_WHAGSTZ2J4FP7PZGZS33YD3RZP\",\"handle\":\"h_Tvra6WknHap-x4ptYFrmAAF6\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"Current epoch: copper. Previous epoch: amber.\\n\",\"digest\":\"sha256:66bdc9511babeb853f9fc896ad82a04511232d1d292d04bad1a0ecc5976099e2\",\"path\":\"sentinel/history.md\"},\"error\":null,\"text\":\"ok repo.read: content=Current epoch: copper. Previous epoch: amber. , digest=sha256:66bdc9511babeb853f9fc896ad82a04511232d1d292d04bad1a0ecc5976099e2, path=sentinel/history.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "Current epoch: silver. Previous epoch: amber.",
+        "old": "Current epoch: copper. Previous epoch: amber.",
+        "path": "sentinel/history.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_F6-gLHJ549Pemd59AfEwnRXe\",\"act_id\":\"a_XDHWKDSTKKGHBI7LJGR2Y6ITTI\",\"handle\":\"h_Tvra6WknHap-x4ptYFrmAAF6\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:efebd47fc5e5822c10e5c6d874e8e3168fcde2e711f38a63c59a0def6cbf5f76\",\"path\":\"sentinel/history.md\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:efebd47fc5e5822c10e5c6d874e8e3168fcde2e711f38a63c59a0def6cbf5f76, path=sentinel/history.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "commit",
+      "args": {
+        "message": "Promote current epoch from copper to silver"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_F6-gLHJ549Pemd59AfEwnRXe\",\"act_id\":\"a_IF5NHXNLTLJJRMPNW2MRAUFBEG\",\"handle\":\"h_NUDO1ifN8tzOq_25Z8Q-dhDW\",\"verb\":\"commit\",\"status\":\"ok\",\"result\":{\"committed\":true,\"stderr\":\"\",\"stdout\":\"[master 0c6d3aa] Promote current epoch from copper to silver\\n 1 file changed, 1 insertion(+), 1 deletion(-)\\n\"},\"error\":null,\"text\":\"ok git.commit: committed=true, stderr=, stdout=[master 0c6d3aa] Promote current epoch from copper to silver  1 file changed, 1 insertion(+), 1 deletion(-) \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done — updated `sentinel/history.md` to set the current epoch to silver and committed the change (commit `0c6d3aa`).",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: silver. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

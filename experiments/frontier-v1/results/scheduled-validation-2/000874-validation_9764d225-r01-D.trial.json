@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_9764d225",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_nD6mXJsphXfNVFpcf2FGeZDr\",\"act_id\":\"a_BGWNRMRUX3MWFQT7LOKJVXHH7G\",\"handle\":\"h_iqfjRaHYsaB7wtPoA_FcD2dq\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for the string CONFIG-SCOPE-8",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files to locate configuration documentation mentioning CONFIG-SCOPE-8",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Find CONFIG-SCOPE-8 in the repository and report the authoritative configuration section it identifies.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Given the available tools, I was unable to find any reachable capability that supports searching for the string \"CONFIG-SCOPE-8\" across the repository, tests, git history, or episodes handles. Each attempt at a search/list intent returned \"requested capability is unavailable in the reachable world,\" and the only executable call reachable from the repo handle (`status`) does not surface file contents.\n\nI cannot locate CONFIG-SCOPE-8 or identify the authoritative configuration section it refers to with the tools currently reachable in this session. No further executable calls are available to continue this investigation.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

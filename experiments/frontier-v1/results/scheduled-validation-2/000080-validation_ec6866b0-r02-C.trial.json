@@ -1,0 +1,132 @@
+{
+  "v": 1,
+  "case_id": "validation_ec6866b0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xFlpWWUAxjl5MlzuRvRgolMu\",\"act_id\":\"a_NIKTOMQHFIDD4QTBUV33F4X4TI\",\"handle\":\"h_zQip9wXhUMIlvWGRn229tUfP\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_9xZqsCNEH2s4F6hlHoe_5MtO\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "name": "eol.cfg"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xFlpWWUAxjl5MlzuRvRgolMu\",\"act_id\":\"a_S2XL6MA6BEILATWLMPECKLX34K\",\"handle\":\"h_zQip9wXhUMIlvWGRn229tUfP\",\"verb\":\"find\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed find: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xFlpWWUAxjl5MlzuRvRgolMu\",\"act_id\":\"a_UZI2AFKDRL5ATNJPGOCK5RBMM4\",\"handle\":\"h_zQip9wXhUMIlvWGRn229tUfP\",\"verb\":\"find\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed find: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xFlpWWUAxjl5MlzuRvRgolMu\",\"act_id\":\"a_QBJERANXCWLJA2CGPCO7JBWP3D\",\"handle\":\"h_zQip9wXhUMIlvWGRn229tUfP\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "eol.cfg"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xFlpWWUAxjl5MlzuRvRgolMu\",\"act_id\":\"a_PGXK752JNNEQAORDLQFSLPTSPH\",\"handle\":\"h_zQip9wXhUMIlvWGRn229tUfP\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "ls",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xFlpWWUAxjl5MlzuRvRgolMu\",\"act_id\":\"a_65FQCMX5AU5HLBCWNSFOLPGBFD\",\"handle\":\"h_zQip9wXhUMIlvWGRn229tUfP\",\"verb\":\"ls\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "policy/eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xFlpWWUAxjl5MlzuRvRgolMu\",\"act_id\":\"a_XLOJUQDJC5HINKVRJF7JMVQ74K\",\"handle\":\"h_zQip9wXhUMIlvWGRn229tUfP\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"mode=lf\\nmarker=LINE-DIRECTIVE-9\\n\",\"digest\":\"sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350\",\"path\":\"policy/eol.cfg\"},\"error\":null,\"text\":\"ok repo.read: content=mode=lf marker=LINE-DIRECTIVE-9 , digest=sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350, path=policy/eol.cfg\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Normalize host-style path 'policy\\eol.cfg' to a valid repository path and read its content",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for a tracked file matching name eol.cfg under a policy directory, normalize path separators, then read its content",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The normalized tracked path is **`policy/eol.cfg`** (backslash converted to forward slash).\n\nIts content:\n```\nmode=lf\nmarker=LINE-DIRECTIVE-9\n```\n\n(digest: `sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350`)",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = missingDirective\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

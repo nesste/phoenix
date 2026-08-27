@@ -1,0 +1,62 @@
+{
+  "v": 1,
+  "case_id": "validation_c79bc7f6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_8tHz5hB6nvpPmzqQ856EfFGS\",\"act_id\":\"a_L3Q6WN4432H4672YYHTFMN6D7V\",\"handle\":\"h_MlYmWw_WV1MgauZ2cBVovz9_\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The requested capability isn't reachable from these handles — there's no live path to a \"catalog read\" of the test definitions followed by re-establishing which provenance test is live. The tests handle (h_MQvrfqDGkfbyU6-bqFUD5qfy) returned \"unavailable in the reachable world\" for this intent, and the repo handle only exposes status (branch=master, clean) with no further frontier calls.\n\nI don't have a valid executable path to complete this task with the current live handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/cards_test.go",
+        "present": true,
+        "content": "package cards\nimport \"testing\"\nfunc TestOwnerCard(t *testing.T) {}\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/cards\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

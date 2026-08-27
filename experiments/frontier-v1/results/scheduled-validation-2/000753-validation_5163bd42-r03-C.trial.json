@@ -1,0 +1,55 @@
+{
+  "v": 1,
+  "case_id": "validation_5163bd42",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_99gYBaYjwXLU4YLAIlTrLmiA\",\"act_id\":\"a_3ODGVW2NZ4IXL5MLP2UNA7Y5JH\",\"handle\":\"h_2wvNq7vOad_-qSlI1WLTLATp\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_t8YKKryvR_q4EnArRY0ked8o\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Determine whether any available tools can query a hosted error-telemetry index.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "Based on the tool exploration, none of the available handles (repo, tests, git, episodes) expose a verb for querying a hosted error-telemetry index. The tools available are limited to local repository status/inspection (repo), running a test suite (tests), git operations (git), and episode/session history (episodes) — none of which provide access to an external or hosted error-telemetry/monitoring service (e.g., Sentry, Datadog, etc.).\n\n**Answer: No.** The available tools do not include any capability to query a hosted error-telemetry index — they are scoped to local repo status, test execution, git, and episode history only.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "v": 1,
+  "case_id": "validation_10e870bc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_otFxN8a_ruNQuJ_Zc962QK3x\",\"act_id\":\"a_ZNW553JIO7DJ5F574RZH5LUNXP\",\"handle\":\"h_lIl3LF4gfggJepUORKfUyYSU\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_YZ87F-T5OG1EPna3C8b8Qd8B\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_otFxN8a_ruNQuJ_Zc962QK3x\",\"act_id\":\"a_HWM466ISPQCNTBNHUROQJN2YR7\",\"handle\":\"h_YZ87F-T5OG1EPna3C8b8Qd8B\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T14:42:53.393141008+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395576078+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395624185+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Output\\\":\\\"=== RUN   TestTruncatedDiagnostic\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395633424+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Output\\\":\\\"--- PASS: TestTruncatedDiagnostic (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395638549+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.3956418+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395643545+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"=== RUN   TestOverflowDiagnostic\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395645685+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"--- PASS: TestOverflowDiagnostic (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395652233+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.395653895+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.396014795+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/diagnostics/diag\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:42:53.397098357+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the newly added overflow diagnostic test after the suite expands following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The test suite currently already includes the \"newly added overflow diagnostic test\" alongside the original one — running the full suite confirms both are present and passing:\n\n- **TestTruncatedDiagnostic** — PASS\n- **TestOverflowDiagnostic** — PASS\n\nOverall result: `exit_code=0, passed=2, failed=0` — the suite is clean on branch `master`. The `TestOverflowDiagnostic` test, which expanded the suite beyond the initial catalog (originally just `TestTruncatedDiagnostic`), is verified to run and pass successfully.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\nfunc TestOverflowDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "v": 1,
+  "case_id": "validation_48df5ccd",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GoncyQCYH6ogth96VuM0I1rp\",\"act_id\":\"a_FTZQKJK57D7RQYLKKZEKQNETQK\",\"handle\":\"h_Tmj7Bma84iXcTYYzOnSFLvHG\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}],\"tests\":[\"TestRolloverCurrent\",\"TestRolloverQualified\"]},\"error\":null,\"text\":\"ok tests.list: renames=1 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "recall",
+      "args": {
+        "query": "rollover check test name"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GoncyQCYH6ogth96VuM0I1rp\",\"act_id\":\"a_B6JVHWRF3YYLOK7YBSY7UJVFEG\",\"handle\":\"h_IJbofkiKWm8g9K5VJpxizFec\",\"verb\":\"recall\",\"status\":\"ok\",\"result\":{\"episodes\":[]},\"error\":null,\"text\":\"ok episodes.recall: episodes=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverOld"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GoncyQCYH6ogth96VuM0I1rp\",\"act_id\":\"a_W6XIOHVCDEWWGFUOECYQIE37WQ\",\"handle\":\"h_Tmj7Bma84iXcTYYzOnSFLvHG\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Verification result: the rollover check you likely mean by its old name doesn't actually exist anymore.\n\n- **Live catalog check (`tests.list`)** shows a rename record: `TestRolloverOld` → `TestRolloverCurrent`, and the current suite contains two distinct tests: `TestRolloverCurrent` and `TestRolloverQualified`.\n- **Direct focus check** on `TestRolloverOld` fails with `unknown_test: requested test is not in the live suite` — confirming that name is stale/retired, not just aliased loosely.\n\nWhy this matters versus trusting a full-suite pass:\n- A full-suite run would report success even if the rollover logic were silently renamed, split, or replaced by a similarly-behaved test (`TestRolloverQualified`) — a green suite doesn't prove the *specific named check* you're relying on still exists or still means what it used to.\n- Here, the catalog proves the identity: the check now runs under `TestRolloverCurrent`, and there's a second, differently-scoped rollover test (`TestRolloverQualified`) that could be confused for it.\n\n**Conclusion:** If you're referring to \"the rollover check\" by its old name, that identity is gone — the currently live equivalent is `TestRolloverCurrent`. If you meant something else (e.g., `TestRolloverQualified`), let me know and I'll target that one specifically for focused verification.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

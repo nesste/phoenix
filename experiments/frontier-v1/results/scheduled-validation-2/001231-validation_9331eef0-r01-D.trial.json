@@ -1,0 +1,122 @@
+{
+  "v": 1,
+  "case_id": "validation_9331eef0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_hH6GqExlXaqwPIX6NiG3jePi\",\"act_id\":\"a_DV6NHOYJDROR44T3WRET6IUHEV\",\"handle\":\"h_K-GHJ4rnN-Zl3MwnmDGRWLPK\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_hH6GqExlXaqwPIX6NiG3jePi\",\"act_id\":\"a_KDUIT7E5CY37ZGOOZV4DJJ6QYT\",\"handle\":\"h_bnjKsUz9G0MjvzB-ZJI7S_Hy\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNightWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the first live roster check after the roster is replaced following your initial test listing.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Perform the initial test listing (list tests).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Replace the roster, then perform the first live roster check afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Replace the roster, then perform the first live roster check afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Replace the roster, then perform the first live roster check afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Replace the roster, then perform the first live roster check afterward.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "replace roster",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "replace roster",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "intent": "replace roster",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "tests",
+      "intent": "replace roster",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No handle currently offers a \"replace roster\" capability in this reachable world. I've completed what's actually available: the initial test listing returned `[\"TestNightWindow\"]`, and repo status is clean on branch master. Since no reachable call exposes a roster-replace action or subsequent roster-check action from any of the four handles, I cannot proceed further toward verifying a \"first live roster check after roster replacement\" — that capability isn't currently reachable.\n\n**Summary:**\n- Initial test listing (h_bnjKsUz9G0MjvzB-ZJI7S_Hy): tests = `[\"TestNightWindow\"]`, renames = 0.\n- Repo status: branch=master, clean=true.\n- Attempted to find a \"replace roster\" / \"roster check\" capability across all four handles (repo, tests, git, episodes) via orient — none matched; no executable roster-replace or roster-check call is currently reachable in this world state.\n\nI'm unable to complete the roster verification step since the required capability isn't exposed by any of the provided handles right now.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestNightWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

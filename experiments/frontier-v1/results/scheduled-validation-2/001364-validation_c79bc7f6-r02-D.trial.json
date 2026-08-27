@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_c79bc7f6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_CaGwhIZJGYQTJBcqJrbrgWWx\",\"act_id\":\"a_7NSV4TAQ7244PRAYG5W2VGFR7X\",\"handle\":\"h_6IHv2LpRdEJCiFkYmMCLNRlo\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Read the test catalog to see definitions",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable calls exist in this world — the frontier is empty after the repo status check, and none of the tests, git, or episodes handles expose a matching capability for re-establishing the live provenance test. \n\nSummary of what was possible: repo status shows branch `master`, clean working tree. Beyond that, no path exists in the current reachable state to inspect the test catalog, diff test definitions, or identify which provenance test is currently \"live\" — those capabilities are not reachable from any of the four handles provided. I'm stopping here since no executable act remains.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/cards_test.go",
+        "present": true,
+        "content": "package cards\nimport \"testing\"\nfunc TestOwnerCard(t *testing.T) {}\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/cards\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

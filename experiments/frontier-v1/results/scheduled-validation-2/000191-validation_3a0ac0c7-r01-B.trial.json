@@ -1,0 +1,67 @@
+{
+  "v": 1,
+  "case_id": "validation_3a0ac0c7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "RolloverQualified"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_DsWkVZkas37qTpLibroV4sjR\",\"act_id\":\"a_YSTNBAXXOCQJVZ7FBCLHQ7NJ3A\",\"handle\":\"h_3Bs1Q4j2MzniHelCLZjUioNY\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"rollover/current_test.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "rollover/current_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_DsWkVZkas37qTpLibroV4sjR\",\"act_id\":\"a_AHGCSDKP7QNGRDSMDDQDF4YYCR\",\"handle\":\"h_3Bs1Q4j2MzniHelCLZjUioNY\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package rollover\\nimport \\\"testing\\\"\\nfunc TestRolloverCurrent(t *testing.T) {}\\nfunc TestRolloverQualified(t *testing.T) {}\\n\",\"digest\":\"sha256:36f982fe00c9b429c11ffd43eeb1c091f32d6b6821ed09802d0c7b50b9f33bc5\",\"path\":\"rollover/current_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package rollover import \\\"testing\\\" func TestRolloverCurrent(t *testing.T) {} func TestRolloverQualified(t *testing.T) {} , digest=sha256:36f982fe00c9b429c11ffd43eeb1c091f32d6b6821ed09802d0c7b50b9f33bc5, path=rollover...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverQualified"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_DsWkVZkas37qTpLibroV4sjR\",\"act_id\":\"a_2EULBGRXVXXODLXTXIEVHWI77J\",\"handle\":\"h_zYsBl3ciAR2xU74r9l8Mz1Sg\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T11:12:22.994644127+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:22.997367368+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:22.99742003+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Output\\\":\\\"=== RUN   TestRolloverQualified\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:22.997431097+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Output\\\":\\\"--- PASS: TestRolloverQualified (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:22.997433393+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverQualified\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:22.997436231+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:22.997880725+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/rollover/rollover\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T11:12:22.998350189+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestRolloverQualified\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Found the exact live test name **`TestRolloverQualified`** in `rollover/current_test.go` and ran it via `tests_focus` — result: **PASS**.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

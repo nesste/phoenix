@@ -1,0 +1,51 @@
+{
+  "v": 1,
+  "case_id": "validation_7febe9e1",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_u1gVrF_1scspk14uKjveQCM4\",\"act_id\":\"a_VUT4FTXCPP4HQ74GTSU3ATGAK2\",\"handle\":\"h_9EBWkppvMHkEW-VuZNqp10N-\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"ok  \\texample.test/switchboard/switch\\t0.002s [no tests to run]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=ok  \\texample.test/switchboard/switch\\t0.002s [no tests to run] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Compile the repository and report whether the portable switchboard is buildable.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The build succeeded. The repository compiled cleanly (exit code 0), including the `example.test/switchboard/switch` package — so yes, the portable switchboard is buildable.",
+  "end_state": {
+    "files": [
+      {
+        "path": "build/tag.txt",
+        "present": true,
+        "content": "selected=portable\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/switchboard\n\ngo 1.22\n"
+      },
+      {
+        "path": "switch/value.go",
+        "present": true,
+        "content": "package switchboard\n\nfunc Mode() string { return \"portable\" }\n"
+      },
+      {
+        "path": "switch/value_test.go",
+        "present": true,
+        "content": "package switchboard\n\nimport \"testing\"\nfunc TestPortableMode(t *testing.T) { if Mode() != \"portable\" { t.Fatal(Mode()) } }\n"
+      }
+    ]
+  }
+}

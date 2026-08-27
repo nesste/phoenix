@@ -1,0 +1,83 @@
+{
+  "v": 1,
+  "case_id": "validation_4d4a0c01",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_MM5JIJfR8MB9EACeizK7Uw1y\",\"act_id\":\"a_SHZHLVH72KEFL4UVQT3MNMGTPZ\",\"handle\":\"h_crtxd3o4Vavxg2iZRMWTbW99\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the current platform capability check after its test name changes following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the initial test catalog to find the platform capability check and its name changes over time.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find history of renames for the platform capability check test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find episodes related to the initial test catalog and renaming of the platform capability check test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Show git log for test file renames related to platform capability check.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable actions exist from any of the handles for this task. Each handle's orient step returned \"unavailable in the reachable world,\" and the repo status check (the only reachable call) showed a clean master branch with no additional frontier actions to follow. There is no accessible path to locate the test catalog, rename history, or capability check verification in this session's reachable world, so the task cannot be completed with the current live handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestUnixNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\nconst NativeCapability = \"stub\"\n"
+      }
+    ]
+  }
+}

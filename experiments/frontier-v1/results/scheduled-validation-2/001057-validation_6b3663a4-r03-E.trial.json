@@ -1,0 +1,111 @@
+{
+  "v": 1,
+  "case_id": "validation_6b3663a4",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ljVbwb0xQJifZ2xVYp-fGPxp\",\"act_id\":\"a_3HEOWKXVMYVGXMW3K4ESP4FIQ6\",\"handle\":\"h_-XIyjF_IiPSModJFJVJ7V3GE\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Restore the Unix implementation of the documented capability without changing the portable API.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find the history/log to identify a removed or stubbed Unix implementation of a documented capability, so it can be restored without changing the portable API.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Find episodes/notes describing the documented capability whose Unix implementation was broken or removed.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Search the repository for a Unix-specific implementation file (e.g. under a unix/ directory) that appears stubbed out, empty, or returning an error/unimplemented, corresponding to a documented cross-platform API.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Run the test suite to find failing tests that reveal which documented capability's Unix implementation is missing or broken.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "run tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "show git log",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "list episodes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "intent": "Restore the Unix implementation of the documented capability without changing the portable API.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on my investigation, the repo is clean on branch `master` and no reachable call in this environment can locate or modify a \"stubbed Unix implementation\" — every orient attempt (on the repo, tests, git-log, and episodes handles) returned `matched:false` (\"requested capability is unavailable in the reachable world\"), and repeating the intent is explicitly disallowed once that occurs. The only successful action was `repo.status`, which shows nothing outstanding (clean tree, no diffs to restore).\n\nGiven the tool responses, there is no executable path in this reachable world to perform the requested restoration — the capability (finding/editing a specific Unix-implementation file, viewing git history, or running tests) is not exposed by any of the granted handles' verbs. I'm stopping here rather than repeating already-rejected intents, per the tool's explicit guidance (\"do not repeat this intent; finish without an executable act if no other ready call exists\").\n\nSummary:\n- Checked repo status: clean, branch master — no pending changes to restore.\n- Attempted to search for a stubbed/removed Unix-specific source file: not reachable.\n- Attempted to inspect git log for the relevant removal: not reachable.\n- Attempted to run tests to identify the failing capability: not reachable.\n- Attempted to check episodes/notes for capability details: not reachable.\n\nNo changes were made. If additional handles/verbs (e.g., a file-editing or grep verb, git-log verb, or test-runner verb) can be granted, I can proceed to locate the missing Unix implementation and restore it without altering the portable API.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\n// NativeCapability was omitted from the Unix implementation.\n"
+      }
+    ]
+  }
+}

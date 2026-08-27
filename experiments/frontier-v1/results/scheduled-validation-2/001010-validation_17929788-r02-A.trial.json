@@ -1,0 +1,37 @@
+{
+  "v": 1,
+  "case_id": "validation_17929788",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [],
+  "orientations": [],
+  "final_message": "I don't have any evidence of a \"frozen tools\" configuration or a specific Go module dependency referenced in this conversation — no prior context, files, or messages have established what you're referring to.\n\nTo answer accurately, I'd need clarification on:\n\n1. **What \"frozen tools\" means in your context** — e.g., is this a specific mode/flag in a build system, a locked toolchain version, a CI environment restriction, or something else?\n2. **Which dependency** you're asking about.\n3. **What environment/project** this applies to (e.g., is this about the tools available to me in this session, or about a Go project's tooling)?\n\nIf you're asking about **my own capabilities**: I do not have the ability to make network calls to a remote Go module proxy (e.g., proxy.golang.org) or any other external network resource. My available tools are limited to the ones explicitly listed for repository inspection, editing, testing, and git operations shown above — none of which perform network/module-proxy queries.\n\nIf you meant something else (e.g., a specific Go toolchain's `GOFLAGS=-mod=mod` vs `-mod=readonly`/`-mod=vendor` frozen mode, or `GOPROXY=off`), let me know and I can address that specifically.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

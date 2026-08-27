@@ -1,0 +1,85 @@
+{
+  "v": 1,
+  "case_id": "validation_a9d05996",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_34RtsESmCZOBXyyikYXbZOQC\",\"act_id\":\"a_35JMPC2UB545AWHHBOVMY4CE2W\",\"handle\":\"h_hrX4gYFgMIAJLNHrNgktDTzR\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "inspect git log/history for breadcrumb clues",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "list files in repository to find breadcrumb file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further ready calls or reachable paths exist from any of the provided handles. The repo status check (\"clean=true\", no frontier) is the only reachable state, and no breadcrumb, vault, or receipt-code capability is available in this reachable world — every other intent across the repo, git, tests, and episodes handles returned \"unavailable in the reachable world.\"\n\nI'm unable to retrieve the receipt code from the blue vault; the environment does not expose a path to it from the given handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

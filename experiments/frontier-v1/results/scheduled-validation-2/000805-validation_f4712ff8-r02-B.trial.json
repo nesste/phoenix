@@ -1,0 +1,172 @@
+{
+  "v": 1,
+  "case_id": "validation_f4712ff8",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "diagnostic generation rule overflow"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_BFZX53LQMY2IH2KGV2QHEZG2BW\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "overflow"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_K37ZIJQD5OYUCEE6DFXRJIILXJ\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"diag/catalog.go\",\"samples/errors.log\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "diagnostic"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_SW56XVPZ4N252YKMFRBX46TDPS\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"diag/catalog_test.go\",\"go.mod\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "diag/catalog.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_PX7QQANCTBYPZN4ICFR6MXVFPG\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package diag\\nconst Truncated = \\\"DIAG_TRUNCATED\\\"\\nconst Overflow = \\\"DIAG_OVERFLOW\\\"\\n\",\"digest\":\"sha256:1ba9c4bfc47425c34dce1ebfb6f16b8ded439dc852d2f3e2dd74f6fc231f47e6\",\"path\":\"diag/catalog.go\"},\"error\":null,\"text\":\"ok repo.read: content=package diag const Truncated = \\\"DIAG_TRUNCATED\\\" const Overflow = \\\"DIAG_OVERFLOW\\\" , digest=sha256:1ba9c4bfc47425c34dce1ebfb6f16b8ded439dc852d2f3e2dd74f6fc231f47e6, path=diag/catalog.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "samples/errors.log"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_H2I53NDEVHOUALL2PJHVEDC6V4\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"ERROR: overflow\\n\",\"digest\":\"sha256:e81c7576003307fb72d04d29c9f1705a1235beb46a5fe51de82200cf5365236f\",\"path\":\"samples/errors.log\"},\"error\":null,\"text\":\"ok repo.read: content=ERROR: overflow , digest=sha256:e81c7576003307fb72d04d29c9f1705a1235beb46a5fe51de82200cf5365236f, path=samples/errors.log\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "diag/catalog_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_UEYJOJ4KM24AA4BU6ORDTVOBLV\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package diag\\nimport \\\"testing\\\"\\nfunc TestTruncatedDiagnostic(t *testing.T) {}\\n\",\"digest\":\"sha256:42da421928c6d909b7701a2929ff4d80692f0c3cf6ab6c45018345d9a4aeb737\",\"path\":\"diag/catalog_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package diag import \\\"testing\\\" func TestTruncatedDiagnostic(t *testing.T) {} , digest=sha256:42da421928c6d909b7701a2929ff4d80692f0c3cf6ab6c45018345d9a4aeb737, path=diag/catalog_test.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "generate diagnostic rule case"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_GFXAEOOKCXS2YDAVJYJZT4BBT3\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "switch case truncated"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_DML76DXP2QBUKJLXHBTN5Z4O3P\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "Truncated"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_GR3P4UD3LN6K4QVVH6X7KHQMTF\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"diag/catalog.go\",\"diag/catalog_test.go\",\"diag/generate.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 9,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "rule"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_UPR72RO2OKY4JKHXWZMW5X7WFB\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 10,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "diag/generate.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_6CYX3ZVSTW4MHDQSDC7JQ7BHMY\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"TRUNCATED\\nMALFORMED\\n\",\"digest\":\"sha256:4e211e4683c8c98d1992a9d3926bd28957f6ffd163b13fa54f37c3c88ab7334f\",\"path\":\"diag/generate.txt\"},\"error\":null,\"text\":\"ok repo.read: content=TRUNCATED MALFORMED , digest=sha256:4e211e4683c8c98d1992a9d3926bd28957f6ffd163b13fa54f37c3c88ab7334f, path=diag/generate.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 11,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "TRUNCATED\nMALFORMED\nOVERFLOW\n",
+        "old": "TRUNCATED\nMALFORMED\n",
+        "path": "diag/generate.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_U1W8LsgNx0dlWi1Cxw3gS1YU\",\"act_id\":\"a_R76VQ7RVG2DK5YPFOQKHYKBXX3\",\"handle\":\"h_TuKLRaEDqR9Qr15rFD2QkfEH\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:c813432235e51c8fe322ce1d57cc176b0c2dd3d39d0e4427afaa2b0040c61869\",\"path\":\"diag/generate.txt\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:c813432235e51c8fe322ce1d57cc176b0c2dd3d39d0e4427afaa2b0040c61869, path=diag/generate.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Added `OVERFLOW` to `diag/generate.txt`, preserving the existing `TRUNCATED` and `MALFORMED` cases, matching the documented `Overflow` diagnostic (`DIAG_OVERFLOW`) already defined in `diag/catalog.go` and referenced by `samples/errors.log`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\nOVERFLOW\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

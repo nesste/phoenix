@@ -1,0 +1,106 @@
+{
+  "v": 1,
+  "case_id": "validation_c44e879e",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_-y0StxHo2fmguL6vcCp2L7ru\",\"act_id\":\"a_YBGM37GOPBTD7VZWEQWE2LUD7K\",\"handle\":\"h_lN29ONnQcGR3hiiloAh6AcSa\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the repository file containing the string RVR-204 and report its path.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for the text RVR-204 and return the matching file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Search repository history/files for the text RVR-204 and return the matching file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Search episodes for reference to RVR-204 and the file it relates to",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "List files in the repository",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Search test files for the text RVR-204 and return the matching file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "Find the repository file containing RVR-204 and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "Find the repository file containing RVR-204 and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "episodes",
+      "intent": "Find the repository file containing RVR-204 and report its path.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles (repo, tests, git, episodes) were queried with the full goal intent, but none returned a matching capability or executable call to search for \"RVR-204\" — the world state has no reachable search/grep/read operation exposed for this task. The only executable call surfaced was `repo.status`, which showed the repo is clean on branch `master` but provided no file listing or content search ability.\n\nI'm unable to locate the file containing RVR-204 with the tools currently reachable — there is no grant of a search, list-files, or read-file verb in this session's frontier. I cannot fabricate a path without evidence from the tools.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "v": 1,
+  "case_id": "validation_1b33180f",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lrkmXcQ6apzH9KMaPPNVmYEp\",\"act_id\":\"a_5UINCJJIEB2ME56UEKWRRCQDYU\",\"handle\":\"h_a5H9FFXKW1tyXtnFgHP5QEIu\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestPortableMode\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestPortableMode"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lrkmXcQ6apzH9KMaPPNVmYEp\",\"act_id\":\"a_DEZSFAPZVTNJVI5W3JLZBH4WUQ\",\"handle\":\"h_a5H9FFXKW1tyXtnFgHP5QEIu\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lrkmXcQ6apzH9KMaPPNVmYEp\",\"act_id\":\"a_O7OACSM6TRDRIU3OMTQAACL3NO\",\"handle\":\"h_a5H9FFXKW1tyXtnFgHP5QEIu\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestChangedMode\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestChangedMode"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lrkmXcQ6apzH9KMaPPNVmYEp\",\"act_id\":\"a_3Z7JAV4EAZ6LCGHQ6LCN3NPMTP\",\"handle\":\"h_a5H9FFXKW1tyXtnFgHP5QEIu\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:17:20.007742067+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:17:20.010581753+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestChangedMode\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:17:20.010622154+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestChangedMode\\\",\\\"Output\\\":\\\"=== RUN   TestChangedMode\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:17:20.010632275+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestChangedMode\\\",\\\"Output\\\":\\\"--- PASS: TestChangedMode (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:17:20.010636225+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestChangedMode\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:17:20.010638759+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:17:20.01100156+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/switchboard/switch\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:17:20.01180766+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestChangedMode\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The initial catalog listed `TestPortableMode`, but by the time it was selected the switchboard suite's mode had changed, replacing it with `TestChangedMode`. I re-listed the live catalog and focused the current test:\n\n**TestChangedMode — PASS** (0.00s)",
+  "end_state": {
+    "files": [
+      {
+        "path": "build/tag.txt",
+        "present": true,
+        "content": "selected=portable\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/switchboard\n\ngo 1.22\n"
+      },
+      {
+        "path": "switch/value.go",
+        "present": true,
+        "content": "package switchboard\n\nfunc Mode() string { return \"portable\" }\n"
+      },
+      {
+        "path": "switch/value_test.go",
+        "present": true,
+        "content": "package switchboard\n\nimport \"testing\"\nfunc TestChangedMode(t *testing.T) { if Mode() != \"portable\" { t.Fatal(Mode()) } }\n"
+      }
+    ]
+  }
+}

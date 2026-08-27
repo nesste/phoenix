@@ -1,0 +1,120 @@
+{
+  "v": 1,
+  "case_id": "validation_6a150b0c",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_h3e2itNH_10kwns54sGBDaV5\",\"act_id\":\"a_RBHWS2EKBEK3KGZTBAWHZZHB53\",\"handle\":\"h_6NINJjAVKVwDRuMMrpl36oPl\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its path.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for the opaque sentinel string \"amber\" to find which file/path contains it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Search episodes for the opaque sentinel code \"amber\" to find which record/path contains it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Find the repository record containing the opaque sentinel code \"amber\" and report its path.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "List all episodes/records available so I can inspect their contents.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "git",
+      "intent": "Show git log and commit history to find any commit mentioning a sentinel code.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "intent": "List test files and their contents to find any sentinel code.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "repo",
+      "intent": "List all files in the repository so I can inspect them for a sentinel code.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 10,
+      "handle": "repo",
+      "intent": "Grep the repository for the string amber.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to search the repository, git history, test files, and episode records for the sentinel code \"amber\" using every available handle (repo, git, tests, episodes), but none of them expose a capability (listing, grepping, or content-search) reachable in this environment — each returned \"requested capability is unavailable in the reachable world.\" The only reachable capability was `repo.status`, which just reports branch/clean state and contains no reference to \"amber.\"\n\nI'm unable to locate the record containing the sentinel code \"amber\" with the tools currently reachable — there is no search/read/list verb available on any of the provided handles to inspect file contents. Given the budget and tool constraints, I cannot report a path with confidence.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

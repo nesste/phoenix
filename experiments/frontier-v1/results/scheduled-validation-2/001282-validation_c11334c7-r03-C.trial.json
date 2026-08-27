@@ -1,0 +1,51 @@
+{
+  "v": 1,
+  "case_id": "validation_c11334c7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_J8o7P3gMYW-HJwweiaOOnudB\",\"act_id\":\"a_AP5X3QCF3R4K5HQUYO2VN7QHID\",\"handle\":\"h_fn8RtmM-nQEI-q9SWNi3cJ5H\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"stderr\":\"# example.test/switchboard/switch [example.test/switchboard/switch.test]\\nswitch/value.go:3:29: undefined: missingMode\\n\",\"stdout\":\"FAIL\\texample.test/switchboard/switch [build failed]\\nFAIL\\n\"},\"error\":null,\"text\":\"ok repo.build: exit_code=1, stderr=# example.test/switchboard/switch [example.test/switchboard/switch.test] switch/value.go:3:29: undefined: missingMode , stdout=FAIL\\texample.test/switchboard/switch [build failed] FAIL \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_S4yYT3kY83i3ZDexvA2j8nv5\",\"verb\":\"diff\",\"args\":{}},\"why\":\"inspect changes related to the build failure\",\"provenance\":\"authored\",\"score\":1},{\"call\":{\"handle\":\"h_OLTmtSkOZaKiePBRi7GkO55L\",\"verb\":\"recall\",\"args\":{\"query\":\"# example.test/switchboard/switch [example.test/switchboard/switch.test]\\nswitch/value.go:3:29: undefined: missingMode\\n\"}},\"why\":\"recall fixes for this failure output\",\"provenance\":\"authored\",\"score\":0},{\"call\":{\"handle\":\"h_q1AAAi40KogHlQdF6v5QjG6G\",\"verb\":\"run\",\"args\":{}},\"why\":\"separate test failures from build failures\",\"provenance\":\"authored\",\"score\":0}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Compile the repository and report the concrete compiler failure in the selected switch implementation.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The repository fails to compile in the `switch` package.\n\n**Error:**\n```\n# example.test/switchboard/switch [example.test/switchboard/switch.test]\nswitch/value.go:3:29: undefined: missingMode\n```\n\n**Cause:** In `switch/value.go`, line 3 references an identifier `missingMode` that is not defined anywhere in the package (or not imported), causing a build failure (`FAIL example.test/switchboard/switch [build failed]`).",
+  "end_state": {
+    "files": [
+      {
+        "path": "build/tag.txt",
+        "present": true,
+        "content": "selected=portable\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/switchboard\n\ngo 1.22\n"
+      },
+      {
+        "path": "switch/value.go",
+        "present": true,
+        "content": "package switchboard\n\nfunc Mode() string { return missingMode }\n"
+      },
+      {
+        "path": "switch/value_test.go",
+        "present": true,
+        "content": "package switchboard\n\nimport \"testing\"\nfunc TestPortableMode(t *testing.T) { if Mode() != \"portable\" { t.Fatal(Mode()) } }\n"
+      }
+    ]
+  }
+}

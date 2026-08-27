@@ -1,0 +1,167 @@
+{
+  "v": 1,
+  "case_id": "validation_df2e05e7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverOld"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GOu-C-8lYlfK12UER4MBtALQ\",\"act_id\":\"a_AD6ZOQJXWDHDB4TOPPNPVIW3VR\",\"handle\":\"h_SSU2k4UXMX7JNRB83z3ALeIM\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRollover"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GOu-C-8lYlfK12UER4MBtALQ\",\"act_id\":\"a_LWUSZG734OK5APFQFGN7Y5HRBN\",\"handle\":\"h_SSU2k4UXMX7JNRB83z3ALeIM\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverNew"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GOu-C-8lYlfK12UER4MBtALQ\",\"act_id\":\"a_ZL5UBSI3HYIEBZBH3TYPMCL3G3\",\"handle\":\"h_SSU2k4UXMX7JNRB83z3ALeIM\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "Rollover"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GOu-C-8lYlfK12UER4MBtALQ\",\"act_id\":\"a_W77HBEN3ONICJU76DHJZDGQGVW\",\"handle\":\"h_7AdvldIKIYcHvTNYTdpdt9sa\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {
+        "grep": "Rollover"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GOu-C-8lYlfK12UER4MBtALQ\",\"act_id\":\"a_NZMQGQMIN5JO4Y3WLBEXLWJJUG\",\"handle\":\"h_QJilA9NBLcCuwiqVM8n5gEww\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRolloverV2"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GOu-C-8lYlfK12UER4MBtALQ\",\"act_id\":\"a_VRDTORV7MCQUYKS2QKTXBWRE2K\",\"handle\":\"h_SSU2k4UXMX7JNRB83z3ALeIM\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestLogRollover"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_GOu-C-8lYlfK12UER4MBtALQ\",\"act_id\":\"a_6REBHMADFDTQODEVZFG4RMRUBG\",\"handle\":\"h_SSU2k4UXMX7JNRB83z3ALeIM\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "TestRolloverOld is no longer live in the current catalog. Find its replacement test in the current catalog and verify it (understand what it does and confirm it passes/works as replacement).",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the current test catalog to find the replacement test for the old TestRolloverOld (likely a renamed rollover-related test).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find the git history showing TestRolloverOld was renamed/replaced, to identify the name of its replacement test in the current catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Search the repo for TestRolloverOld to find its replacement test in the current codebase.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find episodes/history that explain TestRolloverOld being replaced, to identify the name of its replacement test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Show git log/diff history for the test file containing TestRolloverOld to see what it was renamed to",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "Open the test file that used to contain TestRolloverOld and show its current contents",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "Show all rollover-related tests currently in the live suite",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I'm unable to locate the replacement test given the tools available. Here's a summary of what I found and the constraints I hit:\n\n**Findings:**\n- `TestRolloverOld` is confirmed **not present** in the live test suite (the `tests` handle rejected it with `unknown_test`).\n- I attempted to discover its replacement through several paths, all of which returned \"capability unavailable in the reachable world\":\n  - Listing/browsing the full test catalog via the `tests` handle\n  - Searching git history/log for the rename via the `git` handle\n  - Grepping the repo source for \"Rollover\" via the `repo` handle\n  - Querying past episodes for context on the rename via the `episodes` handle\n- I also tried guessing plausible successor names (`TestRollover`, `TestRolloverNew`, `TestRolloverV2`, `TestLogRollover`) directly against `focus`, but none matched.\n\n**Conclusion:** With the currently reachable capabilities on these four handles, I can confirm `TestRolloverOld` is gone from the catalog, but I don't have a working verb to enumerate the current test catalog or inspect repo/git contents to identify what replaced it — every discovery path returned \"unavailable in the reachable world.\"\n\nTo proceed, I'd need either:\n1. The correct/exact name of the replacement test (so I can `focus` on it directly), or\n2. A different handle/verb that exposes a test listing or file search capability.\n\nGiven remaining budget (~$0.06), I've stopped here rather than continue blind-guessing test names. Let me know the exact replacement test name (or grant a listing capability) and I'll immediately focus on it and verify it passes.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e56JQklVaIHGjUYBrlITJdw6\",\"act_id\":\"a_UIPICIZ3BBO33JH5RVWH7DHUEV\",\"handle\":\"h_E8iynvcmYaoStpR2CXlNYUE_\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {
+        "follow": true,
+        "path": "changes/clock.md"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e56JQklVaIHGjUYBrlITJdw6\",\"act_id\":\"a_GJVQ4IS4THVRHW7X45W4ZGOXAX\",\"handle\":\"h_8S6oqpEZw90SZtj_IF8D4fBh\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "clock"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e56JQklVaIHGjUYBrlITJdw6\",\"act_id\":\"a_4TGHPXWJSGH4AFTR6STHFKG5F7\",\"handle\":\"h_E8iynvcmYaoStpR2CXlNYUE_\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e56JQklVaIHGjUYBrlITJdw6\",\"act_id\":\"a_EG5LP55GP7SDEQS6VVFEQKKJOY\",\"handle\":\"h_8S6oqpEZw90SZtj_IF8D4fBh\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment: the file changes/clock.md is obsolete/deleted, find where it was moved/renamed to in git history, and report the current content of that fragment.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find the rename/move history of changes/clock.md using git log --follow to determine its new path after being moved.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment: the file changes/clock.md is obsolete/deleted, find where it was moved/renamed to in git history, and report the current content of that fragment.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Locate the moved clock fragment: the file changes/clock.md is obsolete/deleted, find where it was moved/renamed to, and report the current content of that fragment.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Locate the moved clock fragment: the file changes/clock.md is obsolete/deleted, find where it was moved/renamed to, and report the current content of that fragment.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Show git log history for the repository to find commits renaming or moving files under changes/ directory",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Locate the moved clock fragment: the file changes/clock.md is obsolete/deleted, find where it was moved/renamed to, and report the current content of that fragment.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on my investigation, I was unable to locate the moved clock fragment. None of the available handles (repo, tests, git, episodes) exposed a reachable capability to search git rename history, grep file contents, or browse the filesystem beyond a basic repo status check (branch=master, clean=true). The only executable action available was `repo.status`, which returned no further usable frontier for tracing the file's move or reading its new content.\n\nI cannot complete this task with the current tool access — there's no reachable verb to run `git log --follow`, search commit history for renames, or read file contents from any of the four handles provided. Reporting this limitation rather than guessing at the answer.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_vrEbxvcSgXWh26-6r30q3c9u\",\"act_id\":\"a_ROIE6K3RM4MDQUZKENJA57GBTJ\",\"handle\":\"h_e0ytevQ1VlclikMkyjhChVp7\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_oYSudZpKUWu1P-o-iWq50KMR\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine whether any of these tools (repo, tests, git, episodes) can publish a checklist to a remote release system",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Determine whether the tests tool can publish a checklist to a remote release system",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Determine whether the git tool can publish a checklist to a remote release system",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Determine whether the episodes tool can publish a checklist to a remote release system",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "No — none of these four tools (repo, tests, git, episodes) can publish anything to a remote release system.\n\n- **repo**: local repository inspection (status/branch, e.g. `master`, clean) — no remote publish capability exposed.\n- **tests**: runs the local test suite (`run`) — no publishing/deployment action.\n- **git**: local git operations only — no remote push/release action surfaced.\n- **episodes**: appears to be for tracking/recording episodes locally — no remote publish action.\n\nAll frontier actions reachable from these handles are local (status checks, running tests, orienting) — there is no verb across any of them for pushing, uploading, or publishing a checklist (or anything else) to a remote release system. If you need to publish a release checklist externally, you'd need a different tool/integration (e.g., a release-management or CI/CD API) that isn't among these four handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

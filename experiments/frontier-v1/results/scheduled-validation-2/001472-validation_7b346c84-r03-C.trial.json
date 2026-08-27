@@ -1,0 +1,82 @@
+{
+  "v": 1,
+  "case_id": "validation_7b346c84",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jqkxQjCacdmLBrFYOqfcPB9N\",\"act_id\":\"a_AU7V6VQMPSQL6Q3OQD2KC27OB5\",\"handle\":\"h_3C3iMZ89br5HNpsQ4BFfLjNF\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_fl6Ws9cP9DAzFBIWyc1qNtAs\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "catalog",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jqkxQjCacdmLBrFYOqfcPB9N\",\"act_id\":\"a_PH77EYCQ4NG46CR77PVANRDDFS\",\"handle\":\"h_fl6Ws9cP9DAzFBIWyc1qNtAs\",\"verb\":\"catalog\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jqkxQjCacdmLBrFYOqfcPB9N\",\"act_id\":\"a_PF7TLNHLQQLWWCIMHMLS3NQK2W\",\"handle\":\"h_fl6Ws9cP9DAzFBIWyc1qNtAs\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestMatrix_AxisNorth\",\"TestMatrix_AxisSouth\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_fl6Ws9cP9DAzFBIWyc1qNtAs\",\"verb\":\"focus\",\"args\":{\"test\":\"TestMatrix_AxisNorth\"},\"state\":\"sha256:4694de45bfe7faf68d5297820e0759ecbbed84804e004c16d051434e7c681683\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestMatrix_AxisNorth"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jqkxQjCacdmLBrFYOqfcPB9N\",\"act_id\":\"a_LZECGGTLYIRQR74E573RFGEIA3\",\"handle\":\"h_fl6Ws9cP9DAzFBIWyc1qNtAs\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:49:52.869610299+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:52.871736985+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:52.871768716+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisNorth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:52.871778415+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisNorth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:52.871780775+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:52.871783466+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:52.872205431+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/matrix/matrix\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:52.872848439+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestMatrix_AxisNorth\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Isolate and verify the north-axis matrix check through the catalog rather than relying on a full-suite build.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List/browse the test catalog to find the north-axis matrix check, rather than running the full suite.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "Verified successfully without a full-suite build:\n\n- **Catalog lookup**: Used `tests.list` to browse the matrix test catalog, which surfaced `TestMatrix_AxisNorth` (and `TestMatrix_AxisSouth`).\n- **Isolated run**: Used `tests.focus` to run only `TestMatrix_AxisNorth` in package `example.test/matrix/matrix`.\n- **Result**: `--- PASS: TestMatrix_AxisNorth (0.00s)`, exit code 0, no stderr — the north-axis matrix check passes.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

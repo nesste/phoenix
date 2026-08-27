@@ -1,0 +1,72 @@
+{
+  "v": 1,
+  "case_id": "validation_42a92391",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_TMeWhuU6-WCow7QXj96T40ug\",\"act_id\":\"a_F3LXC3R6W5UL2RA3S4D5GTPQEJ\",\"handle\":\"h_iMk2VxTdKqRuLK4GywhFj4LS\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_3l5dHKM9SFEdKLGkh4Feag7v\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {
+        "verbose": true
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_TMeWhuU6-WCow7QXj96T40ug\",\"act_id\":\"a_UXEVXCWLQGZ6PLFQRKQ4NRSEY2\",\"handle\":\"h_iMk2VxTdKqRuLK4GywhFj4LS\",\"verb\":\"status\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed status: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_TMeWhuU6-WCow7QXj96T40ug\",\"act_id\":\"a_4MAPDNC6ZTHISFMY27HPZB47OW\",\"handle\":\"h_qxMI_2SiO5MRSE_K5xpdqbz3\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending current provenance card is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Show tracked diff (changed files) to check if provenance card file is included",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The tracked diff (`git diff`) is empty — confirming the pending \"current provenance card\" file does not appear in it. Combined with the repo status showing `clean=false` on branch `master`, this means the file exists on disk but is **untracked** by git (never added/committed), not a modification of an existing tracked file. If it were modified, it would show up in `git diff`; since it doesn't, git simply doesn't know about it yet.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-7\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

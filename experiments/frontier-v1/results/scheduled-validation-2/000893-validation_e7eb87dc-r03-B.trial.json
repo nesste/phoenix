@@ -1,0 +1,74 @@
+{
+  "v": 1,
+  "case_id": "validation_e7eb87dc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "timeout"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YQA2_zo_3OwJhI9mQTcWnaea\",\"act_id\":\"a_XKKG7B6GA6YSGB6QOWGXCLKTFQ\",\"handle\":\"h_0fDG6QHDCPV5v1Y56TgGVKPi\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"config/reference.ini\",\"config/runtime.ini\",\"docs/runtime.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YQA2_zo_3OwJhI9mQTcWnaea\",\"act_id\":\"a_IKH4XB45MONAJRGACIZ24TT6P2\",\"handle\":\"h_0fDG6QHDCPV5v1Y56TgGVKPi\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"[primary]\\ntimeout=20\\n[shadow]\\ntimeout=20\\n\",\"digest\":\"sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.read: content=[primary] timeout=20 [shadow] timeout=20 , digest=sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "[primary]\ntimeout=35",
+        "old": "[primary]\ntimeout=20",
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YQA2_zo_3OwJhI9mQTcWnaea\",\"act_id\":\"a_IOHTWJAXTKJDIA24LCFYALBFJ3\",\"handle\":\"h_0fDG6QHDCPV5v1Y56TgGVKPi\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_YQA2_zo_3OwJhI9mQTcWnaea\",\"act_id\":\"a_6U6CIBUL5GQTDTNMKU3HEZ7SXT\",\"handle\":\"h_0fDG6QHDCPV5v1Y56TgGVKPi\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"[primary]\\ntimeout=35\\n[shadow]\\ntimeout=20\\n\",\"digest\":\"sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.read: content=[primary] timeout=35 [shadow] timeout=20 , digest=sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done. The primary runtime timeout was updated from 20 to 35, while the shadow timeout remains unchanged at 20 — confirming the edit correctly targeted only the primary line despite both sections having matching `timeout` values.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=35\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

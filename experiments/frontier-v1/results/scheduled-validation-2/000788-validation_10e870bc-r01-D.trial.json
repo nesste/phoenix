@@ -1,0 +1,106 @@
+{
+  "v": 1,
+  "case_id": "validation_10e870bc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_9lTczFt3OdQ0gG0mL9IERUPT\",\"act_id\":\"a_YP6H6MPGNMFIKQLA3IFAGR4JMB\",\"handle\":\"h_VuzYMsCn6Ggkfj-z_Es3nbV3\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_9lTczFt3OdQ0gG0mL9IERUPT\",\"act_id\":\"a_O23O2KMC52H6XI5W5AM3NYEYOA\",\"handle\":\"h_lGFJYKgXv-2INREFLRcgAh_5\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestTruncatedDiagnostic\",\"TestOverflowDiagnostic\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {
+        "test": "TestOverflowDiagnostic"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_9lTczFt3OdQ0gG0mL9IERUPT\",\"act_id\":\"a_NW7EYBCL6FG427WWM4XLYAJEWL\",\"handle\":\"h_lGFJYKgXv-2INREFLRcgAh_5\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_9lTczFt3OdQ0gG0mL9IERUPT\",\"act_id\":\"a_ZY3UGU54P7QNV4HI645ICUYATS\",\"handle\":\"h_lGFJYKgXv-2INREFLRcgAh_5\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T14:37:24.040837512+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.042998261+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043030718+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Output\\\":\\\"=== RUN   TestTruncatedDiagnostic\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043040756+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Output\\\":\\\"--- PASS: TestTruncatedDiagnostic (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043043594+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestTruncatedDiagnostic\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043046928+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043048609+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"=== RUN   TestOverflowDiagnostic\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043050767+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"--- PASS: TestOverflowDiagnostic (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043053274+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043054863+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.043424791+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/diagnostics/diag\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:37:24.044705811+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the newly added overflow diagnostic test after the suite expands following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Verify the newly added overflow diagnostic test after the suite expands following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Verify the newly added overflow diagnostic test after the suite expands following the initial catalog.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Run/verify the TestOverflowDiagnostic test",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Verification complete.\n\n**Result: TestOverflowDiagnostic PASSES ✅**\n\nDetails:\n- The test suite (`example.test/diagnostics/diag`) originally contained just `TestTruncatedDiagnostic` (the initial catalog). It has since expanded to include a second test, `TestOverflowDiagnostic` — the newly added overflow diagnostic test.\n- Running the full suite: `exit_code=0`, `passed=2`, `failed=0`.\n- Specifically: `--- PASS: TestOverflowDiagnostic (0.00s)`\n\nThe new overflow diagnostic test is present and passing alongside the pre-existing truncated diagnostic test, with the repository in a clean state on `master`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\nfunc TestOverflowDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

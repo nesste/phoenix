@@ -1,0 +1,84 @@
+{
+  "v": 1,
+  "case_id": "validation_c1f7bb45",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_sV5Jajfv2CITjoxWDaphC3vH\",\"act_id\":\"a_4QKRXEWGRNVXYKIH2CGS2WPOI7\",\"handle\":\"h_C_yeLKrgfiXiAv3CnUMgsCSI\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestLocalCore\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestLocalCore"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_sV5Jajfv2CITjoxWDaphC3vH\",\"act_id\":\"a_VTIMSUY3TBG33A6J5JBSQS5XBT\",\"handle\":\"h_C_yeLKrgfiXiAv3CnUMgsCSI\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_sV5Jajfv2CITjoxWDaphC3vH\",\"act_id\":\"a_EJFYT64FMSX6GVNIJYFTF37IGH\",\"handle\":\"h_C_yeLKrgfiXiAv3CnUMgsCSI\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReplacementGraph\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestReplacementGraph"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_sV5Jajfv2CITjoxWDaphC3vH\",\"act_id\":\"a_RISCGRSIAJGSXYPMMFTCH4ZD66\",\"handle\":\"h_C_yeLKrgfiXiAv3CnUMgsCSI\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T15:49:20.013349418+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:49:20.016418882+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:49:20.01647552+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\",\\\"Output\\\":\\\"=== RUN   TestReplacementGraph\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:49:20.016487506+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\",\\\"Output\\\":\\\"--- PASS: TestReplacementGraph (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:49:20.016494293+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T15:49:20.016499022+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:49:20.016879095+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/mapapp/app\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:49:20.018025415+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Elapsed\\\":0.005}\\n\",\"test\":\"TestReplacementGraph\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The dependency test suite catalog shifted twice (from `TestLocalCore` to `TestReplacementGraph`) after the module test file changes. I focused on the current live test, **TestReplacementGraph**, and it **passed**.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "app/app_test.go",
+        "present": true,
+        "content": "package app\nimport \"testing\"\nfunc TestReplacementGraph(t *testing.T) {}\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

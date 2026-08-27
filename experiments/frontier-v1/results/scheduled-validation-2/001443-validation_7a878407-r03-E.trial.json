@@ -1,0 +1,123 @@
+{
+  "v": 1,
+  "case_id": "validation_7a878407",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6aaksMRhu_Iraa7TjujAUQ66\",\"act_id\":\"a_6FG6J3KUALAKWQPMJB5HX3IN4N\",\"handle\":\"h_S_sNg1iPmn03w6juFE5lZkF5\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "AXIS-HISTORY-52"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6aaksMRhu_Iraa7TjujAUQ66\",\"act_id\":\"a_WVQ5P22Z7T4KRUURQMP6FC7GY5\",\"handle\":\"h_S_sNg1iPmn03w6juFE5lZkF5\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "ls",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6aaksMRhu_Iraa7TjujAUQ66\",\"act_id\":\"a_42Z7DZ5OA3Z37YC2PA27N63IYA\",\"handle\":\"h_S_sNg1iPmn03w6juFE5lZkF5\",\"verb\":\"ls\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6aaksMRhu_Iraa7TjujAUQ66\",\"act_id\":\"a_EI4OXHHGMTVNAAJ2HAZ5OYFQL5\",\"handle\":\"h_S_sNg1iPmn03w6juFE5lZkF5\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find AXIS-HISTORY-52 and report its path within the repository.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository files for text \"AXIS-HISTORY-52\" to find which file contains it",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find AXIS-HISTORY-52 reference in git history/log to determine which file path it corresponds to",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Locate AXIS-HISTORY-52 episode and report its file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find AXIS-HISTORY-52 in tests repository, report file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "List repository files/directory tree to locate history or episode related files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "status",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to locate AXIS-HISTORY-52 using every live handle provided (repo, tests, git, episodes), including repository status, search/grep, directory listing, and log inspection. Findings:\n\n- **repo** (`h_S_sNg1iPmn03w6juFE5lZkF5`): Only `status` was reachable (branch `master`, clean). No `grep`, `ls`, or `log` capability was reachable from this handle in the current world state — these returned \"act is not reachable.\"\n- **tests, git, episodes** handles: No capabilities matched the intent to search for or locate AXIS-HISTORY-52; orient returned \"requested capability is unavailable in the reachable world\" for all of them.\n\n**Result: I could not find AXIS-HISTORY-52 or determine its path.** The reachable surface from these four handles does not expose any search/listing/log capability that would let me inspect file contents or history for that identifier — the only actionable call was a no-op repo status check, and no further frontier calls were offered afterward.\n\nIf you have a handle or verb that specifically exposes file search (e.g., a dedicated \"search\" or \"cat\" capability) or can point me to a narrower path to start from, I can retry. Otherwise, based on repository-local evidence alone, AXIS-HISTORY-52's location cannot be established with the currently reachable tools.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

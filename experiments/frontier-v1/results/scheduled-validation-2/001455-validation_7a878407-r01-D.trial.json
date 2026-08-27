@@ -1,0 +1,127 @@
+{
+  "v": 1,
+  "case_id": "validation_7a878407",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ErDLuyiXVmBz6Lwb0QGShhfM\",\"act_id\":\"a_FVAMJEG6NYTVQLMCQDKOUT5P6H\",\"handle\":\"h_ICdDk5i1h5DqJfKQu2rCrfGE\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "AXIS-HISTORY-52"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ErDLuyiXVmBz6Lwb0QGShhfM\",\"act_id\":\"a_5REHFPEMNUQJAADZALKZ77DQGP\",\"handle\":\"h_ICdDk5i1h5DqJfKQu2rCrfGE\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "AXIS-HISTORY-52"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ErDLuyiXVmBz6Lwb0QGShhfM\",\"act_id\":\"a_JM354NBHULXYLTQOWE45H5KP4V\",\"handle\":\"h_ICdDk5i1h5DqJfKQu2rCrfGE\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "AXIS-HISTORY-52"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ErDLuyiXVmBz6Lwb0QGShhfM\",\"act_id\":\"a_JOL663XFGJDTB7RTVPNOL6B2V2\",\"handle\":\"h_ICdDk5i1h5DqJfKQu2rCrfGE\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"matrix/axes.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find AXIS-HISTORY-52 and report its file path within the repository",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository text for the string AXIS-HISTORY-52 to locate its file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Search git history/log for AXIS-HISTORY-52 to locate its file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "List repository files/tree structure to search for AXIS-HISTORY-52",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find AXIS-HISTORY-52 and report its file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "inspect reachable state",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "inspect reachable state",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "inspect reachable state",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "AXIS-HISTORY-52 was found at:\n\n**`matrix/axes.md`**",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

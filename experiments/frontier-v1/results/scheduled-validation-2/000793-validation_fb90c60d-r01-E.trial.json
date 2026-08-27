@@ -1,0 +1,149 @@
+{
+  "v": 1,
+  "case_id": "validation_fb90c60d",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6zncnEpP6MPaQV-7DeAIf_Cd\",\"act_id\":\"a_K3YBUJPSRG44JBCI2WPNSETYDX\",\"handle\":\"h_LvgIH-jfZQYNo2MJ9jLluNON\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "truncated"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6zncnEpP6MPaQV-7DeAIf_Cd\",\"act_id\":\"a_3X7OH5533RY2CIFTW2NS4RHET6\",\"handle\":\"h_LvgIH-jfZQYNo2MJ9jLluNON\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list_files",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6zncnEpP6MPaQV-7DeAIf_Cd\",\"act_id\":\"a_SLGLVN7L2TDWBGJ4CE3PNLXOI7\",\"handle\":\"h_LvgIH-jfZQYNo2MJ9jLluNON\",\"verb\":\"list_files\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "truncated-input"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6zncnEpP6MPaQV-7DeAIf_Cd\",\"act_id\":\"a_YJSP5E4ZQDZFYJ5K4TVTMFNN3P\",\"handle\":\"h_LvgIH-jfZQYNo2MJ9jLluNON\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Restore discoverability of the documented truncated-input v2 diagnostic while preserving the existing catalog entries.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find documentation and catalog references to the truncated-input v2 diagnostic to understand why it's not discoverable",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files to locate diagnostic catalog and documentation",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Restore discoverability of the documented truncated-input v2 diagnostic while preserving the existing catalog entries.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Restore discoverability of the documented truncated-input v2 diagnostic while preserving the existing catalog entries.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Restore discoverability of the documented truncated-input v2 diagnostic while preserving the existing catalog entries.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "Search the repository source code for 'truncated' to find the diagnostic catalog file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "repo",
+      "intent": "open diagnostics catalog file in repository",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "git",
+      "intent": "show git log for diagnostic catalog changes",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "repo",
+      "intent": "explore repository",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Given the tool responses, the repository handle has been exhausted at this state — after confirming `status` (branch=master, clean=true), no further reachable actions exist in this world (all subsequent orient/verb attempts return `matched:false` or `absent`, with empty frontiers). The git, tests, and episodes handles are similarly unreachable for this task from the current state.\n\nI'm unable to proceed further: the environment does not expose any reachable action beyond the initial `repo.status` check, so I cannot locate the diagnostic catalog file, inspect the truncated-input v2 diagnostic, or make the edit needed to restore its discoverability. No file-read, search, grep, or edit verbs are reachable from any of the four provided handles at this state, and I've exhausted the low remaining budget probing for a working path.\n\n**Summary:**\n- Confirmed repo is on `master`, clean.\n- No reachable capability exists to read/search/edit the catalog or diagnostic docs, or to inspect git history/tests/episodes, given the current handle states.\n- Cannot complete the restoration task with the tools/state currently reachable.\n\nIf additional capabilities (e.g., a file-read or grep verb) can be exposed on these handles, please let me know and I can retry.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\n// overflow token accidentally dropped\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

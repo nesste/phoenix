@@ -1,0 +1,98 @@
+{
+  "v": 1,
+  "case_id": "validation_ccd4953a",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_c7dlRj-JnrECFdnwr0grAI14\",\"act_id\":\"a_NQE7DJUNQ3PKLVE7JKRR67HYZS\",\"handle\":\"h_tDJ-rDuxls0holmWWaWNWhFP\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_eRK-0X4ta475q_FlSEiYV2lq\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_c7dlRj-JnrECFdnwr0grAI14\",\"act_id\":\"a_S5OHJUHM5VSR6TSMCGZ6UKLOO5\",\"handle\":\"h_eRK-0X4ta475q_FlSEiYV2lq\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:37:57.518536102+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520916004+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520947625+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisNorth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520956579+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisNorth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520958848+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520961401+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.52096299+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisSouth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520969896+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisSouth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520971605+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.520973561+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.521324293+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/matrix/matrix\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:37:57.522121448+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {
+        "filter": "TestMatrix_AxisNorth"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_c7dlRj-JnrECFdnwr0grAI14\",\"act_id\":\"a_OFP7DKMSHSMTIEQ7PIFCWHS33X\",\"handle\":\"h_eRK-0X4ta475q_FlSEiYV2lq\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {
+        "test": "TestMatrix_AxisNorth"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_c7dlRj-JnrECFdnwr0grAI14\",\"act_id\":\"a_SQZ2PLNDAEOXHT3XWVAJJRS4FS\",\"handle\":\"h_eRK-0X4ta475q_FlSEiYV2lq\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "The guessed path matrix/axes_test.go is obsolete. Find the live source, list tests, and focus the north-axis check.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "find the actual location of the axes test file (search for axis-related test source in the repo)",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "List available tests to find the live axes test source and its north-axis check",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Run only the TestMatrix_AxisNorth test to focus on the north-axis check",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The tests handle's `run` verb takes no arguments (schema rejects filters), and orient confirms a focused/filtered run capability isn't reachable from this handle. The full suite run already isolates the result per test though — both `TestMatrix_AxisNorth` and `TestMatrix_AxisSouth` ran individually and passed.\n\nSummary:\n- **Obsolete guess**: `matrix/axes_test.go` — not the real path.\n- **Live source**: package `example.test/matrix/matrix`, containing tests `TestMatrix_AxisNorth` and `TestMatrix_AxisSouth`.\n- **Test run result**: both tests pass (exit_code=0, passed=2, failed=0).\n- **North-axis check**: `TestMatrix_AxisNorth` — **PASS** (0.00s).\n\nI attempted to run only the north-axis test in isolation (via `filter`/`test` args), but the `run` verb on this tests handle accepts no arguments — filtering to a single test isn't supported here; only the whole-suite run is reachable, which already reports each test's individual pass/fail status above.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

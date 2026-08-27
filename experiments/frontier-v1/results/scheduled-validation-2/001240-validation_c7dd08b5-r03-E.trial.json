@@ -1,0 +1,51 @@
+{
+  "v": 1,
+  "case_id": "validation_c7dd08b5",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_RFbVxjRea5HB3CFb25wI8YMZ\",\"act_id\":\"a_PFXNG3RTMNT7L5VQI45AJHI2F5\",\"handle\":\"h_0g8kXtfvPVfVLPaKB9UDJfeK\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:58:12.885285361+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.887736577+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMiddayWindow\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.887763836+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMiddayWindow\\\",\\\"Output\\\":\\\"=== RUN   TestMiddayWindow\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.887783885+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMiddayWindow\\\",\\\"Output\\\":\\\"    roster_test.go:4: midday disabled\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.887788844+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMiddayWindow\\\",\\\"Output\\\":\\\"--- FAIL: TestMiddayWindow (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.887791315+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestMiddayWindow\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.887794024+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.888208733+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/roster/roster\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:58:12.888244183+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Elapsed\\\":0.003}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Run the complete test suite and report the failing roster condition.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The suite ran with 1 failure:\n\n- **Test:** `TestMiddayWindow` (package `roster`)\n- **Failing condition:** `roster_test.go:4` — **\"midday disabled\"**\n\nThis indicates the roster logic's midday window check is failing — the test expected midday to be enabled/active but the roster reports it as disabled.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestMiddayWindow(t *testing.T) { t.Fatal(\"midday disabled\") }\n"
+      }
+    ]
+  }
+}

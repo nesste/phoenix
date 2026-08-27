@@ -1,0 +1,48 @@
+{
+  "v": 1,
+  "case_id": "validation_c21b964e",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_v1dRU5zMKRnxxnUdgwiPhxfW\",\"act_id\":\"a_UZ6K6HGTKOTM66G4ILWFURWBL6\",\"handle\":\"h_kpOeBPf7ToEoAdgVc0zDY6lO\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"stderr\":\"# example.test/mapapp/app\\napp/app.go:2:8: example.test/core@v0.0.0: replacement directory ./deps/missing does not exist\\n\",\"stdout\":\"FAIL\\texample.test/mapapp/app [setup failed]\\nFAIL\\n\"},\"error\":null,\"text\":\"ok repo.build: exit_code=1, stderr=# example.test/mapapp/app app/app.go:2:8: example.test/core@v0.0.0: replacement directory ./deps/missing does not exist , stdout=FAIL\\texample.test/mapapp/app [setup failed] FAIL \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The build failed with a replacement-path diagnostic:\n\n```\napp/app.go:2:8: example.test/core@v0.0.0: replacement directory ./deps/missing does not exist\n```\n\nThe module `example.test/core` has a `replace` directive in the build configuration pointing to `./deps/missing`, but that directory does not exist in the repository, causing `example.test/mapapp/app` to fail setup (exit code 1).",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/missing\n"
+      }
+    ]
+  }
+}

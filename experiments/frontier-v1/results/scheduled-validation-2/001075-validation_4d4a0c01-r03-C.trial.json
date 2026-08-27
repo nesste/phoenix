@@ -1,0 +1,74 @@
+{
+  "v": 1,
+  "case_id": "validation_4d4a0c01",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_RmzAH2UMaCDChBg-qUKo-D1d\",\"act_id\":\"a_IADLPP6EB34VXRCM426CQJSPFY\",\"handle\":\"h_CfZBi2zcjELRNtDGKQEL0KwE\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_3qmQZvl98L0wUrxopF-apLz3\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_RmzAH2UMaCDChBg-qUKo-D1d\",\"act_id\":\"a_SMOFC5RAMESJAUQUWNLFPSXCBD\",\"handle\":\"h_z2szXO0jCM3MHuq9AJ3ePzKn\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_RmzAH2UMaCDChBg-qUKo-D1d\",\"act_id\":\"a_O5L2G6K3N4XNTOJQ5SBG4T5ZPJ\",\"handle\":\"h_3qmQZvl98L0wUrxopF-apLz3\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:12:06.095286567+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.097674238+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.097708449+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"=== RUN   TestUnixNativeCapability\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.097728727+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"    api_test.go:3: stub\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.097732915+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"--- FAIL: TestUnixNativeCapability (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.097735285+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.097739638+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.098189586+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/platform/platform\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:06.098227388+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Elapsed\\\":0.003}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_3qmQZvl98L0wUrxopF-apLz3\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the current platform capability check after its test name changes following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The current test \"TestUnixNativeCapability\" (renamed from the original catalog name) fails.\n\n**Result: FAIL**\n- Test: `TestUnixNativeCapability` (package `example.test/platform/platform`)\n- Output: `api_test.go:3: stub` → `--- FAIL: TestUnixNativeCapability (0.00s)`\n- Exit code: 1, 0 passed / 1 failed\n\nThe platform capability check is currently a stub implementation and does not pass. Repo is on branch `master`, clean working tree — the failure is due to the test itself (stub), not uncommitted changes.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestUnixNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\nconst NativeCapability = \"stub\"\n"
+      }
+    ]
+  }
+}

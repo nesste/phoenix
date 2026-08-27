@@ -1,0 +1,122 @@
+{
+  "v": 1,
+  "case_id": "validation_c91bbf0b",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_X7h-hX23mj7djEjVzF0KEgqB\",\"act_id\":\"a_7C4C6AHVIDG5ADUBALRFYLMVIS\",\"handle\":\"h_TbClelVJH_FcVRXEC7sdwCVo\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestBlueChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_TbClelVJH_FcVRXEC7sdwCVo\",\"verb\":\"focus\",\"args\":{\"test\":\"TestBlueChain\"},\"state\":\"sha256:2bada88afa898a2d5b7ee250a9e36071f1bce38a6ca79874e14a7d0252540bf7\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestBlueChain"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_X7h-hX23mj7djEjVzF0KEgqB\",\"act_id\":\"a_K4RMCI5A7BJZJRDA6J3IX5H5AP\",\"handle\":\"h_TbClelVJH_FcVRXEC7sdwCVo\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined stale suite state: the test suite changed after the call was suggested\\ninstead: h_TbClelVJH_FcVRXEC7sdwCVo.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined stale suite state\",\"why\":\"the test suite changed after the call was suggested\",\"instead\":{\"handle\":\"h_TbClelVJH_FcVRXEC7sdwCVo\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_X7h-hX23mj7djEjVzF0KEgqB\",\"act_id\":\"a_R2F6ZGXD3LYQIV2LBM7VDYYLOG\",\"handle\":\"h_TbClelVJH_FcVRXEC7sdwCVo\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestRedChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_TbClelVJH_FcVRXEC7sdwCVo\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRedChain\"},\"state\":\"sha256:bcccd17fe091b2295335b3f1ad0eca60258f9af5f9ea0c28d85f46c72080265d\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_X7h-hX23mj7djEjVzF0KEgqB\",\"act_id\":\"a_QSEIQGCJUJLAPB67JQ62AXWAFT\",\"handle\":\"h_sYW88gqB1EIsiOay9WHSWDhG\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRedChain"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_X7h-hX23mj7djEjVzF0KEgqB\",\"act_id\":\"a_PNL3TIHH5J5MQB4EDSGALYXTIK\",\"handle\":\"h_TbClelVJH_FcVRXEC7sdwCVo\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:35:13.137530198+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:35:13.140131803+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:35:13.140155618+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"=== RUN   TestRedChain\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:35:13.140176741+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"--- PASS: TestRedChain (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:35:13.140189746+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:35:13.140197259+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:35:13.14052505+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/breadcrumbs/breadcrumbs\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:35:13.141460655+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestRedChain\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the current breadcrumb test after its definition changes immediately after the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Check the current breadcrumb test after its definition changes immediately after the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find the commit where the breadcrumb test definition changes, immediately after the initial catalog commit, to identify the test's name/history.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Find the commit history/log to identify the breadcrumb test definition change immediately after the initial catalog commit.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The current breadcrumb test — now named **TestRedChain** (renamed from the initial catalog's **TestBlueChain** right after the first change) — was run and **passes**.\n\n- Package: `example.test/breadcrumbs/breadcrumbs`\n- Test: `TestRedChain`\n- Result: `--- PASS: TestRedChain (0.00s)`, overall `ok` in 0.002s, exit code 0\n\nThe suite state is volatile (each `list` call showed a different single test), so this reflects the breadcrumb test's state as of this check.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/chain_test.go",
+        "present": true,
+        "content": "package breadcrumbs\nimport \"testing\"\nfunc TestRedChain(t *testing.T) {}\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/breadcrumbs\n\ngo 1.22\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

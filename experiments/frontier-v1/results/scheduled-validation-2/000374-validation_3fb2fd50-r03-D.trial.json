@@ -1,0 +1,66 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_JM_M97H8KkFh_djymOCn-Z0R\",\"act_id\":\"a_GOTV67JNSMJ3ELBNAOM53VD67R\",\"handle\":\"h_GMNkYmfmxu2PBer81Rvr73JF\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No — none of these tools (repo, tests, git, episodes) can publish a checklist to a remote release system. This capability is not reachable/available in any of them; the orient checks for tests, git, and episodes explicitly returned \"capability unavailable,\" and the repo handle only exposes local status/inspection actions (e.g., branch/clean state), with no publish or remote-release functionality exposed.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

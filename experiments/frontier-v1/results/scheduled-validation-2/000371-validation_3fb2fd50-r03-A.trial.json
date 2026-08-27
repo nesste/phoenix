@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [],
+  "orientations": [],
+  "final_message": "No — none of the available tools can publish a checklist to a remote release system. The tool set is limited to local repository/testing/history operations:\n\n- **repo.read / repo.edit / repo.find / repo.status** – read, search, and modify files in the local repo\n- **repo.build** – run a local build\n- **tests.list / tests.run / tests.focus** – list and execute tests locally\n- **git.status / git.diff / git.commit** – inspect changes and commit locally (no push/publish capability)\n- **episodes.recall** – recall session history\n\nThere is no tool for pushing commits, creating releases, or interacting with any external/remote release or deployment system.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

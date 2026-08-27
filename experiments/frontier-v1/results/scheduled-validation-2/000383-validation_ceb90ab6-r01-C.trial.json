@@ -1,0 +1,85 @@
+{
+  "v": 1,
+  "case_id": "validation_ceb90ab6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_TCXVsLSIlWU9k2Uw5tDlmMhR\",\"act_id\":\"a_XL4ZUKU5FB6NJ6D33B6BVX3RKM\",\"handle\":\"h_7hmfflUEtwUrx-PyrGzCVIs3\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_3Jmdb1Pua3D0FEMf-zOrrrSe\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {
+        "follow": true,
+        "path": "changes/clock.md"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_TCXVsLSIlWU9k2Uw5tDlmMhR\",\"act_id\":\"a_TEINWXILBKRY5ALGDRKWED2D4X\",\"handle\":\"h_EKuweLCuS2u8mEKevn-JdzCq\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Locate the moved clock fragment: former path was changes/clock.md, now obsolete/moved. Find where it moved to in git history and report current content of that file.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Follow the history/rename of changes/clock.md to find its new path",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Show git log with rename detection for the file changes/clock.md to find where it was moved",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Locate the moved clock fragment: former path was changes/clock.md, now obsolete/moved. Find where it moved to and report current content of that file.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Search the repository for a file containing the moved 'clock' fragment (originally at changes/clock.md) and show its content",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The frontier only exposes a test-run call, and the git/repo/episodes handles refuse any file-lookup or rename-tracing intent for the given world state — there is no reachable capability to search paths, list files, or view diffs. I cannot locate the moved `clock.md` fragment or retrieve its content with the currently available tool calls.\n\nThe only executable action offered by every handle is `tests.run` (running the test suite), which does not help locate a moved documentation fragment. I'm unable to fulfill this request given the constrained/reachable capabilities of the provided handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "v": 1,
+  "case_id": "validation_c11334c7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Y2WOxgml3otZL20pm2t1lB7d\",\"act_id\":\"a_HJUVZKRS4WWEIGTQ23DLJ3K6IJ\",\"handle\":\"h_YHuZbdadplMEzFyyONqNTP0L\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"stderr\":\"# example.test/switchboard/switch [example.test/switchboard/switch.test]\\nswitch/value.go:3:29: undefined: missingMode\\n\",\"stdout\":\"FAIL\\texample.test/switchboard/switch [build failed]\\nFAIL\\n\"},\"error\":null,\"text\":\"ok repo.build: exit_code=1, stderr=# example.test/switchboard/switch [example.test/switchboard/switch.test] switch/value.go:3:29: undefined: missingMode , stdout=FAIL\\texample.test/switchboard/switch [build failed] FAIL \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The build fails with a compiler error in `switch/value.go`:\n\n```\nswitch/value.go:3:29: undefined: missingMode\n```\n\n`value.go` line 3 references an identifier `missingMode` that isn't defined anywhere in the package, causing the build (and thus the `switch` package's test binary) to fail.",
+  "end_state": {
+    "files": [
+      {
+        "path": "build/tag.txt",
+        "present": true,
+        "content": "selected=portable\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/switchboard\n\ngo 1.22\n"
+      },
+      {
+        "path": "switch/value.go",
+        "present": true,
+        "content": "package switchboard\n\nfunc Mode() string { return missingMode }\n"
+      },
+      {
+        "path": "switch/value_test.go",
+        "present": true,
+        "content": "package switchboard\n\nimport \"testing\"\nfunc TestPortableMode(t *testing.T) { if Mode() != \"portable\" { t.Fatal(Mode()) } }\n"
+      }
+    ]
+  }
+}

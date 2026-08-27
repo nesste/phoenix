@@ -1,0 +1,82 @@
+{
+  "v": 1,
+  "case_id": "validation_7b346c84",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Vx3GIhU0DieGEW-sgAwnQZ5g\",\"act_id\":\"a_7XKMXLEWFF3V5GN5HG4YMWQRTC\",\"handle\":\"h_1yYxOS0Wq-TbTMFTqyogVLGY\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "catalog",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Vx3GIhU0DieGEW-sgAwnQZ5g\",\"act_id\":\"a_3Z5NALQME75JZBHCEALUFAYDF3\",\"handle\":\"h_n7dg4EDNIZx_yiOjf6s-z2Ps\",\"verb\":\"catalog\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Isolate and verify the north-axis matrix check through the test catalog rather than relying on a full-suite build. Find the specific test(s) related to \"north-axis matrix\" via the catalog/list functionality, then run just that isolated test to verify it passes.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the test catalog to find the specific test(s) related to the north-axis matrix check",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Isolate and verify the north-axis matrix check through the catalog rather than relying on a full-suite build.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Isolate and verify the north-axis matrix check through the catalog rather than relying on a full-suite build.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Isolate and verify the north-axis matrix check through the catalog rather than relying on a full-suite build.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable capability exists in this world to fulfill the request. I attempted the goal across all four live handles (tests, repo, git, episodes) and via direct catalog/status verbs:\n\n- The tests handle's `orient` returned `matched:false` for the north-axis catalog-based isolation intent, and a direct `catalog` verb call was reported \"not reachable.\"\n- The repo handle only exposed a generic `status` (branch/clean) with no further frontier calls.\n- Git and episodes handles also returned `matched:false` with no frontier.\n\nThere is no reachable capability in this environment to isolate a \"north-axis matrix\" test through a catalog mechanism — the tool graph doesn't expose that specific test-catalog/selective-run functionality from any of the four provided handles. I'm stopping here per the no-repeat/no-frontier guidance rather than guessing at unsupported verbs.\n\nIf you can confirm whether a differently-named handle or tool exposes a test catalog/selective runner, I can retry with that.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

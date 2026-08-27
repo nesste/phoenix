@@ -1,0 +1,94 @@
+{
+  "v": 1,
+  "case_id": "validation_ccd4953a",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_eBbhGCSgPMSAr2xJxZBKxpbr\",\"act_id\":\"a_GSMDOPF2YMS7FQUPXIJDII7NX5\",\"handle\":\"h_izbDSjqV4hkx0AI4e28hKFkd\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find the live source file for matrix axes (replacing obsolete matrix/axes_test.go), list tests in it, and focus/run the north-axis check test.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search the repository for the current location of matrix axes source/test files, since matrix/axes_test.go is obsolete/moved.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find the git history for matrix/axes_test.go to see where it was renamed/moved to.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Show git log/history for matrix/axes_test.go including renames to find where the file moved.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "List available tests related to matrix axes.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "general orientation to discover available git operations",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "general orientation to discover available test operations",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "general orientation to discover available episode operations",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "These handles have no reachable capabilities matching this task, and the repo handle's status/orient calls returned no frontier calls to proceed further (no search/list/grep verbs available, no git log, no test-list verbs).\n\nGiven the tool set actually reachable, I could not:\n- locate the live source that replaced `matrix/axes_test.go`,\n- enumerate its tests, or\n- focus/run the north-axis test,\n\nbecause every exploratory intent against `git`, `tests`, and `episodes` handles returned `matched:false` (capability unavailable in the reachable world), and the `repo` handle only exposes a `status` verb (branch/clean state) with no further frontier calls offered.\n\n**Summary:** The obsolete `matrix/axes_test.go` path cannot currently be resolved to a live source file, its tests cannot be listed, and the north-axis check cannot be focused/run — none of the four provided handles expose search, grep, log, or test-listing verbs in this session's reachable capability set. I'm stopping here since no executable call remains available; please confirm the tool grants are correct or provide the verbs each handle actually supports.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

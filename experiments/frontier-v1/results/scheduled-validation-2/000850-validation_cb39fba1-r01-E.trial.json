@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_cb39fba1",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_qRNczua_ECStxrjRKZrCdmzp\",\"act_id\":\"a_J5SZT24QXV7KMTLMT7NHWLOG3O\",\"handle\":\"h_bZ8r9BMBdZO4RB9uRmRjX3PI\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the primary timeout value in config to correct it to 35, ensuring shadow value stays 20",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repository for timeout configuration files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable calls exist for this task in the current world state — the only available action (repo.status) has already been executed, and it returned a clean tree with no frontier steps for editing files or diffing. There is no reachable capability to locate/edit the \"primary timeout\" config value or produce a diff, so I cannot complete the requested correction and inspection within this environment as currently exposed. No changes were made (repo remains clean on branch master).",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

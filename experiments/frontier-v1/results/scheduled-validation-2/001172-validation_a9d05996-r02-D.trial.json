@@ -1,0 +1,89 @@
+{
+  "v": 1,
+  "case_id": "validation_a9d05996",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jaf0DDDTxdEPfK2LtVRDtuVy\",\"act_id\":\"a_DS7YV6L7VEONZSJHBKMAZA2A2J\",\"handle\":\"h_S4o9aN5o1GQEKJDOXiBReFu6\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jaf0DDDTxdEPfK2LtVRDtuVy\",\"act_id\":\"a_7XKHGDTO2F4ZODJT3UH3Q7XFDP\",\"handle\":\"h_b8Cj7hZ7a45HQKLz-fsEp-Zf\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_jaf0DDDTxdEPfK2LtVRDtuVy\",\"act_id\":\"a_6BJBYSPZA5AQJDRBKLUSTGPQSM\",\"handle\":\"h_S4o9aN5o1GQEKJDOXiBReFu6\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Follow the repository breadcrumb and report the receipt code stored in the blue vault.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to follow the repository breadcrumb across all provided handles (repo, tests, git, episodes). The repo orient/status calls succeeded but returned an empty frontier (clean master branch, no further reachable steps), and the other three handles reported that the requested capability (\"blue vault\" / breadcrumb) is unavailable in the reachable world.\n\n**Result: I could not retrieve the receipt code.** The breadcrumb trail dead-ends after `repo.status` — there is no reachable path from any of the given handles to a \"blue vault\" or receipt code in this environment. No further executable actions are available to pursue this goal.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

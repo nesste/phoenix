@@ -1,0 +1,91 @@
+{
+  "v": 1,
+  "case_id": "validation_ccd4953a",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "axes_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ooyhSdtqthKwu7Kd3e-eo9i_\",\"act_id\":\"a_YEDU5JMMOGYOVXU23TDEGVVVOI\",\"handle\":\"h_gvTB_wyi2hNb9dMsLTuT_xkP\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ooyhSdtqthKwu7Kd3e-eo9i_\",\"act_id\":\"a_YNNHDUNFQPFQXSJUS4PS3CXSTI\",\"handle\":\"h_vPCpz_oXzTl2dLw8wSQCXPfh\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestMatrix_AxisNorth\",\"TestMatrix_AxisSouth\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "matrix axis"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ooyhSdtqthKwu7Kd3e-eo9i_\",\"act_id\":\"a_3ZWHTLUAQCSELUL2XHKEIXXAFR\",\"handle\":\"h_gvTB_wyi2hNb9dMsLTuT_xkP\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "Axis"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ooyhSdtqthKwu7Kd3e-eo9i_\",\"act_id\":\"a_QJ3QBRF2I6QZVYSHH77MSTKGFS\",\"handle\":\"h_gvTB_wyi2hNb9dMsLTuT_xkP\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"matrix/axes.md\",\"matrix/matrix_test.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ooyhSdtqthKwu7Kd3e-eo9i_\",\"act_id\":\"a_DPBCCQFPF6HWROHEHEIOYMFC7J\",\"handle\":\"h_gvTB_wyi2hNb9dMsLTuT_xkP\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestMatrix_AxisNorth"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ooyhSdtqthKwu7Kd3e-eo9i_\",\"act_id\":\"a_OGIEDBESGLQGRXXMIKEFRHGDSH\",\"handle\":\"h_vPCpz_oXzTl2dLw8wSQCXPfh\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:38:22.549549376+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:38:22.551894727+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:38:22.55193049+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisNorth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:38:22.5519413+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisNorth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:38:22.551944128+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:38:22.551946939+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:38:22.55230703+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/matrix/matrix\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:38:22.553062048+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestMatrix_AxisNorth\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Summary:\n\n- **Live source found:** `matrix/matrix_test.go` (the guessed `matrix/axes_test.go` doesn't exist — `matrix/axes.md` is just documentation).\n- **Tests in suite:** `TestMatrix_AxisNorth`, `TestMatrix_AxisSouth`.\n- **Focused run of `TestMatrix_AxisNorth`:** ✅ PASS (0.00s), package `example.test/matrix/matrix`, overall `ok`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

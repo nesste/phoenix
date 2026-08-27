@@ -1,0 +1,190 @@
+{
+  "v": 1,
+  "case_id": "validation_4d4a0c01",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_SBYK3FVVVZXCSQWB75VOFUQJIJ\",\"handle\":\"h_eZ7q0fdpHIEb1t2B3HcGYB_J\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNativeCapability\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "recall",
+      "args": {
+        "query": "platform capability check test name change initial catalog"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_NUY4JAZ2SXFNCT6U5U7NYFEY2K\",\"handle\":\"h_f-h_mmkQb0pmUWbVBb5S2D3B\",\"verb\":\"recall\",\"status\":\"ok\",\"result\":{\"episodes\":[]},\"error\":null,\"text\":\"ok episodes.recall: episodes=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNativeCapability"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_6DPZCDIKIUAYJOBAIZN5FI65WK\",\"handle\":\"h_eZ7q0fdpHIEb1t2B3HcGYB_J\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "TestNativeCapability"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_JUWEA7IATCMODG3ZRVZHLJVB3S\",\"handle\":\"h_urlHB_2YrTZV2mATdDn3RiOO\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_BS7HCFVLWLV3FLK4TBYVYVHZDK\",\"handle\":\"h_q0FcbKjrPFTPQu9r9ebSzXg7\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n M platform/api_test.go\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master  M platform/api_test.go \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_ADHXU25HFONTCFN6LEBWVG5XAQ\",\"handle\":\"h_q0FcbKjrPFTPQu9r9ebSzXg7\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/platform/api_test.go b/platform/api_test.go\\nindex 26eca88..1a23aca 100644\\n--- a/platform/api_test.go\\n+++ b/platform/api_test.go\\n@@ -1,3 +1,3 @@\\n package platform\\n import \\\"testing\\\"\\n-func TestNativeCapability(t *testing.T) { if Capability() != \\\"native\\\" { t.Fatal(Capability()) } }\\n+func TestUnixNativeCapability(t *testing.T) { if Capability() != \\\"native\\\" { t.Fatal(Capability()) } }\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/platform/api_test.go b/platform/api_test.go index 26eca88..1a23aca 100644 --- a/platform/api_test.go +++ b/platform/api_test.go @@ -1,3 +1,3 @@  package platform  import \\\"testing\\\" -func TestNativeCapability...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "platform/api_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_5FZCR32433WKC2I76QUCXANPHX\",\"handle\":\"h_urlHB_2YrTZV2mATdDn3RiOO\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package platform\\nimport \\\"testing\\\"\\nfunc TestUnixNativeCapability(t *testing.T) { if Capability() != \\\"native\\\" { t.Fatal(Capability()) } }\\n\",\"digest\":\"sha256:ebc2c8b575d114e7de396d1029bc11c27c65512889ba5a26e176f3a250fe434d\",\"path\":\"platform/api_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package platform import \\\"testing\\\" func TestUnixNativeCapability(t *testing.T) { if Capability() != \\\"native\\\" { t.Fatal(Capability()) } } , digest=sha256:ebc2c8b575d114e7de396d1029bc11c27c65512889ba5a26e176f3a250fe434...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestUnixNativeCapability"
+      },
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_ANVZC45B7IYUJWKPPGLC7MLEQI\",\"handle\":\"h_eZ7q0fdpHIEb1t2B3HcGYB_J\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:08:28.661132703+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.663975136+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.664022636+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"=== RUN   TestUnixNativeCapability\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.664030617+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"    api_test.go:3: stub\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.664034925+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"--- FAIL: TestUnixNativeCapability (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.66404759+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.664050602+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.664450488+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/platform/platform\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:28.664479391+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestUnixNativeCapability\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 8,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "func Capability"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_JBEPMFLAE6JLOYMUE6RHTAUEGT\",\"handle\":\"h_urlHB_2YrTZV2mATdDn3RiOO\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"platform/api.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 9,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "platform/api.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_IFCRA5THIC3WH5TQHIEAEFOBML\",\"handle\":\"h_urlHB_2YrTZV2mATdDn3RiOO\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package platform\\nfunc Capability() string { return NativeCapability }\\n\",\"digest\":\"sha256:e5ebc97b6d35712b0bc661bb89b2df91b370f68fbc0e74ab07cf3294d310b934\",\"path\":\"platform/api.go\"},\"error\":null,\"text\":\"ok repo.read: content=package platform func Capability() string { return NativeCapability } , digest=sha256:e5ebc97b6d35712b0bc661bb89b2df91b370f68fbc0e74ab07cf3294d310b934, path=platform/api.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 10,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "NativeCapability"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_MQ2UUNQNLTQ3W5KYTVVPCIN46N\",\"handle\":\"h_urlHB_2YrTZV2mATdDn3RiOO\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"platform/api.go\",\"platform/api_test.go\",\"platform/api_unix.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 11,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "platform/api_unix.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_IE3GIC53CJLXJZN34CLJRT2HFT\",\"handle\":\"h_urlHB_2YrTZV2mATdDn3RiOO\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package platform\\nconst NativeCapability = \\\"stub\\\"\\n\",\"digest\":\"sha256:a8f7e6d8e471c8d4dd52ed68e05289e81342f2538c2be7d1846e6b980b5f1d2d\",\"path\":\"platform/api_unix.go\"},\"error\":null,\"text\":\"ok repo.read: content=package platform const NativeCapability = \\\"stub\\\" , digest=sha256:a8f7e6d8e471c8d4dd52ed68e05289e81342f2538c2be7d1846e6b980b5f1d2d, path=platform/api_unix.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 12,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "const NativeCapability = \"native\"",
+        "old": "const NativeCapability = \"stub\"",
+        "path": "platform/api_unix.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_45O2J3YCYMOU73FCPCHUTITHAN\",\"handle\":\"h_urlHB_2YrTZV2mATdDn3RiOO\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:ca02ce331d101ff2d5c0d0811aad554848d84a381c05632799b8cc8575834020\",\"path\":\"platform/api_unix.go\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:ca02ce331d101ff2d5c0d0811aad554848d84a381c05632799b8cc8575834020, path=platform/api_unix.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 13,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestUnixNativeCapability"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cM8IyaadAfk4WQz5XckKNZuq\",\"act_id\":\"a_XZY2GJE3XWS2YHHM4SNM6ESDTZ\",\"handle\":\"h_eZ7q0fdpHIEb1t2B3HcGYB_J\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:08:37.650768597+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:37.653396414+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:37.653436953+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"=== RUN   TestUnixNativeCapability\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:37.653449756+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"--- PASS: TestUnixNativeCapability (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:37.653455588+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:37.653458481+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:37.653824019+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/platform/platform\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:08:37.654707403+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestUnixNativeCapability\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Verified and fixed. Summary:\n\n- The initial catalog listed the test as `TestNativeCapability`, but it was renamed to `TestUnixNativeCapability` in `platform/api_test.go`.\n- Running it under the new name initially **failed**: `Capability()` returned `\"stub\"` instead of `\"native\"`.\n- Root cause: `platform/api_unix.go` had `const NativeCapability = \"stub\"`.\n- Fixed to `const NativeCapability = \"native\"`.\n- Re-ran `TestUnixNativeCapability` → **PASS**.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestUnixNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\nconst NativeCapability = \"native\"\n"
+      }
+    ]
+  }
+}

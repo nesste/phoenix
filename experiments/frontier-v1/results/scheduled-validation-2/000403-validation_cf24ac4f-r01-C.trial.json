@@ -1,0 +1,92 @@
+{
+  "v": 1,
+  "case_id": "validation_cf24ac4f",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3xkzopctoYcDIvvJ9JbZI6kt\",\"act_id\":\"a_RYNNDUNOGPV3QRLJLABC63GBEQ\",\"handle\":\"h_La-PJUUwkfg-Mqr89VCnv8m3\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_sy7NkvIS8nZuqVyDRfbbctX1\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3xkzopctoYcDIvvJ9JbZI6kt\",\"act_id\":\"a_BX6MMXYDAZDYHEN5HCJ4BCLE5M\",\"handle\":\"h_sy7NkvIS8nZuqVyDRfbbctX1\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"# ./...\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"pattern ./...: directory prefix . does not contain main module or its selected dependencies\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-fail\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T12:14:28.31225674+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"./...\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T12:14:28.312311+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"./...\\\",\\\"Output\\\":\\\"FAIL\\\\t./... [setup failed]\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T12:14:28.31231629+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"./...\\\",\\\"Elapsed\\\":0,\\\"FailedBuild\\\":\\\"./...\\\"}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_sy7NkvIS8nZuqVyDRfbbctX1\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3xkzopctoYcDIvvJ9JbZI6kt\",\"act_id\":\"a_K4QQZ5TXV4TGHCS5PS3HIMT3NU\",\"handle\":\"h_sy7NkvIS8nZuqVyDRfbbctX1\",\"verb\":\"list\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"test_list_failed\",\"message\":\"test listing failed\",\"details\":{\"exit_code\":1}},\"text\":\"failed list: test listing failed\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Add a bullet for \"monotonic clock fallback\" under the live changelog heading '## Upcoming'; if that heading is stale/missing, recover by finding the correct current changelog heading and add the bullet there instead.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Locate the changelog file and read its current headings to verify whether '## Upcoming' exists or is stale",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find and show the current CHANGELOG file content to check for the '## Upcoming' heading or its stale equivalent",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Search repository files for CHANGELOG.md and display headings like '## Upcoming' or '## Unreleased'",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Add a bullet for \"monotonic clock fallback\" under the live changelog heading '## Upcoming'; if that heading is stale/missing, recover by finding the correct current changelog heading and add the bullet there instead.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on my exploration, this task cannot be completed in the reachable world. Findings:\n\n- The repo (`h_La-PJUUwkfg-Mqr89VCnv8m3`) is clean on branch `master`, but there is no reachable capability to read/search/edit a CHANGELOG file — the orient call explicitly returned `\"matched\": false\"` for locating or editing changelog headings.\n- The test handle (`h_sy7NkvIS8nZuqVyDRfbbctX1`) only supports `run`/`list`, and both fail: `run` reports the module can't be resolved (`directory prefix . does not contain main module`), and `list` fails outright — these are unrelated to changelog editing anyway and were dead ends.\n- The git handle (`h_iCFjOAUnI3hXs_0SQu6WlrF5`) offered no new reachable calls beyond the same test-list frontier.\n- The episodes handle (`h_gHfBnmbcDHgb6HvQu12yLmdZ`) also returned `\"matched\": false\"` for the same intent — no changelog/heading-recovery capability exists there either.\n\n**Conclusion:** None of the four live handles expose a verb capable of reading, locating, or editing a changelog document (or its headings) in this world — so I cannot verify whether `## Upcoming` is live or stale, nor add the requested \"monotonic clock fallback\" bullet. There is no ready executable call left to pursue this goal; finishing here per instructions rather than guessing at an unsupported action.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

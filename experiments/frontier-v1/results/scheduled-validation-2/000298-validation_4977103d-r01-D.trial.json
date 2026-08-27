@@ -1,0 +1,78 @@
+{
+  "v": 1,
+  "case_id": "validation_4977103d",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cdSqJ_q8YKoP3Xq7woGUqzj9\",\"act_id\":\"a_7ZKI663PTGXDRQBS3Z3TRKTKWP\",\"handle\":\"h_2YVolufN4EiQU-tsZpMAUE7A\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Update the \"Current epoch\" field from copper to silver in the repo, then create a commit for this change.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find and edit the file containing \"Current epoch: copper\" to change it to \"Current epoch: silver\"",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Update the \"Current epoch\" field from copper to silver in the repo, then create a commit for this change.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "List files or diff to find \"Current epoch\" field, edit it from copper to silver",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Directly edit repository file to change Current epoch value from copper to silver",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No reachable capability exists in this world to actually locate/edit the \"Current epoch\" field or subsequently create the commit — every orient attempt (via the repo, git, and episodes handles) returned \"capability is unavailable in the reachable world,\" and no executable calls were offered besides the read-only `repo.status`, which already confirmed the tree is clean. I'm unable to perform the edit or the commit with the tools currently reachable, so I'm stopping here rather than guessing at unavailable actions.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/sentinel\n\ngo 1.22\n"
+      },
+      {
+        "path": "sentinel/history.md",
+        "present": true,
+        "content": "Current epoch: copper. Previous epoch: amber.\n"
+      },
+      {
+        "path": "sentinel/sentinel_test.go",
+        "present": true,
+        "content": "package sentinel\nimport \"testing\"\nfunc TestCurrentSentinel(t *testing.T) {}\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestOldSentinel\",\"to\":\"TestCurrentSentinel\"}]}\n"
+      }
+    ]
+  }
+}

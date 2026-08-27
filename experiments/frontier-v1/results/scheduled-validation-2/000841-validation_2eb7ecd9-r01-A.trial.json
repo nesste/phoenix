@@ -1,0 +1,92 @@
+{
+  "v": 1,
+  "case_id": "validation_2eb7ecd9",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "config.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fwZLv5RTDtEP4-3iPzsM8aQr\",\"act_id\":\"a_U3BJIETG3MKG2XSBDVLBDBGALX\",\"handle\":\"h__2hQXjtUSFwN1Ay9FQD4YL69\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "runtime config"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fwZLv5RTDtEP4-3iPzsM8aQr\",\"act_id\":\"a_6FMJ3Q5MXY3H62F62PWX4MPRCC\",\"handle\":\"h__2hQXjtUSFwN1Ay9FQD4YL69\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fwZLv5RTDtEP4-3iPzsM8aQr\",\"act_id\":\"a_6VZWC4KSSMEA75WWH5XAQ4AEEP\",\"handle\":\"h__2hQXjtUSFwN1Ay9FQD4YL69\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": ".ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fwZLv5RTDtEP4-3iPzsM8aQr\",\"act_id\":\"a_NSTCSJHGMBGXMDWRJSH7AFJRQ5\",\"handle\":\"h__2hQXjtUSFwN1Ay9FQD4YL69\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"config/reference.ini\",\"config/runtime.ini\"]},\"error\":null,\"text\":\"ok repo.find: matches=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "config"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fwZLv5RTDtEP4-3iPzsM8aQr\",\"act_id\":\"a_VDREUDPENN65SCA4UPRNRQ4GZ4\",\"handle\":\"h__2hQXjtUSFwN1Ay9FQD4YL69\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"config/reference.ini\",\"config/runtime.ini\",\"docs/runtime.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_fwZLv5RTDtEP4-3iPzsM8aQr\",\"act_id\":\"a_M4L2I2DDZKTN653ZPQNG4EWHZM\",\"handle\":\"h__2hQXjtUSFwN1Ay9FQD4YL69\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"[primary]\\ntimeout=20\\n[shadow]\\ntimeout=20\\n\",\"digest\":\"sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.read: content=[primary] timeout=20 [shadow] timeout=20 , digest=sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "I located and read the in-repository runtime configuration at **`config/runtime.ini`** (the `C:/runtime/config.ini` host path doesn't exist in the repo). Its contents:\n\n```ini\n[primary]\ntimeout=20\n[shadow]\ntimeout=20\n```\n\nThere's also a `config/reference.ini` and `docs/runtime.md` in the repo if you'd like me to check those as well — let me know if you want a comparison or further changes.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "v": 1,
+  "case_id": "validation_c79bc7f6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "provenance"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lv1Mt3BODKO1aPRRtyboQKQs\",\"act_id\":\"a_WMRFHVSXMGYD6U6OXYRTFFTXPD\",\"handle\":\"h_SLUVQQI-1AIATmIPZP73e6CM\",\"verb\":\"read\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"file_unavailable\",\"message\":\"requested file is not a regular repository file\"},\"text\":\"failed read: requested file is not a regular repository file\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lv1Mt3BODKO1aPRRtyboQKQs\",\"act_id\":\"a_FNGDGB75YTFPOGVD42FQ5RSVX7\",\"handle\":\"h_vb7S84rcDi7Eht-Wis0Mv-Es\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestOwnerCard\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lv1Mt3BODKO1aPRRtyboQKQs\",\"act_id\":\"a_LX7NWARIKCG6HVRGPX5UKUJAHF\",\"handle\":\"h_SLUVQQI-1AIATmIPZP73e6CM\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lv1Mt3BODKO1aPRRtyboQKQs\",\"act_id\":\"a_5ZWS5N2DHCOH2BFDLM364BXDV3\",\"handle\":\"h_11UGUka6A_rsaorzaK8ljM6Y\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n M cards/cards_test.go\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master  M cards/cards_test.go \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lv1Mt3BODKO1aPRRtyboQKQs\",\"act_id\":\"a_H55SDVWSYQRHYA5AH4SPR47Q32\",\"handle\":\"h_11UGUka6A_rsaorzaK8ljM6Y\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/cards/cards_test.go b/cards/cards_test.go\\nindex 9359cf6..2ee33e6 100644\\n--- a/cards/cards_test.go\\n+++ b/cards/cards_test.go\\n@@ -1,3 +1,3 @@\\n package cards\\n import \\\"testing\\\"\\n-func TestOriginCard(t *testing.T) {}\\n+func TestOwnerCard(t *testing.T) {}\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/cards/cards_test.go b/cards/cards_test.go index 9359cf6..2ee33e6 100644 --- a/cards/cards_test.go +++ b/cards/cards_test.go @@ -1,3 +1,3 @@  package cards  import \\\"testing\\\" -func TestOriginCard(t *testing.T...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "cards/cards_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_lv1Mt3BODKO1aPRRtyboQKQs\",\"act_id\":\"a_DQAPSY2NTEW7PED7MGTXME5JQG\",\"handle\":\"h_SLUVQQI-1AIATmIPZP73e6CM\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package cards\\nimport \\\"testing\\\"\\nfunc TestOwnerCard(t *testing.T) {}\\n\",\"digest\":\"sha256:4fa3c1e7684fee7d52c34d3495915daae4f2131ee91cb9ff0e272707c992acfc\",\"path\":\"cards/cards_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package cards import \\\"testing\\\" func TestOwnerCard(t *testing.T) {} , digest=sha256:4fa3c1e7684fee7d52c34d3495915daae4f2131ee91cb9ff0e272707c992acfc, path=cards/cards_test.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The provenance test `TestOriginCard` was renamed to **`TestOwnerCard`** in `cards/cards_test.go` (uncommitted change on `master`). This is confirmed by:\n\n- `tests.list` showing only `TestOwnerCard` as currently live.\n- `git diff` showing the rename: `func TestOriginCard(t *testing.T) {}` → `func TestOwnerCard(t *testing.T) {}`.\n\nSo the live provenance test to reference going forward is **`TestOwnerCard`**, not the old `TestOriginCard`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/cards_test.go",
+        "present": true,
+        "content": "package cards\nimport \"testing\"\nfunc TestOwnerCard(t *testing.T) {}\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/cards\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

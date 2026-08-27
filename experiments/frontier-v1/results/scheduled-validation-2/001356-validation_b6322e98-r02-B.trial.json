@@ -1,0 +1,42 @@
+{
+  "v": 1,
+  "case_id": "validation_b6322e98",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_yNVqHTwIw7iesez0cPAOGDdU\",\"act_id\":\"a_5QUFDKM4WTZOSSC77J55H7NWRT\",\"handle\":\"h_Kn3Z_wlZEXPQhel81kTDvkpg\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? cards/incoming.txt\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? cards/incoming.txt \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Git status shows the repository is not clean, with one pending untracked file identified as the incoming provenance card:\n\n- **Branch:** master\n- **Status:** untracked file — `cards/incoming.txt`\n\nThis file (`cards/incoming.txt`) is the pending incoming provenance card that hasn't been added to Git yet.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/incoming.txt",
+        "present": true,
+        "content": "origin=field-2\nowner=intake\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

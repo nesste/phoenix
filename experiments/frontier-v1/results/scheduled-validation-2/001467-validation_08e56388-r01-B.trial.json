@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "case_id": "validation_08e56388",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "AxisSouth"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_L-Hc0BZsomyD6mQgar0RKyHn\",\"act_id\":\"a_YUFO2TTVDTBKOKYENE7FOCFSMM\",\"handle\":\"h__48zCMrjC7UVje9h21ljU8pP\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"matrix/matrix_test.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "matrix/matrix_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_L-Hc0BZsomyD6mQgar0RKyHn\",\"act_id\":\"a_IBG2NOUYQXPS4KEVBTAMJSJPIN\",\"handle\":\"h__48zCMrjC7UVje9h21ljU8pP\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package matrix\\nimport \\\"testing\\\"\\nfunc TestMatrix_AxisNorth(t *testing.T) {}\\nfunc TestMatrix_AxisSouth(t *testing.T) {}\\n\",\"digest\":\"sha256:fe6844b653d7bb2be78ba90d2cf8ec9e4855d36a126b241ab27e41384b706e84\",\"path\":\"matrix/matrix_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package matrix import \\\"testing\\\" func TestMatrix_AxisNorth(t *testing.T) {} func TestMatrix_AxisSouth(t *testing.T) {} , digest=sha256:fe6844b653d7bb2be78ba90d2cf8ec9e4855d36a126b241ab27e41384b706e84, path=matrix/mat...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "`AxisSouth` appears only as part of the test function name `TestMatrix_AxisSouth` in **matrix/matrix_test.go**. There is no separate `AxisSouth` identifier/definition elsewhere in the repository.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

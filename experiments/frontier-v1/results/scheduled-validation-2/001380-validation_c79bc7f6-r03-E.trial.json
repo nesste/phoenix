@@ -1,0 +1,62 @@
+{
+  "v": 1,
+  "case_id": "validation_c79bc7f6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Lmp24AMvEsDZ8Or4p4PLhUa8\",\"act_id\":\"a_T4RP52H274PRH7DPN4BN2JEXAO\",\"handle\":\"h_lW7ReXEeI271t_eC2q6_WnVC\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The requested capability is unavailable in the reachable world. I explored the tests handle's provenance-lookup intent, but after the initial orient (which returned a frontier call to check repo status) and executing that call (repo is on branch `master`, clean), re-issuing the same intent on the tests handle now returns \"unavailable\" — there is no further reachable action to re-establish which provenance test is live after the test-definition/catalog changes.\n\nSummary of what was found:\n- The tests handle's orient step surfaced only one reachable path: inspecting the repo state (`repo.status`), which showed branch `master`, clean working tree.\n- No catalog-read or test-definition-change data was reachable from the `tests`, `git`, or `episodes` handles to identify a specific \"live\" provenance test — the capability isn't available given the current handle scope/state.\n\nI'm stopping here since no further executable act is available to complete this request with the current handles.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/cards_test.go",
+        "present": true,
+        "content": "package cards\nimport \"testing\"\nfunc TestOwnerCard(t *testing.T) {}\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/cards\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

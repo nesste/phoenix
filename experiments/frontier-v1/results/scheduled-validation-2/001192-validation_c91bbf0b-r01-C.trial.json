@@ -1,0 +1,99 @@
+{
+  "v": 1,
+  "case_id": "validation_c91bbf0b",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bn_mJIX-ELxgTJmaEC2Lu3hb\",\"act_id\":\"a_VGIYPHS3APPUQ553CZQM655VAH\",\"handle\":\"h_7QsCa8IqeVYxdk73sCUfHDuw\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestBlueChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_7QsCa8IqeVYxdk73sCUfHDuw\",\"verb\":\"focus\",\"args\":{\"test\":\"TestBlueChain\"},\"state\":\"sha256:2bada88afa898a2d5b7ee250a9e36071f1bce38a6ca79874e14a7d0252540bf7\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestBlueChain"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bn_mJIX-ELxgTJmaEC2Lu3hb\",\"act_id\":\"a_7V25MISMJCK7YK6ONMEFLORMDJ\",\"handle\":\"h_7QsCa8IqeVYxdk73sCUfHDuw\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined stale suite state: the test suite changed after the call was suggested\\ninstead: h_7QsCa8IqeVYxdk73sCUfHDuw.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined stale suite state\",\"why\":\"the test suite changed after the call was suggested\",\"instead\":{\"handle\":\"h_7QsCa8IqeVYxdk73sCUfHDuw\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bn_mJIX-ELxgTJmaEC2Lu3hb\",\"act_id\":\"a_A3SKUSNG6GOSPXJMDJQ47X33LV\",\"handle\":\"h_7QsCa8IqeVYxdk73sCUfHDuw\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestRedChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_7QsCa8IqeVYxdk73sCUfHDuw\",\"verb\":\"focus\",\"args\":{\"test\":\"TestRedChain\"},\"state\":\"sha256:bcccd17fe091b2295335b3f1ad0eca60258f9af5f9ea0c28d85f46c72080265d\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRedChain"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_bn_mJIX-ELxgTJmaEC2Lu3hb\",\"act_id\":\"a_A6TWCYMPCCLZUGSHZBQQ3MY7BD\",\"handle\":\"h_7QsCa8IqeVYxdk73sCUfHDuw\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:49:15.777928937+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:49:15.780556939+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:49:15.780598258+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"=== RUN   TestRedChain\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:49:15.780622477+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"--- PASS: TestRedChain (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:49:15.780629043+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:49:15.780633103+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:49:15.780982743+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/breadcrumbs/breadcrumbs\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:49:15.781665867+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestRedChain\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Check the current breadcrumb test after its definition changes immediately after the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Check the current breadcrumb test after its definition changes immediately after the initial catalog.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The current breadcrumb test — **`TestRedChain`** (package `example.test/breadcrumbs/breadcrumbs`) — was checked and it **PASSED** (0.00s, exit code 0).\n\nNote: the test suite's catalog changed twice during this check (first `TestBlueChain`, then `TestRedChain` immediately after), consistent with the \"definition changes immediately after the initial catalog\" behavior you described. `TestRedChain` is the resulting live test, and it passes cleanly.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/chain_test.go",
+        "present": true,
+        "content": "package breadcrumbs\nimport \"testing\"\nfunc TestRedChain(t *testing.T) {}\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/breadcrumbs\n\ngo 1.22\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

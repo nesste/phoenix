@@ -1,0 +1,66 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_RPpLYp5kd-q9JEGg-_dzr4JY\",\"act_id\":\"a_LECRHGBFS3LVSOPFYHZTS6T4CQ\",\"handle\":\"h_WUDJSYk3I6ne0_5SMh6QFTPV\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Determine whether these tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No — none of these tools (repo, tests, git, episodes) can publish a checklist to a remote release system. Orienting each handle against that capability returned \"unavailable in the reachable world\" for tests, git, and episodes, and the repo handle only exposes local status/inspection actions (branch/clean state), with no publishing or remote-release capability present.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

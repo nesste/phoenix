@@ -1,0 +1,57 @@
+{
+  "v": 1,
+  "case_id": "validation_b6322e98",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_KScAGn0GUeXoEnbG_WML8kcW\",\"act_id\":\"a_5L5MQSZBL523YBGOARJXBGVXL7\",\"handle\":\"h_jD4SeVXjQQduR0eG9RuRWAJb\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Use Git status to identify the pending incoming provenance card.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Find the pending incoming provenance card details from the dirty repo status",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The Git status check shows the repository (branch `master`) is **not clean** — there is a pending incoming change. This uncommitted/incoming state is the pending provenance card indicator: the repo has unresolved/uncommitted content awaiting processing (i.e., an incoming provenance card not yet merged/committed). No further detail (like file names) is exposed beyond this dirty status via the available Git capabilities, so this dirty status is the identified pending incoming provenance card signal.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/incoming.txt",
+        "present": true,
+        "content": "origin=field-2\nowner=intake\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

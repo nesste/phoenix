@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "case_id": "validation_42a92391",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_0DiguF3vwMDWvTUQ5w_xrk6t\",\"act_id\":\"a_QIB7CIQA3HTSUV6KLGTD23Z5FJ\",\"handle\":\"h_PEvxjrjWOQW7R-woghIIBnof\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_0DiguF3vwMDWvTUQ5w_xrk6t\",\"act_id\":\"a_OXYK5MECQTVAROVOXIBZN67AQS\",\"handle\":\"h_PEvxjrjWOQW7R-woghIIBnof\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? cards/current.txt\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? cards/current.txt \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Confirmed.\n\n- **Tracked diff (`git diff`)**: empty — the pending \"current\" provenance card produces no changes there.\n- **Status (`git status`)**: shows `?? cards/current.txt` — the `??` marker means the file is **untracked**, not modified. It's a new file Git isn't tracking yet, so it can't appear in a diff of tracked changes.\n\nSo the card isn't missing due to being reverted or unchanged — it simply hasn't been added to version control yet. If you want it included, you'd need to `git add cards/current.txt` first.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-7\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

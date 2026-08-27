@@ -1,0 +1,121 @@
+{
+  "v": 1,
+  "case_id": "validation_8fd2d7f0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Eobjza8I_Fv-vZblqSJVnX2t\",\"act_id\":\"a_OOKQW3KZ37DQUIHIT3HNFDODCQ\",\"handle\":\"h_gGjbSD9zQ5iAFVdDSD2UkX8L\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_Onh6izL_XCRDGlE5XkrVm1MQ\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "timeout"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Eobjza8I_Fv-vZblqSJVnX2t\",\"act_id\":\"a_2B5VHPC6KBTIAOBQ273EXATMVC\",\"handle\":\"h_gGjbSD9zQ5iAFVdDSD2UkX8L\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Eobjza8I_Fv-vZblqSJVnX2t\",\"act_id\":\"a_EUSYXBTJGLGPUZKM7WXOGSQMOH\",\"handle\":\"h_Onh6izL_XCRDGlE5XkrVm1MQ\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"# ./...\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"pattern ./...: directory prefix . does not contain main module or its selected dependencies\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-fail\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:13:55.836809315+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"./...\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:13:55.836909624+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"./...\\\",\\\"Output\\\":\\\"FAIL\\\\t./... [setup failed]\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:13:55.836915437+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"./...\\\",\\\"Elapsed\\\":0,\\\"FailedBuild\\\":\\\"./...\\\"}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_Onh6izL_XCRDGlE5XkrVm1MQ\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Eobjza8I_Fv-vZblqSJVnX2t\",\"act_id\":\"a_N2SEOKMQJAJLDOLHWGJQTKRO3W\",\"handle\":\"h_qPQN25EoYUzaHz83ZazsYwxv\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Eobjza8I_Fv-vZblqSJVnX2t\",\"act_id\":\"a_DVWIY6J3QYXZRGZZ6EPDNU3C26\",\"handle\":\"h_Onh6izL_XCRDGlE5XkrVm1MQ\",\"verb\":\"list\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"test_list_failed\",\"message\":\"test listing failed\",\"details\":{\"exit_code\":1}},\"text\":\"failed list: test listing failed\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Eobjza8I_Fv-vZblqSJVnX2t\",\"act_id\":\"a_HBBE3RJSLM6EL6WA4FTF6JX4AJ\",\"handle\":\"h_WH_1Q30lku2MD9QEm700-dei\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Create a commit that changes only the primary timeout to 35, even though the repository begins clean.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the configuration file containing the primary timeout setting so it can be changed to 35.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Find prior episodes/history related to changing primary timeout to 35 in this repo.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Locate the file with the primary timeout setting, edit it to set the value to 35, stage it, and commit only that change.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Create a commit that changes only the primary timeout to 35, even though the repository begins clean.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "This task is not achievable with the available tools/handles in this environment. The system indicates the requested capability (\"finding and editing the primary timeout setting, then committing it\") is unavailable in the reachable world — there is no exposed verb to read/list/edit repository file contents (grep, log, and edit-type operations all return \"absent\" or \"unavailable\"). The only reachable operations were `repo.status` (confirmed clean) and `tests.run` (failed due to a broken Go module setup unrelated to a timeout setting), and no file with a \"primary timeout\" was discoverable or editable through any live handle.\n\nSince I cannot locate or modify the actual timeout value or stage/commit a change through any reachable call, I'm stopping here rather than fabricating an outcome. If you can provide a handle/verb that exposes file read/write or a diff/edit interface on the repo, I can proceed to make and commit the change.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

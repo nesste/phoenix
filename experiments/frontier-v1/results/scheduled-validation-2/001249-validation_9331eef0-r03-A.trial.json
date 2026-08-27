@@ -1,0 +1,111 @@
+{
+  "v": 1,
+  "case_id": "validation_9331eef0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_ILT4P2PZJB2VWWEPFVKJS65C3U\",\"handle\":\"h_BXO-qeOgLj8PseJwkeAzuAlr\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestMorningWindow\",\"TestEveningWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_BF2LLSCJP2LJXYWO7KCBNLVFAH\",\"handle\":\"h_zPJ4sk7c3y7in0LcSTt7pSvK\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "roster"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_TCCRNTNWRZLWDVESUK24FV2XMF\",\"handle\":\"h_zPJ4sk7c3y7in0LcSTt7pSvK\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"README.md\",\"go.mod\",\"roster/cases.txt\",\"roster/roster_test.go\"]},\"error\":null,\"text\":\"ok repo.find: matches=4 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_UCK4NQKKTDEMBFKSZ5SWE45P3N\",\"handle\":\"h_BvOiZjSwKVPUeK-OICE7wgI_\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n M roster/roster_test.go\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master  M roster/roster_test.go \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "roster/cases.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_GR3P2VZ4N7NJUTMCR5JPBXCYHP\",\"handle\":\"h_zPJ4sk7c3y7in0LcSTt7pSvK\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"morning=06:00\\nevening=18:00\\n\",\"digest\":\"sha256:a1f4f75b94fdb8014b8c48d70c9b9be2e24316b1ac61295c01466dec3152381b\",\"path\":\"roster/cases.txt\"},\"error\":null,\"text\":\"ok repo.read: content=morning=06:00 evening=18:00 , digest=sha256:a1f4f75b94fdb8014b8c48d70c9b9be2e24316b1ac61295c01466dec3152381b, path=roster/cases.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "roster/roster_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_EMSGYHRBP2WA5JB4PMXZJNP6AK\",\"handle\":\"h_zPJ4sk7c3y7in0LcSTt7pSvK\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package roster\\n\\nimport \\\"testing\\\"\\nfunc TestNightWindow(t *testing.T) {}\\n\",\"digest\":\"sha256:76dfc7f8f32b2b0f3d0bd1334982242b16b5bcb9c5aecd747cc53f97bd7d7c5f\",\"path\":\"roster/roster_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package roster  import \\\"testing\\\" func TestNightWindow(t *testing.T) {} , digest=sha256:76dfc7f8f32b2b0f3d0bd1334982242b16b5bcb9c5aecd747cc53f97bd7d7c5f, path=roster/roster_test.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_JXPPXNGLV3SIEBQBJ5XVIUFPRC\",\"handle\":\"h_BvOiZjSwKVPUeK-OICE7wgI_\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/roster/roster_test.go b/roster/roster_test.go\\nindex 98fbdf4..71baa3a 100644\\n--- a/roster/roster_test.go\\n+++ b/roster/roster_test.go\\n@@ -1,5 +1,4 @@\\n package roster\\n \\n import \\\"testing\\\"\\n-func TestMorningWindow(t *testing.T) {}\\n-func TestEveningWindow(t *testing.T) {}\\n+func TestNightWindow(t *testing.T) {}\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/roster/roster_test.go b/roster/roster_test.go index 98fbdf4..71baa3a 100644 --- a/roster/roster_test.go +++ b/roster/roster_test.go @@ -1,5 +1,4 @@  package roster    import \\\"testing\\\" -func TestMorningWindo...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_77dCk7XsqDVjtGeMy4BBOpLa\",\"act_id\":\"a_P54DGSQ2GTNWUM3UTU23HRA6FS\",\"handle\":\"h_BXO-qeOgLj8PseJwkeAzuAlr\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNightWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Verified: the first live roster check performed after the roster replacement returns:\n\n```json\n{\"renames\": [], \"tests\": [\"TestNightWindow\"]}\n```\n\nThis confirms the swap took effect — the previous roster (`TestMorningWindow`, `TestEveningWindow`) from the initial listing is gone, and the live test roster now contains only `TestNightWindow`, matching the uncommitted change in `roster/roster_test.go` (working tree is dirty, not yet committed).",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestNightWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

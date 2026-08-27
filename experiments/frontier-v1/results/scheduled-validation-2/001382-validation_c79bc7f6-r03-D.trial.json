@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_c79bc7f6",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_efb90NwGTxN3UtVPS1TJ910R\",\"act_id\":\"a_DMPXYVXVLEK3PMPQLBLHYT6TPJ\",\"handle\":\"h_HA6ff6MRY-UHjJUko_OW8gOF\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Find the catalog read of test definitions and determine which provenance test is currently live after changes.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Re-establish which provenance test is live after the test definition changes following a catalog read.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable calls exist to satisfy this request. I checked all four live handles (repo, tests, git, episodes):\n\n- **tests** (h_iR7lEh9kamQXdAI9fAU9Jumk): the only ready call it offered was `repo.status`, which I executed.\n- **repo** (h_HA6ff6MRY-UHjJUko_OW8gOF): `status` returned `branch=master, clean=true`, with an empty frontier — no further catalog/test-definition actions were reachable from there.\n- **git** and **episodes** handles: both returned \"requested capability is unavailable in the reachable world\" for this intent, with no frontier calls offered.\n\nThere is currently no reachable action (via these handles' orient/frontier results) that exposes a test catalog listing or definition diff to identify \"which provenance test is live.\" The only concrete fact surfaced is the repo state: branch `master`, clean working tree — no pending changes are visible that would indicate an in-progress test definition change. I'm unable to proceed further without additional reachable capabilities (e.g., a `list`/`diff` verb on the tests or git handle that isn't currently exposed in the frontier).",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/cards_test.go",
+        "present": true,
+        "content": "package cards\nimport \"testing\"\nfunc TestOwnerCard(t *testing.T) {}\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/cards\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

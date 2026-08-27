@@ -1,0 +1,106 @@
+{
+  "v": 1,
+  "case_id": "validation_8ea0fb31",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pfHGomGk7OdWT8SSHWcDG_ne\",\"act_id\":\"a_OIBMKMKJZGJY2GR5YFATXL5PW6\",\"handle\":\"h_idlju_rLp8u6t0oGxQVPLEut\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_BsrzMb519HplBBzzw8iEY5IR\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pfHGomGk7OdWT8SSHWcDG_ne\",\"act_id\":\"a_7J4IPQDCV232QAY2JT5PP6RVJP\",\"handle\":\"h_BsrzMb519HplBBzzw8iEY5IR\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T10:59:00.56836415+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T10:59:00.570779502+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverNext\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T10:59:00.570817276+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverNext\\\",\\\"Output\\\":\\\"=== RUN   TestRolloverNext\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T10:59:00.570827011+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverNext\\\",\\\"Output\\\":\\\"--- PASS: TestRolloverNext (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T10:59:00.570830749+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Test\\\":\\\"TestRolloverNext\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T10:59:00.570833697+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T10:59:00.571196186+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/rollover/rollover\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T10:59:00.572648848+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/rollover/rollover\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pfHGomGk7OdWT8SSHWcDG_ne\",\"act_id\":\"a_G23AFZF43O36BGQGGS4CIOCJPN\",\"handle\":\"h_WMj6wnqFg50vRABk2Wj8_RrK\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "log",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pfHGomGk7OdWT8SSHWcDG_ne\",\"act_id\":\"a_NUZ7GR2ER3EFSU6F4BYP4LL7O3\",\"handle\":\"h_lNYdhzhx9s81zOo81IyeHu-P\",\"verb\":\"log\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Verify the rollover check that is current after the suite changes following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find episodes describing initial catalog and subsequent suite changes to determine the current rollover check.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find initial catalog commit and subsequent suite change commits affecting rollover tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Find initial catalog and subsequent suite changes affecting rollover checks",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "List all rollover checks in the current suite and identify which one is current after suite changes following the initial catalog",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All reachable paths from this state have been exhausted. Based on the exploration:\n\n- Repository `h_idlju_rLp8u6t0oGxQVPLEut` is on branch `master`, clean.\n- Running the test suite (`h_BsrzMb519HplBBzzw8iEY5IR`) shows only **one** current rollover check: `TestRolloverNext` (package `example.test/rollover/rollover`), and it **passed**.\n\n**Verification result: `TestRolloverNext` — PASS** (exit_code 0, 1 passed, 0 failed).\n\nNo further tools (episodes, git log, catalog history) are reachable from the current world state to trace the \"initial catalog\" and intermediate \"suite changes\" lineage — the frontier for those handles returned empty/absent after orientation. Given the only test present in the suite as it stands now is `TestRolloverNext`, this is the current rollover check, and it verifies successfully.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverNext(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

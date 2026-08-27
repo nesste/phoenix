@@ -1,0 +1,90 @@
+{
+  "v": 1,
+  "case_id": "validation_4d4a0c01",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_1uQym2jsUl-y-ttjsunPgjJn\",\"act_id\":\"a_GIWOIRQ2XGUKJ5TPSO6ZPWZMQ2\",\"handle\":\"h_KZm1amEklWUTl7UV6SEpz7Ff\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNativeCapability\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "recall",
+      "args": {
+        "query": "platform capability check test name change catalog"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_1uQym2jsUl-y-ttjsunPgjJn\",\"act_id\":\"a_7WKMTITADGDS3D5U2MEQA6BVWV\",\"handle\":\"h_adz6BAWPCZn2QcyYqclHevXz\",\"verb\":\"recall\",\"status\":\"ok\",\"result\":{\"episodes\":[]},\"error\":null,\"text\":\"ok episodes.recall: episodes=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNativeCapability"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_1uQym2jsUl-y-ttjsunPgjJn\",\"act_id\":\"a_OXOKJKO37D7DUQKJIKHSQK5B36\",\"handle\":\"h_KZm1amEklWUTl7UV6SEpz7Ff\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_1uQym2jsUl-y-ttjsunPgjJn\",\"act_id\":\"a_S42D6G2F7YOQMNEBZB5ASMFS7D\",\"handle\":\"h_KZm1amEklWUTl7UV6SEpz7Ff\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestUnixNativeCapability\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestUnixNativeCapability"
+      },
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_1uQym2jsUl-y-ttjsunPgjJn\",\"act_id\":\"a_BBSRAT5CHMIXYDN52BJXS7HD53\",\"handle\":\"h_KZm1amEklWUTl7UV6SEpz7Ff\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:12:50.081774755+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.08430613+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.084346127+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"=== RUN   TestUnixNativeCapability\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.084359324+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"    api_test.go:3: stub\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.084363026+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Output\\\":\\\"--- FAIL: TestUnixNativeCapability (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.084369556+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Test\\\":\\\"TestUnixNativeCapability\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.08437637+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.084710976+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/platform/platform\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:12:50.084732026+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/platform/platform\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestUnixNativeCapability\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Result: **FAIL**.\n\nSummary:\n- The test catalog was renamed twice during this check: original `TestNativeCapability` → `TestUnixNativeCapability`.\n- Running the current test `TestUnixNativeCapability` in package `example.test/platform/platform` fails, with output `api_test.go:3: stub` — indicating it's still a stub implementation, not a real capability check.\n\nThe current platform capability check (`TestUnixNativeCapability`) does **not pass** — it's failing because it's just a stub (`api_test.go:3: stub`). This needs a real implementation before it can be considered verified.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestUnixNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\nconst NativeCapability = \"stub\"\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "v": 1,
+  "case_id": "validation_9331eef0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_SPXyxQQxfkw7VNxGXyO8lQUn\",\"act_id\":\"a_KSTKTDLIAOAAEBYOBLWDIH5OTW\",\"handle\":\"h_5xzn1CISG8nm4Zb-ylNryCrK\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the first live roster check after the roster is replaced following your initial test listing.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the initial tests (roster) as the first step.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Run the initial test listing to see current roster of tests.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Verify the first live roster check after the roster is replaced following your initial test listing.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Verify the first live roster check after the roster is replaced following your initial test listing.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No live handle can currently satisfy this goal. I attempted to reach the required sequence (initial test listing → roster replacement → first live roster check) across all four handles (tests, repo, git, episodes), but each orient call either found no matching capability or, in the case of the tests handle, resolved only to a repo.status check with an empty frontier afterward — no roster-replace or roster-check actions became reachable from the current state. Since none of the handles expose a reachable \"verify roster after replace\" action right now, I can't complete this task with the current live handles/state.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestNightWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

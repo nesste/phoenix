@@ -1,0 +1,137 @@
+{
+  "v": 1,
+  "case_id": "validation_e7eb87dc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s__Qko1Tu3wsoMv55XhIoLlPjN\",\"act_id\":\"a_PWHDAZFJQSNIZGDGACPO6YZHV4\",\"handle\":\"h_m3H_Ks1v51jre-oIqWEnGDMU\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_k74qF-HoyXZ3ON9PL32B3_Yb\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s__Qko1Tu3wsoMv55XhIoLlPjN\",\"act_id\":\"a_D26I4G6T6Q4OG5CLKBNEFBK7FF\",\"handle\":\"h_k74qF-HoyXZ3ON9PL32B3_Yb\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"# ./...\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"pattern ./...: directory prefix . does not contain main module or its selected dependencies\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-fail\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:05:47.709688394+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"./...\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:05:47.709742112+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"./...\\\",\\\"Output\\\":\\\"FAIL\\\\t./... [setup failed]\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:05:47.7097472+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"./...\\\",\\\"Elapsed\\\":0,\\\"FailedBuild\\\":\\\"./...\\\"}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_k74qF-HoyXZ3ON9PL32B3_Yb\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s__Qko1Tu3wsoMv55XhIoLlPjN\",\"act_id\":\"a_2WFYJQRL4UY5RINCL75JGAGGYI\",\"handle\":\"h_k74qF-HoyXZ3ON9PL32B3_Yb\",\"verb\":\"list\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"test_list_failed\",\"message\":\"test listing failed\",\"details\":{\"exit_code\":1}},\"text\":\"failed list: test listing failed\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "timeout"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s__Qko1Tu3wsoMv55XhIoLlPjN\",\"act_id\":\"a_76TFZCIWT55PBQYN6S44OPUEA5\",\"handle\":\"h_m3H_Ks1v51jre-oIqWEnGDMU\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "timeout"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s__Qko1Tu3wsoMv55XhIoLlPjN\",\"act_id\":\"a_FZHNAJ2JDWV3JJYC3FKWJOMWBB\",\"handle\":\"h_m3H_Ks1v51jre-oIqWEnGDMU\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "list",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s__Qko1Tu3wsoMv55XhIoLlPjN\",\"act_id\":\"a_WL5ZACNA2ATGPMTEKUYAHFYXS4\",\"handle\":\"h_m3H_Ks1v51jre-oIqWEnGDMU\",\"verb\":\"list\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find occurrences of timeout=20 (or similar timeout lines) in the repo to identify primary runtime timeout",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repository files for \"timeout\" occurrences to find the primary runtime timeout=20 setting",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Search repository files for \"timeout\" occurrences to find the primary runtime timeout=20 setting that needs updating to 35",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Recover context/episodes about primary runtime timeout setting change from 20 to 35, including handling replacements matching both timeout lines",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "repo",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I was unable to complete this task. Here's what happened:\n\n1. Sending the goal intent to the repo handle initially matched and returned a frontier leading to `repo.status` (clean, branch=master).\n2. Following the frontier led to `tests.run`, which failed at the build/setup stage (`pattern ./...: directory prefix . does not contain main module or its selected dependencies`), indicating the test harness couldn't locate a Go module in the expected location.\n3. The next frontier step, `tests.list`, also failed for the same reason.\n4. At that point the frontier became empty, and re-sending the original intent to the repo, git, and episodes handles all returned `matched:false` (\"requested capability is unavailable in the reachable world... finish without an executable act if no other ready call exists\"), and no file-search/read/edit/grep verbs were reachable on any handle.\n\nIn short, the environment did not expose a reachable capability (file read/edit/grep) that would let me locate the \"primary runtime timeout\" line(s), confirm which of the two matching timeout lines is the primary one, or perform the edit from 20 to 35 — nor any path to recover from a hypothetical ambiguous replacement. Since no further executable call was reachable, I'm stopping here rather than guessing blindly at file paths or verbs.\n\nIf you can point me to a specific file path or grant a read/edit-capable handle for the repo, I can proceed with locating the primary timeout constant, changing 20→35 only for that line, and verifying via the test suite (once its module path issue is resolved) that both timeout-related lines still match expectations.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

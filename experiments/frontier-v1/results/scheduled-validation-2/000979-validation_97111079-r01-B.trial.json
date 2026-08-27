@@ -1,0 +1,48 @@
+{
+  "v": 1,
+  "case_id": "validation_97111079",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_RV-WvdPXoZs14F9VEVI1vsxJ\",\"act_id\":\"a_UWCU7HWZJHV4VXW5HGEDQUWQSG\",\"handle\":\"h_9O2KCKKnE69eZN7tHlMYt4ws\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/mapapp/app\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/mapapp/app\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The workspace builds successfully (exit code 0), with only a note that `example.test/mapapp/app` has no test files — this is not an error.\n\nRegarding the local replacement (Go workspace `replace`/`use` directive): since the build resolved without any \"module not found\" or path-related errors, the local replacement is resolving correctly. The package graph compiles cleanly using the local module reference rather than failing to find it elsewhere.\n\n**Summary:** Build succeeded (exit 0); the local replacement resolves correctly.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

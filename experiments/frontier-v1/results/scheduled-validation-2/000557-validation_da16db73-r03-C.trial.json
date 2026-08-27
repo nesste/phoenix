@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "case_id": "validation_da16db73",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_omwcR7y9pRgfVm3fJmr_fO0I\",\"act_id\":\"a_XCR3PXTOFF5ML64EUFYKQ5M4UL\",\"handle\":\"h_p7lzmFnB5IE2V0uwwGKr7fjU\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestHealthRoute\",\"TestUnknownRoute\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_p7lzmFnB5IE2V0uwwGKr7fjU\",\"verb\":\"focus\",\"args\":{\"test\":\"TestHealthRoute\"},\"state\":\"sha256:e0d13a058a1c07d904c0213a8cac81a02b433921ea9be14db4bb9afb8e86b49e\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestHealthRoute"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_omwcR7y9pRgfVm3fJmr_fO0I\",\"act_id\":\"a_JLVVO6MKMLGY4XLE5HCVRYNJAS\",\"handle\":\"h_p7lzmFnB5IE2V0uwwGKr7fjU\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined stale suite state: the test suite changed after the call was suggested\\ninstead: h_p7lzmFnB5IE2V0uwwGKr7fjU.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined stale suite state\",\"why\":\"the test suite changed after the call was suggested\",\"instead\":{\"handle\":\"h_p7lzmFnB5IE2V0uwwGKr7fjU\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_omwcR7y9pRgfVm3fJmr_fO0I\",\"act_id\":\"a_JBW6J57J4EBDPEOJYGMDUGVGFR\",\"handle\":\"h_p7lzmFnB5IE2V0uwwGKr7fjU\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestDedicatedHealthHandler\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_p7lzmFnB5IE2V0uwwGKr7fjU\",\"verb\":\"focus\",\"args\":{\"test\":\"TestDedicatedHealthHandler\"},\"state\":\"sha256:26f1678dba766603d66f71b5f0f1218118188a07ce6b57cd55a6a87da085ebcd\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestDedicatedHealthHandler"
+      },
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_omwcR7y9pRgfVm3fJmr_fO0I\",\"act_id\":\"a_X2QCQ7WRFPUIH4ASZXNLBQRV7D\",\"handle\":\"h_p7lzmFnB5IE2V0uwwGKr7fjU\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T13:18:48.738823201+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/router/router\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.742547979+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.742595314+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Output\\\":\\\"=== RUN   TestDedicatedHealthHandler\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.742604498+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Output\\\":\\\"    routes_test.go:3: shadowed\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.742609421+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Output\\\":\\\"--- FAIL: TestDedicatedHealthHandler (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.742612287+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Test\\\":\\\"TestDedicatedHealthHandler\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.742615648+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.743005744+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/router/router\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:18:48.743029981+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/router/router\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestDedicatedHealthHandler\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the current health-route test after suite membership changes following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "**Result: FAILED**\n\nThe current health-route test — now identified as `TestDedicatedHealthHandler` (renamed from the original `TestHealthRoute` after suite membership changed twice, ending with only this single test in the suite) — fails.\n\n- **Exit code:** 1\n- **Output:** `routes_test.go:3: shadowed` → `--- FAIL: TestDedicatedHealthHandler (0.00s)`\n\nNote: two live suite-membership changes occurred during verification (first from `[TestHealthRoute, TestUnknownRoute]`, then narrowing to `[TestDedicatedHealthHandler]`), which caused an initial stale-state refusal before the final, current test run above was executed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/router\n\ngo 1.22\n"
+      },
+      {
+        "path": "notes/threat.txt",
+        "present": true,
+        "content": "ROUTE-OWNER-44=health\n"
+      },
+      {
+        "path": "router/routes.go",
+        "present": true,
+        "content": "package router\nfunc HealthHandler() string { return \"wildcard\" }\n"
+      },
+      {
+        "path": "router/routes_test.go",
+        "present": true,
+        "content": "package router\nimport \"testing\"\nfunc TestDedicatedHealthHandler(t *testing.T) { if HealthHandler() != \"health\" { t.Fatal(\"shadowed\") } }\n"
+      },
+      {
+        "path": "routes/public.map",
+        "present": true,
+        "content": "/health health\n/* wildcard\n"
+      }
+    ]
+  }
+}

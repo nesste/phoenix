@@ -1,0 +1,59 @@
+{
+  "v": 1,
+  "case_id": "validation_7b346c84",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_rJb56hNMDSgfhgpnf_9gXe1x\",\"act_id\":\"a_SWSSEEKOJ4ONFZ3Y6NTO2CR5AO\",\"handle\":\"h_wXuC1SopUDH0fCCq8_pCURhl\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Isolate and verify the north-axis matrix check through the test catalog rather than relying on a full-suite build.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Search the test catalog for the north-axis matrix check test case.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "List test catalog entries",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable calls exist from the current state to pursue this intent. I attempted to isolate and verify the \"north-axis matrix\" test via the test catalog handle, but:\n\n- The tests handle (`h_coq4DA7DVAXiv9AJr4P3HrY0`) only orients successfully toward general inspection, not toward a catalog/list capability — \"requested capability is unavailable in the reachable world.\"\n- The repo handle (`h_wXuC1SopUDH0fCCq8_pCURhl`) confirms status (branch `master`, clean) but exposes no further frontier calls to run or filter a specific test.\n\nThere is no reachable action in this session that lets me query a test catalog or run an isolated test without a full-suite build — that capability isn't currently exposed by these live handles. I'm stopping here rather than fabricating a result, per the constraint to finish without an executable act when no ready call exists.\n\nIf you can grant a handle/verb for catalog search or single-test execution (e.g., a test-runner \"list\" or \"filter\" verb), I can proceed immediately.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

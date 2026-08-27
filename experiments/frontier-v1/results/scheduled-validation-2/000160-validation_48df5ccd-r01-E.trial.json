@@ -1,0 +1,94 @@
+{
+  "v": 1,
+  "case_id": "validation_48df5ccd",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3qQeSl39QsxUjTT6m2We_SMg\",\"act_id\":\"a_SBOUV7SFCHCAUUC3SI756Z2GTW\",\"handle\":\"h_DZrqJs0k_-ziwCc1vwONzVyA\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "catalog",
+      "args": {},
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3qQeSl39QsxUjTT6m2We_SMg\",\"act_id\":\"a_P6AQ2NMTHGUKC26LL2HMCJYBW5\",\"handle\":\"h_2mPl6vEuht9vkXs0mvbj6byl\",\"verb\":\"catalog\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the test catalog to find the named rollover check and its identity/id, rather than relying on a full-suite run result.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "intent": "Verify the named rollover check through the live catalog rather than treating a full-suite run as proof of its identity.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable/ready calls exist across all four handles (repo, tests, git, episodes) for this intent. I explored:\n\n- **tests.orient** → matched a repo-status frontier call, which I ran (branch=master, clean=true), but produced no test catalog listing capability.\n- **tests.catalog** verb directly → \"absent: act is not reachable\".\n- Re-querying the same intent on tests, episodes, git, and repo handles all returned `matched:false` with no frontier — meaning the live catalog/verification capability for a \"named rollover check\" is not reachable in this world from any of the four handles.\n\n**Conclusion:** I could not verify the named rollover check via the live test catalog — no catalog/list/lookup verb is reachable from any of the provided handles (repo, tests, git, episodes). The only reachable action was `repo.status` (clean, on master), which does not establish the check's identity. Since the catalog-based verification capability is genuinely unreachable, I cannot confirm the rollover check's identity, and per the task's own caution, a full-suite run should **not** be substituted as proof of that identity. This should be flagged as blocked pending a reachable catalog/lookup capability for that specific check.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/rollover\n\ngo 1.22\n"
+      },
+      {
+        "path": "rollover/current_test.go",
+        "present": true,
+        "content": "package rollover\nimport \"testing\"\nfunc TestRolloverCurrent(t *testing.T) {}\nfunc TestRolloverQualified(t *testing.T) {}\n"
+      },
+      {
+        "path": "rollover/window.txt",
+        "present": true,
+        "content": "window=RVR-204\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRolloverOld\",\"to\":\"TestRolloverCurrent\"}]}\n"
+      }
+    ]
+  }
+}

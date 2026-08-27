@@ -1,0 +1,83 @@
+{
+  "v": 1,
+  "case_id": "validation_addd4659",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_flZI6czUTidyUKpQvg2-y2ix\",\"act_id\":\"a_XZKUMCGZOXKHQL4EX4G56NNXMK\",\"handle\":\"h_mSUJOxcyB4vIpVH37pcXMxp2\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReleaseChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_flZI6czUTidyUKpQvg2-y2ix\",\"act_id\":\"a_2D7SH72ZPHCSS6IY4QGLN57QZF\",\"handle\":\"h_0_YJe2ef2bsUqxBgQsVGcAwq\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_flZI6czUTidyUKpQvg2-y2ix\",\"act_id\":\"a_TNAKP5HZE4OQN6LZIWIJKSCEYP\",\"handle\":\"h_VQwE45NEYjcm4vKHvm3NPs4F\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n M checklists/check_test.go\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master  M checklists/check_test.go \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_flZI6czUTidyUKpQvg2-y2ix\",\"act_id\":\"a_CVFCMQIFUGBU35IEADOPCX3R4B\",\"handle\":\"h_mSUJOxcyB4vIpVH37pcXMxp2\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestSecurityChecklist\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_flZI6czUTidyUKpQvg2-y2ix\",\"act_id\":\"a_QORITPSWYRX4FFZFKPRUGHHW6K\",\"handle\":\"h_VQwE45NEYjcm4vKHvm3NPs4F\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/checklists/check_test.go b/checklists/check_test.go\\nindex ff6f8bf..57e47f2 100644\\n--- a/checklists/check_test.go\\n+++ b/checklists/check_test.go\\n@@ -1,3 +1,3 @@\\n package checklists\\n import \\\"testing\\\"\\n-func TestReleaseChecklist(t *testing.T) {}\\n+func TestSecurityChecklist(t *testing.T) {}\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/checklists/check_test.go b/checklists/check_test.go index ff6f8bf..57e47f2 100644 --- a/checklists/check_test.go +++ b/checklists/check_test.go @@ -1,3 +1,3 @@  package checklists  import \\\"testing\\\" -func Te...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Confirmed. After the suite file `checklists/check_test.go` was replaced, the live test listing updated accordingly:\n\n- **Before:** `TestReleaseChecklist`\n- **After:** `TestSecurityChecklist`\n\nThe git diff confirms the change: the old `TestReleaseChecklist` function was swapped out for `TestSecurityChecklist`, and `tests.list` correctly reflects only the new test — so the live checklist check is accurately tracking the replaced suite file.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/check_test.go",
+        "present": true,
+        "content": "package checklists\nimport \"testing\"\nfunc TestSecurityChecklist(t *testing.T) {}\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/checklists\n\ngo 1.22\n"
+      }
+    ]
+  }
+}

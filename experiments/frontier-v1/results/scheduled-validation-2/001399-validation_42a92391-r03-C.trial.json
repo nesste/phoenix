@@ -1,0 +1,63 @@
+{
+  "v": 1,
+  "case_id": "validation_42a92391",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_roJeo7A7BjIfee2E85VgmtVV\",\"act_id\":\"a_RPN6K2XBGVP6JGB3XYOFGXYOLD\",\"handle\":\"h_m4rfBV3TNnjwZPdrdUar_Svv\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_xHrbxfx24Wb-H72PLfXjLgxB\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_roJeo7A7BjIfee2E85VgmtVV\",\"act_id\":\"a_RN3N65GNRH3DMEVOSQA2NH7RSP\",\"handle\":\"h_noVo9VYw_qk7IsxSB8yNnnKx\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_roJeo7A7BjIfee2E85VgmtVV\",\"act_id\":\"a_3QB7AKM5OCTK5QAOFN77G4EWF6\",\"handle\":\"h_noVo9VYw_qk7IsxSB8yNnnKx\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? cards/current.txt\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? cards/current.txt \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Confirm that the pending current provenance card is absent from the tracked diff, and report that it is untracked rather than modified.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "Confirmed: the tracked diff (`git diff`) is empty — the pending \"current provenance card\" (`cards/current.txt`) does not appear there at all. Checking `git status`, it shows up as `?? cards/current.txt`, i.e. an **untracked** file, not a modified one. So its absence from the diff is expected and correctly reported as untracked status rather than a tracked modification.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-7\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

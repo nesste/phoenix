@@ -1,0 +1,59 @@
+{
+  "v": 1,
+  "case_id": "validation_18dd9a35",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_OiOlEHqTGHN4sdFUSKZ_G05C\",\"act_id\":\"a_BVYRQBN4FJW6A77HL75SUGA4AA\",\"handle\":\"h_O2w_SH-aF6JH5CiRSj-92a5d\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_MeKKQiZaIMUur6Qdw6PWfbaH\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_OiOlEHqTGHN4sdFUSKZ_G05C\",\"act_id\":\"a_TF7D7EZ4Z2TXJ45MLQBZBRZRB5\",\"handle\":\"h_MeKKQiZaIMUur6Qdw6PWfbaH\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestMorningWindow\",\"TestEveningWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_MeKKQiZaIMUur6Qdw6PWfbaH\",\"verb\":\"focus\",\"args\":{\"test\":\"TestMorningWindow\"},\"state\":\"sha256:67007b2dec038552454e47c9753bb8c4246703742e740cfa80899c1b193b4865\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "List the runnable roster checks and report their exact live names.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "The runnable roster checks (live test names) are:\n\n1. **TestMorningWindow**\n2. **TestEveningWindow**",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestMorningWindow(t *testing.T) {}\nfunc TestEveningWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

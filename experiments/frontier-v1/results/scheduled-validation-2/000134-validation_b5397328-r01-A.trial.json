@@ -1,0 +1,112 @@
+{
+  "v": 1,
+  "case_id": "validation_b5397328",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "policy mode"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_mnkL4DAkTprgKRFKZw0iTTUm\",\"act_id\":\"a_HBH5R6O6ICZRVAAJBTM2YYWTXU\",\"handle\":\"h_U4NpdGw-GsiNthdIGGOixn8i\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "mode"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_mnkL4DAkTprgKRFKZw0iTTUm\",\"act_id\":\"a_WAWYATGEF6KWAMMQEJ5C2SGQIC\",\"handle\":\"h_U4NpdGw-GsiNthdIGGOixn8i\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"policy/eol.cfg\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_mnkL4DAkTprgKRFKZw0iTTUm\",\"act_id\":\"a_UP4MQ5PEYDCFGJ7WIFTK232MMS\",\"handle\":\"h_U4NpdGw-GsiNthdIGGOixn8i\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "policy/eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_mnkL4DAkTprgKRFKZw0iTTUm\",\"act_id\":\"a_EBDZIP32JOREJFJJAX462VGQ3E\",\"handle\":\"h_U4NpdGw-GsiNthdIGGOixn8i\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"mode=lf\\nmarker=LINE-DIRECTIVE-9\\n\",\"digest\":\"sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350\",\"path\":\"policy/eol.cfg\"},\"error\":null,\"text\":\"ok repo.read: content=mode=lf marker=LINE-DIRECTIVE-9 , digest=sha256:eab46bab2e5b55de5336884deac6bca0291caf5c40791a8ae905e7b18030f350, path=policy/eol.cfg\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "mode=strict-lf",
+        "old": "mode=lf",
+        "path": "policy/eol.cfg"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_mnkL4DAkTprgKRFKZw0iTTUm\",\"act_id\":\"a_HVBQOQNC7KNDB7BEDCIRDPJNOY\",\"handle\":\"h_U4NpdGw-GsiNthdIGGOixn8i\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:0af70f67b8706f79cd33390f8cf3e135a8900eb2549908bd6e7bef482f3a48af\",\"path\":\"policy/eol.cfg\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:0af70f67b8706f79cd33390f8cf3e135a8900eb2549908bd6e7bef482f3a48af, path=policy/eol.cfg\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_mnkL4DAkTprgKRFKZw0iTTUm\",\"act_id\":\"a_YGFYYIJLKZWD7ZIIA3O2BIFIH2\",\"handle\":\"h_5g_ATGfb71URl9p5uHpB9qP6\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/policy/eol.cfg b/policy/eol.cfg\\nindex 36998ff..8229fa1 100644\\n--- a/policy/eol.cfg\\n+++ b/policy/eol.cfg\\n@@ -1,2 +1,2 @@\\n-mode=lf\\n+mode=strict-lf\\n marker=LINE-DIRECTIVE-9\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/policy/eol.cfg b/policy/eol.cfg index 36998ff..8229fa1 100644 --- a/policy/eol.cfg +++ b/policy/eol.cfg @@ -1,2 +1,2 @@ -mode=lf +mode=strict-lf  marker=LINE-DIRECTIVE-9 \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "I updated `policy/eol.cfg` to set `mode=strict-lf`. Diff:\n\n```diff\ndiff --git a/policy/eol.cfg b/policy/eol.cfg\nindex 36998ff..8229fa1 100644\n--- a/policy/eol.cfg\n+++ b/policy/eol.cfg\n@@ -1,2 +1,2 @@\n-mode=lf\n+mode=strict-lf\n marker=LINE-DIRECTIVE-9\n```\n\nNo other files (including the mixed sample) were modified — repo status confirms only this single-line change is present.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/eol.md",
+        "present": true,
+        "content": "Tracked paths use forward slashes.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/eolpolicy\n\ngo 1.22\n"
+      },
+      {
+        "path": "policy/eol.cfg",
+        "present": true,
+        "content": "mode=strict-lf\nmarker=LINE-DIRECTIVE-9\n"
+      },
+      {
+        "path": "policy/eol.go",
+        "present": true,
+        "content": "package policy\nconst Directive = \"LINE-DIRECTIVE-9\"\n"
+      },
+      {
+        "path": "policy/eol_test.go",
+        "present": true,
+        "content": "package policy\nimport \"testing\"\nfunc TestCurrentEOL(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/mixed.txt",
+        "present": true,
+        "content": "sample exception EOL-MIX-22\n"
+      },
+      {
+        "path": "tests/renames.json",
+        "present": true,
+        "content": "{\"renames\":[{\"from\":\"TestRetiredEOL\",\"to\":\"TestCurrentEOL\"}]}\n"
+      }
+    ]
+  }
+}

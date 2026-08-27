@@ -1,0 +1,115 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s__G2BNh-uzroaPVic0j1FllGn\",\"act_id\":\"a_YN3QWQDIAACQ4X7JF62OZ4N2DP\",\"handle\":\"h_AUjq6uPWsIT8rsJ2BJzOH4Ea\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt (i.e., if a commit was attempted before staging/edits, redo properly: find the pending clock note, add it to CHANGELOG.md, stage, and commit).",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find the pending clock note content to promote into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Find the pending clock note (e.g. in a notes file or TODO) that needs to be promoted into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find the pending clock note that needs to be promoted into CHANGELOG.md - check git log, stash, or notes for a clock-related pending entry",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Add the pending clock note as a new entry in CHANGELOG.md, stage the change, and commit it",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Attempt to commit with a clean tree to see the failure, then recover",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "List pending episodes or notes, including any clock note",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "episodes",
+      "intent": "Show status of episodes handle",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "tests",
+      "intent": "Show status of tests handle, looking for pending clock note related tests",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 9,
+      "handle": "repo",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 10,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further reachable actions exist in this world. I attempted to progress the task via the only available frontier call (repo.status), which confirmed the tree is clean, but no subsequent capability (editing CHANGELOG.md, finding the \"pending clock note,\" staging, or committing) was reachable from any of the four handles despite multiple targeted intents (clock note lookup, CHANGELOG edit+commit, clean-tree commit attempt, and re-issuing the full goal). Given the budget remaining ($0.068) and that repeated identical intents are explicitly disallowed, I'm stopping here rather than looping unproductively.\n\nSummary of what was found/done:\n- `repo` status: branch `master`, tree clean.\n- No reachable verb exposed a \"pending clock note,\" a CHANGELOG.md edit capability, or a commit verb from `repo`, `tests`, `git`, or `episodes` handles under any tried intent.\n\nIf you can share the specific content of the \"pending clock note\" (or point me to which handle exposes it), I can retry with a more targeted intent.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

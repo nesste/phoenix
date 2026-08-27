@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_334838d5",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_TfMitGIBCoc3L6mTVJ5XUUvr\",\"act_id\":\"a_UQGUCWR7IE2VRQKGLQ2235LGR3\",\"handle\":\"h_Lu6TLjx-U8lOOOGzuSB4XzUh\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Change the current stamp from the supplied stale value 2026.07 to 2026.09 after reading its live value.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find and read the file containing the current stamp value (e.g. VERSION or stamp file) to see its live value before changing it to 2026.09",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files to locate where the stamp value is stored",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Search git history/grep for \"stamp\" to find where the current stamp value 2026.07 is stored",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Find current stamp value in episodes, to change from stale 2026.07 to 2026.09",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Find current stamp value in tests, to change from stale 2026.07 to 2026.09",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four handles expose a capability to locate or read a \"stamp\" value — every intent I've tried for finding/reading the stamp returned \"requested capability is unavailable in the reachable world,\" and the only reachable call from the repo handle was `status` (branch/clean check), which doesn't reveal any stamp field. There's no frontier call remaining to pursue this further.\n\nI cannot complete this task: none of the supplied live handles (repo, tests, git, episodes) expose an operation to read or update a \"stamp\" value in the currently reachable world. I verified `repo.status` (clean, branch=master) but no stamp field or file was accessible, and attempts to locate/read/change the stamp via each handle were all rejected as unavailable capabilities with no further reachable calls offered.",
+  "end_state": {
+    "files": [
+      {
+        "path": "docs/stamp.md",
+        "present": true,
+        "content": "Signing epoch STAMP-EPOCH-31. Promote next into current.\n"
+      },
+      {
+        "path": "stamp/current.txt",
+        "present": true,
+        "content": "stamp=2026.08\n"
+      },
+      {
+        "path": "stamp/next.txt",
+        "present": true,
+        "content": "stamp=2026.09\n"
+      }
+    ]
+  }
+}

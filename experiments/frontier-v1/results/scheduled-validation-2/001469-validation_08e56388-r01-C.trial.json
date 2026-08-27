@@ -1,0 +1,96 @@
+{
+  "v": 1,
+  "case_id": "validation_08e56388",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e-TSB9gdx2vjHxKD1t2e0Exe\",\"act_id\":\"a_DNAJTWS6HZCUESD46CY7FZXZSH\",\"handle\":\"h_mMs8uJFO6RIK60LogP_CDaTE\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_RH-6bIHPh0HuCstx7VCF5nfp\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "AxisSouth"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e-TSB9gdx2vjHxKD1t2e0Exe\",\"act_id\":\"a_IYT2RMBD23LITOKD2U4X7CXKYY\",\"handle\":\"h_mMs8uJFO6RIK60LogP_CDaTE\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e-TSB9gdx2vjHxKD1t2e0Exe\",\"act_id\":\"a_3XS55GI7RCEUWRORJXXNOADUWJ\",\"handle\":\"h_mMs8uJFO6RIK60LogP_CDaTE\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_RH-6bIHPh0HuCstx7VCF5nfp\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_e-TSB9gdx2vjHxKD1t2e0Exe\",\"act_id\":\"a_3BIBSJDMMPWK3GIYYUGWDPUP7K\",\"handle\":\"h_RH-6bIHPh0HuCstx7VCF5nfp\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":2,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:49:14.278256561+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281008943+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281044825+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisNorth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281054689+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisNorth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281057068+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisNorth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281072396+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281074986+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Output\\\":\\\"=== RUN   TestMatrix_AxisSouth\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281077484+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Output\\\":\\\"--- PASS: TestMatrix_AxisSouth (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281079302+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Test\\\":\\\"TestMatrix_AxisSouth\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281081093+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.281488923+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/matrix/matrix\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:49:14.282126118+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/matrix/matrix\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=2\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find where AxisSouth is defined in the repository and report the source file path.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search the repository source files for the identifier AxisSouth and return the file path where it is defined.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find where AxisSouth is defined in the repository and report the source file path.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "List source files in the matrix package and show contents of the file defining AxisSouth constant/function.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on the available tooling, I could not directly browse repository file contents (the repo handle only supports status/orient actions, not grep/read). However, running the test suite revealed the package identity for `AxisSouth`:\n\n- Test: `TestMatrix_AxisSouth` in package `example.test/matrix/matrix`\n\nThis strongly indicates `AxisSouth` is defined in the **`matrix`** package, most likely in a file such as `matrix/matrix.go` (with its test counterpart in `matrix/matrix_test.go`). Unfortunately, the repo/tests/git/episodes handles available to me don't expose a file-read or grep verb to pinpoint the exact filename beyond the package path `example.test/matrix/matrix`, so I can't give a more precise file path than the `matrix` package directory within the repository.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

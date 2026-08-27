@@ -1,0 +1,110 @@
+{
+  "v": 1,
+  "case_id": "validation_e7eb87dc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2GGEMpR8_74uEzXojjfSmWRj\",\"act_id\":\"a_PJ2OFTK3HLZJSNV47Z7JTHDNLT\",\"handle\":\"h_aiZgeunOoWJJsOmIIZsQfTru\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_TOv_yKaOR-_OXPRq4AO-3sMC\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "search",
+      "args": {
+        "query": "timeout"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2GGEMpR8_74uEzXojjfSmWRj\",\"act_id\":\"a_ROHFST6GRQZZZWRWMNKIXHN6H3\",\"handle\":\"h_aiZgeunOoWJJsOmIIZsQfTru\",\"verb\":\"search\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2GGEMpR8_74uEzXojjfSmWRj\",\"act_id\":\"a_D5DKYNDQJ33PXNPISHLQ5JW5BL\",\"handle\":\"h_TOv_yKaOR-_OXPRq4AO-3sMC\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"failed\":1,\"passed\":0,\"stderr\":\"\",\"stdout\":\"{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"# ./...\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-output\\\",\\\"Output\\\":\\\"pattern ./...: directory prefix . does not contain main module or its selected dependencies\\\\n\\\"}\\n{\\\"ImportPath\\\":\\\"./...\\\",\\\"Action\\\":\\\"build-fail\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:16:15.958612619+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"./...\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:16:15.958666778+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"./...\\\",\\\"Output\\\":\\\"FAIL\\\\t./... [setup failed]\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:16:15.958671673+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"./...\\\",\\\"Elapsed\\\":0,\\\"FailedBuild\\\":\\\"./...\\\"}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=1, failed=1, passed=0\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_TOv_yKaOR-_OXPRq4AO-3sMC\",\"verb\":\"list\",\"args\":{}},\"why\":\"list tests before focusing the failure\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2GGEMpR8_74uEzXojjfSmWRj\",\"act_id\":\"a_3KQEP3562AJKDLQX3KNTGXLT4H\",\"handle\":\"h_TOv_yKaOR-_OXPRq4AO-3sMC\",\"verb\":\"list\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"test_list_failed\",\"message\":\"test listing failed\",\"details\":{\"exit_code\":1}},\"text\":\"failed list: test listing failed\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines (i.e., avoid ambiguous match affecting secondary timeout line).",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the primary runtime timeout configuration line (value 20) to change to 35, and identify the secondary timeout line that might be ambiguously matched.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List available verbs/actions to search or edit files in repo for a timeout value change",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines (i.e., avoid ambiguous match affecting secondary timeout line).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines (i.e., avoid ambiguous match affecting secondary timeout line).",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines (i.e., avoid ambiguous match affecting secondary timeout line).",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further executable actions are reachable in this world. The test run failed at the build/setup stage (\"directory prefix . does not contain main module or its selected dependencies\"), and none of the available handles (repo, tests, git, episodes) expose a reachable capability to locate/edit the timeout configuration lines or to recover from an ambiguous replacement — orient consistently reports the requested capability as unavailable. I'm stopping here since there are no viable next steps to complete the requested change.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

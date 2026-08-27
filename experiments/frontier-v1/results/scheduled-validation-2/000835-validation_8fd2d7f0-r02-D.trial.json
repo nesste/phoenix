@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "case_id": "validation_8fd2d7f0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_DmjNts0-OpA0IgIWmCAyVwG2\",\"act_id\":\"a_S2T5LL7MXWFRER4FGDM5JODC2F\",\"handle\":\"h_Og-EWnjyz4oFhBTIEkHN4qZ9\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Create a commit that changes only the primary timeout to 35, even though the repository begins clean.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the file containing the primary timeout configuration to change it to 35",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files to locate the config with primary timeout",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find files to edit to set primary timeout to 35, then stage and commit only that change",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "Create a commit that changes only the primary timeout to 35, even though the repository begins clean.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Create a commit that changes only the primary timeout to 35, even though the repository begins clean.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Create a commit that changes only the primary timeout to 35, even though the repository begins clean.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The task cannot be completed: the repository truly begins clean (verified via `repo.status`), and no reachable capability in this environment exposes a way to edit a \"primary timeout\" setting or any file content — every handle (repo, tests, git, episodes) returns \"requested capability is unavailable in the reachable world\" for this intent, and the only ready call available was `repo.status`, which confirmed the clean state but offered no follow-on edit/commit actions.\n\nSince the environment provides no discoverable file-listing, file-edit, or commit-creation calls reachable from these handles for this goal, I'm unable to locate the \"primary timeout\" setting or make/commit the change. I don't want to fabricate a result — could you clarify which file/setting holds the \"primary timeout,\" or grant additional handle capabilities so I can proceed?",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

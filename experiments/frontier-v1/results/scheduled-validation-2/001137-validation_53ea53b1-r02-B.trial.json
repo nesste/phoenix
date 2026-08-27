@@ -1,0 +1,66 @@
+{
+  "v": 1,
+  "case_id": "validation_53ea53b1",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "red receipt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m4c-GEG7ZtXlUpwAyVCjfN-k\",\"act_id\":\"a_T5W3DI66C4CQLG47ZEG7F47W55\",\"handle\":\"h_tVenDZTt52TOdtypq8EHYkL5\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"breadcrumbs/start.txt\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "breadcrumbs/start.txt"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m4c-GEG7ZtXlUpwAyVCjfN-k\",\"act_id\":\"a_42G37MKWNQUA3GN5R24O5LDYH5\",\"handle\":\"h_tVenDZTt52TOdtypq8EHYkL5\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"blue receipt -\\u003e vault/blue/receipt.dat\\nred receipt -\\u003e vault/red/receipt.dat\\n\",\"digest\":\"sha256:732c5e79bcbbc4fd9fb972ae71f266618b47bfd0761bb25255ddf0320298a293\",\"path\":\"breadcrumbs/start.txt\"},\"error\":null,\"text\":\"ok repo.read: content=blue receipt -\\u003e vault/blue/receipt.dat red receipt -\\u003e vault/red/receipt.dat , digest=sha256:732c5e79bcbbc4fd9fb972ae71f266618b47bfd0761bb25255ddf0320298a293, path=breadcrumbs/start.txt\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "vault/red/receipt.dat"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_m4c-GEG7ZtXlUpwAyVCjfN-k\",\"act_id\":\"a_5NVMMLPOVEWJYTXUJKVUUSARPC\",\"handle\":\"h_tVenDZTt52TOdtypq8EHYkL5\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"receipt=R-19\\nweight=8\\n\",\"digest\":\"sha256:33922f5668f4046285a50622667fe1168e72bc8a9b98cfc0201e6164fef05e1e\",\"path\":\"vault/red/receipt.dat\"},\"error\":null,\"text\":\"ok repo.read: content=receipt=R-19 weight=8 , digest=sha256:33922f5668f4046285a50622667fe1168e72bc8a9b98cfc0201e6164fef05e1e, path=vault/red/receipt.dat\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The red receipt (R-19) records a weight of **8**.",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

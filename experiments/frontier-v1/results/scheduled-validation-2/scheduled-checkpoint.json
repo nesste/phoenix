@@ -1,0 +1,9 @@
+{
+  "v": 1,
+  "schedule_digest": "sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "run_budget_usd": 300,
+  "spent_usd": 60.4877118,
+  "next_launch_index": 1475,
+  "completed_pairing_keys": 295
+}

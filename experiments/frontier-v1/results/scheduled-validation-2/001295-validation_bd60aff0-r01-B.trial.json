@@ -1,0 +1,52 @@
+{
+  "v": 1,
+  "case_id": "validation_bd60aff0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_W0MFa9PunnKzpa41E6NBdlCy\",\"act_id\":\"a_XR6R5KCMWSC5U2REBJU7V53JGF\",\"handle\":\"h_foNWbiNkuOQvrFe2gty1T6VE\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:08:38.239097695+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:08:38.241363878+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:08:38.241386765+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\",\\\"Output\\\":\\\"=== RUN   TestLinuxMode\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:08:38.241405813+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\",\\\"Output\\\":\\\"--- PASS: TestLinuxMode (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:08:38.241408329+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:08:38.241411204+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:08:38.241804872+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/switchboard/switch\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:08:38.242094081+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Elapsed\\\":0.003}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_W0MFa9PunnKzpa41E6NBdlCy\",\"act_id\":\"a_L73ZROBDNK47QZPCTHB5B64CD2\",\"handle\":\"h_foNWbiNkuOQvrFe2gty1T6VE\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestLinuxMode\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The full suite ran and passed (1/1, 0 failed): `TestLinuxMode` — PASS.\n\nHowever, there is no test named for \"native-mode\" in the current catalog (`tests_list` shows only `TestLinuxMode`, no renames). So I can't confirm a \"native-mode contract\" test specifically — that capability/test doesn't currently exist in the suite. If you meant `TestLinuxMode`, it passes; otherwise please clarify which test corresponds to the native-mode contract.",
+  "end_state": {
+    "files": [
+      {
+        "path": "build/tag.txt",
+        "present": true,
+        "content": "selected=linux-native\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/switchboard\n\ngo 1.22\n"
+      },
+      {
+        "path": "switch/value.go",
+        "present": true,
+        "content": "package switchboard\n\nfunc Mode() string { return \"linux-native\" }\n"
+      },
+      {
+        "path": "switch/value_test.go",
+        "present": true,
+        "content": "package switchboard\n\nimport \"testing\"\nfunc TestLinuxMode(t *testing.T) { if Mode() != \"linux-native\" { t.Fatal(Mode()) } }\n"
+      }
+    ]
+  }
+}

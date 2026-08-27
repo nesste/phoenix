@@ -1,0 +1,45 @@
+{
+  "v": 1,
+  "case_id": "validation_427e90c3",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_ZcK0zhfyeMZyhBQA5dZSuy8K\",\"act_id\":\"a_ZIFLFUPE6TA2TQFABZIDCSFA2W\",\"handle\":\"h_dnFSjHVF6OGbeylDM4jR90uK\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_rfZJn4wRj1my0L5Oz3NWXt6D\",\"verb\":\"run\",\"args\":{}},\"why\":\"establish the suite baseline before diagnosis\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Determine whether available tools can look up the archive-4 record in an external provenance service.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "Based on the tools available (repository status/git operations, test runner, and episodes), there is no tool or verb exposed for querying an external provenance service — nothing in the reachable frontier calls references \"archive-4\" or any external provenance lookup capability. The only actions surfaced are repo status/git inspection and test running.\n\n**Answer: No** — the available tools cannot look up the archive-4 record in an external provenance service. There is no such capability exposed by any of the given handles (repo, tests, git, episodes); they only support local repository/test/version-control style operations, not external provenance queries.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

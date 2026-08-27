@@ -1,0 +1,46 @@
+{
+  "v": 1,
+  "case_id": "validation_42a92391",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_89etAV_Go3D597qyxdMXeDQD\",\"act_id\":\"a_HQB6BAAKJTBTACDSLCC6S3AGB6\",\"handle\":\"h_ACfNEzbZfYaWwyF2eHSyCMQS\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"\"},\"error\":null,\"text\":\"ok git.diff: diff=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_89etAV_Go3D597qyxdMXeDQD\",\"act_id\":\"a_I27I3R4ZTKQ7R5GXLYGRAOUCVJ\",\"handle\":\"h_ACfNEzbZfYaWwyF2eHSyCMQS\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n?? cards/current.txt\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master ?? cards/current.txt \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Confirmed: the tracked diff (`git diff`) is empty — the pending \"current\" provenance card does not appear there.\n\nChecking `git status`, the file `cards/current.txt` shows with a `??` marker, meaning it is **untracked** (a new file Git doesn't yet know about), not modified. If it were a modified tracked file, it would show as `M cards/current.txt` and would appear in the diff output. Since it's untracked, `git diff` (which only compares tracked, staged/unstaged changes) correctly omits it — this is expected Git behavior, not an error.",
+  "end_state": {
+    "files": [
+      {
+        "path": "cards/base.txt",
+        "present": true,
+        "content": "origin=archive-4\nowner=ledger\n"
+      },
+      {
+        "path": "cards/current.txt",
+        "present": true,
+        "content": "origin=archive-7\nowner=ledger\n"
+      },
+      {
+        "path": "docs/card-format.md",
+        "present": true,
+        "content": "Provenance cards carry origin and owner fields.\n"
+      }
+    ]
+  }
+}

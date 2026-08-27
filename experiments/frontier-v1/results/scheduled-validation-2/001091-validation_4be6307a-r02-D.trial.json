@@ -1,0 +1,90 @@
+{
+  "v": 1,
+  "case_id": "validation_4be6307a",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_tZlecRNubDzPvYOCeIOyayqM\",\"act_id\":\"a_YN4BB5RVDQOGC6DKH5H7XX3LPA\",\"handle\":\"h_OOFsacWEQEjoUU5xYrSS56cX\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find LEGACY-SYMBOL-26 and report its repository location.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for the string LEGACY-SYMBOL-26 and report file location",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "grep repository for LEGACY-SYMBOL-26",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Find LEGACY-SYMBOL-26 and report its repository location.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Find LEGACY-SYMBOL-26 and report its repository location.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Find LEGACY-SYMBOL-26 and report its repository location.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "None of the four handles (repo, tests, git, episodes) offer any search/grep/find capability that could locate \"LEGACY-SYMBOL-26\" — each responded that the capability is unavailable in the reachable world. The repo handle only exposes a `status` verb (branch/clean check), and orient calls for search-type intents on all handles returned no matches.\n\n**Result:** I could not find LEGACY-SYMBOL-26 or determine its repository location — the tools available in this session do not provide a way to search file contents or query for that symbol. No further reachable calls exist to pursue this.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\n// NativeCapability was omitted from the Unix implementation.\n"
+      }
+    ]
+  }
+}

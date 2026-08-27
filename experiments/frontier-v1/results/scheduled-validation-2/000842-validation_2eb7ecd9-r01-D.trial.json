@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_2eb7ecd9",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_p5Qi3tW3KQMjytPE5MDqSBMA\",\"act_id\":\"a_ATMIIZW2HAQVFC3I76YPUATOV7\",\"handle\":\"h_9RZxCQGHPLckbYK-aszPP7Ry\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Locate and read the in-repository runtime configuration file (e.g. config.ini) instead of the out-of-repo path C:/runtime/config.ini",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for runtime configuration file such as config.ini",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List files in the repository to find the runtime configuration file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "Read the contents of the repository's runtime config.ini file at its repo-relative path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Locate and read the in-repository runtime configuration file (e.g. config.ini) instead of the out-of-repo path C:/runtime/config.ini",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Locate and read the in-repository runtime configuration file (e.g. config.ini) instead of the out-of-repo path C:/runtime/config.ini",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to locate and read an in-repository runtime configuration file (e.g., `config.ini`) as a replacement for the out-of-repo `C:/runtime/config.ini`, but the reachable world for these handles only exposes a `status` capability on the repo (branch/clean state) — there is no available verb here to list, search, or read file contents from the repository, tests, git, or episodes handles.\n\n**Result:** I cannot locate or read the in-repository runtime configuration from this environment — no file-listing or file-read capability is reachable with the given handles. Only `repo.status` succeeded, showing branch `master`, clean working tree.\n\nTo proceed, I'd need either:\n- A handle/verb that supports file listing (e.g., `ls`/`find`) or file reading (e.g., `read`/`cat`), or\n- The actual repo-relative path to the config file if you already know it, so I can request a more targeted capability.\n\nLet me know if you can point me to the correct relative path or grant a handle with file-read capability.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "v": 1,
+  "case_id": "validation_f4b1c036",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "BIND-POWER-73"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_f6rGWmyReA0NY36U-L9cnFrH\",\"act_id\":\"a_ZHDDQTYJYOFPKPPAPZIQLM3LYW\",\"handle\":\"h_EwMUbNvVGuZlhMff4BQEcMn9\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"grammar/precedence.ebnf\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "handle_type": "episodes",
+      "verb": "recall",
+      "args": {
+        "query": "BIND-POWER-73"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_f6rGWmyReA0NY36U-L9cnFrH\",\"act_id\":\"a_CZFOH6VJ23LBMSC4B5UZP6O5LJ\",\"handle\":\"h_CjsKkdQImPqx2-h56-Y8M7nY\",\"verb\":\"recall\",\"status\":\"ok\",\"result\":{\"episodes\":[{\"act_id\":\"a_ZHDDQTYJYOFPKPPAPZIQLM3LYW\",\"episode_id\":\"e_KSTSRPJCOA5TZSYKJYLBME772Y\"}]},\"error\":null,\"text\":\"ok episodes.recall: episodes=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "grammar/precedence.ebnf"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_f6rGWmyReA0NY36U-L9cnFrH\",\"act_id\":\"a_A42THCO5R73UXG2A72AMLHZHPC\",\"handle\":\"h_EwMUbNvVGuZlhMff4BQEcMn9\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"unary = '-' atom ; // level 70\\nexponent = atom '^' atom ; // level 60\\nmarker = BIND-POWER-73 ; // level 60\\n\",\"digest\":\"sha256:314f1f8e494a718b29c99acebba605e86f382c81d3ef29e8fba938d85adf8b42\",\"path\":\"grammar/precedence.ebnf\"},\"error\":null,\"text\":\"ok repo.read: content=unary = '-' atom ; // level 70 exponent = atom '^' atom ; // level 60 marker = BIND-POWER-73 ; // level 60 , digest=sha256:314f1f8e494a718b29c99acebba605e86f382c81d3ef29e8fba938d85adf8b42, path=grammar/precedence.ebnf\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The record for **BIND-POWER-73** is found in `grammar/precedence.ebnf`:\n\n```\nmarker = BIND-POWER-73 ; // level 60\n```\n\n**Declared binding level: 60**",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nmarker = BIND-POWER-73 ; // level 60\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 3 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

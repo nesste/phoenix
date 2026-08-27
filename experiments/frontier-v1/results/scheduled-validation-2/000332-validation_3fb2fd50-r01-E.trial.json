@@ -1,0 +1,66 @@
+{
+  "v": 1,
+  "case_id": "validation_3fb2fd50",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_KViTdBS6rjalqvJt8axGYYnK\",\"act_id\":\"a_M77MIJFVLJWC5CH2VLSNTJWYIX\",\"handle\":\"h_mXzOw1FyKLDLYJe1vgYbFAUc\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine if any available tools (repo, tests, git, episodes) can publish a checklist to a remote release system.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Determine if the tests tool can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Determine if the git tool can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Determine if the episodes tool can publish a checklist to a remote release system.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No — none of the four tools (repo, tests, git, episodes) can publish a checklist to a remote release system. Explicit \"publish to remote release system\" capability checks against tests, git, and episodes returned unmatched (unavailable in this reachable world), and the repo tool only exposes local status/orientation-type actions (e.g., branch/clean status) with no reachable publish capability either. These are local/inspection-oriented tools, not remote-publishing integrations.",
+  "end_state": {
+    "files": [
+      {
+        "path": ".gitignore",
+        "present": true,
+        "content": "checklists/*.scratch\n"
+      },
+      {
+        "path": "checklists/release.md",
+        "present": true,
+        "content": "- [x] changelog\n- [ ] signatures\n"
+      },
+      {
+        "path": "checklists/security.md",
+        "present": true,
+        "content": "- [x] scan\n- [x] review\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "v": 1,
+  "case_id": "validation_4d4a0c01",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_rMj3sFpptuobiEjewcrJhl-j\",\"act_id\":\"a_RDMK6W3LDLVBO2HOW6SVULRB5I\",\"handle\":\"h__W5_pIKHRa3YrE5myXvyjSHi\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the current platform capability check after its test name changes following the initial catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "List the initial test catalog to find the platform capability check test name",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find history of test name changes/renames related to platform capability check",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find episode history of platform capability check test name changes since initial catalog",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four handles were tried with intents matching this goal, but none returned a reachable/executable call beyond `repo.status` (already run: branch=master, clean). There is no reachable capability in this world for listing a test catalog, tracing name-change history, or running a specific \"platform capability check\" test — the orient calls on tests, git, and episodes handles all returned \"capability unavailable, do not repeat.\"\n\nGiven the reachable world only exposes repo status (clean, on master) and no test-catalog/rename/execution actions are available through these handles, I cannot verify the current platform capability check after a test name change — the required capability isn't present in this session. No further executable actions remain to pursue.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestUnixNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\nconst NativeCapability = \"stub\"\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "case_id": "validation_74ccf100",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_gMaKudqhWVYGKHBkFEe46H-L\",\"act_id\":\"a_BHKVW6METTMPQ7IP47AKWMYZX3\",\"handle\":\"h_l6-jA_9Y4R_5JbNfdEelNcMD\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt (i.e., the first commit attempt failed because the tree was clean since the note wasn't yet added to CHANGELOG.md; need to find the pending note, add it to CHANGELOG.md, then commit successfully).",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find the pending clock note that needs to be promoted into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Find the pending clock note that needs to be promoted into CHANGELOG.md",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "List available repository operations to find pending notes or clock-related files",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find the pending clock note (e.g. a stashed or unstaged changelog entry) that caused the initial commit attempt to fail due to clean tree",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "git",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "intent": "Promote the pending clock note into CHANGELOG.md and commit it; recover from the initial clean-tree commit attempt.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The only reachable capability from the original goal was the repo `status` call, which I already executed—showing the working tree as clean (`branch=master, clean=true`). I then attempted to locate a \"pending clock note\" (via the episodes handle, the repo handle, and the git handle) using several phrasings of the intent, but none of these matched any reachable capability in the current world state; each returned `matched: false` with the guidance not to repeat the intent and to finish without an executable act if no other ready call exists.\n\nSummary of what happened:\n- `repo.status` confirms the tree is clean (this is consistent with \"recover from the initial clean-tree commit attempt\" — i.e., a prior commit attempt failed because there was nothing staged).\n- However, no reachable action exists in this session to actually locate/promote a \"pending clock note\" into `CHANGELOG.md`, nor to stage/commit changes — the `git`, `episodes`, and `tests` handles all report the requested capabilities as unavailable in the reachable world.\n\nSince no further executable calls are reachable, I can't proceed to add the note to CHANGELOG.md or perform the commit. There appears to be no live path in this session that exposes the pending note content or write/commit operations. I'm stopping here rather than repeating unmatched intents, per the tool's guidance — please let me know if additional handles/capabilities should be granted to locate the note and perform the commit.",
+  "end_state": {
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "present": true,
+        "content": "# Next\n\n- Retain stable clocks.\n"
+      },
+      {
+        "path": "changes/pending/clock.md",
+        "present": true,
+        "content": "Add monotonic clock fallback.\n"
+      },
+      {
+        "path": "release/policy.md",
+        "present": true,
+        "content": "Appendix token: CLOCK-PROMOTE-12. Pending fragments must be promoted into # Next.\n"
+      }
+    ]
+  }
+}

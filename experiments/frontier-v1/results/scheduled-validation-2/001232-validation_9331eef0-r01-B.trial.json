@@ -1,0 +1,74 @@
+{
+  "v": 1,
+  "case_id": "validation_9331eef0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_wttSvJjYx_9YYavk-SBlf1rO\",\"act_id\":\"a_FTSBTJFCU3VKLAHK2CZROEODS2\",\"handle\":\"h_TJf8tgz5lR3VFSUYfnK-fOPC\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestMorningWindow\",\"TestEveningWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestMorningWindow"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_wttSvJjYx_9YYavk-SBlf1rO\",\"act_id\":\"a_LTHBY2THQJIYHDUQZBI3E4J2DS\",\"handle\":\"h_TJf8tgz5lR3VFSUYfnK-fOPC\",\"verb\":\"focus\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"unknown_test\",\"message\":\"requested test is not in the live suite\"},\"text\":\"failed focus: requested test is not in the live suite\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_wttSvJjYx_9YYavk-SBlf1rO\",\"act_id\":\"a_AKAQDS34HE3RFRR24TT32K6WAV\",\"handle\":\"h_TJf8tgz5lR3VFSUYfnK-fOPC\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNightWindow\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNightWindow"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_wttSvJjYx_9YYavk-SBlf1rO\",\"act_id\":\"a_ZQLJV4CQDD6DWQSJHVA35WP6Q2\",\"handle\":\"h_TJf8tgz5lR3VFSUYfnK-fOPC\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:56:29.151622303+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:56:29.154230568+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:56:29.154253731+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Output\\\":\\\"=== RUN   TestNightWindow\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:56:29.154274863+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Output\\\":\\\"--- PASS: TestNightWindow (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:56:29.154277233+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Test\\\":\\\"TestNightWindow\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:56:29.154279933+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:56:29.154657933+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/roster/roster\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:56:29.156363517+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/roster/roster\\\",\\\"Elapsed\\\":0.005}\\n\",\"test\":\"TestNightWindow\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Verified: after the initial listing (`TestMorningWindow`, `TestEveningWindow`), the roster was replaced — a follow-up `tests_list` showed the new live roster containing only `TestNightWindow`. The first live roster check against that new roster, `tests_focus(\"TestNightWindow\")`, **passed** (exit code 0, `--- PASS: TestNightWindow`).",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Roster windows are repository-local and do not contact a calendar service.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/roster\n\ngo 1.22\n"
+      },
+      {
+        "path": "roster/cases.txt",
+        "present": true,
+        "content": "morning=06:00\nevening=18:00\n"
+      },
+      {
+        "path": "roster/roster_test.go",
+        "present": true,
+        "content": "package roster\n\nimport \"testing\"\nfunc TestNightWindow(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

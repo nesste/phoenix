@@ -1,0 +1,43 @@
+{
+  "v": 1,
+  "launch_index": 780,
+  "family_block": 10,
+  "pairing_index": 156,
+  "family_id": "validation_family_568",
+  "case_id": "validation_fb90c60d",
+  "repetition": 2,
+  "arm": "E",
+  "status": "fail",
+  "itt_success": false,
+  "termination": "turn_limit",
+  "cap_hit": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "terminal_failure",
+      "first_model_token": true,
+      "runtime_path": "experiments/frontier-v1/results/scheduled-validation-2/000780-validation_fb90c60d-r03-E.attempt-01.runtime.jsonl",
+      "metrics": {
+        "input_tokens": 24,
+        "cache_creation_input_tokens": 10005,
+        "cache_read_input_tokens": 50661,
+        "output_tokens": 3749,
+        "total_tokens": 64439,
+        "cost_usd": 0.1322913,
+        "turns": 13,
+        "wall_time_ms": 47254,
+        "api_time_ms": 47141
+      },
+      "failure": {
+        "code": "turn_limit",
+        "message": "exit status 1",
+        "before_first_model_token": false,
+        "retry_eligible": false,
+        "cap_hit": true
+      }
+    }
+  ],
+  "total_cost_usd": 0.1322913,
+  "total_tokens": 64439,
+  "assignment_path": "experiments/frontier-v1/results/scheduled-validation-2/000780-validation_fb90c60d-r03-E.assignment.json"
+}

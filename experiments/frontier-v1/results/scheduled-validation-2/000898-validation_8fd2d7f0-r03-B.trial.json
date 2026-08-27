@@ -1,0 +1,74 @@
+{
+  "v": 1,
+  "case_id": "validation_8fd2d7f0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "timeout"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cbB6FpsMAVkV-K2ZDcTIdOQ5\",\"act_id\":\"a_HISS4INFUTLCEZR4K2ZU4JEDM5\",\"handle\":\"h_Mm8XvEf6GwJpgRY8Ch9Kkd3C\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"config/reference.ini\",\"config/runtime.ini\",\"docs/runtime.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cbB6FpsMAVkV-K2ZDcTIdOQ5\",\"act_id\":\"a_6VA4C5UT5QHIFUCLDKJYZ2L2PR\",\"handle\":\"h_Mm8XvEf6GwJpgRY8Ch9Kkd3C\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"[primary]\\ntimeout=20\\n[shadow]\\ntimeout=20\\n\",\"digest\":\"sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.read: content=[primary] timeout=20 [shadow] timeout=20 , digest=sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "[primary]\ntimeout=35",
+        "old": "[primary]\ntimeout=20",
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cbB6FpsMAVkV-K2ZDcTIdOQ5\",\"act_id\":\"a_I4XLWFMDZHK4TM3BOQFALJ76JU\",\"handle\":\"h_Mm8XvEf6GwJpgRY8Ch9Kkd3C\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "commit",
+      "args": {
+        "message": "Set primary timeout to 35"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_cbB6FpsMAVkV-K2ZDcTIdOQ5\",\"act_id\":\"a_3OEJEWOYDBLWM4SOJTMTPMQQ5L\",\"handle\":\"h_1ICxJTaM4ZLfxUQj5kcJMydg\",\"verb\":\"commit\",\"status\":\"ok\",\"result\":{\"committed\":true,\"stderr\":\"\",\"stdout\":\"[master d027fd3] Set primary timeout to 35\\n 1 file changed, 1 insertion(+), 1 deletion(-)\\n\"},\"error\":null,\"text\":\"ok git.commit: committed=true, stderr=, stdout=[master d027fd3] Set primary timeout to 35  1 file changed, 1 insertion(+), 1 deletion(-) \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Done — updated `config/runtime.ini` to set `[primary] timeout=35` (leaving `[shadow]` untouched) and committed it as `d027fd3`.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=35\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

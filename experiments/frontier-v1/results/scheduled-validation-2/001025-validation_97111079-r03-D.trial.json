@@ -1,0 +1,83 @@
+{
+  "v": 1,
+  "case_id": "validation_97111079",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_KlkQ7ltpEoG_HWH1VETJxo3P\",\"act_id\":\"a_4YERMOOR6KZAE7QW7UIR4XJT3N\",\"handle\":\"h_OU6B-VfOdvGyFuWcT8puoqup\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Build the workspace (e.g. cargo/go/npm build) and check if the local path replacement/replace directive resolves correctly.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "episodes",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No handle exposes a \"build\" capability in this reachable world — all four handles (repo, tests, git, episodes) returned `matched:false` for that intent, and the repo's own status check shows a clean checkout with no further ready calls (empty frontier) beyond `status`.\n\n**Result:** The workspace cannot be built here — no build/replace-resolution verb is reachable from any of the given handles, so I can't determine whether the local replacement resolves. The only actionable call available was `repo.status`, which just confirms `branch=master, clean=true`. No further executable action exists in this environment for this task.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_08e56388",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_u1LYGVnxPiNsyu-YbcLLNquo\",\"act_id\":\"a_LIIOIMV3CFQLL2JM3NDBMXBUNB\",\"handle\":\"h_PRASep75fHI1njqbAHb-N700\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find AxisSouth in the repository and report the source path defining it.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository source files for the symbol \"AxisSouth\" and return the file path where it is defined.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "grep the repository for the string AxisSouth to locate its defining file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Find AxisSouth in the repository and report the source path defining it.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Find AxisSouth in the repository and report the source path defining it.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I was unable to locate a search/grep capability reachable from any of the provided handles (repo, tests, git, episodes). The repo handle only exposed a `status` verb (branch=master, clean=true), and no file-listing or content-search verbs were reachable in this world state, so I cannot determine the source path defining `AxisSouth` with the tools currently available.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

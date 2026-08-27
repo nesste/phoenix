@@ -1,0 +1,80 @@
+{
+  "v": 1,
+  "case_id": "validation_cb39fba1",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_gBoKZbnuYFkQiCAAxp8rgWxm\",\"act_id\":\"a_BCJV3HKWTEFHPBG3ZUN4FGINB3\",\"handle\":\"h_Bz_5GTx-k7MLW36QCg9MzpsO\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "git",
+      "intent": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the primary timeout config value to correct it to 35, while shadow value stays 20.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "List repository files to locate timeout configuration.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Correct only the primary timeout to 35 and inspect the diff so the shadow value remains 20.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No further capability is reachable in this world beyond `repo.status` (checked: clean master branch). None of the four handles (repo, tests, git, episodes) expose an edit/diff/read capability matching the requested task — every additional intent orientation returned `matched:false`, meaning the environment doesn't currently offer a reachable action to open the config file, change the primary timeout to 35, or produce a diff.\n\nSummary of what was possible:\n- repo.status → branch=master, working tree clean.\n- No reachable call exists to inspect/edit the timeout values or generate a diff, so I cannot complete the requested edit (primary timeout → 35, shadow value staying 20) or show you the diff in this session.\n\nI'm stopping here since continuing to probe would just repeat unmatched intents. If more capabilities (e.g., a file-edit or diff verb) become available on one of these handles, let me know and I can proceed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "v": 1,
+  "case_id": "validation_97111079",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_hRIOWbRWXp9SZ5C2u4fiWth1\",\"act_id\":\"a_LYZKNG5MHPEBIEOWOMQQYMBMEH\",\"handle\":\"h_X9hXeRvLIwHKp0to1Z7-KZDG\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_hRIOWbRWXp9SZ5C2u4fiWth1\",\"act_id\":\"a_HQESLLTGZQUQ3RSLN6SDVHIEJR\",\"handle\":\"h_DsDnJFE0m98QzFPw12I9Hsfu\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true,\"output\":\"## master\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=true, output=## master \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "build",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_hRIOWbRWXp9SZ5C2u4fiWth1\",\"act_id\":\"a_OZ7O42KF2UMEWTB4RCCE7B355P\",\"handle\":\"h_X9hXeRvLIwHKp0to1Z7-KZDG\",\"verb\":\"build\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"stderr\":\"\",\"stdout\":\"?   \\texample.test/mapapp/app\\t[no test files]\\n\"},\"error\":null,\"text\":\"ok repo.build: build succeeded, exit_code=0, stderr=, stdout=?   \\texample.test/mapapp/app\\t[no test files] \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Build the workspace and report whether its local replacement resolves.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "The workspace built successfully (exit_code=0). This is a Go module (`example.test/mapapp/app`) with no test files reported.\n\nRegarding \"local replacement resolving\" — I checked git status (clean, on branch master) and probed for a local-replace/module-replacement capability across the repo, git, tests, and episodes handles, but no such capability or divergent state was reachable/available in this world (orient returned \"capability unavailable\" for tests, git-orient, and episodes handles). The repo is clean with no pending replace-directive issues surfaced by the build — the build itself succeeded without any \"replacement directive\" or \"module not found\" errors, which would have shown up as a non-zero exit code or stderr complaining about an unresolved `replace` path in go.mod.\n\n**Conclusion:** The workspace builds cleanly (exit 0), and there is no evidence of a broken local replacement — nothing in the build output or repo/git status indicates an unresolved local replace directive. So the local replacement resolves fine (no errors triggered by it), though I could not find a distinct \"test the replacement directly\" capability exposed in this environment to further isolate/confirm it beyond the successful build.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

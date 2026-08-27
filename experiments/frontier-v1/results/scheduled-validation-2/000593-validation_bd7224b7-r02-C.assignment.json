@@ -1,0 +1,43 @@
+{
+  "v": 1,
+  "launch_index": 593,
+  "family_block": 7,
+  "pairing_index": 118,
+  "family_id": "validation_family_637",
+  "case_id": "validation_bd7224b7",
+  "repetition": 1,
+  "arm": "C",
+  "status": "fail",
+  "itt_success": false,
+  "termination": "turn_limit",
+  "cap_hit": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "terminal_failure",
+      "first_model_token": true,
+      "runtime_path": "experiments/frontier-v1/results/scheduled-validation-2/000593-validation_bd7224b7-r02-C.attempt-01.runtime.jsonl",
+      "metrics": {
+        "input_tokens": 24,
+        "cache_creation_input_tokens": 10565,
+        "cache_read_input_tokens": 56410,
+        "output_tokens": 2461,
+        "total_tokens": 69460,
+        "cost_usd": 0.11803300000000001,
+        "turns": 13,
+        "wall_time_ms": 42749,
+        "api_time_ms": 42109
+      },
+      "failure": {
+        "code": "turn_limit",
+        "message": "exit status 1",
+        "before_first_model_token": false,
+        "retry_eligible": false,
+        "cap_hit": true
+      }
+    }
+  ],
+  "total_cost_usd": 0.11803300000000001,
+  "total_tokens": 69460,
+  "assignment_path": "experiments/frontier-v1/results/scheduled-validation-2/000593-validation_bd7224b7-r02-C.assignment.json"
+}

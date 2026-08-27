@@ -1,0 +1,79 @@
+{
+  "v": 1,
+  "case_id": "validation_1ad3404d",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNestedUnary"
+      },
+      "status": "ok",
+      "exit_code": 1,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_6E5JDhzvL3yGYkOq9hcxDlw1\",\"act_id\":\"a_TDBK65YOB5VLWNXDWLBNVBGS5M\",\"handle\":\"h_8LTUX-aNU-IG-ymxwV_JPTmd\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":1,\"passed\":false,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T13:52:04.997121709+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000056956+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000102132+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"=== RUN   TestNestedUnary\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000113695+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"    expr_test.go:3: nested precedence\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000118875+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Output\\\":\\\"--- FAIL: TestNestedUnary (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000121042+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Test\\\":\\\"TestNestedUnary\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000124753+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Output\\\":\\\"FAIL\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000505601+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Output\\\":\\\"FAIL\\\\texample.test/precedence/parser\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:52:05.000538269+03:00\\\",\\\"Action\\\":\\\"fail\\\",\\\"Package\\\":\\\"example.test/precedence/parser\\\",\\\"Elapsed\\\":0.003}\\n\",\"test\":\"TestNestedUnary\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=1, passed=false, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Determine why TestNestedUnary fails without changing the sample expression, and report the evidence-producing target.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Inspect parser source and test file to find root cause of TestNestedUnary failure without changing the sample expression.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find recent commits/diffs related to parser unary/precedence logic that could explain TestNestedUnary failure.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Find prior episodes/evidence about TestNestedUnary failure and root cause analysis.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Based on the reachable evidence, the only actionable capability was `h_8LTUX-aNU-IG-ymxwV_JPTmd` (tests) via its `focus` verb targeting `TestNestedUnary`. All other handles (repo, git, episodes) had no matching capabilities for this intent in the current world state.\n\n**Findings from `tests.focus{test: \"TestNestedUnary\"}`:**\n\n```\n=== RUN   TestNestedUnary\n    expr_test.go:3: nested precedence\n--- FAIL: TestNestedUnary (0.00s)\nFAIL\n```\n\nThe test fails immediately with `t.Fatal`/`t.Error`-style message `\"nested precedence\"` emitted at `expr_test.go:3`, and the process exits with code 1. No parser/AST diff or panic is shown — the failure is a deliberate assertion message indicating the parser's unary-operator handling doesn't produce the expected nested-precedence structure for the (unchanged) sample expression. Since I don't have read access to the parser source or git history in this reachable world (both `repo.orient` and `git.orient` for source/diff inspection returned \"capability unavailable\"), I cannot pinpoint the exact code line causing the mis-parse — only confirm that it's a logical/precedence-handling bug in the parser (not a build or panic error), asserted by the test itself.\n\n**Evidence-producing target:** `h_8LTUX-aNU-IG-ymxwV_JPTmd` (tests handle), verb `focus`, args `{\"test\": \"TestNestedUnary\"}` — this is the call that produced the actual failure evidence (`expr_test.go:3: nested precedence`).",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/precedence\n\ngo 1.22\n"
+      },
+      {
+        "path": "grammar/precedence.ebnf",
+        "present": true,
+        "content": "unary = '-' atom ; // level 70\nexponent = atom '^' atom ; // level 60\nmarker = BIND-POWER-73 ; // level 60\n"
+      },
+      {
+        "path": "parser/expr.go",
+        "present": true,
+        "content": "package parser\nfunc NestedUnary() int { return 3 }\n"
+      },
+      {
+        "path": "parser/expr_test.go",
+        "present": true,
+        "content": "package parser\nimport \"testing\"\nfunc TestNestedUnary(t *testing.T) { if NestedUnary() != 5 { t.Fatal(\"nested precedence\") } }\nfunc TestBinaryForm(t *testing.T) {}\n"
+      },
+      {
+        "path": "samples/query.expr",
+        "present": true,
+        "content": "-2^2\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "case_id": "validation_e627f359",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pntx-RO4ksJq5atf_TPFaOeA\",\"act_id\":\"a_7RD7SP5ZAL5GLISRHJRQUCC5M6\",\"handle\":\"h_ibxuEJBpolyyptM1rBJWkLGj\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestInkIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pntx-RO4ksJq5atf_TPFaOeA\",\"act_id\":\"a_23TVEBNATZKZ2D5XWEGTHMGOQG\",\"handle\":\"h_ibxuEJBpolyyptM1rBJWkLGj\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestNoticeIndex\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestNoticeIndex"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_pntx-RO4ksJq5atf_TPFaOeA\",\"act_id\":\"a_G43WLOFJAYHONKVWMETGBHNNBV\",\"handle\":\"h_ibxuEJBpolyyptM1rBJWkLGj\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T13:38:37.859794327+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:38:37.862657176+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:38:37.862684811+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\",\\\"Output\\\":\\\"=== RUN   TestNoticeIndex\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:38:37.862715146+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\",\\\"Output\\\":\\\"--- PASS: TestNoticeIndex (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:38:37.862718728+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Test\\\":\\\"TestNoticeIndex\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T13:38:37.862721823+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:38:37.863102799+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/licenses/legal\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T13:38:37.864412465+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/licenses/legal\\\",\\\"Elapsed\\\":0.005}\\n\",\"test\":\"TestNoticeIndex\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "Here's what I found regarding the \"license-index\" test:\n\n**Note on the catalog behavior:** The `tests.list` tool returned a *different* result each time I called it:\n- 1st call: `[\"TestInkIndex\"]`\n- 2nd call: `[\"TestNoticeIndex\"]`\n\nThere's no `renames` entry recorded either time, and no test literally named `license-index` or similar ever appeared. Given the naming (license/notice), `TestNoticeIndex` in package `example.test/licenses/legal` is almost certainly the one you mean as the \"current\" version after the catalog shifted.\n\n**Result of running `TestNoticeIndex`:**\n- ✅ **PASSED** (0.00s)\n- Package: `example.test/licenses/legal`\n- No errors or stderr output.\n\n⚠️ One caution: since the test list is changing between calls without any reported rename, I'd treat this catalog as unstable/non-deterministic. If you need a guaranteed-consistent reference to \"the license-index test,\" it'd be worth confirming the exact test name/package directly in the source rather than relying on repeated `tests.list` calls, since it's returning inconsistent snapshots.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/licenses\n\ngo 1.22\n"
+      },
+      {
+        "path": "index/licenses.md",
+        "present": true,
+        "content": "Ink clause: modules/ink/LICENSE.fragment\n"
+      },
+      {
+        "path": "legal/NOTICE",
+        "present": true,
+        "content": "This distribution includes ink and paper modules.\n"
+      },
+      {
+        "path": "legal/license_test.go",
+        "present": true,
+        "content": "package legal\nimport \"testing\"\nfunc TestNoticeIndex(t *testing.T) {}\n"
+      },
+      {
+        "path": "modules/ink/LICENSE.fragment",
+        "present": true,
+        "content": "INK-42 permits archival copying with attribution.\n"
+      },
+      {
+        "path": "modules/paper/about.txt",
+        "present": true,
+        "content": "Paper module; license clause is indexed elsewhere.\n"
+      }
+    ]
+  }
+}

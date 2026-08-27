@@ -1,0 +1,96 @@
+{
+  "v": 1,
+  "case_id": "validation_e7eb87dc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "timeout 20"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2eh2Jio3PMASnznJWJedgzi4\",\"act_id\":\"a_4BLOIX52PW6ASATHEAJYYDAR2Q\",\"handle\":\"h_uF2oD_9vgHq_181z9sGogqSN\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "timeout"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2eh2Jio3PMASnznJWJedgzi4\",\"act_id\":\"a_NGZC4QFI7F66INCBFJB6X7C64W\",\"handle\":\"h_uF2oD_9vgHq_181z9sGogqSN\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"config/reference.ini\",\"config/runtime.ini\",\"docs/runtime.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=3 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2eh2Jio3PMASnznJWJedgzi4\",\"act_id\":\"a_5ASDR4MOLJRQMHEKNEOZ45QYC6\",\"handle\":\"h_uF2oD_9vgHq_181z9sGogqSN\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"[primary]\\ntimeout=20\\n[shadow]\\ntimeout=20\\n\",\"digest\":\"sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.read: content=[primary] timeout=20 [shadow] timeout=20 , digest=sha256:4247397b74a582b372f415814fda9c779d9988eb1ae2de2b50a3a52b0d847a3e, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "config/reference.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2eh2Jio3PMASnznJWJedgzi4\",\"act_id\":\"a_TCY5B3ECP25HRCM4RLCQDW3XG3\",\"handle\":\"h_uF2oD_9vgHq_181z9sGogqSN\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"canonical_timeout=35\\n\",\"digest\":\"sha256:235386008f64de67f7270ebd715a564f4626279e5a40be0828ebe1d3615242d3\",\"path\":\"config/reference.ini\"},\"error\":null,\"text\":\"ok repo.read: content=canonical_timeout=35 , digest=sha256:235386008f64de67f7270ebd715a564f4626279e5a40be0828ebe1d3615242d3, path=config/reference.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "edit",
+      "args": {
+        "new": "[primary]\ntimeout=35",
+        "old": "[primary]\ntimeout=20",
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2eh2Jio3PMASnznJWJedgzi4\",\"act_id\":\"a_32RMVD5DHBPMOFWJTT7WSKDHCW\",\"handle\":\"h_uF2oD_9vgHq_181z9sGogqSN\",\"verb\":\"edit\",\"status\":\"ok\",\"result\":{\"changed\":true,\"digest\":\"sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.edit: changed=true, digest=sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "config/runtime.ini"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_2eh2Jio3PMASnznJWJedgzi4\",\"act_id\":\"a_IFWPFNNE4UUUSZGARLD5LZJQEX\",\"handle\":\"h_uF2oD_9vgHq_181z9sGogqSN\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"[primary]\\ntimeout=35\\n[shadow]\\ntimeout=20\\n\",\"digest\":\"sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a\",\"path\":\"config/runtime.ini\"},\"error\":null,\"text\":\"ok repo.read: content=[primary] timeout=35 [shadow] timeout=20 , digest=sha256:fc4d848520c2dc4f40471790f69d0b49d80aba92c5febd2a03490d91a0d4826a, path=config/runtime.ini\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "The edit succeeded correctly: only `[primary]` timeout changed from 20 to 35, while `[shadow]` remains at 20. No recovery was needed since the contextual match (`[primary]\\ntimeout=20`) was unique and didn't collide with the shadow section's identical value line.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=35\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

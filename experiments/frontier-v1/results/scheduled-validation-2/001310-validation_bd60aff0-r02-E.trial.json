@@ -1,0 +1,78 @@
+{
+  "v": 1,
+  "case_id": "validation_bd60aff0",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_WiNlb9QRRDg5sfSX6sTde0d4\",\"act_id\":\"a_7TBZQN6IJPQAI32BUYE5M6MH3I\",\"handle\":\"h_r1tvdMbcHZ3EVF9iGaXQgb6M\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestLinuxMode\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {
+        "test": "TestLinuxMode"
+      },
+      "status": "fail",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_WiNlb9QRRDg5sfSX6sTde0d4\",\"act_id\":\"a_J55HQCWRFD6SVS4HDBIBVXDDWP\",\"handle\":\"h_r1tvdMbcHZ3EVF9iGaXQgb6M\",\"verb\":\"run\",\"status\":\"fail\",\"result\":null,\"error\":{\"code\":\"invalid_arguments\",\"message\":\"verb arguments do not match the declared schema\"},\"text\":\"failed run: verb arguments do not match the declared schema\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "run",
+      "args": {},
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_WiNlb9QRRDg5sfSX6sTde0d4\",\"act_id\":\"a_QZC5D4MR3BZWNT3LJOWAXGNBKD\",\"handle\":\"h_r1tvdMbcHZ3EVF9iGaXQgb6M\",\"verb\":\"run\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"failed\":0,\"passed\":1,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T17:11:39.009473051+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:11:39.011932422+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:11:39.011959956+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\",\\\"Output\\\":\\\"=== RUN   TestLinuxMode\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:11:39.011987912+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\",\\\"Output\\\":\\\"--- PASS: TestLinuxMode (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:11:39.012178786+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Test\\\":\\\"TestLinuxMode\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T17:11:39.012190937+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:11:39.012609806+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/switchboard/switch\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T17:11:39.013444625+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/switchboard/switch\\\",\\\"Elapsed\\\":0.004}\\n\"},\"error\":null,\"text\":\"ok tests.run: exit_code=0, failed=0, passed=1\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Run the current test suite and report whether the native-mode contract passes.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "intent": "Run the test suite (run all tests) to check results, specifically looking for native-mode contract test",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I ran the current test suite. Here's the result:\n\n**Test run summary:**\n- Suite: `example.test/switchboard/switch`\n- Test executed: `TestLinuxMode`\n- Result: **PASS** (exit code 0, 1 passed, 0 failed)\n\n**Regarding \"native-mode contract\":** The full test suite in this repo currently contains only one test — `TestLinuxMode` — and there is no separate test named for a \"native-mode contract.\" That specific capability/test isn't present in the reachable test suite, so I can't report a pass/fail for it directly.\n\nIf \"native-mode\" is meant to be an alias or expected behavior of `TestLinuxMode` (e.g., testing native Linux mode as opposed to a cross-platform/emulated mode), then that test **passed**. But if you expect a distinctly named native-mode contract test, it does not currently exist in the suite — let me know if you'd like me to check the repo/git history for it instead.",
+  "end_state": {
+    "files": [
+      {
+        "path": "build/tag.txt",
+        "present": true,
+        "content": "selected=linux-native\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/switchboard\n\ngo 1.22\n"
+      },
+      {
+        "path": "switch/value.go",
+        "present": true,
+        "content": "package switchboard\n\nfunc Mode() string { return \"linux-native\" }\n"
+      },
+      {
+        "path": "switch/value_test.go",
+        "present": true,
+        "content": "package switchboard\n\nimport \"testing\"\nfunc TestLinuxMode(t *testing.T) { if Mode() != \"linux-native\" { t.Fatal(Mode()) } }\n"
+      }
+    ]
+  }
+}

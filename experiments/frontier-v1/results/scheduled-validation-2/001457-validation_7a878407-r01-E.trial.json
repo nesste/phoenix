@@ -1,0 +1,112 @@
+{
+  "v": 1,
+  "case_id": "validation_7a878407",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_XZCtKD3XsdMjD7DcuxBWrUag\",\"act_id\":\"a_JX7YP6LOOZUTTXGNDBXUHVHNBL\",\"handle\":\"h_5JlRJM027xjNziAUylqnv0hS\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "grep",
+      "args": {
+        "pattern": "AXIS-HISTORY-52"
+      },
+      "status": "absent",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_XZCtKD3XsdMjD7DcuxBWrUag\",\"act_id\":\"a_DIL56QBI2WOG6UH7VSRZ56JFDR\",\"handle\":\"h_5JlRJM027xjNziAUylqnv0hS\",\"verb\":\"grep\",\"status\":\"absent\",\"result\":null,\"error\":{\"code\":\"absent\",\"message\":\"act is not reachable\"},\"text\":\"absent: act is not reachable\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Find AXIS-HISTORY-52 and report its file path within the repository",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "git",
+      "intent": "Search git log/grep for AXIS-HISTORY-52 to find related commit or file",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Search repository files for the string AXIS-HISTORY-52 to locate which file contains it",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "episodes",
+      "intent": "Search episodes for AXIS-HISTORY-52 reference",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "repo",
+      "intent": "List repository directory tree to find files that might contain history/axis records",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Search tests for AXIS-HISTORY-52 reference to find related source file path",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "git",
+      "intent": "explore available git operations",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 7,
+      "handle": "tests",
+      "intent": "explore available test operations",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 8,
+      "handle": "episodes",
+      "intent": "explore available episode operations",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "These three handles (git, tests, episodes) appear unreachable in this world — every intent against them returns \"unavailable in the reachable world.\" The only reachable handle is the repo handle, and its sole available action was `status`, which returned no further frontier (no search/grep/list capability reachable).\n\nGiven the constraints of this environment, I'm unable to execute a search or listing call against the repo to locate AXIS-HISTORY-52 — the only executable action was `repo.status` (branch=master, clean=true), and no further reachable calls (grep, find, list, log) were exposed from that state. I cannot report a path for AXIS-HISTORY-52 because no tool call capable of searching file contents or history is currently reachable in this session.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/matrix\n\ngo 1.22\n"
+      },
+      {
+        "path": "matrix/axes.md",
+        "present": true,
+        "content": "local history token AXIS-HISTORY-52\n"
+      },
+      {
+        "path": "matrix/matrix_test.go",
+        "present": true,
+        "content": "package matrix\nimport \"testing\"\nfunc TestMatrix_AxisNorth(t *testing.T) {}\nfunc TestMatrix_AxisSouth(t *testing.T) {}\n"
+      }
+    ]
+  }
+}

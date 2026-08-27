@@ -1,0 +1,113 @@
+{
+  "v": 1,
+  "case_id": "validation_c91bbf0b",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "breadcrumb test"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xQQoxYCJEQmMtUy1ZYYoHJd7\",\"act_id\":\"a_KFUIU37SSW7HPSJM6XORKGKCZL\",\"handle\":\"h_BYQRpvFsrPMtH5cnCT-TEpbp\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[]},\"error\":null,\"text\":\"ok repo.find: matches=0 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xQQoxYCJEQmMtUy1ZYYoHJd7\",\"act_id\":\"a_QS4CVCAN4QNO3HQY5H23OD4FWA\",\"handle\":\"h_GWTz-6HV1Fr-n7i0cZZdtHNi\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestRedChain\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xQQoxYCJEQmMtUy1ZYYoHJd7\",\"act_id\":\"a_B4PGIA3FJ73ACF5WY7O7IOE47V\",\"handle\":\"h_KQwYIQ47IdaRqZtB0at11Wp-\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false,\"output\":\"## master\\n M breadcrumbs/chain_test.go\\n\"},\"error\":null,\"text\":\"ok git.status: branch=master, clean=false, output=## master  M breadcrumbs/chain_test.go \",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xQQoxYCJEQmMtUy1ZYYoHJd7\",\"act_id\":\"a_2A4EYJTB26FMFDT5NQWUMCGHCA\",\"handle\":\"h_BYQRpvFsrPMtH5cnCT-TEpbp\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":false},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=false\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "handle_type": "git",
+      "verb": "diff",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xQQoxYCJEQmMtUy1ZYYoHJd7\",\"act_id\":\"a_V4MIFCMGJAYWPB2EMISLKW5DXW\",\"handle\":\"h_KQwYIQ47IdaRqZtB0at11Wp-\",\"verb\":\"diff\",\"status\":\"ok\",\"result\":{\"diff\":\"diff --git a/breadcrumbs/chain_test.go b/breadcrumbs/chain_test.go\\nindex b732a17..d505fea 100644\\n--- a/breadcrumbs/chain_test.go\\n+++ b/breadcrumbs/chain_test.go\\n@@ -1,3 +1,3 @@\\n package breadcrumbs\\n import \\\"testing\\\"\\n-func TestBlueChain(t *testing.T) {}\\n+func TestRedChain(t *testing.T) {}\\n\"},\"error\":null,\"text\":\"ok git.diff: diff=diff --git a/breadcrumbs/chain_test.go b/breadcrumbs/chain_test.go index b732a17..d505fea 100644 --- a/breadcrumbs/chain_test.go +++ b/breadcrumbs/chain_test.go @@ -1,3 +1,3 @@  package breadcrumbs  import \\\"testing\\\" -fu...\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 5,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "breadcrumbs/chain_test.go"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xQQoxYCJEQmMtUy1ZYYoHJd7\",\"act_id\":\"a_OQ6ADRCSQNZFEV3VD6CKKWYXKK\",\"handle\":\"h_BYQRpvFsrPMtH5cnCT-TEpbp\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"package breadcrumbs\\nimport \\\"testing\\\"\\nfunc TestRedChain(t *testing.T) {}\\n\",\"digest\":\"sha256:78d3bd4eaa4a1aeaf44f1145ae0d584ec0eaf48eddde08b9d999b9c5bceb2713\",\"path\":\"breadcrumbs/chain_test.go\"},\"error\":null,\"text\":\"ok repo.read: content=package breadcrumbs import \\\"testing\\\" func TestRedChain(t *testing.T) {} , digest=sha256:78d3bd4eaa4a1aeaf44f1145ae0d584ec0eaf48eddde08b9d999b9c5bceb2713, path=breadcrumbs/chain_test.go\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 6,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestRedChain"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_xQQoxYCJEQmMtUy1ZYYoHJd7\",\"act_id\":\"a_ODN4PEI7TO7USMTXXRNTOILALS\",\"handle\":\"h_GWTz-6HV1Fr-n7i0cZZdtHNi\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T16:34:46.083556114+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:46.085992342+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:46.086021685+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"=== RUN   TestRedChain\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:46.086030419+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Output\\\":\\\"--- PASS: TestRedChain (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:46.08603289+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Test\\\":\\\"TestRedChain\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:46.086035957+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:46.086399126+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/breadcrumbs/breadcrumbs\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T16:34:46.087228342+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/breadcrumbs/breadcrumbs\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestRedChain\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "**Result: PASS**\n\n- File: `breadcrumbs/chain_test.go`\n- Change: `TestBlueChain` → `TestRedChain`\n- `go test -run TestRedChain` → `--- PASS: TestRedChain (0.00s)`, overall `ok`",
+  "end_state": {
+    "files": [
+      {
+        "path": "README.md",
+        "present": true,
+        "content": "Begin at breadcrumbs/start.txt to locate the requested receipt.\n"
+      },
+      {
+        "path": "breadcrumbs/chain_test.go",
+        "present": true,
+        "content": "package breadcrumbs\nimport \"testing\"\nfunc TestRedChain(t *testing.T) {}\n"
+      },
+      {
+        "path": "breadcrumbs/start.txt",
+        "present": true,
+        "content": "blue receipt -\u003e vault/blue/receipt.dat\nred receipt -\u003e vault/red/receipt.dat\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/breadcrumbs\n\ngo 1.22\n"
+      },
+      {
+        "path": "vault/blue/receipt.dat",
+        "present": true,
+        "content": "receipt=B-71\nweight=14\n"
+      },
+      {
+        "path": "vault/red/receipt.dat",
+        "present": true,
+        "content": "receipt=R-19\nweight=8\n"
+      }
+    ]
+  }
+}

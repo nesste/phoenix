@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "case_id": "validation_10e870bc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_IpjUNjEPBheHdpckvWzB0dlV\",\"act_id\":\"a_OPRLZGKGHAHS2RVWN6ZPZJHZ3U\",\"handle\":\"h_vJN5JFlo9Lh5OAwI_R8Kdr0Z\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestTruncatedDiagnostic\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_IpjUNjEPBheHdpckvWzB0dlV\",\"act_id\":\"a_G5SC3BVEVTVLLKZZTVQDTJV6LG\",\"handle\":\"h_vJN5JFlo9Lh5OAwI_R8Kdr0Z\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestTruncatedDiagnostic\",\"TestOverflowDiagnostic\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=2 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestOverflowDiagnostic"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_IpjUNjEPBheHdpckvWzB0dlV\",\"act_id\":\"a_5XWW3CYV6D6FAO44KLKCNQCZWK\",\"handle\":\"h_vJN5JFlo9Lh5OAwI_R8Kdr0Z\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T14:36:29.797297306+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:29.799886763+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:29.799914306+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"=== RUN   TestOverflowDiagnostic\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:29.799934291+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Output\\\":\\\"--- PASS: TestOverflowDiagnostic (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:29.799937487+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Test\\\":\\\"TestOverflowDiagnostic\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:29.799940582+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:29.80033109+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/diagnostics/diag\\\\t0.002s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T14:36:29.801197337+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/diagnostics/diag\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestOverflowDiagnostic\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "**Result: PASS** ✅\n\n- Initial catalog only showed `TestTruncatedDiagnostic`.\n- Re-listing the suite revealed the newly added test `TestOverflowDiagnostic`.\n- Ran `TestOverflowDiagnostic` in isolation — it passed in 0.00s with no errors or failures.",
+  "end_state": {
+    "files": [
+      {
+        "path": "diag/catalog.go",
+        "present": true,
+        "content": "package diag\nconst Truncated = \"DIAG_TRUNCATED\"\nconst Overflow = \"DIAG_OVERFLOW\"\n"
+      },
+      {
+        "path": "diag/catalog_test.go",
+        "present": true,
+        "content": "package diag\nimport \"testing\"\nfunc TestTruncatedDiagnostic(t *testing.T) {}\nfunc TestOverflowDiagnostic(t *testing.T) {}\n"
+      },
+      {
+        "path": "diag/generate.txt",
+        "present": true,
+        "content": "TRUNCATED\nMALFORMED\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/diagnostics\n\ngo 1.22\n"
+      },
+      {
+        "path": "samples/errors.log",
+        "present": true,
+        "content": "ERROR: overflow\n"
+      }
+    ]
+  }
+}

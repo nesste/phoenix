@@ -1,0 +1,81 @@
+{
+  "v": 1,
+  "case_id": "validation_c1f7bb45",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_4waQmVkpV4Zc3iMalgf5x_dA\",\"act_id\":\"a_LGJ3UXFSCI5SXCF57O6SP2XO4H\",\"handle\":\"h_iD9_Vz9hMNRpLL4vNGTsXYMe\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestLocalCore\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "intent": "Verify the current dependency test after the module test file changes following the first catalog.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "episodes",
+      "intent": "Find the first catalog episode referenced for module test file changes, to determine which dependency test to verify.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "Find the module test file changes following the first catalog, to identify the current dependency test.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Verify the TestLocalCore dependency test result.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "I attempted to fulfill this request but could not complete it. Here's what I found:\n\n- The tests handle only exposes a single test named **TestLocalCore**, with no further verification/run capability reachable from this world.\n- Neither the episodes handle nor the git handle exposed any reachable capability for \"first catalog\" or \"module test file changes\" — both returned \"requested capability is unavailable in the reachable world.\"\n- Attempting to directly verify TestLocalCore also returned \"unavailable.\"\n\nThere's no reachable path in the current environment to identify \"the first catalog,\" locate the associated module test file changes, or run/verify a dependency test tied to them. I'm unable to complete this task with the tools and handles currently accessible — no further executable actions are available.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "app/app_test.go",
+        "present": true,
+        "content": "package app\nimport \"testing\"\nfunc TestReplacementGraph(t *testing.T) {}\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

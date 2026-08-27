@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "case_id": "validation_e7eb87dc",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_opKBYa3RFJFBGvQ6TjagciTk\",\"act_id\":\"a_Q4DPF6RAT6UOMYOI7MWWRL7BFL\",\"handle\":\"h_UbzA-nljhuoXcHwtuEjk_oLL\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Search repository for lines containing 'timeout' to find the primary runtime timeout of 20 that needs to be changed to 35, and a matching secondary timeout line.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Change primary runtime timeout value from 20 to 35 in the repository source code.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "repo",
+      "intent": "List available files and verbs in this repo handle to find how to edit source code",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "tests",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 6,
+      "handle": "episodes",
+      "intent": "Set only the primary runtime timeout from 20 to 35; recover from any replacement that matches both timeout lines.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "All four live handles (repo, tests, git, episodes) were queried with the full task intent, and none returned a matching executable capability for editing the timeout value — the `orient` calls consistently returned `matched:false` (\"requested capability is unavailable in the reachable world\"). The only reachable call was `repo.status`, which just confirmed a clean `master` branch with no further actionable frontier.\n\nI was unable to find any tool/verb in this environment that exposes file search, editing, or grep functionality to locate and change the \"primary runtime timeout from 20 to 35\" or to perform the requested recovery step. Since no executable act exists to accomplish this goal, I'm stopping here rather than guessing at unsupported operations.\n\nIf additional handles or capabilities (e.g., a file-edit or search verb) can be granted, please provide them and I can proceed.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

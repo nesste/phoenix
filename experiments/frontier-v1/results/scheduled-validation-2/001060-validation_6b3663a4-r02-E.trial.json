@@ -1,0 +1,83 @@
+{
+  "v": 1,
+  "case_id": "validation_6b3663a4",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_3hGeurDWWmjXijNdIIGLK0-E\",\"act_id\":\"a_CQ37DNUFL3KPJIXM3MQ4TES7ZG\",\"handle\":\"h_DVh4QcS3Ge-UQcrgBNkXtZd-\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Restore the Unix implementation of the documented capability without changing the portable API.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "find files related to Unix implementation of documented capability that may be stubbed out or missing, search repo structure",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "git",
+      "intent": "inspect git log for recent changes that removed Unix implementation of a capability",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "git",
+      "intent": "Restore the Unix implementation of the documented capability without changing the portable API.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "tests",
+      "intent": "Restore the Unix implementation of the documented capability without changing the portable API.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "Both git and tests handles report the requested capability is unavailable in the reachable world (no matching ready calls, and repeated attempts are disallowed). The repo handle only offered a generic `status` inspection with no further executable actions surfaced. The episodes handle was never engaged since no frontier pointed there either.\n\nGiven the tool's explicit instruction not to repeat the same intent and that no handle currently exposes an executable call to locate or restore the missing Unix-specific implementation (e.g., editing source files, viewing diffs, or running build/test commands), I cannot proceed further within this environment's reachable action set. I'm unable to complete this task — none of the four handles expose a concrete action path (file search/read/write, diff inspection, or test execution) to identify or restore the specific Unix implementation you're referring to.\n\nTo move forward, it would help to know: which capability/API this refers to (e.g., a specific function or module), so I can check if there's a more targeted intent that surfaces file-editing or diff-inspection calls.",
+  "end_state": {
+    "files": [
+      {
+        "path": "constraints/readme.txt",
+        "present": true,
+        "content": "Platform marker LEGACY-SYMBOL-26.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/platform\n\ngo 1.22\n"
+      },
+      {
+        "path": "platform/api.go",
+        "present": true,
+        "content": "package platform\nfunc Capability() string { return NativeCapability }\n"
+      },
+      {
+        "path": "platform/api_test.go",
+        "present": true,
+        "content": "package platform\nimport \"testing\"\nfunc TestNativeCapability(t *testing.T) { if Capability() != \"native\" { t.Fatal(Capability()) } }\n"
+      },
+      {
+        "path": "platform/api_unix.go",
+        "present": true,
+        "content": "package platform\n// NativeCapability was omitted from the Unix implementation.\n"
+      }
+    ]
+  }
+}

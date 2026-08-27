@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "case_id": "validation_9764d225",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "find",
+      "args": {
+        "query": "CONFIG-SCOPE-8"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Y7JDJyPwKkToiFqw4dpGkO0o\",\"act_id\":\"a_A5BTRGQV37QT2ODECBNEC7DPRW\",\"handle\":\"h_ugEbbuTXfGSe9QJ5u4pR3Bec\",\"verb\":\"find\",\"status\":\"ok\",\"result\":{\"matches\":[\"docs/runtime.md\"]},\"error\":null,\"text\":\"ok repo.find: matches=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "read",
+      "args": {
+        "path": "docs/runtime.md"
+      },
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_Y7JDJyPwKkToiFqw4dpGkO0o\",\"act_id\":\"a_NWUW25KTVLIOILVKGRR26TTUTN\",\"handle\":\"h_ugEbbuTXfGSe9QJ5u4pR3Bec\",\"verb\":\"read\",\"status\":\"ok\",\"result\":{\"content\":\"The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\\n\",\"digest\":\"sha256:56d0c86065a8579a87600b5905673b5ab24d420ba58fedbbee98aaab95420772\",\"path\":\"docs/runtime.md\"},\"error\":null,\"text\":\"ok repo.read: content=The primary timeout is authoritative. Marker CONFIG-SCOPE-8. , digest=sha256:56d0c86065a8579a87600b5905673b5ab24d420ba58fedbbee98aaab95420772, path=docs/runtime.md\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [],
+  "final_message": "CONFIG-SCOPE-8 is located in `docs/runtime.md`, where it marks the statement: **\"The primary timeout is authoritative.\"**\n\nSo the authoritative configuration section it identifies is the **primary timeout** setting.",
+  "end_state": {
+    "files": [
+      {
+        "path": "config/reference.ini",
+        "present": true,
+        "content": "canonical_timeout=35\n"
+      },
+      {
+        "path": "config/runtime.ini",
+        "present": true,
+        "content": "[primary]\ntimeout=20\n[shadow]\ntimeout=20\n"
+      },
+      {
+        "path": "docs/runtime.md",
+        "present": true,
+        "content": "The primary timeout is authoritative. Marker CONFIG-SCOPE-8.\n"
+      }
+    ]
+  }
+}

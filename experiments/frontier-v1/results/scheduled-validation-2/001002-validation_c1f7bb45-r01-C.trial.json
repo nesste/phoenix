@@ -1,0 +1,92 @@
+{
+  "v": 1,
+  "case_id": "validation_c1f7bb45",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_4JbkBHYh5yqVAVy1ZISy5HmF\",\"act_id\":\"a_AMR4HJ5QZTJYJSI7IPQFK6WRUP\",\"handle\":\"h_rzHZwFok5Eg7-8zk_drcP_Fb\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestLocalCore\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_rzHZwFok5Eg7-8zk_drcP_Fb\",\"verb\":\"focus\",\"args\":{\"test\":\"TestLocalCore\"},\"state\":\"sha256:7400f8b193b3e8125c892e5884414b6fc51d2ac79b8940ab33bf87e853e892ee\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 1,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestLocalCore"
+      },
+      "status": "refused",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_4JbkBHYh5yqVAVy1ZISy5HmF\",\"act_id\":\"a_3H4VKTPIYWCS3MV5M3LYZEOOCZ\",\"handle\":\"h_rzHZwFok5Eg7-8zk_drcP_Fb\",\"verb\":\"focus\",\"status\":\"refused\",\"result\":null,\"error\":null,\"text\":\"refused tests.focus declined stale suite state: the test suite changed after the call was suggested\\ninstead: h_rzHZwFok5Eg7-8zk_drcP_Fb.list\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":{\"what\":\"tests.focus declined stale suite state\",\"why\":\"the test suite changed after the call was suggested\",\"instead\":{\"handle\":\"h_rzHZwFok5Eg7-8zk_drcP_Fb\",\"verb\":\"list\",\"args\":{}}}}"
+    },
+    {
+      "seq": 2,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "list",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_4JbkBHYh5yqVAVy1ZISy5HmF\",\"act_id\":\"a_TM2U2ZJYEW7ZW5GBF4NMA6B4O7\",\"handle\":\"h_rzHZwFok5Eg7-8zk_drcP_Fb\",\"verb\":\"list\",\"status\":\"ok\",\"result\":{\"renames\":[],\"tests\":[\"TestReplacementGraph\"]},\"error\":null,\"text\":\"ok tests.list: renames=0 items, tests=1 items\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[{\"call\":{\"handle\":\"h_rzHZwFok5Eg7-8zk_drcP_Fb\",\"verb\":\"focus\",\"args\":{\"test\":\"TestReplacementGraph\"},\"state\":\"sha256:1aa672c682f6e50c01f40f6b21ed1245cc417c972f929862dd409ca40d9ddf07\"},\"why\":\"complete the requested check with the bound live test\",\"provenance\":\"authored\",\"score\":1}],\"refusal\":null}"
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "handle_type": "tests",
+      "verb": "focus",
+      "args": {
+        "test": "TestReplacementGraph"
+      },
+      "status": "ok",
+      "exit_code": 0,
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_4JbkBHYh5yqVAVy1ZISy5HmF\",\"act_id\":\"a_XRSRJMNLOH36QECYKPYZZANDKI\",\"handle\":\"h_rzHZwFok5Eg7-8zk_drcP_Fb\",\"verb\":\"focus\",\"status\":\"ok\",\"result\":{\"exit_code\":0,\"passed\":true,\"stderr\":\"\",\"stdout\":\"{\\\"Time\\\":\\\"2026-08-26T15:52:30.658263981+03:00\\\",\\\"Action\\\":\\\"start\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:52:30.661128198+03:00\\\",\\\"Action\\\":\\\"run\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:52:30.661152518+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\",\\\"Output\\\":\\\"=== RUN   TestReplacementGraph\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:52:30.661178656+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\",\\\"Output\\\":\\\"--- PASS: TestReplacementGraph (0.00s)\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:52:30.661182081+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Test\\\":\\\"TestReplacementGraph\\\",\\\"Elapsed\\\":0}\\n{\\\"Time\\\":\\\"2026-08-26T15:52:30.66118604+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Output\\\":\\\"PASS\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:52:30.661545029+03:00\\\",\\\"Action\\\":\\\"output\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Output\\\":\\\"ok  \\\\texample.test/mapapp/app\\\\t0.003s\\\\n\\\"}\\n{\\\"Time\\\":\\\"2026-08-26T15:52:30.66216989+03:00\\\",\\\"Action\\\":\\\"pass\\\",\\\"Package\\\":\\\"example.test/mapapp/app\\\",\\\"Elapsed\\\":0.004}\\n\",\"test\":\"TestReplacementGraph\"},\"error\":null,\"text\":\"ok tests.focus: exit_code=0, passed=true, stderr=\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "episodes",
+      "intent": "Verify the current dependency test after the module test file changes following the first catalog.",
+      "matched": true,
+      "calls": 1
+    }
+  ],
+  "final_message": "I verified the current dependency test after the module test file changes.\n\n- After the module test file rename tracking, the live suite's current dependency test is **TestReplacementGraph** (previously `TestLocalCore` had been renamed/replaced).\n- Ran it: **PASS** (exit code 0, 0.00s), package `example.test/mapapp/app`.\n\nNo failures or stderr output — the dependency test is verified as passing under the current suite state.",
+  "end_state": {
+    "files": [
+      {
+        "path": "app/app.go",
+        "present": true,
+        "content": "package app\nimport \"example.test/core\"\nfunc Dependency() string { return core.Name() }\n"
+      },
+      {
+        "path": "app/app_test.go",
+        "present": true,
+        "content": "package app\nimport \"testing\"\nfunc TestReplacementGraph(t *testing.T) {}\n"
+      },
+      {
+        "path": "deps/core/core.go",
+        "present": true,
+        "content": "package core\nfunc Name() string { return \"local-core\" }\n"
+      },
+      {
+        "path": "deps/core/go.mod",
+        "present": true,
+        "content": "module example.test/core\n\ngo 1.22\n"
+      },
+      {
+        "path": "docs/dependency.md",
+        "present": true,
+        "content": "The core dependency is provided by the local deps/core module.\n"
+      },
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/mapapp\n\ngo 1.22\n\nrequire example.test/core v0.0.0\nreplace example.test/core =\u003e ./deps/core\n"
+      }
+    ]
+  }
+}

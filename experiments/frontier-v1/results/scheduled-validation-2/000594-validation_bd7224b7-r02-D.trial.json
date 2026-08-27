@@ -1,0 +1,90 @@
+{
+  "v": 1,
+  "case_id": "validation_bd7224b7",
+  "world_build": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "acts": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "handle_type": "repo",
+      "verb": "status",
+      "args": {},
+      "status": "ok",
+      "output": "{\"v\":1,\"world_build\":\"sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4\",\"session_id\":\"s_BAGC34X41qaO578Upyh0qBoE\",\"act_id\":\"a_RTO4F6KV2BQEVWJKNNYT64PFI4\",\"handle\":\"h_SJXUNGH-UbthruWOUBvmU5VI\",\"verb\":\"status\",\"status\":\"ok\",\"result\":{\"branch\":\"master\",\"clean\":true},\"error\":null,\"text\":\"ok repo.status: branch=master, clean=true\",\"handles\":{\"grant\":[],\"revoke\":[]},\"frontier\":[],\"refusal\":null}"
+    }
+  ],
+  "orientations": [
+    {
+      "seq": 0,
+      "handle": "repo",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": true,
+      "calls": 1
+    },
+    {
+      "seq": 1,
+      "handle": "repo",
+      "intent": "Find the router/handler file that defines routes including wildcard and health endpoint, to reorder so /health matches its dedicated handler before wildcard.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 2,
+      "handle": "repo",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 3,
+      "handle": "tests",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 4,
+      "handle": "git",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    },
+    {
+      "seq": 5,
+      "handle": "episodes",
+      "intent": "Ensure the health route reaches its dedicated handler without changing wildcard behavior for unknown paths.",
+      "matched": false,
+      "calls": 0
+    }
+  ],
+  "final_message": "No reachable path exists for this goal in the current world. I checked the repo (status: clean on master) and probed all four provided handles (repo, tests, git, episodes) with the stated intent, but none returned an executable call — every orient came back `matched: false` with an empty frontier, meaning there's no discoverable action available in this environment to locate or reorder the health route relative to the wildcard handler.\n\nSince no verb/route-editing capability is reachable from any of the given handles, I can't proceed further without additional access (e.g., a handle exposing file read/edit on the router source). I'm stopping here rather than guessing blindly, per the instruction to finish without an executable act when no ready call exists.",
+  "end_state": {
+    "files": [
+      {
+        "path": "go.mod",
+        "present": true,
+        "content": "module example.test/router\n\ngo 1.22\n"
+      },
+      {
+        "path": "notes/threat.txt",
+        "present": true,
+        "content": "ROUTE-OWNER-44=health\n"
+      },
+      {
+        "path": "router/routes.go",
+        "present": true,
+        "content": "package router\nfunc HealthHandler() string { return \"wildcard\" }\n"
+      },
+      {
+        "path": "router/routes_test.go",
+        "present": true,
+        "content": "package router\nimport \"testing\"\nfunc TestHealthRoute(t *testing.T) { if HealthHandler() != \"health\" { t.Fatal(\"shadowed by wildcard\") } }\nfunc TestUnknownRoute(t *testing.T) {}\n"
+      },
+      {
+        "path": "routes/public.map",
+        "present": true,
+        "content": "/health health\n/* wildcard\n"
+      }
+    ]
+  }
+}
