@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode"
 )
 
 const preValidationArtifactsPath = "experiments/frontier-v1/pre-validation-artifacts.json"
@@ -123,45 +124,95 @@ func verifyClosureReviewRecord(repositoryRoot, review string) error {
 	return verifyClosureReviewVerdictLine(string(contents))
 }
 
-// verifyClosureReviewVerdictLine requires the record's own verdict line to
-// state ACCEPT. Matching the bare token anywhere in the file is not enough:
+// verifyClosureReviewVerdictLine requires the record's own verdict statement
+// to be ACCEPT. Matching the bare token anywhere in the file is not enough:
 // every review record in this project contains it, because reviewers are
 // asked to return ACCEPT or REVISE, so a REVISE record would satisfy it.
 func verifyClosureReviewVerdictLine(contents string) error {
-	accepted := false
-	for _, line := range strings.Split(contents, "\n") {
-		verdict, found := closureReviewVerdict(line)
-		if !found {
-			continue
-		}
-		if verdict == "REVISE" {
-			return fmt.Errorf("validation closure review record states a REVISE verdict")
-		}
-		if verdict == "ACCEPT" {
-			accepted = true
-		}
-	}
-	if !accepted {
+	verdict, found := closureReviewVerdict(contents)
+	if !found {
 		return fmt.Errorf("validation closure review record does not state an ACCEPT verdict")
+	}
+	if verdict != "ACCEPT" {
+		return fmt.Errorf("validation closure review record states a %s verdict", verdict)
 	}
 	return nil
 }
 
-// closureReviewVerdict reads the verdict off a line of the form
-// "**Verdict: ACCEPT** - ...", tolerating markdown emphasis and case.
-func closureReviewVerdict(line string) (string, bool) {
-	lower := strings.ToLower(line)
-	index := strings.Index(lower, "verdict:")
-	if index < 0 {
-		return "", false
-	}
-	rest := strings.TrimLeft(line[index+len("verdict:"):], " \t*_")
-	for _, verdict := range []string{"ACCEPT", "REVISE"} {
-		if strings.HasPrefix(strings.ToUpper(rest), verdict) {
+// closureVerdictFurniture is the markdown that may surround a verdict label or
+// token: emphasis, code spans, quotes, list and heading markers, and section
+// numbering. Anything else before the label means the word is being used in a
+// sentence rather than stated as the record's verdict.
+const closureVerdictFurniture = " \t#*_`\"'>-.)(0123456789"
+
+// closureReviewVerdict returns the record's first verdict statement. Only the
+// first is decisive, so an accepting record that recounts an earlier round's
+// REVISE is not overturned by the citation.
+func closureReviewVerdict(contents string) (string, bool) {
+	lines := strings.Split(contents, "\n")
+	for index, line := range lines {
+		rest, labelled := closureVerdictLabel(line)
+		if !labelled {
+			continue
+		}
+		if verdict, found := closureVerdictToken(rest); found {
+			return verdict, true
+		}
+		// A heading-style verdict carries its token on the next non-blank
+		// line, which is this project's current house style.
+		if verdict, found := closureVerdictToken(nextNonBlankLine(lines[index+1:])); strings.TrimSpace(rest) == "" && found {
 			return verdict, true
 		}
 	}
 	return "", false
+}
+
+// closureVerdictLabel reports whether the line states a verdict label, and
+// returns whatever follows it. The label must be preceded by markdown
+// furniture only.
+func closureVerdictLabel(line string) (string, bool) {
+	trimmed := strings.TrimLeft(line, closureVerdictFurniture)
+	lower := strings.ToLower(trimmed)
+	// A closed set of qualifiers this project has used. Anything else before
+	// the label means the word appears in a sentence, not as a statement.
+	for _, qualifier := range []string{"final ", "overall "} {
+		if strings.HasPrefix(lower, qualifier) {
+			trimmed = trimmed[len(qualifier):]
+			lower = lower[len(qualifier):]
+			break
+		}
+	}
+	if !strings.HasPrefix(lower, "verdict") {
+		return "", false
+	}
+	return strings.TrimLeft(trimmed[len("verdict"):], closureVerdictFurniture+":"), true
+}
+
+// closureVerdictToken reads a lone verdict word off the text following a
+// label. A list of the available verdicts - the instruction every evaluator
+// prompt carries - is not a verdict statement.
+func closureVerdictToken(rest string) (string, bool) {
+	fields := strings.Fields(rest)
+	if len(fields) == 0 {
+		return "", false
+	}
+	head := strings.ToUpper(strings.TrimFunc(fields[0], func(r rune) bool { return !unicode.IsLetter(r) }))
+	neighbourhood := strings.ToUpper(strings.Join(fields[:min(len(fields), 3)], " "))
+	for verdict, other := range map[string]string{"ACCEPT": "REVISE", "REVISE": "ACCEPT"} {
+		if head == verdict && !strings.Contains(neighbourhood, other) {
+			return verdict, true
+		}
+	}
+	return "", false
+}
+
+func nextNonBlankLine(lines []string) string {
+	for _, line := range lines {
+		if strings.TrimSpace(line) != "" {
+			return line
+		}
+	}
+	return ""
 }
 
 func requireFrozenWorldBuild(repositoryRoot, liveDigest string) error {

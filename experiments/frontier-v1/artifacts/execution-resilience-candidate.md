@@ -2,15 +2,15 @@
 
 Status: **review candidate, not frozen.** Both outcome gates stay closed (`may_open_validation: false`, `may_open_held_out: false`). No model was run, no private grade obtained, and no validation outcome observed while authoring this payload.
 
-Base commit: `9f53fa73fbede7e240aeb22e9b02d287c9c39a94` (the second review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
-Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 16 files.
+Base commit: `6f54e8ca2903c4653bd319c116df57f0edf8317c` (the third review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
+Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 17 files.
 
-**Revision 3.** Two independent reviews have run, by different reviewers, and both returned REVISE.
+**Revision 4.** Three independent reviews have run, by three different reviewers, and all three returned REVISE.
 
 - Review 1 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review.md)) against payload `7a1ea42513acd3d55e276eabc2459da4a037acc0`: two P1, six P2, nine P3, no P0.
 - Review 2 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review-2.md)) against revision `e92eaacf6ab54b547b331d14749717da64b58e0d`: **no P0 and no P1**; it confirmed both P1s genuinely fixed and all six P2s fixed or substantively fixed, and raised two new P2s and ten P3s.
 
-Every P1 and P2 from both reviews is fixed here, along with sixteen of the nineteen P3 notes. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
+Every P1 and P2 from all three reviews is fixed here, along with most of the P3 notes. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
 
 ## What this implements
 
@@ -95,7 +95,7 @@ The second reviewer found no P0 and no P1, and confirmed by independent attack t
 
 The P3s the reviewer preferred fixed are fixed:
 
-- **P3-N3** the closure check matched the bare token `ACCEPT` anywhere in the file — which **this repository's own committed REVISE records satisfy**, since every reviewer is asked to return "ACCEPT or REVISE". It now reads the record's verdict *line*, tolerates markdown emphasis and title case, and refuses outright when a `Verdict: REVISE` line is present. A test pins a REVISE record that quotes the ACCEPT token throughout.
+- **P3-N3** the closure check matched the bare token `ACCEPT` anywhere in the file — which **this repository's own committed REVISE records satisfy**, since every reviewer is asked to return "ACCEPT or REVISE". It now reads the record's verdict *statement*. The third review showed the first attempt at this was wrong in both directions against the project's own corpus, and it is rewritten here — see "What the third review changed".
 - **P3-N2** `partialArtifactDigests` carried two `omitempty` fields that are empty in every fixture and non-empty on the validation path, so the nested guard had never seen the shape it guards and would have *failed* against a real validation partial summary. The struct now has a fixed four-key shape, all four keys are admitted, and the fixture sets both digests.
 - **P3-N4** the branch that actually closes P2-3 — an attestation authored at resume time for a weeks-old interruption — was unexercised; it now has a case.
 - **P3-N5** the test pinning the P1-1 fix silently skipped on Windows, so the evidence for the fix ran on no host. `watchProcessTerminationOn` takes the signal channel directly, so the stop, the exit code, and the live-progress wiring are exercised everywhere; SIGTERM's 143 is pinned too.
@@ -105,6 +105,27 @@ The P3s the reviewer preferred fixed are fixed:
 - **P3-N7** and **P3-N10** (a dead assignment, and an inaccurate gocyclo claim about to be frozen) are corrected.
 
 Not fixed, and carried as residuals with the reviewer's own wording: **P3-N1** (a coordinated rewrite of the process-event log defeats both the counter and the anchor, since the runner retains no previously accepted digest — the reviewer graded this P3 as an enhancement beyond section 9, and detection remains the committed attestation digest compared across commits), the host-clock residual, and P3-1/P3-2/P3-5 from the first round with the second reviewer's sharpened wording on P3-5.
+
+## What the third review changed
+
+The third reviewer confirmed that **every P1 and P2 from both earlier rounds is genuinely fixed and none has regressed**, walked an honest custodian's timeline through all four frozen interruption causes and found each passes, verified that the mutex added for P3-N8 does not disturb the timing anchor (timestamps are stamped before the lock is taken, and the reader takes the maximum rather than the last line), and confirmed that a *refused* resume writes no `start` event and so does not consume the tranche's single allowance. It also ran the race detector on the linux host itself rather than restating this note's claim.
+
+It found one P1, and it is the sharpest finding of the three rounds because it is the round-2 pattern repeating at one further remove.
+
+**P1-N1 — the closure verdict parser was wrong in both directions.** Review 2 found that matching the bare token `ACCEPT` anywhere in a file accepts a REVISE record, and prescribed matching a verdict *line*. That prescription rested on a survey of two files. The parser written to it, tested against the two files, and about to be frozen, turned out to misclassify most of this repository's corpus. The third reviewer reimplemented it standalone and ran it over all 76 committed review records:
+
+- It **refused 17 of the 19** records written in this project's dominant style, a bolded `Verdict:` label followed by the token in a code span. The trim cutset omitted the backtick, so the token never matched. It also refused the current house style, where a `## 1. Verdict` heading carries `**ACCEPT.**` on the next line, and refused any accepting record that cites an earlier round's REVISE.
+- It **accepted 12 documents that are not accepting review records at all**, five of them evaluator prompts matching on the instruction `1. Verdict: ACCEPT, REVISE, or REJECT.` — and the review-3 prompt itself, on the line where it warns about this hole.
+
+Either direction defeats the mechanism freeze obligation 5 exists to install: the false accept lets `validation_execution_closure_review` naming a `…-prompt.md` file satisfy the post-closure gate with no review performed, and the false refusal blocks the eventual decision-0023 closure review at the point of maximum schedule pressure, repairable only by another full freeze cycle.
+
+I reproduced both counts before fixing: 19 records use the backtick style, and the prompt boilerplate is present in five prompts.
+
+The parser is rewritten to be structural rather than substring-positional. A verdict statement is now a line whose text before the label is markdown furniture only (emphasis, code spans, quotes, list and heading markers, section numbering) optionally preceded by a closed set of qualifiers (`final`, `overall`); the token after the label is read as a lone word with non-letters trimmed, so `` `ACCEPT` ``, `"ACCEPT"`, `**ACCEPT**`, `ACCEPT.` and `Accept` all resolve; a label with no token takes the next non-blank line, which is the heading style; a verdict *list* is rejected by requiring that the other verdict word not appear in the token's immediate neighbourhood; and only the record's **first** verdict statement is decisive, so citing an earlier round does not overturn it.
+
+**The corpus is now the arbiter, in the code.** `TestClosureVerdictParserAgreesWithTheCommittedReviewCorpus` runs the parser over every committed review record and fails if any evaluator prompt reads as an accepting record or any record stating ACCEPT is refused — the same check the reviewer performed by hand, now permanent. `TestClosureVerdictParserReadsEveryCommittedVerdictStyle` pins all nine committed verdict forms plus five that must be refused. Current corpus result: 23 accepted, 51 refused, no prompt among the accepted.
+
+Also fixed from this round: the boundary document now enumerates the attestation's exact JSON field set, since `decodeStrict` refuses unknown or misspelled fields and the field names appeared only in this note and the Go source (P3-N1 new-b); it records the one unresumable state, a process that died between its `start` event and its first checkpoint (P3-N1 new-c); and the inventory's stale round-count text is corrected (P3-N1 new-d). The `os.Exit`-versus-`writeJSON` truncation window (P3-N1 new-a) is carried as the sharpened P3-5 residual, as both the second and third reviewers graded it.
 
 ## Deliberate freeze red
 
@@ -122,8 +143,8 @@ Note for the reviewer: `pre-validation-artifacts.json` is edited in this payload
 
 ## Refreeze plan after acceptance
 
-1. Re-pin the `scheduled_runner` block in `pre-validation-artifacts.json`: 24 files (the existing 21 plus `process_events.go`, `execution_resilience.go`, `execution_resilience_test.go`), new set digest, `candidate_commit` = this payload commit, review record and its raw digest, `replaces_candidate_commit` = `54e256e9f4347d34844a3ef9b2156600360dcd13`, and the accepted-findings list extended with any residual the review records.
-2. Update the freeze-test constants in `artifact_freeze_test.go` (`verifyReplacementRunnerFreeze`: candidate artifact path and raw digest, review path/commit/digest, replaces-commit, findings, notes, file count 24).
+1. Re-pin the `scheduled_runner` block in `pre-validation-artifacts.json`: 25 files (the existing 21 plus `process_events.go`, `execution_resilience.go`, `execution_resilience_test.go`, `closure_verdict_corpus_test.go`), new set digest, `candidate_commit` = this payload commit, review record and its raw digest, `replaces_candidate_commit` = `54e256e9f4347d34844a3ef9b2156600360dcd13`, and the accepted-findings list extended with any residual the review records.
+2. Update the freeze-test constants in `artifact_freeze_test.go` (`verifyReplacementRunnerFreeze`: candidate artifact path and raw digest, review path/commit/digest, replaces-commit, findings, notes, file count 25).
 3. Convert this payload's working-tree guard to the commit-pinned historical form via `verifyCandidateSetAtCommit`.
 4. Decision document 0026 (`IMPORT_AND_FREEZE`).
 
