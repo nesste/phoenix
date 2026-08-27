@@ -33,6 +33,8 @@ type frozenFileSet struct {
 }
 
 type frozenValidationSchedule struct {
+	Retired              bool     `json:"retired"`
+	Retirement           string   `json:"retirement"`
 	Path                 string   `json:"path"`
 	CanonicalDigest      string   `json:"canonical_json_sha256"`
 	RawDigest            string   `json:"raw_sha256"`
@@ -110,7 +112,7 @@ func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
 	}
 	verifyReplacementRunnerFreeze(t, repositoryRoot, freeze.Artifacts.Runner)
 	verifyFrozenFileSet(t, repositoryRoot, freeze.Artifacts.Analysis,
-		"62946f4a1a03ea89636c5b3243f3b4d53b166682", 9)
+		"0f8d9c72c59bea5da5abf792f493f1d75299b1f8", 9)
 	verifyAcceptedLocalArtifacts(t, repositoryRoot)
 	verifyFrozenValidationSchedule(t, repositoryRoot, freeze.Artifacts.Schedule)
 
@@ -170,21 +172,22 @@ func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit
 func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact frozenFileSet) {
 	t.Helper()
 	wantFindings := []string{
-		"P2: the external custodian directory is not version-controlled; prior-source provenance relies on recorded hashes, exact one-constant reconstruction, preserved binaries, and behavioral probes.",
 		"Carried P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom.",
-		"Carried P2-2: the complexity-refactor candidate note describes the interim freeze failures imprecisely; its recorded status remains correct.",
 		"Carried P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths; callers must check the error first.",
-		"Residual: validation execution requires a linux/amd64 host and the frozen world-build identity sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4.",
+		"P3-1 (pre-existing): validateExternalGrade lets a gating manual_required dominate a gating fail, the reverse of the grader's overallStatus precedence; unreachable under v5 because no check kind produces manual_required.",
+		"Residual: validation execution requires a linux/amd64 host and the frozen world-build identity sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4.",
+		"Residual: the retired v4 sealed schedule, manifest, registry, and archive identities remain pinned in validation_grader.go as custody evidence until the v5 seal replaces them; the A-D construction refuses the retired five-arm schedule.",
+		"Refreeze note: the README.md and validation-execution-boundary.md world-build literals were updated to the refrozen digest in the refreeze commit per review P3-2, so those two set members' digests differ from the payload commit's bytes; every other set member matches the payload commit.",
 	}
 	wantNotes := []string{
-		"experiments/frontier-v1/artifacts/validation-world-reference-compatibility-candidate.md",
+		"experiments/frontier-v1/artifacts/protocol-v5-amendment-candidate.md",
 	}
-	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-validation-world-compatibility-candidate.json" ||
-		artifact.CandidateArtifactDigest != "sha256:5ecdbbcfca5b75a16ee7c6e017292171c3910137e881effb90de357d7a854118" ||
-		artifact.Review != "docs/reviews/2026-08-26-protocol-v4-validation-world-compatibility-review.md" ||
-		artifact.ReviewCommit != "a71e59b457cdfdb2014b434033946d319036c060" ||
-		artifact.ReviewDigest != "sha256:e00fb5e35320798415716e17ab4f08bfc9b24bfe7b68b7011877081a3d369831" ||
-		artifact.ReplacesCommit != "8ed9202c80d8f591c5d0db8a7e8a349022f952f8" ||
+	if artifact.CandidateArtifact != "experiments/frontier-v1/artifacts/gate-1a-protocol-v5-amendment-candidate.json" ||
+		artifact.CandidateArtifactDigest != "sha256:9242fe152bd4b95f037d9cd8e2025aed9ce70541459f998e0b2f00d8bec4f840" ||
+		artifact.Review != "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md" ||
+		artifact.ReviewCommit != "bd096c6d89f6a9a4cd70fb49fa4f16cdc574c227" ||
+		artifact.ReviewDigest != "sha256:0979accc651be0a14e96eae1d5fab0d45d74f1fb1f60b42da11bd785c426da5f" ||
+		artifact.ReplacesCommit != "215b30ae89933c532468b452be6238a6028a740e" ||
 		!reflect.DeepEqual(artifact.AcceptedFindings, wantFindings) ||
 		!reflect.DeepEqual(artifact.CandidateNotes, wantNotes) {
 		t.Fatalf("replacement runner provenance = %#v", artifact)
@@ -198,7 +201,7 @@ func verifyReplacementRunnerFreeze(t *testing.T, repositoryRoot string, artifact
 		}
 	}
 	verifyFrozenFileSet(t, repositoryRoot, artifact,
-		"215b30ae89933c532468b452be6238a6028a740e", 21)
+		"0f8d9c72c59bea5da5abf792f493f1d75299b1f8", 21)
 }
 
 func verifyRawFileDigest(t *testing.T, path string, want string) {
@@ -226,6 +229,8 @@ func verifyRawGitFileDigest(t *testing.T, repositoryRoot, commit, path, want str
 func verifyFrozenValidationSchedule(t *testing.T, repositoryRoot string, artifact frozenValidationSchedule) {
 	t.Helper()
 	want := frozenValidationSchedule{
+		Retired:              true,
+		Retirement:           "Retired unopened under protocol v5, which removes arm E: the A-D schedule construction refuses this five-arm schedule and its manifest, registry, and archive identities. The bytes below are preserved as custody evidence and must not be run, relabeled, or resealed. A new disjoint sealed v5 tranche and A-D schedule must be independently generated and frozen before any validation execution.",
 		Path:                 "experiments/frontier-v1/schedules/validation.json",
 		CanonicalDigest:      "sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813",
 		RawDigest:            "sha256:6b264a8daff60d9b507f11d760f1bbf19dec556f2aebd700dc5fbdc8a8c56aec",
@@ -287,10 +292,10 @@ func verifyValidationScheduleFiles(t *testing.T, repositoryRoot string, artifact
 func verifyAcceptedLocalArtifacts(t *testing.T, repositoryRoot string) {
 	t.Helper()
 	const (
-		candidateCommit = "8ed9202c80d8f591c5d0db8a7e8a349022f952f8"
+		candidateCommit = "0f8d9c72c59bea5da5abf792f493f1d75299b1f8"
 		candidatePath   = "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json"
-		candidateDigest = "sha256:c0dd52ff140c6335cc2e6eb26c0a98d8b3710ee2896c9a9c86dc4d78b8b1c9bf"
-		reviewPath      = "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md"
+		candidateDigest = "sha256:55b212d95f90c4bb39461277ed16db993d09868804dc13d60d8e5384ce3cb37b"
+		reviewPath      = "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md"
 	)
 	actualDigest, err := digestLFNormalizedFile(filepath.Join(repositoryRoot, filepath.FromSlash(candidatePath)))
 	if err != nil || actualDigest != candidateDigest {

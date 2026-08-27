@@ -61,21 +61,20 @@
         "--episode-db", "<per-attempt episodes.db>",
         "--root-refs", "<per-attempt roots.json>",
         "--world-build", "<world-build digest>",
-        "--arm", "<A|B|C|D|E>",
+        "--arm", "<A|B|C|D>",
         "[when declared] --state-events", "<per-attempt state-events.json>"
       ],
       "system_prompts": {
         "A": "Use only the configured tools. Follow the user request exactly.",
         "B": "Use only the configured tools. Follow the user request exactly.",
-        "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
-        "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
-        "E": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
+        "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle. If a call is returned, evaluate it; execute it only if it serves the goal. If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal.",
+        "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle. If a call is returned, evaluate it; execute it only if it serves the goal. If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal."
       },
       "files_lf_normalized_utf8_sha256": {
-        "experiments/frontier-v1/protocol.json": "sha256:81c86f1eea00120e597927cb1937854fba6580913ba79d604c4b63c7caaa05e9",
-        "experiments/frontier-v1/runner/main.go": "sha256:e0949c0abf26fa6fe9f3b2ccd8c8c8c937d69098110a8454c08fad8b96c06c35",
-        "experiments/frontier-v1/runner/runtime.go": "sha256:fe7d608fb2b64defb2ae5097235b93191d7e386e75693a9b8cfd6103940aeb56",
-        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:4a86b8d84789fa60c9b1991dcfaf0c9b82e9cee7d37459af79df84d69d0ba1cf"
+        "experiments/frontier-v1/protocol.json": "sha256:39dfcd2f0554a97657e7140da041b7ea76bebdc9e3dc8f63cc88732b30534d69",
+        "experiments/frontier-v1/runner/main.go": "sha256:b82478472d65a340e29d9cec25970081db3928ebcf6f3892e01a906e9fbd6a53",
+        "experiments/frontier-v1/runner/runtime.go": "sha256:60466035ef5f21a84a4b616481e871afa2bab403db4773e7d9286d0a45a1f2a2",
+        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:27edf0bd084f4dd94fabc408e3fab97f50ebc803330f9f51b3f7bb9b48436ee2"
       }
     },
     "arm_a_schemas": {
@@ -107,8 +106,8 @@
       "world_definition_canonical_json_sha256": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
       "authoring_world_equivalent": "experiments/frontier-v1/worlds/authoring.dev_repo.json",
       "world_build_manifest": "experiments/frontier-v1/artifacts/world-build.linux-amd64.json",
-      "world_build_manifest_raw_sha256": "sha256:9210f42822f918b4fe1f7f73e7fafc760504f81cd012be09eb5eb2c472370cba",
-      "world_build_digest": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+      "world_build_manifest_raw_sha256": "sha256:04508e1c3b54df5e725e6753590ab039d2e6f2469b08216cea7128724e0cd070",
+      "world_build_digest": "sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4",
       "target": {
         "goos": "linux",
         "goarch": "amd64",
@@ -121,11 +120,11 @@
     },
     "grader_digest": {
       "frozen": false,
-      "digest": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
+      "digest": "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05",
       "command": "cd experiments/frontier-v1/corpusctl && go run ./cmd/corpusctl grader-digest --repo-root ../../..",
       "coverage": "LF-normalized non-test corpusctl Go sources, corpusctl go.mod/go.sum, and every frontier-v1 schema",
       "digest_implementation": "experiments/frontier-v1/corpusctl/internal/corpus/grade.go",
-      "digest_implementation_lf_normalized_utf8_sha256": "sha256:89304bb0ac6b45a8236fd4562b9c2b2212f40ebc80c6bbbaac907f8f233e719d"
+      "digest_implementation_lf_normalized_utf8_sha256": "sha256:ea3e0078d41dc072d4fbe2648a860b1099c5ec6c3bccc02180dc493ed404c27e"
     }
   },
   "remaining_after_acceptance": [

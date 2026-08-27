@@ -25,63 +25,65 @@
       "frozen": true
     },
     "scheduled_runner": {
-      "candidate_commit": "215b30ae89933c532468b452be6238a6028a740e",
-      "candidate_artifact": "experiments/frontier-v1/artifacts/gate-1a-validation-world-compatibility-candidate.json",
-      "candidate_artifact_raw_sha256": "sha256:5ecdbbcfca5b75a16ee7c6e017292171c3910137e881effb90de357d7a854118",
+      "candidate_commit": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8",
+      "candidate_artifact": "experiments/frontier-v1/artifacts/gate-1a-protocol-v5-amendment-candidate.json",
+      "candidate_artifact_raw_sha256": "sha256:9242fe152bd4b95f037d9cd8e2025aed9ce70541459f998e0b2f00d8bec4f840",
       "candidate_notes": [
-        "experiments/frontier-v1/artifacts/validation-world-reference-compatibility-candidate.md"
+        "experiments/frontier-v1/artifacts/protocol-v5-amendment-candidate.md"
       ],
-      "review_record": "docs/reviews/2026-08-26-protocol-v4-validation-world-compatibility-review.md",
-      "review_record_commit": "a71e59b457cdfdb2014b434033946d319036c060",
-      "review_record_raw_sha256": "sha256:e00fb5e35320798415716e17ab4f08bfc9b24bfe7b68b7011877081a3d369831",
+      "review_record": "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md",
+      "review_record_commit": "bd096c6d89f6a9a4cd70fb49fa4f16cdc574c227",
+      "review_record_raw_sha256": "sha256:0979accc651be0a14e96eae1d5fab0d45d74f1fb1f60b42da11bd785c426da5f",
       "review_verdict": "ACCEPT",
-      "replaces_candidate_commit": "8ed9202c80d8f591c5d0db8a7e8a349022f952f8",
-      "artifact_set_lf_normalized_utf8_sha256": "sha256:57e071790f2e49e7a5ab5c45a2685578ccaf0f9bd4fbfea8712f7d172c9e6424",
+      "replaces_candidate_commit": "215b30ae89933c532468b452be6238a6028a740e",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:5fe8632a1a7eb37b412f280703e72f113fe65e34ed0a4624113df0a948d22a24",
       "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
       "accepted_findings": [
-        "P2: the external custodian directory is not version-controlled; prior-source provenance relies on recorded hashes, exact one-constant reconstruction, preserved binaries, and behavioral probes.",
         "Carried P2-1: classifyScheduledOutputEntries measures gocyclo 15, exactly at the threshold with zero headroom.",
-        "Carried P2-2: the complexity-refactor candidate note describes the interim freeze failures imprecisely; its recorded status remains correct.",
         "Carried P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths; callers must check the error first.",
-        "Residual: validation execution requires a linux/amd64 host and the frozen world-build identity sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4."
+        "P3-1 (pre-existing): validateExternalGrade lets a gating manual_required dominate a gating fail, the reverse of the grader's overallStatus precedence; unreachable under v5 because no check kind produces manual_required.",
+        "Residual: validation execution requires a linux/amd64 host and the frozen world-build identity sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4.",
+        "Residual: the retired v4 sealed schedule, manifest, registry, and archive identities remain pinned in validation_grader.go as custody evidence until the v5 seal replaces them; the A-D construction refuses the retired five-arm schedule.",
+        "Refreeze note: the README.md and validation-execution-boundary.md world-build literals were updated to the refrozen digest in the refreeze commit per review P3-2, so those two set members' digests differ from the payload commit's bytes; every other set member matches the payload commit."
       ],
       "files": {
-        "experiments/frontier-v1/README.md": "sha256:4827d4c9c2161c24e1b7afe1828d5839f1807eb0f1b5a26c1a610fc82f158a64",
+        "experiments/frontier-v1/README.md": "sha256:6eb4c816d51f987ab3f0cf83bbc2a7b50c0d1b78bb9faff73db6981ec689f31b",
         "experiments/frontier-v1/runner/arm_b_test.go": "sha256:022080bf9a51a59706d3f57f6404bb5ebe04c486b6485c95102073da7fe42d2d",
-        "experiments/frontier-v1/runner/main.go": "sha256:34be7b7c88be049954787cfc68e93e19926de36c97135fb762957c02ff88b485",
-        "experiments/frontier-v1/runner/main_test.go": "sha256:b123ef00c5a80301ff5afdd3133806fa013f5efd5d74ec9af3a03f479233a979",
+        "experiments/frontier-v1/runner/main.go": "sha256:b82478472d65a340e29d9cec25970081db3928ebcf6f3892e01a906e9fbd6a53",
+        "experiments/frontier-v1/runner/main_test.go": "sha256:24c004fb8fd1df9fa49239803eef176b92c58c9f823be30f04b5342c3e31584d",
         "experiments/frontier-v1/runner/materialize.go": "sha256:a853c24adfb1e9fa72bcd28d39ace41b01c6ba8f7058070df6336b82eaabd1d2",
-        "experiments/frontier-v1/runner/runtime.go": "sha256:625ab20eca58eabef2ccddc53ce9d1b4028a8cdd9d1bea2d1561b05b04899dc9",
+        "experiments/frontier-v1/runner/runtime.go": "sha256:60466035ef5f21a84a4b616481e871afa2bab403db4773e7d9286d0a45a1f2a2",
         "experiments/frontier-v1/runner/runtime_test.go": "sha256:899f1ac588082420f652b1d6fdd7eb0ca20065dc2b11eabd50839eeac93183b2",
-        "experiments/frontier-v1/runner/schedule.go": "sha256:8deb8f4b9344d700c6cf63730b661d4923574f2c57c053ec168687c1e5bc5960",
-        "experiments/frontier-v1/runner/schedule_test.go": "sha256:73c9bb9238ab26b1c64cd49e5989ee2e16d92f44b3203a465bced09f962729ec",
+        "experiments/frontier-v1/runner/schedule.go": "sha256:4cbc777bfa284ae14c81cfb2484c6a06d53bf80ea38d6d0140a12a02926f4ac4",
+        "experiments/frontier-v1/runner/schedule_test.go": "sha256:567ae0e2616bc1c261db10cb8e10dc395b1f3074c0e63910b2e7225dce592ad3",
         "experiments/frontier-v1/runner/scheduled_resume.go": "sha256:87780d8018d4e4621e2031e3dab6c261a42b6ec3d21dd1047c42df1fa3ff7f19",
-        "experiments/frontier-v1/runner/scheduled_resume_test.go": "sha256:99fc090df041bc0ce445cf80be8192d4205600724c3db921cd3ed8fade8e6716",
+        "experiments/frontier-v1/runner/scheduled_resume_test.go": "sha256:4d3603aed6ffea5faa20cbe92e46bd642088efa9864ad75480bc4cd5d0d6abb8",
         "experiments/frontier-v1/runner/scheduled_run.go": "sha256:27edf0bd084f4dd94fabc408e3fab97f50ebc803330f9f51b3f7bb9b48436ee2",
-        "experiments/frontier-v1/runner/scheduled_run_test.go": "sha256:080ce37de7acd2c7d741a10cb3b1658bd77a39809b546d606f43c78af960be83",
+        "experiments/frontier-v1/runner/scheduled_run_test.go": "sha256:98a7a75687ab96b58db559cb370d05f3fc56c084409f21b4659cfbe0e44c1e87",
         "experiments/frontier-v1/runner/types.go": "sha256:aadb408213dc997cd65e2d46dd43dff234f4ca64da3bdb3380ed26d583114b46",
         "experiments/frontier-v1/runner/validation_build_recipe_test.go": "sha256:87d4410203ccdfaafa921e44234ffc71cf641eda60d6f872a5e2f4af9d920202",
-        "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:460dc582292473ecd5b91e436ba726e2f409399cd254588ee8f0eded99a02b03",
+        "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:a35391874bf7285c03cfcde4c99be17ccf2b0d3fac3c8e2324db9cd2b8f3c28c",
         "experiments/frontier-v1/runner/validation_gate.go": "sha256:b014fa7a2564d4c2c6ddd9399fb7b43cd918c74b83314ccce678ea6d322580dd",
-        "experiments/frontier-v1/runner/validation_grader.go": "sha256:d42ae1bfb428853db4933d89a944ff8967bac655044ad72f01d45e19627d7f0d",
+        "experiments/frontier-v1/runner/validation_grader.go": "sha256:77f2ffe9e66e1676b154810f45478a61ed8b63cbb55ef305cb8d7f78def3e869",
         "experiments/frontier-v1/runner/validation_world_compatibility_test.go": "sha256:c5ede1709e8c0c52138a7651b3b3ec506cb7bb3a01f9889293037d935a8a3bf6",
         "experiments/frontier-v1/runner/world_build_pin_test.go": "sha256:870d610a72154fc84df29ed2114ecfd118a8b5d4f1b66e72bf640a16ecab27e6",
-        "experiments/frontier-v1/validation-execution-boundary.md": "sha256:801819e80d138ae82010bd31a0e27179418104b38ee6cf52f83693a47c754b35"
+        "experiments/frontier-v1/validation-execution-boundary.md": "sha256:29403dcc891d8950bc1a30ba66c653a9cff8bbb86072802b1f074c7f959a073c"
       },
       "frozen": true
     },
     "analysis_implementation_and_report_template": {
-      "candidate_commit": "62946f4a1a03ea89636c5b3243f3b4d53b166682",
-      "review_record": "docs/reviews/2026-08-18-phase1-analysis-review-2.md",
+      "candidate_commit": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8",
+      "review_record": "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md",
       "review_verdict": "ACCEPT",
-      "artifact_set_lf_normalized_utf8_sha256": "sha256:5b0002d7f07e6ba51035a2360f2cee5b03a191712f7244ef75424a85c28e12cc",
+      "replaces_candidate_commit": "62946f4a1a03ea89636c5b3243f3b4d53b166682",
+      "artifact_set_lf_normalized_utf8_sha256": "sha256:824c152f6c3835b79471a15fa9c6463c2db68cade11ed399f470cc04bfc71223",
       "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
-      "accepted_limitation": "Two-sided 95% intervals for descriptive measures are absent; the independent reviewer classified this as a non-blocking completeness limitation because those intervals enter no forced decision.",
+      "accepted_limitation": "Two-sided 95% intervals for descriptive measures are absent; the independent reviewer classified this as a non-blocking completeness limitation because those intervals enter no forced decision. Under protocol v5 the analysis validates A-D pairing keys and the teaching-refusal contrast is retired at engineering grade.",
       "files": {
-        "experiments/frontier-v1/analysis/README.md": "sha256:65f0ff8b929327341e0ccec0555841f30c980efbc67e5c2d27f3de67594e0d94",
-        "experiments/frontier-v1/analysis/analysis_test.go": "sha256:e28f48153b6d4e90cac3011309809e2ea8b275031fe443446dbcd8619f18b029",
-        "experiments/frontier-v1/analysis/claims.go": "sha256:ff34599bbc1eee374ee149998b124babdd1a1c7993ecba5c11c96b3a0c9a5a0b",
-        "experiments/frontier-v1/analysis/load.go": "sha256:94fc85440eaa6c8010423a9732d68628dfa1e29f5be4eeaacb948b3a3bc58c19",
+        "experiments/frontier-v1/analysis/README.md": "sha256:cb45461118843ab4e83f34ded422847e3426a74c18f850dd731bb1b3a7362694",
+        "experiments/frontier-v1/analysis/analysis_test.go": "sha256:f8ade3559246e2f13cecdf40996441e5735b44a934073f4b41bb30c5207c5069",
+        "experiments/frontier-v1/analysis/claims.go": "sha256:2f92a4ce3f3297c8b7c285379f05653afa529b96a827bf1f4843c4ad08d4b2e2",
+        "experiments/frontier-v1/analysis/load.go": "sha256:ea2d690079cd28e9ec9d0812ac8e18afbca4c9d44117625feb319dd24461326a",
         "experiments/frontier-v1/analysis/main.go": "sha256:b41d11132a40d56caba4038c7bdbc43a9dd1c3fb99b5bb9b36baffbe2459fc09",
         "experiments/frontier-v1/analysis/report-template.md.tmpl": "sha256:361641401cc85e8951cf08f5279aac8488713d8dcd52a4df2f2a539a66bdbede",
         "experiments/frontier-v1/analysis/report.go": "sha256:947a36d5fdce8379b68a72a36d9c1f2c1ba09495910abd90f300368b2c2c340a",
@@ -91,10 +93,10 @@
       "frozen": true
     },
     "runtime_invocation_and_exact_per_arm_system_prompts": {
-      "candidate_commit": "8ed9202c80d8f591c5d0db8a7e8a349022f952f8",
+      "candidate_commit": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8",
       "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
-      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:c0dd52ff140c6335cc2e6eb26c0a98d8b3710ee2896c9a9c86dc4d78b8b1c9bf",
-      "review_record": "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:55b212d95f90c4bb39461277ed16db993d09868804dc13d60d8e5384ce3cb37b",
+      "review_record": "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md",
       "review_verdict": "ACCEPT",
       "frozen": true,
       "protocol_runtime": {
@@ -165,29 +167,28 @@
         "--world-build",
         "<world-build digest>",
         "--arm",
-        "<A|B|C|D|E>",
+        "<A|B|C|D>",
         "[when declared] --state-events",
         "<per-attempt state-events.json>"
       ],
       "system_prompts": {
         "A": "Use only the configured tools. Follow the user request exactly.",
         "B": "Use only the configured tools. Follow the user request exactly.",
-        "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
-        "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
-        "E": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
+        "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle. If a call is returned, evaluate it; execute it only if it serves the goal. If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal.",
+        "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle. If a call is returned, evaluate it; execute it only if it serves the goal. If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal."
       },
       "files_lf_normalized_utf8_sha256": {
-        "experiments/frontier-v1/protocol.json": "sha256:81c86f1eea00120e597927cb1937854fba6580913ba79d604c4b63c7caaa05e9",
-        "experiments/frontier-v1/runner/main.go": "sha256:e0949c0abf26fa6fe9f3b2ccd8c8c8c937d69098110a8454c08fad8b96c06c35",
-        "experiments/frontier-v1/runner/runtime.go": "sha256:fe7d608fb2b64defb2ae5097235b93191d7e386e75693a9b8cfd6103940aeb56",
-        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:4a86b8d84789fa60c9b1991dcfaf0c9b82e9cee7d37459af79df84d69d0ba1cf"
+        "experiments/frontier-v1/protocol.json": "sha256:39dfcd2f0554a97657e7140da041b7ea76bebdc9e3dc8f63cc88732b30534d69",
+        "experiments/frontier-v1/runner/main.go": "sha256:b82478472d65a340e29d9cec25970081db3928ebcf6f3892e01a906e9fbd6a53",
+        "experiments/frontier-v1/runner/runtime.go": "sha256:60466035ef5f21a84a4b616481e871afa2bab403db4773e7d9286d0a45a1f2a2",
+        "experiments/frontier-v1/runner/scheduled_run.go": "sha256:27edf0bd084f4dd94fabc408e3fab97f50ebc803330f9f51b3f7bb9b48436ee2"
       }
     },
     "arm_a_schemas": {
-      "candidate_commit": "8ed9202c80d8f591c5d0db8a7e8a349022f952f8",
+      "candidate_commit": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8",
       "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
-      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:c0dd52ff140c6335cc2e6eb26c0a98d8b3710ee2896c9a9c86dc4d78b8b1c9bf",
-      "review_record": "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:55b212d95f90c4bb39461277ed16db993d09868804dc13d60d8e5384ce3cb37b",
+      "review_record": "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md",
       "review_verdict": "ACCEPT",
       "frozen": true,
       "derivation": "For each root and verb in the world definition, expose root_name + '_' + verb with the verb args_schema and description 'Invoke <handle_type>.<verb> on <root label>.'; sort by tool name.",
@@ -259,10 +260,10 @@
       ]
     },
     "world_definition_and_world_build_digest": {
-      "candidate_commit": "8ed9202c80d8f591c5d0db8a7e8a349022f952f8",
+      "candidate_commit": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8",
       "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
-      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:c0dd52ff140c6335cc2e6eb26c0a98d8b3710ee2896c9a9c86dc4d78b8b1c9bf",
-      "review_record": "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:55b212d95f90c4bb39461277ed16db993d09868804dc13d60d8e5384ce3cb37b",
+      "review_record": "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md",
       "review_verdict": "ACCEPT",
       "frozen": true,
       "world_definition": "worlds/dev-repo/world.json",
@@ -270,8 +271,8 @@
       "world_definition_canonical_json_sha256": "sha256:d7f93051030c3f7a03442a99b12be77949a55f1ced1985bc34e16bd5d57289bc",
       "authoring_world_equivalent": "experiments/frontier-v1/worlds/authoring.dev_repo.json",
       "world_build_manifest": "experiments/frontier-v1/artifacts/world-build.linux-amd64.json",
-      "world_build_manifest_raw_sha256": "sha256:9210f42822f918b4fe1f7f73e7fafc760504f81cd012be09eb5eb2c472370cba",
-      "world_build_digest": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+      "world_build_manifest_raw_sha256": "sha256:04508e1c3b54df5e725e6753590ab039d2e6f2469b08216cea7128724e0cd070",
+      "world_build_digest": "sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4",
       "target": {
         "goos": "linux",
         "goarch": "amd64",
@@ -283,19 +284,21 @@
       }
     },
     "grader_digest": {
-      "candidate_commit": "8ed9202c80d8f591c5d0db8a7e8a349022f952f8",
+      "candidate_commit": "0f8d9c72c59bea5da5abf792f493f1d75299b1f8",
       "candidate_artifact": "experiments/frontier-v1/artifacts/pre-validation-local-candidate.json",
-      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:c0dd52ff140c6335cc2e6eb26c0a98d8b3710ee2896c9a9c86dc4d78b8b1c9bf",
-      "review_record": "docs/reviews/2026-08-25-protocol-v4-gate-1a-complexity-refactor-review.md",
+      "candidate_artifact_lf_normalized_utf8_sha256": "sha256:55b212d95f90c4bb39461277ed16db993d09868804dc13d60d8e5384ce3cb37b",
+      "review_record": "docs/reviews/2026-08-27-protocol-v5-amendment-payload-review.md",
       "review_verdict": "ACCEPT",
       "frozen": true,
-      "digest": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
+      "digest": "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05",
       "command": "cd experiments/frontier-v1/corpusctl && go run ./cmd/corpusctl grader-digest --repo-root ../../..",
       "coverage": "LF-normalized non-test corpusctl Go sources, corpusctl go.mod/go.sum, and every frontier-v1 schema",
       "digest_implementation": "experiments/frontier-v1/corpusctl/internal/corpus/grade.go",
-      "digest_implementation_lf_normalized_utf8_sha256": "sha256:89304bb0ac6b45a8236fd4562b9c2b2212f40ebc80c6bbbaac907f8f233e719d"
+      "digest_implementation_lf_normalized_utf8_sha256": "sha256:ea3e0078d41dc072d4fbe2648a860b1099c5ec6c3bccc02180dc493ed404c27e"
     },
     "validation_schedule": {
+      "retired": true,
+      "retirement": "Retired unopened under protocol v5, which removes arm E: the A-D schedule construction refuses this five-arm schedule and its manifest, registry, and archive identities. The bytes below are preserved as custody evidence and must not be run, relabeled, or resealed. A new disjoint sealed v5 tranche and A-D schedule must be independently generated and frozen before any validation execution.",
       "path": "experiments/frontier-v1/schedules/validation.json",
       "canonical_json_sha256": "sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813",
       "raw_sha256": "sha256:6b264a8daff60d9b507f11d760f1bbf19dec556f2aebd700dc5fbdc8a8c56aec",

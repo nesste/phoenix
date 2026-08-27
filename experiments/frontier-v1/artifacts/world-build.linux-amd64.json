@@ -1,18 +1,18 @@
 {
   "v": 1,
-  "digest": "sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4",
+  "digest": "sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4",
   "build": {
     "goos": "linux",
     "goarch": "amd64",
     "cgo_enabled": false,
     "executable": {
       "path": "bin/phoenix",
-      "digest": "sha256:79fe7e0a5f8896633216bb758d5a3bcc58a36de195e8272bdb66fb496da5d237"
+      "digest": "sha256:2e493b600f49216669705bc0e8fae6ad22646ad8b54f9ba64af50d626b1ff687"
     },
     "registered_verbs": [
       {
         "path": "internal/verb/exec.go",
-        "digest": "sha256:46c262c4a997a1c241d951d82afe97292ced4bfa9f1e045180ec6a1320cb2f18"
+        "digest": "sha256:db9a84b3304afc2e3fb12c8612a49213f522abcedd5b287b0a1afc34e427d280"
       },
       {
         "path": "internal/verb/external.go",
@@ -50,11 +50,11 @@
       },
       {
         "path": "spec/result.schema.json",
-        "digest": "sha256:5f9abbef94a3ad4b6fcbce044956c65234e9e300cbaddeef913e02a83bd39cdf"
+        "digest": "sha256:fb3cc0716fe12676f92eb6483b86b209c07e0b820b80d06b1b1406bf9d9fa14c"
       },
       {
         "path": "spec/world.schema.json",
-        "digest": "sha256:09ddd22c0be45cfb80156e9c50dd3afed8f1be2fc1dcd070e87eb46e8e06a8e3"
+        "digest": "sha256:72a93255f8d0a9abbadde9b09b486372db77896c47fcee6130edacd2c6f23080"
       }
     ],
     "world_definition": {

@@ -82,7 +82,7 @@ func TestLocalArtifactCandidateMatchesImplementation(t *testing.T) {
 		t.Fatal("review candidate marked a local artifact frozen before independent acceptance")
 	}
 
-	verifyCandidateFilesAtCommit(t, repositoryRoot, "795ce71acd51beb977190811c90cc538f3c6b928", candidate.Artifacts.Runtime.Files)
+	verifyCandidateFilesAtCommit(t, repositoryRoot, "0f8d9c72c59bea5da5abf792f493f1d75299b1f8", candidate.Artifacts.Runtime.Files)
 	verifyCandidateFiles(t, repositoryRoot, candidate.Artifacts.ArmA.Files)
 	verifyRuntimeCandidate(t, candidate)
 	verifyInvocationTemplates(t, candidate)
@@ -155,7 +155,7 @@ func verifyInvocationTemplates(t *testing.T, candidate localArtifactCandidate) {
 	replaceArgument(phoenixInvocation, episodePath, "<per-attempt episodes.db>")
 	replaceArgument(phoenixInvocation, filepath.Join(temporary, "roots.json"), "<per-attempt roots.json>")
 	replaceArgument(phoenixInvocation, stateEventsPath, "<per-attempt state-events.json>")
-	replaceArgument(phoenixInvocation, armBRequest.Arm, "<A|B|C|D|E>")
+	replaceArgument(phoenixInvocation, armBRequest.Arm, "<A|B|C|D>")
 	phoenixInvocation[len(phoenixInvocation)-2] = "[when declared] --state-events"
 	if !reflect.DeepEqual(phoenixInvocation, candidate.Artifacts.Runtime.PhoenixInvocation) {
 		t.Fatalf("candidate Phoenix invocation = %#v, implementation = %#v", candidate.Artifacts.Runtime.PhoenixInvocation, phoenixInvocation)

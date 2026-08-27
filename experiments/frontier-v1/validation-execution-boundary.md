@@ -32,7 +32,7 @@ The runner performs these checks before output creation, Phoenix build, runtime 
 
 The trial-limit check occurs before schedule preparation, output-directory inspection or creation, and custodian path resolution or handshake. Any different, whitespace-padded, or malformed cap, and any different timeout, is rejected without output mutation or custodian contact.
 
-Validation runs build Phoenix with the frozen world-build recipe: `GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GOTOOLCHAIN=go1.26.6`, `-trimpath -buildvcs=false -ldflags "-s -w -buildid= -X main.version=dev"`, at `bin/phoenix`. After that build and before any trial or model call, the live world-build digest must equal the frozen `sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4` or the run stops and the build is cleaned up. Authoring runs keep the host build recipe and skip the pin.
+Validation runs build Phoenix with the frozen world-build recipe: `GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GOTOOLCHAIN=go1.26.6`, `-trimpath -buildvcs=false -ldflags "-s -w -buildid= -X main.version=dev"`, at `bin/phoenix`. After that build and before any trial or model call, the live world-build digest must equal the frozen `sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4` or the run stops and the build is cleaned up. Authoring runs keep the host build recipe and skip the pin.
 
 The runner hashes the external executable after resolving the boundary and records that adapter hash plus the `describe` document in retained summary evidence. Before each grade it re-hashes the executable and stops if its identity changed.
 
