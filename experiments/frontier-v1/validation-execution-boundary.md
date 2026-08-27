@@ -50,6 +50,24 @@ The existing scheduled runner retains sanitized runtime streams, trial records, 
 
 Any gate, identity, schedule, custody handshake, grade-shape, or executable-change failure stops safely. It does not fall back to authoring labels or an in-repository grader. A runtime or grading safety stop leaves the scheduled run indeterminate under the existing contract.
 
+## Execution resilience, mandatory resume, and the post-closure gate
+
+Host requirements for the execution window: automatic OS restarts disabled (Windows Update deferred, or the prepared WSL2/Linux host used), no interactive login sessions, and the custodian process supervised.
+
+At every pairing-key boundary the runner writes three records beside the evidence: the durable `scheduled-checkpoint.json`, the outcome-free `scheduled-summary.partial.json` (launch index, completed pairing-key list, per-arm assignment counts, artifact digests, timestamps, and cumulative spend only — no success counts, no grade tallies, no per-arm outcome field), and an appended entry in `process-events.jsonl`. That process-event log is append-only and carries start, checkpoint, stop, and termination events with timestamps and, where the host exposes it, the originating principal; a signal-driven termination records that the host does not expose the sending principal. The log's digest is committed with the custody record, and the completed `scheduled-summary.json` remains the completion criterion.
+
+If an execution is interrupted by infrastructure failure, resume from the last durable checkpoint is **mandatory**, not discretionary; abandonment by choice does not exist as an outcome, and the tranche closes indeterminate whenever a condition fails. The runner refuses the resume unless `--resume-attestation` names a custodian record establishing all of:
+
+1. no human or agent inspected any outcome artifact between interruption and resume;
+2. the frozen runner, world, corpus, schedule, and grader bytes are digest-identical at resume, with the live schedule and world-build digests recorded in the attestation;
+3. resume is authorized within 72 hours of the interruption, with the timestamps ordered interruption, cause classification, condition verification, authorization;
+4. the cause was classified and attested before any outcome inspection and before the resume decision point, and is on the frozen outcome-uncorrelated list: host restart, power loss, hardware failure. OOM is struck because transcript-heavy failing trials make memory pressure outcome-correlated. A process kill qualifies only when the attestation, citing the process-event log by digest, establishes that no project participant, account, or agent initiated it;
+5. this is the tranche's first resume. A second interruption closes the tranche indeterminate.
+
+The 72 hours are a backstop, not an allowance: resume must be attempted as soon as conditions 1, 2, and 4 verify, an authorization later than that moment requires a written lapse explanation in the attestation, and a closure by clock lapse requires a committed written explanation of why resume could not be attempted earlier. Authoring resumes are development loops and are exempt from the attestation rule.
+
+**Post-closure gate.** After any validation execution that ends without a completed schedule — interruption, budget stop, or lapse — no subsequent validation execution is authorized until a closure record (cause classification, custodian logs, attestations, and the lapse explanation if any) has been independently reviewed and committed. The gate document records that review path and its verdict; `requireValidationGate` refuses an otherwise-open gate whose last execution status is not `complete` until the named record exists and its verdict is ACCEPT. This bounds the engineered-indeterminate retry channel: repeated close-and-retry would condition the eventually completed tranche on side signals, so each retry must survive an independent audit of why the last execution died. The 1,475-launch execution closed by decision 0023 has no such review yet, so the gate refuses a further validation execution on that ground alone.
+
 ## Authorization boundary
 
 Independent review must verify the exact replacement bytes, public-only tests, closed-gate behavior, and custody contract. Acceptance must be followed by a replacement refreeze. Only then may a distinct project-chair decision set `may_open_validation` true. That decision must leave `may_open_held_out` false. Neither this candidate nor its review may run a model, obtain a private grade, or observe a validation outcome.

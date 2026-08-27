@@ -37,22 +37,65 @@ func runScheduledCases(
 	if err != nil {
 		return scheduledSummary{}, err
 	}
+	progress, err := openScheduledProgress(config, schedule, scheduleDigest, resume)
+	if err != nil {
+		return scheduledSummary{}, err
+	}
 	done, err := applyScheduledResume(config, schedule, resume, &summary)
 	if err != nil {
 		return scheduledSummary{}, err
 	}
 	if done {
-		return summary, nil
+		return summary, progress.recordStop(resume.nextIndex, summary)
 	}
 	if resume.nextIndex == 0 {
-		if err := writeScheduledCheckpoint(config, scheduleDigest, summary, 0, 0); err != nil {
+		if err := progress.recordCheckpoint(config, schedule, scheduleDigest, summary, 0, 0); err != nil {
 			return scheduledSummary{}, err
 		}
 	}
-	if err := runRemainingSchedule(config, schedule, scheduleDigest, resume.nextIndex, perTrialCap, runBudgetUSD, runtime, grader, &summary); err != nil {
+	runErr := runRemainingSchedule(config, schedule, scheduleDigest, resume.nextIndex, perTrialCap, runBudgetUSD, runtime, grader, progress, &summary)
+	if runErr != nil {
+		return scheduledSummary{}, runErr
+	}
+	if err := progress.recordStop(len(schedule.Entries), summary); err != nil {
 		return scheduledSummary{}, err
 	}
 	return summary, nil
+}
+
+// openScheduledProgress authorizes a resume under the protocol-v5 section 9
+// mandatory-resume rule and opens this process's section of the append-only
+// process-event log. A validation resume without a verified custodian
+// attestation never reaches a launch.
+func openScheduledProgress(
+	config runConfig,
+	schedule launchSchedule,
+	scheduleDigest string,
+	resume scheduledResume,
+) (scheduledProgress, error) {
+	control, err := scheduledResumeControl(config, scheduleDigest)
+	if err != nil {
+		return scheduledProgress{}, err
+	}
+	if err := requireResumeAuthorization(control, resume); err != nil {
+		return scheduledProgress{}, err
+	}
+	progress := scheduledProgress{
+		log:       newProcessEventLog(config.outputDir, effectiveTranche(config), scheduleDigest, config.worldBuild),
+		resumes:   resume.checkpoint.Resumes,
+		groupSize: len(schedule.Arms),
+	}
+	detail := "fresh scheduled execution"
+	if resume.hasCheckpoint {
+		progress.resumes++
+		detail = fmt.Sprintf("resume %d after an interrupted execution", progress.resumes)
+	}
+	completed := resume.nextIndex
+	if progress.groupSize > 0 {
+		completed = resume.nextIndex / progress.groupSize
+	}
+	spent := spentBefore(resume.results, resume.nextIndex)
+	return progress, progress.log.record(processEventStart, progress.events(resume.nextIndex, completed, spent), detail)
 }
 
 // applyScheduledResume replays retained assignment records into the summary
@@ -90,6 +133,7 @@ func runRemainingSchedule(
 	perTrialCap, runBudgetUSD float64,
 	runtime runtimeDriver,
 	grader gradeDriver,
+	progress scheduledProgress,
 	summary *scheduledSummary,
 ) error {
 	groupSize := len(schedule.Arms)
@@ -114,7 +158,7 @@ func runRemainingSchedule(
 			}
 			addAssignedResult(summary, result)
 		}
-		if err := writeScheduledCheckpoint(config, scheduleDigest, *summary, start+groupSize, (start+groupSize)/groupSize); err != nil {
+		if err := progress.recordCheckpoint(config, schedule, scheduleDigest, *summary, start+groupSize, (start+groupSize)/groupSize); err != nil {
 			return err
 		}
 	}

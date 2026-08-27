@@ -20,8 +20,11 @@ const (
 type validationGateDocument struct {
 	Status string `json:"status"`
 	Gates  struct {
-		MayOpenValidation bool `json:"may_open_validation"`
-		MayOpenHeldOut    bool `json:"may_open_held_out"`
+		MayOpenValidation bool   `json:"may_open_validation"`
+		MayOpenHeldOut    bool   `json:"may_open_held_out"`
+		ExecutionStatus   string `json:"validation_execution_status"`
+		ClosureReview     string `json:"validation_execution_closure_review"`
+		ClosureVerdict    string `json:"validation_execution_closure_review_verdict"`
 	} `json:"gates"`
 	Artifacts struct {
 		Schedule struct {
@@ -65,6 +68,9 @@ func requireValidationGate(repositoryRoot string) error {
 	if !document.Gates.MayOpenValidation {
 		return fmt.Errorf("validation gate is closed")
 	}
+	if err := requirePostClosureAudit(repositoryRoot, document); err != nil {
+		return err
+	}
 	if document.Status != "complete" || !document.Artifacts.Schedule.Frozen ||
 		document.Artifacts.Schedule.Path != "experiments/frontier-v1/schedules/validation.json" ||
 		document.Artifacts.Schedule.CanonicalDigest != frozenValidationScheduleDigest ||
@@ -73,6 +79,28 @@ func requireValidationGate(repositoryRoot string) error {
 		return fmt.Errorf("validation gate does not name the frozen validation schedule")
 	}
 	return verifyValidationPublicIdentities(repositoryRoot, document)
+}
+
+// requirePostClosureAudit encodes the protocol-v5 section 9 post-closure gate.
+// After any validation execution that ended without a completed schedule -
+// interruption, budget stop, or lapse - no subsequent validation execution is
+// authorized until the closure record has been independently reviewed and
+// committed. Repeated close-and-retry would otherwise condition the
+// eventually completed tranche on side signals, so each retry must survive an
+// independent audit of why the last execution died.
+func requirePostClosureAudit(repositoryRoot string, document validationGateDocument) error {
+	status := document.Gates.ExecutionStatus
+	if status == "" || status == "complete" {
+		return nil
+	}
+	review := document.Gates.ClosureReview
+	if review == "" || document.Gates.ClosureVerdict != "ACCEPT" {
+		return fmt.Errorf("validation execution closed %s: another execution requires an independently reviewed closure record", status)
+	}
+	if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(review))); err != nil {
+		return fmt.Errorf("validation closure review record: %w", err)
+	}
+	return nil
 }
 
 func requireFrozenWorldBuild(repositoryRoot, liveDigest string) error {

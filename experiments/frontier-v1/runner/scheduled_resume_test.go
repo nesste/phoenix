@@ -343,9 +343,20 @@ func testPairingSchedule(keys int) launchSchedule {
 
 func writeTestCheckpoint(t *testing.T, config runConfig, digest, worldBuild string, budget, spent float64, next, keys int) {
 	t.Helper()
+	writeTestCheckpointWithResumes(t, config, digest, worldBuild, budget, spent, next, keys, 0)
+}
+
+func writeTestCheckpointWithResumes(
+	t *testing.T,
+	config runConfig,
+	digest, worldBuild string,
+	budget, spent float64,
+	next, keys, resumes int,
+) {
+	t.Helper()
 	if err := writeScheduledCheckpoint(config, digest, scheduledSummary{
 		WorldBuild: worldBuild, RunBudgetUSD: budget, SpentUSD: spent,
-	}, next, keys); err != nil {
+	}, next, keys, resumes); err != nil {
 		t.Fatal(err)
 	}
 }

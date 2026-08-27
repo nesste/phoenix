@@ -12,9 +12,11 @@ const scheduledCheckpointName = "scheduled-checkpoint.json"
 const scheduledSummaryName = "scheduled-summary.json"
 
 type scheduledResume struct {
-	results   []assignedTrialResult
-	nextIndex int
-	stopKind  string
+	results       []assignedTrialResult
+	nextIndex     int
+	stopKind      string
+	hasCheckpoint bool
+	checkpoint    scheduledCheckpoint
 }
 
 func requireScheduledOutputReady(root, output string, schedule launchSchedule, scheduleDigest string) error {
@@ -60,12 +62,15 @@ func loadScheduledResume(
 		return scheduledResume{}, err
 	}
 	if inventory.hasCheckpoint {
-		if err := verifyScheduledCheckpoint(
+		checkpoint, err := verifyScheduledCheckpoint(
 			filepath.Join(outputDir, scheduledCheckpointName),
 			worldBuild, scheduleDigest, runBudgetUSD, groupSize, resume,
-		); err != nil {
+		)
+		if err != nil {
 			return scheduledResume{}, err
 		}
+		resume.hasCheckpoint = true
+		resume.checkpoint = checkpoint
 	}
 	return resume, nil
 }
@@ -73,48 +78,106 @@ func loadScheduledResume(
 type scheduledOutputInventory struct {
 	assignments   map[int]assignedTrialResult
 	hasCheckpoint bool
+	hasProgress   bool
 }
 
 // classifyScheduledOutputEntries sorts a non-empty scheduled output directory
-// into assignment records, matching evidence, and the checkpoint. Anything
-// unrecognized, duplicated, orphaned, or missing its checkpoint is refused.
+// into assignment records, matching evidence, the checkpoint, and the
+// outcome-free progress records. Anything unrecognized, duplicated, orphaned,
+// or missing its checkpoint is refused.
 func classifyScheduledOutputEntries(outputDir string, entries []os.DirEntry, schedule launchSchedule) (scheduledOutputInventory, error) {
 	inventory := scheduledOutputInventory{assignments: map[int]assignedTrialResult{}}
 	assignmentStems := map[string]struct{}{}
 	var evidence []string
 	for _, entry := range entries {
 		if entry.IsDir() {
-			return scheduledOutputInventory{}, fmt.Errorf("scheduled output directory contains unrecognized files")
+			return scheduledOutputInventory{}, errUnrecognizedScheduledOutput
 		}
 		name := entry.Name()
-		switch {
-		case name == scheduledSummaryName:
+		switch scheduledOutputEntryKind(name) {
+		case scheduledEntrySummary:
 			return scheduledOutputInventory{}, fmt.Errorf("scheduled output directory already contains a finished summary")
-		case name == scheduledCheckpointName:
+		case scheduledEntryCheckpoint:
 			inventory.hasCheckpoint = true
-		case strings.HasSuffix(name, ".assignment.json"):
-			result, err := loadAssignmentFile(filepath.Join(outputDir, name), name, schedule)
-			if err != nil {
+		case scheduledEntryProgress:
+			inventory.hasProgress = true
+		case scheduledEntryAssignment:
+			if err := recordScheduledAssignment(outputDir, name, schedule, &inventory, assignmentStems); err != nil {
 				return scheduledOutputInventory{}, err
 			}
-			if _, exists := inventory.assignments[result.LaunchIndex]; exists {
-				return scheduledOutputInventory{}, fmt.Errorf("scheduled resume has duplicate assignment records")
-			}
-			inventory.assignments[result.LaunchIndex] = result
-			assignmentStems[strings.TrimSuffix(name, ".assignment.json")] = struct{}{}
-		case isScheduledEvidenceName(name):
+		case scheduledEntryEvidence:
 			evidence = append(evidence, name)
 		default:
-			return scheduledOutputInventory{}, fmt.Errorf("scheduled output directory contains unrecognized files")
+			return scheduledOutputInventory{}, errUnrecognizedScheduledOutput
 		}
 	}
+	return finishScheduledInventory(inventory, assignmentStems, evidence)
+}
+
+var errUnrecognizedScheduledOutput = fmt.Errorf("scheduled output directory contains unrecognized files")
+
+type scheduledOutputEntry int
+
+const (
+	scheduledEntryUnknown scheduledOutputEntry = iota
+	scheduledEntrySummary
+	scheduledEntryCheckpoint
+	scheduledEntryProgress
+	scheduledEntryAssignment
+	scheduledEntryEvidence
+)
+
+// scheduledOutputEntryKind names the retained artifact a directory entry is.
+// The protocol-v5 section 9 progress records - the outcome-free partial
+// summary and the append-only process-event log - are retained across a
+// resume rather than refused as unrecognized.
+func scheduledOutputEntryKind(name string) scheduledOutputEntry {
+	switch {
+	case name == scheduledSummaryName:
+		return scheduledEntrySummary
+	case name == scheduledCheckpointName:
+		return scheduledEntryCheckpoint
+	case name == scheduledPartialSummaryName || name == scheduledProcessEventLogName:
+		return scheduledEntryProgress
+	case strings.HasSuffix(name, ".assignment.json"):
+		return scheduledEntryAssignment
+	case isScheduledEvidenceName(name):
+		return scheduledEntryEvidence
+	default:
+		return scheduledEntryUnknown
+	}
+}
+
+func recordScheduledAssignment(
+	outputDir, name string,
+	schedule launchSchedule,
+	inventory *scheduledOutputInventory,
+	assignmentStems map[string]struct{},
+) error {
+	result, err := loadAssignmentFile(filepath.Join(outputDir, name), name, schedule)
+	if err != nil {
+		return err
+	}
+	if _, exists := inventory.assignments[result.LaunchIndex]; exists {
+		return fmt.Errorf("scheduled resume has duplicate assignment records")
+	}
+	inventory.assignments[result.LaunchIndex] = result
+	assignmentStems[strings.TrimSuffix(name, ".assignment.json")] = struct{}{}
+	return nil
+}
+
+func finishScheduledInventory(
+	inventory scheduledOutputInventory,
+	assignmentStems map[string]struct{},
+	evidence []string,
+) (scheduledOutputInventory, error) {
 	for _, name := range evidence {
 		stem := scheduledEvidenceStem(name)
 		if _, ok := assignmentStems[stem]; !ok || stem == "" {
 			return scheduledOutputInventory{}, fmt.Errorf("scheduled resume has evidence without a matching assignment")
 		}
 	}
-	if (len(inventory.assignments) > 0 || len(evidence) > 0) && !inventory.hasCheckpoint {
+	if (len(inventory.assignments) > 0 || len(evidence) > 0 || inventory.hasProgress) && !inventory.hasCheckpoint {
 		return scheduledOutputInventory{}, fmt.Errorf("scheduled resume is missing a checkpoint")
 	}
 	return inventory, nil
@@ -206,41 +269,64 @@ func verifyScheduledCheckpoint(
 	runBudgetUSD float64,
 	groupSize int,
 	resume scheduledResume,
-) error {
+) (scheduledCheckpoint, error) {
 	var checkpoint scheduledCheckpoint
 	if err := decodeStrict(path, &checkpoint); err != nil {
-		return err
+		return scheduledCheckpoint{}, err
 	}
+	if err := verifyCheckpointIdentity(checkpoint, worldBuild, scheduleDigest, runBudgetUSD); err != nil {
+		return scheduledCheckpoint{}, err
+	}
+	if err := verifyCheckpointProgress(checkpoint, groupSize, resume); err != nil {
+		return scheduledCheckpoint{}, err
+	}
+	return checkpoint, nil
+}
+
+func verifyCheckpointIdentity(checkpoint scheduledCheckpoint, worldBuild, scheduleDigest string, runBudgetUSD float64) error {
 	if checkpoint.V != 1 || checkpoint.ScheduleDigest != scheduleDigest {
-		return fmt.Errorf("scheduled resume checkpoint does not match assignment records")
+		return errCheckpointMismatch
 	}
 	if worldBuild != "" && checkpoint.WorldBuild != worldBuild {
 		return fmt.Errorf("scheduled resume world-build does not match the live world-build")
 	}
 	if runBudgetUSD > 0 && checkpoint.RunBudgetUSD > 0 && checkpoint.RunBudgetUSD != runBudgetUSD {
-		return fmt.Errorf("scheduled resume checkpoint does not match assignment records")
+		return errCheckpointMismatch
+	}
+	return nil
+}
+
+// verifyCheckpointProgress refuses a checkpoint whose recorded progress does
+// not reconstruct from the retained assignment records. The resume count is
+// bounded by the protocol-v5 section 9 single-resume rule.
+func verifyCheckpointProgress(checkpoint scheduledCheckpoint, groupSize int, resume scheduledResume) error {
+	if checkpoint.Resumes < 0 || checkpoint.Resumes > maximumScheduledResumes {
+		return errCheckpointMismatch
 	}
 	if checkpoint.NextLaunchIndex < 0 || checkpoint.NextLaunchIndex > resume.nextIndex ||
 		checkpoint.NextLaunchIndex%groupSize != 0 ||
 		checkpoint.CompletedPairingKeys != checkpoint.NextLaunchIndex/groupSize {
-		return fmt.Errorf("scheduled resume checkpoint does not match assignment records")
+		return errCheckpointMismatch
 	}
 	if roundUSD(checkpoint.SpentUSD) != spentBefore(resume.results, checkpoint.NextLaunchIndex) {
-		return fmt.Errorf("scheduled resume checkpoint does not match assignment records")
+		return errCheckpointMismatch
 	}
 	return nil
 }
+
+var errCheckpointMismatch = fmt.Errorf("scheduled resume checkpoint does not match assignment records")
 
 func writeScheduledCheckpoint(
 	config runConfig,
 	scheduleDigest string,
 	summary scheduledSummary,
-	nextLaunchIndex, completedPairingKeys int,
+	nextLaunchIndex, completedPairingKeys, resumes int,
 ) error {
 	return writeJSON(filepath.Join(config.outputDir, scheduledCheckpointName), scheduledCheckpoint{
 		V: 1, ScheduleDigest: scheduleDigest, WorldBuild: summary.WorldBuild,
 		RunBudgetUSD: summary.RunBudgetUSD, SpentUSD: summary.SpentUSD,
 		NextLaunchIndex: nextLaunchIndex, CompletedPairingKeys: completedPairingKeys,
+		Resumes: resumes,
 	})
 }
 

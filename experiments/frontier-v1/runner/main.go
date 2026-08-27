@@ -46,6 +46,7 @@ func run(args []string) int {
 	budget := flags.String("max-budget-usd", "0.15", "maximum model cost per case")
 	runBudget := flags.String("run-budget-usd", "75", "hard scheduled-run budget in USD; checked at pairing-key boundaries")
 	timeout := flags.Duration("timeout", 180*time.Second, "per-case timeout")
+	resumeAttestation := flags.String("resume-attestation", "", "custodian attestation authorizing the single permitted resume of an interrupted validation tranche")
 	if err := flags.Parse(args); err != nil || flags.NArg() != 0 {
 		return 2
 	}
@@ -76,7 +77,12 @@ func run(args []string) int {
 		return writeScheduleCLI(root, *writeSchedulePath, ids)
 	}
 	if *schedulePath != "" {
-		return runScheduleCLI(root, selectedTranche, *outputDir, *schedulePath, *armBDocument, *validationGrader, *runtimePath, *budget, *runBudget, *timeout, ids)
+		return runScheduleCLI(root, selectedTranche, *outputDir, *schedulePath, *armBDocument,
+			*validationGrader, *runtimePath, *budget, *runBudget, *resumeAttestation, *timeout, ids)
+	}
+	if *resumeAttestation != "" {
+		fmt.Fprintln(os.Stderr, "--resume-attestation applies to scheduled execution only")
+		return 2
 	}
 	if selectedTranche != "authoring" {
 		fmt.Fprintln(os.Stderr, "validation permits scheduled execution only")
@@ -114,11 +120,12 @@ func runProbeCLI(root, output, arm, armBDocument, runtimePath, budget string, ti
 }
 
 func runScheduleCLI(
-	root, tranche, output, schedulePath, armBDocument, validationGrader, runtimePath, budget, runBudget string,
+	root, tranche, output, schedulePath, armBDocument, validationGrader, runtimePath, budget, runBudget, resumeAttestation string,
 	timeout time.Duration,
 	ids []string,
 ) int {
-	prepared, err := prepareScheduledCLI(root, tranche, output, schedulePath, armBDocument, validationGrader, budget, runBudget, timeout, ids)
+	prepared, err := prepareScheduledCLI(root, tranche, output, schedulePath, armBDocument,
+		validationGrader, budget, runBudget, resumeAttestation, timeout, ids)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
@@ -129,6 +136,11 @@ func runScheduleCLI(
 		fmt.Fprintln(os.Stderr, err)
 		return 1
 	}
+	stopWatch := watchProcessTermination(
+		newProcessEventLog(prepared.config.outputDir, tranche, prepared.scheduleDigest, prepared.config.worldBuild),
+		func() processEventProgress { return processEventProgress{} },
+	)
+	defer stopWatch()
 	summary, err := runScheduledCases(
 		prepared.config, prepared.schedule, prepared.scheduleDigest, prepared.runBudgetUSD,
 		driver, prepared.grader,
@@ -169,7 +181,7 @@ type preparedScheduledInputs struct {
 }
 
 func prepareScheduledCLI(
-	root, tranche, output, schedulePath, armBDocument, validationGrader, budget, runBudget string,
+	root, tranche, output, schedulePath, armBDocument, validationGrader, budget, runBudget, resumeAttestation string,
 	timeout time.Duration,
 	ids []string,
 ) (preparedScheduledCLI, error) {
@@ -205,6 +217,9 @@ func prepareScheduledCLI(
 	config.graderDigest = inputs.graderDigest
 	config.graderBoundary = inputs.graderBoundary
 	config.graderAdapterHash = inputs.graderAdapterHash
+	if resumeAttestation != "" {
+		config.resumeAttestation = resolveRepositoryPath(root, resumeAttestation)
+	}
 	if tranche == "validation" {
 		if err := requireFrozenWorldBuild(root, config.worldBuild); err != nil {
 			cleanup()

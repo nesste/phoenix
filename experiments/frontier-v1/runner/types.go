@@ -137,6 +137,7 @@ type runConfig struct {
 	budgetUSD          string
 	graderBoundary     *validationGraderDescription
 	graderAdapterHash  string
+	resumeAttestation  string
 }
 
 type caseResult struct {
@@ -244,4 +245,5 @@ type scheduledCheckpoint struct {
 	SpentUSD             float64 `json:"spent_usd"`
 	NextLaunchIndex      int     `json:"next_launch_index"`
 	CompletedPairingKeys int     `json:"completed_pairing_keys"`
+	Resumes              int     `json:"resumes"`
 }

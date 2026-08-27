@@ -57,7 +57,7 @@ func TestClosedValidationGatePrecedesOutputMutation(t *testing.T) {
 	root := closedValidationGateTestRoot(t)
 	output := filepath.ToSlash(filepath.Join("results", "must-not-exist-gate-test"))
 	resolved := filepath.Join(root, filepath.FromSlash(output))
-	_, err := prepareScheduledCLI(root, "validation", output, "", "", "", "0.15", "300", 1, nil)
+	_, err := prepareScheduledCLI(root, "validation", output, "", "", "", "0.15", "300", "", 1, nil)
 	if err == nil || !strings.Contains(err.Error(), "gate is closed") {
 		t.Fatalf("gate error = %v", err)
 	}
@@ -105,7 +105,7 @@ func TestValidationRejectsChangedTrialLimitsBeforeOutputOrCustodianContact(t *te
 			output := filepath.ToSlash(filepath.Join("results", strings.ReplaceAll(test.name, " ", "-")))
 			_, err := prepareScheduledCLI(
 				root, "validation", output, "experiments/frontier-v1/schedules/validation.json", "",
-				custodian, test.budget, "300", test.timeout, nil,
+				custodian, test.budget, "300", "", test.timeout, nil,
 			)
 			if err == nil || !strings.Contains(err.Error(), test.message) {
 				t.Fatalf("trial-limit error = %v", err)

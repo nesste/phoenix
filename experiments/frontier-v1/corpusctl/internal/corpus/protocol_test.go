@@ -24,6 +24,7 @@ func TestProtocolV5IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 			Envelope       string `json:"envelope"`
 			Grading        string `json:"grading"`
 			AbsenceGrading string `json:"absence_grading"`
+			Resilience     string `json:"execution_resilience"`
 			StateChanges   string `json:"state_changes"`
 			Retirement     string `json:"retirement"`
 			SupersededV4   struct {
@@ -195,6 +196,23 @@ func TestProtocolV5IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	} {
 		if !strings.Contains(protocol.Amendment.AbsenceGrading, required) {
 			t.Fatalf("v5 absence-grading contract is missing %q: %q", required, protocol.Amendment.AbsenceGrading)
+		}
+	}
+	for _, required := range []string{
+		"resume from the last durable pairing-key checkpoint is mandatory",
+		"abandonment by choice does not exist as an outcome",
+		"within 72 hours",
+		"OOM is struck",
+		"no project participant, account, or agent initiated the kill",
+		"At most one resume per tranche",
+		"process-events.jsonl",
+		"scheduled-summary.partial.json",
+		"no per-arm outcome",
+		"Post-closure gate",
+		"independently reviewed and committed",
+	} {
+		if !strings.Contains(protocol.Amendment.Resilience, required) {
+			t.Fatalf("v5 execution-resilience contract is missing %q: %q", required, protocol.Amendment.Resilience)
 		}
 	}
 	if !strings.Contains(protocol.Amendment.StateChanges, "shared trial-harness rule for every arm") || !strings.Contains(protocol.Amendment.StateChanges, "flat-tool Arms A and B") || !strings.Contains(protocol.Amendment.StateChanges, "Orientations do not advance") {
@@ -438,11 +456,11 @@ func TestProtocolV5IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	if !hasScheduleDigest {
 		t.Fatal("schedule digest must be frozen explicitly")
 	}
-	if len(protocol.Remaining) != 7 || !strings.Contains(protocol.Remaining[0], "generation and sealing") || !strings.Contains(protocol.Remaining[6], "Task 0.6") {
+	if len(protocol.Remaining) != 8 || !strings.Contains(protocol.Remaining[0], "generation and sealing") || !strings.Contains(protocol.Remaining[7], "Task 0.6") {
 		t.Fatalf("frozen protocol must retain execution blockers: %v", protocol.Remaining)
 	}
 	blockersText := strings.Join(protocol.Remaining, "\n")
-	for _, required := range []string{"A-D runner", "path witness", "process-event log", "authoring dry run", "classified message set"} {
+	for _, required := range []string{"A-D runner", "path witness", "authoring dry run", "closure record", "post-closure gate"} {
 		if !strings.Contains(blockersText, required) {
 			t.Fatalf("execution blockers are missing %q: %v", required, protocol.Remaining)
 		}

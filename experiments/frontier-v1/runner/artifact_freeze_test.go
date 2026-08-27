@@ -102,6 +102,9 @@ type frozenGateState struct {
 	ValidationExecutionDecision  string `json:"validation_execution_decision"`
 	ValidationExecutionEvidence  string `json:"validation_execution_evidence"`
 	ValidationExecutionCustody   string `json:"validation_execution_custody"`
+	ClosureGate                  string `json:"validation_execution_closure_gate"`
+	ClosureReview                string `json:"validation_execution_closure_review"`
+	ClosureReviewVerdict         string `json:"validation_execution_closure_review_verdict"`
 }
 
 func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
@@ -193,6 +196,7 @@ func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit
 			t.Fatalf("pre-validation freeze gate field = %q, want %q", pair[0], pair[1])
 		}
 	}
+	verifyPostClosureGateState(t, gates)
 	for _, record := range []string{
 		gates.ValidationOpeningRecord, gates.PriorValidationOpeningRecord,
 		gates.ValidationExecutionDecision, gates.ValidationExecutionCustody,
@@ -200,6 +204,25 @@ func verifyValidationGateState(t *testing.T, repositoryRoot, status, sourceLimit
 		if _, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(record))); err != nil {
 			t.Fatalf("gate provenance record: %v", err)
 		}
+	}
+}
+
+// verifyPostClosureGateState enforces the protocol-v5 section 9 post-closure
+// gate in the freeze document: the interrupted execution closed by decision
+// 0023 has no independently reviewed closure record, so the fields stay empty
+// and the runner refuses a further validation execution on that ground.
+func verifyPostClosureGateState(t *testing.T, gates frozenGateState) {
+	t.Helper()
+	for _, required := range []string{
+		"post-closure gate", "without a completed schedule",
+		"independently reviewed and committed", "requireValidationGate",
+	} {
+		if !strings.Contains(gates.ClosureGate, required) {
+			t.Fatalf("post-closure gate rule is missing %q: %q", required, gates.ClosureGate)
+		}
+	}
+	if gates.ClosureReview != "" || gates.ClosureReviewVerdict != "" {
+		t.Fatalf("post-closure gate must stay unsatisfied: review=%q verdict=%q", gates.ClosureReview, gates.ClosureReviewVerdict)
 	}
 }
 
