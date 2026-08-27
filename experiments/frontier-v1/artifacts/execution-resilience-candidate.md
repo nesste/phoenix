@@ -2,15 +2,15 @@
 
 Status: **review candidate, not frozen.** Both outcome gates stay closed (`may_open_validation: false`, `may_open_held_out: false`). No model was run, no private grade obtained, and no validation outcome observed while authoring this payload.
 
-Base commit: `6f54e8ca2903c4653bd319c116df57f0edf8317c` (the third review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
-Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 17 files.
+Base commit: `fec6d554156eb749057fb8b6cd3db927c2fecf05` (the fourth review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
+Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 18 files.
 
-**Revision 4.** Three independent reviews have run, by three different reviewers, and all three returned REVISE.
+**Revision 5.** Four independent reviews have run, by four different reviewers, and all four returned REVISE.
 
 - Review 1 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review.md)) against payload `7a1ea42513acd3d55e276eabc2459da4a037acc0`: two P1, six P2, nine P3, no P0.
 - Review 2 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review-2.md)) against revision `e92eaacf6ab54b547b331d14749717da64b58e0d`: **no P0 and no P1**; it confirmed both P1s genuinely fixed and all six P2s fixed or substantively fixed, and raised two new P2s and ten P3s.
 
-Every P1 and P2 from all three reviews is fixed here, along with most of the P3 notes. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
+Every P1 and P2 from all four reviews is fixed here, along with most of the P3 notes. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
 
 ## What this implements
 
@@ -123,9 +123,27 @@ I reproduced both counts before fixing: 19 records use the backtick style, and t
 
 The parser is rewritten to be structural rather than substring-positional. A verdict statement is now a line whose text before the label is markdown furniture only (emphasis, code spans, quotes, list and heading markers, section numbering) optionally preceded by a closed set of qualifiers (`final`, `overall`); the token after the label is read as a lone word with non-letters trimmed, so `` `ACCEPT` ``, `"ACCEPT"`, `**ACCEPT**`, `ACCEPT.` and `Accept` all resolve; a label with no token takes the next non-blank line, which is the heading style; a verdict *list* is rejected by requiring that the other verdict word not appear in the token's immediate neighbourhood; and only the record's **first** verdict statement is decisive, so citing an earlier round does not overturn it.
 
-**The corpus is now the arbiter, in the code.** `TestClosureVerdictParserAgreesWithTheCommittedReviewCorpus` runs the parser over every committed review record and fails if any evaluator prompt reads as an accepting record or any record stating ACCEPT is refused — the same check the reviewer performed by hand, now permanent. `TestClosureVerdictParserReadsEveryCommittedVerdictStyle` pins all nine committed verdict forms plus five that must be refused. Current corpus result: 23 accepted, 51 refused, no prompt among the accepted.
+**The corpus is now the arbiter, in the code.** `TestClosureVerdictParserAgreesWithTheCommittedReviewCorpus` runs the parser over every committed review record and fails if any evaluator prompt reads as an accepting record or any record stating ACCEPT is refused — the same check the reviewer performed by hand, now permanent. `TestClosureVerdictParserReadsEveryCommittedVerdictStyle` pins all nine committed verdict forms plus five that must be refused. The pinned corpus records 23 ACCEPT, 15 REVISE, 1 REJECT and 38 documents stating no verdict of their own.
 
 Also fixed from this round: the boundary document now enumerates the attestation's exact JSON field set, since `decodeStrict` refuses unknown or misspelled fields and the field names appeared only in this note and the Go source (P3-N1 new-b); it records the one unresumable state, a process that died between its `start` event and its first checkpoint (P3-N1 new-c); and the inventory's stale round-count text is corrected (P3-N1 new-d). The `os.Exit`-versus-`writeJSON` truncation window (P3-N1 new-a) is carried as the sharpened P3-5 residual, as both the second and third reviewers graded it.
+
+## What the fourth review changed
+
+The fourth reviewer confirmed the round-3 P1 genuinely fixed and proved it independently — extracting the parser into a standalone module and measuring **zero misclassifications across all 75 committed records in both directions**, where round 3 measured 17 false refusals and 12 false accepts. It confirmed every P1 and P2 from all three earlier rounds still fixed with none regressed, ran the race detector itself, and verified **by execution** that an attestation built from the boundary document's prose alone is accepted. Its two P2s were, once again, in the previous round's fix code.
+
+**N1 — the corpus test guarded one direction while claiming two.** `verifyClosureReviewVerdictLine` returns nil exactly when `closureReviewVerdict` yields ACCEPT, so inside the test's error branch the false-refusal guard was unreachable code. The test could only ever catch a prompt being accepted — never a genuine ACCEPT record being refused, which is the direction round 3 measured at 17-of-19 wrong. Three records asserted it arbitrated both, one of them frozen.
+
+Ground truth is now a **committed expectations table**, `artifacts/closure-verdict-corpus-expectations.json`, labelling every review record with the verdict it states, derived by a scan deliberately unlike the runner's. The test compares the parser against those labels in both directions and pins the per-verdict counts, so a regression in either direction fails.
+
+**N2 — the verdict-list rejection was fitted to word order.** The three-field window caught `ACCEPT, REVISE, or REJECT` only because every prompt in this repository happens to put `REVISE` second. Reordered to `ACCEPT, REJECT, or REVISE` — equally natural English — the window misses and an evaluator prompt reads as an accepting record: exactly the false accept the check exists to prevent.
+
+The replacement is order-independent: a verdict token followed by a comma or a slash, with another verdict word **anywhere** later on the line, is an enumeration. **I did not adopt the reviewer's literal prescription**, which was to reject on any other verdict word anywhere on the line. Round 3's own record disproves it: its verdict line reads `**Verdict: REVISE** — … it refuses 17 committed ACCEPT records`, and the literal rule would have refused to read it. The reviewer verified that prescription against accepting records only; taking a rule verified on a narrow slice is precisely what produced the round-3 P1, so the comma-or-slash refinement is verified against the whole corpus in both directions instead.
+
+**N3 — no block context.** A verdict inside a fenced block, a block quote or an indented block read as the record's own, and the block-quote marker was itself in the furniture cutset. The parser now tracks fences and skips quoted and indented lines, and requires a separator between the label and the token, so `Verdict ACCEPT was withheld…` is prose again rather than a statement.
+
+**N4 — a fitted cutset refusing plausible records.** Em and en dashes, footnote brackets, carriage returns and non-breaking spaces are now furniture. The qualifier set stays closed at `final` and `overall`, and instead of widening it speculatively the boundary document now **states the accepted verdict-statement forms**, so the closure record's author writes one the frozen parser reads.
+
+**N5 — a frozen test coupled to a live directory.** The corpus is pinned, not swept, so a review record added by unrelated later work can no longer turn a frozen test red. **N6** — the note's corpus count is corrected.
 
 ## Deliberate freeze red
 
@@ -143,8 +161,8 @@ Note for the reviewer: `pre-validation-artifacts.json` is edited in this payload
 
 ## Refreeze plan after acceptance
 
-1. Re-pin the `scheduled_runner` block in `pre-validation-artifacts.json`: 25 files (the existing 21 plus `process_events.go`, `execution_resilience.go`, `execution_resilience_test.go`, `closure_verdict_corpus_test.go`), new set digest, `candidate_commit` = this payload commit, review record and its raw digest, `replaces_candidate_commit` = `54e256e9f4347d34844a3ef9b2156600360dcd13`, and the accepted-findings list extended with any residual the review records.
-2. Update the freeze-test constants in `artifact_freeze_test.go` (`verifyReplacementRunnerFreeze`: candidate artifact path and raw digest, review path/commit/digest, replaces-commit, findings, notes, file count 25).
+1. Re-pin the `scheduled_runner` block in `pre-validation-artifacts.json`: 26 files (the existing 21 plus `process_events.go`, `execution_resilience.go`, `execution_resilience_test.go`, `closure_verdict_corpus_test.go`, and the pinned corpus expectations JSON), new set digest, `candidate_commit` = this payload commit, review record and its raw digest, `replaces_candidate_commit` = `54e256e9f4347d34844a3ef9b2156600360dcd13`, and the accepted-findings list extended with any residual the review records.
+2. Update the freeze-test constants in `artifact_freeze_test.go` (`verifyReplacementRunnerFreeze`: candidate artifact path and raw digest, review path/commit/digest, replaces-commit, findings, notes, file count 26).
 3. Convert this payload's working-tree guard to the commit-pinned historical form via `verifyCandidateSetAtCommit`.
 4. Decision document 0026 (`IMPORT_AND_FREEZE`).
 

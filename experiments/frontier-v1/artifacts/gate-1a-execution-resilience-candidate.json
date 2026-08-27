@@ -2,7 +2,7 @@
  "v": 1,
  "status": "review_candidate",
  "source_limit": "public_validation_inputs_only",
- "base_commit": "6f54e8ca2903c4653bd319c116df57f0edf8317c",
+ "base_commit": "fec6d554156eb749057fb8b6cd3db927c2fecf05",
  "frozen": false,
  "gates": {
   "may_open_validation": false,
@@ -61,6 +61,17 @@
    "second_review_verdict": "REVISE",
    "third_review_record": "docs/reviews/2026-08-27-execution-resilience-payload-review-3.md",
    "third_review_verdict": "REVISE",
+   "fourth_review_record": "docs/reviews/2026-08-28-execution-resilience-payload-review-4.md",
+   "fourth_review_verdict": "REVISE",
+   "superseded_revision_4_commit": "70ff7875340071324a0006a5504bbf527c21a5f5",
+   "fixed_after_fourth_review": [
+    "N1: the corpus test checked one direction only - verifyClosureReviewVerdictLine returns nil exactly when closureReviewVerdict yields ACCEPT, so the false-refusal guard inside the error branch was unreachable, while three records claimed the corpus arbitrated both directions. Ground truth is now a committed expectations table at artifacts/closure-verdict-corpus-expectations.json, derived by a scan independent of the runner implementation, and the test compares the parser against it in both directions with the per-verdict counts pinned.",
+    "N2: the verdict-list rejection used a three-field window fitted to how this repository happens to order the words in its prompt boilerplate; reordering two words defeated it and made an evaluator prompt read as an accepting record. It is replaced by an order-independent rule: a verdict token followed by a comma or a slash, with another verdict word anywhere later on the line, is an enumeration. A token followed by prose remains a statement, so a record may cite another round verdict on the same line - which the fourth reviewer prescription would have wrongly refused, as the third review own record demonstrates.",
+    "N3: the parser now tracks block context. Fenced blocks, block quotes and indented blocks are skipped, the block-quote marker is removed from the furniture cutset, and a separator is required between the label and the token, so a verdict quoted from another record or used in a sentence is no longer read as this record own.",
+    "N4: the furniture cutset admits em and en dashes, footnote brackets, carriage returns and non-breaking spaces, and the boundary document now states the accepted verdict-statement forms so the closure record author writes one the frozen parser reads.",
+    "N5: the corpus is pinned rather than swept from the live docs/reviews directory, so a review record added by unrelated later work can no longer turn a frozen test red.",
+    "N6: the corpus count in the candidate note is corrected."
+   ],
    "superseded_revision_3_commit": "60c6aee55b71716743b30d084a57daeae48b3373",
    "fixed_after_third_review": [
     "P1-N1: the closure verdict parser was wrong in both directions against this project own corpus - it refused 17 of the 19 records written in the dominant code-span style because the trim cutset omitted the backtick, refused the heading-then-token house style, refused an accepting record citing an earlier REVISE, and accepted 12 non-records including five evaluator prompts matching the instruction that lists the available verdicts. It is rewritten structurally: furniture-only prefix with a closed qualifier set, lone-token extraction with non-letters trimmed, heading-then-next-line support, verdict-list rejection, and first-statement-decisive. The committed review corpus is now the arbiter in code via TestClosureVerdictParserAgreesWithTheCommittedReviewCorpus, which fails if any evaluator prompt reads as an accepting record or any record stating ACCEPT is refused.",
@@ -114,14 +125,15 @@
   "experiments/frontier-v1/artifacts/execution-resilience-candidate.md"
  ],
  "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
- "artifact_set_lf_normalized_utf8_sha256": "sha256:2fa91f23537f0bf7ea87ba73f60256a6291cf40ba896ee5694e53f6f71a9e245",
+ "artifact_set_lf_normalized_utf8_sha256": "sha256:44192b3c80911ee22489b0537f30dbddaea5003576b93fa8543e051f59995f67",
  "files": {
   "experiments/frontier-v1/README.md": "sha256:fc748a2ffab7e4cf4256edb232bd5682802835391f2704e845f11082f07ed45b",
+  "experiments/frontier-v1/artifacts/closure-verdict-corpus-expectations.json": "sha256:b761d71d9279775ca659ef2e1785ef3148ef2329dfa4cf4bec0cffba7d992694",
   "experiments/frontier-v1/corpusctl/internal/corpus/protocol_test.go": "sha256:4495d032c7d86fbfa03952ad676f3e769de4ca1f0d071dc694afa376742cc952",
   "experiments/frontier-v1/pre-validation-artifacts.json": "sha256:ce14d55cdbb36c9102e71830101eb45f0bd29df91af35a51134c57b72b3f4cc2",
   "experiments/frontier-v1/protocol.json": "sha256:726b68112108542ba3491fde538342399cbb446a04755a7e0208e076cbdb0d32",
   "experiments/frontier-v1/runner/artifact_freeze_test.go": "sha256:3f62b2e97e52f08296b1383c7f159b73da8e38b646219874662e9805b234ff95",
-  "experiments/frontier-v1/runner/closure_verdict_corpus_test.go": "sha256:444955e0d4724827e96dbeb0db3dbbd8a76cbf55da21a7fd9cdc7411ca688161",
+  "experiments/frontier-v1/runner/closure_verdict_corpus_test.go": "sha256:a400c96336cef8814dd9c8d1548aedc1733e2910b8979c44112363b451c18c7d",
   "experiments/frontier-v1/runner/execution_resilience.go": "sha256:fe98996728d7ccbd4b1bbd23f44d29e3ebb543a64e2430502a7ccbfb2dee374a",
   "experiments/frontier-v1/runner/execution_resilience_test.go": "sha256:9cf56873fb0bdcc0ad229c101b3d919b631ddb1ef0520241a72311833de34957",
   "experiments/frontier-v1/runner/main.go": "sha256:192d275ef16be74f9a3f47747cf3d14d8df52d18d16127734db786866c5bdff3",
@@ -131,9 +143,9 @@
   "experiments/frontier-v1/runner/scheduled_run.go": "sha256:0956afad8e186b1bef71a64c44cab9c16aa64da6c8ee82cb9188fa49fab4cb9a",
   "experiments/frontier-v1/runner/types.go": "sha256:fce5d7b956df609fe56bf77e9e400eed0f79f23374778915050948035ba92191",
   "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:9ef5e4c7e927082d44830bba29016b446b43bfa3c7a37974e18a850dc012d20e",
-  "experiments/frontier-v1/runner/validation_gate.go": "sha256:781d84cb770d1edfd1df439847369127ce64f15513626d43b0bb5c635c5b3984",
-  "experiments/frontier-v1/validation-execution-boundary.md": "sha256:a9a616d3eb2c90833d841353f695c6f690f270d4aa74375a1336e76af970d767"
+  "experiments/frontier-v1/runner/validation_gate.go": "sha256:5f97d6e13b8fcad5f3c32155eec4359f72aba2254da5856e3a036ededf6061c4",
+  "experiments/frontier-v1/validation-execution-boundary.md": "sha256:778926ba22b888964f8d40509d08684eaa9225c02076dd0be7aeb3d47f643351"
  },
- "review_required": "fourth independent review after the first three returned REVISE, verifying that each P1 and P2 finding is genuinely fixed rather than papered over, and re-verifying that every section 9 condition is enforced as written and cannot be satisfied by an unattested or late resume, that the partial summary is outcome-free in both directions, that the process-event log records what section 9 names and honestly reports what the host does not expose, that the post-closure gate is encoded in the frozen gate rules and applies to the decision-0023 closure, and that the protocol, boundary, and README records match the implementation; followed by refreeze before any later chair decision",
+ "review_required": "fifth independent review after the first four returned REVISE, verifying that each P1 and P2 finding is genuinely fixed rather than papered over, and re-verifying that every section 9 condition is enforced as written and cannot be satisfied by an unattested or late resume, that the partial summary is outcome-free in both directions, that the process-event log records what section 9 names and honestly reports what the host does not expose, that the post-closure gate is encoded in the frozen gate rules and applies to the decision-0023 closure, and that the protocol, boundary, and README records match the implementation; followed by refreeze before any later chair decision",
  "execution_performed": false
 }

@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 	"unicode"
+	"unicode/utf8"
 )
 
 const preValidationArtifactsPath = "experiments/frontier-v1/pre-validation-artifacts.json"
@@ -139,18 +140,35 @@ func verifyClosureReviewVerdictLine(contents string) error {
 	return nil
 }
 
-// closureVerdictFurniture is the markdown that may surround a verdict label or
-// token: emphasis, code spans, quotes, list and heading markers, and section
-// numbering. Anything else before the label means the word is being used in a
-// sentence rather than stated as the record's verdict.
-const closureVerdictFurniture = " \t#*_`\"'>-.)(0123456789"
+var closureVerdicts = map[string]bool{"ACCEPT": true, "REVISE": true, "REJECT": true}
+
+const (
+	// closureLabelFurniture is the markdown that may precede a verdict label:
+	// emphasis, code spans, quotes, brackets, list and heading markers,
+	// section numbering, and the separators themselves. The block-quote
+	// marker is deliberately absent - a quoted verdict is somebody else's.
+	closureLabelFurniture = " \t\r#*_`\"'()[]^.0123456789-\u2014\u2013\u00a0"
+	closureTokenFurniture = " \t\r*_`\"'()[]^\u00a0"
+	closureSeparators     = ":-\u2014\u2013"
+)
 
 // closureReviewVerdict returns the record's first verdict statement. Only the
 // first is decisive, so an accepting record that recounts an earlier round's
-// REVISE is not overturned by the citation.
+// REVISE is not overturned by the citation. Fenced blocks, block quotes and
+// indented code are skipped: a verdict quoted from another record is not this
+// record's own.
 func closureReviewVerdict(contents string) (string, bool) {
 	lines := strings.Split(contents, "\n")
+	fenced := false
 	for index, line := range lines {
+		trimmed := strings.TrimSpace(line)
+		if strings.HasPrefix(trimmed, "```") || strings.HasPrefix(trimmed, "~~~") {
+			fenced = !fenced
+			continue
+		}
+		if fenced || strings.HasPrefix(trimmed, ">") || strings.HasPrefix(line, "    ") {
+			continue
+		}
 		rest, labelled := closureVerdictLabel(line)
 		if !labelled {
 			continue
@@ -160,50 +178,77 @@ func closureReviewVerdict(contents string) (string, bool) {
 		}
 		// A heading-style verdict carries its token on the next non-blank
 		// line, which is this project's current house style.
-		if verdict, found := closureVerdictToken(nextNonBlankLine(lines[index+1:])); strings.TrimSpace(rest) == "" && found {
-			return verdict, true
+		if strings.TrimSpace(rest) == "" {
+			if verdict, found := closureVerdictToken(nextNonBlankLine(lines[index+1:])); found {
+				return verdict, true
+			}
 		}
 	}
 	return "", false
 }
 
 // closureVerdictLabel reports whether the line states a verdict label, and
-// returns whatever follows it. The label must be preceded by markdown
-// furniture only.
+// returns whatever follows the separator. The label must be preceded by
+// markdown furniture only and followed by a separator or nothing; a bare word
+// after the label is prose, not a statement.
 func closureVerdictLabel(line string) (string, bool) {
-	trimmed := strings.TrimLeft(line, closureVerdictFurniture)
+	trimmed := strings.TrimLeft(line, closureLabelFurniture)
 	lower := strings.ToLower(trimmed)
-	// A closed set of qualifiers this project has used. Anything else before
-	// the label means the word appears in a sentence, not as a statement.
 	for _, qualifier := range []string{"final ", "overall "} {
 		if strings.HasPrefix(lower, qualifier) {
-			trimmed = trimmed[len(qualifier):]
-			lower = lower[len(qualifier):]
+			trimmed, lower = trimmed[len(qualifier):], lower[len(qualifier):]
 			break
 		}
 	}
 	if !strings.HasPrefix(lower, "verdict") {
 		return "", false
 	}
-	return strings.TrimLeft(trimmed[len("verdict"):], closureVerdictFurniture+":"), true
+	head := strings.TrimLeft(trimmed[len("verdict"):], closureTokenFurniture)
+	if head == "" {
+		return "", true
+	}
+	separator, size := utf8.DecodeRuneInString(head)
+	if !strings.ContainsRune(closureSeparators, separator) {
+		return "", false
+	}
+	return strings.TrimLeft(head[size:], closureTokenFurniture), true
 }
 
 // closureVerdictToken reads a lone verdict word off the text following a
-// label. A list of the available verdicts - the instruction every evaluator
-// prompt carries - is not a verdict statement.
+// label.
 func closureVerdictToken(rest string) (string, bool) {
 	fields := strings.Fields(rest)
 	if len(fields) == 0 {
 		return "", false
 	}
-	head := strings.ToUpper(strings.TrimFunc(fields[0], func(r rune) bool { return !unicode.IsLetter(r) }))
-	neighbourhood := strings.ToUpper(strings.Join(fields[:min(len(fields), 3)], " "))
-	for verdict, other := range map[string]string{"ACCEPT": "REVISE", "REVISE": "ACCEPT"} {
-		if head == verdict && !strings.Contains(neighbourhood, other) {
-			return verdict, true
+	head := closureVerdictWord(fields[0])
+	if !closureVerdicts[head] || closureVerdictEnumerates(head, fields) {
+		return "", false
+	}
+	return head, true
+}
+
+// closureVerdictEnumerates reports whether the token opens a list of the
+// available verdicts - the instruction every evaluator prompt carries -
+// rather than stating one. A token followed by a comma or a slash, with
+// another verdict word later on the line, is an enumeration whatever order
+// the words appear in. A token followed by prose states a verdict, even when
+// the same line later cites another round's.
+func closureVerdictEnumerates(head string, fields []string) bool {
+	if trailing := strings.TrimRight(fields[0], "*_`\"')]"); !strings.HasSuffix(trailing, ",") &&
+		!strings.HasSuffix(trailing, "/") {
+		return false
+	}
+	for _, field := range fields[1:] {
+		if word := closureVerdictWord(field); word != head && closureVerdicts[word] {
+			return true
 		}
 	}
-	return "", false
+	return false
+}
+
+func closureVerdictWord(field string) string {
+	return strings.ToUpper(strings.TrimFunc(field, func(r rune) bool { return !unicode.IsLetter(r) }))
 }
 
 func nextNonBlankLine(lines []string) string {
