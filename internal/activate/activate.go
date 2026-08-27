@@ -15,10 +15,7 @@ import (
 	"github.com/santhosh-tekuri/jsonschema/v6"
 )
 
-const (
-	maxEntries        = 3
-	inspectFallbackID = "inspect_reachable_repository"
-)
+const maxEntries = 3
 
 type Topology interface {
 	RootHandle(string) (world.Handle, bool)
@@ -75,8 +72,8 @@ func validateActivationRule(rule world.ActivationRule) error {
 	if len(rule.Suggestions) > maxEntries {
 		return fmt.Errorf("activation %q contains more than %d suggestions", rule.ID, maxEntries)
 	}
-	if rule.ID == inspectFallbackID && len(rule.Suggestions) == 0 {
-		return fmt.Errorf("activation %q must include at least one suggestion", inspectFallbackID)
+	if rule.AlwaysReady && len(rule.Suggestions) == 0 {
+		return fmt.Errorf("activation %q is always_ready and must include at least one suggestion", rule.ID)
 	}
 	for index, suggestion := range rule.Suggestions {
 		if utf8.RuneCountInString(suggestion.Why) == 0 || utf8.RuneCountInString(suggestion.Why) > 80 {
@@ -100,7 +97,7 @@ func (engine *Engine) Compute(topology Topology, anchor, intent string) []fronti
 	candidates := []candidate{}
 	matchedSpecific := false
 	for _, rule := range engine.rules {
-		if rule.definition.ID == inspectFallbackID {
+		if rule.definition.AlwaysReady {
 			continue
 		}
 		captures := rule.pattern.FindStringSubmatch(intent)
@@ -130,9 +127,12 @@ func (engine *Engine) Compute(topology Topology, anchor, intent string) []fronti
 	return engine.bindFallback(topology, anchorHandle, intent)
 }
 
+// bindFallback binds the world's always_ready rule, if any. A rule marked
+// always_ready is exempt from intent matching at bootstrap only; a world with
+// no always_ready rule yields zero calls when no specific rule matches.
 func (engine *Engine) bindFallback(topology Topology, anchor world.Handle, intent string) []frontier.Entry {
 	for _, rule := range engine.rules {
-		if rule.definition.ID != inspectFallbackID {
+		if !rule.definition.AlwaysReady {
 			continue
 		}
 		candidates := []candidate{}

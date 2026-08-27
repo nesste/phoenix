@@ -5,14 +5,31 @@ import (
 	"testing"
 )
 
-func TestWilliamsSequencesBalanceOddArmPredecessors(t *testing.T) {
+func TestWilliamsSequencesBalanceEvenArmPredecessors(t *testing.T) {
 	rows, err := williamsSequences(phase1Arms)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(rows) != 4 {
+		t.Fatalf("Williams rows = %d, want 4 for the four Phase 1 arms", len(rows))
+	}
+	assertWilliamsBalance(t, rows, phase1Arms, 1)
+}
+
+func TestWilliamsSequencesBalanceOddArmPredecessors(t *testing.T) {
+	oddArms := []string{"A", "B", "C", "D", "E"}
+	rows, err := williamsSequences(oddArms)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if len(rows) != 10 {
 		t.Fatalf("Williams rows = %d, want 10", len(rows))
 	}
+	assertWilliamsBalance(t, rows, oddArms, 2)
+}
+
+func assertWilliamsBalance(t *testing.T, rows [][]string, arms []string, wantCount int) {
+	t.Helper()
 	predecessors := map[string]int{}
 	for _, row := range rows {
 		seen := map[string]bool{}
@@ -22,14 +39,14 @@ func TestWilliamsSequencesBalanceOddArmPredecessors(t *testing.T) {
 				predecessors[row[index-1]+"->"+arm]++
 			}
 		}
-		if len(seen) != len(phase1Arms) {
+		if len(seen) != len(arms) {
 			t.Fatalf("Williams row is not a permutation: %v", row)
 		}
 	}
-	for _, left := range phase1Arms {
-		for _, right := range phase1Arms {
-			if left != right && predecessors[left+"->"+right] != 2 {
-				t.Fatalf("predecessor %s->%s count = %d, want 2", left, right, predecessors[left+"->"+right])
+	for _, left := range arms {
+		for _, right := range arms {
+			if left != right && predecessors[left+"->"+right] != wantCount {
+				t.Fatalf("predecessor %s->%s count = %d, want %d", left, right, predecessors[left+"->"+right], wantCount)
 			}
 		}
 	}

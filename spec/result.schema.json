@@ -1,113 +1,113 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://phoenix.local/spec/result.schema.json",
-  "title": "Phoenix result envelope",
+  "title": "Phoenix result envelope (wire form)",
+  "description": "The compressed transport form of an act response. Null and empty fields are omitted; the full world_build digest appears only in the first response of a session, and every later response carries the 8-character wb prefix instead. The archival form is recovered by deterministic lossless expansion.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "v",
-    "world_build",
     "session_id",
     "act_id",
     "handle",
     "verb",
     "status",
-    "result",
-    "error",
-    "text",
-    "handles",
-    "frontier",
-    "refusal"
+    "text"
+  ],
+  "oneOf": [
+    { "required": ["world_build"] },
+    { "required": ["wb"] }
   ],
   "properties": {
     "v": { "const": 1 },
     "world_build": { "$ref": "#/$defs/digest" },
+    "wb": { "$ref": "#/$defs/digestPrefix" },
     "session_id": { "$ref": "#/$defs/sessionId" },
     "act_id": { "$ref": "#/$defs/actId" },
     "handle": { "$ref": "#/$defs/handleRef" },
     "verb": { "$ref": "#/$defs/identifier" },
-    "status": { "enum": ["ok", "fail", "refused", "absent"] },
-    "result": {
-      "oneOf": [
-        { "type": "object" },
-        { "type": "null" }
-      ]
-    },
-    "error": {
-      "oneOf": [
-        { "$ref": "#/$defs/error" },
-        { "type": "null" }
-      ]
-    },
+    "status": { "enum": ["ok", "fail", "refused", "absent", "exhausted"] },
+    "result": { "type": "object" },
+    "error": { "$ref": "#/$defs/error" },
     "text": { "type": "string", "minLength": 1 },
     "handles": { "$ref": "#/$defs/handleDelta" },
     "frontier": {
       "type": "array",
+      "minItems": 1,
       "maxItems": 3,
       "items": { "$ref": "#/$defs/frontierEntry" }
     },
-    "refusal": {
-      "oneOf": [
-        { "$ref": "#/$defs/refusal" },
-        { "type": "null" }
-      ]
-    }
+    "refusal": { "$ref": "#/$defs/refusal" }
   },
   "allOf": [
     {
       "if": { "properties": { "status": { "const": "ok" } }, "required": ["status"] },
       "then": {
-        "properties": {
-          "result": { "type": "object" },
-          "error": { "type": "null" },
-          "refusal": { "type": "null" }
+        "required": ["result"],
+        "not": {
+          "anyOf": [
+            { "required": ["error"] },
+            { "required": ["refusal"] }
+          ]
         }
       }
     },
     {
       "if": { "properties": { "status": { "const": "fail" } }, "required": ["status"] },
       "then": {
-        "properties": {
-          "error": { "$ref": "#/$defs/error" },
-          "refusal": { "type": "null" }
-        }
+        "required": ["error"],
+        "not": { "required": ["refusal"] }
       }
     },
     {
       "if": { "properties": { "status": { "const": "refused" } }, "required": ["status"] },
       "then": {
-        "properties": {
-          "result": { "type": "null" },
-          "error": { "type": "null" },
-          "refusal": { "$ref": "#/$defs/refusal" }
+        "required": ["refusal"],
+        "not": {
+          "anyOf": [
+            { "required": ["result"] },
+            { "required": ["error"] }
+          ]
         }
       }
     },
     {
       "if": { "properties": { "status": { "const": "absent" } }, "required": ["status"] },
       "then": {
+        "required": ["error"],
         "properties": {
-          "result": { "type": "null" },
           "error": {
             "type": "object",
             "additionalProperties": false,
             "required": ["code", "message"],
             "properties": {
               "code": { "const": "absent" },
-              "message": { "const": "act is not reachable" }
+              "message": { "const": "act is not reachable" },
+              "reachable_verbs": { "$ref": "#/$defs/reachableVerbs" }
             }
-          },
-          "handles": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["grant", "revoke"],
-            "properties": {
-              "grant": { "type": "array", "maxItems": 0 },
-              "revoke": { "type": "array", "maxItems": 0 }
-            }
-          },
-          "frontier": { "maxItems": 0 },
-          "refusal": { "type": "null" }
+          }
+        },
+        "not": {
+          "anyOf": [
+            { "required": ["result"] },
+            { "required": ["handles"] },
+            { "required": ["frontier"] },
+            { "required": ["refusal"] }
+          ]
+        }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "exhausted" } }, "required": ["status"] },
+      "then": {
+        "not": {
+          "anyOf": [
+            { "required": ["result"] },
+            { "required": ["error"] },
+            { "required": ["handles"] },
+            { "required": ["frontier"] },
+            { "required": ["refusal"] }
+          ]
         }
       }
     }
@@ -121,17 +121,27 @@
       "type": "string",
       "pattern": "^sha256:[0-9a-f]{64}$"
     },
+    "digestPrefix": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}$"
+    },
     "sessionId": {
       "type": "string",
       "pattern": "^s_[A-Za-z0-9_-]{16,}$"
     },
     "actId": {
       "type": "string",
-      "pattern": "^a_[A-Za-z0-9_-]{16,}$"
+      "pattern": "^a_[A-Za-z0-9_-]{8,}$"
     },
     "handleRef": {
       "type": "string",
       "pattern": "^h_[A-Za-z0-9_-]{16,}$"
+    },
+    "reachableVerbs": {
+      "type": "array",
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/identifier" }
     },
     "call": {
       "type": "object",
@@ -194,7 +204,9 @@
       "properties": {
         "code": { "$ref": "#/$defs/identifier" },
         "message": { "type": "string", "minLength": 1 },
-        "details": { "type": "object" }
+        "details": { "type": "object" },
+        "reachable_verbs": { "$ref": "#/$defs/reachableVerbs" },
+        "declared_args": { "type": "object" }
       }
     },
     "refusal": {

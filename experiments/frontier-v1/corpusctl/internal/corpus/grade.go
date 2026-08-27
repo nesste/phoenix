@@ -31,18 +31,49 @@ type Label struct {
 // Check is one expected-outcome check. Only the fields relevant to Kind are
 // populated; the shape mirrors label.schema.json's check oneOf.
 type Check struct {
-	ID       string   `json:"id"`
-	Kind     string   `json:"kind"`
-	Path     string   `json:"path,omitempty"`
-	Pattern  string   `json:"pattern,omitempty"`
-	Command  []string `json:"command,omitempty"`
-	ExitCode *int     `json:"exit_code,omitempty"`
-	Negate   bool     `json:"negate,omitempty"`
-	Claim    string   `json:"claim,omitempty"`
-	Mode     string   `json:"mode,omitempty"`
-	Seq      *int     `json:"seq,omitempty"`
-	Status   string   `json:"status,omitempty"`
-	Maximum  *int     `json:"maximum,omitempty"`
+	ID               string   `json:"id"`
+	Kind             string   `json:"kind"`
+	Path             string   `json:"path,omitempty"`
+	Pattern          string   `json:"pattern,omitempty"`
+	Command          []string `json:"command,omitempty"`
+	ExitCode         *int     `json:"exit_code,omitempty"`
+	Negate           bool     `json:"negate,omitempty"`
+	Claim            string   `json:"claim,omitempty"`
+	Mode             string   `json:"mode,omitempty"`
+	Seq              *int     `json:"seq,omitempty"`
+	SelectorMode     string   `json:"selector_mode,omitempty"`
+	RecencyRationale string   `json:"recency_rationale,omitempty"`
+	Status           string   `json:"status,omitempty"`
+	Maximum          *int     `json:"maximum,omitempty"`
+}
+
+// outcomePrimaryClasses are the classes where the outcome, not the route, is
+// the construct: act_sequence, act_count, and act_path_absent are descriptive
+// there, and gating act-addressed checks must be selector-addressed. In the
+// path-primary classes (absence, temptation, stale_frontier,
+// adversarial_text) the path is the outcome and every check kind gates.
+var outcomePrimaryClasses = map[string]bool{
+	"direct": true, "cascade": true, "far_discovery": true, "recovery": true,
+}
+
+// absenceLabelKinds are the only check kinds that appear in absence labels;
+// per the frozen check-kind classification, kinds not listed for a class do
+// not appear in its labels.
+var absenceLabelKinds = map[string]bool{
+	"final_message_matches": true, "act_sequence": true, "act_count": true, "act_path_absent": true,
+}
+
+// checkGates reports whether one check kind gates the overall status for a
+// class. Descriptive checks are still graded and reported; they cannot fail
+// the trial.
+func checkGates(class, kind string) bool {
+	if outcomePrimaryClasses[class] {
+		switch kind {
+		case "act_sequence", "act_count", "act_path_absent":
+			return false
+		}
+	}
+	return true
 }
 
 const (
@@ -56,12 +87,15 @@ const (
 )
 
 // CheckResult is the deterministic verdict for one check (or the
-// acceptable_paths match, recorded under kind "acceptable_paths").
+// acceptable_paths match, recorded under kind "acceptable_paths"). Gating
+// records whether the verdict participates in the overall status under the
+// frozen per-class check-kind classification.
 type CheckResult struct {
 	ID      string `json:"id"`
 	Kind    string `json:"kind"`
 	Verdict string `json:"verdict"`
 	Reason  string `json:"reason"`
+	Gating  bool   `json:"gating"`
 }
 
 // GradeResult is the complete, deterministic grading of one trial against
@@ -114,19 +148,63 @@ func Grade(label Label, trial Trial) (GradeResult, error) {
 				return GradeResult{}, fmt.Errorf("check %s has invalid pattern %q: %w", check.ID, check.Pattern, err)
 			}
 		}
+		if err := validateCheckForClass(label.Class, check); err != nil {
+			return GradeResult{}, err
+		}
 	}
 	result := GradeResult{CaseID: label.CaseID}
 	path := matchLabelPath(label, trial.Acts)
 	for _, check := range label.ExpectedOutcome.Checks {
-		result.Checks = append(result.Checks, gradeCheck(check, label.AcceptablePaths, path, trial))
+		graded := gradeCheck(check, label.AcceptablePaths, path, trial)
+		graded.Gating = checkGates(label.Class, check.Kind)
+		result.Checks = append(result.Checks, graded)
 	}
 	result.Status = overallStatus(result.Checks)
 	return result, nil
 }
 
+// validateCheckForClass enforces the frozen per-class addressing rules: an
+// absence label may carry only its listed kinds, and gating act-addressed
+// checks in outcome-primary classes are selector-addressed, never
+// sequence-index-addressed.
+func validateCheckForClass(class string, check Check) error {
+	if class == "absence" && !absenceLabelKinds[check.Kind] {
+		return fmt.Errorf("check %s: kind %s does not appear in absence labels", check.ID, check.Kind)
+	}
+	if check.Kind != "act_status" && check.Kind != "act_output_matches" {
+		return nil
+	}
+	hasSequence := check.Seq != nil
+	hasSelector := check.SelectorMode != ""
+	if hasSequence == hasSelector {
+		return fmt.Errorf("check %s must use exactly one of seq or selector_mode", check.ID)
+	}
+	if hasSelector {
+		if check.SelectorMode != "some" && check.SelectorMode != "last" {
+			return fmt.Errorf("check %s has unknown selector_mode %q", check.ID, check.SelectorMode)
+		}
+		if check.Path == "" {
+			return fmt.Errorf("check %s selector requires a handle-type.verb path predicate", check.ID)
+		}
+		if check.SelectorMode == "last" && check.RecencyRationale == "" {
+			return fmt.Errorf("check %s uses last-mode selection without a recency_rationale", check.ID)
+		}
+		if check.SelectorMode == "some" && check.RecencyRationale != "" {
+			return fmt.Errorf("check %s carries a recency_rationale without last-mode selection", check.ID)
+		}
+	}
+	if outcomePrimaryClasses[class] && hasSequence {
+		return fmt.Errorf("check %s: gating act-addressed checks in class %s must be selector-addressed, not sequence-indexed", check.ID, class)
+	}
+	return nil
+}
+
 func overallStatus(checks []CheckResult) string {
 	sawManual := false
 	for _, check := range checks {
+		if !check.Gating {
+			continue
+		}
 		switch check.Verdict {
 		case VerdictFail:
 			return StatusFail
@@ -234,9 +312,17 @@ func gradeCheck(check Check, acceptablePaths [][]string, path matchedPath, trial
 	case "act_path_absent":
 		result.Verdict, result.Reason = gradeActPathAbsent(check, trial)
 	case "act_status":
-		result.Verdict, result.Reason = gradeActStatusAtPath(check, path, trial)
+		if check.SelectorMode != "" {
+			result.Verdict, result.Reason = gradeActStatusSelected(check, trial)
+		} else {
+			result.Verdict, result.Reason = gradeActStatusAtPath(check, path, trial)
+		}
 	case "act_output_matches":
-		result.Verdict, result.Reason = gradeActOutputAtPath(check, path, trial)
+		if check.SelectorMode != "" {
+			result.Verdict, result.Reason = gradeActOutputSelected(check, trial)
+		} else {
+			result.Verdict, result.Reason = gradeActOutputAtPath(check, path, trial)
+		}
 	case "file_matches":
 		result.Verdict, result.Reason = gradeFileMatches(check, trial)
 	case "file_absent":
@@ -248,8 +334,8 @@ func gradeCheck(check Check, acceptablePaths [][]string, path matchedPath, trial
 	case "final_message_matches":
 		result.Verdict, result.Reason = gradeFinalMessageMatches(check, trial)
 	case "final_message_states":
-		result.Verdict = VerdictManualRequired
-		result.Reason = "final_message_states requires blinded manual judgment; not machine-gradable"
+		result.Verdict = VerdictFail
+		result.Reason = "final_message_states is barred from machine-graded labels; no sealed label may carry a manually graded kind"
 	default:
 		result.Verdict = VerdictFail
 		result.Reason = fmt.Sprintf("unknown check kind %q", check.Kind)
@@ -278,8 +364,66 @@ func gradeActPathAbsent(check Check, trial Trial) (string, string) {
 	return VerdictPass, fmt.Sprintf("trial did not invoke forbidden act path %s", check.Path)
 }
 
-func gradeActStatus(check Check, trial Trial) (string, string) {
-	return gradeActStatusAtPath(check, matchedPath{}, trial)
+// selectedActIndexes returns the trial act indexes whose handle-type.verb
+// path equals the selector predicate, case-folded like acceptable-path verbs.
+func selectedActIndexes(trial Trial, path string) []int {
+	target := strings.ToLower(path)
+	indexes := []int{}
+	for index, act := range trial.Acts {
+		if strings.ToLower(act.HandleType+"."+act.Verb) == target {
+			indexes = append(indexes, index)
+		}
+	}
+	return indexes
+}
+
+// gradeActStatusSelected implements selector addressing for act_status. The
+// default "some" form is existential: some act matching the predicate has the
+// expected status. The "last" form binds the last matching act and exists
+// only where recency is the construct under test.
+func gradeActStatusSelected(check Check, trial Trial) (string, string) {
+	indexes := selectedActIndexes(trial, check.Path)
+	if len(indexes) == 0 {
+		return VerdictFail, fmt.Sprintf("no act matches selector path %s", check.Path)
+	}
+	if check.SelectorMode == "last" {
+		index := indexes[len(indexes)-1]
+		if trial.Acts[index].Status != check.Status {
+			return VerdictFail, fmt.Sprintf("last act matching %s has status %s, expected %s", check.Path, trial.Acts[index].Status, check.Status)
+		}
+		return VerdictPass, fmt.Sprintf("last act matching %s has expected status %s", check.Path, check.Status)
+	}
+	for _, index := range indexes {
+		if trial.Acts[index].Status == check.Status {
+			return VerdictPass, fmt.Sprintf("an act matching %s has expected status %s", check.Path, check.Status)
+		}
+	}
+	return VerdictFail, fmt.Sprintf("no act matching %s has status %s", check.Path, check.Status)
+}
+
+// gradeActOutputSelected implements selector addressing for
+// act_output_matches with the same "some"/"last" semantics.
+func gradeActOutputSelected(check Check, trial Trial) (string, string) {
+	indexes := selectedActIndexes(trial, check.Path)
+	if len(indexes) == 0 {
+		return VerdictFail, fmt.Sprintf("no act matches selector path %s", check.Path)
+	}
+	if check.SelectorMode == "last" {
+		indexes = indexes[len(indexes)-1:]
+	}
+	for _, index := range indexes {
+		matched, err := regexp.MatchString(check.Pattern, trial.Acts[index].Output)
+		if err != nil {
+			return VerdictFail, fmt.Sprintf("invalid pattern %q: %v", check.Pattern, err)
+		}
+		if check.Negate {
+			matched = !matched
+		}
+		if matched {
+			return VerdictPass, fmt.Sprintf("an act matching %s satisfies pattern %q", check.Path, check.Pattern)
+		}
+	}
+	return VerdictFail, fmt.Sprintf("no selected act matching %s satisfies pattern %q", check.Path, check.Pattern)
 }
 
 func gradeActStatusAtPath(check Check, path matchedPath, trial Trial) (string, string) {
@@ -292,10 +436,6 @@ func gradeActStatusAtPath(check Check, path matchedPath, trial Trial) (string, s
 		return VerdictFail, fmt.Sprintf("act %d has status %s, expected %s", index, act.Status, check.Status)
 	}
 	return VerdictPass, fmt.Sprintf("act %d has expected status %s", index, check.Status)
-}
-
-func gradeActOutputMatches(check Check, trial Trial) (string, string) {
-	return gradeActOutputAtPath(check, matchedPath{}, trial)
 }
 
 func gradeActOutputAtPath(check Check, path matchedPath, trial Trial) (string, string) {

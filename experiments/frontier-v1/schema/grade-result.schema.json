@@ -13,12 +13,16 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "kind", "verdict", "reason"],
+        "required": ["id", "kind", "verdict", "reason", "gating"],
         "properties": {
           "id": { "$ref": "common.schema.json#/$defs/identifier" },
           "kind": { "$ref": "common.schema.json#/$defs/identifier" },
           "verdict": { "enum": ["pass", "fail", "manual_required"] },
-          "reason": { "type": "string", "minLength": 1 }
+          "reason": { "type": "string", "minLength": 1 },
+          "gating": {
+            "type": "boolean",
+            "description": "Whether this check's verdict participates in the overall status under the frozen per-class check-kind classification. Descriptive checks are reported but cannot fail the trial."
+          }
         }
       }
     },

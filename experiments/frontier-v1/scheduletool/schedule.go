@@ -10,7 +10,7 @@ const (
 	phase1Repetitions  = 3
 )
 
-var phase1Arms = []string{"A", "B", "C", "D", "E"}
+var phase1Arms = []string{"A", "B", "C", "D"}
 
 type launchSchedule struct {
 	V           int             `json:"v"`

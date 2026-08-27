@@ -1,20 +1,22 @@
 # Frontier-v1 custody-safe validation execution boundary
 
-Status: replacement candidate. This document specifies an execution path; it does not authorize execution. Both outcome gates remain closed, and `held_out` has no runner path.
+Status: protocol-v5 amendment candidate. This document specifies an execution path; it does not authorize execution. Both outcome gates remain closed, and `held_out` has no runner path.
+
+Protocol v5 retires every v4-sealed unopened candidate. The committed five-arm validation schedule, manifest, label-digest registry, and private archive identities below are the retired v4 pins; the runner's deterministic A–D schedule construction refuses the retired schedule, so no validation execution is possible until independent evaluators seal a new disjoint v5 tranche and its identities replace these rows at refreeze.
 
 ## Fixed inputs
 
-The validation path accepts the 120 public `corpus/validation` cases and their content-addressed public fixtures only. It executes only the committed version-1 validation schedule with seed `20260817`, three repetitions, arms A–E, 360 complete pairing keys, and 1,800 launches. The runner requires these accepted identities:
+The validation path accepts the public `corpus/validation` cases and their content-addressed public fixtures only. It executes only a committed version-1 validation schedule with seed `20260817`, three repetitions, arms A–D, and complete contiguous pairing keys. The runner currently records these identities:
 
-| Input | Required identity |
-| --- | --- |
-| Validation schedule, canonical JSON | `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813` |
-| Validation manifest, canonical JSON | `sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6` |
-| Validation label-digest registry, raw bytes | `sha256:847c510ca4449856db075fa85a75801dd6e62629fca028f54039e1f962c1c816` |
-| Private label archive index | `sha256:5a320a8742185e0471c6add885d1861950bbde8c7c312afbe907ae99762922e4` |
-| Deterministic grader | `sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc` |
+| Input | Recorded identity | Status |
+| --- | --- | --- |
+| Validation schedule, canonical JSON | `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813` | retired v4; refused by the A–D construction |
+| Validation manifest, canonical JSON | `sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6` | retired v4; replacement pending v5 seal |
+| Validation label-digest registry, raw bytes | `sha256:847c510ca4449856db075fa85a75801dd6e62629fca028f54039e1f962c1c816` | retired v4; replacement pending v5 seal |
+| Private label archive index | `sha256:5a320a8742185e0471c6add885d1861950bbde8c7c312afbe907ae99762922e4` | retired v4; replacement pending v5 seal |
+| Deterministic grader | `sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05` | v5 amendment candidate |
 
-The frozen A–E runtime, prompts, surfaces, trial limits, retry policy, Arm B document, world, and evidence schema are unchanged. Validation requires exactly a 300 USD run-budget boundary, a 0.15 USD per-trial cap, and a 180-second per-trial timeout.
+The A–D runtime, conditional C/D prompts, surfaces, trial limits, retry policy, Arm B document, world, and evidence schema are those of the v5 amendment payload. Validation requires exactly a 300 USD run-budget boundary, a 0.15 USD per-trial cap, and a 180-second per-trial timeout.
 
 ## Gate and custody protocol
 
@@ -24,7 +26,7 @@ The runner performs these checks before output creation, Phoenix build, runtime 
 2. The gate document names the frozen schedule and source manifest identities above.
 3. The committed schedule, public manifest, and public label-digest registry still match their pins.
 4. The requested untrimmed per-trial cap parses to exactly 0.15 USD and the timeout is exactly 180 seconds. Whitespace-padded cap values are invalid.
-5. The selected schedule is the exact deterministic validation schedule and its canonical digest matches the pin.
+5. The selected schedule is the exact deterministic A–D validation schedule and its canonical digest matches the pin; the retired v4 five-arm schedule fails this check by construction.
 6. The custodian grader path is absolute, resolves outside the implementation repository, and names a regular file.
 7. The custodian's strict `describe` JSON matches all five identities, tranche `validation`, version 1, and 120 cases.
 
@@ -40,7 +42,7 @@ For grading, the runner invokes:
 <external-grader> grade --case-id <validation_case_id> --trial <absolute-trial-evidence-path>
 ```
 
-No label path, private root, registry contents, expected outcome, or archive location is passed. Standard error is discarded, error messages are generic, command time is capped at 30 seconds, and standard output is capped at 4 MiB. The returned JSON must contain exactly `case_id`, `checks`, and `status`; check objects must contain exactly `id`, `kind`, `verdict`, and `reason`. Case identity, unique nonempty checks, allowed verdicts, and aggregate status consistency are verified before normalized grade evidence is retained.
+No label path, private root, registry contents, expected outcome, or archive location is passed. Standard error is discarded, error messages are generic, command time is capped at 30 seconds, and standard output is capped at 4 MiB. The returned JSON must contain exactly `case_id`, `checks`, and `status`; check objects must contain exactly `id`, `kind`, `verdict`, `reason`, and the v5 `gating` flag. Case identity, unique nonempty checks, allowed verdicts, and aggregate status consistency — computed over gating checks only, so descriptive route checks are reported without failing the trial — are verified before normalized grade evidence is retained.
 
 ## Evidence and stop rules
 

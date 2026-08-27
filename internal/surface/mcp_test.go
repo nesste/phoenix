@@ -105,15 +105,13 @@ func TestOmittedStateRestorationIsLimitedToCurrentPendingFrontier(t *testing.T) 
 	}
 }
 
-func TestOrientationReturnsPendingFrontierBeforeRestartingActivation(t *testing.T) {
+func TestBootstrapOrientationReturnsPendingFrontierBeforeRestartingActivation(t *testing.T) {
 	admission := testAdmission(t, 1024)
 	session, roots, err := admission.StartSession()
 	if err != nil {
 		t.Fatal(err)
 	}
-	first := admission.Act(context.Background(), session, Input{
-		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "brief"},
-	})
+	first := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
 	if len(first.Frontier) != 1 {
 		t.Fatalf("first frontier = %#v, want one pending call", first.Frontier)
 	}
@@ -136,21 +134,25 @@ func TestOrientationCannotReactivateIntentAfterExecutableAct(t *testing.T) {
 		t.Fatalf("first result = %#v, want refusal alternative", first)
 	}
 	oriented := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
-	if len(oriented.Frontier) != 1 || oriented.Frontier[0].Call.Verb != first.Refusal.Instead.Verb {
-		t.Fatalf("orientation = %#v, want pending refusal alternative", oriented)
+	if oriented.Status != StatusExhausted || len(oriented.Frontier) != 0 || oriented.Result != nil {
+		t.Fatalf("post-act orientation = %#v, want exhausted with no guidance", oriented)
 	}
+	if oriented.Text != exhaustedOrientationText {
+		t.Fatalf("exhausted text = %q", oriented.Text)
+	}
+	validateEnvelope(t, oriented)
 
 	_ = admission.Act(context.Background(), session, Input{
 		Handle: roots[0].Ref, Verb: "missing", Args: map[string]any{},
 	})
-	oriented = admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
-	if len(oriented.Frontier) != 0 || oriented.Result.(map[string]any)["matched"] != false {
-		t.Fatalf("post-act orientation reactivated intent: %#v", oriented)
+	repeated := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "inspect the repository"})
+	if repeated.Status != StatusExhausted || len(repeated.Frontier) != 0 || repeated.Text != oriented.Text {
+		t.Fatalf("exhaustion response is not idempotent: %#v", repeated)
 	}
 }
 
-func TestOrientationUnmatchedIntentBeforeFirstActUsesAuthoredFallback(t *testing.T) {
-	admission := testAdmissionWithActivations(t, []world.ActivationRule{inspectFallbackRule()})
+func TestOrientationUnmatchedIntentUsesFallbackOnlyWhenAlwaysReady(t *testing.T) {
+	admission := testAdmissionWithActivations(t, []world.ActivationRule{inspectFallbackRule(true)})
 	session, roots, err := admission.StartSession()
 	if err != nil {
 		t.Fatal(err)
@@ -159,17 +161,35 @@ func TestOrientationUnmatchedIntentBeforeFirstActUsesAuthoredFallback(t *testing
 		Handle: roots[0].Ref, Intent: "Make leaf a belong to the root declared by the manifest",
 	})
 	if len(oriented.Frontier) != 1 || oriented.Frontier[0].Call.Verb != "inspect" || oriented.Result.(map[string]any)["matched"] != true {
-		t.Fatalf("orientation = %#v, want inspect fallback call", oriented)
+		t.Fatalf("orientation = %#v, want always_ready inspect fallback call", oriented)
 	}
 }
 
-func TestOrientationAuthoredMissTellsModelNotToRetry(t *testing.T) {
+func TestOrientationUnmatchedIntentWithoutAlwaysReadyRuleReturnsZeroCalls(t *testing.T) {
+	admission := testAdmissionWithActivations(t, []world.ActivationRule{inspectFallbackRule(false)})
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	oriented := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Intent: "Make leaf a belong to the root declared by the manifest",
+	})
+	if len(oriented.Frontier) != 0 || oriented.Result.(map[string]any)["matched"] != false {
+		t.Fatalf("orientation = %#v, want zero calls without an always_ready rule", oriented)
+	}
+	if oriented.Text != unmatchedIntentText {
+		t.Fatalf("orientation text = %q, want %q", oriented.Text, unmatchedIntentText)
+	}
+	validateEnvelope(t, oriented)
+}
+
+func TestOrientationAuthoredMissReturnsZeroCalls(t *testing.T) {
 	admission := testAdmissionWithActivations(t, []world.ActivationRule{
 		{
 			ID: "absent_deploy_or_release", Pattern: `(?i)\b(deploy|deployment)\b|\brelease identifier\b`,
 			Suggestions: []world.Suggestion{},
 		},
-		inspectFallbackRule(),
+		inspectFallbackRule(true),
 	})
 	session, roots, err := admission.StartSession()
 	if err != nil {
@@ -181,13 +201,13 @@ func TestOrientationAuthoredMissTellsModelNotToRetry(t *testing.T) {
 	if len(oriented.Frontier) != 0 || oriented.Result.(map[string]any)["matched"] != false {
 		t.Fatalf("orientation = %#v, want authored miss", oriented)
 	}
-	if !strings.Contains(oriented.Text, "do not repeat this intent") {
-		t.Fatalf("orientation text = %q, want stop instruction", oriented.Text)
+	if oriented.Text != unmatchedIntentText {
+		t.Fatalf("orientation text = %q, want %q", oriented.Text, unmatchedIntentText)
 	}
 }
 
 func TestOrientationDoesNotApplyFallbackAfterFirstAct(t *testing.T) {
-	admission := testAdmissionWithActivations(t, []world.ActivationRule{inspectFallbackRule()})
+	admission := testAdmissionWithActivations(t, []world.ActivationRule{inspectFallbackRule(true)})
 	session, roots, err := admission.StartSession()
 	if err != nil {
 		t.Fatal(err)
@@ -201,23 +221,14 @@ func TestOrientationDoesNotApplyFallbackAfterFirstAct(t *testing.T) {
 	oriented := admission.Act(context.Background(), session, Input{
 		Handle: roots[0].Ref, Intent: "Make leaf a belong to the root declared by the manifest",
 	})
-	if len(oriented.Frontier) != 1 {
-		t.Fatalf("orientation = %#v, want pending inspect transition", oriented)
-	}
-	_ = admission.Act(context.Background(), session, Input{
-		Handle: roots[0].Ref, Verb: "missing", Args: map[string]any{},
-	})
-	oriented = admission.Act(context.Background(), session, Input{
-		Handle: roots[0].Ref, Intent: "Make leaf a belong to the root declared by the manifest",
-	})
-	if len(oriented.Frontier) != 0 || oriented.Result.(map[string]any)["matched"] != false {
-		t.Fatalf("post-act orientation used inspect fallback: %#v", oriented)
+	if oriented.Status != StatusExhausted || len(oriented.Frontier) != 0 {
+		t.Fatalf("post-act orientation = %#v, want exhausted without fallback", oriented)
 	}
 }
 
-func inspectFallbackRule() world.ActivationRule {
+func inspectFallbackRule(alwaysReady bool) world.ActivationRule {
 	return world.ActivationRule{
-		ID: "inspect_reachable_repository", Pattern: `^$a`,
+		ID: "inspect_reachable_repository", Pattern: `^$a`, AlwaysReady: alwaysReady,
 		Suggestions: []world.Suggestion{{
 			Call: world.CallTemplate{
 				Handle: world.HandleSelector{Source: "root", Name: "repo"}, Verb: "inspect",
@@ -302,7 +313,74 @@ func TestUnknownHandleIsGenericAbsent(t *testing.T) {
 	if envelope.Result != nil || len(envelope.Frontier) != 0 || envelope.Refusal != nil {
 		t.Fatalf("absent result leaked topology: %#v", envelope)
 	}
+	if len(envelope.Error.ReachableVerbs) != 0 {
+		t.Fatalf("dead handle disclosed verbs: %#v", envelope.Error.ReachableVerbs)
+	}
 	validateEnvelope(t, envelope)
+}
+
+func TestAbsentOnLiveHandleListsReachableVerbs(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	envelope := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "missing", Args: map[string]any{},
+	})
+	if envelope.Status != StatusAbsent || envelope.Error == nil {
+		t.Fatalf("result = %#v, want absent error", envelope)
+	}
+	if got, want := envelope.Error.ReachableVerbs, []string{"inspect"}; len(got) != 1 || got[0] != want[0] {
+		t.Fatalf("reachable_verbs = %#v, want %#v", got, want)
+	}
+	validateEnvelope(t, envelope)
+}
+
+func TestInvalidArgumentsCarryDeclaredSchema(t *testing.T) {
+	admission := testAdmission(t, 1024)
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	envelope := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": float64(5)},
+	})
+	if envelope.Status != StatusFail || envelope.Error == nil || envelope.Error.Code != "invalid_arguments" {
+		t.Fatalf("result = %#v, want invalid_arguments", envelope)
+	}
+	if len(envelope.Error.DeclaredArgs) == 0 || !strings.Contains(string(envelope.Error.DeclaredArgs), `"detail"`) {
+		t.Fatalf("declared_args = %s, want the declared schema", envelope.Error.DeclaredArgs)
+	}
+	validateEnvelope(t, envelope)
+}
+
+func TestExhaustedOrientationPreservesPendingSuggestionLinkage(t *testing.T) {
+	log := &recordingEpisodeLog{}
+	admission := testAdmissionWithEpisodes(t, 1024, log, &bytes.Buffer{})
+	session, roots, err := admission.StartSession()
+	if err != nil {
+		t.Fatal(err)
+	}
+	first := admission.Act(context.Background(), session, Input{
+		Handle: roots[0].Ref, Verb: "inspect", Args: map[string]any{"detail": "brief"},
+	})
+	if len(first.Frontier) != 1 {
+		t.Fatalf("first frontier = %#v", first.Frontier)
+	}
+	exhausted := admission.Act(context.Background(), session, Input{Handle: roots[0].Ref, Intent: "anything"})
+	if exhausted.Status != StatusExhausted {
+		t.Fatalf("orientation = %#v, want exhausted", exhausted)
+	}
+	next := first.Frontier[0].Call
+	_ = admission.Act(context.Background(), session, Input{Handle: next.Handle, Verb: next.Verb, Args: next.Args})
+	if len(log.started) != 3 {
+		t.Fatalf("recorded starts = %d, want 3", len(log.started))
+	}
+	link := log.started[2].SuggestionTaken
+	if link == nil || link.ActID != first.ActID || link.Index != 0 {
+		t.Fatalf("suggestion linkage after exhausted orientation = %#v, want first act frontier index 0", link)
+	}
 }
 
 func TestActDistinguishesTeachingRefusalFromAbsenceAndFailure(t *testing.T) {
@@ -528,15 +606,28 @@ func TestMCPServesOnlyActWithStructuredOutput(t *testing.T) {
 	if result.IsError || result.StructuredContent == nil || len(result.Content) != 1 {
 		t.Fatalf("tool result = %#v, want text plus structured envelope", result)
 	}
-	var envelope Envelope
-	encoded, err := json.Marshal(result.StructuredContent)
+	wire := decodeWireResult(t, result.StructuredContent)
+	if wire.WorldBuild != testWorldBuild || wire.WorldBuildPrefix != "" {
+		t.Fatalf("first wire response = %#v, want full world_build announcement", wire)
+	}
+	expanded, err := Expand(wire, testWorldBuild)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := json.Unmarshal(encoded, &envelope); err != nil {
+	if expanded.Status != StatusOK || expanded.WorldBuild != testWorldBuild {
+		t.Fatalf("expanded envelope = %#v", expanded)
+	}
+}
+
+func decodeWireResult(t *testing.T, structured any) WireEnvelope {
+	t.Helper()
+	encoded := marshalJSON(t, structured)
+	validateWireJSON(t, encoded)
+	var wire WireEnvelope
+	if err := json.Unmarshal(encoded, &wire); err != nil {
 		t.Fatal(err)
 	}
-	validateEnvelope(t, envelope)
+	return wire
 }
 
 func TestMCPApplicationFailureRemainsStructuredToolResult(t *testing.T) {
@@ -751,10 +842,21 @@ func (staticResolver) Resolve(context.Context, world.Resource) (any, error) {
 
 func validateEnvelope(t *testing.T, envelope Envelope) {
 	t.Helper()
-	encoded, err := json.Marshal(envelope)
+	validateWireJSON(t, marshalJSON(t, Compress(envelope, true)))
+	validateWireJSON(t, marshalJSON(t, Compress(envelope, false)))
+}
+
+func marshalJSON(t *testing.T, value any) []byte {
+	t.Helper()
+	encoded, err := json.Marshal(value)
 	if err != nil {
 		t.Fatal(err)
 	}
+	return encoded
+}
+
+func validateWireJSON(t *testing.T, encoded []byte) {
+	t.Helper()
 	instance, err := jsonschema.UnmarshalJSON(strings.NewReader(string(encoded)))
 	if err != nil {
 		t.Fatal(err)
@@ -764,7 +866,7 @@ func validateEnvelope(t *testing.T, envelope Envelope) {
 		t.Fatal(err)
 	}
 	if err := schema.Validate(instance); err != nil {
-		t.Fatalf("envelope does not match frozen schema: %v\n%s", err, encoded)
+		t.Fatalf("wire envelope does not match frozen schema: %v\n%s", err, encoded)
 	}
 }
 

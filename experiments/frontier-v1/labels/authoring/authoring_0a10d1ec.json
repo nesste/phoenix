@@ -11,12 +11,13 @@
       {
         "id": "reports_suite_failure",
         "kind": "act_output_matches",
-        "seq": 0,
+        "selector_mode": "some",
+        "path": "tests.run",
         "pattern": "(?i)(suite|test).*(fail|not green)|(fail|not green).*(suite|test)"
       }
     ]
   },
-  "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
+  "grading_script": "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05",
   "acceptable_paths": [["tests.run"]],
   "label_rationale": "This is the low-discovery baseline: one obvious suite action is sufficient, and extra diagnostic actions are unnecessary overhead."
 }

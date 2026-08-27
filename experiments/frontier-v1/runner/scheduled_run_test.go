@@ -116,7 +116,7 @@ func TestScheduledBudgetStopOccursBeforeWholePairingKey(t *testing.T) {
 	driver := &scriptedRuntime{}
 	summary, err := runScheduledCases(runConfig{
 		repositoryRoot: repository, outputDir: output, budgetUSD: "0.15",
-	}, schedule, "sha256:schedule", 0.74, driver, fakeGrader{})
+	}, schedule, "sha256:schedule", 0.60, driver, fakeGrader{})
 	if err != nil {
 		t.Fatal(err)
 	}

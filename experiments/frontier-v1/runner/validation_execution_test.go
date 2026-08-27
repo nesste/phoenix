@@ -11,7 +11,10 @@ import (
 	"time"
 )
 
-func TestFrozenValidationScheduleLoadsOnlyPublicInputs(t *testing.T) {
+func TestRetiredFiveArmValidationScheduleIsRefusedUnderV5(t *testing.T) {
+	// Protocol v5 removes arm E, so the retired v4 five-arm schedule must be
+	// refused by schedule validation. A new disjoint sealed tranche and A-D
+	// schedule are required before any validation execution.
 	root := filepath.Join("..", "..", "..")
 	ids, err := caseIDsForTranche(root, "validation")
 	if err != nil {
@@ -29,8 +32,9 @@ func TestFrozenValidationScheduleLoadsOnlyPublicInputs(t *testing.T) {
 	if err := decodeStrict(schedulePath, &schedule); err != nil {
 		t.Fatal(err)
 	}
-	if err := validateScheduleForTranche(schedule, cases, "validation"); err != nil {
-		t.Fatal(err)
+	err = validateScheduleForTranche(schedule, cases, "validation")
+	if err == nil || !strings.Contains(err.Error(), "A-D arms") {
+		t.Fatalf("retired five-arm schedule error = %v, want A-D arm refusal", err)
 	}
 	if digest, err := digestJSONFile(schedulePath); err != nil || digest != frozenValidationScheduleDigest {
 		t.Fatalf("validation schedule digest = %s, %v", digest, err)
@@ -160,10 +164,23 @@ func TestExternalValidationGraderHandshakeAndGrade(t *testing.T) {
 func TestExternalGradeConsistencyIsEnforced(t *testing.T) {
 	result := externalGradeResult{
 		CaseID: "validation_example", Status: "pass",
-		Checks: []externalCheckResult{{ID: "check", Kind: "test", Verdict: "fail", Reason: "synthetic"}},
+		Checks: []externalCheckResult{{ID: "check", Kind: "test", Verdict: "fail", Reason: "synthetic", Gating: true}},
 	}
 	if err := validateExternalGrade(result); err == nil || !strings.Contains(err.Error(), "inconsistent") {
 		t.Fatalf("consistency error = %v", err)
+	}
+}
+
+func TestExternalGradeDescriptiveFailDoesNotGateStatus(t *testing.T) {
+	result := externalGradeResult{
+		CaseID: "validation_example", Status: "pass",
+		Checks: []externalCheckResult{
+			{ID: "outcome", Kind: "file_matches", Verdict: "pass", Reason: "synthetic", Gating: true},
+			{ID: "route", Kind: "act_sequence", Verdict: "fail", Reason: "descriptive route miss", Gating: false},
+		},
+	}
+	if err := validateExternalGrade(result); err != nil {
+		t.Fatalf("descriptive fail gated the status: %v", err)
 	}
 }
 

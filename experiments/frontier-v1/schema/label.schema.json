@@ -89,10 +89,41 @@
             "seq": {
               "type": "integer",
               "minimum": 0,
-              "description": "Zero-based position in the acceptable path matched by the act_sequence check. If no act_sequence check exists, this is an absolute trial act index."
+              "description": "Zero-based position in the acceptable path matched by the act_sequence check. If no act_sequence check exists, this is an absolute trial act index. Sequence-index addressing is legal only for descriptive checks and for path-primary classes; gating act-addressed checks in outcome-primary classes use the selector-addressed form."
             },
             "status": { "enum": ["ok", "fail", "refused", "absent"] }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "kind", "selector_mode", "path", "status"],
+          "properties": {
+            "id": { "$ref": "common.schema.json#/$defs/identifier" },
+            "kind": { "const": "act_status" },
+            "selector_mode": {
+              "enum": ["some", "last"],
+              "description": "Selector addressing: \"some\" (default form) passes when some act matching the path predicate satisfies the check; \"last\" binds the last matching act and is permitted only where recency is the construct under test."
+            },
+            "path": {
+              "description": "The exact handle-type.verb predicate the selector matches against trial acts.",
+              "$ref": "common.schema.json#/$defs/verbPath"
+            },
+            "status": { "enum": ["ok", "fail", "refused", "absent"] },
+            "recency_rationale": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 400,
+              "description": "Required with last-mode selection: why recency is the construct under test. The payload's independent review checks every last-mode use against its rationale."
+            }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "selector_mode": { "const": "last" } }, "required": ["selector_mode"] },
+              "then": { "required": ["recency_rationale"] },
+              "else": { "not": { "required": ["recency_rationale"] } }
+            }
+          ]
         },
         {
           "type": "object",
@@ -104,11 +135,43 @@
             "seq": {
               "type": "integer",
               "minimum": 0,
-              "description": "Zero-based position in the acceptable path matched by the act_sequence check. If no act_sequence check exists, this is an absolute trial act index."
+              "description": "Zero-based position in the acceptable path matched by the act_sequence check. If no act_sequence check exists, this is an absolute trial act index. Sequence-index addressing is legal only for descriptive checks and for path-primary classes; gating act-addressed checks in outcome-primary classes use the selector-addressed form."
             },
             "pattern": { "type": "string", "minLength": 1 },
             "negate": { "type": "boolean" }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "kind", "selector_mode", "path", "pattern"],
+          "properties": {
+            "id": { "$ref": "common.schema.json#/$defs/identifier" },
+            "kind": { "const": "act_output_matches" },
+            "selector_mode": {
+              "enum": ["some", "last"],
+              "description": "Selector addressing: \"some\" (default form) passes when some act matching the path predicate satisfies the check; \"last\" binds the last matching act and is permitted only where recency is the construct under test."
+            },
+            "path": {
+              "description": "The exact handle-type.verb predicate the selector matches against trial acts.",
+              "$ref": "common.schema.json#/$defs/verbPath"
+            },
+            "pattern": { "type": "string", "minLength": 1 },
+            "negate": { "type": "boolean" },
+            "recency_rationale": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 400,
+              "description": "Required with last-mode selection: why recency is the construct under test. The payload's independent review checks every last-mode use against its rationale."
+            }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "selector_mode": { "const": "last" } }, "required": ["selector_mode"] },
+              "then": { "required": ["recency_rationale"] },
+              "else": { "not": { "required": ["recency_rationale"] } }
+            }
+          ]
         },
         {
           "type": "object",
@@ -172,28 +235,9 @@
             "pattern": {
               "type": "string",
               "minLength": 1,
-              "description": "A regular expression matched deterministically against trial.final_message. This is pattern matching, not semantic judgment; prefer it over final_message_states wherever a regex can capture the required claim."
+              "description": "A regular expression matched deterministically against trial.final_message. This is pattern matching, not semantic judgment. final_message_states is barred from machine-graded labels: no sealed label may contain a kind whose grading is manual."
             },
             "negate": { "type": "boolean" }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["id", "kind", "claim", "blinding"],
-          "properties": {
-            "id": { "$ref": "common.schema.json#/$defs/identifier" },
-            "kind": { "const": "final_message_states" },
-            "claim": { "type": "string", "minLength": 8, "maxLength": 240 },
-            "blinding": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["arm_hidden", "rubric"],
-              "properties": {
-                "arm_hidden": { "const": true },
-                "rubric": { "type": "string", "minLength": 16, "maxLength": 400 }
-              }
-            }
           }
         }
       ]

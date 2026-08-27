@@ -135,17 +135,12 @@ func TestComponentContrastsApplyForcedDecisions(t *testing.T) {
 		observations = append(observations,
 			observation{FamilyID: familyID, CaseID: caseID, Class: "recovery", Arm: "C", CompleteCase: true},
 			observation{FamilyID: familyID, CaseID: caseID, Class: "recovery", Arm: "D", ITTSuccess: true, CompleteCase: true, Recovery: false},
-			observation{FamilyID: familyID, CaseID: caseID, Class: "recovery", Arm: "E", ITTSuccess: true, CompleteCase: true, Recovery: true},
 		)
 	}
 	arms := armReports(observations)
 	frontier := frontierClaim(observations, arms, false)
 	if frontier.Decision != "remove_frontier" {
 		t.Fatalf("frontier decision = %#v", frontier)
-	}
-	teaching := teachingClaim(observations, arms, false)
-	if teaching.Decision != "replace_teaching_refusals" {
-		t.Fatalf("teaching decision = %#v", teaching)
 	}
 }
 
@@ -163,7 +158,7 @@ func TestSensitivityKeepsITTAndCompleteCaseSeparate(t *testing.T) {
 	}
 }
 
-func TestSafetyStopDiscardsWholeFiveArmPairing(t *testing.T) {
+func TestSafetyStopDiscardsWholeFourArmPairing(t *testing.T) {
 	results := make([]assignedTrialResult, 0, phase1Repetitions*len(phase1Arms))
 	for repetition := 0; repetition < phase1Repetitions; repetition++ {
 		for _, arm := range phase1Arms {

@@ -66,6 +66,7 @@ type Transition struct {
 type ActivationRule struct {
 	ID          string       `json:"id"`
 	Pattern     string       `json:"pattern"`
+	AlwaysReady bool         `json:"always_ready,omitempty"`
 	Suggestions []Suggestion `json:"suggestions"`
 }
 

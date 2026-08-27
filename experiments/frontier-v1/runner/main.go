@@ -37,10 +37,10 @@ func run(args []string) int {
 	tranche := flags.String("tranche", "authoring", "experiment tranche: authoring or validation")
 	caseID := flags.String("case", "all", "case id or all")
 	outputDir := flags.String("output-dir", "", "repository-relative result directory; defaults to retained C evidence or an arm-specific probe directory")
-	arm := flags.String("arm", "C", "experiment arm: A, B, C, D, or E")
+	arm := flags.String("arm", "C", "experiment arm: A, B, C, or D")
 	armBDocument := flags.String("arm-b-document", "", "frozen Arm B static document; required for Arm B")
-	writeSchedulePath := flags.String("write-schedule", "", "write a deterministic authoring A-E schedule and exit")
-	schedulePath := flags.String("schedule", "", "execute a previously written A-E schedule")
+	writeSchedulePath := flags.String("write-schedule", "", "write a deterministic authoring A-D schedule and exit")
+	schedulePath := flags.String("schedule", "", "execute a previously written A-D schedule")
 	validationGrader := flags.String("validation-grader", "", "absolute path to the external validation custodian grader")
 	runtimePath := flags.String("runtime", "claude", "pinned runtime executable")
 	budget := flags.String("max-budget-usd", "0.15", "maximum model cost per case")
@@ -521,7 +521,7 @@ func loadFlatToolNames(arm, schemaPath, worldPath string) ([]string, error) {
 func normalizeArm(arm string) (string, error) {
 	arm = strings.ToUpper(strings.TrimSpace(arm))
 	switch arm {
-	case "A", "B", "C", "D", "E":
+	case "A", "B", "C", "D":
 		return arm, nil
 	default:
 		return "", fmt.Errorf("unsupported experiment arm %q", arm)

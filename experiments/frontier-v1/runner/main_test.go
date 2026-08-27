@@ -48,7 +48,7 @@ func TestAuthoringLabelsSharePinnedGraderDigest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	const want = "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+	const want = "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05"
 	if digest != want {
 		t.Fatalf("authoring grader digest = %s, want %s", digest, want)
 	}
@@ -87,16 +87,19 @@ func TestParseRuntimeOutputFindsFinalStreamEvent(t *testing.T) {
 }
 
 func TestSystemPromptsArePinnedPerArmAndIntentIsPhoenixOnly(t *testing.T) {
-	for _, arm := range []string{"A", "B", "C", "D", "E"} {
+	for _, arm := range []string{"A", "B", "C", "D"} {
 		prompt, err := systemPromptForArm(arm)
 		if err != nil {
 			t.Fatalf("arm %s: %v", arm, err)
 		}
 		hasIntent := strings.Contains(prompt, phoenixIntentPrompt)
-		wantIntent := arm == "C" || arm == "D" || arm == "E"
+		wantIntent := arm == "C" || arm == "D"
 		if hasIntent != wantIntent {
 			t.Fatalf("arm %s intent instruction = %t, want %t: %q", arm, hasIntent, wantIntent, prompt)
 		}
+	}
+	if _, err := systemPromptForArm("E"); err == nil {
+		t.Fatal("retired arm E prompt was accepted")
 	}
 	if _, err := systemPromptForArm("D_prime"); err == nil {
 		t.Fatal("unfrozen Phase 2 prompt was accepted")

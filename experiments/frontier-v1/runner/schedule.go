@@ -11,7 +11,7 @@ const (
 	phase1Repetitions  = 3
 )
 
-var phase1Arms = []string{"A", "B", "C", "D", "E"}
+var phase1Arms = []string{"A", "B", "C", "D"}
 
 type launchSchedule struct {
 	V           int             `json:"v"`
@@ -92,7 +92,7 @@ func validateScheduleForTranche(schedule launchSchedule, cases []runnableCase, t
 		return fmt.Errorf("schedule must be version 1 for tranche %s", tranche)
 	}
 	if schedule.Seed != phase1ScheduleSeed || schedule.Repetitions != phase1Repetitions || !reflect.DeepEqual(schedule.Arms, phase1Arms) {
-		return fmt.Errorf("schedule must use the frozen Phase 1 seed, repetitions, and A-E arms")
+		return fmt.Errorf("schedule must use the frozen Phase 1 seed, repetitions, and A-D arms")
 	}
 	expected, err := generateScheduleForTranche(tranche, cases, schedule.Seed, schedule.Repetitions, schedule.Arms)
 	if err != nil {

@@ -28,7 +28,7 @@ func TestProtocolRetiresSupersededSealedCandidates(t *testing.T) {
 	if err := json.Unmarshal(contents, &protocol); err != nil {
 		t.Fatal(err)
 	}
-	if protocol.Version != 4 || !strings.Contains(protocol.Amendment.Retirement, "retired unopened") || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut {
+	if protocol.Version != 5 || !strings.Contains(protocol.Amendment.Retirement, "All v4-sealed unopened candidates are retired") || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut {
 		t.Fatalf("protocol does not retire superseded candidates: %+v", protocol)
 	}
 }

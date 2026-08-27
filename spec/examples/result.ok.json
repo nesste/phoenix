@@ -2,7 +2,7 @@
   "v": 1,
   "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "session_id": "s_0123456789abcdef",
-  "act_id": "a_0123456789abcdef",
+  "act_id": "a_01234567",
   "handle": "h_0123456789abcdef",
   "verb": "run",
   "status": "ok",
@@ -10,12 +10,7 @@
     "passed": 12,
     "failed": 0
   },
-  "error": null,
   "text": "12 tests passed\nnext: repo.status — inspect the repository after verification",
-  "handles": {
-    "grant": [],
-    "revoke": []
-  },
   "frontier": [
     {
       "call": {
@@ -28,6 +23,5 @@
       "provenance": "authored",
       "score": 1
     }
-  ],
-  "refusal": null
+  ]
 }

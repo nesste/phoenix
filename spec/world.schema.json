@@ -196,6 +196,10 @@
       "properties": {
         "id": { "$ref": "#/$defs/identifier" },
         "pattern": { "type": "string", "minLength": 1, "maxLength": 400 },
+        "always_ready": {
+          "type": "boolean",
+          "description": "Marks a universal bootstrap opening probe, exempt from intent matching at bootstrap only. At most one rule per world may set it; it never fires after the first executable act."
+        },
         "suggestions": {
           "type": "array",
           "maxItems": 3,

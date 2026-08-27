@@ -6,6 +6,8 @@ The authoring tranche is present and mechanically validated. It contains eight c
 
 The first independent review of protocol v4 returned `REVISE` with no P0 finding. The focused revision candidate `f889f13f0c514fa5108a1e392701ebeadc4376f7` then received an independent `ACCEPT` with no findings and is frozen by the acceptance-record patch. It limits world-authored intent activation to session bootstrap and makes deterministic between-act state events a shared harness rule for every arm. The v3 validation and held_out candidates are retired unopened because they pin the superseded world, schemas, and grader. Their public artifacts remain only as custody evidence; they are not runnable candidates.
 
+Protocol v5 amends v4 under the accepted proposal (`docs/plans/2026-08-27-protocol-v5-proposal.md`, fourth independent review ACCEPT). The v5 amendment payload retires the standalone post-act `orient` (it returns `exhausted`), adds reachability-scoped discovery to `absent` and `invalid_arguments` errors, compresses the wire envelope with a frozen lossless round trip, removes arm E, and moves grading to selector-addressed, outcome-primary checks with a frozen gating/descriptive classification. All v4-sealed unopened candidates — including the committed five-arm validation schedule and manifest — are retired and must not be run, relabeled, or resealed; new disjoint tranches with path witnesses are required. The payload awaits its independent review and refreeze, so the freeze pins in `pre-validation-artifacts.json` intentionally fail until then. Both outcome gates remain closed.
+
 The original retained pinned-runtime authoring run passed 2 of 8 cases (`direct` and `temptation`). A later v4 run passed 8 of 8 while executing the full four-step cascade, although its temporary label did not require `tests.list`. After restoring the precommitted cascade label, the one allowed focused-revision run passed 7 of 8; cascade ignored a returned `tests.list` frontier and failed without retry. The [authoring performance analysis](authoring-analysis.md) records the baseline, sequential tuning passes, contract correction and restoration, retained evidence, variance, and hard stops. This is authoring evidence, not a gate result. Gate 1A remains closed.
 
 ## Directory contract
@@ -92,7 +94,7 @@ The authoring labels use this shape:
   "expected_outcome": {
     "checks": [
       { "id": "uses_suite_action", "kind": "act_sequence", "mode": "contains_in_order" },
-      { "id": "reports_suite_failure", "kind": "act_output_matches", "seq": 0, "pattern": "..." }
+      { "id": "reports_suite_failure", "kind": "act_output_matches", "selector_mode": "some", "path": "tests.run", "pattern": "..." }
     ]
   },
   "grading_script": "sha256:<grader artifact digest>",
@@ -101,7 +103,7 @@ The authoring labels use this shape:
 }
 ```
 
-`acceptable_paths` remains a non-exhaustive record unless an `act_sequence` check explicitly selects `exact` or `contains_in_order` matching. A `seq` on an act-status or act-output check addresses the corresponding position in the matched acceptable path, so unrelated leading or intermediate actions cannot shift evidence onto the wrong act. Refusal and stale-frontier labels also check the recorded act status. Seven cases grade their outcome from act output. The capability-absence case permits at most one discovery attempt and uses a deterministic final-message pattern because no successful result exists to inspect.
+`acceptable_paths` remains a non-exhaustive record unless an `act_sequence` check explicitly selects `exact` or `contains_in_order` matching. Under protocol v5, every check kind is classified gating or descriptive per class: in the outcome-primary classes (direct, cascade, far_discovery, recovery) the route checks (`act_sequence`, `act_count`, `act_path_absent`) are descriptive — graded and reported with `gating: false` but unable to fail the trial — and gating act-addressed checks are selector-addressed (`selector_mode` `some` by default; `last` only with a committed `recency_rationale`), never sequence-index-addressed. In the path-primary classes (absence, temptation, stale_frontier, adversarial_text) every kind gates, and a `seq` on an act-status or act-output check addresses the corresponding position in the matched acceptable path, so unrelated leading or intermediate actions cannot shift evidence onto the wrong act. `final_message_states` is barred from machine-graded labels. The capability-absence case permits at most one discovery attempt and uses a deterministic final-message pattern because no successful result exists to inspect.
 
 ## Trial records and grading
 
@@ -136,11 +138,11 @@ go run ./cmd/corpusctl seal --repo-root ../../.. --tranche validation --world-so
 
 ## Trial isolation
 
-Every trial starts with a fresh model context, freshly materialized sandbox, and isolated world state. The runner records the runtime, model, exact arm-specific system prompt, configuration, access mode, world-build digest, seed where supported, case-order block, retries, token accounting, and grader digest. A and B receive only the common tool-use prompt; the Phoenix bootstrap-intent instruction is present only in C, D, and E.
+Every trial starts with a fresh model context, freshly materialized sandbox, and isolated world state. The runner records the runtime, model, exact arm-specific system prompt, configuration, access mode, world-build digest, seed where supported, case-order block, retries, token accounting, and grader digest. A and B receive only the common tool-use prompt; the conditional Phoenix bootstrap-intent instruction is present only in C and D.
 
 ## Authoring runner
 
-The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, applies declared state events inside the sandbox, reconstructs executable acts and orientations from the episode database, and calls the deterministic grader. `--arm A|B|C|D|E` selects the protocol-v4 surface and exact pinned system prompt. A/B expose conventional tools derived from the same world definition; B additionally requires the static document. C/D/E expose only `act`, and only those arms receive the bootstrap-intent instruction. Fresh intent activation is available only before the first executable act; later orientation can only preserve a pending frontier or refusal alternative. Run it from the repository root:
+The runner accepts only case IDs from `corpus/authoring`, materializes their content-addressed fixture in a temporary Git repository, builds an isolated Phoenix executable, invokes Claude Code 2.1.229 with `claude-sonnet-5` at low effort and no built-in tools, applies declared state events inside the sandbox, reconstructs executable acts and orientations from the episode database, and calls the deterministic grader. `--arm A|B|C|D` selects the protocol-v5 surface and exact pinned system prompt. A/B expose conventional tools derived from the same world definition; B additionally requires the static document. C/D expose only `act`, and only those arms receive the conditional bootstrap-intent instruction. Fresh intent activation is available only before the first executable act; any later standalone orientation returns `exhausted`, and frontiers and refusal alternatives arrive only on executable-act responses. Run it from the repository root:
 
 ```powershell
 go run ./experiments/frontier-v1/runner --repo-root . --case all
@@ -152,7 +154,7 @@ Arm C remains the default for a single-arm probe and writes to `results/authorin
 
 ## Scheduled authoring runner
 
-The schedule writer groups cases by generating family and emits each family as one contiguous block. Within a family it deterministically shuffles `(case_id, repetition)` pairing keys with seed `20260817`. Every pairing key contains all five arms consecutively in one row of the ten-row Williams design for five treatments. Three repetitions produce 120 launches for the current eight-case authoring set.
+The schedule writer groups cases by generating family and emits each family as one contiguous block. Within a family it deterministically shuffles `(case_id, repetition)` pairing keys with seed `20260817`. Every pairing key contains all four arms consecutively in one row of the four-row Williams design for four treatments. Three repetitions produce 96 launches for the current eight-case authoring set.
 
 ```powershell
 go run ./experiments/frontier-v1/runner --repo-root . --case all --write-schedule experiments/frontier-v1/schedules/authoring.json
@@ -166,30 +168,28 @@ Run a previously written authoring schedule with:
 go run ./experiments/frontier-v1/runner --repo-root . --case all --schedule experiments/frontier-v1/schedules/authoring.json --arm-b-document experiments/frontier-v1/arms/arm-b.md --run-budget-usd 75
 ```
 
-Before each pairing key, the runner reserves 110% of the five-arm per-trial cap: the five assigned trials plus the protocol's pooled 10% infrastructure capacity. This reserve does not authorize a retry unless the attempt meets the pre-token eligibility rule. If the remaining run budget cannot cover the boundary, none of the five arms launch and every remaining assignment is recorded as budget-stopped. A hard budget or runner safety stop makes the scheduled run indeterminate.
+Before each pairing key, the runner reserves 110% of the four-arm per-trial cap: the four assigned trials plus the protocol's pooled 10% infrastructure capacity. This reserve does not authorize a retry unless the attempt meets the pre-token eligibility rule. If the remaining run budget cannot cover the boundary, none of the four arms launch and every remaining assignment is recorded as budget-stopped. A hard budget or runner safety stop makes the scheduled run indeterminate.
 
 Each assigned trial gets a fresh model context, sandbox, world state, handle set, episode store, and state-event plan. Only a provider 429/5xx, runtime launch failure, or MCP connection failure before the first model token receives one fresh retry. Timeout, turn limit, cost cap, malformed output, agent failure, and post-token failures are terminal ITT failures. Manual-required grades are also ITT failures. Retry exhaustion is unresolved, which still counts as failure in the primary ITT analysis.
 
-The scheduled output directory must be empty at launch. It receives one assignment record per launch, sanitized runtime JSONL for every attempt, trial and grade evidence for completed attempts, and `scheduled-summary.json`. Attempt records include all Claude result token buckets, their sum, USD cost, turns, API time, wall time, first-token status, retry classification, and cap status. The summary pins the runtime/model settings, exact A–E prompts, timeout, cost cap, retry limit, schedule seed, repetitions, Arm B document and digest, and grader digest.
+The scheduled output directory must be empty at launch. It receives one assignment record per launch, sanitized runtime JSONL for every attempt, trial and grade evidence for completed attempts, and `scheduled-summary.json`. Attempt records include all Claude result token buckets, their sum, USD cost, turns, API time, wall time, first-token status, retry classification, and cap status. The summary pins the runtime/model settings, exact A–D prompts, timeout, cost cap, retry limit, schedule seed, repetitions, Arm B document and digest, and grader digest.
 
 No scheduled authoring run was performed while implementing this machinery. An authoring schedule cannot satisfy the pre-validation schedule freeze: the validation schedule must be generated from the accepted replacement validation cases and committed by digest before that tranche can open.
 
-## Validation schedule candidate
+## Validation schedule
 
-The outcome-free schedule tool reads only the public sealed validation manifest and its 120 public case files. It verifies their canonical digests and 24-by-5 family allocation, then applies the frozen Phase 1 seed, three repetitions, A–E arms, SplitMix64 shuffle, family blocks, and ten-row Williams design without opening a label or running a model:
+The outcome-free schedule tool reads only the public sealed validation manifest and its public case files. It verifies their canonical digests and family allocation, then applies the frozen Phase 1 seed, three repetitions, A–D arms, SplitMix64 shuffle, family blocks, and four-row Williams design without opening a label or running a model:
 
 ```powershell
-go run ./experiments/frontier-v1/scheduletool --repo-root . --write experiments/frontier-v1/schedules/validation.json
-go run ./experiments/frontier-v1/scheduletool --repo-root . --verify experiments/frontier-v1/schedules/validation.json
+go run ./experiments/frontier-v1/scheduletool --repo-root . --write <new-v5-schedule-path>
+go run ./experiments/frontier-v1/scheduletool --repo-root . --verify <new-v5-schedule-path>
 ```
 
-The candidate contains 1,800 launches and 360 contiguous five-arm pairing keys. Its canonical JSON digest is `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813`, derived from validation manifest `sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6`.
-
-The schedule is accepted and frozen in `pre-validation-artifacts.json`. Both outcome gates remain false. The accepted runner on `main` remains authoring-only; the isolated replacement candidate below requires independent review and refreeze before a separate project-chair Gate 1A decision.
+The committed `schedules/validation.json` (canonical JSON digest `sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813`, 1,800 launches, 360 contiguous five-arm pairing keys) is the retired v4 candidate. It is preserved as custody evidence only: protocol v5 removes arm E, the A–D construction can no longer reproduce it, and the runner refuses it. A new disjoint sealed tranche and A–D schedule must be generated by independent evaluators and frozen before any validation execution.
 
 ## Validation execution-boundary candidate
 
-The replacement candidate extends scheduled execution to the public validation cases without importing or resolving a private label. It accepts only `--tranche validation --case all`, reconstructs and verifies the frozen 1,800-launch schedule, verifies the public manifest and label-digest registry identities, and requires exactly the frozen 300 USD run budget, an untrimmed per-trial cap that parses to 0.15 USD, and a 180-second timeout. A different or whitespace-padded cap, malformed cap, or different timeout is refused before output mutation or custodian contact. The runner also refuses before creating output or building Phoenix while `may_open_validation` is false. `may_open_held_out` must remain false. Validation runs build Phoenix with the frozen linux/amd64 `version=dev` recipe at `bin/phoenix` and stop before any trial unless the live world-build digest equals the frozen `sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4`; authoring runs keep the host build recipe.
+The validation path extends scheduled execution to the public validation cases without importing or resolving a private label. It accepts only `--tranche validation --case all`, reconstructs and verifies the frozen schedule against the deterministic A–D construction — which now refuses the retired v4 five-arm schedule — verifies the public manifest and label-digest registry identities, and requires exactly the frozen 300 USD run budget, an untrimmed per-trial cap that parses to 0.15 USD, and a 180-second timeout. A different or whitespace-padded cap, malformed cap, or different timeout is refused before output mutation or custodian contact. The runner also refuses before creating output or building Phoenix while `may_open_validation` is false. `may_open_held_out` must remain false. Validation runs build Phoenix with the frozen linux/amd64 `version=dev` recipe at `bin/phoenix` and stop before any trial unless the live world-build digest equals the frozen `sha256:b5a26d5e2290c7919e4bc629a774f387a766107539b4fcfdf7d55d0f1c19a2c4`; authoring runs keep the host build recipe.
 
 Private grading is a separate executable supplied by the label custodian from outside the implementation repository. Before any model run, its `describe` response must pin the accepted grader, schedule, manifest, public validation-registry, private-archive, tranche, and case-count identities. The runner records that description plus the executable's raw SHA-256 in `scheduled-summary.json`, rechecks the executable identity before every grade, and passes only the public case ID and the completed trial-evidence path. It never passes or constructs a private-label path. Grade output is strict, bounded JSON and is retained with the other outcome evidence.
 
@@ -203,7 +203,7 @@ That command currently stops with `validation gate is closed`. No validation run
 
 ## Analysis and report
 
-The Phase 1 analysis command consumes a scheduled summary, its retained trial and runtime evidence, and the matching outcome-free tranche manifest. It validates complete A–E pairing keys, applies ITT and indeterminate rules before inference, reconstructs frontier linkage from the retained runtime stream, and emits a deterministic JSON analysis plus an optional report rendered from the committed template.
+The Phase 1 analysis command consumes a scheduled summary, its retained trial and runtime evidence, and the matching outcome-free tranche manifest. It validates complete A–D pairing keys, applies ITT and indeterminate rules before inference, reconstructs frontier linkage from the retained runtime stream, and emits a deterministic JSON analysis plus an optional report rendered from the committed template.
 
 ```powershell
 go run ./experiments/frontier-v1/analysis --repo-root . --summary <scheduled-summary.json> --manifest <tranche-manifest.json> --output <analysis.json> --report <report.md>

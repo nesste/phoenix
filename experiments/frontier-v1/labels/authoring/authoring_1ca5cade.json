@@ -11,12 +11,13 @@
       {
         "id": "identifies_confirmed_failure",
         "kind": "act_output_matches",
-        "seq": 3,
+        "selector_mode": "some",
+        "path": "tests.focus",
         "pattern": "(?i)TestOverdraftFloor.*fail|fail.*TestOverdraftFloor"
       }
     ]
   },
-  "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
+  "grading_script": "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05",
   "acceptable_paths": [["repo.status", "tests.run", "tests.list", "tests.focus"]],
   "label_rationale": "The task requires the precommitted diagnostic cascade through repository status, the aggregate suite, the live test catalog, and an independent focus of the named failure."
 }

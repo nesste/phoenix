@@ -20,7 +20,7 @@ const (
 	pinnedRuntimeVersion = "2.1.229"
 	pinnedModel          = "claude-sonnet-5"
 	baseSystemPrompt     = "Use only the configured tools. Follow the user request exactly."
-	phoenixIntentPrompt  = "Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
+	phoenixIntentPrompt  = "Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle. If a call is returned, evaluate it; execute it only if it serves the goal. If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal."
 )
 
 var providerStatusPattern = regexp.MustCompile(`\b(?:429|5[0-9]{2})\b`)
@@ -29,7 +29,7 @@ func systemPromptForArm(arm string) (string, error) {
 	switch arm {
 	case "A", "B":
 		return baseSystemPrompt, nil
-	case "C", "D", "E":
+	case "C", "D":
 		return baseSystemPrompt + " " + phoenixIntentPrompt, nil
 	default:
 		return "", fmt.Errorf("unsupported experiment arm %q", arm)
@@ -185,7 +185,7 @@ func runtimePromptForArm(goal string, roots map[string]string, arm string) strin
 }
 
 func allowedToolsForArm(arm string, flatToolNames []string) []string {
-	if arm == "C" || arm == "D" || arm == "E" {
+	if arm == "C" || arm == "D" {
 		return []string{"mcp__phoenix__act"}
 	}
 	tools := make([]string, len(flatToolNames))

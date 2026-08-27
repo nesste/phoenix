@@ -52,13 +52,13 @@ func TestValidationScheduleIsDeterministicFamilyBlockedAndComplete(t *testing.T)
 	}
 }
 
-func TestWilliamsSequencesBalanceOddArmPredecessors(t *testing.T) {
+func TestWilliamsSequencesBalanceEvenArmPredecessors(t *testing.T) {
 	rows, err := williamsSequences(phase1Arms)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(rows) != 10 {
-		t.Fatalf("Williams rows = %d, want 10", len(rows))
+	if len(rows) != 4 {
+		t.Fatalf("Williams rows = %d, want 4 for the four Phase 1 arms", len(rows))
 	}
 	predecessors := map[string]int{}
 	for _, row := range rows {
@@ -75,8 +75,8 @@ func TestWilliamsSequencesBalanceOddArmPredecessors(t *testing.T) {
 	}
 	for _, left := range phase1Arms {
 		for _, right := range phase1Arms {
-			if left != right && predecessors[left+"->"+right] != 2 {
-				t.Fatalf("predecessor %s->%s count = %d, want 2", left, right, predecessors[left+"->"+right])
+			if left != right && predecessors[left+"->"+right] != 1 {
+				t.Fatalf("predecessor %s->%s count = %d, want 1", left, right, predecessors[left+"->"+right])
 			}
 		}
 	}

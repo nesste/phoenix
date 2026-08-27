@@ -158,8 +158,6 @@ func armPolicy(arm string) (suppressFrontier, suppressTeaching, flat bool, err e
 		return false, false, false, nil
 	case "D":
 		return true, false, false, nil
-	case "E":
-		return true, true, false, nil
 	case "A", "B":
 		return true, true, true, nil
 	default:

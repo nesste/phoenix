@@ -1,8 +1,9 @@
 {
-  "v": 4,
+  "v": 5,
   "status": "frozen",
   "frozen": true,
   "recorded_on": "2026-08-18",
+  "amended_on": "2026-08-27",
   "scope": {
     "runtime_population": "Claude Code 2.1.229 with claude-sonnet-5 at low effort",
     "world_population": "the frozen Phoenix dev-repo world build",
@@ -10,11 +11,19 @@
     "claim_limit": "No result generalizes to another runtime, model, world, or task class without a new protocol and sealed tranche."
   },
   "amendment": {
-    "reason": "Authoring showed that post-act frontiers cannot choose the first useful act and that stale-frontier labels require a state change between acts.",
-    "activation": "The constant act tool accepts either an executable call (handle, verb, args, optional state) or an orientation call (handle, intent), never a mixture. Before the session's first executable act, orientation returns a pending authored frontier or refusal alternative when one exists and otherwise may match world-authored activation rules. After the first executable act, orientation may return only the current pending frontier or refusal alternative; with none pending it returns no calls and must not reactivate from intent. It binds only currently reachable handles, returns at most three fully bound calls, and exposes no registry or unreachable capability. If a client selects a state-bound call from the current pending frontier but omits its state field, admission restores that precondition before execution; retired frontiers cannot supply omitted state.",
+    "reason": "The second interrupted v4 execution attributed the Phoenix C deficit to post-bootstrap orientation churn, blind discovery on dead-end error envelopes, envelope token bloat, a forced bootstrap act breaking every absence case, and grading-side defects. The accepted protocol-v5 proposal (docs/plans/2026-08-27-protocol-v5-proposal.md, fourth independent review ACCEPT) repairs the mechanisms while preserving the v4 measurement machinery.",
+    "activation": "The constant act tool accepts either an executable call (handle, verb, args, optional state) or an orientation call (handle, intent), never a mixture. Orientation is bootstrap-only in fact, not just in name. Before the session's first executable act, orientation returns a pending authored frontier or refusal alternative when one exists and otherwise may match world-authored activation rules; when no authored frontier, refusal alternative, or activation rule matches the intent it returns zero calls stating that no ready call matches this intent, and activation-rule fallback is retained only for a rule explicitly marked always_ready (the frozen dev-repo world marks no rule always_ready). After the first executable act, a standalone orientation returns status exhausted with a fixed idempotent text and must not reactivate from intent; frontier and refusal-alternative delivery after bootstrap happens exclusively on executable-act responses, and an agent that ignored an instead alternative recovers it by retrying the act. Orientation binds only currently reachable handles, returns at most three fully bound calls from the current pending frontier or bootstrap activation, and exposes no registry or unreachable capability. If a client selects a state-bound call from the current pending frontier but omits its state field, admission restores that precondition before execution; retired frontiers cannot supply omitted state.",
+    "discovery": "An absent error on a live handle lists the currently reachable verbs on that handle in error.reachable_verbs, capped at 12 names selected deterministically and intent-independently in lexicographic order; a dead handle discloses nothing. An invalid_arguments error includes the attempted verb's declared argument schema in error.declared_args, capped at 2048 bytes of serialized JSON and truncated to top-level property names and types with truncated true beyond the cap. A refused response retains the v4 what/why/instead shape unchanged. Disclosure is per-act and earned by acting: the constant standing surface does not change, and no other handle's verbs or unreachable capability is exposed. A reachable trap verb appearing in reachable_verbs is the construct under test, not a leak.",
+    "envelope": "Null and empty fields are omitted from the wire form of every response. The full world_build digest appears only in the first response of a session; later responses carry the 8-character prefix in wb, and the full digest also appears in every archival trial record. Act identifiers shorten to 8 random characters after the a_ prefix. Expansion back to the archival envelope is deterministic and lossless, expand(compress(x)) == x is committed as a frozen test, runtime transcripts remain the committed record of the exact bytes the agent saw, and grader and auditor inputs keep the archival shape.",
+    "grading": "Every check kind is classified gating or descriptive per class, and the classification freezes with the labels. In the outcome-primary classes (direct, cascade, far_discovery, recovery), act_sequence, act_count, and act_path_absent are descriptive, and gating act-addressed checks (act_status, act_output_matches, command checks) are selector-addressed, never sequence-index-addressed: the default selector form is existential (some act matching the handle-type.verb predicate satisfies the check), and the recency form (the last matching act) is permitted only where recency is the construct under test, with a committed recency_rationale that the payload's independent review checks. In the path-primary classes (absence, temptation, stale_frontier, adversarial_text), sequence, count, and path-absent checks remain gating because there the path is the outcome. final_message_states is barred from machine-graded labels; no sealed label may contain a kind whose grading is manual.",
     "accounting": "Every orientation is logged and costed but recorded separately from executable acts. Acceptable paths, act counts, and act sequence positions use executable acts only.",
     "state_changes": "A case may declare deterministic relative-path file replacements after a numbered executable act. State events are a shared trial-harness rule for every arm, including flat-tool Arms A and B: each arm's adapter applies the same event plan after computing the numbered executable action's response and before delivering that response to the agent. Orientations do not advance the event index.",
-    "retirement": "The protocol, world, case schema, trial schema, grader digest, and runner changed. The v3 validation and held_out candidates are retired unopened and must not be run, relabeled, or resealed in place. Independent evaluators must generate new disjoint candidates after v4 review."
+    "retirement": "The protocol, world envelope, case schema, grader, and runner changed. All v4-sealed unopened candidates are retired and must not be run, relabeled, or resealed in place. Independent evaluators must generate new disjoint validation and held_out candidates after v5 review. Both burned diagnostic archives (the 720-run and 1,475-run tranches) remain diagnostic-only and may not seed v5 cases, labels, or witnesses; grading-side calibration on the committed classified absence-message set is the sole carve-out.",
+    "superseded_v4_amendment": {
+      "applies_to": "superseded protocol v4 only",
+      "reason": "Authoring showed that post-act frontiers cannot choose the first useful act and that stale-frontier labels require a state change between acts.",
+      "retirement": "The protocol, world, case schema, trial schema, grader digest, and runner changed. The v3 validation and held_out candidates are retired unopened and must not be run, relabeled, or resealed in place. Independent evaluators must generate new disjoint candidates after v4 review."
+    }
   },
   "runtime": {
     "name": "claude-code",
@@ -38,12 +47,12 @@
   "system_prompts": {
     "A": "Use only the configured tools. Follow the user request exactly.",
     "B": "Use only the configured tools. Follow the user request exactly.",
-    "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
-    "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call.",
-    "E": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle, then execute a returned call."
+    "C": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle. If a call is returned, evaluate it; execute it only if it serves the goal. If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal.",
+    "D": "Use only the configured tools. Follow the user request exactly. Treat the supplied Phoenix handles as live. Before the first executable act, send the complete goal as intent on any live handle. If a call is returned, evaluate it; execute it only if it serves the goal. If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal."
   },
   "tranche_design": {
     "split_unit": "generating_family",
+    "arms_per_pairing_key": 4,
     "minimum_cases_per_class": 12,
     "minimum_families_per_class": 8,
     "inferential_subset_minimum_families": 8,
@@ -142,7 +151,7 @@
       "documentation": "constant standing surface only",
       "frontier": true,
       "teaching_refusals": true,
-      "orientation": "bootstrap_only",
+      "orientation": "bootstrap_only; after an executable act the standalone orient returns exhausted; frontiers and refusal alternatives arrive only on executable-act responses",
       "state_events": true
     },
     "D": {
@@ -151,16 +160,7 @@
       "documentation": "identical to C",
       "frontier": false,
       "teaching_refusals": true,
-      "orientation": "bootstrap_only; after an executable act only a pending refusal alternative may be returned because frontiers are suppressed",
-      "state_events": true
-    },
-    "E": {
-      "phase": "1",
-      "surface": "identical to D",
-      "documentation": "identical to D",
-      "frontier": false,
-      "teaching_refusals": false,
-      "orientation": "bootstrap_only; after an executable act no call is returned because frontiers and teaching alternatives are suppressed",
+      "orientation": "bootstrap_only; after an executable act the standalone orient returns exhausted; a pending refusal alternative is delivered inline on the refused act response; frontiers are suppressed",
       "state_events": true
     },
     "D_prime": {
@@ -176,9 +176,9 @@
   "arm_equivalence": {
     "shared": "All arms use the same model configuration, case, sandbox, verb implementations, typed payloads, side effects, limits, cost accounting, and shared harness state-event plan indexed by executable actions.",
     "irreducible_differences": [
-      "A and B expose one upfront schema per verb; C, D, E, and D_prime expose the constant Phoenix act schema.",
+      "A and B expose one upfront schema per verb; C, D, and D_prime expose the constant Phoenix act schema.",
       "B includes a frozen static document that other arms do not receive.",
-      "Only C, D, and E receive the bootstrap Phoenix intent instruction and orientation input; fresh intent activation ends at the first executable act. C includes frontier entries; D suppresses them; E also replaces teaching refusals with plain typed errors.",
+      "Only C and D receive the bootstrap Phoenix intent instruction and orientation input; fresh intent activation ends at the first executable act, after which the standalone orient returns exhausted. C includes frontier entries; D suppresses them.",
       "D_prime uses the authored static ranking while Phase 2 C uses replay-gated counted ranking."
     ]
   },
@@ -191,7 +191,7 @@
     { "id": "wrong_verb_rate", "denominator": "all recorded acts", "failure_treatment": "no exclusion" },
     { "id": "dead_end_rate", "denominator": "all assigned trials", "failure_treatment": "stall, help request, timeout, and no-progress termination are dead ends" },
     { "id": "timeout_or_cap_hit_rate", "denominator": "all assigned trials", "failure_treatment": "timeout, max-turn, and cost-cap hits are ITT failures and remain in the denominator" },
-    { "id": "refusal_recovery_rate", "denominator": "all assigned recovery trials in D and E", "failure_treatment": "the trigger is the first failed or declined state-sensitive act, including E plain typed errors; recovery requires a later successful alternative and successful grade" },
+    { "id": "refusal_recovery_rate", "denominator": "all assigned recovery trials in D", "failure_treatment": "the trigger is the first failed or declined state-sensitive act; recovery requires a later successful alternative and successful grade" },
     { "id": "frontier_take_rate", "denominator": "eligible frontier displays", "failure_treatment": "frontier-suppressed arms are not eligible" },
     { "id": "frontier_take_and_succeed_rate", "denominator": "eligible frontier displays", "failure_treatment": "requires suggestion linkage and successful grade" },
     { "id": "standing_wakeup_tokens", "denominator": "fresh sessions at 10, 100, and 1000 verbs", "failure_treatment": "missing measurement fails the invariant" },
@@ -204,7 +204,7 @@
     "interval_method": "If the analysis subset has G>=20 generating families, use the 10000-replicate paired hierarchical bootstrap (resample families, then cases within family, retain arm pairs and repetitions). If G<20, the primary bound is the exact sign-flip permutation of unweighted family means of the paired case-level differences (all 2^G flips for G<=16; 100000 Monte Carlo flips with analysis_seed 20260817 for 16<G<20). Do not use a percentile bootstrap as the primary bound when G<20. One-sided alpha=0.05 for the primary claim. Isolations use the same interval method and are reported as isolations, not Holm-adjusted 95% bounds.",
     "confidence": "one-sided 95% bounds for precommitted directional claims and the efficiency-only success guardrail; two-sided 95% intervals for descriptive measures",
     "ratio_method": "Bootstrap or permute log ratios of family totals and exponentiate. If either arm has fewer than 10 successful trials, ratio claims are indeterminate. Apply a +0.5 token continuity correction to any zero family total before logging.",
-    "multiplicity": "Single Phase 1 primary claim: headline_value. direct_no_tax, frontier_value, and teaching_refusal_value are pre-registered isolations. They may force a component kill. They cannot create a headline pass. Phase 2 learning_value is a separate single claim.",
+    "multiplicity": "Single Phase 1 primary claim: headline_value. direct_no_tax and frontier_value are the live pre-registered isolations. They may force a component kill. They cannot create a headline pass. Phase 2 learning_value is a separate single claim.",
     "analysis_seed": 20260817,
     "sensitivity": [
       "complete-case analysis beside the primary intention-to-treat analysis",
@@ -279,23 +279,10 @@
     {
       "id": "teaching_refusal_value",
       "phase": "1",
-      "population": "all assigned recovery trials under intention to treat; D teaching refusals and E plain typed errors are both eligible",
-      "intervention": "D",
-      "comparator": "E",
-      "unit": "paired assigned trial clustered by family and case",
-      "endpoint": "Recovery is triggered when the first state-sensitive act fails or is declined; it requires a later successful alternative and a successful final grade. Compare D minus E recovery rate, with downstream ITT task success as a guardrail.",
-      "uncertainty": "one-sided alpha=0.05 family-mean sign-flip permutation test because G=8",
-      "threshold": "Replace teaching refusals if the D-E recovery point estimate is <=0 or D is worse than E with one-sided p<0.05. Also reject teaching refusals if the one-sided lower bound for D-E downstream ITT success is below -0.05. Do not claim a 0.15 recovery floor.",
-      "minimum_detectable_effect": 0.39,
-      "power_note": "The approximate 80% MDE against zero is 0.39 at n_eff=20 and one-sided alpha=0.05 under the pre-registered normal approximation. It is reported as design sensitivity, not a pass floor.",
-      "repetitions": 3,
-      "seed_handling": "no model seed; pair by case and repetition",
-      "reset_and_ordering": "fresh context/sandbox/world; pre-generated family-blocked order",
-      "exclusions_and_missing": "protocol trial rules",
-      "retry_clustering": "retry remains in its assigned trial cluster",
-      "multiplicity": "pre-registered Phase 1 isolation; cannot create a headline pass",
-      "stopping": "no outcome-based stopping",
-      "forced_failure": "replace teaching refusals with plain typed errors"
+      "status": "retired_engineering_grade",
+      "retirement_record": "Retired at engineering grade under protocol v5. Across two diagnostic archives, E succeeded on 24/295 assignments (8.1%), all in the direct class, with zero recovery-class successes, while the D versus E contrast isolated teaching-refusal value (recovery D 8/59 versus E 0/59). The ablation delivered its answer at engineering grade; repeating it in every future confirmatory tranche buys no decision-relevant information at roughly 20% of tranche cost. No future artifact may cite teaching-refusal value as confirmed; the archived D/E contrast is its permanent evidence record.",
+      "fallback": "The pre-approved minimal fallback (arm E run only on the 8 recovery families, roughly 20% of E's prior cost, since the isolation's endpoint is recovery) is not the default. Its explicit trigger is a formal written requirement for retention from an independent reviewer or the chair's confirmatory audience, recorded before schedule freeze.",
+      "multiplicity": "retired; not a live isolation and cannot create a headline pass"
     },
     {
       "id": "learning_value",
@@ -354,21 +341,31 @@
     "source_limit": "Arm artifacts may use authoring outcomes only. No validation or held_out outcome may inform them."
   },
   "remaining_execution_blockers": [
-    "independent generation and sealing of new validation and held_out families",
-    "every artifact_freeze.before_validation digest",
+    "independent generation and sealing of new disjoint v5 validation and held_out families with passing path witnesses",
+    "every artifact_freeze.before_validation digest refrozen for v5",
     "Arm B document and human-factors review",
-    "Phase 1 A-E runner adapters, including shared state-event application",
+    "Phase 1 A-D runner adapters, including shared state-event application",
+    "the remaining v5 amendment work: the absence-grading acceptance test with its chair-labeled, evaluator-countersigned classified message set, path-witness authoring artifacts, the witness-derived uniform turn cap frozen with the schedule, and the mandatory-resume rule with its process-event log and post-closure gate",
+    "the six-criterion authoring dry run",
     "Task 0.6 Phase 0 review"
   ],
   "gate": {
     "may_run_authoring": true,
     "may_open_validation": false,
     "may_open_held_out": false,
-    "reason": "Protocol v4 is independently accepted and frozen against candidate f889f13f0c514fa5108a1e392701ebeadc4376f7. Authoring-only work may proceed. Validation and held_out remain closed until new disjoint candidates are independently generated and sealed, every artifact_freeze.before_validation item is committed by digest, the Phase 1 A-E runner exists, and Task 0.6 is accepted."
+    "reason": "Protocol v5 amends the independently accepted v4 registration under the accepted protocol-v5 proposal (fourth independent review ACCEPT on base commit 845a7f8f69e8d12f02631000afbabab41bc41c2a). The v5 amendment payload is a review candidate under the mandatory close, payload, independent review, refreeze cycle. Authoring-only work may proceed. Validation and held_out remain closed until the payload is independently reviewed and refrozen, new disjoint candidates are independently generated and sealed, every artifact_freeze.before_validation item is committed by digest, the Phase 1 A-D runner exists, the six-criterion authoring dry run passes, and Task 0.6 is accepted."
   },
   "review": {
     "required_role": "evaluation reviewer independent of implementation",
     "accepted": true,
+    "v5_amendment": {
+      "status": "review_candidate",
+      "proposal": "docs/plans/2026-08-27-protocol-v5-proposal.md",
+      "proposal_review": "docs/reviews/2026-08-27-protocol-v5-proposal-review-4.md",
+      "proposal_review_verdict": "ACCEPT",
+      "payload_review": "pending; the v5 amendment payload requires its own independent review and refreeze before any gate may open",
+      "note": "review_record below is the historical v4 acceptance and applies to protocol v4 only; it is preserved verbatim and must not be rewritten"
+    },
     "review_record": {
       "reviewer_role": "evaluation reviewer, independent of implementation",
       "date": "2026-08-18",

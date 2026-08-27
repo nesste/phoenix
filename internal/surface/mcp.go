@@ -59,16 +59,28 @@ type Input struct {
 type Status string
 
 const (
-	StatusOK      Status = "ok"
-	StatusFail    Status = "fail"
-	StatusRefused Status = "refused"
-	StatusAbsent  Status = "absent"
+	StatusOK        Status = "ok"
+	StatusFail      Status = "fail"
+	StatusRefused   Status = "refused"
+	StatusAbsent    Status = "absent"
+	StatusExhausted Status = "exhausted"
 )
+
+// reachableVerbsLimit caps discovery on absent errors. Selection is
+// deterministic and intent-independent: lexicographic order, first 12.
+const reachableVerbsLimit = 12
 
 type Error struct {
 	Code    string         `json:"code"`
 	Message string         `json:"message"`
 	Details map[string]any `json:"details,omitempty"`
+	// ReachableVerbs lists the verbs currently reachable on the addressed
+	// live handle when an act is absent. It exposes no registry, no other
+	// handle's verbs, and no unreachable capability.
+	ReachableVerbs []string `json:"reachable_verbs,omitempty"`
+	// DeclaredArgs echoes the attempted verb's declared argument schema on
+	// invalid_arguments failures, capped upstream at 2048 serialized bytes.
+	DeclaredArgs json.RawMessage `json:"declared_args,omitempty"`
 }
 
 type HandleGrant struct {
@@ -149,6 +161,7 @@ type Session struct {
 	stateful  map[string]statefulSuggestion
 	pending   []FrontierEntry
 	executed  int
+	announced bool
 }
 
 type statefulSuggestion struct {
@@ -292,7 +305,8 @@ func (admission *Admission) executePrepared(ctx context.Context, session *Sessio
 	access := session.graph.Prepare(ctx, input.Handle, input.Verb, input.State)
 	switch access.Status {
 	case world.AccessAbsent:
-		return absent(base)
+		reachableVerbs, _ := session.graph.ReachableVerbs(input.Handle)
+		return absent(base, reachableVerbs)
 	case world.AccessStale:
 		observation := teach.Observation{
 			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
@@ -346,6 +360,7 @@ func (admission *Admission) failedExecution(base Envelope, session *Session, inp
 		return *shaped
 	}
 	failed := failure(base, result.Error.Code, result.Error.Message, result.Error.Details)
+	failed.Error.DeclaredArgs = result.Error.DeclaredArgs
 	if !admission.suppressFrontier {
 		failed.Frontier = admission.frontier.Compute(session.graph, frontier.Observation{
 			HandleType: access.Target.Type, Handle: input.Handle, Verb: input.Verb,
@@ -355,11 +370,30 @@ func (admission *Admission) failedExecution(base Envelope, session *Session, inp
 	return failed
 }
 
+// exhaustedOrientationText is the frozen idempotent response to any standalone
+// orient call after the session's first executable act.
+const exhaustedOrientationText = "orientation is complete for this session; further intent calls return no guidance; guidance now arrives only on act responses"
+
+// unmatchedIntentText is the frozen zero-call bootstrap response when no
+// authored frontier, refusal alternative, or activation rule matches.
+const unmatchedIntentText = "no ready call matches this intent"
+
 func (admission *Admission) orient(ctx context.Context, session *Session, input Input, base Envelope) (output Envelope) {
 	if len([]byte(input.Intent)) > admission.maxArgsBytes {
 		return failure(base, "intent_too_large", "intent exceeded the size limit", map[string]any{"limit_bytes": admission.maxArgsBytes})
 	}
 	logContext := context.WithoutCancel(ctx)
+	if session.hasExecutedAct() {
+		// Orientation is bootstrap-only in fact: the exhaustion response is
+		// idempotent and must not disturb pending suggestions or their
+		// omitted-state restoration, so it skips rememberSuggestions.
+		if admission.beginEpisodeAct(logContext, session, base, input) {
+			defer func() { admission.completeEpisodeAct(logContext, session, base.ActID, output) }()
+		}
+		base.Status = StatusExhausted
+		base.Text = exhaustedOrientationText
+		return base
+	}
 	if admission.beginEpisodeAct(logContext, session, base, input) {
 		defer func() {
 			admission.completeEpisodeAct(logContext, session, base.ActID, output)
@@ -370,9 +404,9 @@ func (admission *Admission) orient(ctx context.Context, session *Session, input 
 	}
 	base.Status = StatusOK
 	base.Result = map[string]any{"matched": false}
-	base.Text = "ok orient: requested capability is unavailable in the reachable world; do not repeat this intent; finish without an executable act if no other ready call exists"
+	base.Text = unmatchedIntentText
 	base.Frontier = session.pendingSuggestions()
-	if len(base.Frontier) == 0 && !session.hasExecutedAct() {
+	if len(base.Frontier) == 0 {
 		base.Frontier = admission.activation.Compute(session.graph, input.Handle, input.Intent)
 	}
 	if len(base.Frontier) > 0 {
@@ -576,16 +610,23 @@ func (admission *Admission) baseEnvelope(session *Session, input Input) Envelope
 		verb = "orient"
 	}
 	return Envelope{
-		V: 1, WorldBuild: admission.worldBuild, SessionID: session.ID(), ActID: "a_" + rand.Text(),
+		V: 1, WorldBuild: admission.worldBuild, SessionID: session.ID(), ActID: "a_" + rand.Text()[:actIDLength],
 		Handle: input.Handle, Verb: verb, Result: nil, Error: nil,
 		Handles:  HandleDelta{Grant: []HandleGrant{}, Revoke: []string{}},
 		Frontier: []FrontierEntry{}, Refusal: nil,
 	}
 }
 
-func absent(envelope Envelope) Envelope {
+// actIDLength is the frozen act identifier length after the envelope
+// compression amendment: 8 random base32 characters after the a_ prefix.
+const actIDLength = 8
+
+func absent(envelope Envelope, reachableVerbs []string) Envelope {
 	envelope.Status = StatusAbsent
-	envelope.Error = &Error{Code: "absent", Message: "act is not reachable"}
+	if len(reachableVerbs) > reachableVerbsLimit {
+		reachableVerbs = reachableVerbs[:reachableVerbsLimit]
+	}
+	envelope.Error = &Error{Code: "absent", Message: "act is not reachable", ReachableVerbs: reachableVerbs}
 	envelope.Text = "absent: act is not reachable"
 	return envelope
 }
@@ -698,7 +739,7 @@ func (adapter *MCP) handle(ctx context.Context, request *mcp.CallToolRequest) (*
 	envelope := adapter.admission.Act(ctx, session, input)
 	return &mcp.CallToolResult{
 		Content:           []mcp.Content{&mcp.TextContent{Text: envelope.Text}},
-		StructuredContent: envelope,
+		StructuredContent: Compress(envelope, session.firstWireResponse()),
 		IsError:           false,
 	}, nil
 }

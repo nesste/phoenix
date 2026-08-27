@@ -59,15 +59,14 @@ func TestScheduledResumeSkipsCompletedPairingKeyAndReconstructsSpend(t *testing.
 		{Metrics: runtimeMetrics{CostUSD: 0.02, TotalTokens: 4}},
 		{Metrics: runtimeMetrics{CostUSD: 0.02, TotalTokens: 4}},
 		{Metrics: runtimeMetrics{CostUSD: 0.02, TotalTokens: 4}},
-		{Metrics: runtimeMetrics{CostUSD: 0.02, TotalTokens: 4}},
 	}}
 	summary, err := runScheduledCases(config, schedule, "sha256:schedule", 10, driver, fakeGrader{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if summary.Status != "complete" || summary.Launched != 10 || driver.calls != 5 ||
-		summary.SpentUSD != roundUSD(0.05+0.10) || summary.Results[0].Status != "pass" ||
-		summary.Results[5].Status != "pass" {
+	if summary.Status != "complete" || summary.Launched != 2*len(phase1Arms) || driver.calls != len(phase1Arms) ||
+		summary.SpentUSD != roundUSD(0.04+0.08) || summary.Results[0].Status != "pass" ||
+		summary.Results[len(phase1Arms)].Status != "pass" {
 		t.Fatalf("resume summary = %#v, runtime calls = %d", summary, driver.calls)
 	}
 }
@@ -93,14 +92,13 @@ func TestScheduledResumeContinuesRemainingArmsOfIncompletePairingKey(t *testing.
 	driver := &scriptedRuntime{results: []runtimeResult{
 		{Metrics: runtimeMetrics{CostUSD: 0.03, TotalTokens: 4}},
 		{Metrics: runtimeMetrics{CostUSD: 0.03, TotalTokens: 4}},
-		{Metrics: runtimeMetrics{CostUSD: 0.03, TotalTokens: 4}},
 	}}
 	summary, err := runScheduledCases(config, schedule, "sha256:schedule", 10, driver, fakeGrader{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if summary.Status != "complete" || summary.Launched != 5 || driver.calls != 3 ||
-		summary.Passes != 4 || summary.Failures != 1 || summary.SpentUSD != roundUSD(0.12) {
+	if summary.Status != "complete" || summary.Launched != len(phase1Arms) || driver.calls != 2 ||
+		summary.Passes != 3 || summary.Failures != 1 || summary.SpentUSD != roundUSD(0.09) {
 		t.Fatalf("incomplete-key resume = %#v, runtime calls = %d", summary, driver.calls)
 	}
 }
@@ -116,14 +114,14 @@ func TestScheduledResumeBudgetStopUsesReconstructedSpend(t *testing.T) {
 	for _, entry := range schedule.Entries[:len(phase1Arms)] {
 		writeTestAssignment(t, config, entry, "pass", 0.14)
 	}
-	writeTestCheckpoint(t, config, "sha256:schedule", "", 0.74, roundUSD(0.14*5), len(phase1Arms), 1)
+	writeTestCheckpoint(t, config, "sha256:schedule", "", 0.74, roundUSD(0.14*float64(len(phase1Arms))), len(phase1Arms), 1)
 	driver := &scriptedRuntime{}
 	summary, err := runScheduledCases(config, schedule, "sha256:schedule", 0.74, driver, fakeGrader{})
 	if err != nil {
 		t.Fatal(err)
 	}
 	if summary.Status != "indeterminate" || summary.StopReason != "run_budget" ||
-		summary.Launched != 5 || summary.BudgetStopped != len(phase1Arms) || driver.calls != 0 {
+		summary.Launched != len(phase1Arms) || summary.BudgetStopped != len(phase1Arms) || driver.calls != 0 {
 		t.Fatalf("resumed budget summary = %#v, runtime calls = %d", summary, driver.calls)
 	}
 }
@@ -206,7 +204,6 @@ func TestScheduledResumeWritesCheckpointAfterPairingKey(t *testing.T) {
 		{Metrics: runtimeMetrics{CostUSD: 0.01, TotalTokens: 2}},
 		{Metrics: runtimeMetrics{CostUSD: 0.01, TotalTokens: 2}},
 		{Metrics: runtimeMetrics{CostUSD: 0.01, TotalTokens: 2}},
-		{Metrics: runtimeMetrics{CostUSD: 0.01, TotalTokens: 2}},
 	}}
 	summary, err := runScheduledCases(runConfig{
 		repositoryRoot: repository, outputDir: output, worldBuild: testBuild,
@@ -220,7 +217,7 @@ func TestScheduledResumeWritesCheckpointAfterPairingKey(t *testing.T) {
 	if err := decodeStrict(filepath.Join(output, scheduledCheckpointName), &checkpoint); err != nil {
 		t.Fatal(err)
 	}
-	if summary.Launched != 5 || checkpoint.NextLaunchIndex != 5 || checkpoint.CompletedPairingKeys != 1 ||
+	if summary.Launched != len(phase1Arms) || checkpoint.NextLaunchIndex != len(phase1Arms) || checkpoint.CompletedPairingKeys != 1 ||
 		checkpoint.ScheduleDigest != "sha256:schedule" || checkpoint.WorldBuild != testBuild {
 		t.Fatalf("checkpoint = %#v, summary = %#v", checkpoint, summary)
 	}

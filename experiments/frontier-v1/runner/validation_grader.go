@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	frozenGraderDigest             = "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc"
+	frozenGraderDigest             = "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05"
 	frozenValidationScheduleDigest = "sha256:b38a0eaab063ba39dcbbc896c7b74ef085587177d3f58edcea0439d56e075813"
 	frozenValidationManifest       = "sha256:39acbad5e45ad65302659cd0875bdfe589165ede9b60b6448ac4b09ccfb1e0c6"
 	frozenValidationRegistryRaw    = "sha256:847c510ca4449856db075fa85a75801dd6e62629fca028f54039e1f962c1c816"
@@ -53,6 +53,9 @@ type externalCheckResult struct {
 	Kind    string `json:"kind"`
 	Verdict string `json:"verdict"`
 	Reason  string `json:"reason"`
+	// Gating mirrors the v5 grader's per-class check-kind classification:
+	// descriptive checks are reported but do not participate in status.
+	Gating bool `json:"gating"`
 }
 
 func prepareExternalValidationGrader(repositoryRoot, executable string) (externalValidationGrader, error) {
@@ -155,11 +158,13 @@ func validateExternalGrade(result externalGradeResult) error {
 		switch check.Verdict {
 		case "pass":
 		case "fail":
-			if wantStatus != "indeterminate" {
+			if check.Gating && wantStatus != "indeterminate" {
 				wantStatus = "fail"
 			}
 		case "manual_required":
-			wantStatus = "indeterminate"
+			if check.Gating {
+				wantStatus = "indeterminate"
+			}
 		default:
 			return fmt.Errorf("custody-safe grade contains unknown verdict %q", check.Verdict)
 		}

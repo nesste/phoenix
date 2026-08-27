@@ -7,7 +7,7 @@ import (
 
 type armPair struct{ intervention, comparator string }
 
-var comparedArms = []armPair{{"C", "A"}, {"C", "B"}, {"C", "D"}, {"D", "E"}}
+var comparedArms = []armPair{{"C", "A"}, {"C", "B"}, {"C", "D"}}
 
 func analyze(summary scheduledSummary, observations []observation, incomplete int) analysisReport {
 	report := analysisReport{
@@ -24,7 +24,6 @@ func analyze(summary scheduledSummary, observations []observation, incomplete in
 		directClaim(observations, report.Arms, len(globalReasons) > 0),
 		headlineClaim(observations, report.Arms, len(globalReasons) > 0),
 		frontierClaim(observations, report.Arms, len(globalReasons) > 0),
-		teachingClaim(observations, report.Arms, len(globalReasons) > 0),
 	}
 	if len(globalReasons) > 0 {
 		report.Status = "indeterminate"
@@ -32,7 +31,7 @@ func analyze(summary scheduledSummary, observations []observation, incomplete in
 	}
 	report.Status = report.Claims[1].Decision
 	for _, claim := range report.Claims {
-		if claim.ID != "headline_value" && (claim.Decision == "reject_surface" || claim.Decision == "remove_frontier" || claim.Decision == "replace_teaching_refusals") {
+		if claim.ID != "headline_value" && (claim.Decision == "reject_surface" || claim.Decision == "remove_frontier") {
 			report.Status = "component_rejected"
 			report.StatusReasons = append(report.StatusReasons, claim.ID+": "+claim.Reason)
 		}
@@ -173,25 +172,6 @@ func frontierClaim(observations []observation, arms map[string]armReport, global
 		claim.Decision, claim.Reason = "remove_frontier", "C-D point estimate is nonpositive or the one-sided harm test rejects"
 	} else {
 		claim.Decision, claim.Reason = "retain_frontier", "C-D point estimate is positive and the one-sided harm test does not reject"
-	}
-	_ = arms
-	return claim
-}
-
-func teachingClaim(observations []observation, arms map[string]armReport, globallyIndeterminate bool) claimReport {
-	filter := classFilter("recovery")
-	recoveryValues := pairedValues(observations, "D", "E", filter, func(item observation) float64 { return boolFloat(item.Recovery) })
-	recoveryInference := inferDifference(recoveryValues)
-	claim := baseClaim("teaching_refusal_value", "D", "E", "recovery", "triggered recovery with successful grade", recoveryInference, recoveryValues)
-	downstreamValues := successPairs(observations, "D", "E", filter)
-	downstream := inferDifference(downstreamValues)
-	claim.DownstreamSuccess = inferencePointer(downstream)
-	if globallyIndeterminate {
-		claim.Decision, claim.Reason = "indeterminate", "tranche-level missing-data or stopping rule"
-	} else if recoveryInference.Point <= 0 || harmPBelow(recoveryInference, 0.05) || downstream.LowerBound < -0.05 {
-		claim.Decision, claim.Reason = "replace_teaching_refusals", "recovery effect is nonpositive, harm test rejects, or downstream ITT lower bound is below -0.05"
-	} else {
-		claim.Decision, claim.Reason = "retain_teaching_refusals", "recovery effect is positive without a harm signal or downstream guardrail failure"
 	}
 	_ = arms
 	return claim

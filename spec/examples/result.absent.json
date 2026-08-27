@@ -1,21 +1,15 @@
 {
   "v": 1,
-  "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "wb": "aaaaaaaa",
   "session_id": "s_0123456789abcdef",
-  "act_id": "a_2123456789abcdef",
+  "act_id": "a_21234567",
   "handle": "h_9999999999999999",
   "verb": "status",
   "status": "absent",
-  "result": null,
   "error": {
     "code": "absent",
-    "message": "act is not reachable"
+    "message": "act is not reachable",
+    "reachable_verbs": ["edit", "find", "list", "read"]
   },
-  "text": "absent: act is not reachable",
-  "handles": {
-    "grant": [],
-    "revoke": []
-  },
-  "frontier": [],
-  "refusal": null
+  "text": "absent: act is not reachable"
 }

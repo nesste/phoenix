@@ -50,15 +50,21 @@ func TestAbsentResultCannotCarryDetailsOrHandleMutations(t *testing.T) {
 		{
 			name: "handle grant",
 			edit: func(instance map[string]any) {
-				instance["handles"].(map[string]any)["grant"] = []any{map[string]any{
-					"ref": "h_1111111111111111", "type": "repo", "label": "leaked handle",
-				}}
+				instance["handles"] = map[string]any{
+					"grant": []any{map[string]any{
+						"ref": "h_1111111111111111", "type": "repo", "label": "leaked handle",
+					}},
+					"revoke": []any{},
+				}
 			},
 		},
 		{
 			name: "handle revoke",
 			edit: func(instance map[string]any) {
-				instance["handles"].(map[string]any)["revoke"] = []any{"h_1111111111111111"}
+				instance["handles"] = map[string]any{
+					"grant":  []any{},
+					"revoke": []any{"h_1111111111111111"},
+				}
 			},
 		},
 	}

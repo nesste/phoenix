@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "wb": "aaaaaaaa",
+  "session_id": "s_0123456789abcdef",
+  "act_id": "a_51234567",
+  "handle": "h_0123456789abcdef",
+  "verb": "orient",
+  "status": "exhausted",
+  "text": "orientation is complete for this session; further intent calls return no guidance; guidance now arrives only on act responses"
+}

@@ -29,11 +29,21 @@ func ValidateDefinition(definition *Definition) error {
 
 func validateActivations(definition *Definition, roots map[string]Root) error {
 	seen := make(map[string]struct{}, len(definition.Activations))
+	alwaysReady := 0
 	for _, activation := range definition.Activations {
 		if _, exists := seen[activation.ID]; exists {
 			return fmt.Errorf("duplicate activation id %q", activation.ID)
 		}
 		seen[activation.ID] = struct{}{}
+		if activation.AlwaysReady {
+			alwaysReady++
+			if alwaysReady > 1 {
+				return fmt.Errorf("activation %q: a world may mark at most one rule always_ready", activation.ID)
+			}
+			if len(activation.Suggestions) == 0 {
+				return fmt.Errorf("activation %q is always_ready but has no suggestions", activation.ID)
+			}
+		}
 		pattern, err := regexp.Compile(activation.Pattern)
 		if err != nil {
 			return fmt.Errorf("activation %q has invalid pattern: %w", activation.ID, err)

@@ -11,18 +11,20 @@
       {
         "id": "first_focus_refused",
         "kind": "act_status",
-        "seq": 0,
+        "selector_mode": "some",
+        "path": "tests.focus",
         "status": "refused"
       },
       {
         "id": "recovers_to_current_test",
         "kind": "act_output_matches",
-        "seq": 2,
+        "selector_mode": "some",
+        "path": "tests.focus",
         "pattern": "(?i)TestRelayHandshake.*(pass|fail)|(pass|fail).*TestRelayHandshake"
       }
     ]
   },
-  "grading_script": "sha256:36abfbec8dd5365605d43ddbce796954ee24348acf1ea0a76b65365c2ee7dcfc",
+  "grading_script": "sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05",
   "acceptable_paths": [["tests.focus", "tests.list", "tests.focus"]],
   "label_rationale": "A plausible first focus uses the retired name; the teaching refusal should redirect the agent to list live tests and recover without flailing."
 }

@@ -43,16 +43,24 @@ func TestComputeBindsCapturedIntentToReachableCall(t *testing.T) {
 	}
 }
 
-func TestComputeUsesInspectFallbackWhenNoRuleMatches(t *testing.T) {
-	engine, session, root := inspectFallbackWorld(t, false)
+func TestComputeUsesAlwaysReadyFallbackWhenNoRuleMatches(t *testing.T) {
+	engine, session, root := inspectFallbackWorld(t, false, true)
 	entries := engine.Compute(session, root, "Make leaf a belong to the root declared by the manifest")
 	if len(entries) != 1 || entries[0].Call.Verb != "status" || entries[0].Provenance != "activation" {
-		t.Fatalf("entries = %#v, want inspect fallback status call", entries)
+		t.Fatalf("entries = %#v, want always_ready fallback status call", entries)
 	}
 }
 
-func TestComputeAuthoredMissDoesNotUseInspectFallback(t *testing.T) {
-	engine, session, root := inspectFallbackWorld(t, true)
+func TestComputeWithoutAlwaysReadyRuleReturnsZeroCalls(t *testing.T) {
+	engine, session, root := inspectFallbackWorld(t, false, false)
+	entries := engine.Compute(session, root, "Make leaf a belong to the root declared by the manifest")
+	if len(entries) != 0 {
+		t.Fatalf("entries = %#v, want zero calls when no rule is always_ready", entries)
+	}
+}
+
+func TestComputeAuthoredMissDoesNotUseAlwaysReadyFallback(t *testing.T) {
+	engine, session, root := inspectFallbackWorld(t, true, true)
 	entries := engine.Compute(session, root, "Deploy the Parcel build to production and report the release identifier")
 	if len(entries) != 0 {
 		t.Fatalf("entries = %#v, want authored miss with no fallback", entries)
@@ -89,7 +97,7 @@ func TestComputeWithoutInspectFallbackStaysEmpty(t *testing.T) {
 	}
 }
 
-func TestNewRejectsInspectFallbackWithoutSuggestions(t *testing.T) {
+func TestNewRejectsAlwaysReadyRuleWithoutSuggestions(t *testing.T) {
 	empty := json.RawMessage(`{"type":"object","additionalProperties":false}`)
 	definition := &world.Definition{
 		V: 1, ID: "activation_test",
@@ -98,15 +106,15 @@ func TestNewRejectsInspectFallbackWithoutSuggestions(t *testing.T) {
 			"status": {ArgsSchema: empty, ResultSchema: empty},
 		}}},
 		Activations: []world.ActivationRule{{
-			ID: inspectFallbackID, Pattern: `^$a`, Suggestions: []world.Suggestion{},
+			ID: "inspect_reachable_repository", Pattern: `^$a`, AlwaysReady: true, Suggestions: []world.Suggestion{},
 		}},
 	}
 	if _, err := New(definition); err == nil {
-		t.Fatal("expected inspect fallback without suggestions to fail")
+		t.Fatal("expected always_ready rule without suggestions to fail")
 	}
 }
 
-func inspectFallbackWorld(t *testing.T, includeAbsence bool) (*Engine, Topology, string) {
+func inspectFallbackWorld(t *testing.T, includeAbsence, alwaysReady bool) (*Engine, Topology, string) {
 	t.Helper()
 	empty := json.RawMessage(`{"type":"object","additionalProperties":false}`)
 	activations := []world.ActivationRule{
@@ -118,7 +126,7 @@ func inspectFallbackWorld(t *testing.T, includeAbsence bool) (*Engine, Topology,
 			}},
 		},
 		{
-			ID: inspectFallbackID, Pattern: `^$a`,
+			ID: "inspect_reachable_repository", Pattern: `^$a`, AlwaysReady: alwaysReady,
 			Suggestions: []world.Suggestion{{
 				Call: world.CallTemplate{Handle: world.HandleSelector{Source: "root", Name: "repo"}, Verb: "status"},
 				Why:  "inspect reachable repository state", Score: 0,

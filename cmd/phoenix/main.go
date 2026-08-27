@@ -50,7 +50,7 @@ func runServe(ctx context.Context, args []string, stdin io.ReadCloser, stdout io
 	rootRefsPath := flags.String("root-refs", "", "isolated runner root-reference JSON path")
 	stateEventsPath := flags.String("state-events", "", "authoring runner state-event JSON path")
 	worldBuild := flags.String("world-build", "", "complete world-build digest; defaults to the world definition digest")
-	arm := flags.String("arm", "C", "experiment arm: A, B, C, D, or E")
+	arm := flags.String("arm", "C", "experiment arm: A, B, C, or D")
 	if err := flags.Parse(args); err != nil {
 		return 2
 	}

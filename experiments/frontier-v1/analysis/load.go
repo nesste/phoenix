@@ -14,7 +14,7 @@ import (
 
 const phase1Repetitions = 3
 
-var phase1Arms = []string{"A", "B", "C", "D", "E"}
+var phase1Arms = []string{"A", "B", "C", "D"}
 
 func analyzeFiles(root, summaryPath, manifestPath string) (analysisReport, error) {
 	var summary scheduledSummary
@@ -104,7 +104,7 @@ func finalizePairings(observations []observation, groups map[string][]int) (int,
 	}
 	for key, indexes := range groups {
 		if len(indexes) != len(phase1Arms) {
-			return 0, fmt.Errorf("pairing key %s does not contain all five arms", key)
+			return 0, fmt.Errorf("pairing key %s does not contain all four arms", key)
 		}
 		arms := make([]string, 0, len(indexes))
 		hasSafetyStop := false
@@ -114,7 +114,7 @@ func finalizePairings(observations []observation, groups map[string][]int) (int,
 		}
 		sortStrings(arms)
 		if !reflect.DeepEqual(arms, phase1Arms) {
-			return 0, fmt.Errorf("pairing key %s must contain A-E exactly once", key)
+			return 0, fmt.Errorf("pairing key %s must contain A-D exactly once", key)
 		}
 		if hasSafetyStop {
 			incomplete++

@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
+func TestProtocolV5IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	root := repoRoot(t)
 	data, err := os.ReadFile(filepath.Join(root, "experiments", "frontier-v1", "protocol.json"))
 	if err != nil {
@@ -20,7 +20,14 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 		Frozen    bool   `json:"frozen"`
 		Amendment struct {
 			Activation   string `json:"activation"`
+			Discovery    string `json:"discovery"`
+			Envelope     string `json:"envelope"`
+			Grading      string `json:"grading"`
 			StateChanges string `json:"state_changes"`
+			Retirement   string `json:"retirement"`
+			SupersededV4 struct {
+				AppliesTo string `json:"applies_to"`
+			} `json:"superseded_v4_amendment"`
 		} `json:"amendment"`
 		Runtime struct {
 			Version  string `json:"version"`
@@ -29,6 +36,7 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 		} `json:"runtime"`
 		SystemPrompts map[string]string `json:"system_prompts"`
 		Tranche       struct {
+			ArmsPerPairingKey   int `json:"arms_per_pairing_key"`
 			MinimumCases        int `json:"minimum_cases_per_tranche"`
 			MinimumFamilies     int `json:"minimum_families_per_class"`
 			InferentialFamilies int `json:"inferential_subset_minimum_families"`
@@ -86,10 +94,6 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 				Orientation any  `json:"orientation"`
 				StateEvents bool `json:"state_events"`
 			} `json:"D"`
-			E struct {
-				Orientation any  `json:"orientation"`
-				StateEvents bool `json:"state_events"`
-			} `json:"E"`
 		} `json:"arms"`
 		Analysis struct {
 			Interval     string `json:"interval_method"`
@@ -99,6 +103,9 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 		} `json:"analysis"`
 		Claims []struct {
 			ID                      string  `json:"id"`
+			Status                  string  `json:"status"`
+			RetirementRecord        string  `json:"retirement_record"`
+			Fallback                string  `json:"fallback"`
 			Population              string  `json:"population"`
 			Endpoint                string  `json:"endpoint"`
 			Uncertainty             string  `json:"uncertainty"`
@@ -157,31 +164,73 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	if err := json.Unmarshal(data, &protocol); err != nil {
 		t.Fatal(err)
 	}
-	if protocol.Version != 4 || protocol.Status != "frozen" || !protocol.Frozen || !protocol.Review.Accepted {
+	if protocol.Version != 5 || protocol.Status != "frozen" || !protocol.Frozen || !protocol.Review.Accepted {
 		t.Fatalf("unexpected protocol state: v=%d status=%s frozen=%t", protocol.Version, protocol.Status, protocol.Frozen)
 	}
 	if !strings.Contains(protocol.Amendment.Activation, "Before the session's first executable act") || !strings.Contains(protocol.Amendment.Activation, "must not reactivate from intent") || !strings.Contains(protocol.Amendment.Activation, "current pending frontier") {
 		t.Fatalf("bootstrap activation or current-frontier state scope regressed: %q", protocol.Amendment.Activation)
 	}
+	if !strings.Contains(protocol.Amendment.Activation, "status exhausted") || !strings.Contains(protocol.Amendment.Activation, "always_ready") || !strings.Contains(protocol.Amendment.Activation, "no ready call matches this intent") {
+		t.Fatalf("v5 bootstrap-only orientation contract is incomplete: %q", protocol.Amendment.Activation)
+	}
+	if !strings.Contains(protocol.Amendment.Discovery, "reachable_verbs") || !strings.Contains(protocol.Amendment.Discovery, "capped at 12") || !strings.Contains(protocol.Amendment.Discovery, "declared_args") || !strings.Contains(protocol.Amendment.Discovery, "2048") {
+		t.Fatalf("v5 discovery-bearing error contract is incomplete: %q", protocol.Amendment.Discovery)
+	}
+	if !strings.Contains(protocol.Amendment.Envelope, "expand(compress(x)) == x") || !strings.Contains(protocol.Amendment.Envelope, "wb") || !strings.Contains(protocol.Amendment.Envelope, "8 random characters") {
+		t.Fatalf("v5 envelope compression contract is incomplete: %q", protocol.Amendment.Envelope)
+	}
+	if !strings.Contains(protocol.Amendment.Grading, "selector-addressed, never sequence-index-addressed") || !strings.Contains(protocol.Amendment.Grading, "recency_rationale") || !strings.Contains(protocol.Amendment.Grading, "final_message_states is barred") {
+		t.Fatalf("v5 grading-altitude contract is incomplete: %q", protocol.Amendment.Grading)
+	}
 	if !strings.Contains(protocol.Amendment.StateChanges, "shared trial-harness rule for every arm") || !strings.Contains(protocol.Amendment.StateChanges, "flat-tool Arms A and B") || !strings.Contains(protocol.Amendment.StateChanges, "Orientations do not advance") {
 		t.Fatalf("cross-arm state-event contract regressed: %q", protocol.Amendment.StateChanges)
 	}
+	if !strings.Contains(protocol.Amendment.Retirement, "All v4-sealed unopened candidates are retired") || !strings.Contains(protocol.Amendment.Retirement, "diagnostic-only") {
+		t.Fatalf("v5 retirement clause is incomplete: %q", protocol.Amendment.Retirement)
+	}
+	if protocol.Amendment.SupersededV4.AppliesTo != "superseded protocol v4 only" {
+		t.Fatalf("superseded v4 amendment is not scoped: %q", protocol.Amendment.SupersededV4.AppliesTo)
+	}
+	var armKeys struct {
+		Arms          map[string]json.RawMessage `json:"arms"`
+		SystemPrompts map[string]json.RawMessage `json:"system_prompts"`
+	}
+	if err := json.Unmarshal(data, &armKeys); err != nil {
+		t.Fatal(err)
+	}
+	for _, retired := range []string{"E"} {
+		if _, exists := armKeys.Arms[retired]; exists {
+			t.Fatalf("retired arm %s is still registered", retired)
+		}
+		if _, exists := armKeys.SystemPrompts[retired]; exists {
+			t.Fatalf("retired arm %s still has a system prompt", retired)
+		}
+	}
+	for _, required := range []string{"A", "B", "C", "D", "D_prime"} {
+		if _, exists := armKeys.Arms[required]; !exists {
+			t.Fatalf("arm %s is missing from the registration", required)
+		}
+	}
 	basePrompt := "Use only the configured tools. Follow the user request exactly."
 	intentInstruction := "Before the first executable act, send the complete goal as intent"
-	for _, arm := range []string{"A", "B", "C", "D", "E"} {
+	conditionalInstruction := "If no call is returned, proceed directly, or answer without acting when the tools cannot serve the goal."
+	for _, arm := range []string{"A", "B", "C", "D"} {
 		prompt, exists := protocol.SystemPrompts[arm]
 		if !exists || !strings.HasPrefix(prompt, basePrompt) {
 			t.Fatalf("arm %s system prompt is not pinned: %q", arm, prompt)
 		}
 		hasIntent := strings.Contains(prompt, intentInstruction)
-		wantIntent := arm == "C" || arm == "D" || arm == "E"
+		wantIntent := arm == "C" || arm == "D"
 		if hasIntent != wantIntent {
 			t.Fatalf("arm %s intent instruction = %t, want %t: %q", arm, hasIntent, wantIntent, prompt)
+		}
+		if wantIntent && !strings.Contains(prompt, conditionalInstruction) {
+			t.Fatalf("arm %s bootstrap prompt is not conditional: %q", arm, prompt)
 		}
 	}
 	for arm, stateEvents := range map[string]bool{
 		"A": protocol.Arms.A.StateEvents, "B": protocol.Arms.B.StateEvents,
-		"C": protocol.Arms.C.StateEvents, "D": protocol.Arms.D.StateEvents, "E": protocol.Arms.E.StateEvents,
+		"C": protocol.Arms.C.StateEvents, "D": protocol.Arms.D.StateEvents,
 	} {
 		if !stateEvents {
 			t.Fatalf("arm %s does not share harness state events", arm)
@@ -190,10 +239,10 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	if protocol.Arms.A.Orientation != false || protocol.Arms.B.Orientation != false {
 		t.Fatalf("flat arms unexpectedly expose orientation: A=%v B=%v", protocol.Arms.A.Orientation, protocol.Arms.B.Orientation)
 	}
-	for arm, orientation := range map[string]any{"C": protocol.Arms.C.Orientation, "D": protocol.Arms.D.Orientation, "E": protocol.Arms.E.Orientation} {
+	for arm, orientation := range map[string]any{"C": protocol.Arms.C.Orientation, "D": protocol.Arms.D.Orientation} {
 		value, ok := orientation.(string)
-		if !ok || !strings.Contains(value, "bootstrap_only") {
-			t.Fatalf("arm %s orientation is not bootstrap-only: %v", arm, orientation)
+		if !ok || !strings.Contains(value, "bootstrap_only") || !strings.Contains(value, "exhausted") {
+			t.Fatalf("arm %s orientation is not v5 bootstrap-only: %v", arm, orientation)
 		}
 	}
 	record := protocol.Review.Record
@@ -276,6 +325,28 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 		Multiplicity            string
 	}{}
 	for _, claim := range protocol.Claims {
+		if claim.ID == "teaching_refusal_value" {
+			if claim.Status != "retired_engineering_grade" ||
+				!strings.Contains(claim.RetirementRecord, "No future artifact may cite teaching-refusal value as confirmed") ||
+				!strings.Contains(claim.RetirementRecord, "permanent evidence record") ||
+				!strings.Contains(claim.Fallback, "formal written requirement") ||
+				!strings.Contains(claim.Multiplicity, "cannot create a headline pass") {
+				t.Fatalf("teaching-refusal retirement record is incomplete: %+v", claim)
+			}
+			if claim.Uncertainty != "" || claim.Threshold != "" || claim.MinimumDetectableEffect != 0 {
+				t.Fatalf("retired claim still carries live inference machinery: %+v", claim)
+			}
+			claims[claim.ID] = struct {
+				Population              string
+				Endpoint                string
+				Uncertainty             string
+				Threshold               string
+				MinimumDetectableEffect float64
+				PowerNote               string
+				Multiplicity            string
+			}{Multiplicity: claim.Multiplicity}
+			continue
+		}
 		if claim.ID == "" || claim.Uncertainty == "" || claim.Threshold == "" || claim.MinimumDetectableEffect <= 0 || claim.ForcedFailure == "" {
 			t.Fatalf("incomplete claim: %+v", claim)
 		}
@@ -309,16 +380,18 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	if !strings.Contains(frontier.Population, "16 generating families") || !strings.Contains(frontier.Uncertainty, "sign-flip permutation test because G=16") || frontier.MinimumDetectableEffect != 0.26 {
 		t.Fatalf("frontier allocation or sensitivity regressed: %+v", frontier)
 	}
-	teaching := claims["teaching_refusal_value"]
-	if !strings.Contains(teaching.Population, "all assigned recovery trials") || !strings.Contains(teaching.Population, "D teaching refusals and E plain typed errors are both eligible") || !strings.Contains(teaching.Endpoint, "first state-sensitive act fails or is declined") {
-		t.Fatalf("teaching-refusal ITT population or trigger regressed: %+v", teaching)
-	}
 	for _, isolation := range []string{"direct_no_tax", "frontier_value", "teaching_refusal_value"} {
 		if !strings.Contains(claims[isolation].Multiplicity, "cannot create a headline pass") {
 			t.Fatalf("isolation %s may not create a headline pass: %q", isolation, claims[isolation].Multiplicity)
 		}
 	}
-	validationMaximum := float64(protocol.Tranche.MinimumCases*protocol.Trial.Repetitions*5) * protocol.Trial.CostCap * 1.10
+	if !strings.Contains(protocol.Analysis.Multiplicity, "direct_no_tax and frontier_value are the live pre-registered isolations") || strings.Contains(protocol.Analysis.Multiplicity, "teaching_refusal_value") {
+		t.Fatalf("multiplicity must name only the live isolations: %q", protocol.Analysis.Multiplicity)
+	}
+	if protocol.Tranche.ArmsPerPairingKey != 4 {
+		t.Fatalf("arms per pairing key = %d, want 4", protocol.Tranche.ArmsPerPairingKey)
+	}
+	validationMaximum := float64(protocol.Tranche.MinimumCases*protocol.Trial.Repetitions*protocol.Tranche.ArmsPerPairingKey) * protocol.Trial.CostCap * 1.10
 	heldOutMaximum := float64(protocol.Tranche.MinimumCases*protocol.Trial.Repetitions*3) * protocol.Trial.CostCap * 1.10
 	if validationMaximum > protocol.Budget.Validation+0.000001 {
 		t.Fatalf("validation ceiling %.2f does not cover planned maximum %.2f", protocol.Budget.Validation, validationMaximum)
@@ -350,8 +423,14 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 	if !hasScheduleDigest {
 		t.Fatal("schedule digest must be frozen explicitly")
 	}
-	if len(protocol.Remaining) != 5 || !strings.Contains(protocol.Remaining[0], "generation and sealing") || !strings.Contains(protocol.Remaining[4], "Task 0.6") {
+	if len(protocol.Remaining) != 7 || !strings.Contains(protocol.Remaining[0], "generation and sealing") || !strings.Contains(protocol.Remaining[6], "Task 0.6") {
 		t.Fatalf("frozen protocol must retain execution blockers: %v", protocol.Remaining)
+	}
+	blockersText := strings.Join(protocol.Remaining, "\n")
+	for _, required := range []string{"A-D runner", "path witness", "process-event log", "authoring dry run", "classified message set"} {
+		if !strings.Contains(blockersText, required) {
+			t.Fatalf("execution blockers are missing %q: %v", required, protocol.Remaining)
+		}
 	}
 	wantLimitations := []string{
 		"Conclusions are limited to Claude Code 2.1.229, claude-sonnet-5, the frozen dev-repo world, and the eight task classes.",
@@ -384,7 +463,10 @@ func TestProtocolV4IsFrozenAcceptedCompleteAndBudgeted(t *testing.T) {
 			}
 		}
 	}
-	if !protocol.Gate.MayRunAuthoring || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut || !strings.Contains(protocol.Gate.Reason, "Protocol v4") || !strings.Contains(protocol.Gate.Reason, "independently accepted") {
-		t.Fatalf("v4 amendment must keep only authoring open: %+v", protocol.Gate)
+	if !protocol.Gate.MayRunAuthoring || protocol.Gate.MayOpenValidation || protocol.Gate.MayOpenHeldOut || !strings.Contains(protocol.Gate.Reason, "Protocol v5") || !strings.Contains(protocol.Gate.Reason, "independently accepted") {
+		t.Fatalf("v5 amendment must keep only authoring open: %+v", protocol.Gate)
+	}
+	if !strings.Contains(protocol.Gate.Reason, "review candidate") || !strings.Contains(protocol.Gate.Reason, "authoring dry run") {
+		t.Fatalf("v5 gate reason must record the pending payload review and dry run: %q", protocol.Gate.Reason)
 	}
 }

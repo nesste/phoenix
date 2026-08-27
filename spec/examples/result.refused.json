@@ -1,19 +1,12 @@
 {
   "v": 1,
-  "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "wb": "aaaaaaaa",
   "session_id": "s_0123456789abcdef",
-  "act_id": "a_1123456789abcdef",
+  "act_id": "a_11234567",
   "handle": "h_0123456789abcdef",
   "verb": "focus",
   "status": "refused",
-  "result": null,
-  "error": null,
   "text": "refused tests.focus: test is required\ninstead: tests.list",
-  "handles": {
-    "grant": [],
-    "revoke": []
-  },
-  "frontier": [],
   "refusal": {
     "what": "tests.focus",
     "why": "test is required",

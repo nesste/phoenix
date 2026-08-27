@@ -233,6 +233,28 @@ func (session *Session) FindReachable(query string) []ReachableMatch {
 	return matches
 }
 
+// ReachableVerbs reports the verbs currently reachable on one live handle in
+// lexicographic order. The second result is false when the handle is not live,
+// so absence on a dead handle discloses nothing.
+func (session *Session) ReachableVerbs(ref string) ([]string, bool) {
+	session.mu.RLock()
+	defer session.mu.RUnlock()
+	handle, exists := session.reachable[ref]
+	if !exists {
+		return nil, false
+	}
+	descriptor, exists := session.definition.HandleTypes[handle.Type]
+	if !exists {
+		return nil, false
+	}
+	verbs := make([]string, 0, len(descriptor.Verbs))
+	for name := range descriptor.Verbs {
+		verbs = append(verbs, name)
+	}
+	sort.Strings(verbs)
+	return verbs, true
+}
+
 func (session *Session) Prepare(ctx context.Context, ref, verbName, expectedState string) Access {
 	session.mu.RLock()
 	handle, verb, exists := session.lookup(ref, verbName)

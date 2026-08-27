@@ -1,22 +1,15 @@
 {
   "v": 1,
-  "world_build": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "wb": "aaaaaaaa",
   "session_id": "s_0123456789abcdef",
-  "act_id": "a_3123456789abcdef",
+  "act_id": "a_31234567",
   "handle": "h_0123456789abcdef",
   "verb": "build",
   "status": "fail",
-  "result": null,
   "error": {
     "code": "execution_failed",
     "message": "build exited unsuccessfully",
     "details": { "exit_code": 1 }
   },
-  "text": "fail: build exited unsuccessfully",
-  "handles": {
-    "grant": [],
-    "revoke": []
-  },
-  "frontier": [],
-  "refusal": null
+  "text": "fail: build exited unsuccessfully"
 }

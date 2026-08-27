@@ -1,6 +1,7 @@
 package verb
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -46,6 +47,48 @@ type Failure struct {
 	Code    string         `json:"code"`
 	Message string         `json:"message"`
 	Details map[string]any `json:"details,omitempty"`
+	// DeclaredArgs carries the attempted verb's declared argument schema on
+	// invalid_arguments failures so a failed guess becomes a corrected next
+	// call. It is capped at declaredArgsLimit serialized bytes.
+	DeclaredArgs json.RawMessage `json:"declared_args,omitempty"`
+}
+
+// declaredArgsLimit is the frozen serialized-size cap for declared_args; a
+// larger schema is truncated to its top-level property names and types.
+const declaredArgsLimit = 2048
+
+func capDeclaredArgs(raw json.RawMessage) json.RawMessage {
+	compact := new(bytes.Buffer)
+	if err := json.Compact(compact, raw); err != nil {
+		return nil
+	}
+	if compact.Len() <= declaredArgsLimit {
+		return json.RawMessage(compact.Bytes())
+	}
+	var schema map[string]any
+	if err := json.Unmarshal(raw, &schema); err != nil {
+		return nil
+	}
+	truncated := map[string]any{"truncated": true}
+	if declaredType, ok := schema["type"].(string); ok {
+		truncated["type"] = declaredType
+	}
+	if properties, ok := schema["properties"].(map[string]any); ok {
+		names := make(map[string]any, len(properties))
+		for name, value := range properties {
+			propertyType := ""
+			if member, ok := value.(map[string]any); ok {
+				propertyType, _ = member["type"].(string)
+			}
+			names[name] = map[string]any{"type": propertyType}
+		}
+		truncated["properties"] = names
+	}
+	encoded, err := json.Marshal(truncated)
+	if err != nil {
+		return nil
+	}
+	return json.RawMessage(encoded)
 }
 
 type Result struct {
@@ -101,7 +144,9 @@ func (executor *Executor) Execute(ctx context.Context, request Request) Result {
 		request.Args = map[string]any{}
 	}
 	if err := entry.args.Validate(request.Args); err != nil {
-		return failed("invalid_arguments", "verb arguments do not match the declared schema", nil)
+		result := failed("invalid_arguments", "verb arguments do not match the declared schema", nil)
+		result.Error.DeclaredArgs = capDeclaredArgs(entry.definition.ArgsSchema)
+		return result
 	}
 
 	callContext, cancel := context.WithTimeout(ctx, executor.timeout)

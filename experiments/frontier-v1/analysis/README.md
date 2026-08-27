@@ -47,13 +47,13 @@ The following definitions make the descriptive measures reproducible from retain
 
 - A wrong verb is an executable act whose Phoenix envelope ends in `fail` or `absent`. A `refused` act is state-inappropriate but is not counted as a wrong verb.
 - A dead end is a timeout, turn-limit, cost-cap, agent-error, or malformed-output termination. A terminal graded failure with no executable act is also no progress. A failed trial is a help request when its final message asks the user to provide, clarify, specify, or confirm missing information, says that more information or context is required, or says it cannot proceed without something. Unlaunched and unresolved assignments are reported separately, not relabeled as dead ends.
-- Recovery on a registered recovery case requires a first non-`ok` executable act, a later `ok` executable alternative, and a passing final grade. The same rule applies to D refusals and E plain typed errors.
+- Recovery on a registered recovery case requires a first non-`ok` executable act, a later `ok` executable alternative, and a passing final grade. The rule covers C and D refusals; arm E is retired under protocol v5 and the archived D/E contrast is its permanent evidence record.
 - Frontier linkage is reconstructed from the sanitized runtime stream. A take requires the next Phoenix executable call to match a displayed call's handle, verb, and arguments. The state field may be omitted because the accepted v4 admission rule restores it only for the current pending frontier. A take-and-succeed also requires a passing grade.
 
 Orientations remain separate from executable acts for act counts and sequence positions. Their displayed calls remain eligible for frontier linkage.
 
 ## Decisions and limits
 
-The command implements the four Phase 1 decisions in `protocol.json`: direct harm, headline capability or efficiency-only, frontier isolation, and teaching-refusal isolation. Component isolations can reject a component but cannot create a headline pass. Cost cannot veto capability.
+The command implements the three Phase 1 decisions in `protocol.json`: direct harm, headline capability or efficiency-only, and frontier isolation. The teaching-refusal isolation is retired at engineering grade under protocol v5. Component isolations can reject a component but cannot create a headline pass. Cost cannot veto capability.
 
 The rendered report preserves the scope limit and states that it cannot open Gate 1A, validation, or held-out. Engineering-gate evidence is separate from the scheduled outcome analysis and must be attached before a project-level surface claim is made.

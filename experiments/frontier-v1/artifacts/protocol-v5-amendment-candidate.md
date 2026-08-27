@@ -1,0 +1,34 @@
+# Protocol v5 amendment payload candidate
+
+Status: review candidate. Both outcome gates are closed (decision 0023). Base commit `24895c4a272167cf8ea1445d3b81b2133ae62c4c`; the payload commit is the commit that introduces this note and `gate-1a-protocol-v5-amendment-candidate.json`.
+
+## What this payload implements
+
+The five mechanisms of the accepted protocol-v5 proposal (`docs/plans/2026-08-27-protocol-v5-proposal.md`, revision 4, fourth independent review ACCEPT in `docs/reviews/2026-08-27-protocol-v5-proposal-review-4.md`) that are implementable before the new sealed tranche exists:
+
+1. **Orientation retirement (§1).** After the session's first executable act, a standalone `orient` returns `status: "exhausted"` with the frozen idempotent text and never touches pending suggestions or omitted-state restoration. Bootstrap orientation may return zero calls with the frozen `no ready call matches this intent` text; activation-rule fallback survives only on a rule explicitly marked `always_ready` (new world-schema field, at most one rule per world, none marked in the frozen dev-repo world, whose bytes and canonical digest are unchanged). The C/D system prompts become the proposal's conditional form in the runner and `protocol.json`.
+2. **Discovery-bearing errors (§2).** `absent` on a live handle carries `error.reachable_verbs` (lexicographic, cap 12, intent-independent; nothing on a dead handle). `invalid_arguments` carries `error.declared_args` capped at 2,048 serialized bytes with top-level truncation beyond the cap. `refused` is unchanged.
+3. **Envelope compression (§4).** The wire form omits null and empty fields; the full `world_build` digest appears only in a session's first response, later responses carry the 8-character `wb` prefix; act ids shorten to 8 random characters. `Expand(Compress(x)) == x` is committed as the frozen round-trip test `TestWireRoundTripIsLosslessForEveryResponseShape` in `internal/surface/wire_test.go`. The episode store keeps the full archival envelope, so trial records and grading inputs keep the archival shape; runtime transcripts remain the exact bytes the agent saw.
+4. **E-removal (§7).** `protocol.json` is rewritten per the proposal's enumeration: v bumps to 5 with a new amendment record (the v4 amendment is preserved as a scoped superseded record), `system_prompts.E` and `arms.E` are deleted, arm D's orientation is restated, `arm_equivalence` covers A–D, `refusal_recovery_rate` becomes D-only, `analysis.multiplicity` names only `direct_no_tax` and `frontier_value`, the `teaching_refusal_value` claim becomes the engineering-grade retirement record with its non-default fallback trigger, `remaining_execution_blockers` and `gate.reason` move to the A–D runner, and `tranche_design` records 4 arms per pairing key. The historical `review.review_record` is byte-preserved. The server, runner, schedule writer/loader (four-row Williams design), scheduletool, and analysis all move to A–D; the retired five-arm v4 validation schedule is refused by the deterministic construction and preserved as custody evidence.
+5. **Selector-addressed grading (§8).** The grader classifies every check kind gating or descriptive per class (outcome-primary route checks are descriptive, reported with a new `gating` flag in grade results; path-primary classes gate everything). Gating act-addressed checks in outcome-primary classes are selector-addressed (`selector_mode` `"some"` existential default; `"last"` only with a required `recency_rationale`, which the schema and grader both enforce) and sequence-index addressing is rejected there. `final_message_states` is removed from the label schema and fails closed in the grader; no authoring label used it. Absence labels are restricted to their listed kinds. The four outcome-primary authoring labels are migrated to `"some"`-mode selectors (no `"last"`-mode use exists in this payload); all eight labels re-pin the new grader digest and the authoring manifest is regenerated.
+
+## Identities
+
+- Grader digest: `sha256:36abfbec…7dcfc` → `sha256:7b7438f84164d69157bbde87fd3ffb2f88e069bb01a97785a737910e29df0e05` (pinned in `runner/validation_grader.go`, `runner/main_test.go`, and all eight authoring labels).
+- Candidate world-build digest from the frozen linux/amd64 `version=dev` recipe: `sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4` (Windows-host cross-compile; the refreeze must regenerate `world-build.linux-amd64.json` and reproduce it on the linux execution host).
+- World definition bytes and canonical digest unchanged: `sha256:d7f93051…89bc`. Case `world_ref` values are untouched.
+- `protocol.json` LF digest: `sha256:39dfcd2f0554a97657e7140da041b7ea76bebdc9e3dc8f63cc88732b30534d69`.
+- The retired v4 schedule/manifest/registry/archive identities are recorded in the inventory JSON as custody evidence.
+
+## Expected freeze failures
+
+Per the repair-cycle contract, the interim state is deliberately red on exactly three freeze tests until the refreeze commit re-pins the replaced identities: `TestPreValidationFreezeMatchesAcceptedCandidates` (runner file digests moved), `TestLocalArtifactCandidateMatchesImplementation` (C/D prompts and invocation moved), and `TestValidationBuildReproducesFrozenWorldBuildDigest` (binary moved). Every other test in all three modules is green, and `format-check`, `vet`, `staticcheck`, `gocyclo -over 15`, `dupl -t 100`, `validate-spec`, and `validate-authoring` pass.
+
+## What this payload does not do
+
+- No model, trial, grade, output directory, or cost is produced; `execution_performed` is false and both outcome gates stay closed.
+- Proposal §3 (path witnesses), §5 (absence-grading acceptance test and the chair-labeled, evaluator-countersigned classified message set), §6 (witness-derived uniform turn cap), and §9 (mandatory resume, process-event log, post-closure gate) are later v5 amendment work: witnesses and caps freeze with the new sealed tranche and schedule, the classified set requires the payload reviewer as countersigner, and the resume machinery is custodian-side. They are registered in `protocol.json` `remaining_execution_blockers`.
+- `pre-validation-artifacts.json` is untouched; refreezing it is the separate focused refreeze commit after independent review.
+- The freeze obligations carried into the payload review by the fourth proposal review are discharged here for obligations 3 (selector schema and review duty; no last-mode uses exist), 4 (`final_message_states` barred), 6 (the E-reference rewrite, verifiable by reading every arm-letter and retired-claim-id occurrence), and 7's round-trip clause; obligations 1, 2, 5, and the §6 margin and `standing_surface` re-measurement remain with the later payloads and the authoring dry run.
+
+Independent review and a focused refreeze are required before any further chair decision. The review must not open any outcome gate.
