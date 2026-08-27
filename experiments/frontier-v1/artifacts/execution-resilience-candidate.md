@@ -2,10 +2,15 @@
 
 Status: **review candidate, not frozen.** Both outcome gates stay closed (`may_open_validation: false`, `may_open_held_out: false`). No model was run, no private grade obtained, and no validation outcome observed while authoring this payload.
 
-Base commit: `46030d4fa668b0e1b00d80ea91ee29717dfaf67e` (the first review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
+Base commit: `9f53fa73fbede7e240aeb22e9b02d287c9c39a94` (the second review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
 Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 16 files.
 
-**Revision 2.** The first payload (`7a1ea42513acd3d55e276eabc2459da4a037acc0`) was independently reviewed and returned **REVISE** with two P1 findings and no P0 ([review record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review.md)). Every P1 and P2 finding is fixed here, along with five of the nine P3 notes; see "What the first review changed" below. Nothing in the reviewed design was discarded — the findings were defects in the enforcement, not in the contract.
+**Revision 3.** Two independent reviews have run, by different reviewers, and both returned REVISE.
+
+- Review 1 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review.md)) against payload `7a1ea42513acd3d55e276eabc2459da4a037acc0`: two P1, six P2, nine P3, no P0.
+- Review 2 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review-2.md)) against revision `e92eaacf6ab54b547b331d14749717da64b58e0d`: **no P0 and no P1**; it confirmed both P1s genuinely fixed and all six P2s fixed or substantively fixed, and raised two new P2s and ten P3s.
+
+Every P1 and P2 from both reviews is fixed here, along with sixteen of the nineteen P3 notes. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
 
 ## What this implements
 
@@ -35,7 +40,7 @@ Spend is retained because the budget-stop rule requires it; the mandatory-resume
 | --- | --- | --- |
 | (a) no outcome inspected between interruption and resume | `no_outcome_inspection_between_interruption_and_resume` | refuses |
 | (b) frozen bytes digest-identical, recorded in the attestation | `frozen_bytes_digest_identical_at_resume`, `frozen_digests_verified.{schedule_digest,world_build}` compared against the live values | refuses |
-| (c) resume within 72 hours | `interrupted_at` → `resume_authorized_at`, timestamps required in order, and anchored to the last process-event timestamp and the runner's clock | refuses |
+| (c) resume within 72 hours | timestamps required in order; `interrupted_at` at or after the log's last entry within five minutes' skew; 72 hours measured from that entry; authorization stamped within an hour of invocation | refuses |
 | (d) cause classified before inspection and before the resume decision, and on the frozen list | `cause_classified_before_inspection_and_resume_decision`, `cause` ∈ {`host_restart`, `power_loss`, `hardware_failure`, `process_kill`} | refuses |
 | kill establishment | `kill_principal_established_as_non_participant` plus `process_event_log_sha256` re-verified against the log on disk | refuses |
 | at most one resume | checkpoint `resumes` field corroborated against the `start` entries in the process-event log; `resume_index` must equal `resumes + 1` | refuses |
@@ -80,6 +85,27 @@ Also fixed: **P3-3** (the stop event recorded the raw failure text, which for a 
 
 Not fixed, and offered as residuals: P3-1 (the committed log digest never covers the terminal entry; the custody record hashes the whole file at closure), P3-2 (five non-outcome identity fields beyond §9's literal list), P3-5 (the checkpoint and partial summary are not fsynced, failing closed to indeterminate), P3-6 (the blocker edit also strikes the discharged §5 countersignature clause — named here and to be named in the decision document). The reviewer's judgment on the authoring-tranche exemption — defensible, but to be recorded knowingly rather than passed silently — is accepted, and it is carried as a residual with the reviewer's own reasoning attached.
 
+## What the second review changed
+
+The second reviewer found no P0 and no P1, and confirmed by independent attack that the first round's fixes hold: the resume-counter corroboration survives log deletion, truncation, zero-start logs, semantically empty lines, and injected starts; the termination handler's exit is reachable in production and its record precedes the stop; the post-closure gate fires on every non-completed ending and cannot drift. Its two new P2s were both defects the first payload could not have had, because they live in the code written to fix it.
+
+**P2-N1 — the interruption anchor had no skew allowance, and the P1-1 fix is what made that bite.** Now that a catchable signal writes a `termination` entry, the log's last `recorded_at` is stamped at `T + ε` in nanoseconds, while a custodian attesting the interruption instant writes `T` at second precision. The anchor compared them with `Before` and no tolerance, so for the two frozen causes that arrive as signals — `host_restart` via systemd SIGTERM on the prepared Linux host, and `process_kill` — an *honest* attestation was refused, with a message that did not say what to write instead. Under a mandatory-resume rule the runner is the enforcement point, so that refusal burns clock against the 72-hour backstop and can close a ~300 USD tranche indeterminate. The anchor now allows the same five minutes of skew its counterpart already carried, and two tests pin both sides: a stamp two seconds early is accepted, one a day early is refused.
+
+**P2-N2 — the frozen operational record described the previous payload.** Condition 3 of the boundary document still read as the first payload's timing rule, so it omitted both obligations the revision added. Worse, one of them — the one-hour authorization freshness bound — has **no basis in section 9 at all**; it is an implementation control. Both are now stated, and the one-hour bound is explicitly labelled as a control giving the promptness duty effect rather than as a section 9 requirement, so a custodian reading the frozen contract can satisfy the runner and can tell which obligations come from the protocol.
+
+The P3s the reviewer preferred fixed are fixed:
+
+- **P3-N3** the closure check matched the bare token `ACCEPT` anywhere in the file — which **this repository's own committed REVISE records satisfy**, since every reviewer is asked to return "ACCEPT or REVISE". It now reads the record's verdict *line*, tolerates markdown emphasis and title case, and refuses outright when a `Verdict: REVISE` line is present. A test pins a REVISE record that quotes the ACCEPT token throughout.
+- **P3-N2** `partialArtifactDigests` carried two `omitempty` fields that are empty in every fixture and non-empty on the validation path, so the nested guard had never seen the shape it guards and would have *failed* against a real validation partial summary. The struct now has a fixed four-key shape, all four keys are admitted, and the fixture sets both digests.
+- **P3-N4** the branch that actually closes P2-3 — an attestation authored at resume time for a weeks-old interruption — was unexercised; it now has a case.
+- **P3-N5** the test pinning the P1-1 fix silently skipped on Windows, so the evidence for the fix ran on no host. `watchProcessTerminationOn` takes the signal channel directly, so the stop, the exit code, and the live-progress wiring are exercised everywhere; SIGTERM's 143 is pinned too.
+- **P3-N6** the error-path stop event reintroduced a hardcoded zero spend; it now carries the real figure.
+- **P3-N8** `append` is mutex-serialized, so the run loop and the signal goroutine cannot interleave a line.
+- **P3-N9** the lapse explanation was demanded on every resume, which drained it of signal; it is now required only past a one-hour promptness window.
+- **P3-N7** and **P3-N10** (a dead assignment, and an inaccurate gocyclo claim about to be frozen) are corrected.
+
+Not fixed, and carried as residuals with the reviewer's own wording: **P3-N1** (a coordinated rewrite of the process-event log defeats both the counter and the anchor, since the runner retains no previously accepted digest — the reviewer graded this P3 as an enhancement beyond section 9, and detection remains the committed attestation digest compared across commits), the host-clock residual, and P3-1/P3-2/P3-5 from the first round with the second reviewer's sharpened wording on P3-5.
+
 ## Deliberate freeze red
 
 Exactly one test is expected to fail at this commit, and must:
@@ -89,6 +115,8 @@ Exactly one test is expected to fail at this commit, and must:
 `TestLocalArtifactCandidateMatchesImplementation` and `TestValidationBuildReproducesFrozenWorldBuildDigest` stay **green**: the Phoenix binary is untouched (nothing under `cmd/phoenix` or its import graph changed), so the world-build identity remains `sha256:425bab1cdf8528a1eb962cd06945268e519a1cea56d3169d6c0465e8e2ffdae4`, and the grader digest is unchanged at `sha256:8146a68a11a7593d8bfdeed102175143267a80c018f9222e678b20512baebf0b` because no corpusctl non-test source, `go.mod`/`go.sum`, or `schema/*.schema.json` file was touched. No authoring label, manifest, or grading_script pin moves in this payload.
 
 Everything else is green: root suite, corpusctl suite, surface-spike, `go vet`, staticcheck, `gocyclo -over 15`, `dupl -t 100`, `validate-spec`, `validate-authoring`.
+
+**The race-detector gap is discharged.** The second reviewer could not run `go test -race` on the Windows host (no GNU-style C toolchain; the detector needs cgo and external linking) and reported that honestly rather than claiming it green. It has since been run on the project's linux/amd64 execution host — the same WSL2 Ubuntu with Go 1.26.6 that reproduces the frozen world-build digest — against `/mnt/d/Work/personal/phoenix`: **no `DATA RACE` report**, with the single expected freeze red and nothing else. That covers the `liveProgress` handle shared between the run loop and the signal goroutine, which is the concurrency the reviewer's manual audit predicted clean. The file-level append hazard the reviewer noted separately (P3-N8) is not visible to the detector and is closed by construction, the log's `append` now holding a mutex.
 
 Note for the reviewer: `pre-validation-artifacts.json` is edited in this payload commit, which is normally a refreeze-only file. The edit is confined to the `gates` block — the three new post-closure fields — and touches no digest, no `frozen` flag, and no accepted-candidate pointer. The digests in that document stay stale until the refreeze commit, which is why the freeze test is red.
 

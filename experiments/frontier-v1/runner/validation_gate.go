@@ -120,10 +120,48 @@ func verifyClosureReviewRecord(repositoryRoot, review string) error {
 	if err != nil {
 		return fmt.Errorf("validation closure review record: %w", err)
 	}
-	if !strings.Contains(string(contents), "ACCEPT") {
+	return verifyClosureReviewVerdictLine(string(contents))
+}
+
+// verifyClosureReviewVerdictLine requires the record's own verdict line to
+// state ACCEPT. Matching the bare token anywhere in the file is not enough:
+// every review record in this project contains it, because reviewers are
+// asked to return ACCEPT or REVISE, so a REVISE record would satisfy it.
+func verifyClosureReviewVerdictLine(contents string) error {
+	accepted := false
+	for _, line := range strings.Split(contents, "\n") {
+		verdict, found := closureReviewVerdict(line)
+		if !found {
+			continue
+		}
+		if verdict == "REVISE" {
+			return fmt.Errorf("validation closure review record states a REVISE verdict")
+		}
+		if verdict == "ACCEPT" {
+			accepted = true
+		}
+	}
+	if !accepted {
 		return fmt.Errorf("validation closure review record does not state an ACCEPT verdict")
 	}
 	return nil
+}
+
+// closureReviewVerdict reads the verdict off a line of the form
+// "**Verdict: ACCEPT** - ...", tolerating markdown emphasis and case.
+func closureReviewVerdict(line string) (string, bool) {
+	lower := strings.ToLower(line)
+	index := strings.Index(lower, "verdict:")
+	if index < 0 {
+		return "", false
+	}
+	rest := strings.TrimLeft(line[index+len("verdict:"):], " \t*_")
+	for _, verdict := range []string{"ACCEPT", "REVISE"} {
+		if strings.HasPrefix(strings.ToUpper(rest), verdict) {
+			return verdict, true
+		}
+	}
+	return "", false
 }
 
 func requireFrozenWorldBuild(repositoryRoot, liveDigest string) error {

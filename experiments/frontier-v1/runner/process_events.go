@@ -64,6 +64,9 @@ type processEventLog struct {
 	scheduleDigest string
 	worldBuild     string
 	clock          func() time.Time
+	// mu serializes appends: the run loop and the signal goroutine both write
+	// this file, and an interleaved line would be unparseable at resume.
+	mu sync.Mutex
 }
 
 func newProcessEventLog(outputDir, tranche, scheduleDigest, worldBuild string) *processEventLog {
@@ -97,6 +100,8 @@ func (log *processEventLog) append(kind string, progress processEventProgress, p
 	if err != nil {
 		return err
 	}
+	log.mu.Lock()
+	defer log.mu.Unlock()
 	if err := os.MkdirAll(filepath.Dir(log.path), 0o755); err != nil {
 		return err
 	}
@@ -164,18 +169,31 @@ func watchProcessTermination(log *processEventLog, progress func() processEventP
 func watchProcessTerminationWith(log *processEventLog, progress func() processEventProgress, exit func(int)) func() {
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
+	return watchProcessTerminationOn(log, progress, exit, signals, func() { signal.Stop(signals) })
+}
+
+// watchProcessTerminationOn is the seam the tests use: it takes the signal
+// channel directly, so the stop behaviour can be exercised on a host whose
+// os.Process.Signal does not support delivering an interrupt to itself.
+func watchProcessTerminationOn(
+	log *processEventLog,
+	progress func() processEventProgress,
+	exit func(int),
+	signals chan os.Signal,
+	release func(),
+) func() {
 	done := make(chan struct{})
 	go func() {
 		select {
 		case received := <-signals:
 			_ = log.recordTermination(progress(), received.String())
-			signal.Stop(signals)
+			release()
 			exit(terminationExitCode(received))
 		case <-done:
 		}
 	}()
 	return func() {
-		signal.Stop(signals)
+		release()
 		close(done)
 	}
 }

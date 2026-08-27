@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+	"syscall"
 	"testing"
 	"time"
 )
@@ -18,7 +19,8 @@ import (
 // outcomeFreeDigestFields is the admitted key set of the nested
 // artifact_digests object. Every entry is an identity, never a measurement.
 var outcomeFreeDigestFields = map[string]bool{
-	"world_build": true, "process_event_log_sha256": true,
+	"world_build": true, "grader_digest": true,
+	"arm_b_document_digest": true, "process_event_log_sha256": true,
 }
 
 var outcomeFreePartialFields = map[string]bool{
@@ -194,7 +196,7 @@ func TestValidationResumeRefusesBrokenConditionsAndTiming(t *testing.T) {
 		{"lapse without explanation", func(a map[string]any) {
 			a["resume_authorized_at"] = "2026-08-20T06:00:00Z"
 			delete(a, "lapse_explanation")
-		}, "lapse explanation"},
+		}, "requires a written lapse explanation"},
 		{"wrong resume index", func(a map[string]any) { a["resume_index"] = 2 }, "this is resume 1"},
 		{"no custodian", func(a map[string]any) { a["custodian"] = "" }, "custodian"},
 		{"stale process-event log digest", func(a map[string]any) {
@@ -220,20 +222,23 @@ func TestValidationResumeRefusesBrokenConditionsAndTiming(t *testing.T) {
 // did not happen while the run kept launching trials.
 func TestProcessTerminationStopsTheRun(t *testing.T) {
 	output := t.TempDir()
-	log := newProcessEventLog(output, "validation", "sha256:schedule", testBuild)
+	progress := scheduledProgress{
+		log:       newProcessEventLog(output, "validation", "sha256:schedule", testBuild),
+		resumes:   1,
+		groupSize: len(phase1Arms),
+		live:      &liveProgress{},
+	}
+	// Publish through the same handle production uses, so the wiring is
+	// covered and not just the handler.
+	progress.live.set(progress.events(12, 3, 0.4))
+
+	signals := make(chan os.Signal, 1)
 	exited := make(chan int, 1)
-	stop := watchProcessTerminationWith(log, func() processEventProgress {
-		return processEventProgress{nextLaunchIndex: 12, completedPairingKeys: 3, spentUSD: 0.4, resumes: 1}
-	}, func(code int) { exited <- code })
+	stop := watchProcessTerminationOn(progress.log, progress.live.get,
+		func(code int) { exited <- code }, signals, func() {})
 	defer stop()
 
-	process, err := os.FindProcess(os.Getpid())
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := process.Signal(os.Interrupt); err != nil {
-		t.Skipf("host does not support self-signalling: %v", err)
-	}
+	signals <- os.Interrupt
 	select {
 	case code := <-exited:
 		if code != 130 {
@@ -244,8 +249,33 @@ func TestProcessTerminationStopsTheRun(t *testing.T) {
 	}
 	events := readProcessEvents(t, output)
 	if len(events) != 1 || events[0].Event != processEventTermination ||
-		events[0].NextLaunchIndex != 12 || events[0].CompletedPairingKeys != 3 || events[0].Resumes != 1 {
+		events[0].NextLaunchIndex != 12 || events[0].CompletedPairingKeys != 3 ||
+		events[0].SpentUSD != 0.4 || events[0].Resumes != 1 {
 		t.Fatalf("termination event = %#v", events)
+	}
+	if events[0].Principal.Exposed {
+		t.Fatalf("termination principal = %#v", events[0].Principal)
+	}
+}
+
+// TestProcessTerminationOnSIGTERMExitsWith143 pins the other frozen signal.
+func TestProcessTerminationOnSIGTERMExitsWith143(t *testing.T) {
+	output := t.TempDir()
+	log := newProcessEventLog(output, "validation", "sha256:schedule", testBuild)
+	signals := make(chan os.Signal, 1)
+	exited := make(chan int, 1)
+	stop := watchProcessTerminationOn(log, func() processEventProgress { return processEventProgress{} },
+		func(code int) { exited <- code }, signals, func() {})
+	defer stop()
+
+	signals <- syscall.SIGTERM
+	select {
+	case code := <-exited:
+		if code != 143 {
+			t.Fatalf("terminate exit code = %d, want 143", code)
+		}
+	case <-time.After(10 * time.Second):
+		t.Fatal("termination handler did not stop the process")
 	}
 }
 
@@ -290,7 +320,6 @@ func TestScheduledResumePersistsTheResumeCounter(t *testing.T) {
 	if err != nil || summary.Resumes != 1 {
 		t.Fatalf("partial summary resumes = %#v, %v", summary, err)
 	}
-	checkpoint.Resumes = maximumScheduledResumes
 	if err := verifyCheckpointProgress(scheduledCheckpoint{Resumes: 2}, len(phase1Arms), scheduledResume{}); err == nil {
 		t.Fatal("a checkpoint claiming two resumes must be refused")
 	}
@@ -313,6 +342,15 @@ func TestValidationResumeAnchorsItsWindowToTheProcessEventLogAndTheClock(t *test
 			resumeFixtureBase.Add(-time.Hour), "stamped in the future"},
 		{"authorization stale at the moment of resume", func(map[string]any) {},
 			resumeFixtureBase.Add(48 * time.Hour), "stale"},
+		// The branch that actually closes the back-dating attack: an
+		// attestation authored at resume time for a weeks-old interruption
+		// passes the self-consistent checks and fails against the log.
+		{"window measured from the last process event", func(a map[string]any) {
+			a["interrupted_at"] = "2026-08-23T10:00:00Z"
+			a["cause_classified_at"] = "2026-08-23T10:05:00Z"
+			a["conditions_verified_at"] = "2026-08-23T10:10:00Z"
+			a["resume_authorized_at"] = "2026-08-23T10:12:00Z"
+		}, mustParseFixtureTime("2026-08-23T10:12:00Z"), "after the last process event"},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -325,6 +363,49 @@ func TestValidationResumeAnchorsItsWindowToTheProcessEventLogAndTheClock(t *test
 			}
 		})
 	}
+}
+
+// TestValidationResumeAcceptsAnHonestlySkewedInterruptionStamp covers the
+// signalled-interruption case: the termination entry is stamped after the
+// signal arrives, so an honest custodian attesting the interruption instant
+// itself writes a value slightly below the log's last entry.
+func TestValidationResumeAcceptsAnHonestlySkewedInterruptionStamp(t *testing.T) {
+	control, resume := interruptedValidationResume(t, 0)
+	writeTestAttestation(t, control, func(a map[string]any) {
+		a["interrupted_at"] = resumeFixtureBase.Add(-2 * time.Second).Format(time.RFC3339)
+	})
+	if err := requireResumeAuthorization(control, resume); err != nil {
+		t.Fatalf("honestly skewed interruption stamp = %v", err)
+	}
+
+	control, resume = interruptedValidationResume(t, 0)
+	writeTestAttestation(t, control, func(a map[string]any) {
+		a["interrupted_at"] = resumeFixtureBase.Add(-24 * time.Hour).Format(time.RFC3339)
+		a["cause_classified_at"] = resumeFixtureBase.Add(-23 * time.Hour).Format(time.RFC3339)
+		a["conditions_verified_at"] = resumeFixtureBase.Add(-22 * time.Hour).Format(time.RFC3339)
+	})
+	if err := requireResumeAuthorization(control, resume); err == nil ||
+		!strings.Contains(err.Error(), "precedes the last process event") {
+		t.Fatalf("day-early interruption stamp = %v", err)
+	}
+}
+
+// TestPromptResumeNeedsNoLapseExplanation keeps the lapse explanation a marker
+// of a real lapse rather than a formality demanded on every resume.
+func TestPromptResumeNeedsNoLapseExplanation(t *testing.T) {
+	control, resume := interruptedValidationResume(t, 0)
+	writeTestAttestation(t, control, func(a map[string]any) { delete(a, "lapse_explanation") })
+	if err := requireResumeAuthorization(control, resume); err != nil {
+		t.Fatalf("prompt resume without a lapse explanation = %v", err)
+	}
+}
+
+func mustParseFixtureTime(value string) time.Time {
+	parsed, err := time.Parse(time.RFC3339, value)
+	if err != nil {
+		panic(err)
+	}
+	return parsed
 }
 
 func TestScheduledStopKindNeverCarriesTheRawFailureText(t *testing.T) {
@@ -379,12 +460,25 @@ func TestPostClosureGateRequiresARealReviewRecord(t *testing.T) {
 		!strings.Contains(err.Error(), "non-empty regular file") {
 		t.Fatalf("empty closure record = %v", err)
 	}
-	writeTestClosureReview(t, root, "verdict: REVISE\n")
+	writeTestClosureReview(t, root, "**Verdict: REVISE** - two P1 findings\n")
 	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
-		!strings.Contains(err.Error(), "does not state an ACCEPT verdict") {
+		!strings.Contains(err.Error(), "states a REVISE verdict") {
 		t.Fatalf("closure record contradicting the gate = %v", err)
 	}
-	writeTestClosureReview(t, root, "verdict: ACCEPT\n")
+	// A REVISE record that discusses acceptance throughout must still be
+	// refused: every review record in this project carries the bare token.
+	writeTestClosureReview(t, root,
+		"**Verdict: REVISE**\n\nI would ACCEPT these residuals: ACCEPTABLE, accepted.\n")
+	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
+		!strings.Contains(err.Error(), "states a REVISE verdict") {
+		t.Fatalf("REVISE record quoting the ACCEPT token = %v", err)
+	}
+	writeTestClosureReview(t, root, "a record with no verdict line at all\n")
+	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
+		!strings.Contains(err.Error(), "does not state an ACCEPT verdict") {
+		t.Fatalf("closure record without a verdict line = %v", err)
+	}
+	writeTestClosureReview(t, root, "**Verdict: Accept** - no findings\n")
 	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err != nil {
 		t.Fatalf("reviewed closure record = %v", err)
 	}
@@ -512,6 +606,9 @@ func runResilienceSchedule(t *testing.T) (launchSchedule, string) {
 		repositoryRoot: repository, outputDir: output, worldBuild: testBuild,
 		worldPath: filepath.Join(repository, "world.json"), schemaPath: filepath.Join(repository, "schema.json"),
 		timeout: time.Second, budgetUSD: "0.15",
+		// The validation path always carries these two, so the outcome-free
+		// guard must see the shape it is meant to guard.
+		graderDigest: "sha256:grader", armBDocumentDigest: "sha256:armb",
 	}
 	driver := &scriptedRuntime{results: repeatedRuntimeResults(len(schedule.Entries))}
 	if _, err := runScheduledCases(config, schedule, "sha256:schedule", 10, driver, fakeGrader{}); err != nil {

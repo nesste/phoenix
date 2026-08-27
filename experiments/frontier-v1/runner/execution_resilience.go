@@ -34,10 +34,14 @@ var frozenResumeCauses = map[string]bool{
 	"process_kill":     true,
 }
 
+// partialArtifactDigests has a fixed four-key shape: no omitempty, so the
+// outcome-free field guard sees the same key set on the authoring and
+// validation paths and a later field cannot ship past it by being zero in the
+// fixture.
 type partialArtifactDigests struct {
 	WorldBuild         string `json:"world_build"`
-	GraderDigest       string `json:"grader_digest,omitempty"`
-	ArmBDocumentDigest string `json:"arm_b_document_digest,omitempty"`
+	GraderDigest       string `json:"grader_digest"`
+	ArmBDocumentDigest string `json:"arm_b_document_digest"`
 	ProcessEventLog    string `json:"process_event_log_sha256"`
 }
 
@@ -157,6 +161,11 @@ const (
 	resumeClockTolerance = time.Hour
 	resumeClockSkew      = 5 * time.Minute
 )
+
+// promptResumeWindow is the delay past which the section 9 promptness duty
+// requires a written explanation. A prompt custodian writes none, so the
+// explanation marks a real lapse rather than being a formality on every path.
+const promptResumeWindow = time.Hour
 
 func requireResumeAuthorization(control resumeAuthorization, resume scheduledResume) error {
 	if !resume.hasCheckpoint || control.tranche != "validation" {
@@ -334,8 +343,9 @@ func verifyResumeAttestationTiming(control resumeAuthorization, attestation resu
 	if elapsed > resumeWindow {
 		return fmt.Errorf("resume authorized %s after the interruption, past the 72-hour backstop", elapsed)
 	}
-	if stamps["resume_authorized_at"].After(stamps["conditions_verified_at"]) && attestation.LapseExplanation == "" {
-		return fmt.Errorf("a resume later than the moment its conditions verified requires a written lapse explanation")
+	if stamps["resume_authorized_at"].Sub(stamps["conditions_verified_at"]) > promptResumeWindow &&
+		attestation.LapseExplanation == "" {
+		return fmt.Errorf("a resume authorized more than %s after its conditions verified requires a written lapse explanation", promptResumeWindow)
 	}
 	return verifyResumeTimingAnchors(control, stamps)
 }
@@ -350,7 +360,12 @@ func verifyResumeTimingAnchors(control resumeAuthorization, stamps map[string]ti
 	if err != nil {
 		return err
 	}
-	if stamps["interrupted_at"].Before(lastEvent) {
+	// The last log entry of a signalled interruption is the termination event,
+	// stamped after the signal arrived and at nanosecond precision, while the
+	// custodian attests the interruption instant itself at second precision.
+	// Without the same skew allowance the other direction carries, an honest
+	// attestation of a host restart or a process kill would be refused.
+	if stamps["interrupted_at"].Before(lastEvent.Add(-resumeClockSkew)) {
 		return fmt.Errorf("attested interruption precedes the last process event at %s", lastEvent.Format(time.RFC3339))
 	}
 	authorized := stamps["resume_authorized_at"]

@@ -57,7 +57,7 @@ func runScheduledCases(
 	}
 	runErr := runRemainingSchedule(config, schedule, scheduleDigest, resume.nextIndex, perTrialCap, runBudgetUSD, runtime, grader, progress, &summary)
 	if runErr != nil {
-		_ = progress.recordStop(summary.Launched, scheduledSummary{Status: "error"})
+		_ = progress.recordStop(summary.Launched, scheduledSummary{Status: "error", SpentUSD: summary.SpentUSD})
 		return scheduledSummary{}, runErr
 	}
 	if err := progress.recordStop(len(schedule.Entries), summary); err != nil {
