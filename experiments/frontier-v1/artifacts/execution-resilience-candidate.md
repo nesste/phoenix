@@ -2,15 +2,15 @@
 
 Status: **review candidate, not frozen.** Both outcome gates stay closed (`may_open_validation: false`, `may_open_held_out: false`). No model was run, no private grade obtained, and no validation outcome observed while authoring this payload.
 
-Base commit: `fec6d554156eb749057fb8b6cd3db927c2fecf05` (the fourth review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
-Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 18 files.
+Base commit: `950df9345c34ddab89cb93cfc8944fe37c861763` (the fifth review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
+Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 16 files.
 
-**Revision 5.** Four independent reviews have run, by four different reviewers, and all four returned REVISE.
+**Revision 6.** Five independent reviews have run, by five different reviewers, and all five returned REVISE.
 
 - Review 1 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review.md)) against payload `7a1ea42513acd3d55e276eabc2459da4a037acc0`: two P1, six P2, nine P3, no P0.
 - Review 2 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review-2.md)) against revision `e92eaacf6ab54b547b331d14749717da64b58e0d`: **no P0 and no P1**; it confirmed both P1s genuinely fixed and all six P2s fixed or substantively fixed, and raised two new P2s and ten P3s.
 
-Every P1 and P2 from all four reviews is fixed here, along with most of the P3 notes. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
+Every P1 and P2 from all five reviews is resolved here — the last of them by deleting the component that produced it, on the chair’s decision. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
 
 ## What this implements
 
@@ -123,7 +123,7 @@ I reproduced both counts before fixing: 19 records use the backtick style, and t
 
 The parser is rewritten to be structural rather than substring-positional. A verdict statement is now a line whose text before the label is markdown furniture only (emphasis, code spans, quotes, list and heading markers, section numbering) optionally preceded by a closed set of qualifiers (`final`, `overall`); the token after the label is read as a lone word with non-letters trimmed, so `` `ACCEPT` ``, `"ACCEPT"`, `**ACCEPT**`, `ACCEPT.` and `Accept` all resolve; a label with no token takes the next non-blank line, which is the heading style; a verdict *list* is rejected by requiring that the other verdict word not appear in the token's immediate neighbourhood; and only the record's **first** verdict statement is decisive, so citing an earlier round does not overturn it.
 
-**The corpus is now the arbiter, in the code.** `TestClosureVerdictParserAgreesWithTheCommittedReviewCorpus` runs the parser over every committed review record and fails if any evaluator prompt reads as an accepting record or any record stating ACCEPT is refused — the same check the reviewer performed by hand, now permanent. `TestClosureVerdictParserReadsEveryCommittedVerdictStyle` pins all nine committed verdict forms plus five that must be refused. The pinned corpus records 23 ACCEPT, 15 REVISE, 1 REJECT and 38 documents stating no verdict of their own.
+**The corpus became the arbiter in code for revisions 4 and 5**, and was deleted in revision 6 along with the parser it constrained; see "What the fifth review changed".
 
 Also fixed from this round: the boundary document now enumerates the attestation's exact JSON field set, since `decodeStrict` refuses unknown or misspelled fields and the field names appeared only in this note and the Go source (P3-N1 new-b); it records the one unresumable state, a process that died between its `start` event and its first checkpoint (P3-N1 new-c); and the inventory's stale round-count text is corrected (P3-N1 new-d). The `os.Exit`-versus-`writeJSON` truncation window (P3-N1 new-a) is carried as the sharpened P3-5 residual, as both the second and third reviewers graded it.
 
@@ -144,6 +144,24 @@ The replacement is order-independent: a verdict token followed by a comma or a s
 **N4 — a fitted cutset refusing plausible records.** Em and en dashes, footnote brackets, carriage returns and non-breaking spaces are now furniture. The qualifier set stays closed at `final` and `overall`, and instead of widening it speculatively the boundary document now **states the accepted verdict-statement forms**, so the closure record's author writes one the frozen parser reads.
 
 **N5 — a frozen test coupled to a live directory.** The corpus is pinned, not swept, so a review record added by unrelated later work can no longer turn a frozen test red. **N6** — the note's corpus count is corrected.
+
+## What the fifth review changed — the parser is deleted
+
+The fifth reviewer confirmed every P1 and P2 from all four earlier rounds still fixed and none regressed, ruled that declining review 4’s literal prescription had been **correct** (it verified that review 3’s own verdict line would have been refused by it), and found one P2 in the round-5 parser: the enumeration guard fires only on a comma or slash attached to the token, so `ACCEPT or REVISE`, a spaced slash, semicolons, a pipe, dashes, and a list continued onto a second line all read as an accepting record. I reproduced every spelling against the shipped parser. The margin was one word — this project’s own review prompts were refused only because the sentence opens with `Return`.
+
+It also caught something I could not have caught myself: the expectations file’s `derivation` claimed independence from `validation_gate.go` while reciting that file’s algorithm clause for clause. A second implementation of one specification is not independent ground truth. The reviewer then established the labels the only way that settles it — reading the deciding line of all 77 records, twelve in full — and found **no wrong label**. The ground truth was sound; my claim about it was not.
+
+**On the reviewer’s recommendation, and by chair decision, the verdict parser is deleted rather than hardened a fourth time.**
+
+The argument, which I accept: three consecutive rounds found defects in this one component, each round’s defects introduced or left by the previous round’s fix. Every other identity check in `validation_gate.go` — schedule, manifest, label registry, world build, grader, process-event log — is a digest comparison. The one heuristic was the only thing generating findings. Its input space is English prose written by a future author under schedule pressure, and a line-furniture heuristic over that space has no closure condition: each round closed the cases someone thought to try and left the ones nobody did.
+
+Decisively: **the parser never established that a human reviewed anything.** It established that a string appears in a shape. Whether a document constitutes an accepting independent review of the closure is a human judgment, and under this freeze workflow it is already made — by the independent reviewer of the refreeze that sets the gate fields. A reviewer reading a closure record cannot be fooled by `ACCEPT / REVISE` under a `## Verdict` heading, by a verdict quoted inside a nested fence, or by an evaluator prompt named in place of a record. The frozen parser could be fooled by all three.
+
+And the digest pin is **strictly stronger** on the one failure no reading can touch: a record edited after the review that blessed it. The parser re-read whatever bytes were on disk and would have re-blessed a rewritten record; the pin refuses it. `TestPostClosureGateVerifiesTheClosureRecordIdentity` pins exactly that case.
+
+Deleted: `verifyClosureReviewVerdictLine`, `closureReviewVerdict`, `closureVerdictLabel`, `closureVerdictToken`, `closureVerdictEnumerates`, `closureVerdictWord`, `nextNonBlankLine`, the verdict token map, the three markdown-furniture cutsets, `closure_verdict_corpus_test.go`, and `closure-verdict-corpus-expectations.json`. Added: one gate field carrying the record’s LF-normalized digest, and a digest comparison. Roughly 200 lines of frozen code and data replaced by about ten, and the inventory falls from 18 files to 16.
+
+This retires fifth-review findings N1, N2, N3 and N4 by removing the component they concerned, and N5 by rewriting the stale paragraph. What is deliberately given up is machine corroboration that the named record’s text says ACCEPT; that judgment stays with the independent reviewer of the refreeze, which is where it already lived and where it is competent.
 
 ## Deliberate freeze red
 

@@ -425,77 +425,89 @@ func TestScheduledStopKindNeverCarriesTheRawFailureText(t *testing.T) {
 func TestPostClosureGateRefusesValidationAfterANonCompletedExecution(t *testing.T) {
 	root := openValidationGateTestRoot(t, filepath.Join("..", "..", ".."))
 	gate := closureGateFixture(t, root)
+	digest := writeTestClosureReview(t, root, "an independently reviewed closure record\n")
 
 	for _, status := range []string{"indeterminate", "budget_stopped", "lapsed"} {
-		err := gate(status, "", "")
-		if err == nil || !strings.Contains(err.Error(), "independently reviewed closure record") {
+		err := gate(status, "", "", "")
+		if err == nil || !strings.Contains(err.Error(), "named, digest-pinned, and independently reviewed") {
 			t.Fatalf("post-closure gate error for %s = %v", status, err)
 		}
 	}
-	if err := gate("indeterminate", "docs/reviews/closure.md", "REVISE"); err == nil ||
-		!strings.Contains(err.Error(), "independently reviewed closure record") {
+	if err := gate("indeterminate", "docs/reviews/closure.md", "REVISE", digest); err == nil ||
+		!strings.Contains(err.Error(), "named, digest-pinned, and independently reviewed") {
 		t.Fatalf("unaccepted closure review = %v", err)
 	}
-	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
-		!strings.Contains(err.Error(), "closure review record") {
-		t.Fatalf("missing closure review file = %v", err)
+	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT", ""); err == nil ||
+		!strings.Contains(err.Error(), "named, digest-pinned, and independently reviewed") {
+		t.Fatalf("unpinned closure review = %v", err)
 	}
-	if err := gate("complete", "", ""); err != nil {
+	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT", digest); err != nil {
+		t.Fatalf("reviewed and pinned closure record = %v", err)
+	}
+	if err := gate("complete", "", "", ""); err != nil {
 		t.Fatalf("completed execution = %v", err)
 	}
 }
 
-// TestPostClosureGateRequiresARealReviewRecord covers the record side of the
-// gate: existence alone must not satisfy it, or any path in the repository
-// would stand in for an independent closure audit.
-func TestPostClosureGateRequiresARealReviewRecord(t *testing.T) {
+// TestPostClosureGateVerifiesTheClosureRecordIdentity covers the record side
+// of the gate. The runner verifies identity, not prose: the named record must
+// be exactly the bytes the independent reviewer accepted. That refuses a
+// record edited after the review that blessed it, which reading the record's
+// current text cannot detect.
+func TestPostClosureGateVerifiesTheClosureRecordIdentity(t *testing.T) {
 	root := openValidationGateTestRoot(t, filepath.Join("..", "..", ".."))
 	gate := closureGateFixture(t, root)
-	if err := gate("indeterminate", "README.md", "ACCEPT"); err == nil ||
-		!strings.Contains(err.Error(), "markdown review under docs/reviews") {
+	const record = "docs/reviews/closure.md"
+	digest := writeTestClosureReview(t, root, "the reviewed closure record\n")
+
+	if err := gate("indeterminate", "README.md", "ACCEPT", digest); err == nil ||
+		!strings.Contains(err.Error(), "committed review under docs/reviews") {
 		t.Fatalf("closure record outside docs/reviews = %v", err)
 	}
+	if err := gate("indeterminate", "docs/reviews/../README.md", "ACCEPT", digest); err == nil ||
+		!strings.Contains(err.Error(), "committed review under docs/reviews") {
+		t.Fatalf("closure record escaping docs/reviews = %v", err)
+	}
+	if err := gate("indeterminate", "docs/reviews/absent.md", "ACCEPT", digest); err == nil ||
+		!strings.Contains(err.Error(), "closure review record") {
+		t.Fatalf("missing closure record = %v", err)
+	}
+	if err := gate("indeterminate", record, "ACCEPT", "sha256:"+strings.Repeat("0", 64)); err == nil ||
+		!strings.Contains(err.Error(), "does not match the pinned") {
+		t.Fatalf("closure record failing its pin = %v", err)
+	}
+	if err := gate("indeterminate", record, "ACCEPT", digest); err != nil {
+		t.Fatalf("pinned closure record = %v", err)
+	}
+
+	// The decisive property the deleted verdict parser could not provide: a
+	// record edited after the review that accepted it no longer matches.
+	writeTestClosureReview(t, root, "the reviewed closure record, quietly amended\n")
+	if err := gate("indeterminate", record, "ACCEPT", digest); err == nil ||
+		!strings.Contains(err.Error(), "does not match the pinned") {
+		t.Fatalf("amended closure record = %v", err)
+	}
+
 	writeTestClosureReview(t, root, "")
-	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
+	if err := gate("indeterminate", record, "ACCEPT", digest); err == nil ||
 		!strings.Contains(err.Error(), "non-empty regular file") {
-		t.Fatalf("empty closure record = %v", err)
-	}
-	writeTestClosureReview(t, root, "**Verdict: REVISE** - two P1 findings\n")
-	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
-		!strings.Contains(err.Error(), "states a REVISE verdict") {
-		t.Fatalf("closure record contradicting the gate = %v", err)
-	}
-	// A REVISE record that discusses acceptance throughout must still be
-	// refused: every review record in this project carries the bare token.
-	writeTestClosureReview(t, root,
-		"**Verdict: REVISE**\n\nI would ACCEPT these residuals: ACCEPTABLE, accepted.\n")
-	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
-		!strings.Contains(err.Error(), "states a REVISE verdict") {
-		t.Fatalf("REVISE record quoting the ACCEPT token = %v", err)
-	}
-	writeTestClosureReview(t, root, "a record with no verdict line at all\n")
-	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err == nil ||
-		!strings.Contains(err.Error(), "does not state an ACCEPT verdict") {
-		t.Fatalf("closure record without a verdict line = %v", err)
-	}
-	writeTestClosureReview(t, root, "**Verdict: Accept** - no findings\n")
-	if err := gate("indeterminate", "docs/reviews/closure.md", "ACCEPT"); err != nil {
-		t.Fatalf("reviewed closure record = %v", err)
+		t.Fatalf("emptied closure record = %v", err)
 	}
 }
 
 // closureGateFixture returns a setter that rewrites the post-closure fields of
 // a test gate document and reports what the runner's gate check then says.
-func closureGateFixture(t *testing.T, root string) func(status, review, verdict string) error {
+func closureGateFixture(t *testing.T, root string) func(status, review, verdict, digest string) error {
 	t.Helper()
 	path := filepath.Join(root, filepath.FromSlash(preValidationArtifactsPath))
 	var document map[string]any
 	readJSONForTest(t, path, &document)
 	gates := document["gates"].(map[string]any)
-	return func(status, review, verdict string) error {
+	return func(status, review, verdict, digest string) error {
 		gates["validation_execution_status"] = status
 		gates["validation_execution_closure_review"] = review
 		gates["validation_execution_closure_review_verdict"] = verdict
+		gates["validation_execution_closure_review_lf_normalized_utf8_sha256"] = digest
 		if err := writeJSON(path, document); err != nil {
 			t.Fatal(err)
 		}
@@ -503,14 +515,25 @@ func closureGateFixture(t *testing.T, root string) func(status, review, verdict 
 	}
 }
 
-func writeTestClosureReview(t *testing.T, root, contents string) {
+// writeTestClosureReview writes a closure record and returns its pinned
+// digest, computed with the same LF-normalizing rule the gate uses.
+func writeTestClosureReview(t *testing.T, root, contents string) string {
 	t.Helper()
 	if err := os.MkdirAll(filepath.Join(root, "docs", "reviews"), 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(root, "docs", "reviews", "closure.md"), []byte(contents), 0o600); err != nil {
+	path := filepath.Join(root, "docs", "reviews", "closure.md")
+	if err := os.WriteFile(path, []byte(contents), 0o600); err != nil {
 		t.Fatal(err)
 	}
+	if contents == "" {
+		return ""
+	}
+	digest, err := digestLFNormalizedFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return digest
 }
 
 // resumeFixtureBase is the instant the fixture's interrupted custodian process
