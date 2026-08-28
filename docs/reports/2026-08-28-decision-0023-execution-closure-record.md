@@ -1,6 +1,6 @@
 # Closure record — the interrupted 1,475-launch validation execution closed by decision 0023
 
-- **Status:** closure record, **incomplete** — awaiting further custodian evidence identified by the chair, then independent review. Authorizes nothing.
+- **Status:** closure record, awaiting independent review. Authorizes nothing.
 - **Date:** 2026-08-28
 - **Execution closed by:** `docs/decisions/0023-protocol-v4-gate-1a-second-interrupted-execution.md`
 - **Opening decision for that execution:** `docs/decisions/0022-protocol-v4-gate-1a-validation-reopening-after-world-compatibility-repair.md`
@@ -49,6 +49,8 @@ The durable checkpoint reads: schedule digest `sha256:b38a0eaa…5813`, world bu
 **The arithmetic reconciles, and it is worth showing because it is the mechanical evidence that the interruption was clean.** 295 complete pairing keys × 5 arms (v4 A–E) = 1,475 launches at indices 0–1474, exactly the checkpoint's `next_launch_index`. The archive holds one further assignment, launch 1475, written after the last checkpoint and belonging to incomplete pairing key 295; decision 0023 and the exploratory report both exclude it from every reported metric, correctly, because including it would break the precommitted pairing contract. Of the 1,475 checkpointed launches, 1,347 produced graded trials and 128 ended in runtime-terminal failure with no trial; the archive's 1,348 grades are those 1,347 plus launch 1475's. There is no gap, no duplicate, and no orphaned evidence.
 
 **The absent scheduled summary is the second mechanical indication** that the schedule did not complete, independent of the checkpoint. Both agree.
+
+**The project chair confirmed on 2026-08-28 that no other termination evidence exists** beyond decision 0023, the custody index, the evidence archive, and the captured standard error addressed below. In particular, there is no additional host event log, supervisor record, shell history, launcher output, or contemporaneous note to enumerate. This is an evidence limitation, not an omitted artifact; the record therefore identifies the complete available custodian evidence for this execution.
 
 ### The one piece of evidence no committed document has explained
 
@@ -100,7 +102,7 @@ Resume was unavailable from the moment the outcomes were inspected, and the mand
 This record is authored from committed documents and from evidence recomputed on 2026-08-28. Three points lie outside what the archive can establish, because they are statements about what happened and what was known. The project chair was asked all three on 2026-08-28.
 
 1. **The stderr reading in section 2 — confirmed.** The 40 captured bytes are a post-restart re-launch attempt failing on an already-present WSL2 mount, not a failure inside the runner, the Claude process, or the custodian grader. Section 2 records the confirmation.
-2. **Further termination evidence — the chair reports that more exists.** This record's enumeration of custodian evidence in section 2 is therefore **incomplete pending that material**, which must be identified and committed alongside this record before independent review, since § 9 asks for the custodian logs. This is tracked as the open item in section 7.
+2. **No further termination evidence — confirmed.** The chair confirms that no other termination evidence exists beyond decision 0023, the custody index, the evidence archive, and the captured standard error addressed in section 2. Section 2 therefore enumerates the complete available custodian evidence for this execution.
 3. **The cause-classification ordering — confirmed as stated.** The cause attribution and the diagnostic inspection were contemporaneous; the cause was not classified before any outcome was inspected. Section 1 stands, and the resume conclusion is unaffected: resume was already unavailable on the four other independent grounds in section 4.
 
 ## 6. What this record establishes for the post-closure gate
@@ -113,12 +115,6 @@ The gate asks whether the next validation execution would be conditioned on side
 - **The one genuine conditioning channel is disclosed and is not this record's to close.** The v5 protocol changes were themselves informed by this archive's diagnostics — that is exactly what decision 0023 authorized the archive for, and what protocol v5 § 10 permits as engineering repair while forbidding the archive from seeding v5 cases, labels, or witnesses. The next tranche's *content* must be disjoint and independently generated; that is a separate blocker with its own controls.
 
 **This record does not authorize any validation execution.** It is one of several outstanding blockers, and both outcome gates remain closed.
-
-## 7. Open item — this record is not yet ready for independent review
-
-The chair reports that termination evidence exists beyond decision 0023, the custody index, and the archive. Section 2's enumeration of custodian logs is the part of this record § 9 most directly asks for, and it is presently incomplete.
-
-That material must be identified and committed before this record goes to independent review, and section 2 must be extended to enumerate it. Two outcomes are possible and both are acceptable: the additional evidence corroborates the `host_restart` classification, in which case section 1 gains support; or it qualifies or contradicts it, in which case sections 1, 2 and 6 must be revised and the reviewer must see the revision rather than this version. **This record must not be reviewed in its current state.**
 
 ## Verification note
 
