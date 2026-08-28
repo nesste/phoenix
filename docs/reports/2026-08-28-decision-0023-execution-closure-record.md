@@ -1,6 +1,6 @@
 # Closure record — the interrupted 1,475-launch validation execution closed by decision 0023
 
-- **Status:** closure record, awaiting independent review. Authorizes nothing.
+- **Status:** closure record, **incomplete** — awaiting further custodian evidence identified by the chair, then independent review. Authorizes nothing.
 - **Date:** 2026-08-28
 - **Execution closed by:** `docs/decisions/0023-protocol-v4-gate-1a-second-interrupted-execution.md`
 - **Opening decision for that execution:** `docs/decisions/0022-protocol-v4-gate-1a-validation-reopening-after-world-compatibility-repair.md`
@@ -24,7 +24,7 @@ The supporting statements are already committed. Decision 0023 records that *"Th
 
 **Two properties of this cause matter under § 9 and both hold.** A host restart is outcome-uncorrelated: it is unrelated to what any trial produced, unlike OOM, which § 9 strikes precisely because transcript-heavy failing trials make memory pressure correlate with outcomes. And it is not a process kill, so the § 9 requirement that no project participant, account, or agent initiated the termination does not arise as a question needing the establishment § 9 demands — decision 0023's committed statement that no process required a forced stop is consistent with that, and no evidence contradicts it.
 
-**One ordering condition of § 9 is not satisfied, and cannot be retrospectively.** § 9 requires the cause to be classified and attested *before any outcome inspection and before the resume decision point*. For this execution that ordering did not occur and could not have: the rule did not exist, and decision 0023 and the exploratory report were authored together, with the cause attribution and the diagnostic inspection contemporaneous. This record does not claim otherwise. The consequence is developed in section 4 — it is not a defect to be repaired but a fact that makes resume permanently unavailable, which is the conservative direction.
+**One ordering condition of § 9 is not satisfied, and cannot be retrospectively.** § 9 requires the cause to be classified and attested *before any outcome inspection and before the resume decision point*. For this execution that ordering did not occur and could not have: the rule did not exist, and decision 0023 and the exploratory report were authored together, with the cause attribution and the diagnostic inspection contemporaneous. **The project chair confirmed on 2026-08-28 that the two were contemporaneous and that the cause was not classified before any outcome was inspected.** This record does not claim otherwise. The consequence is developed in section 4 — it is not a defect to be repaired but a fact that makes resume permanently unavailable, which is the conservative direction.
 
 ## 2. Custodian logs and the evidence that stands in their place
 
@@ -63,7 +63,7 @@ Neither decision 0023 nor the exploratory report mentions it. It is the only cap
 
 `/mnt/d` is the WSL2 mount point of the Windows `D:` volume, on which the repository lives. `mkdir /mnt/d` failing with `file exists` is what a mount-setup step produces when the mount is already present. This is consistent with a **post-restart re-launch attempt**: the host came back, WSL2 restarted with the drive already mounted, a wrapper step tried to create the mount point, failed, and exited 1. It is not consistent with a failure inside the Go runner, the Claude process, or the custodian grader, none of which creates mount points.
 
-**On this reading the stderr corroborates the `host_restart` classification rather than qualifying it**, and it also indicates that the re-launch attempt failed immediately, before touching the output directory — which is consistent with the archive containing no evidence written after launch 1475. **This reading is mine, from the byte sequence and the host layout; it is not a committed custodian statement.** It is flagged for the independent reviewer and for chair confirmation in section 5.
+**On this reading the stderr corroborates the `host_restart` classification rather than qualifying it**, and it also indicates that the re-launch attempt failed immediately, before touching the output directory — which is consistent with the archive containing no evidence written after launch 1475. **The project chair confirmed this reading on 2026-08-28**: the captured bytes are a post-restart re-launch attempt failing on an already-present WSL2 mount, not a failure inside the runner, the Claude process, or the custodian grader. The reading originated as inference from the byte sequence and the host layout and is now a confirmed custodian statement.
 
 ## 3. Attestations
 
@@ -95,13 +95,13 @@ Resume was unavailable from the moment the outcomes were inspected, and the mand
 
 **Conclusion: this execution can never be resumed, and no future validation execution will be a continuation of it.** Any Gate 1A attempt requires a new disjoint sealed tranche, which decision 0023 already required and which `protocol.json` carries as a separate blocker.
 
-## 5. What the chair must confirm before this record is independently reviewed
+## 5. Chair confirmations
 
-This record is authored from committed documents and from evidence recomputed on 2026-08-28. Three points are outside what the archive can establish and require the chair's confirmation, because they are statements about what happened and what was known:
+This record is authored from committed documents and from evidence recomputed on 2026-08-28. Three points lie outside what the archive can establish, because they are statements about what happened and what was known. The project chair was asked all three on 2026-08-28.
 
-1. **The stderr reading in section 2** — that the 40 captured bytes are a post-restart re-launch attempt failing on an already-present WSL2 mount, and not a failure inside the runner, the Claude process, or the custodian grader. If the chair's recollection or any uncommitted host record differs, section 2 must be corrected before review.
-2. **That no other termination evidence exists** — no host event log, supervisor record, shell history, or note beyond decision 0023, the custody index, and the archive itself. If more exists it should be committed with this record, since § 9 asks for the custodian logs and this record's answer is that they are limited to what section 2 enumerates.
-3. **That the cause classification was not made before outcome inspection.** Section 1 states this as a limitation. The chair is the only person who can confirm the ordering. If the cause was in fact determined before any outcome was inspected, section 1 should say so — it would not change the resume conclusion, but the record should be accurate.
+1. **The stderr reading in section 2 — confirmed.** The 40 captured bytes are a post-restart re-launch attempt failing on an already-present WSL2 mount, not a failure inside the runner, the Claude process, or the custodian grader. Section 2 records the confirmation.
+2. **Further termination evidence — the chair reports that more exists.** This record's enumeration of custodian evidence in section 2 is therefore **incomplete pending that material**, which must be identified and committed alongside this record before independent review, since § 9 asks for the custodian logs. This is tracked as the open item in section 7.
+3. **The cause-classification ordering — confirmed as stated.** The cause attribution and the diagnostic inspection were contemporaneous; the cause was not classified before any outcome was inspected. Section 1 stands, and the resume conclusion is unaffected: resume was already unavailable on the four other independent grounds in section 4.
 
 ## 6. What this record establishes for the post-closure gate
 
@@ -113,6 +113,12 @@ The gate asks whether the next validation execution would be conditioned on side
 - **The one genuine conditioning channel is disclosed and is not this record's to close.** The v5 protocol changes were themselves informed by this archive's diagnostics — that is exactly what decision 0023 authorized the archive for, and what protocol v5 § 10 permits as engineering repair while forbidding the archive from seeding v5 cases, labels, or witnesses. The next tranche's *content* must be disjoint and independently generated; that is a separate blocker with its own controls.
 
 **This record does not authorize any validation execution.** It is one of several outstanding blockers, and both outcome gates remain closed.
+
+## 7. Open item — this record is not yet ready for independent review
+
+The chair reports that termination evidence exists beyond decision 0023, the custody index, and the archive. Section 2's enumeration of custodian logs is the part of this record § 9 most directly asks for, and it is presently incomplete.
+
+That material must be identified and committed before this record goes to independent review, and section 2 must be extended to enumerate it. Two outcomes are possible and both are acceptable: the additional evidence corroborates the `host_restart` classification, in which case section 1 gains support; or it qualifies or contradicts it, in which case sections 1, 2 and 6 must be revised and the reviewer must see the revision rather than this version. **This record must not be reviewed in its current state.**
 
 ## Verification note
 
