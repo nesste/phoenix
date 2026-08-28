@@ -20,12 +20,13 @@ const (
 type validationGateDocument struct {
 	Status string `json:"status"`
 	Gates  struct {
-		MayOpenValidation bool   `json:"may_open_validation"`
-		MayOpenHeldOut    bool   `json:"may_open_held_out"`
-		ExecutionStatus   string `json:"validation_execution_status"`
-		ClosureReview     string `json:"validation_execution_closure_review"`
-		ClosureVerdict    string `json:"validation_execution_closure_review_verdict"`
-		ClosureDigest     string `json:"validation_execution_closure_review_lf_normalized_utf8_sha256"`
+		MayOpenValidation   bool   `json:"may_open_validation"`
+		MayOpenHeldOut      bool   `json:"may_open_held_out"`
+		ExecutionStatus     string `json:"validation_execution_status"`
+		ClosureReview       string `json:"validation_execution_closure_review"`
+		ClosureVerdict      string `json:"validation_execution_closure_review_verdict"`
+		ClosureDigest       string `json:"validation_execution_closure_review_lf_normalized_utf8_sha256"`
+		ClosureFieldsReview string `json:"validation_execution_closure_fields_payload_review"`
 	} `json:"gates"`
 	Artifacts struct {
 		Schedule struct {
@@ -89,34 +90,57 @@ func requireValidationGate(repositoryRoot string) error {
 // committed. Repeated close-and-retry would otherwise condition the
 // eventually completed tranche on side signals, so each retry must survive an
 // independent audit of why the last execution died.
-// requirePostClosureAudit encodes the protocol-v5 section 9 post-closure gate.
-// After any validation execution that ended without a completed schedule -
-// interruption, budget stop, or lapse - no subsequent validation execution is
-// authorized until the closure record has been independently reviewed and
-// committed. Repeated close-and-retry would otherwise condition the
-// eventually completed tranche on side signals, so each retry must survive an
-// independent audit of why the last execution died.
 //
-// The gate names the closure record, states its verdict, and pins its digest.
-// The runner verifies identity, not prose: that the named record is exactly
-// the bytes the reviewer accepted. Whether those bytes constitute an
-// accepting independent review is a human judgment, and under the freeze
-// workflow it is already made by the independent reviewer of the refreeze
-// that sets these fields. A digest pin also refuses a record edited after the
-// review that blessed it, which no reading of the record's current bytes can
-// detect.
+// The gate names the closure record, states its verdict, pins the record's
+// digest, and names the independent review that blessed those fields. The
+// runner verifies identity, not prose: that each named record is exactly the
+// bytes that were reviewed. A digest pin also refuses a record edited after
+// the review that blessed it, which no reading of the record's current bytes
+// can detect.
+//
+// Whether the closure record is an accepting independent review is a human
+// judgment, and the runner does not attempt it. That judgment is an
+// obligation on the commit that sets these fields, not an assumption about
+// one: the four fields may be set only by a payload commit independently
+// reviewed under the freeze workflow, whose reviewer must read the named
+// closure record and rule that it is an accepting independent review. A chair
+// gate patch must not set them. The fourth field records that review, so the
+// obligation leaves a frozen anchor rather than resting on process memory.
 func requirePostClosureAudit(repositoryRoot string, document validationGateDocument) error {
 	status := document.Gates.ExecutionStatus
 	if status == "" || status == "complete" {
 		return nil
 	}
 	gates := document.Gates
-	if gates.ClosureReview == "" || gates.ClosureVerdict != "ACCEPT" || gates.ClosureDigest == "" {
+	if gates.ClosureReview == "" || gates.ClosureVerdict != "ACCEPT" ||
+		gates.ClosureDigest == "" || gates.ClosureFieldsReview == "" {
 		return fmt.Errorf(
-			"validation execution closed %s: another execution requires a closure record that is named, digest-pinned, and independently reviewed ACCEPT",
+			"validation execution closed %s: another execution requires a closure record that is named, digest-pinned, independently reviewed ACCEPT, and set by a reviewed payload commit",
 			status)
 	}
-	return verifyClosureReviewRecord(repositoryRoot, gates.ClosureReview, gates.ClosureDigest)
+	if err := verifyClosureReviewRecord(repositoryRoot, gates.ClosureReview, gates.ClosureDigest); err != nil {
+		return err
+	}
+	return verifyClosureFieldsReview(repositoryRoot, gates.ClosureFieldsReview)
+}
+
+// verifyClosureFieldsReview checks that the gate names the independent review
+// of the payload commit that set the closure fields. The runner cannot verify
+// that the review reached the right conclusion - that is the reviewer's job -
+// but it can refuse a gate that names no review at all, which is what a chair
+// gate patch setting these fields directly would leave behind.
+func verifyClosureFieldsReview(repositoryRoot, review string) error {
+	if !strings.HasPrefix(review, "docs/reviews/") || strings.Contains(review, "..") {
+		return fmt.Errorf("the closure gate fields must name their independent review under docs/reviews")
+	}
+	info, err := os.Stat(filepath.Join(repositoryRoot, filepath.FromSlash(review)))
+	if err != nil {
+		return fmt.Errorf("closure gate fields review record: %w", err)
+	}
+	if !info.Mode().IsRegular() || info.Size() == 0 {
+		return fmt.Errorf("closure gate fields review record is not a non-empty regular file")
+	}
+	return nil
 }
 
 // verifyClosureReviewRecord checks that the named closure record is a

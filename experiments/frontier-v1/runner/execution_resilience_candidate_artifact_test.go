@@ -16,7 +16,7 @@ import (
 // a historical check pinned to the accepted payload commit.
 func TestExecutionResilienceCandidateMatchesWorkingTree(t *testing.T) {
 	candidate := loadReviewCandidate(t, "gate-1a-execution-resilience-candidate.json",
-		"950df9345c34ddab89cb93cfc8944fe37c861763", 16)
+		"3fc001e247332a5dfdb9d99fc54fc0a9681e8ea1", 16)
 	root := filepath.Join("..", "..", "..")
 	var identity strings.Builder
 	for _, path := range sortedCandidatePaths(candidate.Files) {

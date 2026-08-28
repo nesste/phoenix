@@ -2,15 +2,15 @@
 
 Status: **review candidate, not frozen.** Both outcome gates stay closed (`may_open_validation: false`, `may_open_held_out: false`). No model was run, no private grade obtained, and no validation outcome observed while authoring this payload.
 
-Base commit: `950df9345c34ddab89cb93cfc8944fe37c861763` (the fifth review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
+Base commit: `3fc001e247332a5dfdb9d99fc54fc0a9681e8ea1` (the sixth review record). Frozen state being replaced: decision 0025, `2cf99331688f4705ed7d6cd3efed98941f59defc`.
 Inventory: [`gate-1a-execution-resilience-candidate.json`](gate-1a-execution-resilience-candidate.json), 16 files.
 
-**Revision 6.** Five independent reviews have run, by five different reviewers, and all five returned REVISE.
+**Revision 7.** Six independent reviews have run, by six different reviewers, and all six returned REVISE.
 
 - Review 1 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review.md)) against payload `7a1ea42513acd3d55e276eabc2459da4a037acc0`: two P1, six P2, nine P3, no P0.
 - Review 2 ([record](../../../docs/reviews/2026-08-27-execution-resilience-payload-review-2.md)) against revision `e92eaacf6ab54b547b331d14749717da64b58e0d`: **no P0 and no P1**; it confirmed both P1s genuinely fixed and all six P2s fixed or substantively fixed, and raised two new P2s and ten P3s.
 
-Every P1 and P2 from all five reviews is resolved here — the last of them by deleting the component that produced it, on the chair’s decision. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
+Every P1 and P2 from all six reviews is resolved here. The fifth review’s was resolved by deleting the component that produced it, on the chair’s decision; the sixth’s by replacing the assumption that justified the deletion with a written, anchored obligation. The two second-review P2s were both *in the fix code*, and both refused a **legitimate** resume rather than permitting an invalid one — see "What the second review changed" below. Nothing in the reviewed design has been discarded across either round; every finding has been a defect in the enforcement, not in the contract.
 
 ## What this implements
 
@@ -56,7 +56,7 @@ The 72-hour window is likewise anchored to something the custodian did not autho
 
 ### 4. Post-closure gate
 
-`requirePostClosureAudit` in `validation_gate.go`: when the freeze document's `validation_execution_status` is anything other than empty or `complete`, `requireValidationGate` refuses unless `validation_execution_closure_review_verdict` is `ACCEPT` and `validation_execution_closure_review` names a non-empty regular markdown file under `docs/reviews/` whose own text states an ACCEPT verdict. Existence alone is not enough: a directory, a file elsewhere in the repository, or a record whose verdict contradicts the gate document all refuse. The gate document gains those two fields plus `validation_execution_closure_gate` stating the rule, and `verifyPostClosureGateState` in the freeze test asserts the rule text and that both fields stay **empty**.
+`requirePostClosureAudit` in `validation_gate.go`: when the freeze document's `validation_execution_status` is anything other than empty or `complete`, `requireValidationGate` refuses unless **four** fields are set — `validation_execution_closure_review` naming the closure record, `..._verdict` reading `ACCEPT`, `..._lf_normalized_utf8_sha256` pinning the record's digest, and `validation_execution_closure_fields_payload_review` naming the independent review of the payload commit that set them. The named closure record must be a non-empty regular file under `docs/reviews/`, free of traversal, whose LF-normalized digest reproduces the pin; the named fields-review must resolve the same way. **The runner reads no prose** — see "What the fifth review changed" and "What the sixth review changed" for why the verdict parser that once did was deleted. `verifyPostClosureGateState` in the freeze test asserts the rule text and that all four fields stay **empty**.
 
 **Consequence the chair should note.** The 1,475-launch execution closed by decision 0023 ended without a completed schedule. The gate therefore applies to it retroactively, exactly as section 9 specifies ("after any validation execution that ends without a completed schedule"). A new blocker is registered in `protocol.json`: an independently reviewed and committed closure record for that execution is now required before any later validation execution, on top of the existing blockers. This payload does not produce that review — it is a separate artifact, an independent audit of decision 0023's cause classification, custodian logs, and attestations.
 
@@ -163,6 +163,20 @@ Deleted: `verifyClosureReviewVerdictLine`, `closureReviewVerdict`, `closureVerdi
 
 This retires fifth-review findings N1, N2, N3 and N4 by removing the component they concerned, and N5 by rewriting the stale paragraph. What is deliberately given up is machine corroboration that the named record’s text says ACCEPT; that judgment stays with the independent reviewer of the refreeze, which is where it already lived and where it is competent.
 
+## What the sixth review changed
+
+The sixth reviewer **endorsed the deletion** and declined to reinstate the parser in any form, including the narrow canonical form its prompt offered. It measured what the deletion actually cost by running the shipped parser head-to-head against the digest pin on five documents, and the result reframes the whole component: the pin is strictly stronger on the amended-after-review case as claimed, and **the document most likely to be named by mistake — an evaluator prompt — passed the parser too.** On the headline threat the deleted code was already worthless. What was genuinely given up is narrow: machine refusal of a named record whose own prose reads REVISE, and of a document stating no verdict at all. Both are inattention cases.
+
+**Its P2 was about the justification I froze alongside the deletion, not the deletion.** Revision 6 rested that loss on a sentence frozen in three places — that the judgment is "already made by the independent reviewer of the refreeze that sets these fields." The reviewer established by archaeology that **no such reviewer exists**, and I reproduced every step: no document in `docs/reviews/` targets either refreeze commit `1f80d7b` or `e07a3fc`, so no refreeze in this project has ever been independently reviewed; gate-state fields in this block are set by unreviewed chair patches, with commit `9a28d54` as the precedent — it edited `pre-validation-artifacts.json` and `artifact_freeze_test.go` together with no review; and `artifact_freeze_test.go` appears **zero times** in `pre-validation-artifacts.json`, so the very test holding the closure fields empty is unpinned and chair-editable. Section 9's "independently reviewed and committed" requirement was therefore discharged by nothing at all. My own residual list said "chair" where the frozen bytes said "independent reviewer" — the contradiction was visible in the payload and I did not see it.
+
+The repair is what the reviewer prescribed: **an obligation, not an assumption.**
+
+- The claim is now imperative in all three frozen locations: the closure fields **may be set only** by a payload commit independently reviewed under the freeze workflow, whose reviewer must read the named closure record and rule that it is an accepting independent review; **a chair gate patch must not set them.**
+- The obligation is stated in the boundary document's **Authorization boundary** section, where it binds on the reviewer, and not only in the explanatory paragraph.
+- A fourth gate field, `validation_execution_closure_fields_payload_review`, names the review that discharged the obligation, and `verifyClosureFieldsReview` refuses a gate that names none. The runner cannot check that a review reached the right conclusion — that is the reviewer's job — but it can refuse the silent gap a chair gate patch would leave. The claim now has a frozen anchor instead of resting on process memory.
+
+Also fixed: a seven-line doc comment this revision had duplicated verbatim in `validation_gate.go`, invisible to `gofmt`, `go vet` and staticcheck and one refreeze away from being frozen permanently (N2); this note's own specification of the post-closure gate, which still described the deleted parser (N3); and the refreeze recipe, which named 26 files including the two this payload deletes — the correct successor is **24** (N4). The `accepted_residuals` array in the inventory, which reviews 4, 5 and 6 each flagged as lagging the operative list, now carries the full set from review 6 § 9.
+
 ## Deliberate freeze red
 
 Exactly one test is expected to fail at this commit, and must:
@@ -179,8 +193,8 @@ Note for the reviewer: `pre-validation-artifacts.json` is edited in this payload
 
 ## Refreeze plan after acceptance
 
-1. Re-pin the `scheduled_runner` block in `pre-validation-artifacts.json`: 26 files (the existing 21 plus `process_events.go`, `execution_resilience.go`, `execution_resilience_test.go`, `closure_verdict_corpus_test.go`, and the pinned corpus expectations JSON), new set digest, `candidate_commit` = this payload commit, review record and its raw digest, `replaces_candidate_commit` = `54e256e9f4347d34844a3ef9b2156600360dcd13`, and the accepted-findings list extended with any residual the review records.
-2. Update the freeze-test constants in `artifact_freeze_test.go` (`verifyReplacementRunnerFreeze`: candidate artifact path and raw digest, review path/commit/digest, replaces-commit, findings, notes, file count 26).
+1. Re-pin the `scheduled_runner` block in `pre-validation-artifacts.json`: **24 files** (the existing 21 plus `process_events.go`, `execution_resilience.go`, `execution_resilience_test.go`), new set digest, `candidate_commit` = this payload commit, review record and its raw digest, `replaces_candidate_commit` = `54e256e9f4347d34844a3ef9b2156600360dcd13`, and the accepted-findings list extended with any residual the review records.
+2. Update the freeze-test constants in `artifact_freeze_test.go` (`verifyReplacementRunnerFreeze`: candidate artifact path and raw digest, review path/commit/digest, replaces-commit, findings, notes, file count 24).
 3. Convert this payload's working-tree guard to the commit-pinned historical form via `verifyCandidateSetAtCommit`.
 4. Decision document 0026 (`IMPORT_AND_FREEZE`).
 

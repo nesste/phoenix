@@ -106,6 +106,7 @@ type frozenGateState struct {
 	ClosureReview                string `json:"validation_execution_closure_review"`
 	ClosureReviewVerdict         string `json:"validation_execution_closure_review_verdict"`
 	ClosureReviewDigest          string `json:"validation_execution_closure_review_lf_normalized_utf8_sha256"`
+	ClosureFieldsReview          string `json:"validation_execution_closure_fields_payload_review"`
 }
 
 func TestPreValidationFreezeMatchesAcceptedCandidates(t *testing.T) {
@@ -221,14 +222,16 @@ func verifyPostClosureGateState(t *testing.T, gates frozenGateState) {
 		"post-closure gate", "without a completed schedule",
 		"independently reviewed and committed", "requireValidationGate",
 		"pins its LF-normalized digest", "verifies identity, not prose",
+		"OBLIGATION on the commit that sets these fields", "a chair gate patch must not set them",
 	} {
 		if !strings.Contains(gates.ClosureGate, required) {
 			t.Fatalf("post-closure gate rule is missing %q: %q", required, gates.ClosureGate)
 		}
 	}
-	if gates.ClosureReview != "" || gates.ClosureReviewVerdict != "" || gates.ClosureReviewDigest != "" {
-		t.Fatalf("post-closure gate must stay unsatisfied: review=%q verdict=%q digest=%q",
-			gates.ClosureReview, gates.ClosureReviewVerdict, gates.ClosureReviewDigest)
+	if gates.ClosureReview != "" || gates.ClosureReviewVerdict != "" ||
+		gates.ClosureReviewDigest != "" || gates.ClosureFieldsReview != "" {
+		t.Fatalf("post-closure gate must stay unsatisfied: review=%q verdict=%q digest=%q fields-review=%q",
+			gates.ClosureReview, gates.ClosureReviewVerdict, gates.ClosureReviewDigest, gates.ClosureFieldsReview)
 	}
 }
 

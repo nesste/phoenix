@@ -2,7 +2,7 @@
  "v": 1,
  "status": "review_candidate",
  "source_limit": "public_validation_inputs_only",
- "base_commit": "950df9345c34ddab89cb93cfc8944fe37c861763",
+ "base_commit": "3fc001e247332a5dfdb9d99fc54fc0a9681e8ea1",
  "frozen": false,
  "gates": {
   "may_open_validation": false,
@@ -65,6 +65,16 @@
    "fourth_review_verdict": "REVISE",
    "fifth_review_record": "docs/reviews/2026-08-28-execution-resilience-payload-review-5.md",
    "fifth_review_verdict": "REVISE",
+   "sixth_review_record": "docs/reviews/2026-08-28-execution-resilience-payload-review-6.md",
+   "sixth_review_verdict": "REVISE",
+   "superseded_revision_6_commit": "b375d432df1facf29a8e3e66f065b19453a8ede4",
+   "fixed_after_sixth_review": [
+    "N1: revision 6 justified deleting the verdict parser by asserting, in three frozen locations, that whether the closure record is an accepting independent review is already judged by the independent reviewer of the refreeze that sets these fields. No such reviewer exists: no document in docs/reviews targets either refreeze commit 1f80d7b or e07a3fc, gate-state fields in this block have been set by unreviewed chair patches (commit 9a28d54, which edited pre-validation-artifacts.json and artifact_freeze_test.go together), and artifact_freeze_test.go is in no frozen block so the test holding the closure fields empty is chair-editable. The claim is now imperative rather than descriptive in all three locations, is stated in the boundary document Authorization boundary section where it binds on the reviewer, and gains a frozen anchor: a fourth gate field naming the independent review of the payload commit that set the closure fields, which verifyClosureFieldsReview requires to resolve to a non-empty regular record under docs/reviews.",
+    "N2: a seven-line doc comment that revision 6 had duplicated verbatim in validation_gate.go, invisible to gofmt, go vet and staticcheck, is removed before it could be frozen.",
+    "N3: the candidate note section 4 still specified the deleted parser. Rewritten to the current four-field rule.",
+    "N4: the refreeze recipe named 26 files including the two this payload deletes; the correct successor is 24.",
+    "Reviews 4, 5 and 6 each flagged that this inventory accepted_residuals array lagged the operative review-record list. It now carries the full set from the sixth review section 9."
+   ],
    "superseded_revision_5_commit": "a368433089a857dbec4d72ee74123a4ee8743f47",
    "chair_decision_after_fifth_review": "The chair accepted the fifth review section 9 recommendation and directed that the closure-record verdict parser be deleted rather than hardened a fourth time. The post-closure gate now names the closure record, states its verdict, and pins its LF-normalized digest; the runner check is a digest comparison, the same mechanism every other identity check in this payload uses.",
    "deleted_after_fifth_review": [
@@ -126,27 +136,37 @@
    ]
   },
   "accepted_residuals": [
-   "Neither supported host exposes the sending principal of a signal to a Go handler, so a termination event records exposed=false with the reason; establishing that no project participant initiated a kill remains the custodian written attestation, as section 9 requires.",
-   "The runner verifies that the attestation claims digest identity and that its recorded schedule and world-build digests equal the live ones; byte-level re-verification of the whole frozen set at resume is the custodian step recorded in the attestation.",
-   "requirePostClosureAudit runs inside requireValidationGate after the opening-flag checks, so a closed gate reports gate is closed first; both are refusals.",
-   "Carried P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths; callers must check the error first.",
-   "Carried P3 (pre-existing): validateExternalGrade lets a gating manual_required dominate a gating fail, the reverse of the grader overallStatus precedence; unreachable under v5 because no check kind produces manual_required.",
-   "Carried P2-1 is retired by this payload: classifyScheduledOutputEntries is decomposed into scheduledOutputEntryKind, recordScheduledAssignment, and finishScheduledInventory, and verifyScheduledCheckpoint is split into identity and progress halves, so both are back under the gocyclo threshold with headroom."
+   "Residual: the runner forms no opinion about whether the named closure record is an accepting independent review. It verifies that the named path is a non-empty regular file under docs/reviews, free of traversal, whose LF-normalized digest reproduces the pin, and that the gate names the independent review of the payload commit that set those fields. Whether the closure record is an accepting independent review rests on that human step, which the boundary document binds to an independently reviewed payload commit and forbids to a chair gate patch. Deleting the verdict parser gave up machine refusal of a named record whose own prose reads REVISE, or which states no verdict at all; it gave up nothing against a document that merely lists the available verdicts, which the parser accepted.",
+   "Residual: neither supported host exposes the sending principal of a signal to a Go handler, so a termination event records exposed=false with the reason; establishing that no project participant initiated a kill remains the custodian written attestation, as section 9 requires.",
+   "Residual: the runner verifies that the attestation claims digest identity and that its recorded schedule and world-build digests equal the live ones; byte-level re-verification of the whole frozen set at resume is the custodian step recorded in the attestation, as section 9 words condition (b).",
+   "Residual: the process-event log is unsigned custodian-controlled local state, so a coordinated rewrite that deletes a start entry and re-attests the new digest defeats both the single-resume corroboration and the 72-hour anchor; the runner retains no previously accepted digest and cannot detect it. Detection is the committed attestation digest compared across commits, under independent review.",
+   "Residual: the 72-hour anchor is measured against the runner own clock, which the custodian host controls; a clock set to shortly after the last process event passes every timing check, while a clock set before it is refused by the interruption anchor. No trusted time source exists on the execution host.",
+   "Residual: measuring the 72 hours from the log last entry rather than from the attested interruption shortens the real window by the time from the last completed pairing-key group to the interruption, bounded by one group; the erosion is disclosed in the boundary document and is conservative in the correct direction.",
+   "Residual: requirePostClosureAudit runs inside requireValidationGate after the opening-flag checks, so a closed gate reports gate is closed first; both are refusals and only the surfaced message differs.",
+   "Residual: the section 9 attestation rule is scoped to the validation tranche; authoring resumes are development loops and are exempt, pinned by TestAuthoringResumeIsExemptFromTheAttestationRule. The exemption cannot launder a validation execution because validateScheduleForTranche refuses a schedule whose tranche does not match the flag. One consequence: the end-to-end resume-counter round-trip test runs on the authoring path and so does not traverse requireResumeAuthorization.",
+   "Residual: nothing in the runner writes validation_execution_status. A custodian who wipes the output directory presents as a fresh run and bypasses the resume rule entirely, so the post-closure gate is the sole control on the retry channel after a future non-completed execution.",
+   "Residual: P3: the partial summary committed process-event-log digest never covers the terminal stop or termination entry, because recordStop appends after the last partial-summary write; the custody record hashes the whole log at closure.",
+   "Residual: P3: the partial summary carries five non-outcome identity fields beyond section 9 literal list (v, tranche, status, schedule_digest, resumes); none carries an outcome.",
+   "Residual: P3: the checkpoint and partial summary are written with os.WriteFile, neither fsynced nor atomically renamed, unlike the fsynced append-only process-event log. Because the termination handler deliberately calls os.Exit, a supervised stop as well as an abrupt kill can truncate a boundary write; the failure is closed - decodeStrict refuses and the tranche closes indeterminate - but a routine Ctrl+C at an unlucky microsecond can burn the tranche. A temp-and-rename in writeJSON would remove the class.",
+   "Residual: P3: a validation output directory whose first custodian process wrote its start event but died before the initial checkpoint is refused wholesale by the progress-implies-checkpoint rule and cannot be resumed; the window is milliseconds and the rule is what prevents a phantom start entry from permanently refusing a later genuine resume.",
+   "Residual: Carried P2-3: applyScheduledResume returns done=true with a non-nil error on stop paths; callers must check the error first.",
+   "Residual: Carried P3 (pre-existing): validateExternalGrade lets a gating manual_required dominate a gating fail, the reverse of the grader overallStatus precedence; unreachable under v5 because no check kind produces manual_required.",
+   "Residual: Carried P2-1 and P2-5 remain retired by this payload; runScheduledCases and validateExternalGrade remain at gocyclo 14, both pre-existing and unchanged by this payload."
   ]
  },
  "candidate_notes": [
   "experiments/frontier-v1/artifacts/execution-resilience-candidate.md"
  ],
  "artifact_set_digest_algorithm": "SHA-256 of ordinal-path-sorted UTF-8 lines: <path>\\t<lf-normalized-file-digest>\\n",
- "artifact_set_lf_normalized_utf8_sha256": "sha256:1ba17cd292b53122a483aab037a5cf03a0108991fd1df55aca72faf26eb1e834",
+ "artifact_set_lf_normalized_utf8_sha256": "sha256:d36d948d2f15ca619d2c34d2962c7c6791759f83b80516d87bb2b027add95d50",
  "files": {
   "experiments/frontier-v1/README.md": "sha256:fc748a2ffab7e4cf4256edb232bd5682802835391f2704e845f11082f07ed45b",
   "experiments/frontier-v1/corpusctl/internal/corpus/protocol_test.go": "sha256:4495d032c7d86fbfa03952ad676f3e769de4ca1f0d071dc694afa376742cc952",
-  "experiments/frontier-v1/pre-validation-artifacts.json": "sha256:40f163717c4ead7ac237e931d50b96c2766166e003c0cdf5016ac7bc2b33ef18",
+  "experiments/frontier-v1/pre-validation-artifacts.json": "sha256:1edecb7da598adbebc8f22db73ef54ee2138918cb408baca91252dded2b45a53",
   "experiments/frontier-v1/protocol.json": "sha256:726b68112108542ba3491fde538342399cbb446a04755a7e0208e076cbdb0d32",
-  "experiments/frontier-v1/runner/artifact_freeze_test.go": "sha256:0b5b3662bea710600abd49518c6d1250f4f6d699a0fb300ec5f81176d81bbb8a",
+  "experiments/frontier-v1/runner/artifact_freeze_test.go": "sha256:890bca5afa424de7847d5b37e1a0ac25f1e6ac34c7273e0556560fa9fc231abb",
   "experiments/frontier-v1/runner/execution_resilience.go": "sha256:fe98996728d7ccbd4b1bbd23f44d29e3ebb543a64e2430502a7ccbfb2dee374a",
-  "experiments/frontier-v1/runner/execution_resilience_test.go": "sha256:e6b2cc06f707ae42c2e5c3c459bc6c4d75916ee9480efd080667d572afc2d837",
+  "experiments/frontier-v1/runner/execution_resilience_test.go": "sha256:5571d6c92bb2f32cf568c2e39e2011cb0e2b7e8d7cccf00fa76e2cedb18e4fb7",
   "experiments/frontier-v1/runner/main.go": "sha256:192d275ef16be74f9a3f47747cf3d14d8df52d18d16127734db786866c5bdff3",
   "experiments/frontier-v1/runner/process_events.go": "sha256:605a365310aebb4f98c5e75fca8ae96232e671a48381756557f7c891ec70c617",
   "experiments/frontier-v1/runner/scheduled_resume.go": "sha256:aa050eb443a6676a1ab540788c182a3ef1ec4e63ae2c7bfd4fdb4b23fac9fc2e",
@@ -154,9 +174,9 @@
   "experiments/frontier-v1/runner/scheduled_run.go": "sha256:0956afad8e186b1bef71a64c44cab9c16aa64da6c8ee82cb9188fa49fab4cb9a",
   "experiments/frontier-v1/runner/types.go": "sha256:fce5d7b956df609fe56bf77e9e400eed0f79f23374778915050948035ba92191",
   "experiments/frontier-v1/runner/validation_execution_test.go": "sha256:9ef5e4c7e927082d44830bba29016b446b43bfa3c7a37974e18a850dc012d20e",
-  "experiments/frontier-v1/runner/validation_gate.go": "sha256:741e19b0cec0d83d8348f931dec8d371e4de61217e53ff4cf762f63200ddd8c9",
-  "experiments/frontier-v1/validation-execution-boundary.md": "sha256:a81514b8f4dea6678362df0ce4eb769378176e64f5307b02f789326f19ba51f5"
+  "experiments/frontier-v1/runner/validation_gate.go": "sha256:810535ab8b509afd95070e19f4fff6b6d10ba81e6021658b4219773286ea2223",
+  "experiments/frontier-v1/validation-execution-boundary.md": "sha256:e3c1b3bcd7d60ef9d90bfc9d80f813226f4c36a8d315b8003169b7075aabe14d"
  },
- "review_required": "sixth independent review after the first five returned REVISE, verifying that each P1 and P2 finding is genuinely fixed rather than papered over, and re-verifying that every section 9 condition is enforced as written and cannot be satisfied by an unattested or late resume, that the partial summary is outcome-free in both directions, that the process-event log records what section 9 names and honestly reports what the host does not expose, that the post-closure gate is encoded in the frozen gate rules and applies to the decision-0023 closure, and that the protocol, boundary, and README records match the implementation; followed by refreeze before any later chair decision",
+ "review_required": "seventh independent review after the first six returned REVISE, verifying that each P1 and P2 finding is genuinely fixed rather than papered over, and re-verifying that every section 9 condition is enforced as written and cannot be satisfied by an unattested or late resume, that the partial summary is outcome-free in both directions, that the process-event log records what section 9 names and honestly reports what the host does not expose, that the post-closure gate is encoded in the frozen gate rules and applies to the decision-0023 closure, and that the protocol, boundary, and README records match the implementation; followed by refreeze before any later chair decision",
  "execution_performed": false
 }
