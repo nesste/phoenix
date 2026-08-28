@@ -1,35 +1,20 @@
 package main
 
 import (
-	"crypto/sha256"
-	"fmt"
-	"os"
 	"path/filepath"
-	"strings"
 	"testing"
 )
 
-// TestExecutionResilienceCandidateMatchesWorkingTree verifies the protocol-v5
-// section 9 execution-resilience payload inventory against the working tree:
-// every listed file's LF-normalized digest and the ordinal-path set digest
-// must match the committed candidate document. At refreeze this guard becomes
-// a historical check pinned to the accepted payload commit.
-func TestExecutionResilienceCandidateMatchesWorkingTree(t *testing.T) {
+// TestExecutionResilienceCandidateMatchesHistoricalPayload verifies the
+// protocol-v5 section 9 execution-resilience payload inventory against the
+// accepted payload commit: every listed file's LF-normalized digest and the
+// ordinal-path set digest must reproduce from Git at that commit. The
+// candidate note gained the seventh review's corrections at the refreeze, so
+// this guard pins the payload commit rather than the working tree; the
+// refrozen set is pinned separately in pre-validation-artifacts.
+func TestExecutionResilienceCandidateMatchesHistoricalPayload(t *testing.T) {
 	candidate := loadReviewCandidate(t, "gate-1a-execution-resilience-candidate.json",
 		"3fc001e247332a5dfdb9d99fc54fc0a9681e8ea1", 16)
 	root := filepath.Join("..", "..", "..")
-	var identity strings.Builder
-	for _, path := range sortedCandidatePaths(candidate.Files) {
-		contents, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(path)))
-		if err != nil {
-			t.Fatalf("read candidate file %s: %v", path, err)
-		}
-		normalized := strings.ReplaceAll(strings.ReplaceAll(string(contents), "\r\n", "\n"), "\r", "\n")
-		actual := fmt.Sprintf("sha256:%x", sha256.Sum256([]byte(normalized)))
-		if actual != candidate.Files[path] {
-			t.Fatalf("candidate file %s digest = %s, want %s", path, actual, candidate.Files[path])
-		}
-		fmt.Fprintf(&identity, "%s\t%s\n", path, actual)
-	}
-	verifyCandidateSetDigest(t, identity.String(), candidate.SetDigest)
+	verifyCandidateSetAtCommit(t, root, "27edb8664a060d0a7690039e8e29dba94facada0", candidate.Files, candidate.SetDigest)
 }
